@@ -1,7 +1,7 @@
 <%@ Page Language="C#" %>
 
 <!doctype html>
-<html lang="zh-Hant-TW" class="innerHtml">
+<html lang="zh-Hant-TW" class="innerHtml" >
 
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
     <script src="Scripts/theme.js"></script>
 </head>
 
-<body class="innerBody">
+<body class="innerBody"  style="height:auto">
     <main>
         <section class="section-wrap hero">
 

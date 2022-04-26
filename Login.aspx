@@ -57,13 +57,13 @@
                 DT = RedisCache.UserAccountFingerprint.GetUserAccountFingerprint(LoginAccount);
 
                 if (DT != null && DT.Rows.Count > 0) {
-                    for (int i = 0; i < DT.Rows.Count; i++) {                  
-                        if (DT.Rows[i]["FingerprintID"].ToString()  == NewFingerPrint) {
-                             IsOldFingerPrint = true;
+                    for (int i = 0; i < DT.Rows.Count; i++) {
+                        if (DT.Rows[i]["FingerprintID"].ToString() == NewFingerPrint) {
+                            IsOldFingerPrint = true;
                             break;
-                        }                       
+                        }
                     }
-                } 
+                }
 
                 if (IsOldFingerPrint || LoginType == "0") {
                     if (LoginType == "0") {
@@ -139,9 +139,10 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
 </head>
 
-<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
+<%--<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="Scripts/OutSrc/js/script.js"></script>
+<script src="Scripts/OutSrc/js/script.js"></script>--%>
+<script src="Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
@@ -224,7 +225,7 @@
                 form.FingerPrint.value = visitorId;
                 form.UserAgent.value = userAgent;
 
-                window.parent.API_LoadingEnd();
+                window.parent.API_LoadingEnd(1);
 
                 if (WebInfo.UserLogined == true) {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("您已登入"), function () {

@@ -1186,10 +1186,6 @@
         API_LoadPage("Login", "Login.aspx");
     }
 
-    function onBtnLoginShow() {
-        API_LoadPage("Login", "Login.aspx");
-    }
-
     function getLoginMessage(cb) {
         lobbyClient.GetLoginMessage(EWinWebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
@@ -1366,6 +1362,15 @@
         return new Promise((resolve) => setTimeout(resolve, time));
     }
 
+    function resize() {
+        let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
+        let iframeheight = $("#IFramePage").height();
+
+        if (iframeheight != iframebodyheight) {
+            $("#IFramePage").height(iframebodyheight);
+        }
+    }
+
     function init() {
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
@@ -1532,12 +1537,17 @@
                         }
                     }
                 }, 1000);
+
+                window.setInterval(function () {
+                    resize();
+                }, 1000);
             });
         });
 
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
+        //resize();
     }
 
     window.onload = init;
@@ -1735,9 +1745,9 @@
         <div id="mask_overlay" class="mask_overlay"></div>
     </header>
     <!-- main_area = iframe高度 + Footer高度-->
-    <div class="main_area" style="height: 2500px;">
+    <div class="main_area" style="height: auto;">
         <!-- iframe高度 自動計算高度-->
-        <iframe id="IFramePage" frameborder="0" marginwidth="0" marginheight="0" class="mainIframe" style="height: 2300px;" name="mainiframe"></iframe>
+        <iframe id="IFramePage" class="mainIframe"  name="mainiframe" style="height:100%;"></iframe>
     </div>
     <!-- footer -->
     <div id="footer" class="is-hide">
