@@ -1,0 +1,56 @@
+/*=================== fonts ====================*/
+@import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
+/* animation =================================
+animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
+.section_publicize .publicize_wrapper {
+  margin-bottom: 20px;
+}
+.section_publicize .publicize_top_inner {
+  display: flex;
+  justify-content: space-between;
+}
+.section_publicize .publicize_top_inner .item.writer {
+  padding-right: 1.3rem;
+}
+.section_publicize .publicize_bottom {
+  margin-bottom: 40px;
+}
+.section_publicize .publicize_bottom_inner {
+  display: flex;
+  justify-content: space-between;
+}
+.section_publicize .publicize_bottom_inner .way_payment {
+  margin-right: 1.3rem;
+}
+.section_publicize .publicize_bottom_inner .bulletin {
+  margin-bottom: 10px;
+}
+.section_publicize .publicize_bottom_inner .bulletin_inner {
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+.section_publicize .publicize_bottom_inner .bulletin_inner .title {
+  margin-bottom: 15px;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.section_publicize .publicize_bottom_inner .bulletin_list .item {
+  display: flex;
+  margin-bottom: 0.8rem;
+  align-items: center;
+}
+.section_publicize .publicize_bottom_inner .bulletin_list .item:before {
+  content: "";
+  display: inline-flex;
+  width: 3px;
+  height: 1rem;
+  border-radius: 1px;
+  background-color: #000000;
+}
+.section_publicize .publicize_bottom_inner .bulletin_list .item .date {
+  font-weight: 600;
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+}
