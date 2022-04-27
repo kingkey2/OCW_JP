@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 /*=================== fonts ====================*/
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
@@ -8425,6 +8425,7 @@ select:-webkit-autofill:focus {
     padding: 0 10px;
   }
 }
+
 @media (min-width: 992px) {
   .last-step-execute {
     position: absolute;
@@ -8438,6 +8439,7 @@ select:-webkit-autofill:focus {
 .btnBitLimit {
   margin-right: 6px;
 }
+
 @media (max-width: 639.98px) {
   .btnBitLimit {
     order: 2;
@@ -8453,5 +8455,5 @@ select:-webkit-autofill:focus {
 }
 
 .is-hide {
-    display: none !important
+    display: none !important;
 }
