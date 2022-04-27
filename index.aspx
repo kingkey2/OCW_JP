@@ -670,6 +670,38 @@
         }
     }
 
+    function showPartialHtml(title, pathName, isNeedLang, cbOK) {
+        var realPath;
+        var divMessageBox = document.getElementById("alertPartialHtml");
+        var divMessageBoxOKButton = divMessageBox.querySelector(".alertPartialHtml_OK");
+        var divMessageBoxTitle = divMessageBox.querySelector(".alertPartialHtml_Title");
+        var divMessageBoxContent = divMessageBox.querySelector(".alertPartialHtml_Content");
+        var modal = new bootstrap.Modal(divMessageBox);
+
+        if (isNeedLang) {
+            realPath = pathName + "_" + EWinWebInfo.Lang + ".html";
+        } else {
+            realPath = pathName + ".html";
+        }
+
+        if (divMessageBox != null) {
+            if (divMessageBoxOKButton != null) {
+                divMessageBoxOKButton.onclick = function () {
+                    divMessageBoxContent.innerHTML = "";
+                    modal.hide();
+
+                    if (cbOK != null)
+                        cbOK();
+                }
+            }
+
+            divMessageBoxTitle.innerHTML = title;
+            $(divMessageBoxContent).load(realPath);
+
+            modal.toggle();
+        }
+    }
+
     function showContactUs() {
         var divMessageBox = document.getElementById("alertContactUs");
         var divMessageBoxCrossButton = divMessageBox.querySelector(".close");
@@ -1115,27 +1147,6 @@
         //document.getElementById("idLangText").innerText = LangText;
         if (isReload) {
             setLanguage(Lang);
-
-            if (document.getElementById("IFramePage").contentDocument) {
-                let k = document.getElementById("IFramePage").contentDocument;
-
-                if (Lang == "ENG") {
-                    k.getElementById("Footer_PrivacyPolicy").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'KnowYourCustomer_ENG', false, null)");
-                    k.getElementById("Footer_Rules").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'Terms&Conditions_ENG', false, null)");
-                    k.getElementById("Footer_About").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'ResponsibleGambling_ENG', false, null)");
-                    $("#li_HotArticle").hide();
-                    $("#li_RegisterActivityReceive").hide();
-                    k.getElementById("Footer_HotArticle").setAttribute("style", "display:none");
-                } else {
-                    k.getElementById("Footer_PrivacyPolicy").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)");
-                    k.getElementById("Footer_Rules").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'Rules', true, null)");
-                    k.getElementById("Footer_About").setAttribute("onclick", "window.parent.API_LoadPage('About','About.html')");
-                    $("#li_HotArticle").show();
-                    $("#li_RegisterActivityReceive").show();
-                    k.getElementById("Footer_HotArticle").setAttribute("style", "");
-                }
-            }
-
         }
 
         if (EWinWebInfo.Lang == "ENG") {
@@ -1628,7 +1639,7 @@
                         <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Home','Home.aspx')">
                             <div class="logo">
                                 <div class="img-wrap">
-                                    <a >
+                                    <a>
                                         <img src="images/logo.svg" alt=""></a>
                                 </div>
                             </div>
@@ -1717,15 +1728,6 @@
                                             </li>
                                         </ul>
                                     </li>
-
-                                    <!-- 
-                                   ==========================================
-                                   當按下 " 下拉 幣別轉換 Button" 時 
-                                   1. 跳出  popUp 下拉視窗 
-                                   2. 幣別轉換 Button => class 加入 "active" 
-                                   3. mask_overlay 黑色半透明遮罩 => class "open"
-                                   ==========================================
-                               -->
                                 </ul>
                             </div>
                         </div>
@@ -1738,82 +1740,82 @@
     <!-- main_area = iframe高度 + Footer高度-->
     <div class="main_area" style="height: auto;">
         <!-- iframe高度 自動計算高度-->
-        <iframe id="IFramePage" class="mainIframe"  name="mainiframe" style="height:100%;min-height:calc(100vh - 60px)"></iframe>
+        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>
     </div>
     <!-- footer -->
     <div id="footer">
-       <footer class="footer">
-           <div class="footer_inner">
-            <div class="container">
-                <div class="row content">
-                    <div class="footer_provider col-12 col-md-6">
-                        <ul class="row ">
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-PG.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-CG.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-PP.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-BG.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-VA.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-BNG.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-pagcor.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-Bti.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-zeus.png" alt="">
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer_company col-12 col-md-6">
-                        <ul class="company-info row">
-                            <li class="info-item col">
-                                <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
-                            </li>
-                            <li class="info-item col">
-                                <a onclick="window.parent.API_ShowContactUs()">
-                                    <span class="language_replace">聯絡客服</span>
-                                </a>
-                            </li>
-                            <li class="info-item col">
-                                <a id="Footer_Rules" onclick="window.parent.API_ShowPartialHtml('', 'Rules', true, null)">
-                                    <span class="language_replace">利用規約</span>
-                                </a>
-                            </li>
-                            <li class="info-item col">
-                                <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
-                                    <span class="language_replace">隱私權政策</span>
-                                </a>
-                            </li>
-                            <li class="info-item col" id="li_HotArticle">
-                                <a onclick="openHotArticle()">
-                                    <span class="language_replace">熱門文章</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-12 copy_right ">
+        <footer class="footer">
+            <div class="footer_inner">
                 <div class="container">
-                    <p class="text">Copyright © 2022 All Rights Reserved</p>
+                    <div class="row content">
+                        <div class="footer_provider col-12 col-md-6">
+                            <ul class="row ">
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-PG.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-CG.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-PP.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-BG.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-VA.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-BNG.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-pagcor.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-Bti.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-zeus.png" alt="">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer_company col-12 col-md-6">
+                            <ul class="company-info row">
+                                <li class="info-item col">
+                                    <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
+                                </li>
+                                <li class="info-item col">
+                                    <a onclick="window.parent.API_ShowContactUs()">
+                                        <span class="language_replace">聯絡客服</span>
+                                    </a>
+                                </li>
+                                <li class="info-item col">
+                                    <a id="Footer_Rules" onclick="window.parent.API_ShowPartialHtml('', 'Rules', true, null)">
+                                        <span class="language_replace">利用規約</span>
+                                    </a>
+                                </li>
+                                <li class="info-item col">
+                                    <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
+                                        <span class="language_replace">隱私權政策</span>
+                                    </a>
+                                </li>
+                                <li class="info-item col" id="li_HotArticle">
+                                    <a onclick="openHotArticle()">
+                                        <span class="language_replace">熱門文章</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 copy_right ">
+                    <div class="container">
+                        <p class="text">Copyright © 2022 All Rights Reserved</p>
+                    </div>
                 </div>
             </div>
-        </div>
-       </footer>
+        </footer>
     </div>
 
     <!-- mask_overlay 黑色半透明遮罩-->
@@ -1873,6 +1875,96 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertPartialHtml" aria-hidden="true" id="alertPartialHtml">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title alertPartialHtml_Title">
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content alertPartialHtml_Content">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertPartialHtml_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--alert-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContactUs" aria-hidden="true" id="alertContactUs">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom align-items-center">
+                    <i class="icon-service"></i>
+                    <h5 class="modal-title language_replace ml-1">客服信箱</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <!-- <div class="service-contact">
+                            <span class="titel language_replace">客服信箱</span><span class="data"> : service@BBC117.com</span>
+                        </div> -->
+                        <div class="inbox_customerService" id="sendMail">
+                            <div class="form-group">
+                                <label class="form-title language_replace">問題分類</label>
+                                <select class="form-control custom-style contectUs_Subject">
+                                    <option class="language_replace">出入金</option>
+                                    <option class="language_replace">註冊</option>
+                                    <option class="language_replace">獎勵</option>
+                                    <option class="language_replace">遊戲</option>
+                                    <option class="language_replace">其他</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">信箱</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style contectUs_Eamil" language_replace="placeholder" placeholder="請輸入回覆信箱" autocomplete="off">
+                                    <div class="invalid-feedback language_replace">錯誤提示</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">暱稱</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style contectUs_NickName" autocomplete="off" name="NickName">
+                                    <div class="invalid-feedback language_replace">錯誤提示</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">電話</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style contectUs_Phone" autocomplete="off" name="Phone">
+                                    <div class="invalid-feedback language_replace">錯誤提示</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">問題敘述</label>
+                                <textarea class="form-control custom-style contectUs_Body" rows="5" language_replace="placeholder" placeholder=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <!-- <button class="btn btn-icon">
+                        <i class="icon-copy" onclick="copyText('service@BBC117.com')"></i>
+                    </button> -->
+                    <div class="btn-container">
+                        <button type="button" class="alertContact_OK btn btn-primary btn-block" data-dismiss="modal" onclick="sendContactUs();"><span class="language_replace">寄出</span></button>
                     </div>
                 </div>
             </div>

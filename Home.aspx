@@ -167,13 +167,12 @@
         window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
             if (WebInfo.UserLogined) {
-                document.getElementById("idRegisterBonus").classList.add("is-hide");
+                //document.getElementById("idRegisterBonus").classList.add("is-hide");
             }
-
 
             //window.parent.API_LoadingEnd();
             if (p != null) {
-                updateBaseInfo();
+                //updateBaseInfo();
                 //if (marqueeText) {
                 //    document.getElementById("idMarqueeText").innerText = marqueeText;
                 //}
@@ -239,7 +238,7 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
-                    updateBaseInfo();
+                    //updateBaseInfo();
                 });
 
                 break;
