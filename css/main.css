@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*=================== fonts ====================*/
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
@@ -8450,4 +8450,8 @@ select:-webkit-autofill:focus {
   .btnPointNew {
     max-width: 360px;
   }
+}
+
+.is-hide {
+    display: none !important
 }

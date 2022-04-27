@@ -18,7 +18,12 @@
     <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
     <script src="Scripts/theme.js"></script>
 </head>
-
+    <script>
+        function init() {
+                        window.parent.API_LoadingEnd();
+        }
+    window.onload = init;
+    </script>
 <body class="innerBody"  style="height:auto">
     <main>
         <section class="section-wrap hero">

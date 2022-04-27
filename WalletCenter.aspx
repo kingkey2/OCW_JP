@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
-
+        <link rel="stylesheet" href="css/basic.min.css">
+<%--    <link rel="stylesheet" href="css/main.css">--%>
 </head>
-<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
-<script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="Scripts/jquery-3.3.1.min.js"></script>
+<%--<script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>--%>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/DateExtension.js"></script>
@@ -167,7 +168,7 @@
         <div class="page-content">
             <section class="section-wrap">
                 <div class="box-item-container walletcenter-menu">
-                    <%--<div class="box-item">
+                   <div class="box-item">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">
                             <div class="box-item-inner tab">
                                 <i class="icon icon-deposit"></i>
@@ -186,7 +187,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>--%>
+                    </div>
                      <div class="box-item">
                         <a class="box-item-link" onclick="window.parent.API_LoadPage('ProgressPaymentHistory','ProgressPaymentHistory.aspx', true)">
                             <div class="box-item-inner tab">

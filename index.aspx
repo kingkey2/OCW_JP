@@ -136,6 +136,7 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -339,13 +340,15 @@
             if (type && type == 1) {
 
             } else {
-                document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
+                //document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
             }
         }
         $('.loader-backdrop').addClass('is-show');
         $('.loader-container').fadeOut(250, function () {
             $('.iframe-container').addClass('is-show');
         });
+
+        resize();
     }
 
     function API_OpenGameCode(gameBrand, gameName) {
@@ -433,9 +436,9 @@
                 //loadingStart();
                 //上一頁針對iframe的問題，只能將loading的function都放於頁面中
                 //API_LoadingStart(); 
+                IFramePage.style.height = "0px";
                 IFramePage.src = url;
                 //IFramePage.
-
             }
 
         }
@@ -1363,11 +1366,13 @@
     }
 
     function resize() {
-        let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
-        let iframeheight = $("#IFramePage").height();
+        if (IFramePage.contentWindow.document.body) {
+            let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
+            let iframeheight = $("#IFramePage").height();
 
-        if (iframeheight != iframebodyheight) {
-            $("#IFramePage").height(iframebodyheight);
+            if (iframeheight != iframebodyheight) {
+                $("#IFramePage").height(iframebodyheight);
+            }
         }
     }
 
@@ -1610,7 +1615,7 @@
                                 </ul>
                               </li>                   -->
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
-                                <a class="nav-link" onclick="LogOut()">
+                                <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
                                     <i class="icon icon-mask icon-ewin-logout"></i>
                                     <span class="language_replace" langkey="登出">登出</span></a>
@@ -1620,10 +1625,10 @@
                     <!-- 頂部 NavBar -->
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
-                        <div class="header_leftWrapper navbar-nav">
+                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Home','Home.aspx')">
                             <div class="logo">
                                 <div class="img-wrap">
-                                    <a href="">
+                                    <a >
                                         <img src="images/logo.svg" alt=""></a>
                                 </div>
                             </div>
@@ -1639,33 +1644,30 @@
                                             <i class="icon icon-mask icon-search"></i></a>
                                     </li>
                                     <!-- ==== 登入前 ====-->
-                                    <li class="nav-item unLogIn_wrapper ">
+                                    <li class="nav-item unLogIn_wrapper " id="idLoginBtn">
                                         <ul class="horiz-list">
-                                            <li class="login" id="idLoginBtn">
+                                            <li class="login">
                                                 <button class="btn btn-full-main" type="button" onclick="onBtnLoginShow()"><span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register">
-                                                <button class="btn btn-full-sub" type="button"><span class="language_replace">註冊</span></button>
+                                                <button class="btn btn-full-sub" type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
                                             </li>
                                         </ul>
                                     </li>
                                     <!--  ==== 登入後 ====-->
-                                    <li class="nav-item logIned_wrapper hidden">
+                                    <li class="nav-item logIned_wrapper is-hide" id="idMenuLogin">
                                         <ul class="horiz-list">
-                                            <li class="nav-item " id="idMenuLogin">
+                                            <li class="nav-item ">
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
                                                             <!-- 未完成存款訂單小紅點 -->
-                                                            <span class="notify"><span class="notify-dot"></span></span>
-                                                            <img src="images/icon/coin-Ocoin.png" alt="">
+                                                            <%--<span class="notify"><span class="notify-dot"></span></span>--%>
+                                                            <img src="images/ico/coin-Ocoin.png" alt="">
                                                         </span>
                                                         <span class="balance-info">
                                                             <span class="amount">999,999</span>
                                                         </span>
-                                                        <!-- <button class="btn btn-deposit" onclick="">
-                                                    <span class="icon-add"></span>
-                                                </button> -->
                                                     </span>
                                                 </span>
                                             </li>
@@ -1679,28 +1681,17 @@
                                                 </a>
                                                 <!--下拉 dropdown-menu 選單 -->
                                                 <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Member">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link"
-                                                            href="home.aspx"
-                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">入金</span></a>
-
+                                                    <li class="nav-item" onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
+                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">入金</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link"
-                                                            href="home.aspx"
-                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">出金</span></a>
-
+                                                    <li class="nav-item" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">出金</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link"
-                                                            href="home.aspx"
-                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">會員設定</span></a>
-
+                                                    <li class="nav-item" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
+                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">會員設定</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link"
-                                                            href="home.aspx"
-                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">錢包中心</span></a>
+                                                    <li class="nav-item" onclick="API_LoadPage('WalletCenter','WalletCenter.aspx', true)">
+                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">錢包中心</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1747,10 +1738,10 @@
     <!-- main_area = iframe高度 + Footer高度-->
     <div class="main_area" style="height: auto;">
         <!-- iframe高度 自動計算高度-->
-        <iframe id="IFramePage" class="mainIframe"  name="mainiframe" style="height:100%;"></iframe>
+        <iframe id="IFramePage" class="mainIframe"  name="mainiframe" style="height:100%;min-height:calc(100vh - 60px)"></iframe>
     </div>
     <!-- footer -->
-    <div id="footer" class="is-hide">
+    <div id="footer">
        <footer class="footer">
            <div class="footer_inner">
             <div class="container">
@@ -1828,5 +1819,64 @@
     <!-- mask_overlay 黑色半透明遮罩-->
     <div id="mask_overlay_popup" class="mask_overlay_popup"></div>
     <!--=========JS========-->
+    <!-- 遊戲介紹 Modal-->
+    <div class="modal fade modal-game" tabindex="-1" role="dialog" aria-labelledby="alertGameIntro" aria-hidden="true" id="alertGameIntro">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title gameRealName language_replace"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="game-intro-box">
+                            <div class="game-img">
+                                <div class="img-wrap">
+                                    <img class="GameImg" src="" alt="">
+                                </div>
+                            </div>
+                            <div class="game-info">
+                                <div class="game-detail">
+                                    <div class="info-item game-num">
+                                        <div class="num title">NO.</div>
+                                        <div class="data GameID">01234</div>
+                                    </div>
+                                    <div class="info-item game-rtp">
+                                        <div class="rtp-name title">RTP</div>
+                                        <div class="rtp-data RtpContent"></div>
+                                    </div>
+                                    <!-- 當加入最愛時=> class 加 "add" -->
+                                    <div class="info-item game-myFavorite add">
+                                        <div class="myFavorite-name title">
+                                            <span class="language_replace FavoText">加入我的最愛</span>
+                                            <!-- <span class="language_replace">移除最愛</span> -->
+                                        </div>
+                                        <div class="myFavorite-icon">
+                                            <i class="icon-casinoworld-favorite"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-play">
+                                    <button type="button" class="btn-game game-demo">
+                                        <span class="language_replace">試玩</span>
+                                        <div class="triangle"></div>
+                                    </button>
+                                    <button type="button" class="btn-primary btn-game game-login">
+                                        <span class="language_replace">登入玩遊戲</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="game-intro is-hide">
+                                遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
