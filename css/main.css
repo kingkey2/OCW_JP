@@ -8425,6 +8425,7 @@ select:-webkit-autofill:focus {
     padding: 0 10px;
   }
 }
+
 @media (min-width: 992px) {
   .last-step-execute {
     position: absolute;
@@ -8438,6 +8439,7 @@ select:-webkit-autofill:focus {
 .btnBitLimit {
   margin-right: 6px;
 }
+
 @media (max-width: 639.98px) {
   .btnBitLimit {
     order: 2;
