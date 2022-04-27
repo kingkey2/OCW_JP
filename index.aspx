@@ -1363,11 +1363,13 @@
     }
 
     function resize() {
-        let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
-        let iframeheight = $("#IFramePage").height();
+        if (IFramePage.contentWindow.document.body) {
+            let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
+            let iframeheight = $("#IFramePage").height();
 
-        if (iframeheight != iframebodyheight) {
-            $("#IFramePage").height(iframebodyheight);
+            if (iframeheight != iframebodyheight && iframebodyheight!=0) {
+                $("#IFramePage").height(iframebodyheight);
+            }
         }
     }
 
