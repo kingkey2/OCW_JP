@@ -172,16 +172,12 @@
 
             //window.parent.API_LoadingEnd();
             if (p != null) {
-                //updateBaseInfo();
-                //if (marqueeText) {
-                //    document.getElementById("idMarqueeText").innerText = marqueeText;
-                //}
-                window.parent.sleep(500).then(() => {
-                    if (WebInfo.UserLogined) {
-                        document.getElementById("idGoRegBtn").classList.add("is-hide");
-                        $(".register-list").hide();
-                    }
-                })
+                //window.parent.sleep(500).then(() => {
+                //    if (WebInfo.UserLogined) {
+                //        document.getElementById("idGoRegBtn").classList.add("is-hide");
+                //        $(".register-list").hide();
+                //    }
+                //})
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -277,14 +273,6 @@
                             <div class="img-wrap">
                                    <img src="images/games/hero/hero-11.jpg" class="desktop bg">
                                    <img src="images/games/hero/hero-11-m.jpg" class="mobile bg">
-                                
-                             <%--   <img src="https://images6.alphacoders.com/114/1145091.png" class="bg">--%>
-                              <%--  <div class="anim container">
-                                    <div class="role role-R">
-                                        <img src="images/banner/girl.png" alt=""></div>
-                                    <div class="role role-L">
-                                        <img src="images/banner/dog.png" alt=""></div>
-                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -307,14 +295,6 @@
                             <div class="img-wrap">
                                 <img src="images/games/hero/hero-10.jpg?20211004" class="desktop bg">
                                 <img src="images/games/hero/hero-10-m.jpg" class="mobile bg">
-                                
-                             <%--   <img src="https://images6.alphacoders.com/114/1145091.png" class="bg">--%>
-                              <%--  <div class="anim container">
-                                    <div class="role role-R">
-                                        <img src="images/banner/girl.png" alt=""></div>
-                                    <div class="role role-L">
-                                        <img src="images/banner/dog.png" alt=""></div>
-                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -340,50 +320,6 @@
                             </div>
                         </div>
                     </div>
-                 <%--   <div class="swiper-slide">
-                        <div class="hero-item">
-
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
-                        <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="https://images6.alphacoders.com/114/1145091.png" class="bg">
-                                <div class="anim container">
-                                    <div class="role role-R">
-                                        <img src="images/banner/girl.png" alt=""></div>
-                                    <div class="role role-L">
-                                        <img src="images/banner/dog.png" alt=""></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">
-                            </div>
-                        </div>
-                    </div>--%>
-
                     <div class="swiper-mask"></div>
                 </div>
 

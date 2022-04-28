@@ -1390,7 +1390,7 @@
     function init() {
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
-
+       
         if (window.localStorage.getItem("Lang")) {
             EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         }
@@ -1718,13 +1718,13 @@
                                             <i class="icon icon-mask icon-user"></i></a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Lang">
                                             <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('JPN', true)">日語</a>
+                                                <a class="nav-link language_replace" onclick="switchLang('JPN', true)">日本語</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('ENG', true)">英</a>
+                                                <a class="nav-link language_replace" onclick="switchLang('ENG', true)">English</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('CHT', true)">繁中</a>
+                                                <a class="nav-link language_replace" onclick="switchLang('CHT', true)">繁體中文</a>
                                             </li>
                                         </ul>
                                     </li>

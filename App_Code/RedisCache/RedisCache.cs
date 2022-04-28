@@ -7,15 +7,12 @@ using System.Web;
 /// <summary>
 /// RedisCache 的摘要描述
 /// </summary>
-public static class RedisCache
-{
-    public static class Company
-    {
+public static class RedisCache {
+    public static class Company {
         private static string XMLPath = "Company";
         private static int DBIndex = 0;
 
-        public static System.Data.DataTable GetCompanyGameCode()
-        {
+        public static System.Data.DataTable GetCompanyGameCode() {
             string Key4;
             System.Data.DataTable DT = null;
 
@@ -29,8 +26,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static System.Data.DataTable UpdateCompanyGameCode(System.Data.DataTable DT)
-        {
+        public static System.Data.DataTable UpdateCompanyGameCode(System.Data.DataTable DT) {
             string Key4;
 
             Key4 = XMLPath + ":CompanyGameCode";
@@ -45,8 +41,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static string GetCompanyGameCodeString()
-        {
+        public static string GetCompanyGameCodeString() {
             string R = string.Empty;
             string Key4;
 
@@ -62,8 +57,7 @@ public static class RedisCache
             return R;
         }
 
-        public static void UpdateCompanyGameCode(string JsonData)
-        {
+        public static void UpdateCompanyGameCode(string JsonData) {
             string Key4;
 
             Key4 = XMLPath + ":CompanyGameCode";
@@ -77,15 +71,13 @@ public static class RedisCache
         }
     }
 
-    public class SessionContext
-    {
+    public class SessionContext {
         private static string XMLPath = "Session";
         private static int DBIndex = 0;
 
         // SIDM 用來給 Pad 統計人數使用, 訪客或餘額 0 不會計入
 
-        public static bool CheckSIDExist(string SID)
-        {
+        public static bool CheckSIDExist(string SID) {
             string Key;
             bool RetValue = false;
 
@@ -97,8 +89,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static string[] ListAllSID()
-        {
+        public static string[] ListAllSID() {
             string Key3;
             List<string> RetValue = new List<string>();
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
@@ -132,8 +123,7 @@ public static class RedisCache
             return RetValue.ToArray();
         }
 
-        public static string GetSIDParam(string SID, string ParamName)
-        {
+        public static string GetSIDParam(string SID, string ParamName) {
             string RetValue = null;
 
             if (string.IsNullOrEmpty(SID) == false) {
@@ -152,8 +142,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static bool SetSIDParam(string SID, string ParamName, string ParamValue)
-        {
+        public static bool SetSIDParam(string SID, string ParamName, string ParamValue) {
             bool RetValue = false;
 
             if (string.IsNullOrEmpty(SID) == false) {
@@ -171,8 +160,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static string CreateSID(string CompanyCode, string LoginAccount, string AccessIP, bool IsGuestAccount, string EWinSID, string EWinCT)
-        {
+        public static string CreateSID(string CompanyCode, string LoginAccount, string AccessIP, bool IsGuestAccount, string EWinSID, string EWinCT) {
             SIDInfo SI = null;
             string SID = System.Guid.NewGuid().ToString();
             string DateTimeSerial = System.DateTime.UtcNow.ToString("yyyyMMddHHmmss");
@@ -183,14 +171,13 @@ public static class RedisCache
 
             UserAccountEncID = BaseValue1;
             //SID = RndString + UserAccountEncID + "-" + BaseValue1 + DateTimeSerial;
-            SID = RndString + System.Guid.NewGuid().ToString() + "-" + BaseValue1 + DateTimeSerial;            
+            SID = RndString + System.Guid.NewGuid().ToString() + "-" + BaseValue1 + DateTimeSerial;
             CreateSID(SID, LoginAccount, CompanyCode, AccessIP, IsGuestAccount, EWinSID, EWinCT);
 
             return SID;
         }
 
-        public static SIDInfo CreateSID(string NewSID, string LoginAccount, string CompanyCode, string AccessIP, bool IsGuestAccount, string EWinSID, string EWinCT)
-        {
+        public static SIDInfo CreateSID(string NewSID, string LoginAccount, string CompanyCode, string AccessIP, bool IsGuestAccount, string EWinSID, string EWinCT) {
             SIDInfo SI = null;
 
             SI = new SIDInfo();
@@ -217,8 +204,7 @@ public static class RedisCache
             return SI;
         }
 
-        public static bool BindingUID(string SID, int BindingType, string BindingUID, string BindingNickname, string BindingHeadImg)
-        {
+        public static bool BindingUID(string SID, int BindingType, string BindingUID, string BindingNickname, string BindingHeadImg) {
             string Key;
             bool RetValue = false;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
@@ -245,8 +231,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static void ExpireSID(string SID)
-        {
+        public static void ExpireSID(string SID) {
             string Key1;
 
             Key1 = XMLPath + ":SID." + SID;
@@ -258,8 +243,7 @@ public static class RedisCache
             }
         }
 
-        public static void ExpireByUserAccountID(int UserAccountID)
-        {
+        public static void ExpireByUserAccountID(int UserAccountID) {
             string Key2;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient();
             string[] SIDList;
@@ -276,8 +260,7 @@ public static class RedisCache
             Client.KeyDelete(Key2.ToUpper());
         }
 
-        public static string[] GetSIDByUserAccountID(int UserAccountID)
-        {
+        public static string[] GetSIDByUserAccountID(int UserAccountID) {
             string Key2;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient();
             StackExchange.Redis.HashEntry[] HEList;
@@ -309,8 +292,7 @@ public static class RedisCache
             return iList.ToArray();
         }
 
-        public static string[] GetSIDByLoginAccount(int LoginAccount)
-        {
+        public static string[] GetSIDByLoginAccount(int LoginAccount) {
             string Key2;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient();
             StackExchange.Redis.HashEntry[] HEList;
@@ -342,8 +324,7 @@ public static class RedisCache
             return iList.ToArray();
         }
 
-        public static SIDInfo GetSIDInfo(string SID)
-        {
+        public static SIDInfo GetSIDInfo(string SID) {
             SIDInfo RetValue = null;
 
             if (string.IsNullOrEmpty(SID) == false) {
@@ -363,15 +344,38 @@ public static class RedisCache
                                 string Name = EachHE.Name.ToString();
                                 string Value = EachHE.Value.ToString();
 
-                                if (Name.ToUpper() == "SID".ToUpper()) { RetValue.SID = Value; } else if (Name.ToUpper() == "CompanyCode".ToUpper()) { RetValue.CompanyCode = Value; } else if (Name.ToUpper() == "LoginAccount".ToUpper()) { RetValue.LoginAccount = Value; } else if (Name.ToUpper() == "IsGuestAccount".ToUpper()) { RetValue.IsGuestAccount = Convert.ToBoolean(Value); } else if (Name.ToUpper() == "Language".ToUpper()) { RetValue.Language = Value; }
-                                                                                                                                                                                                                                                                                                                                                                                              //else if (Name.ToUpper() == "UserCountry".ToUpper()) { RetValue.UserCountry = Value; }
-                                                                                                                                                                                                                                                                                                                                                                                              else if (Name.ToUpper() == "AccessIP".ToUpper()) { RetValue.AccessIP = Value; } else if (Name.ToUpper() == "EWinSID".ToUpper()) { RetValue.EWinSID = Value; } else if (Name.ToUpper() == "EWinCT".ToUpper()) { RetValue.EWinCT = Value; } else if (Name.ToUpper() == "IsBindingAccount".ToUpper()) {
-                                    if (Value == "1")
+                                if (Name.ToUpper() == "SID".ToUpper()) {
+                                    RetValue.SID = Value;
+                                } else if (Name.ToUpper() == "CompanyCode".ToUpper()) {
+                                    RetValue.CompanyCode = Value;
+                                } else if (Name.ToUpper() == "LoginAccount".ToUpper()) {
+                                    RetValue.LoginAccount = Value;
+                                } else if (Name.ToUpper() == "IsGuestAccount".ToUpper()) {
+                                    RetValue.IsGuestAccount = Convert.ToBoolean(Value);
+                                } else if (Name.ToUpper() == "Language".ToUpper()) {
+                                    RetValue.Language = Value;
+                                } else if (Name.ToUpper() == "AccessIP".ToUpper()) {
+                                    RetValue.AccessIP = Value;
+                                } else if (Name.ToUpper() == "EWinSID".ToUpper()) {
+                                    RetValue.EWinSID = Value;
+                                } else if (Name.ToUpper() == "EWinCT".ToUpper()) {
+                                    RetValue.EWinCT = Value;
+                                } else if (Name.ToUpper() == "IsBindingAccount".ToUpper()) {
+                                    if (Value == "1") {
                                         RetValue.IsBindingAccount = true;
-                                } else if (Name.ToUpper() == "BindingType".ToUpper()) { RetValue.BindingType = Convert.ToInt32(Value); } else if (Name.ToUpper() == "BindingUID".ToUpper()) { RetValue.BindingUID = Value; } else if (Name.ToUpper() == "BindingNickname".ToUpper()) { RetValue.BindingNickname = Value; } else if (Name.ToUpper() == "BindingHeadImg".ToUpper()) { RetValue.BindingHeadImg = Value; }
-                                                                                                                                                                                                                                                                                                                           //else if (Name.ToUpper() == "CashUnit".ToUpper()) { RetValue.CashUnit = Convert.ToInt32(Value); }
-                                                                                                                                                                                                                                                                                                                           //else if (Name.ToUpper() == "Timezone".ToUpper()) { RetValue.Timezone = Convert.ToDecimal(Value); }
-                                                                                                                                                                                                                                                                                                                           else { }
+                                    }
+                                } else if (Name.ToUpper() == "BindingType".ToUpper()) {
+                                    RetValue.BindingType = Convert.ToInt32(Value);
+                                } else if (Name.ToUpper() == "BindingUID".ToUpper()) {
+                                    RetValue.BindingUID = Value;
+                                } else if (Name.ToUpper() == "BindingNickname".ToUpper()) {
+                                    RetValue.BindingNickname = Value;
+                                } else if (Name.ToUpper() == "BindingHeadImg".ToUpper()) {
+                                    RetValue.BindingHeadImg = Value;
+                                } else { }
+                                //else if (Name.ToUpper() == "CashUnit".ToUpper()) { RetValue.CashUnit = Convert.ToInt32(Value); }
+                                //else if (Name.ToUpper() == "Timezone".ToUpper()) { RetValue.Timezone = Convert.ToDecimal(Value); }
+
                             }
                         }
                     }
@@ -381,8 +385,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static bool RefreshSID(string SID)
-        {
+        public static bool RefreshSID(string SID) {
             string Key;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
             bool RetValue = false;
@@ -398,8 +401,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static ExpireSIDCounter ClearExpireSIDByUserAccountID(int UserAccountID)
-        {
+        public static ExpireSIDCounter ClearExpireSIDByUserAccountID(int UserAccountID) {
             string Key2;
             ExpireSIDCounter RetValue = new ExpireSIDCounter();
             List<ExpireSIDCounter.AliveSID> AList = new List<ExpireSIDCounter.AliveSID>();
@@ -452,8 +454,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static ExpireSIDCounter ClearExpireSIDByLoginAccount(string LoginAccount)
-        {
+        public static ExpireSIDCounter ClearExpireSIDByLoginAccount(string LoginAccount) {
             string Key2;
             ExpireSIDCounter RetValue = new ExpireSIDCounter();
             List<ExpireSIDCounter.AliveSID> AList = new List<ExpireSIDCounter.AliveSID>();
@@ -506,8 +507,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        private static ExpireSIDCounter ClearExpireSID()
-        {
+        private static ExpireSIDCounter ClearExpireSID() {
             string Key3;
             ExpireSIDCounter RetValue = new ExpireSIDCounter();
             List<ExpireSIDCounter.AliveSID> AList = new List<ExpireSIDCounter.AliveSID>();
@@ -560,8 +560,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static bool UpdateSIDByField(string SID, string Field, string Value)
-        {
+        public static bool UpdateSIDByField(string SID, string Field, string Value) {
             string Key1;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient();
             StackExchange.Redis.ITransaction T;
@@ -584,8 +583,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        private static void UpdateSID(SIDInfo SI)
-        {
+        private static void UpdateSID(SIDInfo SI) {
             string Key1;
             string Key2;
             string Key3;
@@ -628,22 +626,19 @@ public static class RedisCache
             }
         }
 
-        public class ExpireSIDCounter
-        {
+        public class ExpireSIDCounter {
             public int TotalCount { get; set; }
             public int ExpireCount { get; set; }
             public int AliveCount { get; set; }
             public AliveSID[] AliveList { get; set; }
 
-            public class AliveSID
-            {
+            public class AliveSID {
                 public string SID { get; set; }
                 public DateTime LastUpdate { get; set; }
             }
         }
 
-        public class SIDInfo
-        {
+        public class SIDInfo {
             public string SID { get; set; }
             public string CompanyCode { get; set; }
             public string LoginAccount { get; set; }
@@ -662,13 +657,11 @@ public static class RedisCache
         }
     }
 
-    public static class PaymentContent
-    {
+    public static class PaymentContent {
         private static string XMLPath = "PaymentContent";
         private static int DBIndex = 0;
 
-        public static T GetPaymentContent<T>(string OrderNumber)
-        {
+        public static T GetPaymentContent<T>(string OrderNumber) {
             T R = default(T);
             string Key;
 
@@ -684,8 +677,7 @@ public static class RedisCache
             return R;
         }
 
-        public static void UpdatePaymentContent(string JsonData, string OrderNumber)
-        {
+        public static void UpdatePaymentContent(string JsonData, string OrderNumber) {
             string Key;
 
             Key = XMLPath + ":OrderNumber:" + OrderNumber;
@@ -720,8 +712,7 @@ public static class RedisCache
             Client.KeyDelete(Key2.ToUpper());
         }
 
-        public static void KeepPaymentContents<T>(T Target, string LoginAccount)
-        {
+        public static void KeepPaymentContents<T>(T Target, string LoginAccount) {
             string Key;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
             List<T> NowDatas;
@@ -745,8 +736,7 @@ public static class RedisCache
             }
         }
 
-        public static List<T> GetPaymentContents<T>(string LoginAccount)
-        {
+        public static List<T> GetPaymentContents<T>(string LoginAccount) {
             string Key;
             string Key2Base;
             bool IsNeedReWrite = false; ;
@@ -784,18 +774,15 @@ public static class RedisCache
         }
     }
 
-    public static class AppLogin
-    {
+    public static class AppLogin {
         private static string XMLPath = "AppLogin";
         private static int DBIndex = 1;
 
-        public static string CreateAppLoginToken(string ParentPersonCode, string CompanyCode, string BindingLoginAccount)
-        {
+        public static string CreateAppLoginToken(string ParentPersonCode, string CompanyCode, string BindingLoginAccount) {
             return CreateAppLoginToken(ParentPersonCode, CompanyCode, BindingLoginAccount, string.Empty, string.Empty);
         }
 
-        public static string CreateAppLoginToken(string ParentPersonCode, string CompanyCode, string BindingLoginAccount, string CallbackURL, string TagData)
-        {
+        public static string CreateAppLoginToken(string ParentPersonCode, string CompanyCode, string BindingLoginAccount, string CallbackURL, string TagData) {
             string RetValue = System.Guid.NewGuid().ToString();
             string Key;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
@@ -817,8 +804,7 @@ public static class RedisCache
             return RetValue;
         }
 
-        public static void UpdateUserCreateType(string AppToken, TokenContent.enumUserCreateType UserCreateType)
-        {
+        public static void UpdateUserCreateType(string AppToken, TokenContent.enumUserCreateType UserCreateType) {
             string Key;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
@@ -826,8 +812,7 @@ public static class RedisCache
             Client.HashSet(Key.ToUpper(), "UserCreateType", ((int)UserCreateType).ToString());
         }
 
-        public static bool CheckTokenExist(string Token)
-        {
+        public static bool CheckTokenExist(string Token) {
             string Key;
 
             Key = XMLPath + ":" + Token;
@@ -835,8 +820,7 @@ public static class RedisCache
             return KeyExists(DBIndex, Key);
         }
 
-        public static TokenContent GetToken(string Token)
-        {
+        public static TokenContent GetToken(string Token) {
             TokenContent RetValue = null;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
             StackExchange.Redis.HashEntry[] HEList = null;
@@ -858,10 +842,8 @@ public static class RedisCache
             return RetValue;
         }
 
-        public class TokenContent
-        {
-            public enum enumUserCreateType
-            {
+        public class TokenContent {
+            public enum enumUserCreateType {
                 NewUser = 0,
                 ExistUser = 1
             }
@@ -876,13 +858,11 @@ public static class RedisCache
         }
     }
 
-    public static class PaymentCategory
-    {
+    public static class PaymentCategory {
         private static string XMLPath = "PaymentCategory";
         private static int DBIndex = 0;
 
-        public static System.Data.DataTable GetPaymentCategory()
-        {
+        public static System.Data.DataTable GetPaymentCategory() {
             string Key;
             System.Data.DataTable DT;
 
@@ -896,8 +876,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static System.Data.DataTable UpdatePaymentCategory()
-        {
+        public static System.Data.DataTable UpdatePaymentCategory() {
             string Key;
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -924,13 +903,11 @@ public static class RedisCache
         }
     }
 
-    public static class PaymentMethod
-    {
+    public static class PaymentMethod {
         private static string XMLPath = "PaymentMethod";
         private static int DBIndex = 0;
 
-        public static System.Data.DataTable GetPaymentMethodByID(int PaymentMethodID)
-        {
+        public static System.Data.DataTable GetPaymentMethodByID(int PaymentMethodID) {
             string Key;
             System.Data.DataTable DT;
 
@@ -944,8 +921,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static System.Data.DataTable UpdatePaymentMethodByID(int PaymentMethodID)
-        {
+        public static System.Data.DataTable UpdatePaymentMethodByID(int PaymentMethodID) {
             string Key;
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -973,8 +949,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static System.Data.DataTable GetPaymentMethodByEWinTaginfoDefault(string EWinTaginfoDefault)
-        {
+        public static System.Data.DataTable GetPaymentMethodByEWinTaginfoDefault(string EWinTaginfoDefault) {
             string Key;
             System.Data.DataTable DT;
 
@@ -988,8 +963,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static System.Data.DataTable UpdatePaymentMethodByEWinTaginfoDefault(string EWinTaginfoDefault)
-        {
+        public static System.Data.DataTable UpdatePaymentMethodByEWinTaginfoDefault(string EWinTaginfoDefault) {
             string Key;
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -1017,8 +991,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static System.Data.DataTable GetPaymentMethodByCategory(string Category)
-        {
+        public static System.Data.DataTable GetPaymentMethodByCategory(string Category) {
             string Key;
             System.Data.DataTable DT;
 
@@ -1032,8 +1005,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static System.Data.DataTable UpdatePaymentMethodByCategory(string Category)
-        {
+        public static System.Data.DataTable UpdatePaymentMethodByCategory(string Category) {
             string Key;
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -1062,13 +1034,11 @@ public static class RedisCache
         }
     }
 
-    public static class UserAccountTotalSummary
-    {
+    public static class UserAccountTotalSummary {
         private static string XMLPath = "UserAccountTotalSummary";
         private static int DBIndex = 0;
 
-        public static System.Data.DataTable GetUserAccountTotalSummaryByLoginAccount(string LoginAccount)
-        {
+        public static System.Data.DataTable GetUserAccountTotalSummaryByLoginAccount(string LoginAccount) {
             string Key;
             System.Data.DataTable DT;
 
@@ -1082,8 +1052,7 @@ public static class RedisCache
             return DT;
         }
 
-        public static System.Data.DataTable UpdateUserAccountTotalSummaryByLoginAccount(string LoginAccount)
-        {
+        public static System.Data.DataTable UpdateUserAccountTotalSummaryByLoginAccount(string LoginAccount) {
             string Key;
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -1099,7 +1068,7 @@ public static class RedisCache
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
             if (DT.Rows.Count > 0) {
-              
+
 
                 for (int I = 0; I <= 3; I++) {
                     try {
@@ -1149,7 +1118,7 @@ public static class RedisCache
             DBCmd.Parameters.Add("@SummaryDate", System.Data.SqlDbType.DateTime).Value = SummaryDate;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
             if (DT.Rows.Count > 0) {
-               
+
 
                 for (int I = 0; I <= 3; I++) {
                     try {
@@ -1164,13 +1133,11 @@ public static class RedisCache
         }
     }
 
-    public static class FingerPrint
-    {
+    public static class FingerPrint {
         private static string XMLPath = "FingerPrint";
         private static int DBIndex = 0;
 
-        public static void UpdatePaymentContent(string JsonData, string FingerPrint)
-        {
+        public static void UpdatePaymentContent(string JsonData, string FingerPrint) {
             string Key;
 
             Key = XMLPath + ":FingerPrint:" + FingerPrint;
@@ -1183,8 +1150,7 @@ public static class RedisCache
             }
         }
 
-        public static string GetFingerPrint(string FingerPrint)
-        {
+        public static string GetFingerPrint(string FingerPrint) {
             string R = "";
             string Key;
 
@@ -1198,8 +1164,7 @@ public static class RedisCache
         }
 
 
-        public static string DelFingerPrint(string FingerPrint)
-        {
+        public static string DelFingerPrint(string FingerPrint) {
             string R = "";
             string Key;
 
@@ -1242,31 +1207,25 @@ public static class RedisCache
         }
     }
 
-    public static class BulletinBoard
-    {
+    public static class BulletinBoard {
         private static string XMLPath = "BulletinBoard";
         private static int DBIndex = 0;
 
-        public static System.Data.DataTable GetBulletinBoard()
-        {
+        public static System.Data.DataTable GetBulletinBoard() {
             string Key;
             System.Data.DataTable DT;
             Key = XMLPath;
 
-            if (KeyExists(DBIndex, Key) == true)
-            {
+            if (KeyExists(DBIndex, Key) == true) {
                 DT = DTReadFromRedis(DBIndex, Key);
-            }
-            else
-            {
+            } else {
                 DT = UpdateBulletinBoard();
             }
 
             return DT;
         }
 
-        public static System.Data.DataTable UpdateBulletinBoard()
-        {
+        public static System.Data.DataTable UpdateBulletinBoard() {
             string Key;
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -1280,17 +1239,12 @@ public static class RedisCache
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-            if (DT.Rows.Count > 0)
-            {
-                for (int I = 0; I <= 3; I++)
-                {
-                    try
-                    {
+            if (DT.Rows.Count > 0) {
+                for (int I = 0; I <= 3; I++) {
+                    try {
                         DTWriteToRedis(DBIndex, DT, Key, 86400);
                         break;
-                    }
-                    catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
                     }
                 }
             }
@@ -1307,7 +1261,7 @@ public static class RedisCache
             string Key;
             System.Data.DataTable DT;
             string strMonth = EndDate.ToString("yyyy-MM");
-            Key = XMLPath+ ":Date:"+ strMonth + ":LoginAccount:" + LoginAccount;
+            Key = XMLPath + ":Date:" + strMonth + ":LoginAccount:" + LoginAccount;
 
             if (KeyExists(DBIndex, Key) == true) {
                 DT = DTReadFromRedis(DBIndex, Key);
@@ -1386,7 +1340,7 @@ public static class RedisCache
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
             if (DT.Rows.Count > 0) {
-                
+
                 for (int I = 0; I <= 3; I++) {
                     try {
                         DTWriteToRedis(DBIndex, DT, Key, 86400);
@@ -1406,30 +1360,26 @@ public static class RedisCache
         PaymentMethod.UpdatePaymentMethodByCategory("Crypto");
     }
 
-    public static void DTWriteToRedis(int DBIndex, System.Data.DataTable DT, string Key, int ExpireTimeoutSeconds = 0)
-    {
+    public static void DTWriteToRedis(int DBIndex, System.Data.DataTable DT, string Key, int ExpireTimeoutSeconds = 0) {
         string XMLContent;
 
         XMLContent = DTSerialize(DT);
         RedisWrite(DBIndex, Key, XMLContent, ExpireTimeoutSeconds);
     }
 
-    public static void JsonStringWriteToRedis(int DBIndex, string JsonString, string Key, int ExpireTimeoutSeconds = 0)
-    {
+    public static void JsonStringWriteToRedis(int DBIndex, string JsonString, string Key, int ExpireTimeoutSeconds = 0) {
 
         RedisWrite(DBIndex, Key, JsonString, ExpireTimeoutSeconds);
     }
 
-    public static void DSWriteToRedis(int DBIndex, System.Data.DataSet DS, string Key, int ExpireTimeoutSeconds = 0)
-    {
+    public static void DSWriteToRedis(int DBIndex, System.Data.DataSet DS, string Key, int ExpireTimeoutSeconds = 0) {
         string XMLContent;
 
         XMLContent = DSSerialize(DS);
         RedisWrite(DBIndex, Key, XMLContent, ExpireTimeoutSeconds);
     }
 
-    public static System.Data.DataTable DTReadFromRedis(int DBIndex, string Key)
-    {
+    public static System.Data.DataTable DTReadFromRedis(int DBIndex, string Key) {
         string XMLContent;
 
         XMLContent = RedisRead(DBIndex, Key);
@@ -1437,8 +1387,7 @@ public static class RedisCache
         return DTDeserialize(XMLContent);
     }
 
-    public static string JsonReadFromRedis(int DBIndex, string Key)
-    {
+    public static string JsonReadFromRedis(int DBIndex, string Key) {
         string JsonContent;
 
         JsonContent = RedisRead(DBIndex, Key);
@@ -1447,8 +1396,7 @@ public static class RedisCache
     }
 
 
-    public static T JsonReadFromRedis<T>(int DBIndex, string Key)
-    {
+    public static T JsonReadFromRedis<T>(int DBIndex, string Key) {
         string JsonContent;
 
         JsonContent = RedisRead(DBIndex, Key);
@@ -1456,8 +1404,7 @@ public static class RedisCache
         return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(JsonContent);
     }
 
-    public static System.Data.DataSet DSReadFromRedis(int DBIndex, string Key)
-    {
+    public static System.Data.DataSet DSReadFromRedis(int DBIndex, string Key) {
         string XMLContent;
 
         XMLContent = RedisRead(DBIndex, Key);
@@ -1465,8 +1412,7 @@ public static class RedisCache
         return DSDeserialize(XMLContent);
     }
 
-    public static string DTSerialize(System.Data.DataTable _dt)
-    {
+    public static string DTSerialize(System.Data.DataTable _dt) {
         string result = string.Empty;
 
         if (_dt != null) {
@@ -1483,8 +1429,7 @@ public static class RedisCache
         return result;
     }
 
-    public static string DSSerialize(System.Data.DataSet _ds)
-    {
+    public static string DSSerialize(System.Data.DataSet _ds) {
         string result = string.Empty;
 
         if (_ds != null) {
@@ -1506,8 +1451,7 @@ public static class RedisCache
         return result;
     }
 
-    public static System.Data.DataTable DTDeserialize(string _strData)
-    {
+    public static System.Data.DataTable DTDeserialize(string _strData) {
         if (string.IsNullOrEmpty(_strData) == false) {
             System.Data.DataTable DT = new System.Data.DataTable();
             System.IO.StringReader StringStream = new System.IO.StringReader(_strData);
@@ -1520,8 +1464,7 @@ public static class RedisCache
         }
     }
 
-    public static System.Data.DataSet DSDeserialize(string _strData)
-    {
+    public static System.Data.DataSet DSDeserialize(string _strData) {
         if (string.IsNullOrEmpty(_strData) == false) {
             System.Data.DataSet DS = new System.Data.DataSet();
             System.IO.StringReader StringStream = new System.IO.StringReader(_strData);
@@ -1534,29 +1477,25 @@ public static class RedisCache
         }
     }
 
-    public static void KeyDelete(int DBIndex, string Key)
-    {
+    public static void KeyDelete(int DBIndex, string Key) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
         Client.KeyDelete(Key.ToUpper());
     }
 
-    public static bool KeyExists(int DBIndex, string Key)
-    {
+    public static bool KeyExists(int DBIndex, string Key) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
         return Client.KeyExists(Key.ToUpper());
     }
 
-    public static void RedisSetExpire(int DBIndex, string Key, int ExpireTimeoutSecond)
-    {
+    public static void RedisSetExpire(int DBIndex, string Key, int ExpireTimeoutSecond) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
         Client.KeyExpire(Key.ToUpper(), new TimeSpan(0, 0, ExpireTimeoutSecond));
     }
 
-    public static void RedisWrite(int DBIndex, string Key, string Content, int ExpireTimeoutSecond = 0)
-    {
+    public static void RedisWrite(int DBIndex, string Key, string Content, int ExpireTimeoutSecond = 0) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
         if (ExpireTimeoutSecond == 0) {
@@ -1572,8 +1511,7 @@ public static class RedisCache
         }
     }
 
-    public static string RedisRead(int DBIndex, string Key)
-    {
+    public static string RedisRead(int DBIndex, string Key) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
         string RetValue = string.Empty;
 
@@ -1584,22 +1522,19 @@ public static class RedisCache
         return RetValue;
     }
 
-    public static bool RedisHashExists(int DBIndex, string Key, string HashName)
-    {
+    public static bool RedisHashExists(int DBIndex, string Key, string HashName) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
         return Client.HashExists(Key.ToUpper(), HashName.ToUpper());
     }
 
-    public static void RedisHashDelete(int DBIndex, string Key, string HashName)
-    {
+    public static void RedisHashDelete(int DBIndex, string Key, string HashName) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
         Client.HashDelete(Key.ToUpper(), HashName.ToUpper());
     }
 
-    public static void RedisHashWrite(int DBIndex, string Key, string HashName, string Content, int ExpireTimeoutSecond = 0)
-    {
+    public static void RedisHashWrite(int DBIndex, string Key, string HashName, string Content, int ExpireTimeoutSecond = 0) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
         if (ExpireTimeoutSecond == 0) {
@@ -1615,8 +1550,7 @@ public static class RedisCache
         }
     }
 
-    public static string RedisHashRead(int DBIndex, string Key, string HashName)
-    {
+    public static string RedisHashRead(int DBIndex, string Key, string HashName) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
         string RetValue = string.Empty;
 
@@ -1627,8 +1561,7 @@ public static class RedisCache
         return RetValue;
     }
 
-    public static StackExchange.Redis.HashEntry[] RedisHashReadAll(int DBIndex, string Key)
-    {
+    public static StackExchange.Redis.HashEntry[] RedisHashReadAll(int DBIndex, string Key) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
         StackExchange.Redis.HashEntry[] RetValue = null;
 
@@ -1639,15 +1572,13 @@ public static class RedisCache
         return RetValue;
     }
 
-    public static void RedisEnqueue(int DBIndex, string Key, string Content)
-    {
+    public static void RedisEnqueue(int DBIndex, string Key, string Content) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
 
         Client.ListRightPush(Key.ToUpper(), Content);
     }
 
-    public static string RedisDequeue(int DBIndex, string Key)
-    {
+    public static string RedisDequeue(int DBIndex, string Key) {
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);
         string RetValue = null;
 
@@ -1658,8 +1589,7 @@ public static class RedisCache
         return RetValue;
     }
 
-    public static bool GetLocker(string Key, int WaitLockTimeoutSecond, Action Func)
-    {
+    public static bool GetLocker(string Key, int WaitLockTimeoutSecond, Action Func) {
         int DBIndex = 0;
         string XMLPath = "Global:Transaction:" + Key;
         StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient(DBIndex);

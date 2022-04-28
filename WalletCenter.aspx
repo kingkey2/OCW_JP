@@ -133,7 +133,7 @@
                                 <div class="img-crop"><img src="images/assets/walletcenter.png"></div>
                             </div> -->
                             <div class="basic-info">
-                                <div class="name"><span class="language_replace">錢包中心</div>
+                                <div class="name"><span class="language_replace">錢包中心</span></div>
                             </div>
                         </div>
                         <div class="wallet">
