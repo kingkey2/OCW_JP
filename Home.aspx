@@ -1,4 +1,5 @@
 <%@ Page Language="C#" %>
+
 <%
     int RValue;
     string Token;
@@ -12,14 +13,13 @@
     RValue = R.Next(100000, 9999999);
     Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
     Result = LobbyAPI.GetCompanyMarqueeText(Token, Guid.NewGuid().ToString());
-    if (Result.Result == EWin.Lobby.enumResult.OK)
-    {
+    if (Result.Result == EWin.Lobby.enumResult.OK) {
         MarqueeText = Result.Message;
     }
 %>
 
 <!doctype html>
-<html lang="zh-Hant-TW" class="innerHtml" >
+<html lang="zh-Hant-TW" class="innerHtml">
 
 <head>
     <meta charset="UTF-8">
@@ -143,22 +143,22 @@
         {
             GameName: "89",
             GameBrand: "PG",
-            Description:"最高32400のマルチウェイ！最高倍率はなんと10万倍だ！熱い！"
+            Description: "最高32400のマルチウェイ！最高倍率はなんと10万倍だ！熱い！"
         },
         {
             GameName: "125",
             GameBrand: "PG",
-            Description:"最高勝利金5万倍！蝶がもたらす効果は嫌いな人も好きにさせてしまうはず！"
+            Description: "最高勝利金5万倍！蝶がもたらす効果は嫌いな人も好きにさせてしまうはず！"
         },
         {
             GameName: "AzurLaneEX",
             GameBrand: "CG",
-            Description:"戦艦マニアにはたまらないグラフスロット。ドカンと一発！！"
+            Description: "戦艦マニアにはたまらないグラフスロット。ドカンと一発！！"
         }
     ];
 
     function init() {
-       
+
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
@@ -211,7 +211,7 @@
                             c.setClassText(RecordDom, "CreateDate", null, date);
                             c.setClassText(RecordDom, "BulletinTitle", null, record.BulletinTitle);
 
-                            RecordDom.onclick = new Function("alert('" + record.BulletinContent + "')");
+                            RecordDom.onclick = new Function("window.parent.showMessageOK('','" + record.BulletinContent + "')");
 
                             ParentMain.appendChild(RecordDom);
 
@@ -260,7 +260,7 @@
     window.onload = init;
 
 </script>
-<body class="innerBody"  style="height:auto">
+<body class="innerBody" style="height: auto">
     <main>
         <section class="section-wrap hero">
 
@@ -271,8 +271,8 @@
                         <div class="hero-item">
                             <a class="hero-item-link" href="#"></a>
                             <div class="img-wrap">
-                                   <img src="images/games/hero/hero-11.jpg" class="desktop bg">
-                                   <img src="images/games/hero/hero-11-m.jpg" class="mobile bg">
+                                <img src="images/games/hero/hero-11.jpg" class="desktop bg">
+                                <img src="images/games/hero/hero-11-m.jpg" class="mobile bg">
                             </div>
                         </div>
                     </div>
@@ -285,7 +285,7 @@
                                     <img src="images/games/hero/OpenBonusDeposit-20220331.jpg" class="desktop bg">
                                     <img src="images/games/hero/OpenBonusDeposit-20220331-m.jpg" class="mobile bg">
                                 </div>
-                            </a>   
+                            </a>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -302,15 +302,15 @@
                         <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
                         <div class="hero-item">
                             <a class="hero-item-link" href="#"></a>
-                             <a onclick="window.parent.API_LoadPage('OpenIntroBonus_03012022', '/Activity/OpenIntroBonus_03012022/index.html')">
+                            <a onclick="window.parent.API_LoadPage('OpenIntroBonus_03012022', '/Activity/OpenIntroBonus_03012022/index.html')">
                                 <div class="img-wrap">
-                                     <img src="images/games/hero/OpenIntroBonus-11.jpg" class="desktop bg">
+                                    <img src="images/games/hero/OpenIntroBonus-11.jpg" class="desktop bg">
                                     <img src="images/games/hero/OpenIntroBonus-11-m.jpg" class="mobile bg">
                                 </div>
-                             </a>  
+                            </a>
                         </div>
                     </div>
-                       <div class="swiper-slide">
+                    <div class="swiper-slide">
                         <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
                         <div class="hero-item">
                             <a class="hero-item-link" href="#"></a>
@@ -341,7 +341,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="publicize_wrapper publicize_bottom">
+                <div class="publicize_wrapper publicize_bottom" onclick="window.parent.API_LoadPage('instructions-crypto','instructions-crypto.html')">
                     <div class="publicize_bottom_inner">
                         <div class="publicize-wrap way_payment">
                             <div class="item payment">
@@ -351,22 +351,22 @@
                         <div class="publicize-wrap bulletin-login">
                             <div class="item bulletin">
                                 <div class="bulletin_inner">
-                                    <h2 class="title">重要な新しい情報</h1>
-                    <ul class="bulletin_list" id="idBulletinBoardContent">
-                        <li class="item">
-                            <span class="date">2022.4.16</span>
-                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
-                        </li>
-                        <li class="item">
-                            <span class="date">2022.4.16</span>
-                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
-                        </li>
-                        <li class="item">
-                            <span class="date">2022.4.16</span>
-                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
-                        </li>
+                                    <h2 class="title">重要な新しい情報</h2>
+                                    <ul class="bulletin_list" id="idBulletinBoardContent">
+                                        <li class="item">
+                                            <span class="date">2022.4.16</span>
+                                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
+                                        </li>
+                                        <li class="item">
+                                            <span class="date">2022.4.16</span>
+                                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
+                                        </li>
+                                        <li class="item">
+                                            <span class="date">2022.4.16</span>
+                                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
+                                        </li>
 
-                    </ul>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="item login">
@@ -814,14 +814,14 @@
 
 
         <div class="tmpModel">
-                 <div id="idTempBulletinBoard" style="display:none;">
-                    <div>
-                      <li class="item">
-                            <span class="date CreateDate"></span>
-                            <span class="info BulletinTitle"></span>
-                       </li>
-                    </div>
+            <div id="idTempBulletinBoard" style="display: none;">
+                <div>
+                    <li class="item">
+                        <span class="date CreateDate"></span>
+                        <span class="info BulletinTitle"></span>
+                    </li>
                 </div>
+            </div>
         </div>
     </main>
 </body>
