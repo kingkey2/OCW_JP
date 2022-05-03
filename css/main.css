@@ -4,14 +4,14 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 @font-face {
-  font-family: "svg-font";
-  src: url("fonts/svg-font.eot");
-  src: url("fonts/svg-font.eot?#iefix") format("embedded-opentype"), url("fonts/svg-font.woff") format("woff"), url("fonts/svg-font.ttf") format("truetype"), url("fonts/svg-font.svg#svg-font") format("svg");
+  font-family: "maharaja";
+  src: url("fonts/maharaja.eot");
+  src: url("fonts/maharaja.eot?#iefix") format("embedded-opentype"), url("fonts/maharaja.woff") format("woff"), url("fonts/maharaja.ttf") format("truetype"), url("fonts/maharaja.svg#maharaja") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 [data-icon]:before {
-  font-family: "svg-font" !important;
+  font-family: "maharaja" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -25,7 +25,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 [class^=icon-]:before,
 [class*=" icon-"]:before {
-  font-family: "svg-font" !important;
+  font-family: "maharaja" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -36,1472 +36,134 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-torso-business:before {
-  content: "l";
-}
-
-.icon-megaphone:before {
-  content: "m";
-}
-
-.icon-ico-circle:before {
-  content: "q";
-}
-
-.icon-ico-clip:before {
-  content: "r";
-}
-
-.icon-ico-cloudform:before {
-  content: "s";
-}
-
-.icon-ico-coin:before {
-  content: "t";
-}
-
-.icon-ico-cycle:before {
-  content: "u";
-}
-
-.icon-ico-earth:before {
-  content: "v";
-}
-
-.icon-ico-gift:before {
-  content: "w";
-}
-
-.icon-ico-goleft:before {
-  content: "x";
-}
-
-.icon-ico-goright:before {
-  content: "y";
-}
-
-.icon-ico-history:before {
-  content: "z";
-}
-
-.icon-ico-lock:before {
-  content: "A";
-}
-
-.icon-ico-login:before {
-  content: "B";
-}
-
-.icon-ico-logo-flash:before {
-  content: "C";
-}
-
-.icon-ico-logo-html5:before {
-  content: "D";
-}
-
-.icon-ico-logout:before {
-  content: "E";
-}
-
-.icon-ico-luggage:before {
-  content: "F";
-}
-
-.icon-ico-mail:before {
-  content: "G";
-}
-
-.icon-ico-mark-blc:before {
-  content: "H";
-}
-
-.icon-ico-mark-godown:before {
-  content: "I";
-}
-
-.icon-ico-mark-goup:before {
-  content: "J";
-}
-
-.icon-ico-more-type:before {
-  content: "K";
-}
-
-.icon-ico-more-type-l:before {
-  content: "L";
-}
-
-.icon-ico-orders:before {
-  content: "M";
-}
-
-.icon-ico-pause:before {
-  content: "N";
-}
-
-.icon-ico-play:before {
-  content: "O";
-}
-
-.icon-ico-plus:before {
-  content: "P";
-}
-
-.icon-ico-poker:before {
-  content: "Q";
-}
-
-.icon-ico-qrcode:before {
-  content: "R";
-}
-
-.icon-ico-ringing:before {
-  content: "S";
-}
-
-.icon-ico-road-a:before {
-  content: "T";
-}
-
-.icon-ico-selected:before {
-  content: "U";
-}
-
-.icon-ico-service:before {
-  content: "V";
-}
-
-.icon-ico-setting:before {
-  content: "W";
-}
-
-.icon-ico-slot:before {
-  content: "X";
-}
-
-.icon-ico-sound-off:before {
-  content: "Y";
-}
-
-.icon-ico-sound-on:before {
-  content: "Z";
-}
-
-.icon-ico-statistics:before {
-  content: "0";
-}
-
-.icon-ico-tablelist:before {
-  content: "1";
-}
-
-.icon-ico-tag:before {
-  content: "2";
-}
-
-.icon-ico-talking:before {
-  content: "3";
-}
-
-.icon-ico-wallet:before {
-  content: "4";
-}
-
-.icon-ico-cashout:before {
-  content: "5";
-}
-
-.icon-ico-check:before {
-  content: "6";
-}
-
-.icon-ico-chip:before {
-  content: "7";
-}
-
-.icon-ico-home:before {
-  content: "8";
-}
-
-.icon-ico-language:before {
-  content: "9";
-}
-
-.icon-ico-location:before {
-  content: "!";
-}
-
-.icon-ico-mark-higher:before {
-  content: '"';
-}
-
-.icon-ico-mark-lower:before {
-  content: "#";
-}
-
-.icon-ico-menu:before {
-  content: "$";
-}
-
-.icon-ico-road-b:before {
-  content: "%";
-}
-
-.icon-ico-road-c:before {
-  content: "&";
-}
-
-.icon-ico-schedule:before {
-  content: "'";
-}
-
-.icon-ico-tutorial:before {
-  content: "(";
-}
-
-.icon-ico-tv:before {
-  content: ")";
-}
-
-.icon-ico-unlock:before {
-  content: "*";
-}
-
-.icon-icon-topup:before {
-  content: "+";
-}
-
-.icon-icon-spades:before {
-  content: ",";
-}
-
-.icon-icon-ship:before {
-  content: "-";
-}
-
-.icon-icon-priceoff:before {
-  content: ".";
-}
-
-.icon-icon-clubs:before {
-  content: "/";
-}
-
-.icon-icon-diamonds:before {
-  content: ":";
-}
-
-.icon-icon-hearts:before {
-  content: "b";
-}
-
-.icon-home:before {
-  content: ";";
-}
-
-.icon-calendar:before {
-  content: "<";
-}
-
-.icon-calendar-check-o:before {
-  content: "=";
-}
-
-.icon-calendar-minus-o:before {
-  content: ">";
-}
-
-.icon-calendar-o:before {
-  content: "?";
-}
-
-.icon-calendar-plus-o:before {
-  content: "@";
-}
-
-.icon-calendar-times-o:before {
-  content: "[";
-}
-
-.icon-diamond:before {
-  content: "]";
-}
-
-.icon-spinner:before {
-  content: "^";
-}
-
-.icon-tag:before {
-  content: "_";
-}
-
-.icon-tags:before {
-  content: "`";
-}
-
-.icon-tasks:before {
-  content: "{";
-}
-
-.icon-globe:before {
-  content: "|";
-}
-
-.icon-gift:before {
-  content: "}";
-}
-
-.icon-icon-logo:before {
-  content: "~";
-}
-
-.icon-icon-map:before {
-  content: "\\";
-}
-
-.icon-icon-news:before {
-  content: "";
-}
-
-.icon-icon-poker:before {
-  content: "";
-}
-
-.icon-reply:before {
-  content: "";
-}
-
-.icon-reply-all:before {
-  content: "";
-}
-
-.icon-ico-form-3x:before {
-  content: "";
-}
-
-.icon-ico-form-6x:before {
-  content: "";
-}
-
-.icon-ico-form-9x:before {
-  content: "";
-}
-
-.icon-ico-fishing:before {
-  content: "";
-}
-
-.icon-ico-sport:before {
-  content: "";
-}
-
-.icon-film:before {
-  content: "";
-}
-
-.icon-gamepad:before {
-  content: "";
-}
-
-.icon-futbol-o:before {
-  content: "";
-}
-
-.icon-heart:before {
-  content: "";
+.icon-heart-f:before {
+  content: "a";
 }
 
 .icon-heart-o:before {
-  content: "";
-}
-
-.icon-paper-plane:before {
-  content: "";
-}
-
-.icon-paper-plane-o:before {
-  content: "";
-}
-
-.icon-music:before {
-  content: "";
-}
-
-.icon-rocket:before {
-  content: "";
-}
-
-.icon-star:before {
-  content: "";
-}
-
-.icon-star-o:before {
-  content: "";
-}
-
-.icon-weixin:before {
-  content: "";
-}
-
-.icon-whatsapp:before {
-  content: "";
-}
-
-.icon-weibo:before {
-  content: "";
-}
-
-.icon-qq:before {
-  content: "";
-}
-
-.icon-ipad:before {
-  content: "";
-}
-
-.icon-ipad-2:before {
-  content: "";
-}
-
-.icon-laptop:before {
-  content: "";
-}
-
-.icon-phone-3:before {
-  content: "";
-}
-
-.icon-phone-2:before {
-  content: "";
-}
-
-.icon-screen:before {
-  content: "";
-}
-
-.icon-sort-amount-asc:before {
-  content: "";
-}
-
-.icon-sort-amount-desc:before {
-  content: "";
-}
-
-.icon-sort-numeric-asc:before {
-  content: "";
-}
-
-.icon-sort-numeric-desc:before {
-  content: "";
-}
-
-.icon-ico-account:before {
-  content: "a";
-}
-
-.icon-ico-add:before {
-  content: "c";
-}
-
-.icon-ico-alarm:before {
-  content: "d";
-}
-
-.icon-ico-arrow-down:before {
-  content: "e";
-}
-
-.icon-ico-arrow-left:before {
-  content: "f";
-}
-
-.icon-ico-arrow-right:before {
-  content: "g";
-}
-
-.icon-ico-arrow-up:before {
-  content: "h";
-}
-
-.icon-ico-back:before {
-  content: "i";
-}
-
-.icon-ico-btnico-higher:before {
-  content: "j";
-}
-
-.icon-ico-btnico-lower:before {
-  content: "k";
-}
-
-.icon-ico-calendar:before {
-  content: "n";
-}
-
-.icon-ico-cancel:before {
-  content: "o";
-}
-
-.icon-ico-card:before {
-  content: "p";
-}
-
-.icon-ico-roadmap-bigr:before {
-  content: "";
-}
-
-.icon-ico-roadmap-smlr:before {
-  content: "";
-}
-
-.icon-alert:before {
-  content: "";
-}
-
-.icon-credit-card:before {
-  content: "";
-}
-
-.icon-dashboard:before {
-  content: "";
-}
-
-.icon-flame:before {
-  content: "";
-}
-
-.icon-zap:before {
-  content: "";
-}
-
-.icon-clipboard-notes:before {
-  content: "";
-}
-
-.icon-trophy:before {
-  content: "";
-}
-
-.icon-traffic-cone:before {
-  content: "";
-}
-
-.icon-diamond-1:before {
-  content: "";
-}
-
-/* START OF 2020-10 ADD ================================*/
-@font-face {
-  font-family: "svg-font-2020-10";
-  src: url("fonts/svg-font-2020-10.eot");
-  src: url("fonts/svg-font-2020-10.eot?#iefix") format("embedded-opentype"), url("fonts/svg-font-2020-10.woff") format("woff"), url("fonts/svg-font-2020-10.ttf") format("truetype"), url("fonts/svg-font-2020-10.svg#svg-font-2020-10") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-[class^=icon2020-]:before,
-[class*=icon2020-]:before {
-  font-family: "svg-font-2020-10" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-[data-icon2020]:before {
-  font-family: "svg-font-2020-10" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon2020-ico-cycle:before {
-  content: "d";
-}
-
-.icon2020-ico-slot-large:before {
-  content: "c";
-}
-
-.icon2020-ico-slot-large-2:before {
-  content: "a";
-}
-
-.icon2020-ico-poker-large-2:before {
   content: "b";
 }
 
-.icon2020-ico-qrcode:before, .icon-ewin-default-myQrCode:before {
+.icon-fish-2:before {
+  content: "c";
+}
+
+.icon-fish-1:before {
+  content: "d";
+}
+
+.icon-crypto-jkc:before {
   content: "e";
 }
 
-.icon2020-ico-files-o:before, .icon-ewin-default-copy:before {
+.icon-logo-eth-o:before {
   content: "f";
 }
 
-.icon2020-ico-download:before {
+.icon-logo-hln:before {
   content: "g";
 }
 
-.icon2020-ico-coin-btc:before {
+.icon-logo-omi:before {
   content: "h";
 }
 
-.icon2020-ico-coin-o:before {
+.icon-linear-chart-2:before {
   content: "i";
 }
 
-.icon2020-ico-coin-ustd:before {
+.icon-linear-chart-1:before {
   content: "j";
 }
 
-.icon2020-ico-download-o:before {
+.icon-thumup:before {
   content: "k";
 }
 
-.icon2020-ico-exchange:before {
+.icon-poker:before {
   content: "l";
 }
 
-.icon2020-issue-opened-o:before {
+.icon-newspaper:before {
   content: "m";
 }
 
-.icon2020-ico-info-o:before {
+.icon-mail:before {
   content: "n";
 }
 
-.icon2020-bitcoin:before {
+.icon-magazine:before {
   content: "o";
 }
 
-.icon2020-ico-info:before {
+.icon-logo-usdt:before {
   content: "p";
 }
 
-.icon2020-information-circle:before {
+.icon-logo-usdc:before {
   content: "q";
 }
 
-.icon2020-information:before {
+.icon-refresh:before {
   content: "r";
 }
 
-.icon2020-long-arrow-alt-right-solid:before {
+.icon-smartphone:before {
   content: "s";
 }
 
-.icon2020-long-arrow-alt-left-solid:before {
+.icon-question-outline:before {
   content: "t";
 }
 
-.icon2020-calendar:before {
+.icon-american-football:before {
   content: "u";
 }
 
-.icon2020-calendar-check-o:before {
+.icon-football:before {
   content: "v";
 }
 
-.icon2020-calendar-plus-o:before {
-  content: "y";
-}
-
-.icon2020-calendar-times-o:before {
-  content: "z";
-}
-
-.icon2020-calendar-minus-o:before {
+.icon-time-is-money:before {
   content: "w";
 }
 
-.icon2020-clock-o:before {
-  content: "A";
-}
-
-.icon2020-calendar-o:before {
+.icon-money-flow:before {
   content: "x";
 }
 
-.icon2020-torsos-all:before {
+.icon-ewin-user:before {
+  content: "y";
+}
+
+.icon-ewin-user-add:before {
+  content: "z";
+}
+
+.icon-ewin-trash:before {
+  content: "A";
+}
+
+.icon-ewin-user-list:before {
   content: "B";
 }
 
-.icon2020-members:before {
+.icon-ewin-user-multi-add:before {
   content: "C";
 }
 
-.icon2020-coin:before, .icon-ewin-input-cryptoPayout:before {
-  content: "F";
-}
-
-.icon2020-ico-cloudform:before {
-  content: "G";
-}
-
-.icon2020-ico-chip:before {
-  content: "H";
-}
-
-.icon2020-ico-poker:before, .icon-ewin-default-betStatus:before {
-  content: "I";
-}
-
-.icon2020-ico-statistics:before {
-  content: "J";
-}
-
-.icon2020-ico-talking:before {
-  content: "K";
-}
-
-.icon2020-ico-arrow-down:before {
-  content: "M";
-}
-
-.icon2020-ico-arrow-left:before {
-  content: "N";
-}
-
-.icon2020-ico-arrow-right:before {
-  content: "O";
-}
-
-.icon2020-ico-arrow-up:before {
-  content: "P";
-}
-
-.icon2020-ico-back:before {
-  content: "Q";
-}
-
-.icon2020-ico-btnico-higher:before {
-  content: "R";
-}
-
-.icon2020-ico-btnico-lower:before {
-  content: "S";
-}
-
-.icon2020-ico-cancel:before, .icon-ewin-input-reset:before, .icon-ewin-input-cancel:before, .icon-ewin-default-cancel:before {
+.icon-ewin-user-multi-exchange-1:before {
   content: "D";
 }
 
-.icon2020-ico-selected:before {
+.icon-ewin-user-setting:before {
   content: "E";
 }
 
-.icon2020-check:before {
-  content: "T";
+.icon-icon-ewin-user-multi:before {
+  content: "F";
 }
 
-.icon2020-chevron-down:before {
-  content: "U";
-}
-
-.icon2020-chevron-left:before {
-  content: "V";
-}
-
-.icon2020-chevron-right:before {
-  content: "W";
-}
-
-.icon2020-chevron-up:before {
-  content: "X";
-}
-
-.icon2020-ico-goright:before, .icon-ewin-input-compress:before, .icon-ewin-input-arrow-left:before, .icon-ewin-default-arrow-left:before {
-  content: "Z";
-}
-
-.icon2020-ico-goleft:before, .icon-ewin-input-arrow-right:before, .icon-ewin-default-arrow-right:before {
-  content: "0";
-}
-
-.icon2020-ico-poker-large:before {
-  content: "1";
-}
-
-.icon2020-home-o:before {
-  content: "2";
-}
-
-.icon2020-ico-arrowleft:before {
-  content: "3";
-}
-
-.icon2020-ico-wallet:before, .status-deactive .icon-ewin-default-walletStatus:before, .status-active .icon-ewin-default-walletStatus:before, .icon-ewin-tab-wallet:before {
-  content: "L";
-}
-
-.icon2020-ico-account:before, .icon-ewin-tab-account:before {
-  content: "6";
-}
-
-.icon2020-ico-more-type:before {
-  content: "5";
-}
-
-.icon2020-ico-more-type-l:before {
-  content: "8";
-}
-
-.icon2020-ico-slot:before {
-  content: "9";
-}
-
-.icon2020-pencil-1:before {
-  content: '"';
-}
-
-.icon2020-pencil-2:before {
-  content: "#";
-}
-
-.icon2020-database-streamline:before {
-  content: "!";
-}
-
-.icon2020-coins-o:before {
-  content: "$";
-}
-
-.icon2020-ico-plus:before {
-  content: "%";
-}
-
-.icon2020-ico-unlock:before {
-  content: "&";
-}
-
-.icon2020-ico-lock:before, .icon-ewin-default-walletPassword:before {
-  content: "'";
-}
-
-.icon2020-arrow-right:before {
-  content: "(";
-}
-
-.icon2020-arrow-left:before {
-  content: ")";
-}
-
-.icon2020-page-export:before, .icon-ewin-input-submit:before, .icon-ewin-default-submit:before {
-  content: "*";
-}
-
-.icon2020-sign-out:before {
-  content: "+";
-}
-
-.icon2020-share-square-o:before {
-  content: ",";
-}
-
-.icon2020-plus-square-o:before {
-  content: "-";
-}
-
-.icon2020-ico-login:before {
-  content: ".";
-}
-
-.icon2020-ico-cashout:before {
-  content: "/";
-}
-
-.icon2020-ico-logout:before {
-  content: ";";
-}
-
-.icon2020-login:before {
-  content: "<";
-}
-
-.icon2020-logout:before {
-  content: "=";
-}
-
-.icon2020-ico-orders:before {
-  content: ">";
-}
-
-.icon2020-money-check:before {
-  content: "?";
-}
-
-.icon2020-money-transfer:before {
-  content: "@";
-}
-
-.icon2020-ico-card:before {
-  content: "[";
-}
-
-.icon2020-ico-check:before {
-  content: "]";
-}
-
-.icon2020-ico-ringing:before {
-  content: "^";
-}
-
-.icon2020-ico-mail:before {
-  content: "_";
-}
-
-.icon2020-ico-location:before {
-  content: "`";
-}
-
-.icon2020-icon-ship:before {
-  content: "{";
-}
-
-.icon2020-icon-topup:before {
-  content: "|";
-}
-
-.icon2020-id-card:before {
-  content: "}";
-}
-
-.icon2020-currency-exchange:before, .icon-ewin-default-paymentSystem:before, .icon-ewin-default-cashOutStatus:before {
-  content: "~";
-}
-
-.icon2020-name:before, .icon-ewin-default-accountNickname:before {
-  content: "\\";
-}
-
-.icon2020-businessman:before, .icon-ewin-default-accountName-s:before {
-  content: "";
-}
-
-.icon2020-ico-service:before {
-  content: "";
-}
-
-.icon2020-settings-streamline-1:before {
-  content: "";
-}
-
-.icon2020-add-user:before {
-  content: "";
-}
-
-.icon2020-followers:before {
-  content: "";
-}
-
-.icon2020-headset:before, .icon-ewin-default-callCenter:before {
-  content: "";
-}
-
-.icon2020-user:before, .icon-ewin-default-account:before {
-  content: "4";
-}
-
-.icon2020-user-o:before {
-  content: "";
-}
-
-.icon2020-user-o-check:before, .icon-ewin-default-accountStatus-s:before, .icon-ewin-default-accountStatus:before {
-  content: "";
-}
-
-.icon2020-money-flow:before {
-  content: "";
-}
-
-.icon2020-ico-setting:before {
-  content: "";
-}
-
-.icon2020-ico-schedule:before {
-  content: "";
-}
-
-.icon2020-ico-menu:before {
-  content: "";
-}
-
-.icon2020-ico-language:before {
-  content: "";
-}
-
-.icon2020-ico-history:before {
-  content: "";
-}
-
-.icon2020-ico-gift:before {
-  content: "";
-}
-
-.icon2020-ico-luggage:before {
-  content: "";
-}
-
-.icon2020-ico-sound-off:before {
-  content: "";
-}
-
-.icon2020-ico-sound-on:before {
-  content: "";
-}
-
-.icon2020-ico-tutorial:before {
-  content: "";
-}
-
-.icon2020-ico-add:before {
-  content: "";
-}
-
-.icon2020-money-bag:before {
-  content: "";
-}
-
-.icon2020-stock-exchange-app:before {
-  content: "";
-}
-
-.icon2020-casino-chip:before {
-  content: "";
-}
-
-.icon2020-pie-chart:before {
-  content: "";
-}
-
-.icon2020-pie-chart-o:before {
-  content: "";
-}
-
-.icon2020-pie-chart-o-2:before {
-  content: "";
-}
-
-.icon2020-money:before {
-  content: "";
-}
-
-.icon2020-user-o-delete:before {
-  content: "";
-}
-
-.icon2020-piggy-bank:before {
-  content: "";
-}
-
-.icon2020-profit:before {
-  content: "";
-}
-
-.icon2020-loan:before {
-  content: "";
-}
-
-.icon2020-devaluation:before {
-  content: "";
-}
-
-.icon2020-diamond:before {
-  content: "";
-}
-
-.icon2020-dollar-1:before {
-  content: "";
-}
-
-.icon2020-dollar-coin:before {
-  content: "";
-}
-
-.icon2020-writing:before {
-  content: "Y";
-}
-
-.icon2020-teamwork:before {
-  content: "";
-}
-
-.icon2020-user-setting:before, .icon-ewin-default-accountType:before {
-  content: "";
-}
-
-.icon2020-boss:before {
-  content: "";
-}
-
-.icon2020-add-group:before {
-  content: "";
-}
-
-.icon2020-cloud:before, .icon-ewin-default-cryptoWalletAdress:before {
-  content: "";
-}
-
-.icon2020-exchange-rate:before {
-  content: "";
-}
-
-.icon2020-contract:before {
-  content: "";
-}
-
-.icon2020-money-bag-calu:before {
-  content: "7";
-}
-
-.icon2020-telephone:before {
-  content: "";
-}
-
-.icon2020-time-is-money:before {
-  content: "";
-}
-
-.icon2020-chat:before {
-  content: "";
-}
-
-.icon2020-secretary:before {
-  content: "";
-}
-
-.icon2020-skills:before {
-  content: "";
-}
-
-.icon2020-add-user-1:before {
-  content: "";
-}
-
-.icon2020-group:before {
-  content: "";
-}
-
-.icon2020-lock:before {
-  content: "";
-}
-
-.icon2020-lock-open:before {
-  content: "";
-}
-
-.icon2020-money-o:before {
-  content: "";
-}
-
-.icon2020-coin-1:before {
-  content: "";
-}
-
-.icon2020-coins:before {
-  content: "";
-}
-
-.icon2020-casino-chip-2:before {
-  content: "";
-}
-
-.icon2020-casino-chip-o:before {
-  content: "";
-}
-
-.icon2020-diamond-o:before {
-  content: "";
-}
-
-.icon2020-pencil:before {
-  content: "";
-}
-
-.icon2020-call-phone-outline:before, .icon-ewin-default-accounCellphone:before {
-  content: "";
-}
-
-.icon2020-call-phone:before {
-  content: "";
-}
-
-.icon2020-trash-bin:before, .icon-ewin-default-trash:before {
-  content: "";
-}
-
-.icon2020-trash-bin-2:before {
-  content: "";
-}
-
-.icon2020-mobile-phone:before {
-  content: "";
-}
-
-.icon2020-ios-location-outline:before {
-  content: "";
-}
-
-.icon2020-mail-letter-outline:before {
-  content: "";
-}
-
-.icon2020-mail-letter-2:before {
-  content: "";
-}
-
-.icon2020-call-phone-1:before {
-  content: "";
-}
-
-.icon2020-calendar-1:before {
-  content: "";
-}
-
-.icon2020-cloud-download:before {
-  content: "";
-}
-
-.icon2020-cloud-upload:before {
-  content: "";
-}
-
-.icon2020-document:before {
-  content: "";
-}
-
-.icon2020-database:before {
-  content: "";
-}
-
-.icon2020-user-1:before {
-  content: ":";
-}
-
-.icon2020-user-edit:before {
-  content: "";
-}
-
-.icon2020-pencil-3:before, .icon-ewin-input-note:before, .icon-ewin-default-notebook:before, .icon-ewin-default-note:before {
-  content: "";
-}
-
-.icon2020-login-1:before, .icon-ewin-default-accountPassword:before {
-  content: "";
-}
-
-.icon2020-photo-camera:before {
-  content: "";
-}
-
-.icon2020-browser:before {
-  content: "";
-}
-
-.icon2020-pencil-4:before {
-  content: "";
-}
-
-.icon2020-dollar:before {
-  content: "";
-}
-
-.icon2020-icon-member-plus:before {
-  content: "";
-}
-
-.icon2020-screen-shut:before, .icon-ewin-input-snapShot:before {
-  content: "";
-}
-
-.icon2020-remove:before {
-  content: "";
-}
-
-.icon2020-remove-delete:before {
-  content: "";
-}
-
-.icon2020-remove-delete-two:before {
-  content: "";
-}
-
-.icon2020-check-mark-3:before {
-  content: "";
-}
-
-.icon2020-check-mark:before {
-  content: "";
-}
-
-.icon2020-arrows-compress:before {
-  content: "";
-}
-
-.icon2020-angle-double-left:before {
-  content: "";
-}
-
-.icon2020-angle-double-right:before {
-  content: "";
-}
-
-.icon2020-chevron-down-1:before {
-  content: "";
-}
-
-.icon2020-chevron-left-1:before {
-  content: "";
-}
-
-.icon2020-chevron-right-1:before {
-  content: "";
-}
-
-.icon2020-chevron-up-1:before {
-  content: "";
-}
-
-.icon2020-alignment-align:before {
-  content: "";
-}
-
-.icon2020-resize-small:before {
-  content: "";
-}
-
-.icon2020-resize-full:before {
-  content: "";
-}
-
-.icon2020-maximize:before {
-  content: "";
-}
-
-.icon2020-alignment-aligned-to:before {
-  content: "";
-}
-
-.icon2020-arrow-left-1:before {
-  content: "";
-}
-
-.icon2020-arrow-small-left:before {
-  content: "";
-}
-
-.icon2020-move-left:before {
-  content: "";
-}
-
-.icon2020-icon-x:before {
-  content: "";
-}
-
-.icon2020-compose:before {
-  content: "";
-}
-
-.icon2020-resize-arrow-downresize-arrow-down:before {
-  content: "";
-}
-
-.icon2020-resize-arrow-up:before {
-  content: "";
-}
-
-.icon2020-arrows-in:before {
-  content: "";
-}
-
-.icon2020-arrows-out:before {
-  content: "";
-}
-
-.icon2020-arrows-expand:before {
-  content: "";
-}
-
-.icon2020-reply-all:before {
-  content: "";
-}
-
-.icon2020-reply-mail:before {
-  content: "";
-}
-
-.icon2020-credit-card-2:before, .icon-ewin-default-addcard:before, .icon-ewin-default-mycard:before, .icon-ewin-default-card:before {
-  content: "";
-}
-
-.icon2020-bank:before, .icon-ewin-default-bank:before {
-  content: "";
-}
-
-.icon2020-trash:before {
-  content: "";
-}
-
-.icon2020-trash-full:before {
-  content: "";
-}
-
-.icon2020-wallet:before, .icon-ewin-default-walletType:before, .icon-ewin-default-walletStatus:before {
-  content: "";
-}
-
-.icon2020-ewin-assisant:before, .icon-ewin-default-n-assisant:before {
-  content: "";
-}
-
-.icon2020-ewin-assisant-add:before, .icon-ewin-default-n-assisant-add:before {
-  content: "";
-}
-
-.icon2020-ewin-trash:before, .icon-ewin-input-delete:before {
-  content: "";
-}
-
-.icon2020-ewin-user:before, .icon-ewin-default-n-user:before {
-  content: "";
-}
-
-.icon2020-ewin-user-add:before, .icon-ewin-default-n-user-add:before {
-  content: "";
-}
-
-.icon2020-ewin-user-list:before {
-  content: "";
-}
-
-.icon2020-icon-ewin-user-multi:before, .icon-ewin-default-n-user-multi:before {
-  content: "";
-}
-
-.icon2020-ewin-user-multi-add:before, .icon-ewin-default-n-user-multi-add:before {
-  content: "";
-}
-
-.icon2020-ewin-user-multi-exchange:before, .icon-ewin-input-user-multi-exchange:before, .icon-ewin-default-n-user-multi-exchange:before {
-  content: "";
-}
-
-.icon2020-ewin-user-setting:before {
-  content: "";
-}
-
-/* END OF 2020-10 ADD ================================*/
 [class^=icon-ewin]:before,
 [class*=icon-ewin]:before {
   font-family: "svg-font-2020-10" !important;
@@ -1515,223 +177,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-ewin-input-chip {
-  font-size: 1.25rem;
-}
-.icon-ewin-input-chip:before {
-  content: "H";
-}
-
-.icon-ewin-default-user:before {
-  content: "6";
-}
-
-.icon-ewin-default-user-s:before {
-  content: "4";
-}
-
-.icon-ewin-default-downlineuser:before {
-  content: "4";
-}
-
-.icon-ewin-default-accountPassword {
-  font-size: 0.9375rem;
-}
-
-.icon-ewin-default-walletPassword {
-  font-size: 0.9375rem;
-}
-
-.icon-ewin-default-accounCellphone {
-  font-size: 1rem;
-}
-
-/* 帳戶狀態 - small- 預設啟用 下線列表頁 */
-.icon-ewin-default-coin:before {
-  content: "F";
-}
-
-.icon-ewin-default-betValid:before {
-  content: "";
-}
-
-.icon-ewin-default-betDetail:before {
-  content: "I";
-}
-
-.icon-ewin-default-settleAccount:before {
-  content: "F";
-}
-
-.icon-ewin-default-downlineMember:before {
-  content: "C";
-}
-
-.icon-ewin-default-coin-o:before {
-  content: "i";
-}
-
-.icon-ewin-default-account {
-  font-size: 0.75rem;
-}
-
-.icon-ewin-default-transitionType:before {
-  content: "";
-}
-
-.icon-ewin-default-currencyType:before {
-  content: "i";
-}
-
-.icon-ewin-default-betyType:before {
-  content: "I";
-}
-
-.icon-ewin-default-amount:before {
-  content: "";
-}
-
-.icon-ewin-default-betAmount:before {
-  content: "";
-}
-
-.icon-ewin-default-betResult:before {
-  content: "I";
-}
-
-.icon-ewin-default-betResultPlayer:before {
-  content: "I";
-}
-
-.icon-ewin-default-betResultBanker:before {
-  content: "I";
-}
-
-.icon-ewin-default-balance:before {
-  content: "7";
-}
-
-.icon-ewin-default-totalWinLose:before {
-  content: "";
-}
-
-.icon-ewin-default-totalRolling:before {
-  content: "H";
-}
-
-.icon-ewin-default-accountWinLose:before {
-  content: "";
-}
-
-.icon-ewin-default-accountRolling:before {
-  content: "H";
-}
-
-.icon-ewin-default-accounting:before {
-  content: "";
-}
-
-.icon-ewin-default-commission:before {
-  content: "";
-}
-
-.icon-ewin-default-downlineWalletAmount:before {
-  content: "7";
-}
-
-.icon-ewin-default-periodWinLose:before {
-  content: "";
-}
-
-.icon-ewin-default-periodRolling:before {
-  content: "";
-}
-
-.icon-ewin-default-periodRolling:before {
-  content: "";
-}
-
-.icon-ewin-default-toast-arrow {
-  font-size: 0.75rem;
-}
-.icon-ewin-default-toast-arrow:before {
-  content: "(";
-}
-
-.icon-ewin-default-note {
-  font-size: 12px;
-  transform: rotateY(-180deg);
-}
-
-.icon-ewin-default-notebook {
-  font-size: 12px;
-  transform: rotateY(-180deg);
-}
-
-.icon-ewin-input-downlineMember {
-  font-size: 1.25rem;
-}
-.icon-ewin-input-downlineMember:before {
-  content: "C";
-}
-
-.icon-ewin-input-user-multi-exchange {
-  font-size: 1.3125rem;
-}
-
-.icon-ewin-input-delete {
-  font-size: 0.9375rem;
-}
-
-.icon-ewin-input-settleAccount:before {
-  content: "F";
-}
-
-.icon-ewin-input-cashOut:before {
-  content: "F";
-}
-
-.icon-ewin-input-betDetail {
-  font-size: 1rem;
-}
-.icon-ewin-input-betDetail:before {
-  content: "I";
-}
-
-.icon-ewin-input-chip {
-  font-size: 1.25rem;
-}
-.icon-ewin-input-chip:before {
-  content: "H";
-}
-
-.icon-ewin-input-edit, .icon-ewin-input-setUserAccountType {
-  font-size: 0.875rem;
-}
-.icon-ewin-input-edit:before, .icon-ewin-input-setUserAccountType:before {
-  content: '"';
-}
-
-.icon-ewin-input-accountEdit {
-  font-size: 0.875rem;
-}
-.icon-ewin-input-accountEdit:before {
-  content: '"';
-}
-
-.icon-ewin-input-accountDeactive:before {
-  content: "";
-}
-
-.icon-ewin-input-transfer:before {
-  content: "@";
-}
-
-.icon-ewin-input-wallet:before {
-  content: "L";
-}
-
-/* 開牌截圖 */
 html,
 body {
   font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, Microsoft JhengHei, "Noto Sans TC", "Segoe UI", Roboto, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -1850,7 +295,6 @@ body.mainBody {
 }
 body.innerBody {
   overflow: auto;
-  overflow: hidden;
   -webkit-overflow-scrolling: touch;
 }
 body.innerBody.fixed {
@@ -2167,7 +611,7 @@ textarea:focus, input:focus, button:focus, select:focus {
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
-  color: #e3c38d;
+  color: #0199de;
   font-size: 1.5625rem;
 }
 .top-badge-box.abs-right {
@@ -2211,9 +655,6 @@ textarea:focus, input:focus, button:focus, select:focus {
   border-width: 2px 2px 0 0;
   border-radius: 2px;
   margin: 0 0 0 5px;
-}
-.downline-link .icon2020-pencil-1 {
-  font-size: 0.9375rem;
 }
 .status-active,
 .status-deactive {
@@ -3110,10 +1551,7 @@ hr.line {
   padding-bottom: calc(0px + constant(safe-area-inset-bottom));
   padding-bottom: calc(0px + env(safe-area-inset-bottom));
   overflow-y: auto;
-  background-color: #3e4359;
-  background-color: #ffffff;
-  /* Old browsers */
-  background: linear-gradient(0deg, #ffffff, #ffffff);
+  background-color: #45C5FF;
   z-index: 3;
   box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.38);
   transition: all 0.3s ease;
@@ -4405,7 +2843,7 @@ i {
     display: none;
   }
   .MT__table .thead .thead__th {
-    background-color: rgba(227, 195, 141, 0.8);
+    background-color: rgba(1, 153, 222, 0.8);
   }
   .MT__table .tbody .tbody__tr:nth-child(2n) {
     background-color: rgba(0, 0, 0, 0.2);
@@ -5763,6 +4201,7 @@ i {
   object-fit: cover;
   object-position: center top;
   width: 100%;
+  height: 100%;
 }
 .hero_slider .role {
   position: absolute;
@@ -5793,7 +4232,7 @@ i {
   bottom: 20%;
 }
 .hero_slider .swiper-mask {
-  background: url(../../Images/index/hero-mask.svg) center bottom no-repeat;
+  /*background: url(../../Images/index/hero-mask.svg) center bottom no-repeat;*/
   width: 100%;
   height: 100%;
   position: absolute;
@@ -5808,7 +4247,7 @@ i {
 }
 .hero_slider .swiper-slide-active .img-wrap:before {
   content: "";
-  background: url(../../Images/index/hero-mask.svg) center bottom no-repeat;
+  /*background: url(../../Images/index/hero-mask.svg) center bottom no-repeat;*/
   width: 100%;
   height: 100%;
   position: absolute;
@@ -5845,6 +4284,56 @@ i {
   transform: scale(1.2);
 }
 
+.hero_slider_lobby {
+  position: relative;
+}
+.hero_slider_lobby .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero_slider_lobby .img-wrap {
+  position: relative;
+  padding-bottom: 420px;
+  overflow: hidden;
+}
+.hero_slider_lobby .img-wrap img.bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: center top;
+  width: 100%;
+  height: 100%;
+}
+.hero_slider_lobby .swiper-slide-active {
+  z-index: 2;
+}
+.hero_slider_lobby .swiper-pagination {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.hero_slider_lobby .swiper-pagination-bullet {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+  opacity: 1;
+  background-color: #fff;
+  border: solid 3px #008fd0;
+  transition: all 0.3s ease-in;
+  transform: scale(1);
+  overflow: hidden;
+}
+.hero_slider_lobby .swiper-pagination-bullet-active {
+  transform: scale(1.2);
+}
+
 .sec_title_container {
   display: flex;
   justify-content: space-between;
@@ -5862,44 +4351,35 @@ i {
   font-size: 0.8125rem;
 }
 
+.section-levelUp {
+  position: relative;
+  padding-bottom: 30px;
+}
+.section-levelUp:hover {
+  z-index: 99;
+}
+
+.game-area.overflow-hidden {
+  overflow-x: hidden;
+  padding-bottom: 160px;
+}
+
 .game_wrapper {
   margin-bottom: 20px;
 }
 
-.game_slider {
-  overflow: hidden;
+.game-item {
+  transition: all 0.35s ease;
 }
-.game_slider .game-item {
-  margin-right: 10px;
+.game-item-img {
+  position: relative;
+  z-index: 1;
 }
-.game_slider .img-wrap {
-  border-radius: 15px;
-}
-.game_slider .swiper-button-next {
-  background-color: #A445B2;
-}
-.game_slider.round-arrow .swiper-button-next {
-  right: 0;
-  width: 36px;
-  height: 36px;
-  color: #fff;
-  border-radius: 100%;
-  box-shadow: 0 0 10px rgba(137, 153, 167, 0.5);
-  background: linear-gradient(270deg, #009FE8 5.1%, #4FC8FF 106.12%);
-}
-.game_slider.round-arrow .swiper-button-next::after {
-  font-size: 15px;
-}
-
 .game-item-inner {
   position: relative;
-  overflow: hidden;
 }
 .game-item-inner:hover .game-item-link::after {
   opacity: 1;
-}
-.game-item-inner:hover .game-item-info-hidden {
-  transform: translateY(-100%);
 }
 .game-item .img-wrap {
   position: relative;
@@ -5920,6 +4400,44 @@ i {
   object-position: center;
   width: 100%;
   height: 100%;
+}
+.game-item-info-hidden {
+  transition: all 0.35s linear;
+}
+.game-item-info {
+  transition: all 0.35s linear;
+  padding-top: 0.5rem;
+}
+.game-item-name {
+  font-size: 0.9375rem;
+}
+.game-item-like {
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 3;
+}
+.game-item-link {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+.game-item-link::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
+  transition: all 0.35s ease-in-out;
+  opacity: 0;
+  z-index: 2;
 }
 .game-item.label-new .img-wrap:before, .game-item.label-hot .img-wrap:after {
   position: absolute;
@@ -5951,76 +4469,145 @@ i {
 .game-item.label-new.label-hot .img-wrap:after {
   top: 42px;
 }
-.game-item-info-hidden {
-  position: absolute;
-  left: 0;
+
+.game_slider .game-item {
+  margin-right: 15px;
+}
+.game_slider .img-wrap {
+  border-radius: 15px;
+  background-color: #031d4b;
+}
+.game_slider .swiper-button-next {
+  background-color: #A445B2;
+}
+.game_slider.round-arrow .swiper-button-next {
   right: 0;
-  width: 90%;
-  height: 100%;
-  margin: 0 auto;
-  text-align: center;
-  display: inline-flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.35s ease-in-out;
-  transform: translateY(0%);
-  z-index: 2;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 0 10px rgba(137, 153, 167, 0.5);
+  background: linear-gradient(270deg, #009FE8 5.1%, #4FC8FF 106.12%);
 }
-.game-item-info {
-  margin-top: 10px;
+.game_slider.round-arrow .swiper-button-next::after {
+  font-size: 15px;
 }
-.game-item-name {
-  font-size: 1rem;
-}
-@media only screen and (max-width: 450px) {
-  .game-item-name {
-    font-size: 0.84375rem;
-  }
-}
-.game-item-btn .btn {
+.game_slider .btn {
   border-radius: 50px;
   padding: 10px 20px;
 }
-.game-item-like {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 3;
+.game_slider .btn-play {
+  width: 100%;
+  font-size: 16px !important;
 }
-.game-item-like .btn {
-  width: 35px;
-  height: 35px;
-  background: rgba(0, 0, 0, 0.65);
+.game_slider .swiper-slide {
+  transition: all 0.35s linear;
+}
+.game_slider.gameinfo-hover .btn {
+  padding: 5px 10px;
+}
+.game_slider.gameinfo-hover .game-item-inner {
+  background-color: #fff;
+  border-radius: 15px;
+}
+.game_slider.gameinfo-hover .game-item-info {
+  position: absolute;
+  padding: 0.5rem;
+  width: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: calc( 100% - 15px);
+  padding-top: 25px;
+  pointer-events: none;
+}
+.game_slider.gameinfo-hover .game-item-info-hidden {
+  opacity: 0;
+}
+.game_slider.gameinfo-hover .game-item-info-inner {
+  transform-origin: left top;
+}
+.game_slider.gameinfo-hover .game-item-name {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+.game_slider.gameinfo-hover .swiper-slide:hover {
+  transform: scale(1.3, 1.3);
+  z-index: 99;
+}
+.game_slider.gameinfo-hover .swiper-slide:hover .game-item-info {
+  background-color: #fff;
+  pointer-events: auto;
+}
+.game_slider.gameinfo-hover .swiper-slide:hover .game-item-name {
+  font-size: 16px;
+}
+.game_slider.gameinfo-hover .swiper-slide:hover .game-item .btn {
+  font-size: 12px;
+}
+.game_slider.gameinfo-hover .swiper-slide:hover .game-item-info-hidden {
+  height: auto;
+  opacity: 1;
+}
+.game_slider.gameinfo-hover .btn {
   color: #fff;
 }
-.game-item-like .btn:hover {
+.game_slider.gameinfo-hover .btn.btn-round, .game_slider.gameinfo-hover .btn.btn-more {
+  background: rgba(0, 0, 0, 0.65);
+}
+.game_slider.gameinfo-hover .btn.btn-round {
+  width: 30px;
+  height: 30px;
+}
+.game_slider.gameinfo-hover .btn:hover {
   background: rgba(255, 255, 255, 0.85);
   color: red;
 }
-.game-item-link {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  cursor: pointer;
-  z-index: 2;
+.game_slider.gameinfo-hover .top {
+  margin-bottom: 0.5rem;
 }
-.game-item-link::after {
-  content: "";
-  position: absolute;
+.game_slider.gameinfo-hover .bottom {
+  margin-bottom: 0.5rem;
+}
+.game_slider.swiper-cover {
+  padding-bottom: 100px;
+}
+.game_slider.swiper-cover .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 350px;
+  height: 350px;
+  -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0%, transparent 85%, rgba(0, 0, 0, 0.555) 100%);
+}
+.game_slider.swiper-cover .swiper-slide img {
   width: 100%;
-  height: 100%;
+}
+.game_slider.swiper-cover .game-item {
+  margin: 0;
+}
+.game_slider.swiper-cover .game-item-info {
+  position: absolute;
+  bottom: -50px;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.75);
-  border-radius: 8px;
-  transition: all 0.35s ease-in-out;
-  opacity: 0;
-  z-index: 2;
+  text-align: center;
+}
+.game_slider.swiper-cover .game-item-name {
+  font-size: 1.25rem;
+}
+
+.section_randomRem {
+  background: linear-gradient(180deg, #1B1B1B 0%, #464646 100%);
+  color: #fff;
+  padding: 70px 0;
+}
+.section_randomRem .swiper-cover {
+  padding-bottom: 100px;
+}
+.section_randomRem .sec_title_container {
+  justify-content: center;
+  margin-bottom: 70px;
 }
 
 .game-item-group {
@@ -6046,6 +4633,30 @@ i {
 }
 .game-item-group .game-item:hover:before {
   opacity: 1;
+}
+
+.triangle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-left: 2px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+.triangle:after {
+  display: block;
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 8.7px;
+  border-color: transparent transparent transparent #067eff;
+  transition: all 0.3s ease;
 }
 
 @keyframes anim-role_left {
@@ -6129,9 +4740,9 @@ i {
 }
 
 .btn-full-main {
-  color: #3e4359;
-  background-color: #e3c38d;
-  border-color: #e3c38d;
+  color: white;
+  background-color: #0199DE;
+  border-color: #0199DE;
 }
 .btn-full-main:disabled {
   background: rgba(255, 255, 255, 0.3);
@@ -6139,9 +4750,9 @@ i {
   border-color: rgba(165, 159, 159, 0.2);
 }
 .btn-full-main:not(:disabled):hover {
-  color: #3e4359;
-  background-color: #d9ad64;
-  border-color: #d4a350;
+  color: white;
+  background-color: #0176ab;
+  border-color: #016592;
 }
 .btn-full-main:focus {
   box-shadow: none;
@@ -6150,7 +4761,7 @@ i {
 .btn-outline-main {
   color: rgba(255, 255, 255, 0.8);
   background-color: transparent;
-  border-color: #e3c38d;
+  border-color: #0199de;
 }
 .btn-outline-main:disabled {
   background: rgba(255, 255, 255, 0.3);
@@ -6158,9 +4769,9 @@ i {
   border-color: rgba(165, 159, 159, 0.2);
 }
 .btn-outline-main:not(:disabled):hover {
-  color: #3e4359;
-  background-color: #e3c38d;
-  border-color: #e3c38d;
+  color: white;
+  background-color: #0199DE;
+  border-color: #0199DE;
 }
 .btn-outline-main:focus {
   box-shadow: none;
@@ -6177,16 +4788,16 @@ i {
   border-color: rgba(165, 159, 159, 0.2);
 }
 .btn-full-sub:not(:disabled):hover {
-  color: #3e4359;
-  background-color: #e3c38d;
-  border-color: #e3c38d;
+  color: white;
+  background-color: #0199DE;
+  border-color: #0199DE;
 }
 .btn-full-sub:focus {
   box-shadow: none;
 }
 
 .btn-transparent {
-  color: rgba(227, 195, 141, 0.8);
+  color: rgba(1, 153, 222, 0.8);
   background-color: transparent;
   border-color: transparent;
 }
@@ -6196,7 +4807,7 @@ i {
   border-color: rgba(165, 159, 159, 0.2);
 }
 .btn-transparent:not(:disabled):hover {
-  color: rgba(227, 195, 141, 0.8);
+  color: rgba(1, 153, 222, 0.8);
   background-color: transparent;
   border-color: transparent;
 }
@@ -6210,7 +4821,7 @@ i {
   opacity: 0;
 }
 .custom-control-input-hidden:checked ~ .custom-control-label::before {
-  color: #e3c38d;
+  color: #0199de;
   background: #007bff linear-gradient(180deg, #268fff, #007bff) repeat-x;
 }
 .custom-control-input-hidden:focus ~ .custom-control-label::before {
@@ -6362,8 +4973,8 @@ i {
   left: -1.55rem;
 }
 .custom-checkboxValue .custom-control-input-hidden:checked ~ [class*=checkbox]::before {
-  background: #e3c38d;
-  border-color: #e3c38d;
+  background: #0199de;
+  border-color: #0199de;
 }
 .custom-checkboxValue .custom-control-input-hidden:checked ~ [class*=checkbox]::after {
   color: black;
@@ -6418,7 +5029,7 @@ i {
   }
 }
 .custom-checkboxSwitchValue .custom-control-input-hidden:checked ~ .toggle-button::after {
-  background-color: #e3c38d;
+  background-color: #0199DE;
   transform: translateX(1.25rem);
 }
 .custom-checkboxSwitchValue .custom-control-input-hidden:disabled ~ .toggle-button {
@@ -6441,13 +5052,13 @@ i {
 .custom-radio .custom-control-input-hidden:checked ~ .custom-control-label::after {
   background-image: none;
   background-color: transparent;
-  background-color: #e3c38d;
+  background-color: #0199de;
   transform: scale(0.6);
   border-radius: 50%;
 }
 .custom-radio .custom-control-input:focus ~ .custom-control-label::before,
 .custom-radio .custom-control-input-hidden:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 1px white, 0 0 0 0.1rem #e3c38d;
+  box-shadow: 0 0 0 1px white, 0 0 0 0.1rem #0199de;
 }
 .custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before,
 .custom-radio .custom-control-input-hidden:disabled:checked ~ .custom-control-label::before {
@@ -6463,11 +5074,11 @@ i {
   background: transparent;
 }
 .custom-radio-check .custom-control-input-hidden:checked ~ .custom-control-label {
-  color: #e3c38d;
+  color: #0199de;
 }
 .custom-radio-check .custom-control-input-hidden:checked ~ .custom-control-label::before {
-  background: #e3c38d;
-  border-color: #e3c38d;
+  background: #0199de;
+  border-color: #0199de;
 }
 .custom-radio-check .custom-control-input-hidden:checked ~ .custom-control-label::after {
   background-image: url(../Images/theme/dark/icon/icon_check_dark.svg);
@@ -6485,11 +5096,11 @@ i {
   color: rgba(255, 255, 255, 0.6);
 }
 .custom-radioValue .custom-control-input-hidden:checked ~ .radio-button::after {
-  background-color: #e3c38d;
+  background-color: #0199de;
   transform: scale(0.6);
 }
 .custom-radioValue .custom-control-input-hidden:focus ~ .radio-button::before {
-  box-shadow: 0 0 0 1px white, 0 0 0 0.1rem #e3c38d;
+  box-shadow: 0 0 0 1px white, 0 0 0 0.1rem #0199de;
 }
 .custom-radioValue .custom-control-input-hidden:disabled ~ .radio-button {
   color: #6c757d;
@@ -6502,11 +5113,11 @@ i {
   color: rgba(255, 255, 255, 0.6);
 }
 .custom-radioValue-check .custom-control-input-hidden:checked ~ .radio-button {
-  color: #e3c38d;
+  color: #0199de;
 }
 .custom-radioValue-check .custom-control-input-hidden:checked ~ .radio-button::before {
-  background: #e3c38d;
-  border-color: #e3c38d;
+  background: #0199de;
+  border-color: #0199de;
 }
 .custom-radioValue-check .custom-control-input-hidden:checked ~ .radio-button::after {
   background-image: url(../Images/theme/dark/icon/icon_check_dark.svg);
@@ -6591,8 +5202,8 @@ i {
 }
 .custom-radioValue-button .custom-control-input-hidden:checked ~ .radio-button {
   color: #ffffff;
-  background-color: #9c8866;
-  border-color: #9c8866;
+  background-color: #45c5ff;
+  border-color: #45c5ff;
   background: linear-gradient(120deg, #d3b485, #c1a678, #aa916b);
 }
 .custom-radioValue-button .custom-control-input-hidden:checked ~ .radio-button .icon-circle {
@@ -6607,7 +5218,7 @@ i {
   background-color: white;
 }
 .custom-radioValue-button .custom-control-input-hidden:checked ~ .radio-button .iconCheck::before, .custom-radioValue-button .custom-control-input-hidden:checked ~ .radio-button .iconCheck::after {
-  background-color: #9c8866;
+  background-color: #45c5ff;
 }
 .custom-radioValue-button .custom-control-input-hidden:focus ~ .radio-button::before {
   box-shadow: none;
@@ -6619,7 +5230,7 @@ i {
   cursor: pointer;
 }
 .custom-radioValue-button:hover .radio-button {
-  border-color: #e3c38d;
+  border-color: #0199de;
   color: white;
   box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.58);
   background-color: rgba(0, 0, 0, 0.12);
@@ -6629,8 +5240,8 @@ i {
   background: linear-gradient(80deg, rgba(193, 166, 120, 0.8), #c1a678);
 }
 .custom-radioValue-button:hover .radio-button::before {
-  background-color: #9c8866;
-  border-color: #9c8866;
+  background-color: #45c5ff;
+  border-color: #45c5ff;
 }
 .custom-radioValue-button:hover .radio-button .iconCheck::before, .custom-radioValue-button:hover .radio-button .iconCheck::after {
   background-color: white;
@@ -6691,7 +5302,7 @@ i {
 .custom-radioValue-button-bigGlory .custom-control-input-hidden:checked ~ .radio-button {
   color: #ffffff;
   background-color: linear-gradient(90deg, #1f2027, #181a22);
-  border-color: #9c8866;
+  border-color: #45c5ff;
   background: linear-gradient(90deg, #1f2027, #181a22);
 }
 .custom-radioValue-button-bigGlory .custom-control-input-hidden:focus ~ .radio-button::before {
@@ -6927,12 +5538,12 @@ select:-webkit-autofill:focus {
   background-color: rgba(255, 255, 255, 0.1);
 }
 .form-control:hover {
-  box-shadow: inset 0 0 0 1px rgba(227, 195, 141, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(1, 153, 222, 0.7);
 }
 .form-control:focus {
   color: #fff;
   border-color: transparent;
-  box-shadow: inset 0 0 0 0.2rem rgba(227, 195, 141, 0.7);
+  box-shadow: inset 0 0 0 0.2rem rgba(1, 153, 222, 0.7);
   background-color: transparent;
 }
 .form-control::placeholder {
@@ -6974,7 +5585,7 @@ select:-webkit-autofill:focus {
   top: -10px;
   padding-top: 0;
   font-size: 0.75rem;
-  color: rgba(227, 195, 141, 0.65);
+  color: rgba(1, 153, 222, 0.65);
 }
 .form-control:focus ~ .form-label[class*=ico-before-]:before, .form-control:required:valid ~ .form-label[class*=ico-before-]:before, .form-control:optional:focus ~ .form-label[class*=ico-before-]:before, .form-control:optional:not(:placeholder-shown) ~ .form-label[class*=ico-before-]:before {
   opacity: 0.8;
@@ -7196,14 +5807,14 @@ select:-webkit-autofill:focus {
   box-shadow: unset;
 }
 .form-control-underline .form-control:required, .form-control-underline .form-control:optional {
-  background-image: linear-gradient(rgba(227, 195, 141, 0.7), rgba(227, 195, 141, 0.7)), linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) !important;
+  background-image: linear-gradient(rgba(1, 153, 222, 0.7), rgba(1, 153, 222, 0.7)), linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) !important;
   background-size: 0 1px, 100% 1px;
   background-repeat: no-repeat;
   background-position: center bottom, center calc(100% - 1px);
   transition: background 0s ease-out;
 }
 .form-control-underline .form-control:focus, .form-control-underline .form-control:required:valid, .form-control-underline .form-control:optional:focus, .form-control-underline .form-control:optional:not(:placeholder-shown) {
-  background-image: linear-gradient(rgba(227, 195, 141, 0.7), rgba(227, 195, 141, 0.7)), linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45));
+  background-image: linear-gradient(rgba(1, 153, 222, 0.7), rgba(1, 153, 222, 0.7)), linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45));
   background-size: 100% 1px, 100% 0px;
   transition-duration: 0.3s;
 }
@@ -7211,7 +5822,7 @@ select:-webkit-autofill:focus {
   background-color: transparent !important;
   -webkit-transition: background-color 5000s ease-in-out 0s !important;
   transition: background-color 5000s ease-in-out 0s !important;
-  border-bottom: solid 1px rgba(227, 195, 141, 0.7);
+  border-bottom: solid 1px rgba(1, 153, 222, 0.7);
 }
 .form-control-underline .form-control.error:required, .form-control-underline .form-control.error:optional {
   background-image: linear-gradient(rgba(204, 204, 204, 0.9), rgba(204, 204, 204, 0.9)), linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)) !important;
@@ -7273,7 +5884,7 @@ select:-webkit-autofill:focus {
 }
 .form-control-underline.custom-select-js .select-items .select-item:hover,
 .form-control-underline.custom-select-js .select-items.same-as-selected {
-  background-color: #e3c38d;
+  background-color: #0199DE;
   color: #262936;
 }
 .form-control-underline .custom-select {
@@ -7570,7 +6181,7 @@ select:-webkit-autofill:focus {
   margin: 0 auto;
   height: 1px;
   border-radius: 4px;
-  background-color: rgba(227, 195, 141, 0.7);
+  background-color: rgba(1, 153, 222, 0.7);
   bottom: -10px;
   transition: transform, 0.4s, ease;
   transform-origin: center top;
@@ -8425,7 +7036,6 @@ select:-webkit-autofill:focus {
     padding: 0 10px;
   }
 }
-
 @media (min-width: 992px) {
   .last-step-execute {
     position: absolute;
@@ -8439,7 +7049,6 @@ select:-webkit-autofill:focus {
 .btnBitLimit {
   margin-right: 6px;
 }
-
 @media (max-width: 639.98px) {
   .btnBitLimit {
     order: 2;
