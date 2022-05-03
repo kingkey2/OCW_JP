@@ -352,10 +352,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="publicize_wrapper publicize_bottom" onclick="window.parent.API_LoadPage('instructions-crypto','instructions-crypto.html')">
+                <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
                         <div class="publicize-wrap way_payment">
-                            <div class="item payment">
+                            <div class="item payment" onclick="window.parent.API_LoadPage('instructions-crypto','instructions-crypto.html')">
                                 <img src="images/index/way-payment.png" alt="">
                             </div>
                         </div>
@@ -364,19 +364,6 @@
                                 <div class="bulletin_inner">
                                     <h2 class="title">重要な新しい情報</h2>
                                     <ul class="bulletin_list" id="idBulletinBoardContent">
-                                        <li class="item">
-                                            <span class="date">2022.4.16</span>
-                                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
-                                        </li>
-                                        <li class="item">
-                                            <span class="date">2022.4.16</span>
-                                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
-                                        </li>
-                                        <li class="item">
-                                            <span class="date">2022.4.16</span>
-                                            <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
-                                        </li>
-
                                     </ul>
                                 </div>
                             </div>

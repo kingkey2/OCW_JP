@@ -1566,6 +1566,22 @@
         //resize();
     }
 
+    //openFullSearch
+    function openFullSearch(e) {
+        var header_SearchFull = document.getElementById("header_SearchFull");
+        header_SearchFull.classList.add("open");
+    }
+
+     //openFullSearch
+    function closeFullSearch(e) {
+
+        var header_SearchFull = document.getElementById("header_SearchFull");
+
+        if (header_SearchFull.classList.contains("open")) {
+            header_SearchFull.classList.remove("open");
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -1575,7 +1591,7 @@
             <!-- class="navbar-expand-xl" trigger hidden -->
             <nav class="navbar">
                 <!-- TOP Search-->
-                <div class="search-full">
+                <div class="search-full" id="header_SearchFull">
                     <div class="container-fluid">
                         <form class="search__wrapper">
                             <div class="form-group-search search-plusbutton">
@@ -1584,7 +1600,7 @@
                                 <div class="btn btnSearch"><span class="language_replace">搜尋</span></div>
                                 <button type="reset" class="btn btnReset"><i class="icon icon-ewin-input-reset"></i></button>
                             </div>
-                            <span class="btn btn__closefullsearch"><i class="icon icon-ewin-input-compress"></i></span>
+                            <span class="btn btn__closefullsearch"   onclick="closeFullSearch(this)"><i class="icon icon-ewin-input-compress"></i></span>
                         </form>
                     </div>
                 </div>
@@ -1651,7 +1667,7 @@
                                 <ul class="nav">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
-                                        <a href="#" class="btn btn-round nav-link" role="button" onclick="openFullSearch(this)">
+                                        <a class="btn btn-round nav-link" role="button" onclick="openFullSearch(this)">
                                             <i class="icon icon-mask icon-search"></i></a>
                                     </li>
                                     <!-- ==== 登入前 ====-->
@@ -1684,7 +1700,7 @@
                                             </li>
                                             <!-- User -->
                                             <li class="nav-item submenu dropdown">
-                                                <a href="#" class="btn btn-round nav-link btnDropDown avater_wrapper"
+                                                <a class="btn btn-round nav-link btnDropDown avater_wrapper"
                                                     data-toggle="dropdown" role="button" aria-haspopup="true"
                                                     aria-expanded="false" id="dropdown_navbar_Member">
                                                     <span class="avater">
@@ -1711,7 +1727,7 @@
 
                                     <!-- 語系 -->
                                     <li class="nav-item submenu dropdown">
-                                        <a href="#" onclick="dataToggleDropdown(this)"
+                                        <a onclick="dataToggleDropdown(this)"
                                             class="btn btn-round nav-link btnDropDown"
                                             data-toggle="dropdown" role="button" aria-haspopup="true"
                                             aria-expanded="false" id="dropdown_navbar_Lang">
