@@ -4232,7 +4232,7 @@ i {
   bottom: 20%;
 }
 .hero_slider .swiper-mask {
-  background: url(../../Images/index/hero-mask.svg) center bottom no-repeat;
+  /*background: url(../../Images/index/hero-mask.svg) center bottom no-repeat;*/
   width: 100%;
   height: 100%;
   position: absolute;
@@ -4247,7 +4247,7 @@ i {
 }
 .hero_slider .swiper-slide-active .img-wrap:before {
   content: "";
-  background: url(../../Images/index/hero-mask.svg) center bottom no-repeat;
+  /*background: url(../../Images/index/hero-mask.svg) center bottom no-repeat;*/
   width: 100%;
   height: 100%;
   position: absolute;
@@ -7062,59 +7062,3 @@ select:-webkit-autofill:focus {
     max-width: 360px;
   }
 }
-
-.is-hide {
-    display: none !important;
-}
-/* modal */
-.modal-header {
-    padding: 0.5em 1.5rem 0.5em;
-    border: 0;
-}
-
-    .modal-header .close {
-        margin-right: -1.25em;
-        padding: 0.5em;
-    }
-
-.modal-body {
-    padding: 0 1.5em;
-}
-
-.modal-body-content {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    display: flex;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    padding: 0 0 0.5em;
-}
-
-    .modal-body-content i {
-        -ms-flex-item-align: start;
-        align-self: flex-start;
-        margin: 0 0.25em 0 0;
-        -ms-flex-negative: 0;
-        flex-shrink: 0;
-    }
-
-    .modal-body-content .text-wrap p {
-        margin: 0;
-    }
-
-    .modal-body-content + .modal-body-content {
-        margin: 0.5em 0 0;
-        padding: 1em 0 0.5em;
-        border-top: 1px solid rgba(44, 45, 58, 0.1);
-    }
-
-.modal-footer {
-    border: 0;
-    padding: 0.5em 1.5em 1.5em;
-}
-
-    .modal-footer .btn-container .btn {
-        margin: 0 0.25em;
-    }
