@@ -1601,7 +1601,8 @@
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" href="UserAccount_Edit_MySelf.html" target="mainiframe">
+
+                                        <a class="nav-link" onclick="API_LoadPage('Casino', 'Casino.aspx?Category=Live')">
                                             <i class="icon icon-mask icon-ewin-user"></i>
                                             <span class="title language_replace">賭場</span></a>
                                     </li>
