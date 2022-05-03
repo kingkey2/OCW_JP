@@ -1677,7 +1677,7 @@
                                                             <img src="images/ico/coin-Ocoin.png" alt="">
                                                         </span>
                                                         <span class="balance-info">
-                                                            <span class="amount">999,999</span>
+                                                            <span class="amount">0</span>
                                                         </span>
                                                     </span>
                                                 </span>
