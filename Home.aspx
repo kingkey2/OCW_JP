@@ -84,7 +84,6 @@
     //temp
     var HotSlot = [
         {
-
             GameName: "blackjack-us",
             GameBrand: "PG"
         },
