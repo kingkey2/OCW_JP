@@ -10,13 +10,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maharaja</title>
-    <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="Scripts/vendor/swiper/css/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/lobby.css">
+<link href="css/basic.min.css" rel="stylesheet" />
+    <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/lobby.css" rel="stylesheet" />
+  <!--===========JS========-->
+    <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>--%>
+    <%--<script type="text/javascript" src="/Scripts/UIControl.js"></script>--%>
+    <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
+    <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
+    <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+    <script src="Scripts/theme.js"></script>
 
 </head>
-<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
+<%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
@@ -25,7 +35,7 @@
 <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
-<script src="Scripts/theme.js"></script>
+<script src="Scripts/theme.js"></script>--%>
 <%--<script src="Scripts/OutSrc/js/games.js"></script>--%>
     
 
@@ -33,8 +43,8 @@
     if (self != top) {
         window.parent.API_LoadingStart();
     }
-    var ui = new uiControl();
-    var c = new common();
+    //var ui = new uiControl();
+    //var c = new common();
     var mlp;
     var sumask;
     var Webinfo;
@@ -347,7 +357,7 @@
 <body class="innerBody">
   <main>
     <section class="section-wrap hero">      
-        <div class="hero_slider_lobby swiper-container swiper_container round-arrow" id="hero-slider-lobby">      
+        <div class="hero_slider_lobby  swiper_container round-arrow" id="hero-slider-lobby">      
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
@@ -416,7 +426,7 @@
                     <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                 </div>
                 </div>
-                <div class="game_slider swiper-container swiper_container gameinfo-hover round-arrow" id="idGameItemGroup">
+                <div class="game_slider swiper_container gameinfo-hover round-arrow" id="idGameItemGroup">
                     <div class="swiper-wrapper" id="idGameItemGroupContent">
                  
                     </div>
@@ -433,7 +443,7 @@
                     <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                 </div>
                 </div>
-                <div class="game_slider swiper-container swiper_container gameinfo-hover round-arrow" id="lobbyGame-2">
+                <div class="game_slider swiper_container gameinfo-hover round-arrow" id="lobbyGame-2">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="game-item">
@@ -654,7 +664,7 @@
                     <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                 </div>
                 </div>
-                <div class="game_slider swiper-container swiper_container gameinfo-hover round-arrow" id="lobbyGame-3">
+                <div class="game_slider swiper_container gameinfo-hover round-arrow" id="lobbyGame-3">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="game-item">
