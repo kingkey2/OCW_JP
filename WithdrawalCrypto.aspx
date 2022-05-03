@@ -33,8 +33,6 @@
 <script type="text/javascript" src="/Scripts/DateExtension.js"></script>
 <%--<script src="Scripts/OutSrc/js/wallet.js"></script>--%>
 <script>      
-    //4/1關閉出入金
-    window.location.href = "index.aspx";
     if (self != top) {
         window.parent.API_LoadingStart();
     }

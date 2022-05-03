@@ -136,6 +136,7 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -339,13 +340,15 @@
             if (type && type == 1) {
 
             } else {
-                document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
+                //document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
             }
         }
         $('.loader-backdrop').addClass('is-show');
         $('.loader-container').fadeOut(250, function () {
             $('.iframe-container').addClass('is-show');
         });
+
+        resize();
     }
 
     function API_OpenGameCode(gameBrand, gameName) {
@@ -433,9 +436,9 @@
                 //loadingStart();
                 //上一頁針對iframe的問題，只能將loading的function都放於頁面中
                 //API_LoadingStart(); 
+                IFramePage.style.height = "0px";
                 IFramePage.src = url;
                 //IFramePage.
-
             }
 
         }
@@ -664,6 +667,38 @@
                 }
                 divMessageBoxContent.innerHTML = message;
             }
+        }
+    }
+
+    function showPartialHtml(title, pathName, isNeedLang, cbOK) {
+        var realPath;
+        var divMessageBox = document.getElementById("alertPartialHtml");
+        var divMessageBoxOKButton = divMessageBox.querySelector(".alertPartialHtml_OK");
+        var divMessageBoxTitle = divMessageBox.querySelector(".alertPartialHtml_Title");
+        var divMessageBoxContent = divMessageBox.querySelector(".alertPartialHtml_Content");
+        var modal = new bootstrap.Modal(divMessageBox);
+
+        if (isNeedLang) {
+            realPath = pathName + "_" + EWinWebInfo.Lang + ".html";
+        } else {
+            realPath = pathName + ".html";
+        }
+
+        if (divMessageBox != null) {
+            if (divMessageBoxOKButton != null) {
+                divMessageBoxOKButton.onclick = function () {
+                    divMessageBoxContent.innerHTML = "";
+                    modal.hide();
+
+                    if (cbOK != null)
+                        cbOK();
+                }
+            }
+
+            divMessageBoxTitle.innerHTML = title;
+            $(divMessageBoxContent).load(realPath);
+
+            modal.toggle();
         }
     }
 
@@ -1112,27 +1147,6 @@
         //document.getElementById("idLangText").innerText = LangText;
         if (isReload) {
             setLanguage(Lang);
-
-            if (document.getElementById("IFramePage").contentDocument) {
-                let k = document.getElementById("IFramePage").contentDocument;
-
-                if (Lang == "ENG") {
-                    k.getElementById("Footer_PrivacyPolicy").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'KnowYourCustomer_ENG', false, null)");
-                    k.getElementById("Footer_Rules").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'Terms&Conditions_ENG', false, null)");
-                    k.getElementById("Footer_About").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'ResponsibleGambling_ENG', false, null)");
-                    $("#li_HotArticle").hide();
-                    $("#li_RegisterActivityReceive").hide();
-                    k.getElementById("Footer_HotArticle").setAttribute("style", "display:none");
-                } else {
-                    k.getElementById("Footer_PrivacyPolicy").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)");
-                    k.getElementById("Footer_Rules").setAttribute("onclick", "window.parent.API_ShowPartialHtml('', 'Rules', true, null)");
-                    k.getElementById("Footer_About").setAttribute("onclick", "window.parent.API_LoadPage('About','About.html')");
-                    $("#li_HotArticle").show();
-                    $("#li_RegisterActivityReceive").show();
-                    k.getElementById("Footer_HotArticle").setAttribute("style", "");
-                }
-            }
-
         }
 
         if (EWinWebInfo.Lang == "ENG") {
@@ -1367,7 +1381,7 @@
             let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
             let iframeheight = $("#IFramePage").height();
 
-            if (iframeheight != iframebodyheight && iframebodyheight!=0) {
+            if (iframeheight != iframebodyheight) {
                 $("#IFramePage").height(iframebodyheight);
             }
         }
@@ -1376,7 +1390,7 @@
     function init() {
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
-
+       
         if (window.localStorage.getItem("Lang")) {
             EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         }
@@ -1612,7 +1626,7 @@
                                 </ul>
                               </li>                   -->
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
-                                <a class="nav-link" onclick="LogOut()">
+                                <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
                                     <i class="icon icon-mask icon-ewin-logout"></i>
                                     <span class="language_replace" langkey="登出">登出</span></a>
@@ -1622,10 +1636,10 @@
                     <!-- 頂部 NavBar -->
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
-                        <div class="header_leftWrapper navbar-nav">
+                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Home','Home.aspx')">
                             <div class="logo">
                                 <div class="img-wrap">
-                                    <a href="">
+                                    <a>
                                         <img src="images/logo.svg" alt=""></a>
                                 </div>
                             </div>
@@ -1641,33 +1655,30 @@
                                             <i class="icon icon-mask icon-search"></i></a>
                                     </li>
                                     <!-- ==== 登入前 ====-->
-                                    <li class="nav-item unLogIn_wrapper ">
+                                    <li class="nav-item unLogIn_wrapper " id="idLoginBtn">
                                         <ul class="horiz-list">
-                                            <li class="login" id="idLoginBtn">
+                                            <li class="login">
                                                 <button class="btn btn-full-main" type="button" onclick="onBtnLoginShow()"><span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register">
-                                                <button class="btn btn-full-sub" type="button"><span class="language_replace">註冊</span></button>
+                                                <button class="btn btn-full-sub" type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
                                             </li>
                                         </ul>
                                     </li>
                                     <!--  ==== 登入後 ====-->
-                                    <li class="nav-item logIned_wrapper hidden">
+                                    <li class="nav-item logIned_wrapper is-hide" id="idMenuLogin">
                                         <ul class="horiz-list">
-                                            <li class="nav-item " id="idMenuLogin">
+                                            <li class="nav-item ">
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
                                                             <!-- 未完成存款訂單小紅點 -->
-                                                            <span class="notify"><span class="notify-dot"></span></span>
-                                                            <img src="images/icon/coin-Ocoin.png" alt="">
+                                                            <%--<span class="notify"><span class="notify-dot"></span></span>--%>
+                                                            <img src="images/ico/coin-Ocoin.png" alt="">
                                                         </span>
                                                         <span class="balance-info">
                                                             <span class="amount">999,999</span>
                                                         </span>
-                                                        <!-- <button class="btn btn-deposit" onclick="">
-                                                    <span class="icon-add"></span>
-                                                </button> -->
                                                     </span>
                                                 </span>
                                             </li>
@@ -1681,28 +1692,17 @@
                                                 </a>
                                                 <!--下拉 dropdown-menu 選單 -->
                                                 <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Member">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link"
-                                                            href="home.aspx"
-                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">入金</span></a>
-
+                                                    <li class="nav-item" onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
+                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">入金</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link"
-                                                            href="home.aspx"
-                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">出金</span></a>
-
+                                                    <li class="nav-item" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">出金</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link"
-                                                            href="home.aspx"
-                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">會員設定</span></a>
-
+                                                    <li class="nav-item" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
+                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">會員設定</span></a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link"
-                                                            href="home.aspx"
-                                                            target="mainiframe"><i class="icon icon-mask icon-user"></i><span class="language_replace">錢包中心</span></a>
+                                                    <li class="nav-item" onclick="API_LoadPage('WalletCenter','WalletCenter.aspx', true)">
+                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">錢包中心</span></a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1718,25 +1718,16 @@
                                             <i class="icon icon-mask icon-user"></i></a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Lang">
                                             <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('JPN', true)">日語</a>
+                                                <a class="nav-link language_replace" onclick="switchLang('JPN', true)">日本語</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('ENG', true)">英</a>
+                                                <a class="nav-link language_replace" onclick="switchLang('ENG', true)">English</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('CHT', true)">繁中</a>
+                                                <a class="nav-link language_replace" onclick="switchLang('CHT', true)">繁體中文</a>
                                             </li>
                                         </ul>
                                     </li>
-
-                                    <!-- 
-                                   ==========================================
-                                   當按下 " 下拉 幣別轉換 Button" 時 
-                                   1. 跳出  popUp 下拉視窗 
-                                   2. 幣別轉換 Button => class 加入 "active" 
-                                   3. mask_overlay 黑色半透明遮罩 => class "open"
-                                   ==========================================
-                               -->
                                 </ul>
                             </div>
                         </div>
@@ -1749,86 +1740,262 @@
     <!-- main_area = iframe高度 + Footer高度-->
     <div class="main_area" style="height: auto;">
         <!-- iframe高度 自動計算高度-->
-        <iframe id="IFramePage" class="mainIframe"  name="mainiframe" style="height:100%;"></iframe>
+        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>
     </div>
     <!-- footer -->
-    <div id="footer" class="is-hide">
-       <footer class="footer">
-           <div class="footer_inner">
-            <div class="container">
-                <div class="row content">
-                    <div class="footer_provider col-12 col-md-6">
-                        <ul class="row ">
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-PG.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-CG.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-PP.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-BG.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-VA.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-BNG.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-pagcor.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-Bti.png" alt="">
-                            </li>
-                            <li class="col logo-item">
-                                <img src="images/logo/logo-zeus.png" alt="">
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer_company col-12 col-md-6">
-                        <ul class="company-info row">
-                            <li class="info-item col">
-                                <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
-                            </li>
-                            <li class="info-item col">
-                                <a onclick="window.parent.API_ShowContactUs()">
-                                    <span class="language_replace">聯絡客服</span>
-                                </a>
-                            </li>
-                            <li class="info-item col">
-                                <a id="Footer_Rules" onclick="window.parent.API_ShowPartialHtml('', 'Rules', true, null)">
-                                    <span class="language_replace">利用規約</span>
-                                </a>
-                            </li>
-                            <li class="info-item col">
-                                <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
-                                    <span class="language_replace">隱私權政策</span>
-                                </a>
-                            </li>
-                            <li class="info-item col" id="li_HotArticle">
-                                <a onclick="openHotArticle()">
-                                    <span class="language_replace">熱門文章</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-12 copy_right ">
+    <div id="footer">
+        <footer class="footer">
+            <div class="footer_inner">
                 <div class="container">
-                    <p class="text">Copyright © 2022 All Rights Reserved</p>
+                    <div class="row content">
+                        <div class="footer_provider col-12 col-md-6">
+                            <ul class="row ">
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-PG.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-CG.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-PP.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-BG.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-VA.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-BNG.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-pagcor.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-Bti.png" alt="">
+                                </li>
+                                <li class="col logo-item">
+                                    <img src="images/logo/logo-zeus.png" alt="">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer_company col-12 col-md-6">
+                            <ul class="company-info row">
+                                <li class="info-item col">
+                                    <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
+                                </li>
+                                <li class="info-item col">
+                                    <a onclick="window.parent.API_ShowContactUs()">
+                                        <span class="language_replace">聯絡客服</span>
+                                    </a>
+                                </li>
+                                <li class="info-item col">
+                                    <a id="Footer_Rules" onclick="window.parent.API_ShowPartialHtml('', 'Rules', true, null)">
+                                        <span class="language_replace">利用規約</span>
+                                    </a>
+                                </li>
+                                <li class="info-item col">
+                                    <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
+                                        <span class="language_replace">隱私權政策</span>
+                                    </a>
+                                </li>
+                                <li class="info-item col" id="li_HotArticle">
+                                    <a onclick="openHotArticle()">
+                                        <span class="language_replace">熱門文章</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 copy_right ">
+                    <div class="container">
+                        <p class="text">Copyright © 2022 All Rights Reserved</p>
+                    </div>
                 </div>
             </div>
-        </div>
-       </footer>
+        </footer>
     </div>
 
     <!-- mask_overlay 黑色半透明遮罩-->
     <div id="mask_overlay_popup" class="mask_overlay_popup"></div>
     <!--=========JS========-->
+    <!-- 遊戲介紹 Modal-->
+    <div class="modal fade modal-game" tabindex="-1" role="dialog" aria-labelledby="alertGameIntro" aria-hidden="true" id="alertGameIntro">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title gameRealName language_replace"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <div class="game-intro-box">
+                            <div class="game-img">
+                                <div class="img-wrap">
+                                    <img class="GameImg" src="" alt="">
+                                </div>
+                            </div>
+                            <div class="game-info">
+                                <div class="game-detail">
+                                    <div class="info-item game-num">
+                                        <div class="num title">NO.</div>
+                                        <div class="data GameID">01234</div>
+                                    </div>
+                                    <div class="info-item game-rtp">
+                                        <div class="rtp-name title">RTP</div>
+                                        <div class="rtp-data RtpContent"></div>
+                                    </div>
+                                    <!-- 當加入最愛時=> class 加 "add" -->
+                                    <div class="info-item game-myFavorite add">
+                                        <div class="myFavorite-name title">
+                                            <span class="language_replace FavoText">加入我的最愛</span>
+                                            <!-- <span class="language_replace">移除最愛</span> -->
+                                        </div>
+                                        <div class="myFavorite-icon">
+                                            <i class="icon-casinoworld-favorite"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-play">
+                                    <button type="button" class="btn-game game-demo">
+                                        <span class="language_replace">試玩</span>
+                                        <div class="triangle"></div>
+                                    </button>
+                                    <button type="button" class="btn-primary btn-game game-login">
+                                        <span class="language_replace">登入玩遊戲</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="game-intro is-hide">
+                                遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertPartialHtml" aria-hidden="true" id="alertPartialHtml">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title alertPartialHtml_Title">
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content alertPartialHtml_Content">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertPartialHtml_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--alert-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContactUs" aria-hidden="true" id="alertContactUs">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom align-items-center">
+                    <i class="icon-service"></i>
+                    <h5 class="modal-title language_replace ml-1">客服信箱</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <!-- <div class="service-contact">
+                            <span class="titel language_replace">客服信箱</span><span class="data"> : service@BBC117.com</span>
+                        </div> -->
+                        <div class="inbox_customerService" id="sendMail">
+                            <div class="form-group">
+                                <label class="form-title language_replace">問題分類</label>
+                                <select class="form-control custom-style contectUs_Subject">
+                                    <option class="language_replace">出入金</option>
+                                    <option class="language_replace">註冊</option>
+                                    <option class="language_replace">獎勵</option>
+                                    <option class="language_replace">遊戲</option>
+                                    <option class="language_replace">其他</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">信箱</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style contectUs_Eamil" language_replace="placeholder" placeholder="請輸入回覆信箱" autocomplete="off">
+                                    <div class="invalid-feedback language_replace">錯誤提示</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">暱稱</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style contectUs_NickName" autocomplete="off" name="NickName">
+                                    <div class="invalid-feedback language_replace">錯誤提示</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">電話</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style contectUs_Phone" autocomplete="off" name="Phone">
+                                    <div class="invalid-feedback language_replace">錯誤提示</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">問題敘述</label>
+                                <textarea class="form-control custom-style contectUs_Body" rows="5" language_replace="placeholder" placeholder=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <!-- <button class="btn btn-icon">
+                        <i class="icon-copy" onclick="copyText('service@BBC117.com')"></i>
+                    </button> -->
+                    <div class="btn-container">
+                        <button type="button" class="alertContact_OK btn btn-primary btn-block" data-dismiss="modal" onclick="sendContactUs();"><span class="language_replace">寄出</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!--alert-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContact" aria-hidden="true" id="alertContact">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

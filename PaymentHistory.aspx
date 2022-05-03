@@ -161,12 +161,8 @@
         var ParentMain = document.getElementById("idRecordContent");
         ParentMain.innerHTML = "";
 
-
         p.GetClosePayment(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
-                console.log("ff", o);
-            q= o;
-
                 if (o.Result == 0) {
                     if (o.Datas.length > 0) {
                         var RecordDom;
@@ -204,8 +200,6 @@
                                         paymentRecordText = mlp.getLanguageKey('主動取消');
                                         $(RecordDom).find('.PaymentStatus').addClass('fail');
                                         $(RecordDom).find('.PaymentStatus').addClass('icon-info_circle_outline');
-
-
                                         break;
                                     case 4:
                                         paymentRecordStatus = 4;
