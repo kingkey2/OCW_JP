@@ -1616,18 +1616,18 @@
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" href="UserAccount_Edit_MySelf.html" target="mainiframe">
+                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('Casino', 'Casino.aspx', true)">
+                                        <a class="nav-link">
                                             <i class="icon icon-mask icon-ewin-user"></i>
                                             <span class="title language_replace">賭場</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" href="UserAccountAgentMulti_Maint.html" target="mainiframe">
+                                        <a class="nav-link">
                                             <i class="icon icon-mask icon-ewin-user-multi"></i>
                                             <span class="title language_replace">體育</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" href="UserAccountAgentMulti_Maint.html" target="mainiframe">
+                                        <a class="nav-link">
                                             <i class="icon icon-mask icon-ewin-user-multi"></i>
                                             <span class="title language_replace">麻將</span></a>
                                     </li>
