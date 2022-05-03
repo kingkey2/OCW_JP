@@ -801,7 +801,7 @@
         } else {
             EWinWebInfo.IsOpenGame = true;
             setGameCodeToMyGames(gameBrand, gameName);
-            GameInfoModal.hide();
+            //GameInfoModal.hide();
 
             if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
                 if (EWinWebInfo.DeviceType == 1) {

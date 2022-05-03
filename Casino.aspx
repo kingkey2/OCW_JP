@@ -15,7 +15,7 @@
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/lobby.css" rel="stylesheet" />
   <!--===========JS========-->
-    <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>--%>
+    <script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
     <%--<script type="text/javascript" src="/Scripts/UIControl.js"></script>--%>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
@@ -24,7 +24,9 @@
     <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
     <script src="Scripts/theme.js"></script>
-
+    <style>
+    
+    </style>
 </head>
 <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -44,7 +46,7 @@
         window.parent.API_LoadingStart();
     }
     //var ui = new uiControl();
-    //var c = new common();
+    var c = new common();
     var mlp;
     var sumask;
     var Webinfo;
@@ -64,24 +66,25 @@
         var idGameItemTitle = document.getElementById("idGameItemTitle");
         nowCateg = categoryCode;
 
-        //if (categoryCode != 'All') {
-        //    LobbyGameList.CategoryList.find(x => x.Categ == nowCateg).SubCategList.forEach(sc => {
-        //        if (sc != 'Other' && sc != 'others') {
-        //            //上方tab
-        //            var li = document.createElement("li");
-        //            var li_span = document.createElement("span");
-        //            li.classList.add("menu-item");
-        //            li_span.innerText = mlp.getLanguageKey(sc);
-        //            //上方tab
-        //            li.appendChild(li_span);
+        if (categoryCode != 'All') {
+            LobbyGameList.CategoryList.find(x => x.Categ == nowCateg).SubCategList.forEach(sc => {
+                if (sc != 'Other' && sc != 'others') {
+                    //上方tab
+               
+                    var li = document.createElement("li");
+                    var li_span = document.createElement("span");
+                    li.classList.add("menu-item");
+                    li_span.innerText = mlp.getLanguageKey(sc);
+                    //上方tab
+                    li.appendChild(li_span);
 
-        //            li.onclick = new Function("selSubGameCategory('" + sc + "')");
-        //            idGameItemSubTitle.appendChild(li);
-        //        }
-        //    });
-        //}
+                    li.onclick = new Function("selSubGameCategory('" + sc + "')");
+                    //idGameItemSubTitle.appendChild(li);
+                }
+            });
+        }
 
-        //selSubGameCategory(subCategoryCode);
+        selSubGameCategory(subCategoryCode);
     }
 
     function selSubGameCategory(subCategoryCode) {
@@ -94,15 +97,15 @@
         }
 
 
-        idGameItemSubTitle.querySelectorAll(".tab-item").forEach(GI => {
-            GI.classList.remove("actived");
+        //idGameItemSubTitle.querySelectorAll(".tab-item").forEach(GI => {
+        //    GI.classList.remove("actived");
 
-            if (GI.classList.contains("tab_" + nowSubCateg)) {
-                GI.classList.add("actived");
-                //history.replaceState(null, null, "?" + "Category=" + categoryCode);
-                history.replaceState(null, null, "?" + "Category=" + nowCateg + "&" + "SubCategory=" + nowSubCateg);
-            }
-        });
+        //    if (GI.classList.contains("tab_" + nowSubCateg)) {
+        //        GI.classList.add("actived");
+        //        //history.replaceState(null, null, "?" + "Category=" + categoryCode);
+        //        history.replaceState(null, null, "?" + "Category=" + nowCateg + "&" + "SubCategory=" + nowSubCateg);
+        //    }
+        //});
 
         showGame(nowCateg, nowSubCateg);
     }
@@ -113,8 +116,8 @@
     }
 
     function showGame(categoryCode, subCategoryCode) {
-        var idNoGameExist = document.getElementById("idNoGameExist");
-        idNoGameExist.classList.add("is-hide");
+        //var idNoGameExist = document.getElementById("idNoGameExist");
+        //idNoGameExist.classList.add("is-hide");
 
         document.querySelectorAll(".game-item").forEach(GI => {
             var orderVal = 3;
@@ -166,9 +169,9 @@
             }
         });
 
-        if (!document.querySelector(".game-item:not(.is-hide)")) {
-            idNoGameExist.classList.remove("is-hide");
-        }
+        //if (!document.querySelector(".game-item:not(.is-hide)")) {
+        //    idNoGameExist.classList.remove("is-hide");
+        //}
     }
 
     function updateGameCode() {
@@ -189,7 +192,7 @@
                     var li_span = document.createElement("span");
                     li.classList.add("menu-item");
                     li_span.innerText = mlp.getLanguageKey(LobbyGameList.CategoryList[i].Categ);
-                    li_span.onclick = new Function("selGameCategory('" + LobbyGameList.CategoryList[i].Categ + "')");
+                    li.onclick = new Function("selGameCategory('" + LobbyGameList.CategoryList[i].Categ + "')");
                     li.appendChild(li_span);
                     idGameItemTitle.appendChild(li);
 
@@ -203,9 +206,13 @@
 
                 }
             }
-
+            var count = 0;
             if (LobbyGameList.GameList) {
                 LobbyGameList.GameList.forEach(gameItem => {
+                    count++;
+                    if (count > 30) {
+                        return false;
+                    }
                     /* 
                       <div id="idTemGameItem" class="is-hide">
                            <div class="game-item">
@@ -225,7 +232,8 @@
                     //}
 
                     var GI = c.getTemplate("temGameItem");
-                    var GI_img = GI.querySelector(".game-item-img");
+                    var GI_img = GI.querySelector(".gameimg");
+                    var GI_gameitem = GI.querySelector(".game-item");
                     var GI_a = GI.querySelector(".btn-play");
 
                     if (GI_img != null) {
@@ -236,12 +244,49 @@
                     c.setClassText(GI, "game-item-name", null, window.parent.API_GetGameLang(1, gameItem.GameBrand, gameItem.GameName));
                     //c.setClassText(GI, "GameID", null, c.padLeft(gameItem.GameID.toString(), 5));
                     GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "' , '" + gameItem.Categ + "')");
-               
+
+                    //GI.classList.add("is-hide");
+                    GI_gameitem.classList.add("gc_" + gameItem.Categ);
+                    GI_gameitem.classList.add("subGc_" + gameItem.SubCateg);
+                    GI_gameitem.classList.add("brand_" + gameItem.GameBrand);
+
+                    if (gameItem.IsHot == 1) {
+                        GI.classList.add("subGc_Hot");
+                        GI.classList.add("label-hot");
+                    }
+
+                    if (gameItem.IsNew == 1) {
+                        GI.classList.add("subGc_New");
+                        GI.classList.add("label-new");
+                    }
+
                     idGameItemGroup.appendChild(GI);
 
                 });
+                new Swiper("#idGameItemGroup", {
+                    loop: true,
+                    slidesPerView: 2,
+                    freeMode: true,
+                    navigation: {
+                        nextEl: "#lobbyGame-1 .swiper-button-next",
+                    },
+                    breakpoints: {
+                        540: {
+                            slidesPerView: 3,
 
-                new Swiper('#idGameItemGroup');
+                        },
+                        768: {
+                            slidesPerView: 5,
+
+                        },
+                        1200: {
+                            slidesPerView: 7,
+                        },
+                        1920: {
+                            slidesPerView: 10,
+                        },
+                    }
+                });    
             }
         }
     }
@@ -963,11 +1008,11 @@
     <div id="temGameItem" class="is-hide">
           <div class="swiper-slide">
               <div class="game-item">
-                                <div class="game-item-inner">
+                  <div class="game-item-inner">
                                     <div class="game-item-img">
                                         <span class="game-item-link"></span>
                                         <div class="img-wrap">
-                                            <img class="game-item-img" src="">
+                                            <img class="gameimg" src="">
                                         </div>
                                     </div>
                                     <div class="game-item-info">
@@ -993,9 +1038,9 @@
                                     </div>
                 
                                 </div>
-                            </div>
+              </div>
           </div>
     </div>
-    
+
 </body>
 </html>
