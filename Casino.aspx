@@ -78,13 +78,13 @@
                     //上方tab
                     li.appendChild(li_span);
 
-                    li.onclick = new Function("selSubGameCategory('" + sc + "')");
+                    li.onclick = new Function("updateGameList('" + sc + "')");
                     //idGameItemSubTitle.appendChild(li);
                 }
             });
         }
 
-        selSubGameCategory(subCategoryCode);
+        updateGameList(categoryCode);
     }
 
     function selSubGameCategory(subCategoryCode) {
@@ -174,6 +174,87 @@
         //}
     }
 
+    function updateGameList(categoryCode) {
+
+
+        var idGameItemGroup = document.getElementById("idGameItemGroupContent");
+
+        idGameItemGroup.innerHTML = "";
+        // 尋找新增+
+
+        var count = 0;
+        if (LobbyGameList.GameList) {
+            LobbyGameList.GameList.forEach(gameItem => {
+
+                if (gameItem.Categ == categoryCode || categoryCode == "All") {
+                    count++;
+                    if (count > 30) {
+                        return false;
+                    }
+
+                    var GI = c.getTemplate("temGameItem");
+                    var GI_img = GI.querySelector(".gameimg");
+                    var GI_gameitem = GI.querySelector(".game-item");
+                    var GI_a = GI.querySelector(".btn-play");
+
+                    if (GI_img != null) {
+                        GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+                        //GI_img.onerror = new Function("setDefaultIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                    }
+
+                    c.setClassText(GI, "game-item-name", null, window.parent.API_GetGameLang(1, gameItem.GameBrand, gameItem.GameName));
+                    //c.setClassText(GI, "GameID", null, c.padLeft(gameItem.GameID.toString(), 5));
+                    GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "' , '" + gameItem.Categ + "')");
+
+                    //GI.classList.add("is-hide");
+                    GI_gameitem.classList.add("gc_" + gameItem.Categ);
+                    GI_gameitem.classList.add("subGc_" + gameItem.SubCateg);
+                    GI_gameitem.classList.add("brand_" + gameItem.GameBrand);
+
+                    if (gameItem.IsHot == 1) {
+                        GI.classList.add("subGc_Hot");
+                        GI.classList.add("label-hot");
+                    }
+
+                    if (gameItem.IsNew == 1) {
+                        GI.classList.add("subGc_New");
+                        GI.classList.add("label-new");
+                    }
+
+                    idGameItemGroup.appendChild(GI);
+                    console.log(gameItem.GameBrand);
+                }
+            
+
+            });
+        }
+
+        new Swiper("#idGameItemGroup", {
+            loop: false,
+            slidesPerView: 2,
+            freeMode: true,
+            navigation: {
+                nextEl: "#lobbyGame-1 .swiper-button-next",
+            },
+            breakpoints: {
+                540: {
+                    slidesPerView: 3,
+
+                },
+                768: {
+                    slidesPerView: 5,
+
+                },
+                1200: {
+                    slidesPerView: 7,
+                },
+                1920: {
+                    slidesPerView: 10,
+                },
+            }
+        });
+    }
+    
     function updateGameCode() {
         var idGameItemTitle = document.getElementById("idGameItemTitle");
         //var idSecContent = document.getElementById("idSecContent");
@@ -261,6 +342,7 @@
                     }
 
                     idGameItemGroup.appendChild(GI);
+                    console.log(gameItem.GameBrand);
 
                 });
                 new Swiper("#idGameItemGroup", {
@@ -320,10 +402,10 @@
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
             if ((WebInfo.SID != null)) {
-                updateBaseInfo()
+                //updateBaseInfo()
                 LobbyGameList = window.parent.API_GetGameList();
                 updateGameCode();
-                selGameCategory(nowCateg, nowSubCateg);
+                //selGameCategory(nowCateg, nowSubCateg);
             } else {
                 loginRecover();
             }
@@ -349,7 +431,7 @@
 
                 mlp.loadLanguage(lang, function () {
                     updateGameCode();
-                    selGameCategory(nowCateg);
+                    //selGameCategory(nowCateg);
                 });
                 break;
         }
@@ -745,7 +827,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-slide">
+                        <%--<div class="swiper-slide">
                             <div class="game-item">
                                 <div class="game-item-inner">
                                     <div class="game-item-img">
@@ -914,7 +996,7 @@
                 
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                 
                     </div>
                 </div>
