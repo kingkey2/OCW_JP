@@ -1,0 +1,18 @@
+.menu-game {
+  background: linear-gradient(180deg, rgba(251, 251, 251, 0) 0%, #D6D6D6 100%);
+}
+.menu-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+.menu-item {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
