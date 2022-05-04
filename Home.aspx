@@ -467,12 +467,20 @@
                                         <div class="img-wrap">
                                             <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
                                         </div>
-                                        <div class="game-item-info-hidden">
-                                            <div class="game-item-btn">
-                                                <button type="button" class="btn btn-full-main game-item-btn btn-try"><span class="language_replace">試玩</span></button>
+                                        <!-- <div class="game-item-info-hidden">
+                                            <div class="game-item-btn">                                              
                                                 <button type="button" class="btn btn-full-main game-item-btn btn-play"><span class="language_replace">GO</span></button>
                                             </div>
+                                        </div> -->
+
+                                        <div class="game-item-info-popup">
+                                            <div class="img-wrap">
+                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                            </div>
+
+
                                         </div>
+
                                         <span class="game-item-like">
                                             <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
                                         </span>

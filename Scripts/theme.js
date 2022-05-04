@@ -52,17 +52,21 @@ $(document).ready(function () {
     var swiper2 = new Swiper("#game-recommend", {
     // loop: true,
     slidesPerView: 2,
-    freeMode: true,
+    freeMode: false,
     navigation: {
         nextEl: "#game-recommend .swiper-button-next",
     },
     breakpoints: {
-        540: {
-            slidesPerView: 5,
-            freeMode: false
-            
+        768: {
+            slidesPerView: 3
         },
-    }
+        1200: {
+            slidesPerView: 4
+        },
+        1440: {
+            slidesPerView: 6           
+        },
+      }
     });
 
     // 最新遊戲
@@ -76,7 +80,7 @@ $(document).ready(function () {
     breakpoints: {
         540: {
             slidesPerView: 5,
-            freeMode: false
+            freeMode: true
             
         },
     }
