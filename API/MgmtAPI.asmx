@@ -426,6 +426,45 @@ public class MgmtAPI : System.Web.Services.WebService {
         return R;
     }
 
+    [WebMethod]
+    public System.Data.DataTable GetCompanyCategory(string password) {
+
+        System.Data.DataTable DT = new System.Data.DataTable();
+        if (CheckPassword(password)) {
+            DT = RedisCache.CompanyCategory.GetCompanyCategory();
+        }
+        return DT;
+    }
+
+    [WebMethod]
+    public APIResult UpdateCompanyCategoryState(string Password, int CompanyCategoryID, int State) {
+        APIResult R = new APIResult() { Result = enumResult.ERR };
+        string SS;
+        System.Data.SqlClient.SqlCommand DBCmd;
+        int RetValue = 0;
+
+        if (CheckPassword(Password)) {
+
+            SS = " UPDATE CompanyCategory WITH (ROWLOCK) SET State=@State " +
+                      " WHERE CompanyCategoryID=@CompanyCategoryID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@State", System.Data.SqlDbType.Int).Value = State;
+            DBCmd.Parameters.Add("@CompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+
+            if (RetValue > 0) {
+                RedisCache.CompanyCategory.UpdateCompanyCategory();
+                R.Result = enumResult.OK;
+            }
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+
+        return R;
+    }
+
     //[WebMethod]
     //public void SendMail() {
     //    string Subject = string.Empty;
@@ -563,5 +602,13 @@ public class MgmtAPI : System.Web.Services.WebService {
         public DateTime CreateDate { get; set; }
         public int State { get; set; }
 
+    }
+
+    public class CompanyCategoryResult : APIResult {
+        public int CompanyCategoryID { get; set; }
+        public int CategoryType { get; set; }
+        public string CategoryName { get; set; }
+        public int SortIndex { get; set; }
+        public int State { get; set; }
     }
 }

@@ -1163,7 +1163,6 @@ public static class RedisCache {
             return R;
         }
 
-
         public static string DelFingerPrint(string FingerPrint) {
             string R = "";
             string Key;
@@ -1177,6 +1176,7 @@ public static class RedisCache {
             return R;
         }
     }
+
     public static class CryptoExchangeRate {
         private static string XMLPath = "CryptoExchangeRate";
         private static int DBIndex = 0;
@@ -1351,6 +1351,140 @@ public static class RedisCache {
             }
 
             return DT;
+        }
+    }
+
+    public static class CompanyCategory {
+        private static string XMLPath = "CompanyCategory";
+        private static int DBIndex = 0;
+
+        public static System.Data.DataTable GetCompanyCategory() {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath;
+
+            if (KeyExists(DBIndex, Key) == true) {
+                DT = DTReadFromRedis(DBIndex, Key);
+            } else {
+                DT = UpdateCompanyCategory();
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateCompanyCategory() {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM CompanyCategory WITH (NOLOCK)";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0) {
+                Key = XMLPath;
+
+                for (int I = 0; I <= 3; I++) {
+                    try {
+                        DTWriteToRedis(DBIndex, DT, Key);
+                        break;
+                    } catch (Exception ex) {
+                    }
+                }
+            }
+
+            return DT;
+        }
+    }
+
+    public static class CompanyGameCode {
+        private static string XMLPath = "CompanyGameCode";
+        private static int DBIndex = 0;
+
+        public static System.Data.DataTable GetCompanyGameCodeByID(int CompanyCategoryID) {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+
+            if (KeyExists(DBIndex, Key) == true) {
+                DT = DTReadFromRedis(DBIndex, Key);
+            } else {
+                DT = UpdateCompanyGameCodeByID(CompanyCategoryID);
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateCompanyGameCode() {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+            System.Data.DataTable CompanyGameCodeDT = null;
+
+            SS = "SELECT * FROM CompanyCategory WITH (NOLOCK)";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0) {
+
+                foreach (System.Data.DataRow DR in DT.Rows) {
+                    int CompanyCategoryID = (int)DR["CompanyCategoryID"];
+                    Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+                    CompanyGameCodeDT = new System.Data.DataTable();
+
+                    SS = "SELECT * FROM CompanyGameCode WITH (NOLOCK) WHERE forCompanyCategoryID = @forCompanyCategoryID";
+                    DBCmd = new System.Data.SqlClient.SqlCommand();
+                    DBCmd.CommandText = SS;
+                    DBCmd.CommandType = System.Data.CommandType.Text;
+                    DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
+                    CompanyGameCodeDT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+                    if (CompanyGameCodeDT.Rows.Count > 0) {
+                        for (int I = 0; I <= 3; I++) {
+                            try {
+                                DTWriteToRedis(DBIndex, CompanyGameCodeDT, Key);
+                                break;
+                            } catch (Exception ex) {
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateCompanyGameCodeByID(int CompanyCategoryID) {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable CompanyGameCodeDT = null;
+
+            Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+
+            SS = "SELECT * FROM CompanyGameCode WITH (NOLOCK) WHERE forCompanyCategoryID = @forCompanyCategoryID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
+            CompanyGameCodeDT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            if (CompanyGameCodeDT.Rows.Count > 0) {
+                for (int I = 0; I <= 3; I++) {
+                    try {
+                        DTWriteToRedis(DBIndex, CompanyGameCodeDT, Key);
+                        break;
+                    } catch (Exception ex) {
+                    }
+                }
+            }
+
+            return CompanyGameCodeDT;
         }
     }
 
