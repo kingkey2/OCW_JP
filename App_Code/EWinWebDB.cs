@@ -84,14 +84,14 @@ public static class EWinWebDB {
 
     public static class CompanyGameCode
     {
-        public static int InsertCompanyGameCode(int forCompanyCategoryID, string GameBrand, string GameName, string Info)
+        public static int InsertCompanyGameCode(int forCompanyCategoryID, string GameBrand, string GameName, string Info,int GameID,string GameCategoryCode,string GameCategorySubCode,int AllowDemoPlay,string RTPInfo,int IsHot,int IsNew)
         {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int insertCount = 0;
 
-            SS = "INSERT INTO CompanyGameCode (forCompanyCategoryID,GameBrand, GameName, Info) " +
-            "                VALUES (@forCompanyCategoryID,@GameBrand, @GameName, @Info) ";
+            SS = "INSERT INTO CompanyGameCode (forCompanyCategoryID,GameBrand, GameName, Info,GameID,GameCategoryCode,GameCategorySubCode,AllowDemoPlay,RTPInfo,IsHot,IsNew) " +
+            "                VALUES (@forCompanyCategoryID,@GameBrand, @GameName, @Info,@GameID,@GameCategoryCode,@GameCategorySubCode,@AllowDemoPlay,@RTPInfo,@IsHot,@IsNew) ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
@@ -99,7 +99,14 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@GameBrand", System.Data.SqlDbType.VarChar).Value = GameBrand;
             DBCmd.Parameters.Add("@GameName", System.Data.SqlDbType.VarChar).Value = GameName;
             DBCmd.Parameters.Add("@Info", System.Data.SqlDbType.NVarChar).Value = Info;
-
+            DBCmd.Parameters.Add("@GameID", System.Data.SqlDbType.Int).Value = GameID;
+            DBCmd.Parameters.Add("@GameCategoryCode", System.Data.SqlDbType.VarChar).Value = GameCategoryCode;
+            DBCmd.Parameters.Add("@GameCategorySubCode", System.Data.SqlDbType.VarChar).Value = GameCategorySubCode;
+            DBCmd.Parameters.Add("@AllowDemoPlay", System.Data.SqlDbType.Int).Value = AllowDemoPlay;
+            DBCmd.Parameters.Add("@RTPInfo", System.Data.SqlDbType.VarChar).Value = RTPInfo;
+            DBCmd.Parameters.Add("@IsHot", System.Data.SqlDbType.Int).Value = IsHot;
+            DBCmd.Parameters.Add("@IsNew", System.Data.SqlDbType.Int).Value = IsNew;
+      
             insertCount = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
 
 

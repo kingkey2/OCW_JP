@@ -31,8 +31,8 @@ public class LobbyAPI : System.Web.Services.WebService {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult UpdateCompanyCategory() {
-        EWin.Lobby.APIResult R=new EWin.Lobby.APIResult() { Result= EWin.Lobby.enumResult.ERR }
-          EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
+        EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
         EWin.Lobby.CompanyCategoryResult companyCategoryResult;
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         System.Data.DataTable CompanyCategoryDT = null;
@@ -55,7 +55,10 @@ public class LobbyAPI : System.Web.Services.WebService {
                         R.Message = "InsertCompanyCategory Error EWinCompanyCategoryID=" + companyCategoryResult.CategoryList[i].CompanyCategoryID;
                     }
                 }
-                CompanyCategoryDT = EWinWebDB.CompanyCategory.GetCompanyCategory();
+
+                RedisCache.CompanyCategory.UpdateCompanyCategory();
+
+                CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
 
                 if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
                 {
@@ -76,7 +79,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                         if (CompanyCategoryRow.Length > 0)
                                         {
                                             CompanyCategoryID = (int)CompanyCategoryRow[0]["CompanyCategoryID"];
-                                            InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(CompanyCategoryID, companyGameCodeResult.GameCodeList[i].GameCode.Split('.')[0], companyGameCodeResult.GameCodeList[i].GameName, "");
+                                            InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(CompanyCategoryID, companyGameCodeResult.GameCodeList[i].GameCode.Split('.')[0], companyGameCodeResult.GameCodeList[i].GameName, "",companyGameCodeResult.GameCodeList[i].GameID,companyGameCodeResult.GameCodeList[i].GameCategoryCode,companyGameCodeResult.GameCodeList[i].GameCategorySubCode,companyGameCodeResult.GameCodeList[i].AllowDemoPlay,companyGameCodeResult.GameCodeList[i].RTPInfo,companyGameCodeResult.GameCodeList[i].IsHot,companyGameCodeResult.GameCodeList[i].IsNew);
                                             if (InsertCompanyGameCodeReturn == 0)
                                             {
                                                 R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID;
@@ -92,6 +95,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 }
                             }
                         }
+                        RedisCache.CompanyGameCode.UpdateCompanyGameCode();
                     }
                     else
                     {
