@@ -30,6 +30,96 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult UpdateCompanyCategory() {
+        EWin.Lobby.APIResult R=new EWin.Lobby.APIResult() { Result= EWin.Lobby.enumResult.ERR }
+          EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
+        EWin.Lobby.CompanyCategoryResult companyCategoryResult;
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        System.Data.DataTable CompanyCategoryDT = null;
+        int InsertCompanyCategoryReturn = 0;
+        int InsertCompanyGameCodeReturn = 0;
+        int CompanyCategoryID = 0;
+        string[] companyCategoryTags;
+        System.Data.DataRow[] CompanyCategoryRow;
+        companyCategoryResult = lobbyAPI.GetCompanyCategory(GetToken(), Guid.NewGuid().ToString());
+        if (companyCategoryResult.Result == EWin.Lobby.enumResult.OK)
+        {
+            if (companyCategoryResult.CategoryList.Length > 0)
+            {
+                for (int i = 0; i < companyCategoryResult.CategoryList.Length; i++)
+                {
+                    InsertCompanyCategoryReturn = EWinWebDB.CompanyCategory.InsertCompanyCategory(companyCategoryResult.CategoryList[i].CompanyCategoryID, 0, companyCategoryResult.CategoryList[i].CategoryName, companyCategoryResult.CategoryList[i].SortIndex, 0);
+
+                    if (InsertCompanyCategoryReturn <= 0)
+                    {
+                        R.Message = "InsertCompanyCategory Error EWinCompanyCategoryID=" + companyCategoryResult.CategoryList[i].CompanyCategoryID;
+                    }
+                }
+                CompanyCategoryDT = EWinWebDB.CompanyCategory.GetCompanyCategory();
+
+                if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
+                {
+                    companyGameCodeResult = lobbyAPI.GetCompanyGameCode(GetToken(), Guid.NewGuid().ToString());
+                    if (companyGameCodeResult.Result == EWin.Lobby.enumResult.OK)
+                    {
+                        EWinWebDB.CompanyGameCode.DeleteCompanyGameCode();
+                        for (int i = 0; i < companyGameCodeResult.GameCodeList.Length; i++)
+                        {
+                            if (!string.IsNullOrEmpty(companyGameCodeResult.GameCodeList[i].CompanyCategoryTag))
+                            {
+                                companyCategoryTags = companyGameCodeResult.GameCodeList[i].CompanyCategoryTag.Split(',');
+                                if (companyCategoryTags.Length > 0)
+                                {
+                                    foreach (var companyCategoryTag in companyCategoryTags)
+                                    {
+                                        CompanyCategoryRow = CompanyCategoryDT.Select("CategoryName='" + companyCategoryTag.Trim() + "'");
+                                        if (CompanyCategoryRow.Length > 0)
+                                        {
+                                            CompanyCategoryID = (int)CompanyCategoryRow[0]["CompanyCategoryID"];
+                                            InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(CompanyCategoryID, companyGameCodeResult.GameCodeList[i].GameCode.Split('.')[0], companyGameCodeResult.GameCodeList[i].GameName, "");
+                                            if (InsertCompanyGameCodeReturn == 0)
+                                            {
+                                                R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID;
+                                                //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                            }
+                                        }
+                                        else {
+                                            R.Message = "CompanyCategoryRow=" + 0;
+                                            //Console.WriteLine("CompanyCategoryRow=" + 0);
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        R.Message = "Get CompanyGameCodeResult Error";
+                        //Console.WriteLine("Get CompanyGameCodeResult Error");
+                    }
+                }
+                else {
+                    R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID;
+                    //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                }
+
+            }
+            else {
+                R.Message = "Get CompanyCategoryResult Count=0";
+                //Console.WriteLine("Get CompanyCategoryResult Count=0");
+            }
+            R.Result = EWin.Lobby.enumResult.OK;
+        }
+        else {
+            R.Message = "Get CompanyCategoryResult Error";
+            //Console.WriteLine("Get CompanyCategoryResult Error");
+        }
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult AddUserBankCard(string WebSID, string GUID, string CurrencyType, int PaymentMethod, string BankName, string BranchName, string BankNumber, string AccountName, string Description) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;

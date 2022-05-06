@@ -30,6 +30,361 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="AddPromotionCollect">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CollectAreaType" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ExpireDay" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Action" type="tns:ArrayOfPropertySet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPropertySet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PropertySet" nillable="true" type="tns:PropertySet" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PropertySet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddPromotionCollectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddPromotionCollectResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPromotionCollectAvailable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPromotionCollectAvailableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPromotionCollectAvailableResult" type="tns:PromotionCollectResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PromotionCollectResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CollectList" type="tns:ArrayOfPromotionCollect" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPromotionCollect">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PromotionCollect" nillable="true" type="tns:PromotionCollect" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PromotionCollect">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CollectID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PromotionID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PromotionDetailID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CollectAreaType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:enumStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ActionContent" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExpireDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CollectDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Taked" />
+          <s:enumeration value="Expire" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetPromotionCollectHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPromotionCollectHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPromotionCollectHistoryResult" type="tns:PromotionCollectHistoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PromotionCollectHistoryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CollectList" type="tns:ArrayOfPromotionCollect" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SetCompanyGameCodeTag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GameCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PS" type="tns:ArrayOfPropertySet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetCompanyGameCodeTagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetCompanyGameCodeTagResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountTag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PS" type="tns:ArrayOfPropertySet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountTagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountTagResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRequireWithdrawalHistoryByUserAccountID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryYear" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryMonth" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRequireWithdrawalHistoryByUserAccountIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRequireWithdrawalHistoryByUserAccountIDResult" type="tns:RequireWithdrawalHistoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RequireWithdrawalHistoryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="QueryYear" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="QueryMonth" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="HistoryList" type="tns:ArrayOfRequireWithdrawal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfRequireWithdrawal">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RequireWithdrawal" nillable="true" type="tns:RequireWithdrawal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RequireWithdrawal">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RequireWithdrawalID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="forUserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ParentUserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProcessStatus" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateTime" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRequireWithdrawalHistoryByParentID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryYear" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryMonth" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRequireWithdrawalHistoryByParentIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRequireWithdrawalHistoryByParentIDResult" type="tns:RequireWithdrawalHistoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequireWithdrawal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequireWithdrawalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequireWithdrawalResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckDocumentByTagName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TagName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckDocumentByTagNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckDocumentByTagNameResult" type="tns:DocumentListResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentListResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="DocumentList" type="tns:ArrayOfDocument" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocument">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Document" nillable="true" type="tns:Document" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Document">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FolderID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TagName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentTitle" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Size" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckDocumentByNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckDocumentByNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckDocumentByNumberResult" type="tns:DocumentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="DocumentID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FolderID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TagName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DocNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DocumentTitle" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Size" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SetUserAccountLevel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserLevel" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountLevelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountLevelResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountProperty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountPropertyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountPropertyResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountProperty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PropertyValue" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountPropertyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountPropertyResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AddThreshold">
         <s:complexType>
           <s:sequence>
@@ -335,6 +690,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CheckAccountExistByContactPhoneNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhonePrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAccountExistByContactPhoneNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckAccountExistByContactPhoneNumberResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RequireRegister">
         <s:complexType>
           <s:sequence>
@@ -346,17 +718,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfPropertySet">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="PropertySet" nillable="true" type="tns:PropertySet" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="PropertySet">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="RequireRegisterResponse">
         <s:complexType>
           <s:sequence>
@@ -516,6 +877,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="Birthday" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="HasServiceChatMessage" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tag" type="tns:ArrayOfPropertySet" />
               <s:element minOccurs="0" maxOccurs="1" name="Company" type="tns:CompanyInfo" />
               <s:element minOccurs="0" maxOccurs="1" name="AllBinding" type="tns:ArrayOfBindingInfo" />
               <s:element minOccurs="0" maxOccurs="1" name="WalletList" type="tns:ArrayOfWalletInfo" />
@@ -585,18 +947,23 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:element name="GetCompanyGameCode">
+      <s:element name="GetCompanyGameCodeByPage">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GameBrand" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GameCategoryCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GameCategorySubCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageSize" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetCompanyGameCodeResponse">
+      <s:element name="GetCompanyGameCodeByPageResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyGameCodeResult" type="tns:CompanyGameCodeResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyGameCodeByPageResult" type="tns:CompanyGameCodeResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -604,6 +971,8 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:APIResult">
             <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PageSize" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TotalPage" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="GameCodeList" type="tns:ArrayOfGameCodeItem" />
             </s:sequence>
           </s:extension>
@@ -627,6 +996,79 @@
           <s:element minOccurs="0" maxOccurs="1" name="RTPInfo" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IsHot" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="IsNew" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyCategoryTag" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tag" type="tns:ArrayOfPropertySet" />
+          <s:element minOccurs="0" maxOccurs="1" name="RTP" type="tns:ArrayOfRTPInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRTPInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RTPInfo" nillable="true" type="tns:RTPInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RTPInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BetCount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="WinValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RTP1" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RTP3" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RTP10" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RTP30" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCompanyGameCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompanyGameCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyGameCodeResult" type="tns:CompanyGameCodeResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompanyCategory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCompanyCategoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyCategoryResult" type="tns:CompanyCategoryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CompanyCategoryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CategoryList" type="tns:ArrayOfCompanyCategory" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCompanyCategory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CompanyCategory" nillable="true" type="tns:CompanyCategory" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CompanyCategory">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyCategoryID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SortIndex" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetCompanyMarqueeText">
@@ -1024,6 +1466,11 @@
         </s:sequence>
       </s:complexType>
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
+      <s:element name="PromotionCollectResult" nillable="true" type="tns:PromotionCollectResult" />
+      <s:element name="PromotionCollectHistoryResult" nillable="true" type="tns:PromotionCollectHistoryResult" />
+      <s:element name="RequireWithdrawalHistoryResult" nillable="true" type="tns:RequireWithdrawalHistoryResult" />
+      <s:element name="DocumentListResult" nillable="true" type="tns:DocumentListResult" />
+      <s:element name="DocumentResult" nillable="true" type="tns:DocumentResult" />
       <s:element name="TransferHistoryResult" nillable="true" type="tns:TransferHistoryResult" />
       <s:element name="UserBankCardListResult" nillable="true" type="tns:UserBankCardListResult" />
       <s:element name="CompanySiteResult" nillable="true" type="tns:CompanySiteResult" />
@@ -1031,6 +1478,7 @@
       <s:element name="UserInfoResult" nillable="true" type="tns:UserInfoResult" />
       <s:element name="UserBalanceResult" nillable="true" type="tns:UserBalanceResult" />
       <s:element name="CompanyGameCodeResult" nillable="true" type="tns:CompanyGameCodeResult" />
+      <s:element name="CompanyCategoryResult" nillable="true" type="tns:CompanyCategoryResult" />
       <s:element name="GameOrderDetailListResult" nillable="true" type="tns:GameOrderDetailListResult" />
       <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
       <s:element name="ValidateCodeResult" nillable="true" type="tns:ValidateCodeResult" />
@@ -1043,6 +1491,84 @@
   </wsdl:message>
   <wsdl:message name="HeartBeatSoapOut">
     <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddPromotionCollectSoapIn">
+    <wsdl:part name="parameters" element="tns:AddPromotionCollect" />
+  </wsdl:message>
+  <wsdl:message name="AddPromotionCollectSoapOut">
+    <wsdl:part name="parameters" element="tns:AddPromotionCollectResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectAvailableSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPromotionCollectAvailable" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectAvailableSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPromotionCollectAvailableResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetPromotionCollectHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetPromotionCollectHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetCompanyGameCodeTagSoapIn">
+    <wsdl:part name="parameters" element="tns:SetCompanyGameCodeTag" />
+  </wsdl:message>
+  <wsdl:message name="SetCompanyGameCodeTagSoapOut">
+    <wsdl:part name="parameters" element="tns:SetCompanyGameCodeTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountTagSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserAccountTag" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountTagSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserAccountTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRequireWithdrawalHistoryByUserAccountID" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRequireWithdrawalHistoryByUserAccountIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByParentIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRequireWithdrawalHistoryByParentID" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByParentIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRequireWithdrawalHistoryByParentIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequireWithdrawalSoapIn">
+    <wsdl:part name="parameters" element="tns:RequireWithdrawal" />
+  </wsdl:message>
+  <wsdl:message name="RequireWithdrawalSoapOut">
+    <wsdl:part name="parameters" element="tns:RequireWithdrawalResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByTagNameSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckDocumentByTagName" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByTagNameSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckDocumentByTagNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckDocumentByNumber" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckDocumentByNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountLevelSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserAccountLevel" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountLevelSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserAccountLevelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertySoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountProperty" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertySoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountPropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountPropertySoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserAccountProperty" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountPropertySoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserAccountPropertyResponse" />
   </wsdl:message>
   <wsdl:message name="AddThresholdSoapIn">
     <wsdl:part name="parameters" element="tns:AddThreshold" />
@@ -1122,6 +1648,12 @@
   <wsdl:message name="CheckAccountExistSoapOut">
     <wsdl:part name="parameters" element="tns:CheckAccountExistResponse" />
   </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistByContactPhoneNumber" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistByContactPhoneNumberResponse" />
+  </wsdl:message>
   <wsdl:message name="RequireRegisterSoapIn">
     <wsdl:part name="parameters" element="tns:RequireRegister" />
   </wsdl:message>
@@ -1158,11 +1690,23 @@
   <wsdl:message name="GetUserBalanceSoapOut">
     <wsdl:part name="parameters" element="tns:GetUserBalanceResponse" />
   </wsdl:message>
+  <wsdl:message name="GetCompanyGameCodeByPageSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCompanyGameCodeByPage" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyGameCodeByPageSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCompanyGameCodeByPageResponse" />
+  </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeSoapIn">
     <wsdl:part name="parameters" element="tns:GetCompanyGameCode" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeSoapOut">
     <wsdl:part name="parameters" element="tns:GetCompanyGameCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyCategorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetCompanyCategory" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyCategorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetCompanyCategoryResponse" />
   </wsdl:message>
   <wsdl:message name="GetCompanyMarqueeTextSoapIn">
     <wsdl:part name="parameters" element="tns:GetCompanyMarqueeText" />
@@ -1241,6 +1785,99 @@
     <wsdl:part name="Echo" type="s:string" />
   </wsdl:message>
   <wsdl:message name="HeartBeatHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectAvailableHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectAvailableHttpGetOut">
+    <wsdl:part name="Body" element="tns:PromotionCollectResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectHistoryHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="BeginDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectHistoryHttpGetOut">
+    <wsdl:part name="Body" element="tns:PromotionCollectHistoryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="QueryYear" type="s:string" />
+    <wsdl:part name="QueryMonth" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:RequireWithdrawalHistoryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByParentIDHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="QueryYear" type="s:string" />
+    <wsdl:part name="QueryMonth" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByParentIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:RequireWithdrawalHistoryResult" />
+  </wsdl:message>
+  <wsdl:message name="RequireWithdrawalHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+    <wsdl:part name="Description" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RequireWithdrawalHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByTagNameHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="TagName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByTagNameHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentListResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByNumberHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="DocNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByNumberHttpGetOut">
+    <wsdl:part name="Body" element="tns:DocumentResult" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountLevelHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="UserLevel" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountLevelHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertyHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PropertyName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertyHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountPropertyHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PropertyName" type="s:string" />
+    <wsdl:part name="PropertyValue" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountPropertyHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="AddThresholdHttpGetIn">
@@ -1382,6 +2019,15 @@
   <wsdl:message name="CheckAccountExistHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PhonePrefix" type="s:string" />
+    <wsdl:part name="PhoneNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetCompanySiteHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
@@ -1415,12 +2061,31 @@
   <wsdl:message name="GetUserBalanceHttpGetOut">
     <wsdl:part name="Body" element="tns:UserBalanceResult" />
   </wsdl:message>
+  <wsdl:message name="GetCompanyGameCodeByPageHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="GameBrand" type="s:string" />
+    <wsdl:part name="GameCategoryCode" type="s:string" />
+    <wsdl:part name="GameCategorySubCode" type="s:string" />
+    <wsdl:part name="PageSize" type="s:string" />
+    <wsdl:part name="Page" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyGameCodeByPageHttpGetOut">
+    <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
+  </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeHttpGetOut">
     <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyCategoryHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyCategoryHttpGetOut">
+    <wsdl:part name="Body" element="tns:CompanyCategoryResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanyMarqueeTextHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -1548,6 +2213,99 @@
     <wsdl:part name="Echo" type="s:string" />
   </wsdl:message>
   <wsdl:message name="HeartBeatHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectAvailableHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectAvailableHttpPostOut">
+    <wsdl:part name="Body" element="tns:PromotionCollectResult" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectHistoryHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="BeginDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPromotionCollectHistoryHttpPostOut">
+    <wsdl:part name="Body" element="tns:PromotionCollectHistoryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="QueryYear" type="s:string" />
+    <wsdl:part name="QueryMonth" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:RequireWithdrawalHistoryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByParentIDHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="QueryYear" type="s:string" />
+    <wsdl:part name="QueryMonth" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRequireWithdrawalHistoryByParentIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:RequireWithdrawalHistoryResult" />
+  </wsdl:message>
+  <wsdl:message name="RequireWithdrawalHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="Amount" type="s:string" />
+    <wsdl:part name="Description" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RequireWithdrawalHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByTagNameHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="TagName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByTagNameHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentListResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByNumberHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="DocNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckDocumentByNumberHttpPostOut">
+    <wsdl:part name="Body" element="tns:DocumentResult" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountLevelHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="UserLevel" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountLevelHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertyHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PropertyName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountPropertyHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountPropertyHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PropertyName" type="s:string" />
+    <wsdl:part name="PropertyValue" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountPropertyHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="AddThresholdHttpPostIn">
@@ -1689,6 +2447,15 @@
   <wsdl:message name="CheckAccountExistHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PhonePrefix" type="s:string" />
+    <wsdl:part name="PhoneNumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetCompanySiteHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
@@ -1722,12 +2489,31 @@
   <wsdl:message name="GetUserBalanceHttpPostOut">
     <wsdl:part name="Body" element="tns:UserBalanceResult" />
   </wsdl:message>
+  <wsdl:message name="GetCompanyGameCodeByPageHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="GameBrand" type="s:string" />
+    <wsdl:part name="GameCategoryCode" type="s:string" />
+    <wsdl:part name="GameCategorySubCode" type="s:string" />
+    <wsdl:part name="PageSize" type="s:string" />
+    <wsdl:part name="Page" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyGameCodeByPageHttpPostOut">
+    <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
+  </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeHttpPostOut">
     <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyCategoryHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCompanyCategoryHttpPostOut">
+    <wsdl:part name="Body" element="tns:CompanyCategoryResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanyMarqueeTextHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
@@ -1855,6 +2641,58 @@
       <wsdl:input message="tns:HeartBeatSoapIn" />
       <wsdl:output message="tns:HeartBeatSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="AddPromotionCollect">
+      <wsdl:input message="tns:AddPromotionCollectSoapIn" />
+      <wsdl:output message="tns:AddPromotionCollectSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectAvailable">
+      <wsdl:input message="tns:GetPromotionCollectAvailableSoapIn" />
+      <wsdl:output message="tns:GetPromotionCollectAvailableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectHistory">
+      <wsdl:input message="tns:GetPromotionCollectHistorySoapIn" />
+      <wsdl:output message="tns:GetPromotionCollectHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetCompanyGameCodeTag">
+      <wsdl:input message="tns:SetCompanyGameCodeTagSoapIn" />
+      <wsdl:output message="tns:SetCompanyGameCodeTagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTag">
+      <wsdl:input message="tns:SetUserAccountTagSoapIn" />
+      <wsdl:output message="tns:SetUserAccountTagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
+      <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDSoapIn" />
+      <wsdl:output message="tns:GetRequireWithdrawalHistoryByUserAccountIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByParentID">
+      <wsdl:input message="tns:GetRequireWithdrawalHistoryByParentIDSoapIn" />
+      <wsdl:output message="tns:GetRequireWithdrawalHistoryByParentIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequireWithdrawal">
+      <wsdl:input message="tns:RequireWithdrawalSoapIn" />
+      <wsdl:output message="tns:RequireWithdrawalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByTagName">
+      <wsdl:input message="tns:CheckDocumentByTagNameSoapIn" />
+      <wsdl:output message="tns:CheckDocumentByTagNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByNumber">
+      <wsdl:input message="tns:CheckDocumentByNumberSoapIn" />
+      <wsdl:output message="tns:CheckDocumentByNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountLevel">
+      <wsdl:input message="tns:SetUserAccountLevelSoapIn" />
+      <wsdl:output message="tns:SetUserAccountLevelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <wsdl:input message="tns:GetUserAccountPropertySoapIn" />
+      <wsdl:output message="tns:GetUserAccountPropertySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountProperty">
+      <wsdl:input message="tns:SetUserAccountPropertySoapIn" />
+      <wsdl:output message="tns:SetUserAccountPropertySoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <wsdl:input message="tns:AddThresholdSoapIn" />
       <wsdl:output message="tns:AddThresholdSoapOut" />
@@ -1907,6 +2745,10 @@
       <wsdl:input message="tns:CheckAccountExistSoapIn" />
       <wsdl:output message="tns:CheckAccountExistSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberSoapIn" />
+      <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RequireRegister">
       <wsdl:input message="tns:RequireRegisterSoapIn" />
       <wsdl:output message="tns:RequireRegisterSoapOut" />
@@ -1931,9 +2773,17 @@
       <wsdl:input message="tns:GetUserBalanceSoapIn" />
       <wsdl:output message="tns:GetUserBalanceSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetCompanyGameCodeByPage">
+      <wsdl:input message="tns:GetCompanyGameCodeByPageSoapIn" />
+      <wsdl:output message="tns:GetCompanyGameCodeByPageSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <wsdl:input message="tns:GetCompanyGameCodeSoapIn" />
       <wsdl:output message="tns:GetCompanyGameCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanyCategory">
+      <wsdl:input message="tns:GetCompanyCategorySoapIn" />
+      <wsdl:output message="tns:GetCompanyCategorySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanyMarqueeText">
       <wsdl:input message="tns:GetCompanyMarqueeTextSoapIn" />
@@ -1989,6 +2839,46 @@
       <wsdl:input message="tns:HeartBeatHttpGetIn" />
       <wsdl:output message="tns:HeartBeatHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectAvailable">
+      <wsdl:input message="tns:GetPromotionCollectAvailableHttpGetIn" />
+      <wsdl:output message="tns:GetPromotionCollectAvailableHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectHistory">
+      <wsdl:input message="tns:GetPromotionCollectHistoryHttpGetIn" />
+      <wsdl:output message="tns:GetPromotionCollectHistoryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
+      <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpGetIn" />
+      <wsdl:output message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByParentID">
+      <wsdl:input message="tns:GetRequireWithdrawalHistoryByParentIDHttpGetIn" />
+      <wsdl:output message="tns:GetRequireWithdrawalHistoryByParentIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequireWithdrawal">
+      <wsdl:input message="tns:RequireWithdrawalHttpGetIn" />
+      <wsdl:output message="tns:RequireWithdrawalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByTagName">
+      <wsdl:input message="tns:CheckDocumentByTagNameHttpGetIn" />
+      <wsdl:output message="tns:CheckDocumentByTagNameHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByNumber">
+      <wsdl:input message="tns:CheckDocumentByNumberHttpGetIn" />
+      <wsdl:output message="tns:CheckDocumentByNumberHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountLevel">
+      <wsdl:input message="tns:SetUserAccountLevelHttpGetIn" />
+      <wsdl:output message="tns:SetUserAccountLevelHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <wsdl:input message="tns:GetUserAccountPropertyHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountPropertyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountProperty">
+      <wsdl:input message="tns:SetUserAccountPropertyHttpGetIn" />
+      <wsdl:output message="tns:SetUserAccountPropertyHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <wsdl:input message="tns:AddThresholdHttpGetIn" />
       <wsdl:output message="tns:AddThresholdHttpGetOut" />
@@ -2041,6 +2931,10 @@
       <wsdl:input message="tns:CheckAccountExistHttpGetIn" />
       <wsdl:output message="tns:CheckAccountExistHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberHttpGetIn" />
+      <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <wsdl:input message="tns:GetCompanySiteHttpGetIn" />
       <wsdl:output message="tns:GetCompanySiteHttpGetOut" />
@@ -2057,9 +2951,17 @@
       <wsdl:input message="tns:GetUserBalanceHttpGetIn" />
       <wsdl:output message="tns:GetUserBalanceHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetCompanyGameCodeByPage">
+      <wsdl:input message="tns:GetCompanyGameCodeByPageHttpGetIn" />
+      <wsdl:output message="tns:GetCompanyGameCodeByPageHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <wsdl:input message="tns:GetCompanyGameCodeHttpGetIn" />
       <wsdl:output message="tns:GetCompanyGameCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanyCategory">
+      <wsdl:input message="tns:GetCompanyCategoryHttpGetIn" />
+      <wsdl:output message="tns:GetCompanyCategoryHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanyMarqueeText">
       <wsdl:input message="tns:GetCompanyMarqueeTextHttpGetIn" />
@@ -2115,6 +3017,46 @@
       <wsdl:input message="tns:HeartBeatHttpPostIn" />
       <wsdl:output message="tns:HeartBeatHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectAvailable">
+      <wsdl:input message="tns:GetPromotionCollectAvailableHttpPostIn" />
+      <wsdl:output message="tns:GetPromotionCollectAvailableHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectHistory">
+      <wsdl:input message="tns:GetPromotionCollectHistoryHttpPostIn" />
+      <wsdl:output message="tns:GetPromotionCollectHistoryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
+      <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpPostIn" />
+      <wsdl:output message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByParentID">
+      <wsdl:input message="tns:GetRequireWithdrawalHistoryByParentIDHttpPostIn" />
+      <wsdl:output message="tns:GetRequireWithdrawalHistoryByParentIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequireWithdrawal">
+      <wsdl:input message="tns:RequireWithdrawalHttpPostIn" />
+      <wsdl:output message="tns:RequireWithdrawalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByTagName">
+      <wsdl:input message="tns:CheckDocumentByTagNameHttpPostIn" />
+      <wsdl:output message="tns:CheckDocumentByTagNameHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByNumber">
+      <wsdl:input message="tns:CheckDocumentByNumberHttpPostIn" />
+      <wsdl:output message="tns:CheckDocumentByNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountLevel">
+      <wsdl:input message="tns:SetUserAccountLevelHttpPostIn" />
+      <wsdl:output message="tns:SetUserAccountLevelHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <wsdl:input message="tns:GetUserAccountPropertyHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountPropertyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountProperty">
+      <wsdl:input message="tns:SetUserAccountPropertyHttpPostIn" />
+      <wsdl:output message="tns:SetUserAccountPropertyHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <wsdl:input message="tns:AddThresholdHttpPostIn" />
       <wsdl:output message="tns:AddThresholdHttpPostOut" />
@@ -2167,6 +3109,10 @@
       <wsdl:input message="tns:CheckAccountExistHttpPostIn" />
       <wsdl:output message="tns:CheckAccountExistHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberHttpPostIn" />
+      <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <wsdl:input message="tns:GetCompanySiteHttpPostIn" />
       <wsdl:output message="tns:GetCompanySiteHttpPostOut" />
@@ -2183,9 +3129,17 @@
       <wsdl:input message="tns:GetUserBalanceHttpPostIn" />
       <wsdl:output message="tns:GetUserBalanceHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetCompanyGameCodeByPage">
+      <wsdl:input message="tns:GetCompanyGameCodeByPageHttpPostIn" />
+      <wsdl:output message="tns:GetCompanyGameCodeByPageHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <wsdl:input message="tns:GetCompanyGameCodeHttpPostIn" />
       <wsdl:output message="tns:GetCompanyGameCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanyCategory">
+      <wsdl:input message="tns:GetCompanyCategoryHttpPostIn" />
+      <wsdl:output message="tns:GetCompanyCategoryHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanyMarqueeText">
       <wsdl:input message="tns:GetCompanyMarqueeTextHttpPostIn" />
@@ -2240,6 +3194,123 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HeartBeat">
       <soap:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPromotionCollect">
+      <soap:operation soapAction="http://tempuri.org/AddPromotionCollect" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectAvailable">
+      <soap:operation soapAction="http://tempuri.org/GetPromotionCollectAvailable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectHistory">
+      <soap:operation soapAction="http://tempuri.org/GetPromotionCollectHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetCompanyGameCodeTag">
+      <soap:operation soapAction="http://tempuri.org/SetCompanyGameCodeTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTag">
+      <soap:operation soapAction="http://tempuri.org/SetUserAccountTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
+      <soap:operation soapAction="http://tempuri.org/GetRequireWithdrawalHistoryByUserAccountID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByParentID">
+      <soap:operation soapAction="http://tempuri.org/GetRequireWithdrawalHistoryByParentID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequireWithdrawal">
+      <soap:operation soapAction="http://tempuri.org/RequireWithdrawal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByTagName">
+      <soap:operation soapAction="http://tempuri.org/CheckDocumentByTagName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByNumber">
+      <soap:operation soapAction="http://tempuri.org/CheckDocumentByNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountLevel">
+      <soap:operation soapAction="http://tempuri.org/SetUserAccountLevel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountProperty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountProperty">
+      <soap:operation soapAction="http://tempuri.org/SetUserAccountProperty" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2364,6 +3435,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <soap:operation soapAction="http://tempuri.org/CheckAccountExistByContactPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RequireRegister">
       <soap:operation soapAction="http://tempuri.org/RequireRegister" style="document" />
       <wsdl:input>
@@ -2418,8 +3498,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCompanyGameCodeByPage">
+      <soap:operation soapAction="http://tempuri.org/GetCompanyGameCodeByPage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <soap:operation soapAction="http://tempuri.org/GetCompanyGameCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanyCategory">
+      <soap:operation soapAction="http://tempuri.org/GetCompanyCategory" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2547,6 +3645,123 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddPromotionCollect">
+      <soap12:operation soapAction="http://tempuri.org/AddPromotionCollect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectAvailable">
+      <soap12:operation soapAction="http://tempuri.org/GetPromotionCollectAvailable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectHistory">
+      <soap12:operation soapAction="http://tempuri.org/GetPromotionCollectHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetCompanyGameCodeTag">
+      <soap12:operation soapAction="http://tempuri.org/SetCompanyGameCodeTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTag">
+      <soap12:operation soapAction="http://tempuri.org/SetUserAccountTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
+      <soap12:operation soapAction="http://tempuri.org/GetRequireWithdrawalHistoryByUserAccountID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByParentID">
+      <soap12:operation soapAction="http://tempuri.org/GetRequireWithdrawalHistoryByParentID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequireWithdrawal">
+      <soap12:operation soapAction="http://tempuri.org/RequireWithdrawal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByTagName">
+      <soap12:operation soapAction="http://tempuri.org/CheckDocumentByTagName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByNumber">
+      <soap12:operation soapAction="http://tempuri.org/CheckDocumentByNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountLevel">
+      <soap12:operation soapAction="http://tempuri.org/SetUserAccountLevel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountProperty">
+      <soap12:operation soapAction="http://tempuri.org/SetUserAccountProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <soap12:operation soapAction="http://tempuri.org/AddThreshold" style="document" />
       <wsdl:input>
@@ -2664,6 +3879,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <soap12:operation soapAction="http://tempuri.org/CheckAccountExistByContactPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RequireRegister">
       <soap12:operation soapAction="http://tempuri.org/RequireRegister" style="document" />
       <wsdl:input>
@@ -2718,8 +3942,26 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCompanyGameCodeByPage">
+      <soap12:operation soapAction="http://tempuri.org/GetCompanyGameCodeByPage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <soap12:operation soapAction="http://tempuri.org/GetCompanyGameCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanyCategory">
+      <soap12:operation soapAction="http://tempuri.org/GetCompanyCategory" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2847,6 +4089,96 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectAvailable">
+      <http:operation location="/GetPromotionCollectAvailable" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectHistory">
+      <http:operation location="/GetPromotionCollectHistory" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
+      <http:operation location="/GetRequireWithdrawalHistoryByUserAccountID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByParentID">
+      <http:operation location="/GetRequireWithdrawalHistoryByParentID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequireWithdrawal">
+      <http:operation location="/RequireWithdrawal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByTagName">
+      <http:operation location="/CheckDocumentByTagName" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByNumber">
+      <http:operation location="/CheckDocumentByNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountLevel">
+      <http:operation location="/SetUserAccountLevel" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <http:operation location="/GetUserAccountProperty" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountProperty">
+      <http:operation location="/SetUserAccountProperty" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <http:operation location="/AddThreshold" />
       <wsdl:input>
@@ -2964,6 +4296,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <http:operation location="/CheckAccountExistByContactPhoneNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <http:operation location="/GetCompanySite" />
       <wsdl:input>
@@ -3000,8 +4341,26 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCompanyGameCodeByPage">
+      <http:operation location="/GetCompanyGameCodeByPage" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <http:operation location="/GetCompanyGameCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanyCategory">
+      <http:operation location="/GetCompanyCategory" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -3129,6 +4488,96 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectAvailable">
+      <http:operation location="/GetPromotionCollectAvailable" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPromotionCollectHistory">
+      <http:operation location="/GetPromotionCollectHistory" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
+      <http:operation location="/GetRequireWithdrawalHistoryByUserAccountID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequireWithdrawalHistoryByParentID">
+      <http:operation location="/GetRequireWithdrawalHistoryByParentID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequireWithdrawal">
+      <http:operation location="/RequireWithdrawal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByTagName">
+      <http:operation location="/CheckDocumentByTagName" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckDocumentByNumber">
+      <http:operation location="/CheckDocumentByNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountLevel">
+      <http:operation location="/SetUserAccountLevel" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountProperty">
+      <http:operation location="/GetUserAccountProperty" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountProperty">
+      <http:operation location="/SetUserAccountProperty" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <http:operation location="/AddThreshold" />
       <wsdl:input>
@@ -3246,6 +4695,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
+      <http:operation location="/CheckAccountExistByContactPhoneNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <http:operation location="/GetCompanySite" />
       <wsdl:input>
@@ -3282,8 +4740,26 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCompanyGameCodeByPage">
+      <http:operation location="/GetCompanyGameCodeByPage" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <http:operation location="/GetCompanyGameCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompanyCategory">
+      <http:operation location="/GetCompanyCategory" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
