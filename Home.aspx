@@ -385,7 +385,7 @@
 
                 <div class="game_wrapper">
                     <div class="sec_title_container">
-                        <div class="sec_titl_wrapper">
+                        <div class="sec_title_wrapper">
                             <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                         </div>
                         <a class="text-link" href="casino.html">
@@ -677,7 +677,7 @@
             <section class="section-wrap section-levelUp new">
                 <div class="game_wrapper">
                     <div class="sec_title_container">
-                        <div class="sec_titl_wrapper">
+                        <div class="sec_title_wrapper">
                             <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                         </div>
                         <a class="text-link" href="casino.html">
@@ -969,7 +969,7 @@
 
                 <div class="game_wrapper">
                     <div class="sec_title_container">
-                        <div class="sec_titl_wrapper">
+                        <div class="sec_title_wrapper">
                             <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                         </div>
                         <a class="text-link" href="casino.html">
