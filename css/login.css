@@ -57,7 +57,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 35px;
   height: 35px;
   display: block;
-  background: #fff url(../Images/theme/dark/icon/qrcode.svg) center center no-repeat;
+  background: #fff url(../images/theme/dark/icon/qrcode.svg) center center no-repeat;
   border-radius: 5px;
 }
 

@@ -2,27 +2,146 @@
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
+.desktop {
+  display: none !important;
+}
+
+.hero_slider {
+  position: relative;
+}
+.hero_slider .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero_slider .img-wrap {
+  position: relative;
+  padding-bottom: calc(100vw / 3.5 );
+  overflow: hidden;
+}
+.hero_slider .img-wrap img.bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: center top;
+  width: 100%;
+  height: 100%;
+}
+.hero_slider .role {
+  position: absolute;
+  bottom: 0;
+}
+.hero_slider .role.role-R {
+  right: -50px;
+  width: 55%;
+  height: 100%;
+  max-width: 660px;
+  bottom: 0%;
+}
+.hero_slider .role.role-R img {
+  position: absolute;
+  top: 10%;
+}
+.hero_slider .role.role-L {
+  left: -50px;
+  width: 50%;
+  height: 100%;
+  max-width: 350px;
+  bottom: 0%;
+  z-index: 2;
+  opacity: 0;
+}
+.hero_slider .role.role-L img {
+  position: absolute;
+  bottom: 20%;
+}
+.hero_slider .swiper-mask {
+  background: url(../../images/index/hero-mask.svg) center bottom no-repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-size: cover;
+}
+.hero_slider .swiper-slide-active {
+  z-index: 2;
+}
+.hero_slider .swiper-slide-active .img-wrap:before {
+  content: "";
+  background: url(../../images/index/hero-mask.svg) center bottom no-repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-size: cover;
+}
+.hero_slider .swiper-slide-active .role.role-L {
+  animation: anim-role_left 3.5s linear 1s 1 normal both;
+}
+.hero_slider .swiper-slide-active .role.role-L img {
+  position: absolute;
+  bottom: 20%;
+}
+.hero_slider .swiper-pagination {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.hero_slider .swiper-pagination-bullet {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+  opacity: 1;
+  background-color: #fff;
+  border: solid 3px #008fd0;
+  transition: all 0.3s ease-in;
+  transform: scale(1);
+  overflow: hidden;
+}
+.hero_slider .swiper-pagination-bullet-active {
+  transform: scale(1.2);
+}
+
+.section_publicize img {
+  width: 100%;
+}
 .section_publicize .publicize_wrapper {
-  margin-bottom: 20px;
+  margin-bottom: 0.625rem;
 }
 .section_publicize .publicize_top_inner {
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
 }
-.section_publicize .publicize_top_inner .item.writer {
-  padding-right: 1.3rem;
+.section_publicize .publicize_top_inner .item {
+  flex: 0 0 100%;
 }
 .section_publicize .publicize_bottom {
   margin-bottom: 40px;
 }
 .section_publicize .publicize_bottom_inner {
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
 }
-.section_publicize .publicize_bottom_inner .way_payment {
-  margin-right: 1.3rem;
+.section_publicize .publicize_bottom_inner .publicize-wrap {
+  flex: 0 0 100%;
 }
 .section_publicize .publicize_bottom_inner .bulletin {
+  display: none;
   margin-bottom: 10px;
 }
 .section_publicize .publicize_bottom_inner .bulletin_inner {
@@ -53,4 +172,40 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: 600;
   margin-left: 0.5rem;
   margin-right: 1rem;
+}
+
+@media screen and (orientation: landscape) {
+  .hero_slider .img-wrap {
+    padding-bottom: calc(100vw / 3.5 );
+  }
+}
+@media (min-width: 992px) {
+  .mobile {
+    display: none !important;
+  }
+
+  .desktop {
+    display: inherit !important;
+  }
+
+  .hero_slider .swiper-pagination {
+    display: initial;
+  }
+
+  .section_publicize .publicize_top_inner .item {
+    flex: 1;
+  }
+  .section_publicize .publicize_top_inner .item.writer {
+    padding-right: 1.3rem;
+  }
+  .section_publicize .publicize_bottom_inner .way_payment {
+    flex: 0 0 auto;
+    padding-right: 1.3rem;
+  }
+  .section_publicize .publicize_bottom_inner .bulletin-login {
+    flex: 1;
+  }
+  .section_publicize .publicize_bottom_inner .bulletin {
+    display: inherit;
+  }
 }

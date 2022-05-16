@@ -459,7 +459,8 @@
 
     function API_Home() {
         //Game
-        API_LoadPage("Home", "Home.aspx");
+        // API_LoadPage("Home", "Home.aspx");
+        API_LoadPage("Home", "Casino.aspx");
     }
 
     function API_Reload() {
@@ -1667,8 +1668,8 @@
                                 <ul class="nav">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
-                                        <a class="btn btn-round nav-link" role="button" onclick="openFullSearch(this)">
-                                            <i class="icon icon-mask icon-search"></i></a>
+                                        <button type="button" class="btn btn-round nav-link" data-toggle="modal" data-target="#alertSearch"><i class="icon icon-mask icon-search"></i>
+                                        </button>
                                     </li>
                                     <!-- ==== 登入前 ====-->
                                     <li class="nav-item unLogIn_wrapper " id="idLoginBtn">
@@ -1726,7 +1727,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item submenu dropdown">
+                                    <%--<li class="nav-item submenu dropdown">
                                         <a onclick="dataToggleDropdown(this)"
                                             class="btn btn-round nav-link btnDropDown"
                                             data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -1744,6 +1745,7 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    --%>
                                 </ul>
                             </div>
                         </div>
@@ -1836,7 +1838,145 @@
 
     <!-- mask_overlay 黑色半透明遮罩-->
     <div id="mask_overlay_popup" class="mask_overlay_popup"></div>
-    <!--=========JS========-->
+    
+   <!-- Search Modal -->
+    <div class="modal fade no-footer " id="alertSearch" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h5 class="modal-title"></h5> -->
+                <div class="searchFilter-wrapper">                  
+                    <div class="searchFilter-item input-group">
+                            <input type="text" class="form-control" language_replace="placeholder" placeholder="請輸入關鍵字">
+                            <label for="" class="form-label"><span class="language_replace">請輸入關鍵字</span></label>                   
+                    </div>
+                    <div class="searchFilter-item input-group">                   
+                        <select class="custom-select">
+                            <option class="title" selected><span class="language_replace">遊戲品牌</span></option>
+                            <option class="searchFilter-option" value="" ><span class="language_replace">PG</span></option>
+                        </select>
+                    </div>
+                    <div class="searchFilter-item input-group">                   
+                        <select class="custom-select">
+                            <option class="title" selected><span class="language_replace">遊戲類型</span></option>
+                            <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm"><span class="">搜尋</span></button>              
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="game-search-wrapper">
+                    
+                    <div class="search-result-wrapper">
+                        <div class="search-result-inner">
+                            <div class="search-result-list game-item-group">
+                                    <div class="game-item">
+                                        <div class="game-item-inner">
+                                            <div class="game-item-focus">
+                                                <div class="game-item-img">
+                                                    <span class="game-item-link"></span>
+                                                    <div class="img-wrap">
+                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                    </div>
+                                                </div>                              
+                                            </div>
+                                            <div class="game-item-info">
+                                                <div class="game-item-info-inner">
+                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-inner">
+                                            <div class="game-item-focus">
+                                                <div class="game-item-img">
+                                                    <span class="game-item-link"></span>
+                                                    <div class="img-wrap">
+                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                    </div>
+                                                </div>                              
+                                            </div>
+                                            <div class="game-item-info">
+                                                <div class="game-item-info-inner">
+                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-inner">
+                                            <div class="game-item-focus">
+                                                <div class="game-item-img">
+                                                    <span class="game-item-link"></span>
+                                                    <div class="img-wrap">
+                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                    </div>
+                                                </div>                              
+                                            </div>
+                                            <div class="game-item-info">
+                                                <div class="game-item-info-inner">
+                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-inner">
+                                            <div class="game-item-focus">
+                                                <div class="game-item-img">
+                                                    <span class="game-item-link"></span>
+                                                    <div class="img-wrap">
+                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                    </div>
+                                                </div>                              
+                                            </div>
+                                            <div class="game-item-info">
+                                                <div class="game-item-info-inner">
+                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                    <div class="game-item">
+                                        <div class="game-item-inner">
+                                            <div class="game-item-focus">
+                                                <div class="game-item-img">
+                                                    <span class="game-item-link"></span>
+                                                    <div class="img-wrap">
+                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                    </div>
+                                                </div>                              
+                                            </div>
+                                            <div class="game-item-info">
+                                                <div class="game-item-info-inner">
+                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 遊戲介紹 Modal-->
     <div class="modal fade modal-game" tabindex="-1" role="dialog" aria-labelledby="alertGameIntro" aria-hidden="true" id="alertGameIntro">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
