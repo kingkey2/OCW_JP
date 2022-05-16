@@ -1653,11 +1653,8 @@
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
                         <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Home','Home.aspx')">
-                            <div class="logo">
-                                <div class="img-wrap">
-                                    <a>
-                                        <img src="images/logo.svg" alt=""></a>
-                                </div>
+                            <div class="navbar-brand">
+                                <div class="logo"><a></a></div>
                             </div>
                         </div>
                         <!-- 右上角 -->
