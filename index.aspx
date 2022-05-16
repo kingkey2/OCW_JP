@@ -459,8 +459,7 @@
 
     function API_Home() {
         //Game
-        // API_LoadPage("Home", "Home.aspx");
-        API_LoadPage("Home", "Casino.aspx");
+        API_LoadPage("Home", "Home.aspx");        
     }
 
     function API_Reload() {
