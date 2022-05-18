@@ -340,7 +340,7 @@
             if (type && type == 1) {
 
             } else {
-                //document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
+                document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
             }
         }
         $('.loader-backdrop').addClass('is-show');
@@ -348,7 +348,7 @@
             $('.iframe-container').addClass('is-show');
         });
 
-        resize();
+        //resize();
     }
 
     function API_OpenGameCode(gameBrand, gameName) {
@@ -436,8 +436,11 @@
                 //loadingStart();
                 //上一頁針對iframe的問題，只能將loading的function都放於頁面中
                 //API_LoadingStart(); 
-                IFramePage.style.height = "0px";
+                //IFramePage.style.height = "0px";
                 IFramePage.src = url;
+
+                
+
                 //IFramePage.
             }
 
@@ -1554,9 +1557,9 @@
                     }
                 }, 1000);
 
-                window.setInterval(function () {
-                    resize();
-                }, 1000);
+                //window.setInterval(function () {
+                //    resize();
+                //}, 1000);
             });
         });
 
@@ -1752,12 +1755,14 @@
         <div id="mask_overlay" class="mask_overlay"></div>
     </header>
     <!-- main_area = iframe高度 + Footer高度-->
-    <div class="main_area" style="height: auto;">
+<%--    <div class="main_area" style="height: auto;">--%>
+            <div class="main_area">
         <!-- iframe高度 自動計算高度-->
-        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>
+<%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
+       <iframe id="IFramePage" class="mainIframe" name="mainiframe"></iframe>
     </div>
     <!-- footer -->
-    <div id="footer">
+    <div id="footer" style="display:none">
         <footer class="footer">
             <div class="footer_inner">
                 <div class="container">
