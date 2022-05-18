@@ -452,8 +452,8 @@
 </script>
 
 <body class="innerBody">
-    <main>
-        <section class="section-wrap hero">      
+    <main class="innerMain">
+        <section class="section-slider_lobby hero">      
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">      
                 <div class="swiper-wrapper">
                 <div class="swiper-slide">
@@ -563,8 +563,8 @@
             <section class="section-wrap section-levelUp">
                 <div class="container-fluid">
                     <div class="game_wrapper">
-                        <div class="sec_title_container">
-                            <div class="sec_title_wrapper">
+                        <div class="sec-title-container">
+                            <div class="sec-title-wrapper">
                                 <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                             </div>
                         </div>
@@ -580,8 +580,8 @@
         <section class="section-wrap section-levelUp">     
             <div class="container-fluid">
                 <div class="game_wrapper">
-                    <div class="sec_title_container">
-                    <div class="sec_title_wrapper">
+                    <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
                         <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                     </div>
                     </div>
@@ -964,8 +964,8 @@
         <section class="section-wrap section_randomRem">
             <div class="container-fluid">
             <div class="game_wrapper">
-                <div class="sec_title_container">
-                <div class="sec_title_wrapper">
+                <div class="sec-title-container">
+                <div class="sec-title-wrapper">
                     <h3 class="title">隨機推薦遊戲</h3>
                 </div>
                 </div>

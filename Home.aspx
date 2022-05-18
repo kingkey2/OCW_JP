@@ -382,10 +382,9 @@
         <section class="game-area section-wrap container overflow-hidden">
             <!-- 推薦遊戲 -->
             <section class="section-wrap section-levelUp recommend">
-
                 <div class="game_wrapper">
-                    <div class="sec_title_container">
-                        <div class="sec_title_wrapper">
+                    <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
                             <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
                         </div>
                         <a class="text-link" href="casino.html">
@@ -394,275 +393,366 @@
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover round-arrow" id="game-recommend">
                         <div class="swiper-wrapper">
+
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <!-- 已"按讚" class=> "added" -->
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <!-- 已"加入最愛" class=> "added" -->
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/CG/PC/CHT/AzurLaneEX.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/89.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/CG/PC/CHT/AzurLaneEX.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/89.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
@@ -676,9 +766,9 @@
             <!-- 最新遊戲 -->
             <section class="section-wrap section-levelUp new">
                 <div class="game_wrapper">
-                    <div class="sec_title_container">
-                        <div class="sec_title_wrapper">
-                            <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
+                    <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
+                            <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>最新遊戲</h3>
                         </div>
                         <a class="text-link" href="casino.html">
                             <span>全部顯示</span><i class="icon arrow arrow-right"></i>
@@ -686,275 +776,366 @@
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover round-arrow" id="game-new">
                         <div class="swiper-wrapper">
+
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <!-- 已"按讚" class=> "added" -->
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <!-- 已"加入最愛" class=> "added" -->
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/CG/PC/CHT/AzurLaneEX.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/89.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/CG/PC/CHT/AzurLaneEX.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/89.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
@@ -966,11 +1147,10 @@
 
             <!-- 賭場遊戲 -->
             <section class="section-wrap section-levelUp pop">
-
                 <div class="game_wrapper">
-                    <div class="sec_title_container">
-                        <div class="sec_title_wrapper">
-                            <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
+                    <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
+                            <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>賭場遊戲</h3>
                         </div>
                         <a class="text-link" href="casino.html">
                             <span>全部顯示</span><i class="icon arrow arrow-right"></i>
@@ -978,275 +1158,366 @@
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover round-arrow" id="pop-casino">
                         <div class="swiper-wrapper">
+
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <!-- 已"按讚" class=> "added" -->
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <!-- 已"加入最愛" class=> "added" -->
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/CG/PC/CHT/AzurLaneEX.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/89.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/CG/PC/CHT/AzurLaneEX.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
-                                        <div class="game-item-img">
-                                            <span class="game-item-link"></span>
-                                            <div class="img-wrap">
-                                                <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/CHT/89.png">
+                                        <div class="game-item-focus">
+                                            <div class="game-item-img">
+                                                <span class="game-item-link"></span>
+                                                <div class="img-wrap">
+                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                                </div>
+                                            </div>
+                                            <div class="game-item-info-detail">
+                                                <div class="game-item-info-detail-wapper">
+                                                    <div class="game-item-info-detail-inner">
+                                                        <div class="info">
+                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        </div>
+                                                        <div class="action">
+                                                            <div class="btn-s-wrapper">
+                                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                                    <i class="icon icon-thumup"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-like btn btn-round">
+                                                                    <i class="icon icon-heart-o"></i>
+                                                                </button>
+                                                                <button type="button" class="btn-more btn btn-round">
+                                                                    <i class="arrow arrow-down"></i>
+                                                                </button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-play">
+                                                                <span class="language_replace">プレイ</span><i
+                                                                    class="triangle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="game-item-info">
                                             <div class="game-item-info-inner">
                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                <div class="game-item-info-hidden">
-                                                    <div class="top">
-                                                        <span class="btn-like">
-                                                            <span class="btn btn-round"><i class="icon icon-heart-o"></i></span>
-                                                        </span>
-                                                        <span class="btn-thumbUp">
-                                                            <span class="btn btn-round"><i class="icon icon-thumup"></i></span>
-                                                        </span>
-                                                        <button type="button" class="btn game-item-btn btn-more">
-                                                            <span class="language_replace">更多</span></button>
-                                                    </div>
-                                                    <div class="bottom">
-                                                        <button type="button" class="btn btn-full-main btn-play">
-                                                            <span class="language_replace">GO</span><i class="triangle"></i></button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
