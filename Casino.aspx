@@ -565,7 +565,7 @@
                     <div class="game_wrapper">
                         <div class="sec-title-container">
                             <div class="sec-title-wrapper">
-                                <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
+                                <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="">新品上市</span></h3>
                             </div>
                         </div>
                         <div class="game_slider swiper_container gameinfo-hover round-arrow" id="idGameItemGroup">
@@ -582,7 +582,7 @@
                 <div class="game_wrapper">
                     <div class="sec-title-container">
                     <div class="sec-title-wrapper">
-                        <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
+                        <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="">熱門遊戲</span></h3>
                     </div>
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover round-arrow" id="lobbyGame-2">
