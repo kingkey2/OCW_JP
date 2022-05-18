@@ -954,21 +954,13 @@
                     </div>
                 </div>
             </div> 
-        </section>
-            
-
-        <!-- Lobby-3 遊戲 -->
+        </section>      
         
         
         <!-- 隨機推薦遊戲 -->   
         <section class="section-wrap section_randomRem">
             <div class="container-fluid">
-            <div class="game_wrapper">
-                <div class="sec-title-container">
-                <div class="sec-title-wrapper">
-                    <h3 class="title">隨機推薦遊戲</h3>
-                </div>
-                </div>
+            <div class="game_wrapper">                
                 <div class="game_slider swiper-container round-arrow swiper-cover" id="lobbyGame-randomRem">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
