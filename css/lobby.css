@@ -23,6 +23,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .hero_slider_lobby {
   position: relative;
+  overflow: hidden;
 }
 .hero_slider_lobby .container {
   top: 0;
