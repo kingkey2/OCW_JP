@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="HeartBeat">
@@ -30,12 +30,28 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="CollectUserAccountPromotion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CollectID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollectUserAccountPromotionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CollectUserAccountPromotionResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="AddPromotionCollect">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="CollectAreaType" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="ExpireDay" type="s:int" />
@@ -174,6 +190,81 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountTagResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountTagByLoginAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PS" type="tns:ArrayOfPropertySet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountTagByLoginAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountTagByLoginAccountResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountTagByPersonCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PS" type="tns:ArrayOfPropertySet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetUserAccountTagByPersonCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountTagByPersonCodeResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountTagByPersonCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountTagByPersonCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountTagByPersonCodeResult" type="tns:PropertySetResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PropertySetResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PropertyList" type="tns:ArrayOfPropertySet" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetUserAccountTagByLoginAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAccountTagByLoginAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountTagByLoginAccountResult" type="tns:PropertySetResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1425,6 +1516,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="TxHash" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="TokenAmount" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="GasValue" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="FailureDescription" type="s:string" />
         </s:sequence>
       </s:complexType>
@@ -1468,6 +1560,7 @@
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="PromotionCollectResult" nillable="true" type="tns:PromotionCollectResult" />
       <s:element name="PromotionCollectHistoryResult" nillable="true" type="tns:PromotionCollectHistoryResult" />
+      <s:element name="PropertySetResult" nillable="true" type="tns:PropertySetResult" />
       <s:element name="RequireWithdrawalHistoryResult" nillable="true" type="tns:RequireWithdrawalHistoryResult" />
       <s:element name="DocumentListResult" nillable="true" type="tns:DocumentListResult" />
       <s:element name="DocumentResult" nillable="true" type="tns:DocumentResult" />
@@ -1491,6 +1584,12 @@
   </wsdl:message>
   <wsdl:message name="HeartBeatSoapOut">
     <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionSoapIn">
+    <wsdl:part name="parameters" element="tns:CollectUserAccountPromotion" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionSoapOut">
+    <wsdl:part name="parameters" element="tns:CollectUserAccountPromotionResponse" />
   </wsdl:message>
   <wsdl:message name="AddPromotionCollectSoapIn">
     <wsdl:part name="parameters" element="tns:AddPromotionCollect" />
@@ -1521,6 +1620,30 @@
   </wsdl:message>
   <wsdl:message name="SetUserAccountTagSoapOut">
     <wsdl:part name="parameters" element="tns:SetUserAccountTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountTagByLoginAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserAccountTagByLoginAccount" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountTagByLoginAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserAccountTagByLoginAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountTagByPersonCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:SetUserAccountTagByPersonCode" />
+  </wsdl:message>
+  <wsdl:message name="SetUserAccountTagByPersonCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:SetUserAccountTagByPersonCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByPersonCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountTagByPersonCode" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByPersonCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountTagByPersonCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByLoginAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAccountTagByLoginAccount" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByLoginAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAccountTagByLoginAccountResponse" />
   </wsdl:message>
   <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDSoapIn">
     <wsdl:part name="parameters" element="tns:GetRequireWithdrawalHistoryByUserAccountID" />
@@ -1787,6 +1910,14 @@
   <wsdl:message name="HeartBeatHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CollectID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetPromotionCollectAvailableHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -1804,6 +1935,22 @@
   </wsdl:message>
   <wsdl:message name="GetPromotionCollectHistoryHttpGetOut">
     <wsdl:part name="Body" element="tns:PromotionCollectHistoryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByPersonCodeHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PersonCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByPersonCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:PropertySetResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByLoginAccountHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByLoginAccountHttpGetOut">
+    <wsdl:part name="Body" element="tns:PropertySetResult" />
   </wsdl:message>
   <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -2215,6 +2362,14 @@
   <wsdl:message name="HeartBeatHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="CollectID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="GetPromotionCollectAvailableHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -2232,6 +2387,22 @@
   </wsdl:message>
   <wsdl:message name="GetPromotionCollectHistoryHttpPostOut">
     <wsdl:part name="Body" element="tns:PromotionCollectHistoryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByPersonCodeHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="PersonCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByPersonCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:PropertySetResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByLoginAccountHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAccountTagByLoginAccountHttpPostOut">
+    <wsdl:part name="Body" element="tns:PropertySetResult" />
   </wsdl:message>
   <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
@@ -2641,6 +2812,10 @@
       <wsdl:input message="tns:HeartBeatSoapIn" />
       <wsdl:output message="tns:HeartBeatSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <wsdl:input message="tns:CollectUserAccountPromotionSoapIn" />
+      <wsdl:output message="tns:CollectUserAccountPromotionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AddPromotionCollect">
       <wsdl:input message="tns:AddPromotionCollectSoapIn" />
       <wsdl:output message="tns:AddPromotionCollectSoapOut" />
@@ -2660,6 +2835,22 @@
     <wsdl:operation name="SetUserAccountTag">
       <wsdl:input message="tns:SetUserAccountTagSoapIn" />
       <wsdl:output message="tns:SetUserAccountTagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTagByLoginAccount">
+      <wsdl:input message="tns:SetUserAccountTagByLoginAccountSoapIn" />
+      <wsdl:output message="tns:SetUserAccountTagByLoginAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTagByPersonCode">
+      <wsdl:input message="tns:SetUserAccountTagByPersonCodeSoapIn" />
+      <wsdl:output message="tns:SetUserAccountTagByPersonCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByPersonCode">
+      <wsdl:input message="tns:GetUserAccountTagByPersonCodeSoapIn" />
+      <wsdl:output message="tns:GetUserAccountTagByPersonCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByLoginAccount">
+      <wsdl:input message="tns:GetUserAccountTagByLoginAccountSoapIn" />
+      <wsdl:output message="tns:GetUserAccountTagByLoginAccountSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDSoapIn" />
@@ -2839,6 +3030,10 @@
       <wsdl:input message="tns:HeartBeatHttpGetIn" />
       <wsdl:output message="tns:HeartBeatHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <wsdl:input message="tns:CollectUserAccountPromotionHttpGetIn" />
+      <wsdl:output message="tns:CollectUserAccountPromotionHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPromotionCollectAvailable">
       <wsdl:input message="tns:GetPromotionCollectAvailableHttpGetIn" />
       <wsdl:output message="tns:GetPromotionCollectAvailableHttpGetOut" />
@@ -2846,6 +3041,14 @@
     <wsdl:operation name="GetPromotionCollectHistory">
       <wsdl:input message="tns:GetPromotionCollectHistoryHttpGetIn" />
       <wsdl:output message="tns:GetPromotionCollectHistoryHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByPersonCode">
+      <wsdl:input message="tns:GetUserAccountTagByPersonCodeHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountTagByPersonCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByLoginAccount">
+      <wsdl:input message="tns:GetUserAccountTagByLoginAccountHttpGetIn" />
+      <wsdl:output message="tns:GetUserAccountTagByLoginAccountHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpGetIn" />
@@ -3017,6 +3220,10 @@
       <wsdl:input message="tns:HeartBeatHttpPostIn" />
       <wsdl:output message="tns:HeartBeatHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <wsdl:input message="tns:CollectUserAccountPromotionHttpPostIn" />
+      <wsdl:output message="tns:CollectUserAccountPromotionHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPromotionCollectAvailable">
       <wsdl:input message="tns:GetPromotionCollectAvailableHttpPostIn" />
       <wsdl:output message="tns:GetPromotionCollectAvailableHttpPostOut" />
@@ -3024,6 +3231,14 @@
     <wsdl:operation name="GetPromotionCollectHistory">
       <wsdl:input message="tns:GetPromotionCollectHistoryHttpPostIn" />
       <wsdl:output message="tns:GetPromotionCollectHistoryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByPersonCode">
+      <wsdl:input message="tns:GetUserAccountTagByPersonCodeHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountTagByPersonCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByLoginAccount">
+      <wsdl:input message="tns:GetUserAccountTagByLoginAccountHttpPostIn" />
+      <wsdl:output message="tns:GetUserAccountTagByLoginAccountHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpPostIn" />
@@ -3201,6 +3416,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <soap:operation soapAction="http://tempuri.org/CollectUserAccountPromotion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddPromotionCollect">
       <soap:operation soapAction="http://tempuri.org/AddPromotionCollect" style="document" />
       <wsdl:input>
@@ -3239,6 +3463,42 @@
     </wsdl:operation>
     <wsdl:operation name="SetUserAccountTag">
       <soap:operation soapAction="http://tempuri.org/SetUserAccountTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTagByLoginAccount">
+      <soap:operation soapAction="http://tempuri.org/SetUserAccountTagByLoginAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTagByPersonCode">
+      <soap:operation soapAction="http://tempuri.org/SetUserAccountTagByPersonCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByPersonCode">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountTagByPersonCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByLoginAccount">
+      <soap:operation soapAction="http://tempuri.org/GetUserAccountTagByLoginAccount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3645,6 +3905,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <soap12:operation soapAction="http://tempuri.org/CollectUserAccountPromotion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddPromotionCollect">
       <soap12:operation soapAction="http://tempuri.org/AddPromotionCollect" style="document" />
       <wsdl:input>
@@ -3683,6 +3952,42 @@
     </wsdl:operation>
     <wsdl:operation name="SetUserAccountTag">
       <soap12:operation soapAction="http://tempuri.org/SetUserAccountTag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTagByLoginAccount">
+      <soap12:operation soapAction="http://tempuri.org/SetUserAccountTagByLoginAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserAccountTagByPersonCode">
+      <soap12:operation soapAction="http://tempuri.org/SetUserAccountTagByPersonCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByPersonCode">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountTagByPersonCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByLoginAccount">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAccountTagByLoginAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4089,6 +4394,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <http:operation location="/CollectUserAccountPromotion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPromotionCollectAvailable">
       <http:operation location="/GetPromotionCollectAvailable" />
       <wsdl:input>
@@ -4100,6 +4414,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPromotionCollectHistory">
       <http:operation location="/GetPromotionCollectHistory" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByPersonCode">
+      <http:operation location="/GetUserAccountTagByPersonCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByLoginAccount">
+      <http:operation location="/GetUserAccountTagByLoginAccount" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -4488,6 +4820,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <http:operation location="/CollectUserAccountPromotion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPromotionCollectAvailable">
       <http:operation location="/GetPromotionCollectAvailable" />
       <wsdl:input>
@@ -4499,6 +4840,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPromotionCollectHistory">
       <http:operation location="/GetPromotionCollectHistory" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByPersonCode">
+      <http:operation location="/GetUserAccountTagByPersonCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAccountTagByLoginAccount">
+      <http:operation location="/GetUserAccountTagByLoginAccount" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

@@ -8,22 +8,27 @@ using System.Web.UI.WebControls;
 public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
 {
 
-    public PaymentCommonData CovertFromRow(System.Data.DataRow row) {
+    public PaymentCommonData CovertFromRow(System.Data.DataRow row)
+    {
         string DetailDataStr = "";
         string ActivityDataStr = "";
 
-        if (!Convert.IsDBNull(row["DetailData"])) {
+        if (!Convert.IsDBNull(row["DetailData"]))
+        {
             DetailDataStr = row["DetailData"].ToString();
         }
 
-        if (!Convert.IsDBNull(row["ActivityData"])) {
+        if (!Convert.IsDBNull(row["ActivityData"]))
+        {
             ActivityDataStr = row["ActivityData"].ToString();
         }
 
 
 
-        if (string.IsNullOrEmpty(DetailDataStr)) {
-            PaymentCommonData result = new PaymentCommonData() {
+        if (string.IsNullOrEmpty(DetailDataStr))
+        {
+            PaymentCommonData result = new PaymentCommonData()
+            {
                 PaymentType = (int)row["PaymentType"],
                 BasicType = (int)row["BasicType"],
                 LoginAccount = (string)row["LoginAccount"],
@@ -42,8 +47,11 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
             };
 
             return result;
-        } else {
-            PaymentCommonData result = new PaymentCommonData() {
+        }
+        else
+        {
+            PaymentCommonData result = new PaymentCommonData()
+            {
                 PaymentType = (int)row["PaymentType"],
                 BasicType = (int)row["BasicType"],
                 LoginAccount = (string)row["LoginAccount"],
@@ -65,7 +73,8 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
 
             result.PaymentCryptoDetailList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CryptoDetail>>(DetailDataStr);
 
-            if (!string.IsNullOrEmpty(ActivityDataStr)) {
+            if (!string.IsNullOrEmpty(ActivityDataStr))
+            {
                 result.ActivityDatas = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EWinTagInfoActivityData>>(ActivityDataStr);
             }
 
@@ -73,19 +82,30 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
         }
     }
 
-    public bool CheckResetThreshold(decimal PoinValue) {
-        Newtonsoft.Json.Linq.JObject settingJObj = EWinWeb.GetSettingJObj();
+    public bool CheckResetThreshold(string LoginAccount)
+    {
         bool R = false;
-        decimal limitValue;
+        EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
+        var ocwApiResult = ocwApi.GetUserPointValue(GetToken(), System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
 
-        if (settingJObj != null) {
-            limitValue = (decimal)settingJObj["ThresholdBaseValue"];
+        if (ocwApiResult.ResultState == EWin.OCW.enumResultState.OK)
+        {
+            decimal PointValue = decimal.Parse(ocwApiResult.Message);
+            Newtonsoft.Json.Linq.JObject settingJObj = EWinWeb.GetSettingJObj();         
+            decimal limitValue;
 
-            if (limitValue >= PoinValue) {
-                R = true;
-            }                       
+            if (settingJObj != null)
+            {
+                limitValue = (decimal)settingJObj["ThresholdBaseValue"];
+
+                if (limitValue >= PointValue)
+                {
+                    R = true;
+                }
+            }
+
         }
-
+   
         return R;
     }
 
@@ -102,13 +122,15 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
 
     public void SetResultException(PaymentCallbackResult R, string Msg)
     {
-        if (R != null) {
+        if (R != null)
+        {
             R.Result = 1;
             R.Message = Msg;
         }
     }
 
-    public class PaymentCommonData {
+    public class PaymentCommonData
+    {
         public int PaymentType { get; set; } // 0=入金,1=出金
         public int BasicType { get; set; } // 0=一般/1=銀行卡/2=區塊鏈
         public int PaymentFlowType { get; set; } // 0=建立/1=進行中/2=成功/3=失敗
@@ -182,7 +204,8 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
         public string Message { get; set; }
     }
 
-    public class CryptoDetail {
+    public class CryptoDetail
+    {
         public string TokenCurrencyType { get; set; }
         public string TokenContractAddress { get; set; }
         public decimal ReceiveAmount { get; set; }
