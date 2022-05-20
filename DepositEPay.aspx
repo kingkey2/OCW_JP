@@ -245,11 +245,11 @@
     function GetDepositActivityInfoByOrderNumber(OrderNum) {
         PaymentClient.GetDepositActivityInfoByOrderNumber(WebInfo.SID, Math.uuid(), OrderNum, function (success, o) {
             if (success) {
-                if (o.DataList != null) {
-                    if (o.DataList.length > 0) {
+                if (o.Data != null) {
+                    if (o.Data.length > 0) {
                         var ThresholdValue = 0
-                        for (var i = 0; i < o.DataList.length; i++) {
-                            setActivity(o.DataList[i]["Title"], o.DataList[i]["SubTitle"], o.DataList[i]["ActivityName"], o.DataList[i]["ThresholdValue"], o.DataList[i]["BonusValue"]);
+                        for (var i = 0; i < o.Data.length; i++) {
+                            setActivity(o.Data[i]["Title"], o.Data[i]["SubTitle"], o.Data[i]["ActivityName"], o.Data[i]["ThresholdValue"], o.Data[i]["BonusValue"]);
                         }
                     }
                 }
