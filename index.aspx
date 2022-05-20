@@ -483,7 +483,7 @@
     }
 
     function API_GetGameList2() {
-            return LobbyGameList;
+            return LobbyGameList2;
     }
 
     function API_ShowMessage(title, msg, cbOK, cbCancel) {
@@ -1237,9 +1237,10 @@
             GameList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
         };
 
-        lobbyClient.GetCompanyGameCode(Math.uuid(), function (success, o) {
+        lobbyClient.GetCompanyGameCode2(Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
+                    debugger;
                     //WebInfo.GameCodeList = o.GameCodeList;
                     o.GameCodeList.forEach(e => {
                         var tempSubCateg;
@@ -1265,13 +1266,7 @@
                             AllowDemoPlay: e.AllowDemoPlay
                         };
 
-                        if (e.IsNew == 1) {
-                            LobbyGameList.NewList.push(gameData);
-                        }
-
-                        if (e.IsHot == 1) {
-                            LobbyGameList.HotList.push(gameData);
-                        }
+               
 
                         //all
                         if (LobbyGameList.CategoryList[0].CategBrandList.find(eb => eb == e.BrandCode) == undefined)
@@ -1534,7 +1529,7 @@
                 }
 
                 getCompanyGameCode();
-
+                getCompanyGameCode2();
                 //登入Check
                 window.setTimeout(function () {
                     lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {

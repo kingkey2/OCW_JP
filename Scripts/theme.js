@@ -3,66 +3,66 @@ $('.footer').load('layout-footer.html');
 
 $(document).ready(function () {
 
-   //語言選單
-   $('[data-btn-click="openLag"]').click(function(){
-    $('.lang-select-panel').fadeToggle('fast');
+    //語言選單
+    $('[data-btn-click="openLag"]').click(function () {
+        $('.lang-select-panel').fadeToggle('fast');
     });
 
-    $('.lang-select-panel a').click(function(){
+    $('.lang-select-panel a').click(function () {
         var curLang = $(this).text();
         $('.lang-select-panel').fadeToggle('fast');
         $('[data-btn-click="openLag"]').find('span').text(curLang);
     });
 
     //主選單收合
-    $('.navbar-toggler').click(function(){
+    $('.navbar-toggler').click(function () {
         $('.vertical-menu').toggleClass('navbar-show');
         $('.main_menu').toggleClass('show');
     });
-    $('.header_area .mask_overlay').click(function(){
+    $('.header_area .mask_overlay').click(function () {
         $('.main_menu, .navbarMenu').removeClass('show');
-        $('.navbar-toggler').attr("aria-expanded","false");        
+        $('.navbar-toggler').attr("aria-expanded", "false");
     });
 
     //遊戲 "更多" Button 下滑
-    $('.game_slider .btn-more').click(function(){
+    $('.game_slider .btn-more').click(function () {
         // $(this).toggleClass('show');
-        $(this).closest( '.game-item-info-detail').toggleClass('open');
+        $(this).closest('.game-item-info-detail').toggleClass('open');
     });
 
-    $('.game_slider .btn-thumbUp').click(function(){
-        $(this).toggleClass('added');       
+    $('.game_slider .btn-thumbUp').click(function () {
+        $(this).toggleClass('added');
     });
 
-    $('.game_slider .btn-like').click(function(){
-        $(this).toggleClass('added');       
+    $('.game_slider .btn-like').click(function () {
+        $(this).toggleClass('added');
     });
-    
-    $('.tab-scroller__content .tab-item').click(function(){
+
+    $('.tab-scroller__content .tab-item').click(function () {
         $(this).parent('.tab-scroller__content').children('.tab-item').removeClass('active');
-        $(this).toggleClass('active');       
+        $(this).toggleClass('active');
     });
 
 
     //HERO 
     var heroIndex = new Swiper("#hero-slider", {
-    loop: true,
-    slidesPerView: 1,
-    effect: "fade",
-    speed: 1000, //Duration of transition between slides (in ms)
-    autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-        renderBullet: function (index, className) {
-        //   return '<span class="' + className + '">' + (index + 1) + "</span>";
-            return '<span class="' + className + '">' +'<img src="images/banner/thumb-'+ (index + 1) + '.png"></span>';
+        loop: true,
+        slidesPerView: 1,
+        effect: "fade",
+        speed: 1000, //Duration of transition between slides (in ms)
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
         },
-        },   
-    
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            renderBullet: function (index, className) {
+                //   return '<span class="' + className + '">' + (index + 1) + "</span>";
+                return '<span class="' + className + '">' + '<img src="images/banner/thumb-' + (index + 1) + '.png"></span>';
+            },
+        },
+
     });
 
     var heroLobby = new Swiper("#hero-slider-lobby", {
@@ -79,9 +79,9 @@ $(document).ready(function () {
         // },
         pagination: {
             el: ".swiper-pagination",
-            clickable: true,       
-            },   
-    
+            clickable: true,
+        },
+
     });
 
 
@@ -93,7 +93,7 @@ $(document).ready(function () {
         navigation: {
             nextEl: "#game-recommend .swiper-button-next",
             prevEl: "#game-recommend .swiper-button-prev",
-          },
+        },
         // breakpoints: {
         //     768: {
         //         slidesPerView: 4,
@@ -119,11 +119,11 @@ $(document).ready(function () {
         breakpoints: {
             768: {
                 slidesPerView: 4,
-                freeMode: true                
+                freeMode: true
             },
             1200: {
                 slidesPerView: 6,
-                freeMode: true                
+                freeMode: true
             }
         }
 
@@ -131,7 +131,7 @@ $(document).ready(function () {
 
     // 賭場遊戲
     var gameCasino = new Swiper("#pop-casino", {
-    // loop: true,
+        // loop: true,
         slidesPerView: 3,
         freeMode: true,
         navigation: {
@@ -140,11 +140,11 @@ $(document).ready(function () {
         breakpoints: {
             768: {
                 slidesPerView: 4,
-                freeMode: true                
+                freeMode: true
             },
             1200: {
                 slidesPerView: 6,
-                freeMode: true                
+                freeMode: true
             }
         }
 
@@ -154,15 +154,15 @@ $(document).ready(function () {
         // loop: true,
         // slidesPerView: 2.3,
         slidesPerView: "auto",
-        freeMode: true,        
+        freeMode: true,
         navigation: {
             nextEl: "#lobbyGame-1 .swiper-button-next",
             prevEl: "#lobbyGame-1 .swiper-button-prev",
-        },     
+        },
     });
 
     var gamelobby_2 = new Swiper("#lobbyGame-2", {
-        loop: true,        
+        loop: true,
         slidesPerView: "auto",
         freeMode: true,
         navigation: {
@@ -172,7 +172,7 @@ $(document).ready(function () {
     });
 
     var gamelobby_3 = new Swiper("#lobbyGame-3", {
-        loop: true,        
+        loop: true,
         slidesPerView: "auto",
         freeMode: true,
         navigation: {
@@ -180,29 +180,31 @@ $(document).ready(function () {
         },
     });
 
+
+
     var gamelobby_randomRem = new Swiper("#lobbyGame-randomRem", {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: "auto",
-            // slidesPerView: 5,
-            coverflowEffect: {
-                rotate: 20,
-                stretch: 0,
-                depth: 200,
-                modifier: 1,
-                slideShadows: true,
-            },
-            // pagination: {
-            //     el: ".swiper-pagination",
-            // },
-            loop: true,
-            autuplay: {
-                delay: 100,
-                disableOnInteraction: false,
-            }
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        // slidesPerView: 5,
+        coverflowEffect: {
+            rotate: 20,
+            stretch: 0,
+            depth: 200,
+            modifier: 1,
+            slideShadows: true,
+        },
+        // pagination: {
+        //     el: ".swiper-pagination",
+        // },
+        loop: true,
+        autuplay: {
+            delay: 100,
+            disableOnInteraction: false,
+        }
     });
-	
+
 
 });
 

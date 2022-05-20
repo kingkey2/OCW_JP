@@ -524,38 +524,62 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     }
 
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.Lobby.CompanyGameCodeResult GetCompanyGameCode2(string GUID)
-    //{
-    //    System.Data.DataTable CompanyCategoryDT;
-    //    int CompanyCategoryID;
-    //    CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
-    //    if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
-    //    {
-    //        for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
-    //        {
-    //            if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
-    //            {
-    //                CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public CompanyGameCodeResult2 GetCompanyGameCode2(string GUID)
+    {
+        System.Data.DataTable CompanyCategoryDT;
+        System.Data.DataTable CompanyGameCodeDT;
+        int CompanyCategoryID;
+        CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
+        CompanyGameCodeResult2 Ret = new CompanyGameCodeResult2() { CompanyCategoryDatas= new List<CompanyCategory>()};
+        if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
+        {
+            for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
+            {
+                if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
+                {
+                    CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
+                    CompanyGameCodeDT = RedisCache.CompanyGameCode.GetCompanyGameCodeByID(CompanyCategoryID);
+                    if (CompanyGameCodeDT!=null&&CompanyGameCodeDT.Rows.Count>0)
+                    {
+                        var companyCategoryData = new CompanyCategory();
+                        companyCategoryData.CategoryName = (string)CompanyCategoryDT.Rows[i]["CategoryName"];
+                        companyCategoryData.SortIndex = (int)CompanyCategoryDT.Rows[i]["SortIndex"];
+                        companyCategoryData.State = (int)CompanyCategoryDT.Rows[i]["State"];
+                        companyCategoryData.Datas = new List<CompanyGameCode2>();
+                        for (int k = 0; k < CompanyGameCodeDT.Rows.Count; k++)
+                        {
+                            var data = new CompanyGameCode2();
+                            data.AllowDemoPlay = (int)CompanyGameCodeDT.Rows[k]["AllowDemoPlay"];
+                            data.forCompanyCategoryID = (int)CompanyGameCodeDT.Rows[k]["forCompanyCategoryID"];
+                            data.GameBrand = (string)CompanyGameCodeDT.Rows[k]["GameBrand"];
+                            data.GameCategoryCode = (string)CompanyGameCodeDT.Rows[k]["GameCategoryCode"];
+                            data.GameCategorySubCode = (string)CompanyGameCodeDT.Rows[k]["GameCategorySubCode"];
+                            data.GameID = (int)CompanyGameCodeDT.Rows[k]["GameID"];
+                            data.GameName = (string)CompanyGameCodeDT.Rows[k]["GameName"];
+                            data.Info = (string)CompanyGameCodeDT.Rows[k]["Info"];
+                            data.IsHot = (int)CompanyGameCodeDT.Rows[k]["IsHot"];
+                            data.IsNew = (int)CompanyGameCodeDT.Rows[k]["IsNew"];
+                            data.RTPInfo = (string)CompanyGameCodeDT.Rows[k]["RTPInfo"];
+                            companyCategoryData.Datas.Add(data);
+                           
+                        }
 
-    //            }
+                         Ret.CompanyCategoryDatas.Add(companyCategoryData);
+                    }
+                }
+            }
 
+            Ret.Result = EWin.Lobby.enumResult.OK;
+        }
+        else
+        {
+            Ret.Result = EWin.Lobby.enumResult.ERR;
+        }
+        return Ret;
 
-    //        }
-    //        R.Result = EWin.Lobby.enumResult.OK;
-    //        R.GameCodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.Lobby.GameCodeItem[]>(CompanyGameCodeString);
-    //    }
-    //    else
-    //    {
-    //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-    //        R = lobbyAPI.GetCompanyGameCode(GetToken(), GUID);
-
-    //        RedisCache.Company.UpdateCompanyGameCode(Newtonsoft.Json.JsonConvert.SerializeObject(R.GameCodeList));
-    //    }
-    //    return R;
-
-    //}
+    }
 
 
     [WebMethod]
@@ -1096,15 +1120,30 @@ public class LobbyAPI : System.Web.Services.WebService {
         public int State { get; set; }
         public int SortIndex { get; set; }
         public string CategoryName { get; set; }
-        public List<CompanyGameCode2> Datas { get; set; }
+        public List<CompanyCategory> CompanyCategoryDatas { get; set; }
     }
 
-    public class CompanyGameCode2 {
-        public string GameBrand { get; set; }
-        public int GameID { get; set; }
-        public string GameName { get; set; }
-        public DateTime CreateDate { get; set; }
+    public class CompanyCategory
+    {
         public int State { get; set; }
+        public int SortIndex { get; set; }
+        public string CategoryName { get; set; }
+        public List<CompanyGameCode2> Datas{ get; set; }
+    }
+
+    public class CompanyGameCode2
+    {
+        public int forCompanyCategoryID { get; set; }
+        public int GameID { get; set; }
+        public string GameBrand { get; set; }
+        public string GameName { get; set; }
+        public string GameCategoryCode { get; set; }
+        public string GameCategorySubCode { get; set; }
+        public int AllowDemoPlay { get; set; }
+        public string RTPInfo { get; set; }
+        public string Info { get; set; }
+        public int IsHot { get; set; }
+        public int IsNew { get; set; }
     }
 
     public class LoginMessageResult : EWin.Lobby.APIResult

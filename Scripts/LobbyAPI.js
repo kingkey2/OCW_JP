@@ -592,6 +592,27 @@
         });
     };
 
+    this.GetCompanyGameCode2 = function (GUID, cb) {
+        var url = APIUrl + "/GetCompanyGameCode2";
+        var postData;
+
+        postData = {
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetCompanyMarqueeText = function (GUID, cb) {
         var url = APIUrl + "/GetCompanyMarqueeText";
         var postData;
