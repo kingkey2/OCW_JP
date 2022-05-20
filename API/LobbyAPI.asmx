@@ -524,38 +524,38 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     }
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.CompanyGameCodeResult GetCompanyGameCode2(string GUID)
-    {
-        System.Data.DataTable CompanyCategoryDT;
-        int CompanyCategoryID;
-        CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
-        if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
-        {
-            for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
-            {
-                if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
-                {
-                    CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
-                    
-                }
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public EWin.Lobby.CompanyGameCodeResult GetCompanyGameCode2(string GUID)
+    //{
+    //    System.Data.DataTable CompanyCategoryDT;
+    //    int CompanyCategoryID;
+    //    CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
+    //    if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
+    //    {
+    //        for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
+    //        {
+    //            if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
+    //            {
+    //                CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
+
+    //            }
 
 
-            }
-            R.Result = EWin.Lobby.enumResult.OK;
-            R.GameCodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.Lobby.GameCodeItem[]>(CompanyGameCodeString);
-        }
-        else
-        {
-            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-            R = lobbyAPI.GetCompanyGameCode(GetToken(), GUID);
+    //        }
+    //        R.Result = EWin.Lobby.enumResult.OK;
+    //        R.GameCodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.Lobby.GameCodeItem[]>(CompanyGameCodeString);
+    //    }
+    //    else
+    //    {
+    //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+    //        R = lobbyAPI.GetCompanyGameCode(GetToken(), GUID);
 
-            RedisCache.Company.UpdateCompanyGameCode(Newtonsoft.Json.JsonConvert.SerializeObject(R.GameCodeList));
-        }
-        return R;
+    //        RedisCache.Company.UpdateCompanyGameCode(Newtonsoft.Json.JsonConvert.SerializeObject(R.GameCodeList));
+    //    }
+    //    return R;
 
-    }
+    //}
 
 
     [WebMethod]
