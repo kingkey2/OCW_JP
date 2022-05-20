@@ -21,7 +21,7 @@ public static class EWinWebDB {
             int CategoryCount = 0;
 
             SS = " SELECT COUNT(*) FROM CompanyCategory " +
-                 " WHERE EwinCompanyCategoryID=@EwinCompanyCategoryID ";
+                 " WHERE EwinCompanyCategoryID=@EwinCompanyCategoryID And CategoryType=0";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
@@ -50,7 +50,7 @@ public static class EWinWebDB {
             }
             else
             {
-                SS = "UPDATE CompanyCategory SET CategoryType=@CategoryType,CategoryName=@CategoryName,SortIndex=@SortIndex,State=@State " +
+                SS = "UPDATE CompanyCategory SET CategoryType=@CategoryType,CategoryName=@CategoryName,SortIndex=@SortIndex " +
                "  WHERE EwinCompanyCategoryID=@EwinCompanyCategoryID";
                 DBCmd = new System.Data.SqlClient.SqlCommand();
                 DBCmd.CommandText = SS;
@@ -59,9 +59,45 @@ public static class EWinWebDB {
                 DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
                 DBCmd.Parameters.Add("@CategoryName", System.Data.SqlDbType.NVarChar).Value = CategoryName;
                 DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
-                DBCmd.Parameters.Add("@State", System.Data.SqlDbType.Int).Value = State;
                 CompanyCategoryID = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
             }
+            RedisCache.CompanyCategory.UpdateCompanyCategory();
+
+            return CompanyCategoryID;
+        }
+
+        public static int InsertOcwCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int CompanyCategoryID = 0;
+            int CategoryCount = 0;
+
+            SS = " SELECT COUNT(*) FROM CompanyCategory " +
+                 " WHERE CategoryName=@CategoryName And CategoryType=2";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@CategoryName", System.Data.SqlDbType.NVarChar).Value = CategoryName;
+            CategoryCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+
+
+            if (CategoryCount == 0)
+            {
+                SS = "INSERT INTO CompanyCategory (EwinCompanyCategoryID, CategoryType, CategoryName,SortIndex,State) " +
+               "                VALUES (@EwinCompanyCategoryID, @CategoryType, @CategoryName,@SortIndex,@State) " +
+               " SELECT @@IDENTITY";
+                DBCmd = new System.Data.SqlClient.SqlCommand();
+                DBCmd.CommandText = SS;
+                DBCmd.CommandType = System.Data.CommandType.Text;
+                DBCmd.Parameters.Add("@EwinCompanyCategoryID", System.Data.SqlDbType.Int).Value = EwinCompanyCategoryID;
+                DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
+                DBCmd.Parameters.Add("@CategoryName", System.Data.SqlDbType.NVarChar).Value = CategoryName;
+                DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
+                DBCmd.Parameters.Add("@State", System.Data.SqlDbType.Int).Value = State;
+                CompanyCategoryID = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+            }
+            RedisCache.CompanyCategory.UpdateCompanyCategory();
 
             return CompanyCategoryID;
         }
