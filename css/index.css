@@ -46,7 +46,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .hero_slider .role.role-R img {
   position: absolute;
-  top: 0%;
+  top: 10%;
 }
 .hero_slider .role.role-L {
   left: -50px;
