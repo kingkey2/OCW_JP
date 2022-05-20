@@ -1459,6 +1459,85 @@ public static class RedisCache {
             return DT;
         }
 
+        public static string UpdateAllCompanyGameCode(string JsonString)
+        {
+            string Key;
+
+            Key = XMLPath + ":All";
+
+            for (int I = 0; I <= 3; I++)
+            {
+                try
+                {
+                    JsonStringWriteToRedis(0, JsonString, Key);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            return JsonString;
+        }
+
+        public static string UpdateAllCompanyGameCodeFromDB()
+        {
+            string Key;
+            string JsonString="";
+            System.Data.SqlClient.SqlCommand DBCmd;
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
+
+            companyGameCodeResult = lobbyAPI.GetCompanyGameCode(GetToken(), Guid.NewGuid().ToString());
+            if (companyGameCodeResult.Result == EWin.Lobby.enumResult.OK)
+            {
+                JsonString = Newtonsoft.Json.JsonConvert.SerializeObject(companyGameCodeResult);
+                Key = XMLPath + ":All";
+
+                for (int I = 0; I <= 3; I++)
+                {
+                    try
+                    {
+                        JsonStringWriteToRedis(0, JsonString, Key);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
+            return JsonString;
+        }
+
+        private static string GetToken()
+        {
+            string Token;
+            int RValue;
+            Random R = new Random();
+            RValue = R.Next(100000, 9999999);
+            Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+
+            return Token;
+        }
+
+        public static string GetAllCompanyGameCode()
+        {
+            string Key;
+            string DATA="";
+            Key = XMLPath + ":All";
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                DATA = JsonReadFromRedis(DBIndex, Key);
+            }
+            else {
+                DATA = UpdateAllCompanyGameCodeFromDB();
+            }
+           
+            return DATA;
+        }
+
         public static System.Data.DataTable UpdateCompanyGameCodeByID(int CompanyCategoryID) {
             string Key;
             string SS;
@@ -1486,6 +1565,8 @@ public static class RedisCache {
 
             return CompanyGameCodeDT;
         }
+
+       
     }
 
     public static void UpdateRedisByPrivateKey() {
@@ -1494,6 +1575,7 @@ public static class RedisCache {
         PaymentMethod.UpdatePaymentMethodByCategory("Crypto");
     }
 
+ 
     public static void DTWriteToRedis(int DBIndex, System.Data.DataTable DT, string Key, int ExpireTimeoutSeconds = 0) {
         string XMLContent;
 

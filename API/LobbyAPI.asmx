@@ -524,6 +524,38 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.CompanyGameCodeResult GetCompanyGameCode2(string GUID)
+    {
+        System.Data.DataTable CompanyCategoryDT;
+        int CompanyCategoryID;
+        CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
+        if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
+        {
+            for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
+            {
+                if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
+                {
+                    CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
+                    
+                }
+
+
+            }
+            R.Result = EWin.Lobby.enumResult.OK;
+            R.GameCodeList = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.Lobby.GameCodeItem[]>(CompanyGameCodeString);
+        }
+        else
+        {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            R = lobbyAPI.GetCompanyGameCode(GetToken(), GUID);
+
+            RedisCache.Company.UpdateCompanyGameCode(Newtonsoft.Json.JsonConvert.SerializeObject(R.GameCodeList));
+        }
+        return R;
+
+    }
 
 
     [WebMethod]
@@ -1056,6 +1088,21 @@ public class LobbyAPI : System.Web.Services.WebService {
         public int BulletinBoardID { get; set; }
         public string BulletinTitle { get; set; }
         public string BulletinContent { get; set; }
+        public DateTime CreateDate { get; set; }
+        public int State { get; set; }
+    }
+
+    public class CompanyGameCodeResult2 : EWin.Lobby.APIResult {
+        public int State { get; set; }
+        public int SortIndex { get; set; }
+        public string CategoryName { get; set; }
+        public List<CompanyGameCode2> Datas { get; set; }
+    }
+
+    public class CompanyGameCode2 {
+        public string GameBrand { get; set; }
+        public int GameID { get; set; }
+        public string GameName { get; set; }
         public DateTime CreateDate { get; set; }
         public int State { get; set; }
     }

@@ -1,5 +1,5 @@
 // $('.header_area').load('layout-header.html');
-// $('.footer').load('layout-footer.html');
+$('.footer').load('layout-footer.html');
 
 $(document).ready(function () {
 
@@ -24,8 +24,27 @@ $(document).ready(function () {
         $('.navbar-toggler').attr("aria-expanded","false");        
     });
 
+    //遊戲 "更多" Button 下滑
+    $('.game_slider .btn-more').click(function(){
+        // $(this).toggleClass('show');
+        $(this).closest( '.game-item-info-detail').toggleClass('open');
+    });
 
-    // HERO 
+    $('.game_slider .btn-thumbUp').click(function(){
+        $(this).toggleClass('added');       
+    });
+
+    $('.game_slider .btn-like').click(function(){
+        $(this).toggleClass('added');       
+    });
+    
+    $('.tab-scroller__content .tab-item').click(function(){
+        $(this).parent('.tab-scroller__content').children('.tab-item').removeClass('active');
+        $(this).toggleClass('active');       
+    });
+
+
+    //HERO 
     var heroIndex = new Swiper("#hero-slider", {
     loop: true,
     slidesPerView: 1,
@@ -47,21 +66,21 @@ $(document).ready(function () {
     });
 
     var heroLobby = new Swiper("#hero-slider-lobby", {
-    loop: true,
-    slidesPerView: 3,
-    // effect: "fade",
-    speed: 1000, //Duration of transition between slides (in ms)
-    autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-        renderBullet: function (index, className) {      
-            // return '<span class="' + className + '">' +'<img src="images/banner/thumb-'+ (index + 1) + '.png"></span>';
-        },
-        },   
+        loop: true,
+        // slidesPerView: 1,
+        slidesPerView: "auto",
+        centeredSlides: true,
+        // freeMode: true,
+        // spaceBetween: 20,  
+        speed: 1000, //Duration of transition between slides (in ms)
+        // autoplay: {
+        //     delay: 3500,
+        //     disableOnInteraction: false,
+        // },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,       
+            },   
     
     });
 
@@ -69,18 +88,22 @@ $(document).ready(function () {
     // 推薦遊戲
     var gameRecommend = new Swiper("#game-recommend", {
         // loop: true,
-        slidesPerView: 2,
+        slidesPerView: "auto",
         freeMode: true,
         navigation: {
             nextEl: "#game-recommend .swiper-button-next",
-        },
-        breakpoints: {
-            1200: {
-                slidesPerView: 6,
-                freeMode: false
-                
-            }
-        }
+            prevEl: "#game-recommend .swiper-button-prev",
+          },
+        // breakpoints: {
+        //     768: {
+        //         slidesPerView: 4,
+        //         freeMode: false                
+        //     },
+        //     1200: {
+        //         slidesPerView: 6,
+        //         freeMode: false                
+        //     }
+        // }
 
 
     });
@@ -88,125 +111,73 @@ $(document).ready(function () {
     // 最新遊戲
     var gameNew = new Swiper("#game-new", {
         // loop: true,
-        slidesPerView: 2,
+        slidesPerView: 3,
         freeMode: true,
         navigation: {
             nextEl: "#game-new .swiper-button-next",
         },
         breakpoints: {
+            768: {
+                slidesPerView: 4,
+                freeMode: true                
+            },
             1200: {
                 slidesPerView: 6,
-                freeMode: false
-                
+                freeMode: true                
             }
         }
+
     });
 
     // 賭場遊戲
     var gameCasino = new Swiper("#pop-casino", {
     // loop: true,
-        slidesPerView: 2,
+        slidesPerView: 3,
         freeMode: true,
         navigation: {
             nextEl: "#pop-casino .swiper-button-next",
         },
         breakpoints: {
+            768: {
+                slidesPerView: 4,
+                freeMode: true                
+            },
             1200: {
                 slidesPerView: 6,
-                freeMode: false
-                
+                freeMode: true                
             }
         }
+
     });
 
     var gamelobby_1 = new Swiper("#lobbyGame-1", {
-        loop: true,
-        slidesPerView: 2,
-        freeMode: true,
+        // loop: true,
+        // slidesPerView: 2.3,
+        slidesPerView: "auto",
+        freeMode: true,        
         navigation: {
             nextEl: "#lobbyGame-1 .swiper-button-next",
-        },
-        breakpoints: {
-            540: {
-                slidesPerView: 3,
-                
-            },
-            768: {
-                slidesPerView: 5,
-                
-            },
-            1200: {
-                slidesPerView: 7,                
-            },
-            1920: {
-                slidesPerView: 10,                
-            },
-        }
+            prevEl: "#lobbyGame-1 .swiper-button-prev",
+        },     
     });
 
     var gamelobby_2 = new Swiper("#lobbyGame-2", {
-        loop: true,
-        slidesPerView: 2,
+        loop: true,        
+        slidesPerView: "auto",
         freeMode: true,
         navigation: {
             nextEl: "#lobbyGame-2 .swiper-button-next",
+            prevEl: "#lobbyGame-2 .swiper-button-prev",
         },
-        breakpoints: {
-            540: {
-                slidesPerView: 3,
-                
-            },
-            768: {
-                slidesPerView: 5,
-                
-            },
-            1200: {
-                slidesPerView: 7,                
-            },
-            1920: {
-                slidesPerView: 10,                
-            },
-        }
     });
 
     var gamelobby_3 = new Swiper("#lobbyGame-3", {
-        loop: true,
-        slidesPerView: 2,
+        loop: true,        
+        slidesPerView: "auto",
         freeMode: true,
         navigation: {
             nextEl: "#lobbyGame-3 .swiper-button-next",
         },
-        breakpoints: {
-            540: {
-                slidesPerView: 3,
-                
-            },
-            768: {
-                slidesPerView: 5,                
-            },
-            1200: {
-                slidesPerView: 7,                
-            },
-            1920: {
-                slidesPerView: 10,                
-            },
-        }
-    });
-
-    var gamelobby_4 = new Swiper("#lobbyGame-4", {
-        // loop: true,
-        slidesPerView: 2,
-        freeMode: true,
-        navigation: {
-            nextEl: "#lobbyGame-4 .swiper-button-next",
-        },
-        breakpoints: {
-            540: {
-                slidesPerView: 7,
-                freeMode: false
-                
-            }
-        }
     });
 
     var gamelobby_randomRem = new Swiper("#lobbyGame-randomRem", {
