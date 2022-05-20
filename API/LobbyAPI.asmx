@@ -844,7 +844,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         try {
             //CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <service@OCW888.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "service@OCW888.com", "koajejksxfyiwixx", "utf-8", true);
-            CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "wjggvbkjosunoilx", "utf-8", true);
+            CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "eanrbmhmqflaqzac", "utf-8", true);
             result.Result = EWin.Lobby.enumResult.OK;
             result.Message = "";
 
@@ -863,7 +863,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         SendBody = CodingControl.GetRegisterReceiveRewardEmailTemp(EMail,  ReceiveRegisterRewardURL);
 
         try {
-            CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "wjggvbkjosunoilx", "utf-8", true);
+            CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "eanrbmhmqflaqzac", "utf-8", true);
             result.Result = EWin.Lobby.enumResult.OK;
             result.Message = "";
 
