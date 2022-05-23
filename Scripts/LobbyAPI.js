@@ -202,6 +202,75 @@
         });
     };
 
+    this.CollectUserAccountPromotion = function (WebSID, GUID, CollectID, cb) {
+        var url = APIUrl + "/CollectUserAccountPromotion";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            CollectID: CollectID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    }
+
+    this.GetPromotionCollectHistory = function (WebSID, GUID, BeginDate, EndDate, cb) {
+        var url = APIUrl + "/GetPromotionCollectHistory";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            BeginDate: BeginDate,
+            EndDate: EndDate
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    }
+
+    this.GetPromotionCollectAvailable = function (WebSID, GUID, cb) {
+        var url = APIUrl + "/GetPromotionCollectAvailable";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    }
+
     this.GetUserBankCard = function (WebSID, GUID, cb) {
         var url = APIUrl + "/GetUserBankCard";
         var postData;
@@ -573,6 +642,27 @@
 
     this.GetCompanyGameCode = function (GUID, cb) {
         var url = APIUrl + "/GetCompanyGameCode";
+        var postData;
+
+        postData = {
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.GetCompanyGameCode2 = function (GUID, cb) {
+        var url = APIUrl + "/GetCompanyGameCode2";
         var postData;
 
         postData = {
