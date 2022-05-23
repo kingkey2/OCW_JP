@@ -12,9 +12,51 @@ public static class ActivityCore
     public static string BasicFile = "/App_Data/Activity.json";
 
 
-    public static ActResult<List<ActivityInfo>> GetActInfos(string AcivityName)
+    public static ActResult<ActivityInfo> GetActInfo(string AcivityName)
     {
-        ActResult<List<ActivityInfo>> R = new ActResult<List<ActivityInfo>>() { Result = enumActResult.OK, Data = new List<ActivityInfo>()};
+        ActResult<ActivityInfo> R = new ActResult<ActivityInfo>() { Result = enumActResult.OK, Data = new ActivityInfo() };
+        JObject InProgressActivity;
+
+        InProgressActivity = GetInProgressActivity();
+
+        foreach (var item in InProgressActivity["Keep"])
+        {
+
+            if (item["Name"].ToString().ToLower() == AcivityName.ToLower())
+            {
+                ActivityInfo Info = new ActivityInfo();
+                string DetailPath = null;
+                DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
+                JObject ActivityDetail = GetActivityDetail(DetailPath);
+
+                Info.ActivityName = ActivityDetail["Name"].ToString();
+                Info.Title = ActivityDetail["Title"].ToString();
+                Info.SubTitle = ActivityDetail["SubTitle"].ToString();
+
+                R.Data = Info;
+
+                break;
+            }
+        }
+
+        if (R.Data != null)
+        {
+            R.Result = enumActResult.OK;
+            R.Message = "";
+        }
+        else
+        {
+            R.Result = enumActResult.ERR;
+            R.Message = "NoData";
+
+        }
+
+        return R;
+    }
+
+    public static ActResult<List<ActivityInfo>> GetActInfos()
+    {
+        ActResult<List<ActivityInfo>> R = new ActResult<List<ActivityInfo>>() { Result = enumActResult.OK, Data = new List<ActivityInfo>() };
         JObject InProgressActivity;
 
         InProgressActivity = GetInProgressActivity();
@@ -22,8 +64,8 @@ public static class ActivityCore
         foreach (var item in InProgressActivity["Keep"])
         {
             ActivityInfo Info = new ActivityInfo();
-            string DetailPath = null;      
-            DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();                      
+            string DetailPath = null;
+            DetailPath = InProgressActivity["BasicPath"] + item["Path"].ToString();
             JObject ActivityDetail = GetActivityDetail(DetailPath);
 
             Info.ActivityName = ActivityDetail["Name"].ToString();
@@ -32,7 +74,7 @@ public static class ActivityCore
 
             R.Data.Add(Info);
         }
-        
+
         R.Result = enumActResult.OK;
         R.Message = "";
 
@@ -64,9 +106,9 @@ public static class ActivityCore
             InfoResult = (ActResult<ActJoinCheck>)(typeof(ActivityExpand.DepositJoinCheck).GetMethod(MethodName).Invoke(null, new object[] { DetailPath, Amount, PaymentCode, LoginAccount }));
 
             if (InfoResult.Result == enumActResult.OK)
-            {              
+            {
                 R.Data.Add(InfoResult.Data);
-            }         
+            }
         }
 
         R.Result = enumActResult.OK;
@@ -178,7 +220,7 @@ public static class ActivityCore
 
 
             if (DataReslut.Result == enumActResult.OK)
-            {              
+            {
                 R.Data.Add(DataReslut.Data);
             }
         }
@@ -212,7 +254,7 @@ public static class ActivityCore
             {
 
                 R.Data.Add(DR.Data);
-            }                       
+            }
         }
 
 
@@ -270,7 +312,7 @@ public static class ActivityCore
         OK = 0,
         ERR = 1
     }
-   
+
     //活動基本文宣內容
 
     public class ActivityInfo
