@@ -333,7 +333,8 @@
                             if (success) {
                                 if (o.Result == 0) {
                                     sendThanksMail();
-                                    sendReceiveRegisterRewardMail();
+                                    //sendReceiveRegisterRewardMail();
+                                    AddRegisterPromotionCollect();
                                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
                                         document.getElementById("idRegister").classList.add("is-hide");
                                         document.getElementById("contentFinish").classList.remove("is-hide");
@@ -397,6 +398,18 @@
                 }
             });
         }
+    }
+
+    function AddRegisterPromotionCollect() {
+        p.AddRegisterPromotionCollect(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+
+                } else {
+
+                }
+            }
+        });
     }
 
     function init() {
