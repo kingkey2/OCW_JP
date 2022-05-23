@@ -1573,6 +1573,23 @@
                                             <i class="icon icon-mask icon-ewin-user-multi"></i>
                                             <span class="title language_replace">麻將</span></a>
                                     </li>
+
+                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('About','About.html')">
+                                        <a class="nav-link">
+                                            <span class="title language_replace">關於我們</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('RegisterActivityReceive','RegisterActivityReceive.aspx', true)">
+                                        <a class="nav-link">
+                                            <span class="title language_replace">註冊獎勵領取</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown" onclick="openHotArticle()">
+                                        <a class="nav-link">
+                                            <span class="title language_replace">熱門文章</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
+                                        <a class="nav-link">
+                                            <span class="title language_replace">Q&A</span></a>
+                                    </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
                                             <i class="icon icon-mask icon-ewin-user-multi"></i>
