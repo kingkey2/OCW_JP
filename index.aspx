@@ -1100,6 +1100,7 @@
     }
 
     function getCompanyGameCode2(cb) {
+      
         LobbyGameList2 = {
             HotList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
             NewList: [],
