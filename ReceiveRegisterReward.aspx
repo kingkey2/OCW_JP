@@ -17,13 +17,13 @@
 
     if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
         EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
-        string transactionCode = LoginAccount + "_" + GetRegisterResult.Data.ActivityName;
+        string transactionCode = LoginAccount + "_" + GetRegisterResult.Data[0].ActivityName;
         string description = "ReceiveRegisterReward, LoginAccount=" + LoginAccount;
 
-        EWin.OCW.APIResult ocwResult = ocwApi.AddBonusValue(Token, System.Guid.NewGuid().ToString(), transactionCode, LoginAccount, EWinWeb.MainCurrencyType, GetRegisterResult.Data.BonusValue, GetRegisterResult.Data.ThresholdValue, description, description + ", BonusValue" + GetRegisterResult.Data.BonusValue.ToString());
+        EWin.OCW.APIResult ocwResult = ocwApi.AddBonusValue(Token, System.Guid.NewGuid().ToString(), transactionCode, LoginAccount, EWinWeb.MainCurrencyType, GetRegisterResult.Data[0].BonusValue, GetRegisterResult.Data[0].ThresholdValue, description, description + ", BonusValue" + GetRegisterResult.Data[0].BonusValue.ToString());
 
         if (ocwResult.ResultState == EWin.OCW.enumResultState.OK) {
-            EWinWebDB.UserAccountEventBonusHistory.InsertEventBonusHistory(LoginAccount, GetRegisterResult.Data.ActivityName, "", GetRegisterResult.Data.BonusRate, GetRegisterResult.Data.BonusValue, GetRegisterResult.Data.ThresholdRate, GetRegisterResult.Data.ThresholdValue, EWinWebDB.UserAccountEventBonusHistory.EventType.Register);
+            EWinWebDB.UserAccountEventBonusHistory.InsertEventBonusHistory(LoginAccount, GetRegisterResult.Data[0].ActivityName, "", GetRegisterResult.Data[0].BonusRate, GetRegisterResult.Data[0].BonusValue, GetRegisterResult.Data[0].ThresholdRate, GetRegisterResult.Data[0].ThresholdValue, EWinWebDB.UserAccountEventBonusHistory.EventType.Register);
             ReceiveStatus = 1;
         } else {
             ReceiveStatus = 0;
