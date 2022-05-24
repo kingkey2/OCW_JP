@@ -33,8 +33,7 @@
 
     <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="Scripts/theme.js"></script>
+    <script type="text/javascript" src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>    
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
@@ -156,6 +155,93 @@
         }
     ];
 
+    function initSwiper() {
+        //首頁banner
+        new Swiper("#hero-slider", {
+            loop: true,
+            slidesPerView: 1,
+            effect: "fade",
+            speed: 1000, //Duration of transition between slides (in ms)
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                renderBullet: function (index, className) {
+                    //   return '<span class="' + className + '">' + (index + 1) + "</span>";
+                    return '<span class="' + className + '">' + '<img src="images/banner/thumb-' + (index + 1) + '.png"></span>';
+                },
+            },
+
+        });
+
+        // 推薦遊戲
+        var gameRecommend = new Swiper("#game-recommend", {
+            // loop: true,
+            slidesPerView: 3,
+            freeMode: true,
+            navigation: {
+                nextEl: "#game-recommend .swiper-button-next",
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 4,
+                    freeMode: false
+                },
+                1200: {
+                    slidesPerView: 6,
+                    freeMode: false
+                }
+            }
+
+
+        });
+
+        // 最新遊戲
+        var gameNew = new Swiper("#game-new", {
+            // loop: true,
+            slidesPerView: 3,
+            freeMode: true,
+            navigation: {
+                nextEl: "#game-new .swiper-button-next",
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 4,
+                    freeMode: true
+                },
+                1200: {
+                    slidesPerView: 6,
+                    freeMode: true
+                }
+            }
+
+        });
+
+        // 賭場遊戲
+        var gameCasino = new Swiper("#pop-casino", {
+            // loop: true,
+            slidesPerView: 3,
+            freeMode: true,
+            navigation: {
+                nextEl: "#pop-casino .swiper-button-next",
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 4,
+                    freeMode: true
+                },
+                1200: {
+                    slidesPerView: 6,
+                    freeMode: true
+                }
+            }
+
+        });
+    }
+
     function init() {
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -183,6 +269,8 @@
                 });
             }
         });
+
+        initSwiper();
 
         window.parent.API_LoadingEnd();
 
@@ -259,1286 +347,1272 @@
     window.onload = init;
 
 </script>
-<body class="innerBody" style="height: auto">
-    <main>
-        <section class="section-wrap hero">
-            <div class="hero_slider swiper_container round-arrow" id="hero-slider">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
-                        <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="images/games/hero/hero-11.jpg" class="desktop bg">
-                                <img src="images/games/hero/hero-11-m.jpg" class="mobile bg">
-                                <div class="anim container">
-                                    <div class="role role-R">
-                                        <img src="images/banner/girl.png" alt=""></div>
-                                    <div class="role role-L">
-                                        <img src="images/banner/dog.png" alt=""></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-
-                            <a class="hero-item-link" href="#"></a>
-                            <a onclick="window.parent.API_LoadPage('OpenBonusDeposit_03012022', '/Activity/OpenBonusDeposit_03312022/index.html')">
-                                <div class="img-wrap">
-                                    <img src="images/games/hero/OpenBonusDeposit-20220331.jpg" class="desktop bg">
-                                    <img src="images/games/hero/OpenBonusDeposit-20220331-m.jpg" class="mobile bg">
-                                </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
-                        <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="images/games/hero/hero-10.jpg?20211004" class="desktop bg">
-                                <img src="images/games/hero/hero-10-m.jpg" class="mobile bg">
-                                <div class="anim container">
-                                    <div class="role role-R">
-                                        <img src="images/banner/girl.png" alt=""></div>
-                                    <div class="role role-L">
-                                        <img src="images/banner/dog.png" alt=""></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-
-                            <a class="hero-item-link" href="#"></a>
-                            <a onclick="window.parent.API_LoadPage('OpenIntroBonus_03012022', '/Activity/OpenIntroBonus_03012022/index.html')">
-                                <div class="img-wrap">
-                                    <img src="images/games/hero/OpenIntroBonus-11.jpg" class="desktop bg">
-                                    <img src="images/games/hero/OpenIntroBonus-11-m.jpg" class="mobile bg">
-                                </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="images/games/hero/hero-02.jpg?20211007" class="desktop bg">
-                                <img src="images/games/hero/hero-02-m.jpg" class="mobile bg">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-mask"></div>
-                </div>
-
-                <div class="container">
-                    <div class="swiper-pagination"></div>
-                </div>
+<body class="innerBody">
+  <main class="innerMain">
+    <section class="section-wrap hero">      
+        <div class="hero_slider swiper_container round-arrow" id="hero-slider">      
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
+              <div class="hero-item">
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="img-wrap">
+                    <img src="Images/banner/b1.png" class="bg"> 
+                    <div class="anim container">
+                      <div class="role role-R"><img src="images/banner/girl.png" alt=""></div>
+                      <div class="role role-L"><img src="images/banner/dog.png" alt=""></div>                    
+                    </div>  
+                  </div>
+                  
+              </div>
             </div>
-        </section>
-        <!--  -->
-        <section class="section_publicize section-wrap">
-            <div class="container">
-                <div class="publicize_wrapper publicize_top">
-                    <div class="publicize_top_inner">
-                        <div class="item writer">
-                            <img src="images/index/writer.png" alt="">
-                        </div>
-                        <div class="item vtuber">
-                            <img src="images/index/vtuber.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="publicize_wrapper publicize_bottom">
-                    <div class="publicize_bottom_inner">
-                        <div class="publicize-wrap way_payment">
-                            <div class="item payment" onclick="window.parent.API_LoadPage('instructions-crypto','instructions-crypto.html')">
-                                <img src="images/index/way-payment.png" alt="">
-                            </div>
-                        </div>
-                        <div class="publicize-wrap bulletin-login">
-                            <div class="item bulletin">
-                                <div class="bulletin_inner">
-                                    <h2 class="title">重要な新しい情報</h2>
-                                    <ul class="bulletin_list" id="idBulletinBoardContent">
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="item login">
-                                <img src="images/index/daily-prize-login.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="swiper-slide">
+              <div class="hero-item">               
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="img-wrap">   
+                    <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">             
+                  </div>                  
+              </div>
             </div>
-        </section>
-
-        <section class="section_publicize section-wrap">
-        </section>
-
-        <section class="game-area section-wrap container overflow-hidden">
-            <!-- 推薦遊戲 -->
-            <section class="section-wrap section-levelUp recommend">
-                <div class="game_wrapper">
-                    <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="">推薦遊戲</span></h3>
-                        </div>
-                        <a class="text-link" href="casino.html">
-                            <span>全部顯示</span><i class="icon arrow arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="game_slider swiper_container gameinfo-hover round-arrow" id="game-recommend">
-                        <div class="swiper-wrapper">
-
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <!-- 已"按讚" class=> "added" -->
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <!-- 已"加入最愛" class=> "added" -->
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-button-next"></div>
-                    </div>
-                </div>
-
-            </section>
-
-            <!-- 最新遊戲 -->
-            <section class="section-wrap section-levelUp new">
-                <div class="game_wrapper">
-                    <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="">最新遊戲</span></h3>
-                        </div>
-                        <a class="text-link" href="casino.html">
-                            <span>全部顯示</span><i class="icon arrow arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="game_slider swiper_container gameinfo-hover round-arrow" id="game-new">
-                        <div class="swiper-wrapper">
-
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <!-- 已"按讚" class=> "added" -->
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <!-- 已"加入最愛" class=> "added" -->
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-button-next"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 賭場遊戲 -->
-            <section class="section-wrap section-levelUp pop">
-                <div class="game_wrapper">
-                    <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="">賭場遊戲</span></h3>
-                        </div>
-                        <a class="text-link" href="casino.html">
-                            <span>全部顯示</span><i class="icon arrow arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="game_slider swiper_container gameinfo-hover round-arrow" id="pop-casino">
-                        <div class="swiper-wrapper">
-
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <!-- 已"按讚" class=> "added" -->
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <!-- 已"加入最愛" class=> "added" -->
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wapper">
-                                                    <div class="game-item-info-detail-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-thumup"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            <button type="button" class="btn btn-play">
-                                                                <span class="language_replace">プレイ</span><i
-                                                                    class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
-                                            </div>
-                                        </div>
-                    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-button-next"></div>
-                    </div>
-                </div>
-            </section>
-        </section>
-
-        <div class="tmpModel">
-            <div id="idTempBulletinBoard" style="display: none;">
-                <div>
-                    <li class="item">
-                        <span class="date CreateDate"></span>
-                        <span class="info BulletinTitle"></span>
-                    </li>
-                </div>
+            <div class="swiper-slide">
+              <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
+              <div class="hero-item">
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="img-wrap">
+                    <img src="https://images6.alphacoders.com/114/1145091.png" class="bg"> 
+                    <div class="anim container">
+                      <div class="role role-R"><img src="images/banner/girl.png" alt=""></div>
+                      <div class="role role-L"><img src="images/banner/dog.png" alt=""></div>                    
+                    </div>  
+                  </div>
+                  
+              </div>
             </div>
+            <div class="swiper-slide">
+              <div class="hero-item">               
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="img-wrap">   
+                    <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">             
+                  </div>                  
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="hero-item">
+               
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="img-wrap">   
+                    <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">             
+                  </div>                  
+              </div>
+            </div>
+
+            <div class="swiper-mask"></div>
+          </div>
+          
+          <div class="container"><div class="swiper-pagination"></div></div> 
+      </div>
+    </section>
+    <!--  -->
+    <section class="section_publicize section-wrap">
+      <div class="container">
+        <div class="publicize_wrapper publicize_top">
+          <div class="publicize_top_inner">
+            <div class="item writer">
+              <img src="images/index/writer.png" alt="">
+            </div>
+            <div class="item vtuber">
+              <img src="images/index/vtuber.png" alt="">
+            </div>
+          </div>
         </div>
-    </main>
+        <div class="publicize_wrapper publicize_bottom">
+          <div class="publicize_bottom_inner">
+            <div class="publicize-wrap way_payment">
+              <div class="item payment">
+                <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
+                <img src="images/index/way-payment.png"  class="desktop" alt="">
+              </div>
+            </div>
+            <div class="publicize-wrap bulletin-login">
+              <div class="item bulletin">
+                <div class="bulletin_inner">
+                  <h2 class="title">重要な新しい情報</h1>
+                    <ul class="bulletin_list">
+                      <li class="item">
+                        <span class="date">2022.4.16</span>
+                        <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
+                      </li>
+                      <li class="item">
+                        <span class="date">2022.4.16</span>
+                        <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
+                      </li>
+                      <li class="item">
+                        <span class="date">2022.4.16</span>
+                        <span class="info">マハラジャからプレイヤーとワンツーManキャンペーン!!!!</span>
+                      </li>
+
+                    </ul>
+                </div>
+              </div>
+              <div class="item login">
+                <img src="images/index/daily-prize-login.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-area section-wrap container overflow-hidden">
+      <!-- 推薦遊戲 -->
+      <section class="section-wrap section-levelUp recommend">       
+          <div class="game_wrapper">
+            <div class="sec-title-container">
+              <div class="sec-title-wrapper">
+                <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
+              </div>
+              <a class="text-link" href="casino.html">
+                <span>全部顯示</span><i class="icon arrow arrow-right"></i>             
+              </a>
+            </div>
+            <div class="game_slider swiper_container gameinfo-hover round-arrow" id="game-recommend">
+              <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <!-- 已"按讚" class=> "added" -->
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <!-- 已"加入最愛" class=> "added" -->
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+       
+      </section>
+
+      <!-- 最新遊戲 -->
+      <section class="section-wrap section-levelUp new">        
+          <div class="game_wrapper">
+            <div class="sec-title-container">
+              <div class="sec-title-wrapper">
+                <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>最新遊戲</h3>
+              </div>
+              <a class="text-link" href="casino.html">
+                <span>全部顯示</span><i class="icon arrow arrow-right"></i>             
+              </a>
+            </div>
+            <div class="game_slider swiper_container gameinfo-hover round-arrow" id="game-new">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <!-- 已"按讚" class=> "added" -->
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <!-- 已"加入最愛" class=> "added" -->
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="game-item">
+                        <div class="game-item-inner">
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                    </div>
+                                </div>
+                                <div class="game-item-info-detail">
+                                    <div class="game-item-info-detail-wapper">
+                                        <div class="game-item-info-detail-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i
+                                                        class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="game-item-info">
+                                <div class="game-item-info-inner">
+                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                </div>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+      </section>
+
+      <!-- 賭場遊戲 -->
+      <section class="section-wrap section-levelUp new">        
+        <div class="game_wrapper">
+          <div class="sec-title-container">
+            <div class="sec-title-wrapper">
+              <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>賭場遊戲</h3>
+            </div>
+            <a class="text-link" href="casino.html">
+              <span>全部顯示</span><i class="icon arrow arrow-right"></i>             
+            </a>
+          </div>
+          <div class="game_slider swiper_container gameinfo-hover round-arrow" id="pop-casino">
+            <div class="swiper-wrapper">
+
+              <div class="swiper-slide">
+                  <div class="game-item">
+                      <div class="game-item-inner">
+                          <div class="game-item-focus">
+                              <div class="game-item-img">
+                                  <span class="game-item-link"></span>
+                                  <div class="img-wrap">
+                                      <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                  </div>
+                              </div>
+                              <div class="game-item-info-detail">
+                                  <div class="game-item-info-detail-wapper">
+                                      <div class="game-item-info-detail-inner">
+                                          <div class="info">
+                                              <h3 class="game-item-name">バタフライブロッサム</h3>
+                                          </div>
+                                          <div class="action">
+                                              <div class="btn-s-wrapper">
+                                                  <!-- 已"按讚" class=> "added" -->
+                                                  <button type="button" class="btn-thumbUp btn btn-round">
+                                                      <i class="icon icon-thumup"></i>
+                                                  </button>
+                                                  <!-- 已"加入最愛" class=> "added" -->
+                                                  <button type="button" class="btn-like btn btn-round">
+                                                      <i class="icon icon-heart-o"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-more btn btn-round">
+                                                      <i class="arrow arrow-down"></i>
+                                                  </button>
+                                              </div>
+                                              <button type="button" class="btn btn-play">
+                                                  <span class="language_replace">プレイ</span><i
+                                                      class="triangle"></i></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="game-item-info">
+                              <div class="game-item-info-inner">
+                                  <h3 class="game-item-name">バタフライブロッサム</h3>
+                              </div>
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="game-item">
+                      <div class="game-item-inner">
+                          <div class="game-item-focus">
+                              <div class="game-item-img">
+                                  <span class="game-item-link"></span>
+                                  <div class="img-wrap">
+                                      <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                  </div>
+                              </div>
+                              <div class="game-item-info-detail">
+                                  <div class="game-item-info-detail-wapper">
+                                      <div class="game-item-info-detail-inner">
+                                          <div class="info">
+                                              <h3 class="game-item-name">バタフライブロッサム</h3>
+                                          </div>
+                                          <div class="action">
+                                              <div class="btn-s-wrapper">
+                                                  <button type="button" class="btn-thumbUp btn btn-round">
+                                                      <i class="icon icon-thumup"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-like btn btn-round">
+                                                      <i class="icon icon-heart-o"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-more btn btn-round">
+                                                      <i class="arrow arrow-down"></i>
+                                                  </button>
+                                              </div>
+                                              <button type="button" class="btn btn-play">
+                                                  <span class="language_replace">プレイ</span><i
+                                                      class="triangle"></i></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="game-item-info">
+                              <div class="game-item-info-inner">
+                                  <h3 class="game-item-name">バタフライブロッサム</h3>
+                              </div>
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="game-item">
+                      <div class="game-item-inner">
+                          <div class="game-item-focus">
+                              <div class="game-item-img">
+                                  <span class="game-item-link"></span>
+                                  <div class="img-wrap">
+                                      <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                  </div>
+                              </div>
+                              <div class="game-item-info-detail">
+                                  <div class="game-item-info-detail-wapper">
+                                      <div class="game-item-info-detail-inner">
+                                          <div class="info">
+                                              <h3 class="game-item-name">バタフライブロッサム</h3>
+                                          </div>
+                                          <div class="action">
+                                              <div class="btn-s-wrapper">
+                                                  <button type="button" class="btn-thumbUp btn btn-round">
+                                                      <i class="icon icon-thumup"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-like btn btn-round">
+                                                      <i class="icon icon-heart-o"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-more btn btn-round">
+                                                      <i class="arrow arrow-down"></i>
+                                                  </button>
+                                              </div>
+                                              <button type="button" class="btn btn-play">
+                                                  <span class="language_replace">プレイ</span><i
+                                                      class="triangle"></i></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="game-item-info">
+                              <div class="game-item-info-inner">
+                                  <h3 class="game-item-name">バタフライブロッサム</h3>
+                              </div>
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="game-item">
+                      <div class="game-item-inner">
+                          <div class="game-item-focus">
+                              <div class="game-item-img">
+                                  <span class="game-item-link"></span>
+                                  <div class="img-wrap">
+                                      <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                  </div>
+                              </div>
+                              <div class="game-item-info-detail">
+                                  <div class="game-item-info-detail-wapper">
+                                      <div class="game-item-info-detail-inner">
+                                          <div class="info">
+                                              <h3 class="game-item-name">バタフライブロッサム</h3>
+                                          </div>
+                                          <div class="action">
+                                              <div class="btn-s-wrapper">
+                                                  <button type="button" class="btn-thumbUp btn btn-round">
+                                                      <i class="icon icon-thumup"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-like btn btn-round">
+                                                      <i class="icon icon-heart-o"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-more btn btn-round">
+                                                      <i class="arrow arrow-down"></i>
+                                                  </button>
+                                              </div>
+                                              <button type="button" class="btn btn-play">
+                                                  <span class="language_replace">プレイ</span><i
+                                                      class="triangle"></i></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="game-item-info">
+                              <div class="game-item-info-inner">
+                                  <h3 class="game-item-name">バタフライブロッサム</h3>
+                              </div>
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="game-item">
+                      <div class="game-item-inner">
+                          <div class="game-item-focus">
+                              <div class="game-item-img">
+                                  <span class="game-item-link"></span>
+                                  <div class="img-wrap">
+                                      <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                  </div>
+                              </div>
+                              <div class="game-item-info-detail">
+                                  <div class="game-item-info-detail-wapper">
+                                      <div class="game-item-info-detail-inner">
+                                          <div class="info">
+                                              <h3 class="game-item-name">バタフライブロッサム</h3>
+                                          </div>
+                                          <div class="action">
+                                              <div class="btn-s-wrapper">
+                                                  <button type="button" class="btn-thumbUp btn btn-round">
+                                                      <i class="icon icon-thumup"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-like btn btn-round">
+                                                      <i class="icon icon-heart-o"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-more btn btn-round">
+                                                      <i class="arrow arrow-down"></i>
+                                                  </button>
+                                              </div>
+                                              <button type="button" class="btn btn-play">
+                                                  <span class="language_replace">プレイ</span><i
+                                                      class="triangle"></i></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="game-item-info">
+                              <div class="game-item-info-inner">
+                                  <h3 class="game-item-name">バタフライブロッサム</h3>
+                              </div>
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="game-item">
+                      <div class="game-item-inner">
+                          <div class="game-item-focus">
+                              <div class="game-item-img">
+                                  <span class="game-item-link"></span>
+                                  <div class="img-wrap">
+                                      <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                  </div>
+                              </div>
+                              <div class="game-item-info-detail">
+                                  <div class="game-item-info-detail-wapper">
+                                      <div class="game-item-info-detail-inner">
+                                          <div class="info">
+                                              <h3 class="game-item-name">バタフライブロッサム</h3>
+                                          </div>
+                                          <div class="action">
+                                              <div class="btn-s-wrapper">
+                                                  <button type="button" class="btn-thumbUp btn btn-round">
+                                                      <i class="icon icon-thumup"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-like btn btn-round">
+                                                      <i class="icon icon-heart-o"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-more btn btn-round">
+                                                      <i class="arrow arrow-down"></i>
+                                                  </button>
+                                              </div>
+                                              <button type="button" class="btn btn-play">
+                                                  <span class="language_replace">プレイ</span><i
+                                                      class="triangle"></i></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="game-item-info">
+                              <div class="game-item-info-inner">
+                                  <h3 class="game-item-name">バタフライブロッサム</h3>
+                              </div>
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="game-item">
+                      <div class="game-item-inner">
+                          <div class="game-item-focus">
+                              <div class="game-item-img">
+                                  <span class="game-item-link"></span>
+                                  <div class="img-wrap">
+                                      <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                  </div>
+                              </div>
+                              <div class="game-item-info-detail">
+                                  <div class="game-item-info-detail-wapper">
+                                      <div class="game-item-info-detail-inner">
+                                          <div class="info">
+                                              <h3 class="game-item-name">バタフライブロッサム</h3>
+                                          </div>
+                                          <div class="action">
+                                              <div class="btn-s-wrapper">
+                                                  <button type="button" class="btn-thumbUp btn btn-round">
+                                                      <i class="icon icon-thumup"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-like btn btn-round">
+                                                      <i class="icon icon-heart-o"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-more btn btn-round">
+                                                      <i class="arrow arrow-down"></i>
+                                                  </button>
+                                              </div>
+                                              <button type="button" class="btn btn-play">
+                                                  <span class="language_replace">プレイ</span><i
+                                                      class="triangle"></i></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="game-item-info">
+                              <div class="game-item-info-inner">
+                                  <h3 class="game-item-name">バタフライブロッサム</h3>
+                              </div>
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-slide">
+                  <div class="game-item">
+                      <div class="game-item-inner">
+                          <div class="game-item-focus">
+                              <div class="game-item-img">
+                                  <span class="game-item-link"></span>
+                                  <div class="img-wrap">
+                                      <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PNG/PC/JPN/moonprincess.png">
+                                  </div>
+                              </div>
+                              <div class="game-item-info-detail">
+                                  <div class="game-item-info-detail-wapper">
+                                      <div class="game-item-info-detail-inner">
+                                          <div class="info">
+                                              <h3 class="game-item-name">バタフライブロッサム</h3>
+                                          </div>
+                                          <div class="action">
+                                              <div class="btn-s-wrapper">
+                                                  <button type="button" class="btn-thumbUp btn btn-round">
+                                                      <i class="icon icon-thumup"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-like btn btn-round">
+                                                      <i class="icon icon-heart-o"></i>
+                                                  </button>
+                                                  <button type="button" class="btn-more btn btn-round">
+                                                      <i class="arrow arrow-down"></i>
+                                                  </button>
+                                              </div>
+                                              <button type="button" class="btn btn-play">
+                                                  <span class="language_replace">プレイ</span><i
+                                                      class="triangle"></i></button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="game-item-info">
+                              <div class="game-item-info-inner">
+                                  <h3 class="game-item-name">バタフライブロッサム</h3>
+                              </div>
+                          </div>
+      
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+    </section>
+     
+    </section>
+    
+  </main>
 </body>
 
 </html>
