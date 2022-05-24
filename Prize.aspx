@@ -115,6 +115,8 @@
     function GetPromotionCollectAvailable() {
 
     }
+
+    window.onload = init;
 </script>
 <body class="innerBody">
     <main class="innerMain">
