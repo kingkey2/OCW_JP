@@ -231,41 +231,14 @@
 
         new Swiper("#idGameItemGroup", {
             loop: true,
-            slidesPerView: 2,
-            freeMode: true,
+            slidesPerView: "auto",
+            slidesPerGroup: 8,
             navigation: {
-                nextEl: "#idGameItemGroup .swiper-button-next",
-                prevEl: "#idGameItemGroup .swiper-button-prev",
-            }
-        });
-
-
-        //new Swiper("#idGameItemGroup", {
-        //    loop: true,
-        //    slidesPerView: 2,
-        //    freeMode: true,
-        //    navigation: {
-        //        nextEl: "#lobbyGame-1 .swiper-button-next",
-        //        prevEl: "#lobbyGame-1 .swiper-button-prev",
-        //    }
-        //    ,
-        //    breakpoints: {
-        //        540: {
-        //            slidesPerView: 3,
-
-        //        },
-        //        768: {
-        //            slidesPerView: 5,
-
-        //        },
-        //        1200: {
-        //            slidesPerView: 7,
-        //        },
-        //        1920: {
-        //            slidesPerView: 10,
-        //        },
-        //    }
-        //});
+            nextEl: "#idGameItemGroup .swiper-button-next",
+            prevEl: "#idGameItemGroup .swiper-button-prev",
+            },  
+        }); 
+        
     }
 
     function updateGameCode() {
@@ -371,14 +344,15 @@
 
                 });
                 new Swiper("#idGameItemGroup", {
+                    loop: true,
                     slidesPerView: "auto",
-                    freeMode: true,
+                    slidesPerGroup: 8,
                     navigation: {
-                        nextEl: "#idGameItemGroup .swiper-button-next",
-                        prevEl: "#idGameItemGroup .swiper-button-prev",
-                    }
-                });
-            }
+                    nextEl: "#idGameItemGroup .swiper-button-next",
+                    prevEl: "#idGameItemGroup .swiper-button-prev",
+                    },
+                  });
+                }
         }
     }
 
@@ -524,10 +498,9 @@
           <div class="swiper-pagination"></div>                
         </div>
     </section>
-        <div class="menu-game tab-scroller">
+        <div class="tab-game tab-scroller tab-5">
             <div class="tab-scroller__area">
                 <ul class="tab-scroller__content" id="idGameItemTitle">
-
                     <div class="tab-slide"></div>
                 </ul>
             </div>
@@ -536,12 +509,12 @@
         <section class="game-area overflow-hidden">
             <!-- Lobby-1 遊戲 -->
             <!-- <section class="section-wrap section-levelUp" style="position: relative; z-index: 99;"> -->
-            <section class="section-wrap section-levelUp" style="z-index: 99;">
+            <section class="section-wrap section-levelUp">
                 <div class="container-fluid">
                     <div class="game_wrapper">
-                        <div class="sec_title_container">
-                            <div class="sec_titl_wrapper">
-                                <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="">新品上市</span></h3>>
+                        <div class="sec-title-container">
+                            <div class="sec-title-wrapper">
+                                <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="language_replace">新品上市</span></h3>
                             </div>
                         </div>
                         <div class="game_slider swiper_container gameinfo-hover round-arrow" id="idGameItemGroup">
@@ -560,7 +533,7 @@
                 <div class="game_wrapper">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="">熱門遊戲</span></h3>
+                            <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="language_replace">熱門遊戲</span></h3>
                         </div>
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover round-arrow" id="lobbyGame-2">
@@ -594,7 +567,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="game-item-info-detail-indicator">
-                                                        <div class="game-item-info-detail-inner">
+                                                        <div class="game-item-info-detail-indicator-inner">
                                                             <div class="info">
                                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
                                                             </div>
@@ -657,7 +630,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="game-item-info-detail-indicator">
-                                                        <div class="game-item-info-detail-inner">
+                                                        <div class="game-item-info-detail-indicator-inner">
                                                             <div class="info">
                                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
                                                             </div>
@@ -720,7 +693,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="game-item-info-detail-indicator">
-                                                        <div class="game-item-info-detail-inner">
+                                                        <div class="game-item-info-detail-indicator-inner">
                                                             <div class="info">
                                                                 <h3 class="game-item-name">バタフライブロッサム</h3>
                                                             </div>
@@ -876,7 +849,7 @@
                                     </ul>
                                 </div>
                                 <div class="game-item-info-detail-indicator">
-                                    <div class="game-item-info-detail-inner">
+                                    <div class="game-item-info-detail-indicator-inner">
                                         <div class="info">
                                             <h3 class="game-item-name"></h3>
                                         </div>
