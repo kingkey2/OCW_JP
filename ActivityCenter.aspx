@@ -17,7 +17,6 @@
     <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="Scripts/theme.js"></script>
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>

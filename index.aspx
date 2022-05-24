@@ -168,7 +168,6 @@
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
 <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-<script src="Scripts/theme.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
@@ -1313,9 +1312,6 @@
         API_LoadPage("Article", orgin);
     }
 
-    function sleep(time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
-    }
 
     function resize() {
         if (IFramePage.contentWindow.document.body) {
@@ -1328,6 +1324,28 @@
         }
     }
 
+    function initByArt() {
+        $('[data-btn-click="openLag"]').click(function () {
+            $('.lang-select-panel').fadeToggle('fast');
+        });
+
+        $('.lang-select-panel a').click(function () {
+            var curLang = $(this).text();
+            $('.lang-select-panel').fadeToggle('fast');
+            $('[data-btn-click="openLag"]').find('span').text(curLang);
+        });
+
+        //主選單收合
+        $('.navbar-toggler').click(function () {
+            $('.vertical-menu').toggleClass('navbar-show');
+            $('.main_menu').toggleClass('show');
+        });
+        $('.header_area .mask_overlay').click(function () {
+            $('.main_menu, .navbarMenu').removeClass('show');
+            $('.navbar-toggler').attr("aria-expanded", "false");
+        });
+    }
+
     function init() {
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
@@ -1336,6 +1354,7 @@
             EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         }
 
+        initByArt();
         switchLang(EWinWebInfo.Lang, false);
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
@@ -1379,47 +1398,47 @@
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                                     API_SetLogin(EWinWebInfo.SID, function (logined) {
                                         //顯示登入資訊 
-                                        getLoginMessage(function () {
-                                            if (LoginMessage) {
-                                                if (!localStorage.getItem("LoginMessage")) {
-                                                    if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            if (document.getElementById("cboxLoginMessage").checked) {
-                                                                localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            }
-                                                        });
-                                                    } else {
-                                                        if (!sessionStorage.getItem("LoginMessage")) {
-                                                            WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                                sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                if (document.getElementById("cboxLoginMessage").checked) {
-                                                                    localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                }
-                                                            });
-                                                        } else {
-                                                            if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
-                                                                WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                    if (document.getElementById("cboxLoginMessage").checked) {
-                                                                        localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                    }
-                                                                });
-                                                            }
-                                                        }
-                                                    }
-                                                } else {
-                                                    if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            if (document.getElementById("cboxLoginMessage").checked) {
-                                                                localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            }
-                                        });
+                                        //getLoginMessage(function () {
+                                        //    if (LoginMessage) {
+                                        //        if (!localStorage.getItem("LoginMessage")) {
+                                        //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                                        //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                        //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                        //                    if (document.getElementById("cboxLoginMessage").checked) {
+                                        //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                        //                    }
+                                        //                });
+                                        //            } else {
+                                        //                if (!sessionStorage.getItem("LoginMessage")) {
+                                        //                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                        //                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                        //                        if (document.getElementById("cboxLoginMessage").checked) {
+                                        //                            localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                        //                        }
+                                        //                    });
+                                        //                } else {
+                                        //                    if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
+                                        //                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                        //                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                        //                            if (document.getElementById("cboxLoginMessage").checked) {
+                                        //                                localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                        //                            }
+                                        //                        });
+                                        //                    }
+                                        //                }
+                                        //            }
+                                        //        } else {
+                                        //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                                        //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                        //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                        //                    if (document.getElementById("cboxLoginMessage").checked) {
+                                        //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                        //                    }
+                                        //                });
+                                        //            }
+                                        //        }
+                                        //    }
+                                        //});
 
                                         if (logined == false) {
                                             userRecover();
