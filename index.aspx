@@ -1353,10 +1353,10 @@
         //主選單收合
         $('.navbar-toggler').click(function () {
             $('.vertical-menu').toggleClass('navbar-show');
-            $('.main_menu').toggleClass('show');
+            $('.header_menu').toggleClass('show');
         });
         $('.header_area .mask_overlay').click(function () {
-            $('.main_menu, .navbarMenu').removeClass('show');
+            $('.header_menu, .navbarMenu').removeClass('show');
             $('.navbar-toggler').attr("aria-expanded", "false");
         });
     }
