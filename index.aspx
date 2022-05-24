@@ -453,7 +453,7 @@
     }
 
     function API_GetGameList2() {
-            return LobbyGameList2;
+        return LobbyGameList2;
     }
 
     function API_ShowMessage(title, msg, cbOK, cbCancel) {
@@ -513,11 +513,11 @@
 
     //#region Alert
     function showMessage(title, message, cbOK, cbCancel) {
-        if ($("#alertContact").attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertContact");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+        if ($("#alertMsg").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertMsg");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
 
             if (MessageModal == null) {
                 MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
@@ -553,11 +553,11 @@
     }
 
     function showMessageOK(title, message, cbOK) {
-        if ($("#alertContact").attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertContact");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+        if ($("#alertMsg").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertMsg");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
 
             if (MessageModal == null) {
                 MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
@@ -585,6 +585,31 @@
         }
     }
 
+    function showBoardMsg(title, message, time) {
+        if ($("#alertBoardMsg").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertBoardMsg");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
+            var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
+            var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
+            var divMessageBoxContent = divMessageBox.querySelector(".alert_Text");
+            var modal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+
+            if (divMessageBox != null) {
+                modal.show();
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        modal.hide();
+                    }
+                }
+
+                divMessageBoxTitle.innerHTML = title;
+                divMessageBoTime.innerHTML = time;
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
 
     //#endregion
 
@@ -1145,10 +1170,10 @@
     }
 
     function getCompanyGameCode2(cb) {
-      
+
         var CategoryList = ['All'];
 
-        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName:"EWinGaming"};
+        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
         lobbyClient.GetCompanyGameCode2(Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -1164,7 +1189,7 @@
                             }
                         }
                     }
-     
+
                     LobbyGameList2.CategoryList = CategoryList;
                 } else {
                     showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
@@ -2103,8 +2128,8 @@
         </div>
     </div>
 
-    <!--alert-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContact" aria-hidden="true" id="alertContact">
+    <!--alert Msg-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertMsg" aria-hidden="true" id="alertMsg">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2116,76 +2141,109 @@
                     <div class="modal-body-content">
                         <i class="icon-error_outline primary"></i>
                         <div class="text-wrap">
-                            <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                            <p class="alertMsg_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="btn-container">
-                        <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
-                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
+                        <button type="button" class="alertMsg_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                        <button type="button" class="alertMsg_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade no-footer popupGameInfo " id="popupGameInfo" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <!--alert Board Msg-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertBoardMsg" aria-hidden="true" id="alertBoardMsg">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="alert_Title"></div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="language_replace">公告時間：</div>
+                        <div class="alert_Time"></div>
+                        <div class="text-wrap">
+                            <div class="language_replace">公告詳情：</div>
+                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alert_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <div class="game-info-mobile-wrapper">
-                <div class="game-item">
-                    <div class="game-item-inner">                      
-                        <div class="game-item-focus">
-                            <div class="game-item-img">
-                                <span class="game-item-link"></span>
-                                <div class="img-wrap">
-                                    <img class="imgsrc" src="">
-                                </div>
-                            </div>
-                            <div class="game-item-info-detail open">
-                                <div class="game-item-info-detail-wrapper">
-                                    <div class="game-item-info-detail-moreInfo">
-                                        <ul class="moreInfo-item-wrapper">
-                                            <li class="moreInfo-item brand">
-                                                <span class="title language_replace">メーカー</span>
-                                                <span class="value BrandName"></span>
-                                            </li>
-                                            <li class="moreInfo-item RTP">
-                                                <span class="title">RTP</span>
-                                                <span class="value number RTP"></span>
-                                            </li>
-                                            <li class="moreInfo-item gamecode">
-                                                <span class="title">NO.</span>
-                                                <span class="value number GameID"></span>
-                                            </li>
-                                        </ul>
+    </div>
+
+
+    <div class="modal fade no-footer popupGameInfo " id="popupGameInfo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="game-info-mobile-wrapper">
+                        <div class="game-item">
+                            <div class="game-item-inner">
+                                <div class="game-item-focus">
+                                    <div class="game-item-img">
+                                        <span class="game-item-link"></span>
+                                        <div class="img-wrap">
+                                            <img class="imgsrc" src="">
+                                        </div>
                                     </div>
-                                    <div class="game-item-info-detail-indicator">
-                                        <div class="game-item-info-detail-indicator-inner">
-                                            <div class="info">
-                                                <h3 class="game-item-name GameName"></h3>
+                                    <div class="game-item-info-detail open">
+                                        <div class="game-item-info-detail-wrapper">
+                                            <div class="game-item-info-detail-moreInfo">
+                                                <ul class="moreInfo-item-wrapper">
+                                                    <li class="moreInfo-item brand">
+                                                        <span class="title language_replace">メーカー</span>
+                                                        <span class="value BrandName"></span>
+                                                    </li>
+                                                    <li class="moreInfo-item RTP">
+                                                        <span class="title">RTP</span>
+                                                        <span class="value number RTP"></span>
+                                                    </li>
+                                                    <li class="moreInfo-item gamecode">
+                                                        <span class="title">NO.</span>
+                                                        <span class="value number GameID"></span>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <div class="action">
-                                                <div class="btn-s-wrapper">
-                                                    <button type="button" class="btn-thumbUp btn btn-round">
-                                                        <i class="icon icon-thumup"></i>
-                                                    </button>
-                                                    <button type="button" class="btn-like btn btn-round">
-                                                        <i class="icon icon-heart-o"></i>
-                                                    </button>
-                                                    <button type="button" class="btn-more btn btn-round">
-                                                        <i class="arrow arrow-down"></i>
-                                                    </button>
+                                            <div class="game-item-info-detail-indicator">
+                                                <div class="game-item-info-detail-indicator-inner">
+                                                    <div class="info">
+                                                        <h3 class="game-item-name GameName"></h3>
+                                                    </div>
+                                                    <div class="action">
+                                                        <div class="btn-s-wrapper">
+                                                            <button type="button" class="btn-thumbUp btn btn-round">
+                                                                <i class="icon icon-thumup"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-like btn btn-round">
+                                                                <i class="icon icon-heart-o"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-more btn btn-round">
+                                                                <i class="arrow arrow-down"></i>
+                                                            </button>
+                                                        </div>
+                                                        <button type="button" class="btn btn-play">
+                                                            <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                                    </div>
                                                 </div>
-                                                <button type="button" class="btn btn-play">
-                                                    <span class="language_replace">プレイ</span><i class="triangle"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -2194,14 +2252,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save</button>
-        </div>
-        </div>
-    </div>
     </div>
 </body>
 </html>
