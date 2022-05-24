@@ -88,7 +88,9 @@
                             k.querySelector(".year").innerText = collectDate.toString("yyyy");
                             k.querySelector(".month").innerText = collectDate.toString("MM");
                             k.querySelector(".day").innerText = collectDate.toString("dd");
-                            k.querySelector(".day").innerText = collectDate.toString("dd");
+                            k.querySelector(".actTitle").innerText = collectDate.toString("dd");
+                            k.querySelector(".pointValue").innerText = collectDate.toString("dd");
+
                             if (rowDom) {
 
                             } else {
@@ -338,10 +340,10 @@
                 </span>
             </div>
             <div class="tbody__td">
-                <span class="td__content"><span class="title">ゴールドヒット！ゴールドヒット！ ゴールドヒット！</span></span>
+                <span class="td__content"><span class="actTitle">ゴールドヒット！ゴールドヒット！ ゴールドヒット！</span></span>
             </div>
             <div class="tbody__td">
-                <span class="td__content"><span class="value">999,999,999</span></span>
+                <span class="td__content"><span class="pointValue">999,999,999</span></span>
             </div>
         </div>
     </div>

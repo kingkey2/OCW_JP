@@ -1,38 +1,38 @@
 ﻿<%@ Page Language="C#" %>
 
 <%
-//string LoginAccount = Request["LoginAccount"];
-////string Email = Request["Email"];
+    string LoginAccount = Request["LoginAccount"];
+    //string Email = Request["Email"];
 
-//string Token;
-//string ErrMsg =string.Empty;
-//int ReceiveStatus = 1;
+    string Token;
+    string ErrMsg =string.Empty;
+    int ReceiveStatus = 1;
 
-//int RValue;
-//Random R = new Random();
-//RValue = R.Next(100000, 9999999);
-//Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+    int RValue;
+    Random R = new Random();
+    RValue = R.Next(100000, 9999999);
+    Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
-//var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
+    var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
-//if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
-//    EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
-//    string transactionCode = LoginAccount + "_" + GetRegisterResult.Data.ActivityName;
-//    string description = "ReceiveRegisterReward, LoginAccount=" + LoginAccount;
+    if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
+        EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
+        string transactionCode = LoginAccount + "_" + GetRegisterResult.Data[0].ActivityName;
+        string description = "ReceiveRegisterReward, LoginAccount=" + LoginAccount;
 
-//    EWin.OCW.APIResult ocwResult = ocwApi.AddBonusValue(Token, System.Guid.NewGuid().ToString(), transactionCode, LoginAccount, EWinWeb.MainCurrencyType, GetRegisterResult.Data.BonusValue, GetRegisterResult.Data.ThresholdValue, description, description + ", BonusValue" + GetRegisterResult.Data.BonusValue.ToString());
+        EWin.OCW.APIResult ocwResult = ocwApi.AddBonusValue(Token, System.Guid.NewGuid().ToString(), transactionCode, LoginAccount, EWinWeb.MainCurrencyType, GetRegisterResult.Data[0].BonusValue, GetRegisterResult.Data[0].ThresholdValue, description, description + ", BonusValue" + GetRegisterResult.Data[0].BonusValue.ToString());
 
-//    if (ocwResult.ResultState == EWin.OCW.enumResultState.OK) {
-//        EWinWebDB.UserAccountEventBonusHistory.InsertEventBonusHistory(LoginAccount, GetRegisterResult.Data.ActivityName, "", GetRegisterResult.Data.BonusRate, GetRegisterResult.Data.BonusValue, GetRegisterResult.Data.ThresholdRate, GetRegisterResult.Data.ThresholdValue, EWinWebDB.UserAccountEventBonusHistory.EventType.Register);
-//        ReceiveStatus = 1;
-//    } else {
-//        ReceiveStatus = 0;
-//        ErrMsg = GetRegisterResult.Message;
-//    }
-//} else {
-//    ReceiveStatus = 0;
-//    ErrMsg = GetRegisterResult.Message;
-//}
+        if (ocwResult.ResultState == EWin.OCW.enumResultState.OK) {
+            EWinWebDB.UserAccountEventBonusHistory.InsertEventBonusHistory(LoginAccount, GetRegisterResult.Data[0].ActivityName, "", GetRegisterResult.Data[0].BonusRate, GetRegisterResult.Data[0].BonusValue, GetRegisterResult.Data[0].ThresholdRate, GetRegisterResult.Data[0].ThresholdValue, EWinWebDB.UserAccountEventBonusHistory.EventType.Register);
+            ReceiveStatus = 1;
+        } else {
+            ReceiveStatus = 0;
+            ErrMsg = GetRegisterResult.Message;
+        }
+    } else {
+        ReceiveStatus = 0;
+        ErrMsg = GetRegisterResult.Message;
+    }
 
 %>
 
@@ -71,8 +71,8 @@
 <script>
     var mlp;
     var lang;
-  <%--  var ReceiveStatus = "<%=ReceiveStatus%>";
-    var ErrMsg = "<%=ErrMsg%>";--%>
+    var ReceiveStatus = "<%=ReceiveStatus%>";
+    var ErrMsg = "<%=ErrMsg%>";
 
     function init() {
         lang = "JPN";
