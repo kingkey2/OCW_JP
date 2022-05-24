@@ -183,7 +183,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 3px;
   height: 1rem;
   border-radius: 1px;
-  background-color: #000000;
+  background-color: #008fd1;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item .date {
   font-weight: 600;
