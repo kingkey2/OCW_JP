@@ -215,7 +215,7 @@
     var MessageModal;
     var gameWindow;
     var LobbyGameList;
-    var LobbyGameList2;
+    var LobbyGameList2 = {};
     //#region TOP API
 
     function API_GetWebInfo() {
@@ -465,6 +465,10 @@
         return showMessageOK(title, msg, cbOK);
     }
 
+    function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
+        return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID);
+    }
+
     function API_ShowPartialHtml(title, pathName, isNeedLang, cbOK) {
         //return window.open(pathName);
         return showPartialHtml(title, pathName, isNeedLang, cbOK);
@@ -585,6 +589,47 @@
 
     //#endregion
 
+    function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
+        alert("aaa");
+        //if ($("#alertContact").attr("aria-hidden") == 'true') {
+        //    var divMessageBox = document.getElementById("alertContact");
+        //    var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
+        //    var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
+        //    var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+
+        //    if (MessageModal == null) {
+        //        MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+        //    }
+
+        //    if (divMessageBox != null) {
+        //        MessageModal.toggle();
+
+        //        if (divMessageBoxCloseButton != null) {
+        //            divMessageBoxCloseButton.classList.remove("is-hide");
+        //            divMessageBoxCloseButton.onclick = function () {
+        //                MessageModal.hide();
+
+        //                if (cbCancel != null) {
+        //                    cbCancel();
+        //                }
+        //            }
+        //        }
+
+        //        if (divMessageBoxOKButton != null) {
+
+        //            divMessageBoxOKButton.onclick = function () {
+        //                MessageModal.hide();
+
+        //                if (cbOK != null)
+        //                    cbOK();
+        //            }
+        //        }
+
+        //        divMessageBoxContent.innerHTML = message;
+        //    }
+        //}
+    }
+
     function showPartialHtml(title, pathName, isNeedLang, cbOK) {
         var realPath;
         var divMessageBox = document.getElementById("alertPartialHtml");
@@ -662,6 +707,7 @@
     }
 
     function openGame(gameBrand, gameName) {
+
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
@@ -1101,83 +1147,26 @@
 
     function getCompanyGameCode2(cb) {
       
-        LobbyGameList2 = {
-            HotList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
-            NewList: [],
-            CategoryList: [{
-                Categ: "All",
-                SubCategList: ["Baccarat"],
-                CategBrandList: ["EWin"]
-            }, {
-                Categ: "Live",
-                SubCategList: ["Baccarat"],
-                CategBrandList: ["EWin"]
-            }],
-            GameList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
-        };
+        var CategoryList = ['All'];
 
+        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName:"EWinGaming"};
         lobbyClient.GetCompanyGameCode2(Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    debugger;
-                    //WebInfo.GameCodeList = o.GameCodeList;
-                    o.GameCodeList.forEach(e => {
-                        var tempSubCateg;
+                    o.CompanyCategoryDatas.find(e => e.CategoryName == '熱門').Datas.unshift(EWinGame);
 
+                    LobbyGameList2.CompanyCategoryDatas = o.CompanyCategoryDatas;
 
-
-                        if (e.GameCategorySubCode == '') {
-                            tempSubCateg = 'Other';
-                        } else {
-                            tempSubCateg = e.GameCategorySubCode;
-                        }
-
-                        var gameData = {
-                            GameName: e.GameName,
-                            GameBrand: e.BrandCode,
-                            GameID: e.GameID,
-                            Description: e.GameName,
-                            Categ: e.GameCategoryCode,
-                            SubCateg: tempSubCateg,
-                            IsHot: e.IsHot,
-                            IsNew: e.IsNew,
-                            RTPInfo: e.RTPInfo,
-                            AllowDemoPlay: e.AllowDemoPlay
-                        };
-
-               
-
-                        //all
-                        if (LobbyGameList.CategoryList[0].CategBrandList.find(eb => eb == e.BrandCode) == undefined)
-                            LobbyGameList.CategoryList[0].CategBrandList.push(e.BrandCode);
-
-                        if (LobbyGameList.CategoryList[0].SubCategList.find(eb => eb == tempSubCateg) == undefined)
-                            LobbyGameList.CategoryList[0].SubCategList.push(tempSubCateg);
-
-                        if (LobbyGameList.CategoryList.find(eb => eb.Categ == e.GameCategoryCode) == undefined) {
-                            let data = {
-                                Categ: e.GameCategoryCode,
-                                SubCategList: [tempSubCateg],
-                                CategBrandList: [
-                                    e.BrandCode
-                                ]
+                    for (var i = 0; i < LobbyGameList2.CompanyCategoryDatas.length; i++) {
+                        var datas = LobbyGameList2.CompanyCategoryDatas[i].Datas;
+                        for (var k = 0; k < datas.length; k++) {
+                            if (!CategoryList.includes(datas[k].GameCategoryCode)) {
+                                CategoryList.push(datas[k].GameCategoryCode);
                             }
-                            LobbyGameList.CategoryList.push(data);
-                        } else {
-                            LobbyGameList.CategoryList.forEach(cl => {
-                                if (cl.Categ == e.GameCategoryCode) {
-                                    if (cl.CategBrandList.find(cbl => cbl == e.BrandCode) == undefined)
-                                        cl.CategBrandList.push(e.BrandCode)
-
-                                    if (cl.SubCategList.find(cbl => cbl == tempSubCateg) == undefined)
-                                        cl.SubCategList.push(tempSubCateg)
-                                }
-                            })
                         }
-
-                        LobbyGameList.GameList.push(gameData);
                     }
-                    );
+     
+                    LobbyGameList2.CategoryList = CategoryList;
                 } else {
                     showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
                 }
@@ -2120,6 +2109,80 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade no-footer popupGameInfo " id="popupGameInfo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="game-info-mobile-wrapper">
+                <div class="game-item">
+                    <div class="game-item-inner">                      
+                        <div class="game-item-focus">
+                            <div class="game-item-img">
+                                <span class="game-item-link"></span>
+                                <div class="img-wrap">
+                                    <img class="imgsrc" src="">
+                                </div>
+                            </div>
+                            <div class="game-item-info-detail open">
+                                <div class="game-item-info-detail-wrapper">
+                                    <div class="game-item-info-detail-moreInfo">
+                                        <ul class="moreInfo-item-wrapper">
+                                            <li class="moreInfo-item brand">
+                                                <span class="title language_replace">メーカー</span>
+                                                <span class="value BrandName"></span>
+                                            </li>
+                                            <li class="moreInfo-item RTP">
+                                                <span class="title">RTP</span>
+                                                <span class="value number RTP"></span>
+                                            </li>
+                                            <li class="moreInfo-item gamecode">
+                                                <span class="title">NO.</span>
+                                                <span class="value number GameID"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="game-item-info-detail-indicator">
+                                        <div class="game-item-info-detail-indicator-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name GameName"></h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                                        <i class="icon icon-thumup"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-like btn btn-round">
+                                                        <i class="icon icon-heart-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save</button>
+        </div>
+        </div>
+    </div>
     </div>
 </body>
 </html>

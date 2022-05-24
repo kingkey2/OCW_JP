@@ -653,10 +653,10 @@ public class LobbyAPI : System.Web.Services.WebService
                             data.IsNew = (int)CompanyGameCodeDT.Rows[k]["IsNew"];
                             data.RTPInfo = (string)CompanyGameCodeDT.Rows[k]["RTPInfo"];
                             companyCategoryData.Datas.Add(data);
-                           
+
                         }
 
-                         Ret.CompanyCategoryDatas.Add(companyCategoryData);
+                        Ret.CompanyCategoryDatas.Add(companyCategoryData);
                     }
                 }
             }
@@ -1398,40 +1398,40 @@ public class LobbyAPI : System.Web.Services.WebService
         return R;
     }
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PromotionCollectHistoryResult GetPromotionCollectHistory(string WebSID, string GUID, string BeginDate, string EndDate)
-    {
-        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        RedisCache.SessionContext.SIDInfo SI;
-        PromotionCollectHistoryResult R;
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public PromotionCollectHistoryResult GetPromotionCollectHistory(string WebSID, string GUID, string BeginDate, string EndDate)
+    //{
+    //    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+    //    RedisCache.SessionContext.SIDInfo SI;
+    //    PromotionCollectHistoryResult R;
 
-        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
-        {
-            EWin.Lobby.PromotionCollectHistoryResult EWinReturn = lobbyAPI.GetPromotionCollectHistory(GetToken(), SI.EWinSID, GUID, DateTime.Parse(BeginDate), DateTime.Parse(EndDate));
+    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+    //    {
+    //        EWin.Lobby.PromotionCollectHistoryResult EWinReturn = lobbyAPI.GetPromotionCollectHistory(GetToken(), SI.EWinSID, GUID, DateTime.Parse(BeginDate), DateTime.Parse(EndDate));
 
-            if (EWinReturn.Result == EWin.Lobby.enumResult.OK)
-            {
+    //        if (EWinReturn.Result == EWin.Lobby.enumResult.OK)
+    //        {
 
-            }
-            else
-            {
+    //        }
+    //        else
+    //        {
 
-            }
-        }
-        else
-        {
-            var R = new EWin.Lobby.PromotionCollectHistoryResult()
-            {
-                Result = EWin.Lobby.enumResult.ERR,
-                Message = "InvalidWebSID",
-                GUID = GUID
-            };
-            return R;
-        }
-    }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        var R = new EWin.Lobby.PromotionCollectHistoryResult()
+    //        {
+    //            Result = EWin.Lobby.enumResult.ERR,
+    //            Message = "InvalidWebSID",
+    //            GUID = GUID
+    //        };
+    //        return R;
+    //    }
+    //}
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
