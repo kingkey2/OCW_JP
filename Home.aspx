@@ -396,7 +396,7 @@
                 <div class="game_wrapper">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>推薦遊戲</h3>
+                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace">推薦遊戲</span></h3>
                         </div>
                         <a class="text-link" href="casino.html">
                             <span>全部顯示</span><i class="icon arrow arrow-right"></i>
@@ -929,7 +929,7 @@
                 <div class="game_wrapper">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>最新遊戲</h3>
+                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace">最新遊戲</span></h3>
                         </div>
                         <a class="text-link" href="casino.html">
                             <span>全部顯示</span><i class="icon arrow arrow-right"></i>
@@ -945,7 +945,7 @@
                 <div class="game_wrapper">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h3 class="title"><i class="icon icon2020-ico-coin-o"></i>我的最愛</h3>
+                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace">我的最愛</span></h3>
                         </div>
                         <a class="text-link" href="casino.html">
                             <span>全部顯示</span><i class="icon arrow arrow-right"></i>

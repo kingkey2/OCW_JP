@@ -677,7 +677,7 @@
                     <div class="game_wrapper">
                          <div class="sec-title-container">
                             <div class="sec-title-wrapper">
-                                <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="CategName"></span></h3>
+                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title CategName"></span></h3>
                             </div>
                         </div>
                         <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
