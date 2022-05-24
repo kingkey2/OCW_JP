@@ -19,7 +19,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .hero_slider .img-wrap {
   position: relative;
-  padding-bottom: calc(100vw / 3.5 );
+  padding-bottom: calc(100vh / 1.8);
   overflow: hidden;
 }
 .hero_slider .img-wrap img.bg {
@@ -52,7 +52,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   left: -50px;
   width: 50%;
   height: 100%;
-  max-width: 350px;
+  max-width: 400px;
   bottom: 0%;
   z-index: 2;
   opacity: 0;
@@ -68,7 +68,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -1px;
   z-index: 1;
   background-size: cover;
 }
@@ -83,7 +83,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -1px;
   z-index: 1;
   background-size: cover;
 }
@@ -103,16 +103,33 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .hero_slider .swiper-pagination-bullet {
   width: 60px;
   height: 60px;
-  margin-right: 20px;
+  margin-right: 24px;
   opacity: 1;
   background-color: #fff;
   border: solid 3px #008fd0;
   transition: all 0.3s ease-in;
   transform: scale(1);
   overflow: hidden;
+  position: relative;
+}
+.hero_slider .swiper-pagination-bullet:nth-child(1) {
+  bottom: 5px;
+}
+.hero_slider .swiper-pagination-bullet:nth-child(2) {
+  bottom: -10px;
+}
+.hero_slider .swiper-pagination-bullet:nth-child(3) {
+  bottom: -10px;
+}
+.hero_slider .swiper-pagination-bullet:nth-child(4) {
+  bottom: -9px;
+}
+.hero_slider .swiper-pagination-bullet:nth-child(5) {
+  bottom: -8px;
 }
 .hero_slider .swiper-pagination-bullet-active {
-  transform: scale(1.2);
+  transform: scale(1.35);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .section_publicize img {
@@ -176,7 +193,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 @media screen and (orientation: landscape) {
   .hero_slider .img-wrap {
-    padding-bottom: calc(100vw / 3.5 );
+    padding-bottom: calc(100vh / 1.8 );
   }
 }
 @media (min-width: 992px) {
