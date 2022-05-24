@@ -194,6 +194,7 @@
         SID: "<%=SID%>",
         CT: "<%=CT%>",
         UserLogined: false,
+        FirstLoaded: false,
         Lang: "<%=Lang%>",
         UserInfo: null,
         RegisterType: "<%=RegisterType%>",
@@ -717,9 +718,7 @@
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 API_LoadingStart();
                 IFramePage.src = url;
-                IFramePage.onload = function () {
-                    API_LoadingEnd();
-                }
+      
             }
         }
     }
@@ -1465,6 +1464,9 @@
                                                 API_LoadPage("SrcPage", srcPage, true);
                                             }
                                         }
+
+                                        notifyWindowEvent("IndexFirstLoad", logined);
+                                        EWinWebInfo.FirstLoaded = true;
                                     });
                                 } else {
                                     updateBaseInfo();
@@ -1560,7 +1562,7 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-    <div class="loader-container" style="display: ;">
+    <div class="loader-container" style="display:block;">
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
@@ -1578,7 +1580,7 @@
                     <div class="sk-circle11 sk-circle"></div>
                     <div class="sk-circle12 sk-circle"></div>
                 </div>
-                  <div class="loader-text">正在加載...</div>    
+                  <div class="loader-text language_replace">正在加載...</div>    
             </div>
            
             

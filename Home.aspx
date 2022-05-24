@@ -57,55 +57,83 @@
     //temp
     var tempGame = [
         {
-            GameName: "401",
-            GameBrand: "PP"
+            GameName: "legacyofdead",
+            GameBrand: "PNG"
         },
         {
-            GameName: "204",
-            GameBrand: "PP"
+            GameName: "sweetalchemy",
+            GameBrand: "PNG"
         },
         {
-            GameName: "baccarat-deluxe",
+            GameName: "101",
             GameBrand: "PG"
         },
         {
-            GameName: "blackjack-us",
+            GameName: "109",
             GameBrand: "PG"
         },
         {
-            GameName: "Baccarat5T2",
-            GameBrand: "CG"
+            GameName: "89",
+            GameBrand: "PG"
         },
         {
-            GameName: "InternationalSicbo",
-            GameBrand: "CG"
-        }
+            GameName: "196",
+            GameBrand: "CQ9"
+        },
+        {
+            GameName: "52",
+            GameBrand: "CQ9"
+        },
+        {
+            GameName: "16",
+            GameBrand: "KGS"
+        },
+        {
+            GameName: "52",
+            GameBrand: "KX"
+        },
+        {
+            GameName: "830",
+            GameBrand: "KX"
+        },
     ];
 
     var tempGame2 = [
         {
-            GameName: "401",
+            GameName: "402",
             GameBrand: "PP"
         },
         {
-            GameName: "204",
-            GameBrand: "PP"
+            GameName: "66",
+            GameBrand: "CQ9"
         },
         {
-            GameName: "baccarat-deluxe",
-            GameBrand: "PG"
+            GameName: "45",
+            GameBrand: "KGS"
         },
         {
-            GameName: "blackjack-us",
-            GameBrand: "PG"
+            GameName: "46",
+            GameBrand: "KGS"
         },
         {
-            GameName: "Baccarat5T2",
-            GameBrand: "CG"
+            GameName: "416",
+            GameBrand: "KGS"
         },
         {
-            GameName: "InternationalSicbo",
-            GameBrand: "CG"
+            GameName: "950",
+            GameBrand: "KX"
+        },
+        {
+            GameName: "510",
+            GameBrand: "KX"
+        },
+        {
+            GameName: "152",
+            GameBrand: "VA"
+        },
+        {
+            GameName: "153",
+            GameBrand: "VA"
         }
     ];
 
@@ -121,7 +149,7 @@
             effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
             autoplay: {
-                delay: 3500,
+                delay: 5000,
                 disableOnInteraction: false,
             },
             pagination: {
@@ -172,11 +200,11 @@
         HotList = window.parent.API_GetGameList(1);
         window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
-            if (WebInfo.UserLogined) {
-                //document.getElementById("idRegisterBonus").classList.add("is-hide");
+            if (WebInfo.FirstLoaded) {
+                window.parent.API_LoadingEnd();
             }
 
-            //window.parent.API_LoadingEnd();
+        
             if (p != null) {
                 //window.parent.sleep(500).then(() => {
                 //    if (WebInfo.UserLogined) {
@@ -191,9 +219,7 @@
             }
         });
 
-        initSwiper();
-
-        window.parent.API_LoadingEnd();
+        initSwiper();       
 
         setBulletinBoard();
     }
@@ -229,15 +255,7 @@
             }
         });
     }
-
-    function showBoardMessage() {
-        var messageDom = c.getTemplate("idTempBoard");
-
-
-
-    }
-
-
+    
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
             case "LoginState":
@@ -252,6 +270,10 @@
                 mlp.loadLanguage(lang, function () {
                     //updateBaseInfo();
                 });
+
+                break;
+            case "IndexFirstLoad":
+                window.parent.API_LoadingEnd();
 
                 break;
         }
