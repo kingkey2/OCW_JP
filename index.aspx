@@ -2182,8 +2182,8 @@
     </div>
 
     <!--alert Board Msg-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertBoardMsg" aria-hidden="true" id="alertBoardMsg">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertBoardMsg" aria-hidden="true" id="alertBoardMsg">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="alert_Title"></div>
@@ -2193,13 +2193,32 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-body-content">
-                        <i class="icon-error_outline primary"></i>
+                        <article class="popup-detail-wrapper">
+                            <div class="popup-detail-inner">                               
+                                <div class="popup-detail-content">
+                                  <section class="section-wrap">
+                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告時間</span></h6>
+                                    <div class="section-content">
+                                        <div class="alert_Time"></div>
+                                    </div>
+                                  </section>                    
+                                  <section class="section-wrap">
+                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告詳情</span></h6>
+                                    <div class="section-content">
+                                        <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>                     
+                                    </div>
+                                  </section>
+                                </div>
+            
+                            </div>
+                        </article>
+                        <!-- <i class="icon-error_outline primary"></i>
                         <div class="language_replace">公告時間：</div>
                         <div class="alert_Time"></div>
                         <div class="text-wrap">
                             <div class="language_replace">公告詳情：</div>
                             <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">

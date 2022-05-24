@@ -890,6 +890,37 @@ hr.line {
   white-space: nowrap;
 }
 
+.modal .modal-header .alert_Title {
+  font-weight: bold;
+}
+
+.popup-detail-img {
+  margin-bottom: 25px;
+}
+.popup-detail-img .desktop {
+  display: none;
+}
+.popup-detail-content {
+  padding-left: 1.4rem;
+}
+.popup-detail-content .title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-indent: -1.4rem;
+}
+.popup-detail-content .title .icon {
+  margin-right: 0.5rem;
+}
+.popup-detail-content .title .icon-mask {
+  margin-left: 0.5rem;
+}
+.popup-detail-content .title .icon-mask::before {
+  background-color: #009FE8;
+}
+.popup-detail-content .section-wrap {
+  margin-bottom: 50px;
+}
 .navbar-brand {
   padding: 0;
   display: inline-flex;
