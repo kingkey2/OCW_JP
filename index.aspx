@@ -1528,7 +1528,7 @@
 <body class="mainBody vertical-menu">
 
     <header class="header_area" id="">
-        <div class="main_menu ">
+        <div class="header_menu ">
             <!-- class="navbar-expand-xl" trigger hidden -->
             <nav class="navbar">
                 <!-- TOP Search-->
