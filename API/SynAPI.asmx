@@ -93,7 +93,7 @@ public class SynAPI : System.Web.Services.WebService {
 
                             GameBrand = companyGameCodeResult.GameCodeList[i].GameCode.Split('.')[0];
                             #region 熱門遊戲
-                            if (companyGameCodeResult.GameCodeList[i].IsHot == 0)
+                            if (companyGameCodeResult.GameCodeList[i].IsHot == 1)
                             {
                                 InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsHotCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew);
                                 if (InsertCompanyGameCodeReturn == 0)
@@ -105,7 +105,7 @@ public class SynAPI : System.Web.Services.WebService {
                             #endregion
 
                             #region 最新遊戲
-                            if (companyGameCodeResult.GameCodeList[i].IsNew == 0)
+                            if (companyGameCodeResult.GameCodeList[i].IsNew == 1)
                             {
                                 InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsNewCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew);
                                 if (InsertCompanyGameCodeReturn == 0)
