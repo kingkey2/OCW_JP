@@ -17,18 +17,19 @@ $(document).ready(function () {
     //主選單收合
     $('.navbar-toggler').click(function () {
         $('.vertical-menu').toggleClass('navbar-show');
-        $('.main_menu').toggleClass('show');
+        $('.header_menu').toggleClass('show');
     });
     $('.header_area .mask_overlay').click(function () {
-        $('.main_menu, .navbarMenu').removeClass('show');
+        $('.header_menu, .navbarMenu').removeClass('show'); //Sidebar Menu
         $('.navbar-toggler').attr("aria-expanded", "false");
     });
 
     //遊戲 "更多" Button 下滑
-    $('.game_slider .btn-more').click(function () {
+    $('.game-item .btn-more').click(function () {
         // $(this).toggleClass('show');
         $(this).closest('.game-item-info-detail').toggleClass('open');
     });
+
 
     $('.game_slider .btn-thumbUp').click(function () {
         $(this).toggleClass('added');

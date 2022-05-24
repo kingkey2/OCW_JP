@@ -17,24 +17,24 @@ $(document).ready(function () {
     //主選單收合
     $('.navbar-toggler').click(function(){
         $('.vertical-menu').toggleClass('navbar-show');
-        $('.main_menu').toggleClass('show');
+        $('.header_menu').toggleClass('show');
     });
     $('.header_area .mask_overlay').click(function(){
-        $('.main_menu, .navbarMenu').removeClass('show');
+        $('.header_menu, .navbarMenu').removeClass('show'); //Sidebar Menu
         $('.navbar-toggler').attr("aria-expanded","false");        
     });
 
     //遊戲 "更多" Button 下滑
-    $('.game_slider .btn-more').click(function(){
+    $('.game-item .btn-more').click(function(){
         // $(this).toggleClass('show');
         $(this).closest( '.game-item-info-detail').toggleClass('open');
     });
 
-    $('.game_slider .btn-thumbUp').click(function(){
+    $('.game-item .btn-thumbUp').click(function(){
         $(this).toggleClass('added');       
     });
 
-    $('.game_slider .btn-like').click(function(){
+    $('.game-item .btn-like').click(function(){
         $(this).toggleClass('added');       
     });
     
@@ -89,7 +89,7 @@ $(document).ready(function () {
     var gameRecommend = new Swiper("#game-recommend", {
         // loop: true,
         slidesPerView: "auto",
-        freeMode: true,
+        // freeMode: true,
         navigation: {
             nextEl: "#game-recommend .swiper-button-next",
             prevEl: "#game-recommend .swiper-button-prev",
@@ -154,6 +154,8 @@ $(document).ready(function () {
         // loop: true,
         // slidesPerView: 2.3,
         slidesPerView: "auto",
+        slidesPerGroup: 8,
+        loopedSlides: 8,   
         freeMode: true,        
         navigation: {
             nextEl: "#lobbyGame-1 .swiper-button-next",
@@ -162,9 +164,13 @@ $(document).ready(function () {
     });
 
     var gamelobby_2 = new Swiper("#lobbyGame-2", {
-        loop: true,        
+        loop: true,                
         slidesPerView: "auto",
-        freeMode: true,
+        slidesPerGroup: 8,
+        // centeredSlides: true,
+        // loopFillGroupWithBlank: true,
+        loopedSlides: 24,        
+        // freeMode: true, //拖曳時 會呈現 free mode
         navigation: {
             nextEl: "#lobbyGame-2 .swiper-button-next",
             prevEl: "#lobbyGame-2 .swiper-button-prev",
@@ -187,18 +193,16 @@ $(document).ready(function () {
             grabCursor: true,
             centeredSlides: true,
             slidesPerView: "auto",
-            // slidesPerView: 5,
+            // loopedSlides: 3,   
+            
+            loop: true,
             coverflowEffect: {
                 rotate: 20,
                 stretch: 0,
                 depth: 200,
                 modifier: 1,
                 slideShadows: true,
-            },
-            // pagination: {
-            //     el: ".swiper-pagination",
-            // },
-            loop: true,
+            },            
             autuplay: {
                 delay: 100,
                 disableOnInteraction: false,
