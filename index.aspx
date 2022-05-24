@@ -1560,7 +1560,31 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-
+    <div class="loader-container" style="display: ;">
+        <div class="loader-box">
+            <div class="loader-spinner">
+                <div class="sk-fading-circle">
+                    <div class="loader-logo"></div>  
+                    <div class="sk-circle1 sk-circle"></div>
+                    <div class="sk-circle2 sk-circle"></div>
+                    <div class="sk-circle3 sk-circle"></div>
+                    <div class="sk-circle4 sk-circle"></div>
+                    <div class="sk-circle5 sk-circle"></div>
+                    <div class="sk-circle6 sk-circle"></div>
+                    <div class="sk-circle7 sk-circle"></div>
+                    <div class="sk-circle8 sk-circle"></div>
+                    <div class="sk-circle9 sk-circle"></div>
+                    <div class="sk-circle10 sk-circle"></div>
+                    <div class="sk-circle11 sk-circle"></div>
+                    <div class="sk-circle12 sk-circle"></div>
+                </div>
+                  <div class="loader-text">正在加載...</div>    
+            </div>
+           
+            
+        </div>
+        <div class="loader-backdrop is-show"></div>
+    </div> 
     <header class="header_area" id="">
         <div class="header_menu ">
             <!-- class="navbar-expand-xl" trigger hidden -->
