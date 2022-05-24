@@ -1547,62 +1547,88 @@
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('Casino', 'Casino.aspx', true)">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="API_LoadPage('Casino', 'Casino.aspx', true)">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-ewin-user"></i>
-                                            <span class="title language_replace">賭場</span></a>
+                                            <i class="icon icon-mask icon icon-mask icon-all"></i>
+                                            <span class="title language_replace">遊戲大廳</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-ewin-user-multi"></i>
-                                            <span class="title language_replace">體育</span></a>
+                                            <i class="icon icon-mask icon-poker"></i>
+                                            <span class="title language_replace">撲克</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-ewin-user-multi"></i>
-                                            <span class="title language_replace">麻將</span></a>
+                                            <i class="icon icon-mask icon-real"></i>
+                                            <span class="title language_replace">真人</span></a>
                                     </li>
-
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-slot"></i>
+                                            <span class="title language_replace">SLOT</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-mahjong"></i>
+                                            <span class="title language_replace">麻將</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-sport"></i>
+                                            <span class="title language_replace">體育</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-ect"></i>
+                                            <span class="title language_replace">其他</span>
+                                        </a>
+                                    </li>                                   
+                                </ul>
+                            </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
                                     <li class="nav-item submenu dropdown" onclick="API_LoadPage('About','About.html')">
                                         <a class="nav-link">
+                                            <i class="icon icon-mask icon-logo"></i>
                                             <span class="title language_replace">關於我們</span></a>
                                     </li>
-                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('RegisterActivityReceive','RegisterActivityReceive.aspx', true)">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="API_LoadPage('RegisterActivityReceive','RegisterActivityReceive.aspx', true)">
                                         <a class="nav-link">
+                                            <i class="icon icon-mask icon-loudspeaker"></i>
                                             <span class="title language_replace">註冊獎勵領取</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown" onclick="openHotArticle()">
                                         <a class="nav-link">
+                                            <i class="icon icon-mask icon-hot"></i>
                                             <span class="title language_replace">熱門文章</span></a>
                                     </li>
-                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
                                         <a class="nav-link">
+                                            <i class="icon icon-mask icon-QA"></i>
                                             <span class="title language_replace">Q&A</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
-                                            <i class="icon icon-mask icon-ewin-user-multi"></i>
+                                            <i class="icon icon-mask icon-loudspeaker"></i>
                                             <span class="title language_replace">活動</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('','Prize.aspx')">
-                                            <i class="icon icon-mask icon-ewin-user-multi"></i>
+                                            <i class="icon icon-mask icon-loudspeaker"></i>
                                             <span class="title language_replace">領獎</span></a>
                                     </li>
                                 </ul>
-                            </li>
-                            <!-- <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown with Mask <span class="caret"></span></a>
-                                <ul class="dropdown-menu list-inline">
-                                  <li><strong>Tools:</strong></li>
-                                  <li><a class="btn btn-default" href="#">Foo</a></li>
-                                  <li><a class="btn btn-default" href="#">Bar</a></li>
-                                </ul>
-                              </li>                   -->
+                            </li>                            
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
-                                    <i class="icon icon-mask icon-ewin-logout"></i>
+                                    <i class="icon icon-mask icon-logout"></i>
                                     <span class="language_replace" langkey="登出">登出</span></a>
                             </li>
                         </ul>
