@@ -423,7 +423,7 @@
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
-            window.parent.API_LoadingEnd();
+            window.parent.API_LoadingEnd(1);
         });
 
         AdjustDate();

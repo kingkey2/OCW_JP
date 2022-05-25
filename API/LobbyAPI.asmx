@@ -1338,9 +1338,13 @@ public class LobbyAPI : System.Web.Services.WebService
                         if (UserInfoResult.Result == EWin.Lobby.enumResult.OK)
                         {
                             var Wallet = UserInfoResult.WalletList[0];
-                            var OldThresholdValue = UserInfoResult.ThresholdInfo[0].ThresholdValue;
 
-                            if (Wallet.PointValue < CollectLimit)
+                            decimal OldThresholdValue = 0.0M;
+                            if (UserInfoResult.ThresholdInfo.Length > 0) {
+                                OldThresholdValue = UserInfoResult.ThresholdInfo[0].ThresholdValue;
+                            }
+
+                            if (Wallet.PointValue > CollectLimit)
                             {
 
                                 var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
@@ -1411,7 +1415,8 @@ public class LobbyAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            EWin.Lobby.PromotionCollectHistoryResult EWinReturn = lobbyAPI.GetPromotionCollectHistory(GetToken(), SI.EWinSID, GUID, DateTime.Parse(BeginDate), DateTime.Parse(EndDate));
+            var a = GetToken();
+            EWin.Lobby.PromotionCollectHistoryResult EWinReturn = lobbyAPI.GetPromotionCollectHistory(a, SI.EWinSID, GUID, DateTime.Parse(BeginDate), DateTime.Parse(EndDate));
 
             if (EWinReturn.Result == EWin.Lobby.enumResult.OK)
             {
@@ -1435,10 +1440,11 @@ public class LobbyAPI : System.Web.Services.WebService
                         CreateDate = item.CreateDate
                     };
 
-                    if (!string.IsNullOrEmpty(PC.ActionContent))
-                    {
-                        List<PropertySet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PropertySet>>(PC.ActionContent);
-                        PC.PointValue = decimal.Parse(actions.Where(x => x.Name == "PointValue").FirstOrDefault().Value);
+                    if (!string.IsNullOrEmpty(PC.ActionContent)) {
+                        var obj_ActionContent = Newtonsoft.Json.Linq.JObject.Parse(PC.ActionContent);
+
+                        List<ActionContentSet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActionContentSet>>(obj_ActionContent["ActionList"].ToString());
+                        PC.PointValue = decimal.Parse(actions.Where(x => x.Field == "PointValue").FirstOrDefault().Value);
                     }
 
                     if (!string.IsNullOrEmpty(PC.Description))
@@ -1513,8 +1519,10 @@ public class LobbyAPI : System.Web.Services.WebService
 
                     if (!string.IsNullOrEmpty(PC.ActionContent))
                     {
-                        List<PropertySet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PropertySet>>(PC.ActionContent);
-                        PC.PointValue = decimal.Parse(actions.Where(x => x.Name == "PointValue").FirstOrDefault().Value);
+                        var obj_ActionContent = Newtonsoft.Json.Linq.JObject.Parse(PC.ActionContent);
+
+                        List<ActionContentSet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActionContentSet>>(obj_ActionContent["ActionList"].ToString());
+                        PC.PointValue = decimal.Parse(actions.Where(x => x.Field == "PointValue").FirstOrDefault().Value);
                     }
 
                     if (!string.IsNullOrEmpty(PC.Description))
@@ -1551,6 +1559,50 @@ public class LobbyAPI : System.Web.Services.WebService
     }
 
     #endregion
+
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult AddRegisterPromotionCollect(string WebSID, string GUID) {
+
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            var GetRegisterResult = ActivityCore.GetRegisterResult(SI.LoginAccount);
+
+            if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
+                if (GetRegisterResult.Message == "ActivityIsAlreadyJoin") {
+                    R.Result = EWin.Lobby.enumResult.OK;
+                    R.Message = "ActivityIsAlreadyJoin";
+                } else {
+
+                    List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                    foreach (var activityData in GetRegisterResult.Data) {
+
+                        string description = activityData.ActivityName;
+
+                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
+                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+
+                        R = lobbyAPI.AddPromotionCollect(GetToken(), GUID, SI.LoginAccount, EWinWeb.MainCurrencyType, 1, 30, description, PropertySets.ToArray());
+                    }
+                }
+            } else {
+                R.Result = EWin.Lobby.enumResult.ERR;
+                R.Message = GetRegisterResult.Message;
+            }
+        } else {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+
+        return R;
+    }
 
     private string GetToken()
     {
@@ -1653,6 +1705,11 @@ public class LobbyAPI : System.Web.Services.WebService
     public class PropertySet
     {
         public string Name { get; set; }
+        public string Value { get; set; }
+    }
+
+    public class ActionContentSet {
+        public string Field { get; set; }
         public string Value { get; set; }
     }
 }
