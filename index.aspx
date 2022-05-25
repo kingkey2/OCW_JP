@@ -466,6 +466,7 @@
     }
 
     function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
+        debugger;
         return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID);
     }
 
