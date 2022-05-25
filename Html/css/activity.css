@@ -71,17 +71,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 0;
 }
 
-.menu-prize {
+.tab-prize {
   width: 20%;
   margin-bottom: 0;
 }
-.menu-prize .tab-scroller__content .tab-item.active {
+.tab-prize .tab-scroller__content .tab-item.active {
   color: #459E74;
 }
-.menu-prize .tab-scroller__content .tab-item {
+.tab-prize .tab-scroller__content .tab-item {
   font-weight: bold;
 }
-.menu-prize .tab-scroller__content .tab-item:not(:first-child) {
+.tab-prize .tab-scroller__content .tab-item:not(:first-child) {
   border-left: solid 1px #000;
   padding-left: 1rem;
 }

@@ -659,10 +659,9 @@
           <div class="swiper-pagination"></div>                
         </div>
     </section>
-        <div class="menu-game tab-scroller">
+        <div class="tab-game tab-scroller tab-5">
             <div class="tab-scroller__area">
                 <ul class="tab-scroller__content" id="idGameItemTitle">
-
                     <div class="tab-slide"></div>
                 </ul>
             </div>
@@ -673,15 +672,15 @@
     </section>
   </main>
     <div id="temCategArea" class="is-hide">
-           <section class="section-wrap section-levelUp" style="z-index: 99;">
+           <section class="section-wrap section-levelUp">
                 <div class="container-fluid">
                     <div class="game_wrapper">
                          <div class="sec-title-container">
                             <div class="sec-title-wrapper">
-                                <h3 class="sec-title"><i class="icon icon-mask icon-poker"></i><span class="CategName"></span></h3>
+                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title CategName"></span></h3>
                             </div>
                         </div>
-                        <div class="game_slider swiper_container gameinfo-hover round-arrow GameItemGroup">
+                        <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                             <div class="swiper-wrapper GameItemGroupContent">
                             </div>
                              <div class="swiper-button-next"></div>
@@ -762,7 +761,7 @@
                     <!-- <h3 class="title">隨機推薦遊戲</h3> -->
                 </div>
                 </div>
-                <div class="game_slider swiper-container round-arrow swiper-cover GameItemGroup">
+                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                     <div class="swiper-wrapper GameItemGroupContent">
                         
                     </div>

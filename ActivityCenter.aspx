@@ -17,7 +17,6 @@
     <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="Scripts/theme.js"></script>
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
@@ -72,7 +71,8 @@
             
         }
     }
- 
+
+    window.onload = init;
 </script>
 <body class="innerBody">
     <main class="innerMain">
@@ -109,6 +109,63 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
+                            <div class="activity-item-inner">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal2">
+                                    <div class="img-wrap">
+                                        <img class="" src="images/activity-01.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
+                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                         <figure class="activity-item">
+                            <div class="activity-item-inner">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal2">
+                                    <div class="img-wrap">
+                                        <img class="" src="images/activity-01.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
+                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                         <figure class="activity-item">
+                            <div class="activity-item-inner">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal2">
+                                    <div class="img-wrap">
+                                        <img class="" src="images/activity-01.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
+                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal2">
