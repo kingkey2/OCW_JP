@@ -35,7 +35,7 @@
             mlp = new multiLanguage();
             lang = window.parent.API_GetLang();
             mlp.loadLanguage(lang, function () {
-                window.parent.API_LoadingEnd();
+                window.parent.API_LoadingEnd(1);
             });
         }
 

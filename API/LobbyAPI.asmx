@@ -451,7 +451,28 @@ public class LobbyAPI : System.Web.Services.WebService
     public EWin.Lobby.APIResult CreateAccount(string GUID, string LoginAccount, string LoginPassword, string ParentPersonCode, string CurrencyList, EWin.Lobby.PropertySet[] PS)
     {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        return lobbyAPI.CreateAccount(GetToken(), GUID, LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS);
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult();
+        R =  lobbyAPI.CreateAccount(GetToken(), GUID, LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS);
+
+        if (R.Result == EWin.Lobby.enumResult.OK) {
+            var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
+
+            if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
+                List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                foreach (var activityData in GetRegisterResult.Data) {
+
+                    string description = activityData.ActivityName;
+
+                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
+                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+
+                    R = lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 1, 30, description, PropertySets.ToArray());
+                }
+            }
+        }
+
+        return R;
     }
 
 
@@ -1344,7 +1365,7 @@ public class LobbyAPI : System.Web.Services.WebService
                                 OldThresholdValue = UserInfoResult.ThresholdInfo[0].ThresholdValue;
                             }
 
-                            if (Wallet.PointValue > CollectLimit)
+                            if (Wallet.PointValue < CollectLimit)
                             {
 
                                 var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
@@ -1416,6 +1437,9 @@ public class LobbyAPI : System.Web.Services.WebService
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
             var a = GetToken();
+            var g = DateTime.Parse(BeginDate);
+            var ag = DateTime.Parse(EndDate);
+
             EWin.Lobby.PromotionCollectHistoryResult EWinReturn = lobbyAPI.GetPromotionCollectHistory(a, SI.EWinSID, GUID, DateTime.Parse(BeginDate), DateTime.Parse(EndDate));
 
             if (EWinReturn.Result == EWin.Lobby.enumResult.OK)
@@ -1559,51 +1583,7 @@ public class LobbyAPI : System.Web.Services.WebService
     }
 
     #endregion
-
-
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult AddRegisterPromotionCollect(string WebSID, string GUID) {
-
-        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-        RedisCache.SessionContext.SIDInfo SI;
-        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
-
-        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
-
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            var GetRegisterResult = ActivityCore.GetRegisterResult(SI.LoginAccount);
-
-            if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
-                if (GetRegisterResult.Message == "ActivityIsAlreadyJoin") {
-                    R.Result = EWin.Lobby.enumResult.OK;
-                    R.Message = "ActivityIsAlreadyJoin";
-                } else {
-
-                    List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
-
-                    foreach (var activityData in GetRegisterResult.Data) {
-
-                        string description = activityData.ActivityName;
-
-                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
-                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
-
-                        R = lobbyAPI.AddPromotionCollect(GetToken(), GUID, SI.LoginAccount, EWinWeb.MainCurrencyType, 1, 30, description, PropertySets.ToArray());
-                    }
-                }
-            } else {
-                R.Result = EWin.Lobby.enumResult.ERR;
-                R.Message = GetRegisterResult.Message;
-            }
-        } else {
-            R.Result = EWin.Lobby.enumResult.ERR;
-            R.Message = "InvalidWebSID";
-        }
-
-        return R;
-    }
-
+        
     private string GetToken()
     {
         string Token;

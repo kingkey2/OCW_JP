@@ -61,7 +61,7 @@
                 search_Month = now_date.split('/')[1];
 
                 let beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-                let endDate =Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
+                let endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
 
                 GetPromotionCollectHistory(beginDate, endDate);
 
@@ -96,23 +96,29 @@
 
                             ParentMain.appendChild(rowDom);
                         }
+                        window.parent.API_CloseLoading();
                     } else {
-
+                        window.parent.API_CloseLoading();
                     }
                 } else {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                    window.parent.API_CloseLoading();
                 }
             } else {
                 if (o == "Timeout") {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                    window.parent.API_CloseLoading();
                 } else {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    window.parent.API_CloseLoading();
                 }
             }
         });
+
     }
 
     function GetPromotionCollectAvailable(collectareatype) {
+        window.parent.API_ShowLoading();
         var ParentMain = document.getElementById("div_Prize");
         ParentMain.innerHTML = "";
         $(".menu-prize").children().find("li").removeClass("active");
@@ -162,6 +168,15 @@
                                                 if (o.Result == 0) {
                                                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
                                                         GetPromotionCollectAvailable(collectareatype);
+
+                                                        let now_date = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
+                                                        search_Year = now_date.split('/')[0];
+                                                        search_Month = now_date.split('/')[1];
+
+                                                        let beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
+                                                        let endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
+
+                                                        GetPromotionCollectHistory(beginDate, endDate);
                                                     });
                                                 } else {
                                                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
@@ -180,36 +195,45 @@
                                 ParentMain.appendChild(RecordDom);
                             }
                         }
+                        window.parent.API_CloseLoading();
+                    } else {
+                        window.parent.API_CloseLoading();
                     }
                 } else {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                    window.parent.API_CloseLoading();
                 }
             } else {
                 if (o == "Timeout") {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                    window.parent.API_CloseLoading();
                 } else {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    window.parent.API_CloseLoading();
                 }
             }
         });
+
     }
 
     function getLastDate(y, m) {
         var lastDay = new Date(y, m, 0);
-        var year = lastDay.getFullYear(); 
-        var month = lastDay.getMonth() + 1;  
-        month = month < 10 ? '0' + month : month; 
-        var day = lastDay.getDate();  
-        day = day < 10 ? '0' + day : day; 
+        var year = lastDay.getFullYear();
+        var month = lastDay.getMonth() + 1;
+        month = month < 10 ? '0' + month : month;
+        var day = lastDay.getDate();
+        day = day < 10 ? '0' + day : day;
 
         return day;
     }
 
     function getPreMonth() {
+        window.parent.API_ShowLoading();
+
         let newSearchDate = new Date(search_Year + "/" + search_Month + "/01").addMonths(-1);
 
         search_Year = newSearchDate.toString("yyyy/MM/dd").split('/')[0];
-        search_Month =newSearchDate.toString("yyyy/MM/dd").split('/')[1];
+        search_Month = newSearchDate.toString("yyyy/MM/dd").split('/')[1];
 
         let beginDate = newSearchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
         let endDate = newSearchDate.moveToLastDayOfMonth().toString("yyyy/MM/dd");
@@ -219,6 +243,8 @@
     }
 
     function getNextMonth() {
+        window.parent.API_ShowLoading();
+
         let newSearchDate = new Date(search_Year + "/" + search_Month + "/01").addMonths(1);
 
         let beginDate;
@@ -274,7 +300,6 @@
                 <section class="section-wrap section-prize">
                     <div class="prize-item-wrapper">
                         <div class="prize-item-group" id="div_Prize">
-                            
                         </div>
                     </div>
                 </section>
@@ -302,8 +327,7 @@
                             </div>
                         </div>
                         <!-- tbody -->
-                        <div class="tbody"  id="div_History">
-
+                        <div class="tbody" id="div_History">
                         </div>
                     </div>
                 </section>
@@ -311,7 +335,7 @@
         </div>
     </main>
 
-    <div id="IDHistoryRow" style="display:none">
+    <div id="IDHistoryRow" style="display: none">
         <div class="tbody__tr">
             <div class="tbody__td">
                 <span class="td__content">
@@ -329,7 +353,7 @@
         </div>
     </div>
 
-    <div id="tmpPrize0" style="display:none">
+    <div id="tmpPrize0" style="display: none">
         <figure class="prize-item">
             <div class="prize-item-inner">
                 <!-- 活動連結 prize-item-link-->
@@ -357,7 +381,7 @@
         </figure>
     </div>
 
-    <div id="tmpPrize1" style="display:none">
+    <div id="tmpPrize1" style="display: none">
         <figure class="prize-item">
             <div class="prize-item-inner">
                 <!-- 活動連結 prize-item-link-->
