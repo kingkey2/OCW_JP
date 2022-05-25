@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/member.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" />
 
 </head>
 <script type="text/javascript" src="/Scripts/Common.js"></script>

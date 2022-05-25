@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/icons.css" type="text/css" />
     <link rel="stylesheet" href="css/global.css" type="text/css" />
     <link rel="stylesheet" href="css/manual.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css">
 
 </head>
 
@@ -35,7 +36,7 @@
             mlp = new multiLanguage();
             lang = window.parent.API_GetLang();
             mlp.loadLanguage(lang, function () {
-                window.parent.API_LoadingEnd(1);
+                window.parent.API_LoadingEnd();
             });
         }
 
@@ -76,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <section class="partner">
+        <!--<section class="partner">
             <h3 class="title language_replace">合作夥伴</h3>
             <div class="logo">
                 <div class="container-fluid">
@@ -92,7 +93,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>-->
     </div>
 </body>
 </html>
