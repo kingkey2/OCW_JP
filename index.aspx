@@ -1118,7 +1118,6 @@
         lobbyClient.GetCompanyGameCode2(Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    debugger;
                     //WebInfo.GameCodeList = o.GameCodeList;
                     o.GameCodeList.forEach(e => {
                         var tempSubCateg;
