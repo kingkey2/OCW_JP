@@ -2,18 +2,18 @@
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
-.menu-game {
+.tab-game {
   background: linear-gradient(180deg, rgba(251, 251, 251, 0) 0%, #D6D6D6 100%);
 }
-.menu-game .content {
+.tab-game .content {
   max-width: calc(120px * 7);
   margin: 0 auto;
 }
-.menu-game .icon-mask::before {
+.tab-game .icon-mask::before {
   width: 1.5625rem;
   height: 1.5625rem;
 }
-.menu-game .title {
+.tab-game .title {
   display: none;
 }
 
@@ -71,7 +71,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 @media (min-width: 768px) {
-  .menu-game .icon-mask::before {
+  .tab-game .icon-mask::before {
     width: 4.0625rem;
     height: 4.0625rem;
   }
