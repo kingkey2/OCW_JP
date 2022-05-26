@@ -325,16 +325,16 @@
 
                     </div>
                     <div class="MT__table">
-                        <!-- thead  -->
-                        <div class="thead">
+                        <!-- Thead  -->
+                        <div class="Thead">
                             <div class="thead__tr">
                                 <div class="thead__th"><span class="language_replace">領取日期</span></div>
                                 <div class="thead__th"><span class="language_replace">活動名稱</span></div>
                                 <div class="thead__th"><span class="language_replace">金額</span></div>
                             </div>
                         </div>
-                        <!-- tbody -->
-                        <div class="tbody" id="div_History">
+                        <!-- Tbody -->
+                        <div class="Tbody" id="div_History">
                         </div>
                     </div>
                 </section>
