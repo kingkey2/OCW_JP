@@ -182,6 +182,11 @@
 
             var companyCategoryDatasCount = 0;
             var categName;
+
+            LobbyGameList.CompanyCategoryDatas.sort(function (a, b) {
+                return a.SortIndex - b.SortIndex;
+            });
+
             LobbyGameList.CompanyCategoryDatas.forEach(category => {
                 var count = 0;
                 var categArea;
