@@ -1759,7 +1759,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                             if (PromotionCollectResult.Result == EWin.Lobby.enumResult.OK) {
 
                                                 EWin.Lobby.APIResult R1 = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
-                                                var collectList = PromotionCollectResult.CollectList.Where(x => x.CollectAreaType == 2).ToList();
+                                                var collectList = PromotionCollectResult.CollectList.Where(x => x.CollectAreaType == 1).ToList();
 
                                                 foreach (var item in collectList) {
                                                     R1 = lobbyAPI.SetExpireUserAccountPromotionByID(Token, SI.EWinSID, GUID, item.CollectID);
