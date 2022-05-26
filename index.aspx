@@ -1722,7 +1722,7 @@
                                 <ul class="nav">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
-                                        <button type="button" class="btn btn-round nav-link" data-toggle="modal" data-target="#alertSearch">
+                                        <button type="button" class="btn btn-round nav-link btn-search" data-toggle="modal" data-target="#alertSearch">
                                             <i class="icon icon-mask icon-search"></i>
                                         </button>
                                     </li>
