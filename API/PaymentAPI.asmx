@@ -1116,7 +1116,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     //有儲值參加活動
                     foreach (var ActivityName in ActivityNames)
                     {
-                       ActivityCore.ActResult<ActivityCore.DepositActivity> activityDepositResult = ActivityCore.GetDepositResult(ActivityName, TempCommonData.Amount, TempCommonData.PaymentCode, TempCommonData.LoginAccount);
+                        ActivityCore.ActResult<ActivityCore.DepositActivity> activityDepositResult = ActivityCore.GetDepositResult(ActivityName, TempCommonData.Amount, TempCommonData.PaymentCode, TempCommonData.LoginAccount);
 
                         if (activityDepositResult.Result == ActivityCore.enumActResult.OK)
                         {
@@ -1682,6 +1682,7 @@ public class PaymentAPI : System.Web.Services.WebService
         PaymentCommonData TempCryptoData;
         RedisCache.SessionContext.SIDInfo SI;
         decimal PointValue;
+        string Token = GetToken();
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
@@ -1750,6 +1751,21 @@ public class PaymentAPI : System.Web.Services.WebService
                                             TempCryptoData.PointValue = PointValue;
                                             //RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(TempCryptoData), OrderNumber, TempCryptoData.ExpireSecond);
                                             //RedisCache.PaymentContent.KeepPaymentContents(TempCryptoData, SI.LoginAccount);
+
+                                            //清除獎金
+                                            //取得可領獎金資料
+                                            var PromotionCollectResult = lobbyAPI.GetPromotionCollectAvailable(Token, SI.EWinSID, GUID);
+
+                                            if (PromotionCollectResult.Result == EWin.Lobby.enumResult.OK) {
+
+                                                EWin.Lobby.APIResult R1 = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
+                                                var collectList = PromotionCollectResult.CollectList.Where(x => x.CollectAreaType == 2).ToList();
+
+                                                foreach (var item in collectList) {
+                                                    R1 = lobbyAPI.SetExpireUserAccountPromotionByID(Token, SI.EWinSID, GUID, item.CollectID);
+                                                }
+                                            }
+
                                         }
                                         else
                                         {
@@ -1829,7 +1845,7 @@ public class PaymentAPI : System.Web.Services.WebService
             else
             {
                 SetResultException(R, "NoData");
-            }           
+            }
         }
         else
         {
@@ -2269,7 +2285,8 @@ public class PaymentAPI : System.Web.Services.WebService
                 ExpireSecond = (int)row["ExpireSecond"],
                 PaymentMethodID = (int)row["PaymentMethodID"],
                 PaymentMethodName = (string)row["PaymentName"],
-                PaymentCode = (string)row["PaymentCode"]
+                PaymentCode = (string)row["PaymentCode"],
+                PaymentSerial = (string)row["PaymentSerial"]
             };
 
             return result;
@@ -2295,6 +2312,7 @@ public class PaymentAPI : System.Web.Services.WebService
                 PaymentCode = (string)row["PaymentCode"],
                 ToWalletAddress = (string)row["ToInfo"],
                 WalletType = (int)row["EWinCryptoWalletType"],
+                PaymentSerial = (string)row["PaymentSerial"]
             };
 
             result.PaymentCryptoDetailList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CryptoDetail>>(DetailDataStr);

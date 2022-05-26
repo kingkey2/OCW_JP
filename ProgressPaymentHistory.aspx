@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" />
 
 </head>
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
@@ -84,6 +85,7 @@
         ParentMain.innerHTML = "";
 
         p.GetPaymentByNonFinished(WebInfo.SID, Math.uuid(), function (success, o) {
+            console.log("f", o);
             if (success) {
                 if (o.Result == 0) {
                     if (o.Datas.length > 0) {

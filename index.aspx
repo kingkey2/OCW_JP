@@ -510,6 +510,18 @@
         });
     }
 
+    function API_ShowLoading() {
+        $('.loader-container').show();
+        $('.loader-backdrop').removeClass('is-show');
+    }
+
+    function API_CloseLoading() {
+        $('.loader-backdrop').addClass('is-show');
+        $('.loader-container').fadeOut(250, function () {
+            $('.iframe-container').addClass('is-show');
+        });
+    }
+
     //#endregion
 
     //#region Alert
@@ -967,7 +979,7 @@
             if (selectedWallet != null) {
                 if (wallet.PointValue != selectedWallet.PointValue) {
                     idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
-                    notifyWindowEvent("BalanceChange", PointValue);
+                    notifyWindowEvent("BalanceChange", wallet.PointValue);
                 }
             } else {
                 idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
@@ -1541,7 +1553,7 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-    <div class="loader-container" style="display:block;">
+    <div class="loader-container" style="display:block; ">
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
@@ -1645,12 +1657,12 @@
                                             <i class="icon icon-mask icon-logo"></i>
                                             <span class="title language_replace">關於我們</span></a>
                                     </li>
-                                    <li class="nav-item submenu dropdown"
+                                    <%--<li class="nav-item submenu dropdown"
                                         onclick="API_LoadPage('RegisterActivityReceive','RegisterActivityReceive.aspx', true)">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-loudspeaker"></i>
                                             <span class="title language_replace">註冊獎勵領取</span></a>
-                                    </li>
+                                    </li>--%>
                                     <li class="nav-item submenu dropdown" onclick="openHotArticle()">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-hot"></i>
