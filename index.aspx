@@ -199,11 +199,6 @@
         UserInfo: null,
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
-        GameCodeList: {
-            CategoryList: [],
-            GameBrandList: [],
-            GameList: null
-        },
         DeviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 1 : 0,
         IsOpenGame: false
     };
@@ -214,8 +209,6 @@
     var GameInfoModal;
     var MessageModal;
     var gameWindow;
-    var LobbyGameList;
-    var LobbyGameList2 = {};
     //#region TOP API
 
     function API_GetWebInfo() {
@@ -441,20 +434,9 @@
         window.location.reload();
     }
 
-    function API_GetGameList(type) {
-        if (type) {
-            if (type == 1) {
-                return LobbyGameList.HotList;
-            } else if (type == 2) {
-                return LobbyGameList.NewList;
-            }
-        } else {
-            return LobbyGameList;
-        }
-    }
 
-    function API_GetGameList2() {
-        return LobbyGameList2;
+    function API_GetGameList(location) {
+        
     }
 
     function API_ShowMessage(title, msg, cbOK, cbCancel) {
@@ -1166,21 +1148,28 @@
         });
     }
 
-    function getCompanyGameCode2(cb) {
 
-        var CategoryList = ['GameList_All', 'GameList_Solt', 'GameList_Electron', 'GameList_Live','GameList_Other'];
+    function setHomeCategory() {
 
-        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
-        lobbyClient.GetCompanyGameCode2(Math.uuid(), function (success, o) {
+        getCompanyCatrgoryID("Home", function (categoryData) {
+
+        });
+    }
+
+    function getCompanyCatrgoryID(location, cb) {
+       
+        //var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
+
+        lobbyClient.GetCompanyGameCodeByCatrgoryID(Math.uuid(), location, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
-                        o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
-                    }
+                    if (o.CompanyCategoryDatas != null && o.CompanyCategoryDatas.length > 0) {
+                        var Datas = o.CompanyCategoryDatas.sort(x, y => x.SortIndex < y.SortIndex);
 
-                    LobbyGameList2.CompanyCategoryDatas = o.CompanyCategoryDatas;
-
-                    LobbyGameList2.CategoryList = CategoryList;
+                        for (var i = 0; i < Datas.length; i++) {
+                            getCompanyGameCode(Datas[i].CompanyCategoryID, cb);
+                        }
+                    }                
                 } else {
                     showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
                 }
@@ -1197,89 +1186,17 @@
         });
     }
 
-    function getCompanyGameCode(cb) {
-        LobbyGameList = {
-            HotList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
-            NewList: [],
-            CategoryList: [{
-                Categ: "All",
-                SubCategList: ["Baccarat"],
-                CategBrandList: ["EWin"]
-            }, {
-                Categ: "Live",
-                SubCategList: ["Baccarat"],
-                CategBrandList: ["EWin"]
-            }],
-            GameList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
-        };
-
-        lobbyClient.GetCompanyGameCode(Math.uuid(), function (success, o) {
+    function getCompanyGameCode(catrgoryID, cb) {
+        lobbyClient.GetCompanyGameCodeByCatrgoryID(Math.uuid(), location, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    //WebInfo.GameCodeList = o.GameCodeList;
-                    o.GameCodeList.forEach(e => {
-                        var tempSubCateg;
+                    if (o.CompanyCategoryDatas != null && o.CompanyCategoryDatas.length > 0) {
+                        var CategoryData = o.CompanyCategoryDatas[0];
 
+                        CategoryData[0].Datas.sort(x, y => x.SortIndex < y.SortIndex);
 
-
-                        if (e.GameCategorySubCode == '') {
-                            tempSubCateg = 'Other';
-                        } else {
-                            tempSubCateg = e.GameCategorySubCode;
-                        }
-
-                        var gameData = {
-                            GameName: e.GameName,
-                            GameBrand: e.BrandCode,
-                            GameID: e.GameID,
-                            Description: e.GameName,
-                            Categ: e.GameCategoryCode,
-                            SubCateg: tempSubCateg,
-                            IsHot: e.IsHot,
-                            IsNew: e.IsNew,
-                            RTPInfo: e.RTPInfo,
-                            AllowDemoPlay: e.AllowDemoPlay
-                        };
-
-                        if (e.IsNew == 1) {
-                            LobbyGameList.NewList.push(gameData);
-                        }
-
-                        if (e.IsHot == 1) {
-                            LobbyGameList.HotList.push(gameData);
-                        }
-
-                        //all
-                        if (LobbyGameList.CategoryList[0].CategBrandList.find(eb => eb == e.BrandCode) == undefined)
-                            LobbyGameList.CategoryList[0].CategBrandList.push(e.BrandCode);
-
-                        if (LobbyGameList.CategoryList[0].SubCategList.find(eb => eb == tempSubCateg) == undefined)
-                            LobbyGameList.CategoryList[0].SubCategList.push(tempSubCateg);
-
-                        if (LobbyGameList.CategoryList.find(eb => eb.Categ == e.GameCategoryCode) == undefined) {
-                            let data = {
-                                Categ: e.GameCategoryCode,
-                                SubCategList: [tempSubCateg],
-                                CategBrandList: [
-                                    e.BrandCode
-                                ]
-                            }
-                            LobbyGameList.CategoryList.push(data);
-                        } else {
-                            LobbyGameList.CategoryList.forEach(cl => {
-                                if (cl.Categ == e.GameCategoryCode) {
-                                    if (cl.CategBrandList.find(cbl => cbl == e.BrandCode) == undefined)
-                                        cl.CategBrandList.push(e.BrandCode)
-
-                                    if (cl.SubCategList.find(cbl => cbl == tempSubCateg) == undefined)
-                                        cl.SubCategList.push(tempSubCateg)
-                                }
-                            })
-                        }
-
-                        LobbyGameList.GameList.push(gameData);
+                        cb(CategoryData[0]);
                     }
-                    );
                 } else {
                     showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
                 }
@@ -1295,6 +1212,7 @@
                 cb(success);
         });
     }
+
 
     function openHotArticle() {
         var orgin = "guides";
@@ -1392,8 +1310,8 @@
                     API_Home();
                 }
 
-                getCompanyGameCode();
-                getCompanyGameCode2();
+                //getCompanyGameCode();
+                getCompanyGameCodeTwo();
                 //登入Check
                 window.setTimeout(function () {
                     lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {

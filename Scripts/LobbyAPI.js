@@ -661,8 +661,8 @@
         });
     };
 
-    this.GetCompanyGameCode2 = function (GUID, cb) {
-        var url = APIUrl + "/GetCompanyGameCode2";
+    this.GetCompanyGameCodeTwo = function (GUID, cb) {
+        var url = APIUrl + "/GetCompanyGameCodeTwo";
         var postData;
 
         postData = {
@@ -681,6 +681,54 @@
             }
         });
     };
+
+
+    this.GetCompanyCategoryID = function (GUID, Loaction, cb) {
+        var url = APIUrl + "/GetCompanyCategoryID";
+        var postData;
+
+        postData = {
+            Loaction: Loaction,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+
+
+    this.GetCompanyGameCodeByCategoryID = function (GUID, CategoryID, cb) {
+        var url = APIUrl + "/GetCompanyGameCodeByCategoryID";
+        var postData;
+
+        postData = {
+            CategoryID: CategoryID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
 
     this.GetCompanyMarqueeText = function (GUID, cb) {
         var url = APIUrl + "/GetCompanyMarqueeText";
