@@ -123,6 +123,14 @@
         $(".menu-prize").children().find("li").removeClass("active");
         $("#li_bonus" + collectareatype).addClass("active");
 
+        //CollectAreaType
+        // 1 (獎金 bonus) => i.   本金歸零時可領 
+        //                                    ii.   出金時歸零
+        //                                   iii.   EX:入金贈點
+        // 2 (禮金 gift) =>       i.   隨時可領
+        //                                    ii.   出金時不歸零
+        //                                   iii.   EX:註冊贈點、7日
+
         LobbyClient.GetPromotionCollectAvailable(WebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
