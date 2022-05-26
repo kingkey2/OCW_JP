@@ -78,7 +78,6 @@
         ParentMain.innerHTML = "";
 
         LobbyClient.GetPromotionCollectHistory(WebInfo.SID, Math.uuid(), BeginDate, EndDate, function (success, o) {
-            console.log("GetPromotionCollectHistory", o);
             if (success) {
                 if (o.Result == 0) {
                     if (o.CollectList.length > 0) {
