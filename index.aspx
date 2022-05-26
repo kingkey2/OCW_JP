@@ -1739,7 +1739,7 @@
                                         </ul>
                                     </li>
                                     <!--  ==== 登入後 ====-->
-                                    <li class="nav-item logIned_wrapper " id="idMenuLogin">
+                                    <li class="nav-item logIned_wrapper is-hide" id="idMenuLogin">
                                         <ul class="horiz-list">
                                             <li class="nav-item ">
                                                 <span class="balance-container">
