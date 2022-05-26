@@ -466,7 +466,6 @@
     }
 
     function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
-        debugger;
         return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID);
     }
 
@@ -616,46 +615,32 @@
     //#endregion
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
-        alert("aaa");
-        //if ($("#alertContact").attr("aria-hidden") == 'true') {
-        //    var divMessageBox = document.getElementById("alertContact");
-        //    var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-        //    var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-        //    var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+     
+        $('#popupMoblieGameInfo .BrandName').text(brandName);
+        $('#popupMoblieGameInfo .valueRTP').text(RTP);
+        $('#popupMoblieGameInfo .gameName').text(API_GetGameLang(1, brandName, gameName));
+        $('#popupMoblieGameInfo .GameID').text(GameID);
 
-        //    if (MessageModal == null) {
-        //        MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
-        //    }
+        var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
+        playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
 
-        //    if (divMessageBox != null) {
-        //        MessageModal.toggle();
+        var btnmore = document.getElementById('popupMoblieGameInfo').querySelector(".btn-more");
+        btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
 
-        //        if (divMessageBoxCloseButton != null) {
-        //            divMessageBoxCloseButton.classList.remove("is-hide");
-        //            divMessageBoxCloseButton.onclick = function () {
-        //                MessageModal.hide();
-
-        //                if (cbCancel != null) {
-        //                    cbCancel();
-        //                }
-        //            }
-        //        }
-
-        //        if (divMessageBoxOKButton != null) {
-
-        //            divMessageBoxOKButton.onclick = function () {
-        //                MessageModal.hide();
-
-        //                if (cbOK != null)
-        //                    cbOK();
-        //            }
-        //        }
-
-        //        divMessageBoxContent.innerHTML = message;
-        //    }
-        //}
+        var GI_img = document.getElementById('popupMoblieGameInfo').querySelector(".imgsrc");
+        if (GI_img != null) {
+            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
+            //var el = GI_img;
+            //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+            //observer.observe();
+        }
+        $('#popupMoblieGameInfo').modal('show');
     }
 
+    function popupMoblieGameInfoShowMore(doc) {
+        $(doc).closest('.game-item-info-detail').toggleClass('open');
+    }
+  
     function showPartialHtml(title, pathName, isNeedLang, cbOK) {
         var realPath;
         var divMessageBox = document.getElementById("alertPartialHtml");
@@ -1171,24 +1156,17 @@
 
     function getCompanyGameCode2(cb) {
 
-        var CategoryList = ['All'];
+        var CategoryList = ['GameList_All', 'GameList_Solt', 'GameList_Electron', 'GameList_Live','GameList_Other'];
 
         var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
         lobbyClient.GetCompanyGameCode2(Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    o.CompanyCategoryDatas.find(e => e.CategoryName == '熱門').Datas.unshift(EWinGame);
+                    if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
+                        o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
+                    }
 
                     LobbyGameList2.CompanyCategoryDatas = o.CompanyCategoryDatas;
-
-                    for (var i = 0; i < LobbyGameList2.CompanyCategoryDatas.length; i++) {
-                        var datas = LobbyGameList2.CompanyCategoryDatas[i].Datas;
-                        for (var k = 0; k < datas.length; k++) {
-                            if (!CategoryList.includes(datas[k].GameCategoryCode)) {
-                                CategoryList.push(datas[k].GameCategoryCode);
-                            }
-                        }
-                    }
 
                     LobbyGameList2.CategoryList = CategoryList;
                 } else {
@@ -1619,7 +1597,7 @@
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('Casino', 'Casino.aspx', true)">
+                                        onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
@@ -2258,7 +2236,7 @@
     </div>
 
 
-    <div class="modal fade no-footer popupGameInfo " id="popupGameInfo" tabindex="-1" aria-hidden="true">
+    <div class="modal fade no-footer popupGameInfo" id="popupMoblieGameInfo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2287,7 +2265,7 @@
                                                     </li>
                                                     <li class="moreInfo-item RTP">
                                                         <span class="title">RTP</span>
-                                                        <span class="value number RTP"></span>
+                                                        <span class="value number valueRTP"></span>
                                                     </li>
                                                     <li class="moreInfo-item gamecode">
                                                         <span class="title">NO.</span>
