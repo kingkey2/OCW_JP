@@ -123,6 +123,14 @@
         $(".menu-prize").children().find("li").removeClass("active");
         $("#li_bonus" + collectareatype).addClass("active");
 
+        //CollectAreaType
+        // 1 (獎金 bonus) => i.   本金歸零時可領 
+        //                                    ii.   出金時歸零
+        //                                   iii.   EX:入金贈點
+        // 2 (禮金 gift) =>       i.   隨時可領
+        //                                    ii.   出金時不歸零
+        //                                   iii.   EX:註冊贈點、7日
+
         LobbyClient.GetPromotionCollectAvailable(WebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -317,16 +325,16 @@
 
                     </div>
                     <div class="MT__table">
-                        <!-- thead  -->
-                        <div class="thead">
+                        <!-- Thead  -->
+                        <div class="Thead">
                             <div class="thead__tr">
                                 <div class="thead__th"><span class="language_replace">領取日期</span></div>
                                 <div class="thead__th"><span class="language_replace">活動名稱</span></div>
                                 <div class="thead__th"><span class="language_replace">金額</span></div>
                             </div>
                         </div>
-                        <!-- tbody -->
-                        <div class="tbody" id="div_History">
+                        <!-- Tbody -->
+                        <div class="Tbody" id="div_History">
                         </div>
                     </div>
                 </section>

@@ -1570,17 +1570,35 @@
                             </li>
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('About','About.html')">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-logo"></i>
-                                            <span class="title language_replace">關於我們</span></a>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
+                                            <%--<i class="icon icon-mask icon-loudspeaker"></i>--%>
+                                            <span class="title language_replace">會員中心</span></a>
                                     </li>
-                                    <%--<li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('RegisterActivityReceive','RegisterActivityReceive.aspx', true)">
-                                        <a class="nav-link">
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
                                             <i class="icon icon-mask icon-loudspeaker"></i>
-                                            <span class="title language_replace">註冊獎勵領取</span></a>
-                                    </li>--%>
+                                            <span class="title language_replace">活動中心</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_LoadPage('','Prize.aspx')">
+                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <span class="title language_replace">領獎中心</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_LoadPage('WalletCenter','WalletCenter.aspx', true)">
+                                            <%--<i class="icon icon-mask icon-loudspeaker"></i>--%>
+                                            <span class="title language_replace">個人錢包</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <%--<i class="icon icon-mask icon-loudspeaker"></i>--%>
+                                            <span class="title language_replace">履歷記錄</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
                                     <li class="nav-item submenu dropdown" onclick="openHotArticle()">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-hot"></i>
@@ -1593,17 +1611,12 @@
                                             <span class="title language_replace">Q&A</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
-                                            <span class="title language_replace">活動</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" onclick="API_LoadPage('','Prize.aspx')">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
-                                            <span class="title language_replace">領獎</span></a>
+                                        <a class="nav-link">
+                                            <%--<i class="icon icon-mask icon-logo"></i>--%>
+                                            <span class="title language_replace">聯絡客服</span></a>
                                     </li>
                                 </ul>
-                            </li>                            
+                            </li>                                                      
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->

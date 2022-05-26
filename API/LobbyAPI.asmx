@@ -1664,6 +1664,7 @@ public class LobbyAPI : System.Web.Services.WebService
         public int IsHot { get; set; }
         public int IsNew { get; set; }
         public int SortIndex { get; set; }
+        public string Tag { get; set; }
     }
 
     public class LoginMessageResult : EWin.Lobby.APIResult
