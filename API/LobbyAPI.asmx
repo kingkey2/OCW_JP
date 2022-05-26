@@ -467,7 +467,7 @@ public class LobbyAPI : System.Web.Services.WebService
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
 
-                    R = lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 1, 30, description, PropertySets.ToArray());
+                    R = lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 2, 30, description, PropertySets.ToArray());
                 }
             }
         }
@@ -1320,7 +1320,7 @@ public class LobbyAPI : System.Web.Services.WebService
     {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR }; ;
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR }; 
         string Token = GetToken();
         int CollectLimit = 500;
 
@@ -1340,7 +1340,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
                     if (Collect.CollectAreaType == 2)
                     {
-                        CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, GUID, CollectID);
+                        CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
                         if (CollecResult.Result == EWin.Lobby.enumResult.OK)
                         {
@@ -1372,7 +1372,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
                                 if (ResetResult.Result == EWin.Lobby.enumResult.OK)
                                 {
-                                    CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, GUID, CollectID);
+                                    CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
                                     if (CollecResult.Result == EWin.Lobby.enumResult.OK)
                                     {

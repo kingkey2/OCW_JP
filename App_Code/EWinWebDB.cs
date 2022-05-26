@@ -295,7 +295,7 @@ public static class EWinWebDB {
                "FROM UserAccountPayment AS P WITH (NOLOCK) " +
                "LEFT JOIN PaymentMethod AS PM WITH (NOLOCK) ON P.forPaymentMethodID = PM.PaymentMethodID " +
                "LEFT JOIN PaymentCategory AS PC WITH (NOLOCK) ON PM.PaymentCategoryCode = PC.PaymentCategoryCode " +
-               "WHERE P.LoginAccount=@LoginAccount AND P.FlowStatus =1 AND DATEADD(ss,ExpireSecond,CreateDate) < GETDATE() ";
+               "WHERE P.LoginAccount=@LoginAccount AND P.FlowStatus =1 AND DATEADD(ss,PM.ExpireSecond,CreateDate) > GETDATE() ";
 
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;

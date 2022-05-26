@@ -85,6 +85,7 @@
         ParentMain.innerHTML = "";
 
         p.GetPaymentByNonFinished(WebInfo.SID, Math.uuid(), function (success, o) {
+            console.log("f", o);
             if (success) {
                 if (o.Result == 0) {
                     if (o.Datas.length > 0) {
