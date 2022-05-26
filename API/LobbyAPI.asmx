@@ -1224,7 +1224,7 @@ public class LobbyAPI : System.Web.Services.WebService
     {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR }; 
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
         string Token = GetToken();
         int CollectLimit = 500;
 
@@ -1484,7 +1484,7 @@ public class LobbyAPI : System.Web.Services.WebService
     }
 
     #endregion
-        
+
     private string GetToken()
     {
         string Token;
@@ -1520,8 +1520,8 @@ public class LobbyAPI : System.Web.Services.WebService
         public int State { get; set; }
         public int SortIndex { get; set; }
         public string CategoryName { get; set; }
-         public string Location { get; set; }
-        public int ShowType { get; set; }  
+        public string Location { get; set; }
+        public int ShowType { get; set; }
         public List<CompanyGameCode2> Datas { get; set; }
     }
 
@@ -1538,6 +1538,8 @@ public class LobbyAPI : System.Web.Services.WebService
         public string Info { get; set; }
         public int IsHot { get; set; }
         public int IsNew { get; set; }
+        public int SortIndex { get; set; }
+        public string Tag { get; set; }
     }
 
     public class LoginMessageResult : EWin.Lobby.APIResult

@@ -145,14 +145,14 @@ public static class EWinWebDB {
 
     public static class CompanyGameCode
     {
-        public static int InsertCompanyGameCode(int forCompanyCategoryID, string GameBrand, string GameName, string Info,int GameID,string GameCategoryCode,string GameCategorySubCode,int AllowDemoPlay,string RTPInfo,int IsHot,int IsNew,string Tag)
+        public static int InsertCompanyGameCode(int forCompanyCategoryID, string GameBrand, string GameName, string Info,int GameID,string GameCategoryCode,string GameCategorySubCode,int AllowDemoPlay,string RTPInfo,int IsHot,int IsNew,string Tag,int SortIndex)
         {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int insertCount = 0;
 
-            SS = "INSERT INTO CompanyGameCode (forCompanyCategoryID,GameBrand, GameName, Info,GameID,GameCategoryCode,GameCategorySubCode,AllowDemoPlay,RTPInfo,IsHot,IsNew,Tag) " +
-            "                VALUES (@forCompanyCategoryID,@GameBrand, @GameName, @Info,@GameID,@GameCategoryCode,@GameCategorySubCode,@AllowDemoPlay,@RTPInfo,@IsHot,@IsNew,@Tag) ";
+            SS = "INSERT INTO CompanyGameCode (forCompanyCategoryID,GameBrand, GameName, Info,GameID,GameCategoryCode,GameCategorySubCode,AllowDemoPlay,RTPInfo,IsHot,IsNew,Tag,SortIndex) " +
+            "                VALUES (@forCompanyCategoryID,@GameBrand, @GameName, @Info,@GameID,@GameCategoryCode,@GameCategorySubCode,@AllowDemoPlay,@RTPInfo,@IsHot,@IsNew,@Tag,@SortIndex) ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
@@ -167,6 +167,7 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@RTPInfo", System.Data.SqlDbType.VarChar).Value = RTPInfo;
             DBCmd.Parameters.Add("@IsHot", System.Data.SqlDbType.Int).Value = IsHot;
             DBCmd.Parameters.Add("@IsNew", System.Data.SqlDbType.Int).Value = IsNew;
+            DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
             DBCmd.Parameters.Add("@Tag", System.Data.SqlDbType.NVarChar).Value = Tag;
             insertCount = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
 
