@@ -661,6 +661,27 @@
         });
     };
 
+    this.GeAlltCompanyGameCode = function (GUID, cb) {
+        var url = APIUrl + "/GeAlltCompanyGameCode";
+        var postData;
+
+        postData = {
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetCompanyGameCodeTwo = function (GUID, cb) {
         var url = APIUrl + "/GetCompanyGameCodeTwo";
         var postData;
@@ -704,7 +725,6 @@
             }
         });
     };
-
 
 
     this.GetCompanyGameCodeByCategoryID = function (GUID, CategoryID, cb) {

@@ -541,6 +541,49 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public OcwAllCompanyGameCodeResult GeAlltCompanyGameCode(string GUID)
+    {
+        OcwAllCompanyGameCodeResult Ret = new OcwAllCompanyGameCodeResult() { Datas = new List<OcwCompanyGameCode>() };
+        string GameCodeJsonStr = RedisCache.CompanyGameCode.GetAllCompanyGameCode();
+
+        if (!string.IsNullOrEmpty(GameCodeJsonStr))
+        {
+            List<EWin.Lobby.GameCodeItem> gameCodeItems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EWin.Lobby.GameCodeItem>>(GameCodeJsonStr);
+            for (int i = 0; i < gameCodeItems.Count; i++)
+            {
+                OcwCompanyGameCode ocwGameCode = new OcwCompanyGameCode()
+                {
+                    GameID = gameCodeItems[i].GameID,
+                    GameBrand = gameCodeItems[i].BrandCode,
+                    GameCode = gameCodeItems[i].GameCode,
+                    GameName = gameCodeItems[i].GameName,
+                    GameCategoryCode = gameCodeItems[i].GameCategoryCode,
+                    GameCategorySubCode = gameCodeItems[i].GameCategorySubCode,
+                    AllowDemoPlay = gameCodeItems[i].AllowDemoPlay,
+                    RTPInfo = gameCodeItems[i].RTPInfo,
+                    IsHot = gameCodeItems[i].IsHot,
+                    IsNew = gameCodeItems[i].IsNew,
+                    SortIndex = gameCodeItems[i].SortIndex
+                    //Tag = gameCodeItems[i].Tag
+                };
+
+                Ret.Datas.Add(ocwGameCode);
+            }
+
+            Ret.Result = EWin.Lobby.enumResult.OK;
+        }
+        else
+        {
+            Ret.Result = EWin.Lobby.enumResult.ERR;
+            Ret.Message = "NoData";
+        }
+
+        return Ret;
+    }
+
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public OcwCompanyGameCodeResult GetCompanyGameCodeTwo(string GUID)
     {
         System.Data.DataTable CompanyCategoryDT;
@@ -636,7 +679,7 @@ public class LobbyAPI : System.Web.Services.WebService
                     }
                 }
             }
-            
+
             Ret.Result = EWin.Lobby.enumResult.OK;
         }
         else
@@ -1639,6 +1682,11 @@ public class LobbyAPI : System.Web.Services.WebService
         public List<OcwCompanyCategory> CompanyCategoryDatas { get; set; }
     }
 
+    public class OcwAllCompanyGameCodeResult : EWin.Lobby.APIResult
+    {
+        public List<OcwCompanyGameCode> Datas { get; set; }
+    }
+
     public class OcwCompanyCategory
     {
         public int CompanyCategoryID { get; set; }
@@ -1654,6 +1702,7 @@ public class LobbyAPI : System.Web.Services.WebService
     {
         public int forCompanyCategoryID { get; set; }
         public int GameID { get; set; }
+        public string GameCode { get; set; }
         public string GameBrand { get; set; }
         public string GameName { get; set; }
         public string GameCategoryCode { get; set; }
