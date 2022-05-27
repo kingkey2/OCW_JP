@@ -334,7 +334,7 @@
                         case 'GameList_Other':
                             $(RecordDom).find('.CategIcon').addClass('icon-ect');
                             break;
-                        case 'GameList_Solt':
+                        case 'GameList_Slot':
                             $(RecordDom).find('.CategIcon').addClass('icon-slot');
                             break;
                         default:

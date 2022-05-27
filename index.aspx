@@ -1177,12 +1177,13 @@
 
     function getCompanyGameCode2(cb) {
 
-        var CategoryList = ['GameList_All', 'GameList_Solt', 'GameList_Electron', 'GameList_Live','GameList_Other'];
+        var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
 
         var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
         lobbyClient.GetCompanyGameCode2(Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
+
                     if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
                         o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
                     }
