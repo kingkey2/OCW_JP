@@ -53,7 +53,7 @@ public class SyncAPI : System.Web.Services.WebService
         int InsertCompanyCategoryReturn;
         int InsertCompanyGameCodeReturn;
 
-        string Location = "GameList_Solt";
+        string Location = "GameList_Slot";
         int ShowType = 0;
         string StrAllCompanyGameCodeData;
         #region 設定Ocw自定義分類
@@ -213,7 +213,7 @@ public class SyncAPI : System.Web.Services.WebService
                 ret = "GameList_All";
                 break;
             case "02":
-                ret = "GameList_Solt";
+                ret = "GameList_Slot";
                 break;
             case "03":
                 ret = "GameList_Electron";

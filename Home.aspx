@@ -191,7 +191,7 @@
 
                 break;
             case "IndexFirstLoad":
-                window.parent.API_LoadingEnd();
+                //window.parent.API_LoadingEnd();
 
                 break;
         }
@@ -339,7 +339,7 @@
                             <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace">推薦遊戲</span></h3>
                         </div>
                         <a class="text-link" href="casino.html">
-                            <span>全部顯示</span><i class="icon arrow arrow-right"></i>
+                            <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                         </a>
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow" id="game-recommend">
@@ -872,7 +872,7 @@
                             <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace">最新遊戲</span></h3>
                         </div>
                         <a class="text-link" href="casino.html">
-                            <span>全部顯示</span><i class="icon arrow arrow-right"></i>
+                            <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                         </a>
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover round-arrow" id="game-new">
@@ -888,7 +888,7 @@
                             <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace">我的最愛</span></h3>
                         </div>
                         <a class="text-link" href="casino.html">
-                            <span>全部顯示</span><i class="icon arrow arrow-right"></i>
+                            <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                         </a>
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover round-arrow" id="pop-casino">

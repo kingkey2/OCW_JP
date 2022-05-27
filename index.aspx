@@ -973,6 +973,7 @@
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
             document.getElementById('idLogoutItem').classList.remove('is-hide');
+            $(".avater-name").text(EWinWebInfo.UserInfo.LoginAccount);
 
             //idWalletDiv.insertAdjacentHTML('beforeend', `<div class="currencyDiv">${EWinWebInfo.UserInfo.WalletList[0].CurrencyType}</div><div class="balanceDiv">${EWinWebInfo.UserInfo.WalletList[0].PointValue}</div>`);
         } else {
@@ -980,7 +981,7 @@
             idMenuLogin.classList.add("is-hide");
             idLoginBtn.classList.remove("is-hide");
             document.getElementById('idLogoutItem').classList.add('is-hide');
-
+            $(".avater-name").text("");
             selectedWallet = null;
         }
     }
@@ -1059,22 +1060,28 @@
 
     function switchLang(Lang, isReload) {
         var LangText;
+        $("#btn_switchlang").children().remove();
 
         switch (Lang) {
             case "JPN":
                 LangText = "日本語";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
                 break;
             case "CHT":
                 LangText = "繁體中文";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 break;
             case "ENG":
                 LangText = "English";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-EN"></i>`);
                 break;
             case "CHS":
                 LangText = "簡體中文";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 break;
             default:
                 LangText = "日本語";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
                 break;
         }
 
@@ -1098,6 +1105,8 @@
             $("#li_RegisterActivityReceive").show();
             $("#Footer_HotArticle").show();
         }
+
+        $("#btn_PupLangClose").click();
     }
 
     function getCookie(cname) {
@@ -1574,7 +1583,7 @@
                                 <ul class="nav">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
-                                        <button type="button" class="btn btn-round nav-link" data-toggle="modal" data-target="#alertSearch">
+                                        <button type="button" class="btn btn-round nav-link btn-search" data-toggle="modal" data-target="#alertSearch">
                                             <i class="icon icon-mask icon-search"></i>
                                         </button>
                                     </li>
@@ -1582,17 +1591,18 @@
                                     <li class="nav-item unLogIn_wrapper " id="idLoginBtn">
                                         <ul class="horiz-list">
                                             <li class="login">
-                                                <button class="btn btn-full-main" type="button" onclick="onBtnLoginShow()"><span class="language_replace">登入</span></button>
+                                                <button class="btn-login btn" type="button" onclick="onBtnLoginShow()"><span class="avater"><img src="images/avatar/avater-2.png" alt=""></span>
+                                                    <span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register">
-                                                <button class="btn btn-full-sub" type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
+                                                <button class="btn-register btn " type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
                                             </li>
                                         </ul>
                                     </li>
                                     <!--  ==== 登入後 ====-->
                                     <li class="nav-item logIned_wrapper is-hide" id="idMenuLogin">
                                         <ul class="horiz-list">
-                                            <li class="nav-item ">
+                                            <li class="nav-item "  onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
@@ -1603,11 +1613,23 @@
                                                         <span class="balance-info">
                                                             <span class="amount">0</span>
                                                         </span>
+                                                        <button class="btn btn-deposit btn-sub-main" onclick="">
+                                                            <span class="icon-add"></span>
+                                                        </button>
                                                     </span>
                                                 </span>
                                             </li>
                                             <!-- User -->
                                             <li class="nav-item submenu dropdown">
+                                                <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown avater_wrapper" role="button">
+                                                    <span class="avater">
+                                                        <span class="avater-img">
+                                                            <img src="images/avatar/avater-2.png" alt="">
+                                                        </span>
+                                                        <span class="avater-name"></span>
+                                                    </span>
+                                                </a>
+                                                <%--
                                                 <a class="btn btn-round nav-link btnDropDown avater_wrapper"
                                                     data-toggle="dropdown" role="button" aria-haspopup="true"
                                                     aria-expanded="false" id="dropdown_navbar_Member">
@@ -1629,30 +1651,19 @@
                                                         <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">錢包中心</span></a>
                                                     </li>
                                                 </ul>
+                                                --%>
                                             </li>
                                         </ul>
                                     </li>
 
                                     <!-- 語系 -->
-                                    <%--<li class="nav-item submenu dropdown">
-                                        <a onclick="dataToggleDropdown(this)"
-                                            class="btn btn-round nav-link btnDropDown"
-                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                            aria-expanded="false" id="dropdown_navbar_Lang">
-                                            <i class="icon icon-mask icon-user"></i></a>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Lang">
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('JPN', true)">日本語</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('ENG', true)">English</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('CHT', true)">繁體中文</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    --%>
+                                    <li class="nav-item submenu dropdown">
+                                        <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
+                                            <!-- 語系 轉換 ICON -->
+                                            <%--<i class="icon icon-mask icon-flag-JP"></i>
+                                            <i class="icon icon-mask icon-flag-EN"></i>
+                                            <i class="icon icon-mask icon-flag-ZH"></i>--%>
+                                        </button>   
                                 </ul>
                             </div>
                         </div>
@@ -1747,6 +1758,60 @@
 
     <!-- mask_overlay 黑色半透明遮罩-->
     <div id="mask_overlay_popup" class="mask_overlay_popup"></div>
+
+
+    <!-- Modal Language -->
+    <div class="modal fade footer-center" id="ModalLanguage" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span class="language_replace">言語を選択してください</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="lang-popup-wrapper">
+                        <ul class="lang-popup-list">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('JPN', true)">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden"
+                                        checked>
+                                    <div class="custom-input radio-button">
+                                        <span class="flag JP"><i class="icon icon-mask icon-flag-JP"></i></span>
+                                        <span class="name">日本文</span>
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag EN"><i class="icon icon-mask icon-flag-EN"></i></span>
+                                        <span class="name">English</span>
+                                    </div>
+                                </label>
+                            </li>
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('CHT', true)">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag ZH"><i class="icon icon-mask icon-flag-ZH"></i></span>
+                                        <span class="name">繁體中文</span>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <%--<div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                </div>--%>
+            </div>
+        </div>
+    </div>
 
     <!-- Search Modal -->
     <div class="modal fade no-footer " id="alertSearch" tabindex="-1" aria-hidden="true">
