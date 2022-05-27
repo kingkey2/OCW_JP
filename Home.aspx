@@ -200,7 +200,7 @@
         HotList = window.parent.API_GetGameList(1);
         window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
-            window.parent.API_LoadingEnd();
+            window.parent.API_LoadingEnd(1);
 
             if (p != null) {
                 //window.parent.sleep(500).then(() => {

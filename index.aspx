@@ -991,6 +991,7 @@
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
             document.getElementById('idLogoutItem').classList.remove('is-hide');
+            $(".avater-name").text(EWinWebInfo.UserInfo.LoginAccount);
 
             //idWalletDiv.insertAdjacentHTML('beforeend', `<div class="currencyDiv">${EWinWebInfo.UserInfo.WalletList[0].CurrencyType}</div><div class="balanceDiv">${EWinWebInfo.UserInfo.WalletList[0].PointValue}</div>`);
         } else {
@@ -998,7 +999,7 @@
             idMenuLogin.classList.add("is-hide");
             idLoginBtn.classList.remove("is-hide");
             document.getElementById('idLogoutItem').classList.add('is-hide');
-
+            $(".avater-name").text("");
             selectedWallet = null;
         }
     }
@@ -1077,22 +1078,28 @@
 
     function switchLang(Lang, isReload) {
         var LangText;
+        $("#btn_switchlang").children().remove();
 
         switch (Lang) {
             case "JPN":
                 LangText = "日本語";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
                 break;
             case "CHT":
                 LangText = "繁體中文";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 break;
             case "ENG":
                 LangText = "English";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-EN"></i>`);
                 break;
             case "CHS":
                 LangText = "簡體中文";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 break;
             default:
                 LangText = "日本語";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
                 break;
         }
 
@@ -1116,6 +1123,8 @@
             $("#li_RegisterActivityReceive").show();
             $("#Footer_HotArticle").show();
         }
+
+        $("#btn_PupLangClose").click();
     }
 
     function getCookie(cname) {
@@ -1741,7 +1750,7 @@
                                     <!--  ==== 登入後 ====-->
                                     <li class="nav-item logIned_wrapper is-hide" id="idMenuLogin">
                                         <ul class="horiz-list">
-                                            <li class="nav-item ">
+                                            <li class="nav-item "  onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
@@ -1760,12 +1769,12 @@
                                             </li>
                                             <!-- User -->
                                             <li class="nav-item submenu dropdown">
-                                                <a href="memberCenter.html" class="btn nav-link btnDropDown avater_wrapper" role="button">
+                                                <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown avater_wrapper" role="button">
                                                     <span class="avater">
                                                         <span class="avater-img">
                                                             <img src="images/avatar/avater-2.png" alt="">
                                                         </span>
-                                                        <span class="avater-name">YAMAHA JAM</span>
+                                                        <span class="avater-name"></span>
                                                     </span>
                                                 </a>
                                                 <%--
@@ -1797,30 +1806,12 @@
 
                                     <!-- 語系 -->
                                     <li class="nav-item submenu dropdown">
-                                        <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage">
+                                        <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
-                                            <i class="icon icon-mask icon-flag-JP"></i>
-                                            <!-- <i class="icon icon-mask icon-flag-EN"></i>
-                                            <i class="icon icon-mask icon-flag-ZH"></i> -->
+                                            <%--<i class="icon icon-mask icon-flag-JP"></i>
+                                            <i class="icon icon-mask icon-flag-EN"></i>
+                                            <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>   
-                                        <%-- <a onclick="dataToggleDropdown(this)"
-                                            class="btn btn-round nav-link btnDropDown"
-                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                            aria-expanded="false" id="dropdown_navbar_Lang">
-                                            <i class="icon icon-mask icon-user"></i></a>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Lang">
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('JPN', true)">日本語</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('ENG', true)">English</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('CHT', true)">繁體中文</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    --%>
                                 </ul>
                             </div>
                         </div>
@@ -1923,14 +1914,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><span class="language_replace">言語を選択してください</span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="lang-popup-wrapper">
                         <ul class="lang-popup-list">
-                            <li class="lang-item custom-control custom-radioValue-lang">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('JPN', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden"
                                         checked>
@@ -1940,7 +1931,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="lang-item custom-control custom-radioValue-lang">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
@@ -1949,7 +1940,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="lang-item custom-control custom-radioValue-lang">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('CHT', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
@@ -1963,9 +1954,9 @@
 
 
                 </div>
-                <div class="modal-footer">
+                <%--<div class="modal-footer">
                     <button type="button" class="btn btn-primary">確定</button>
-                </div>
+                </div>--%>
             </div>
         </div>
     </div>
