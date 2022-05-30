@@ -1256,7 +1256,7 @@
                 }
 
                 //getCompanyGameCode();
-                getCompanyGameCodeTwo();
+                //getCompanyGameCodeTwo();
                 //登入Check
                 window.setTimeout(function () {
                     lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
