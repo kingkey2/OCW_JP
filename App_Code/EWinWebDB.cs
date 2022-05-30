@@ -27,6 +27,8 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
             CategoryCount = Convert.ToInt32(DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd));
 
+            RedisCache.CompanyCategory.DeleteCompanyCategory();
+
             return CategoryCount;
         }
 
@@ -180,12 +182,28 @@ public static class EWinWebDB {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int DeleteCount = 0;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM CompanyCategory WITH (NOLOCK)";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+                for (int i = 0; i < DT.Rows.Count; i++)
+                { 
+                    RedisCache.CompanyGameCode.DeleteCompanyGameCode((int)DT.Rows[i]["CompanyCategoryID"]);
+                }
+            }
 
             SS = " DELETE FROM CompanyGameCode ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
             DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+
+            
 
             return DeleteCount;
         }

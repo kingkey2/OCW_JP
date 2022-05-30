@@ -1372,6 +1372,18 @@ public static class RedisCache {
             return DT;
         }
 
+        public static void DeleteCompanyCategory()
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                KeyDelete(DBIndex, Key);
+            }
+        }
+
         public static System.Data.DataTable UpdateCompanyCategory() {
             string Key;
             string SS;
@@ -1402,6 +1414,18 @@ public static class RedisCache {
     public static class CompanyGameCode {
         private static string XMLPath = "CompanyGameCode";
         private static int DBIndex = 0;
+
+        public static void DeleteCompanyGameCode(int CompanyCategoryID)
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                KeyDelete(DBIndex, Key);
+            }
+        }
 
         public static System.Data.DataTable GetCompanyGameCodeByID(int CompanyCategoryID) {
             string Key;
@@ -1469,6 +1493,7 @@ public static class RedisCache {
                 foreach (System.Data.DataRow DR in DT.Rows) {
                     int CompanyCategoryID = (int)DR["CompanyCategoryID"];
                     Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+
                     CompanyGameCodeDT = new System.Data.DataTable();
 
                     SS = "SELECT * FROM CompanyGameCode WITH (NOLOCK) WHERE forCompanyCategoryID = @forCompanyCategoryID";
@@ -1602,7 +1627,6 @@ public static class RedisCache {
             return CompanyGameCodeDT;
         }
 
-       
     }
 
     public static void UpdateRedisByPrivateKey() {

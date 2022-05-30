@@ -192,7 +192,7 @@
                 var categArea;
                 companyCategoryDatasCount++;
 
-                if (category.Location == categoryCode) {
+                if (category.Location == categoryCode && category.Datas.length>0) {
               
                     if (category.ShowType==0) {
                         categArea = c.getTemplate("temCategArea");
@@ -379,7 +379,7 @@
             window.parent.API_LoadingEnd();
             if ((WebInfo.SID != null)) {
                 //updateBaseInfo()
-                LobbyGameList = window.parent.API_GetGameList2();
+                LobbyGameList = window.parent.API_GetGameList();
                 updateGameCode();
             } else {
                 loginRecover();

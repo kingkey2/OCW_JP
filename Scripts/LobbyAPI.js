@@ -661,8 +661,8 @@
         });
     };
 
-    this.GeAlltCompanyGameCode = function (GUID, cb) {
-        var url = APIUrl + "/GeAlltCompanyGameCode";
+    this.GeAllCompanyGameCode = function (GUID, cb) {
+        var url = APIUrl + "/GeAllCompanyGameCode";
         var postData;
 
         postData = {

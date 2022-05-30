@@ -541,7 +541,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public OcwAllCompanyGameCodeResult GeAlltCompanyGameCode(string GUID)
+    public OcwAllCompanyGameCodeResult GeAllCompanyGameCode(string GUID)
     {
         System.Data.DataTable CompanyCategoryDT = null;
         System.Data.DataTable CompanyGameCodeDT = null;
@@ -567,8 +567,8 @@ public class LobbyAPI : System.Web.Services.WebService
                             OcwCompanyGameCode ocwGameCode = new OcwCompanyGameCode()
                             {
                                 GameID = (int)CompanyGameCodeDT.Rows[i]["GameID"],
-                                GameBrand = (string)CompanyGameCodeDT.Rows[i]["BrandCode"],
-                                GameCode = (string)CompanyGameCodeDT.Rows[i]["GameCode"],
+                                GameBrand = (string)CompanyGameCodeDT.Rows[i]["GameBrand"],
+                                GameCode =(string)CompanyGameCodeDT.Rows[i]["GameBrand"]+"."+ (string)CompanyGameCodeDT.Rows[i]["GameName"],
                                 GameName = (string)CompanyGameCodeDT.Rows[i]["GameName"],
                                 GameCategoryCode = (string)CompanyGameCodeDT.Rows[i]["GameCategoryCode"],
                                 GameCategorySubCode = (string)CompanyGameCodeDT.Rows[i]["GameCategorySubCode"],

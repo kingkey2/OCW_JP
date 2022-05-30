@@ -209,6 +209,7 @@
     var GameInfoModal;
     var MessageModal;
     var gameWindow;
+    var LobbyGameList = {};
     //#region TOP API
 
     function API_GetWebInfo() {
@@ -433,10 +434,9 @@
         //Game
         window.location.reload();
     }
-
-
+    
     function API_GetGameList(location) {
-        
+        return LobbyGameList;
     }
 
     function API_ShowMessage(title, msg, cbOK, cbCancel) {
@@ -1397,6 +1397,34 @@
         //resize();
     }
 
+    function getCompanyGameCodeTwo() {
+
+        var CategoryList = ['GameList_All', 'GameList_Solt', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
+
+        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
+        lobbyClient.GetCompanyGameCodeTwo(Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
+                        o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
+                    }
+
+                    LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
+
+                    LobbyGameList.CategoryList = CategoryList;
+                } else {
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
+                }
+            } else {
+                if (o == "Timeout")
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
+                else
+                    if ((o != null) && (o != ""))
+                        alert(o);
+            }
+
+        });
+    }
     //openFullSearch
     function openFullSearch(e) {
         var header_SearchFull = document.getElementById("header_SearchFull");
