@@ -10,25 +10,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maharaja</title>
 
-    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <%--    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="Scripts/OutSrc/lib/swiper/css/swiper-bundle.min.css" type="text/css" />
 
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/member.css" type="text/css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/main.css" />--%>
+
+    <link href="css/basic.min.css" rel="stylesheet" />
+    <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
 
 </head>
+<script src="Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
-<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
-
-<script type="text/javascript">
+<script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+<script>
     if (self != top) {
         window.parent.API_LoadingStart();
     }
@@ -40,85 +44,139 @@
     var v = "<%:Version%>";
     var swiper;
 
-    function cancelWalletPassword() {
-        var idWalletLoginPassword = document.getElementById("idWalletLoginPassword");
-        var idWalletDivNew1s = document.getElementById("idWalletDivNew1").getElementsByTagName("input");
-        var idWalletDivNew2s = document.getElementById("idWalletDivNew2").getElementsByTagName("input");
+    function copyText(tag) {
+        var copyText = document.getElementById(tag);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
 
-        idWalletLoginPassword.value = "";
-
-        for (var i = 0; i < idWalletDivNew2s.length; i++) {
-            idWalletDivNew2s[i].value = "";
-        }
-
-        for (var i = 0; i < idWalletDivNew1s.length; i++) {
-            idWalletDivNew1s[i].value = "";
-        }
-        document.getElementById("idPincodeStep1").classList.remove('is-hide');
-        document.getElementById("idPincodeStep2").classList.add('is-hide');
-
-
-        //外包css
-        document.getElementById("idWalletPasswordBoxItem").classList.remove('cur');
+        navigator.clipboard.writeText(copyText.textContent).then(
+            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
+            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
     }
 
+    function updateBaseInfo() {
+        $("#RealName").val(WebInfo.UserInfo.RealName);
+        $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
+        $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber); 
+         if (WebInfo.UserInfo.ExtraData) {
+            var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+            for (var i = 0; i < ExtraData.length; i++) {
+                if (ExtraData[i].Name == "Birthday") {
+                    var Birthdays = ExtraData[i].Value.split('/');
+                    $("#idBornYear").val(Birthdays[0]);
+                    $("#idBornMonth").val(Birthdays[1]);
+                    $("#idBornDay").val(Birthdays[2]);
+                }
 
-    function setWalletPasswordStep1() {
-        var idWalletDivNew1s = document.getElementById("idWalletDivNew1").getElementsByTagName("input");
-        for (var i = 0; i < idWalletDivNew1s.length; i++) {
-            if (idWalletDivNew1s[i].value == "" && idWalletDivNew1s[i].value.length != 1) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入四位數錢包密碼"));
-                return;
+                if (ExtraData[i].Name == "UserGetMail") {
+                    $("#check_UserGetMail").prop("checked", ExtraData[i].Value);
+                }
+            }
+        }
+        $("#Address").val(WebInfo.UserInfo.ContactAddress == undefined ? "" : WebInfo.UserInfo.ContactAddress);
+        $("#idAmount").text(new BigNumber(WebInfo.UserInfo.WalletList.find(x => x.CurrencyType == window.parent.API_GetCurrency()).PointValue).toFormat());
+        $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
+        $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
+        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
+
+        var ThresholdInfos = WebInfo.UserInfo.ThresholdInfo;
+        if (ThresholdInfos && ThresholdInfos.length > 0) {
+            let thresholdInfo = ThresholdInfos.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+            if (thresholdInfo) {
+
+                if (new BigNumber(thresholdInfo.ThresholdValue).toFormat() == "0") {
+                    $("#divThrehold").addClass("enough");
+                    $("#divThrehold").removeClass("lacking");
+                } else {
+                    $("#divThrehold").removeClass("enough");
+                    $("#divThrehold").addClass("lacking");
+                }
+
+                $("#idThrehold").text(new BigNumber(thresholdInfo.ThresholdValue).toFormat());
+            } else {
+                $("#idThrehold").text("0");
+                $("#divThrehold").addClass("enough");
+                $("#divThrehold").removeClass("lacking");
+            }
+        } else {
+            $("#idThrehold").text("0");
+            $("#divThrehold").addClass("enough");
+            $("#divThrehold").removeClass("lacking");
+        }
+    }
+
+    function memberInit() {
+
+    }
+
+    function updateUserAccount() {
+        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+        let strExtraData = "";
+        let strEmail = "";
+        let strOldPassword = "";
+        let strNewPassword = "";
+
+        if ($("#idBornYear").val() != "" && $("#idBornMonth").val() != "" && $("#idBornDay").val() != "") {
+            let findBirthday = ExtraData.filter(x => x.Name == "Birthday").length;
+            if (findBirthday == 0) {
+                let data_Birthday = {
+                    "Name": "Birthday",
+                    "Value": $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val()
+                }
+
+                ExtraData.push(data_Birthday);
+            } else {
+                for (var i = 0; i < ExtraData.length; i++) {
+                    if (ExtraData[i].Name == "Birthday") {
+                        ExtraData[i].Value = $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val();
+                    }
+                }
             }
         }
 
-        document.getElementById("idPincodeStep1").classList.add('is-hide');
-        document.getElementById("idPincodeStep2").classList.remove('is-hide');
-    }
-
-    function setWalletPasswordStep2() {
-        var idWalletLoginPassword = document.getElementById("idWalletLoginPassword");
-        var idWalletDivNew1s = document.getElementById("idWalletDivNew1").getElementsByTagName("input");
-        var idWalletDivNew2s = document.getElementById("idWalletDivNew2").getElementsByTagName("input");
-        var walletPassword1 = "";
-        var walletPassword2 = "";
-
-        for (var i = 0; i < idWalletDivNew1s.length; i++) {
-            walletPassword1 += idWalletDivNew1s[i].value;
-        }
-
-        for (var i = 0; i < idWalletDivNew2s.length; i++) {
-            if (idWalletDivNew2s[i].value == "" && idWalletDivNew2s[i].value.length != 1) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入四位數錢包密碼"));
-
-                document.getElementById('idWalletPasswordUnSet').style.display = "none";
-                return;
+        let findUserGetMail = ExtraData.filter(x => x.Name == "UserGetMail").length;
+        if (findUserGetMail == 0) {
+            let data_UserGetMail = {
+                "Name": "UserGetMail",
+                "Value": $("#check_UserGetMail").prop("checked")
             }
 
-            walletPassword2 += idWalletDivNew2s[i].value;
+            ExtraData.push(data_UserGetMail);
+        } else {
+            for (var i = 0; i < ExtraData.length; i++) {
+                if (ExtraData[i].Name == "UserGetMail") {
+                    ExtraData[i].Value = $("#check_UserGetMail").prop("checked");
+                }
+            }
         }
 
+        strExtraData = JSON.stringify(ExtraData);
 
-
-        if (walletPassword1 != walletPassword2) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("前後密碼不一致"));
-
-            document.getElementById("idPincodeStep1").classList.remove('is-hide');
-            document.getElementById("idPincodeStep2").classList.add('is-hide');
-
-            return;
-        } else if (idWalletLoginPassword.value == "") {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入密碼"));
+        if ($("#Email").val() != "") {
+            strEmail = $("#Email").val();
         }
 
-        p.SetWalletPassword(WebInfo.SID, Math.uuid(), idWalletLoginPassword.value, walletPassword2, function (success, o) {
+        if ($("#idOldPassword").val() != "") {
+            strOldPassword = $("#idOldPassword").val();
+        }
+
+        if ($("#idNewPassword").val() != "") {
+            strNewPassword = $("#idNewPassword").val();
+        }
+
+        let updateinfo = {
+            "EMail": strEmail,
+            "ExtraData": strExtraData,
+            "OldPassword": strOldPassword,
+            "NewPassword": strNewPassword
+        }
+
+        p.UpdateUserAccount(WebInfo.SID, Math.uuid(), updateinfo, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    cancelWalletPassword();
-
-                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("錢包新密碼已設定完成"), function () {
-                        window.parent.EWinWebInfo.UserInfo.IsWalletPasswordSet = true;
-                        updateBaseInfo();
+                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("成功"), function () {
+                         window.top.API_RefreshUserInfo(function () {
+                        });
                     });
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
@@ -131,71 +189,7 @@
                 }
             }
         });
-    }
 
-
-    function updateBaseInfo() {
-
-        var RealName = document.getElementById("idRealName");
-        //var NickName = document.getElementById("idNickName");
-        var Birthday = document.getElementById("idBirthday");
-        var PersonCode = document.getElementById("idPersonCode");
-        var Amount = document.getElementById("idAmount");
-        var CountryName = document.getElementById("idCountryName");
-        var PostalCode = document.getElementById("idPostalCode");
-        var Prefectures = document.getElementById("idPrefectures");
-        var Address = document.getElementById("idAddress");
-        var Phone = document.getElementById("idPhone");
-        var Email = document.getElementById("idEmail");
-
-        RealName.innerText = WebInfo.UserInfo.RealName;
-        //NickName.innerText = WebInfo.UserInfo.NickName == undefined ? "" : WebInfo.UserInfo.NickName;
-        //Email.innerText = WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail;
-        $("#idEmail").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
-        Phone.innerText = WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber;
-        Amount.innerText = new BigNumber(WebInfo.UserInfo.WalletList.find(x => x.CurrencyType == window.parent.API_GetCurrency()).PointValue).toFormat();
-
-        if (WebInfo.UserInfo.ExtraData) {
-            var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
-            for (var i = 0; i < ExtraData.length; i++) {
-                if (ExtraData[i].Name == "Birthday") {
-                    var Birthdays = ExtraData[i].Value.split('/');
-                    //Birthday.innerText = Birthdays[0] + "/" + Birthdays[1];
-                    //$("#idBirthday").val(Birthdays[0] + "/" + Birthdays[1]);
-                    $("#idBornYear").val(Birthdays[0]);
-                    $("#idBornMonth").val(Birthdays[1]);
-                    $("#idBornDay").val(Birthdays[2]);
-                }
-                //if (ExtraData[i].Name == "CountryName") {
-                //    CountryName.innerText = ExtraData[i].Value;
-                //}
-            }
-        }
-
-        var ContactAddress = WebInfo.UserInfo.ContactAddress;
-
-        //if (ContactAddress) {
-        //    var ContactAddresss = ContactAddress.split(',');
-        //    for (var i = 0; i < ContactAddresss.length; i++) {
-        //        if (i == 0) {
-        //            PostalCode.innerText = ContactAddresss[i].substring(0, ContactAddresss[i].length - 4) + "****";
-        //        }
-        //        if (i == 1) {
-        //            Prefectures.innerText = ContactAddresss[i];
-        //        }
-        //        if (i == 2) {
-        //            Address.innerText = ContactAddresss[i].substring(0, ContactAddresss[i].length - 4) + "****";
-        //        }
-        //    }
-        //}
-
-        //if (WebInfo.UserInfo.UserAccountType == 1) {
-        $("#idPersonCodeDiv").removeClass('is-hide');
-        document.getElementById("idPersonCode").innerText = WebInfo.UserInfo.PersonCode;
-        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
-        $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
-        $(".activity-container").removeClass('is-hide');
-        //}
     }
 
     function init() {
@@ -216,15 +210,10 @@
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
                 });
-
-            //if (WebInfo.UserInfo.UserLevel == 0) {
-            //    $("#divTransfer").show();
-            //}
-
         });
 
         memberInit();
-        changeAvatar(getCookie("selectAvatar"));
+        //changeAvatar(getCookie("selectAvatar"));
 
         $("#activityURL").attr("href", "https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode);
         $("#activityURL1").attr("href", "https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode);
@@ -234,845 +223,328 @@
         }
     }
 
-    function showAvatar() {
-        document.getElementById("idAvatarPopup").classList.remove('is-hide');
-        document.getElementById("idAvatarPopup").classList.add('is-show');
-        document.body.classList.add('body-lock');
-        var avatars = document.getElementsByName("avatar");
-        var selectAvatar = getCookie("selectAvatar");
-
-        //var selectAvatar = "avatar-01";
-        for (var i = 0; i < avatars.length; i++) {
-            if (avatars[i].dataset.avatar_value.toLowerCase() == selectAvatar.toLowerCase()) {
-                avatars[i].checked = true;
-                break;
-            }
-        }
-
-        swiper.update()
-    }
-
-    function closeAvatar() {
-        document.getElementById("idAvatarPopup").classList.remove('is-show');
-        document.getElementById("idAvatarPopup").classList.add('is-hide');
-        document.body.classList.remove('body-lock');
-    }
-
-    function saveAvatar() {
-        document.getElementById("idAvatarPopup").classList.remove('is-show');
-        document.getElementById("idAvatarPopup").classList.add('is-hide');
-        document.body.classList.remove('body-lock');
-        var avatars = document.getElementsByName("avatar");
-        var selectAvatar;
-
-        for (var i = 0; i < avatars.length; i++) {
-            if (avatars[i].checked) {
-                selectAvatar = avatars[i].dataset.avatar_value;
-                break;
-            }
-        }
-
-        setCookie("selectAvatar", selectAvatar, 100000);
-        window.parent.API_changeAvatarImg(selectAvatar);
-        changeAvatar(selectAvatar);
-    }
-
-    function changeAvatar(avatar) {
-        if (avatar) {
-            document.getElementById("avatarImg").src = "images/assets/avatar/" + avatar + ".jpg"
-        }
-    }
-
-    function memberInit() {
-        //外包的js
-        // 頭像選擇
-        swiper = new Swiper("#avatar-select", {
-            loop: true,
-            slidesPerView: 2,
-            freeMode: true,
-            preventClicks: false,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev"
-            },
-
-            //onSetTranslate: function (swiper, translate) {
-            //    console.log(swiper);
-            //    var checkedSlideIndex = $('input:checked').parents('.swiper-slide').attr('data-swiper-slide-index');
-            //    var hasDuplicates = $('.swiper-slide[data-swiper-slide-index="' + checkedSlideIndex + '"]').length > 1;
-            //    if (hasDuplicates) {
-            //        if ($('.swiper-slide-active').attr('data-swiper-slide-index') === checkedSlideIndex) {
-            //            $('.swiper-slide-active').find('input').prop('checked', true);
-            //        }
-            //        else {
-            //            $('.swiper-slide-active').nextAll('.swiper-slide[data-swiper-slide-index="' + checkedSlideIndex + '"]').eq(0).find('input').prop('checked', true);
-            //        }
-            //    }
-            //}
-
-
-        });
-
-
-        //編輯收合
-        $('[data-click-btn="openPanel"]').click(function () {
-            $(this).parents('.expansion').addClass('cur');
-        });
-
-
-        //取款密碼設定 
-        var editpincodeStep2 = $('[data-click-btn="pincodeStep2"]'),
-            closePanel = $('[data-click-btn="closePanel"]'),
-
-
-            avatar = $('[data-form-group="avatar"]'),
-            pincodeStep1 = $('[data-form-group="pincodeStep1"]'),
-            pincodeStep2 = $('[data-form-group="pincodeStep2"]');
-
-        editpincodeStep2.click(function () {
-            pincodeStep1.addClass('is-hide');
-            pincodeStep2.removeClass('is-hide').addClass('is-show');
-        });
-
-        closePanel.click(function () {
-            $(this).parents('.box-item').removeClass('cur');
-        });
-
-
-
-
-        // pincode
-        $('.pincode-box input').keyup(function () {
-            if (this.value.length == this.maxLength) {
-                $(this).next('.pincode-box input').focus();
-            }
-        });
-
-    }
-
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
-
-    function delCookie(name) {
-        function getCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
-        var exp = new Date();
-        exp.setTime(exp.getTime() - 1);
-        var cval = getCookie(name);
-        if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
-    }
-
-    function goUserTransfer() {
-        if (!WebInfo.UserInfo.IsWalletPasswordSet) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("錯誤") + " " + mlp.getLanguageKey("請先設定錢包密碼"), function () {
-            });
-        } else {
-            window.parent.API_LoadPage('UserTransfer', 'UserTransfer.aspx', true);
-        }
-    }
-
-    function changePassword() {
-        var idOldPassword = document.getElementById("idOldPassword");
-        var idNewPassword = document.getElementById("idNewPassword");
-
-        if (idOldPassword.value == "") {
-            idOldPassword.setCustomValidity(mlp.getLanguageKey("請輸入舊密碼"));
-            idOldPassword.reportValidity();
-        } else if (idNewPassword.value == "") {
-            idNewPassword.setCustomValidity(mlp.getLanguageKey("請輸入新密碼"));
-            idNewPassword.reportValidity();
-        } else {
-            idOldPassword.setCustomValidity("");
-            idNewPassword.setCustomValidity("");
-
-            p.SetUserPassword(WebInfo.SID, Math.uuid(), idOldPassword.value, idNewPassword.value, function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        idOldPassword.value = "";
-                        idNewPassword.value = "";
-
-                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("帳戶新密碼已設定完成"), function () {
-                            updateBaseInfo();
-                        });
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
-                    }
-                } else {
-                    if (o == "Timeout") {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
-                    }
-                }
-            });
-        }
-    }
-
-    function changePassword() {
-        var idOldPassword = document.getElementById("idOldPassword");
-        var idNewPassword = document.getElementById("idNewPassword");
-
-        if (idOldPassword.value == "") {
-            idOldPassword.setCustomValidity(mlp.getLanguageKey("請輸入舊密碼"));
-            idOldPassword.reportValidity();
-        } else if (idNewPassword.value == "") {
-            idNewPassword.setCustomValidity(mlp.getLanguageKey("請輸入新密碼"));
-            idNewPassword.reportValidity();
-        } else {
-            idOldPassword.setCustomValidity("");
-            idNewPassword.setCustomValidity("");
-
-            p.SetUserPassword(WebInfo.SID, Math.uuid(), idOldPassword.value, idNewPassword.value, function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        idOldPassword.value = "";
-                        idNewPassword.value = "";
-
-                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("帳戶新密碼已設定完成"), function () {
-                            updateBaseInfo();
-                            document.getElementById("idLoginPasswordBox").classList.remove("cur");
-                        });
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
-                    }
-                } else {
-                    if (o == "Timeout") {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
-                    }
-                }
-            });
-        }
-    }
-
-    function showPassword(btn) {
-        var x = document.getElementById(btn);
-        var iconEye = event.currentTarget.querySelector("i");
-
-        if (x.type === "password") {
-            x.type = "text";
-            if (iconEye) {
-                iconEye.classList.remove("icon-eye-off");
-                iconEye.classList.add("icon-eye");
-            }
-        } else {
-            x.type = "password";
-            if (iconEye) {
-                iconEye.classList.add("icon-eye-off");
-                iconEye.classList.remove("icon-eye");
-            }
-        }
-    }
-
-    function copyText(tag) {
-        var copyText = document.getElementById(tag);
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-
-        navigator.clipboard.writeText(copyText.textContent).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
-        //alert("Copied the text: " + copyText.value);
-    }
-
-    function copyActivityUrl() {
-
-        navigator.clipboard.writeText("https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
-        //alert("Copied the text: " + copyText.value);
-    }
-    function copyActivityUrl1() {
-
-        navigator.clipboard.writeText("https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
-        //alert("Copied the text: " + copyText.value);
-    }
-
-    function updateUserAccount() {
-        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
-        let strExtraData = "";
-        let strEmail = "";
-
-        if ($("#idBornYear").val() != "" && $("#idBornMonth").val() != "" && $("#idBornDay").val() != "") {
-            for (var i = 0; i < ExtraData.length; i++) {
-                if (ExtraData[i].Name == "Birthday") {
-                    ExtraData[i].Value = $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val();
-                }
-            }
-            strExtraData = JSON.stringify(ExtraData);
-        }
-
-        if ($("#idEmail").val() != "") {
-            strEmail = $("#idEmail").val();
-        }
-
-        let updateinfo = {
-            "EMail": strEmail,
-            "ExtraData": strExtraData
-        }
-
-        p.UpdateUserAccount(WebInfo.SID, Math.uuid(), updateinfo, function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("成功"), function () {
-                      
-                    });
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
-                }
-            } else {
-                if (o == "Timeout") {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
-                }
-            }
-        });
-
-    }
-
-    function EWinEventNotify(eventName, isDisplay, param) {
-        switch (eventName) {
-            case "LoginState":
-
-                break;
-            case "BalanceChange":
-                break;
-
-            case "SetLanguage":
-                var lang = param;
-
-                mlp.loadLanguage(lang);
-                break;
-        }
-    }
-
     window.onload = init;
 </script>
-<body>
-    <div class="page-container">
-
+<body class="innerBody">
+    <main class="innerMain">
         <div class="page-content">
-            <div class="member-container">
-                <div class="aside-panel">
-                    <div class="avatar-container">
-                        <div class="avatar">
-                            <img id="avatarImg" src="images/assets/avatar/avatar-05.jpg">
+            <div class="container">
+                <article class="article-member-center">
+                    <!-- 個人資料 -->
+                    <section class="section-member-profile">
+                        <div class="member-profile-avater-wrapper">
+                            <span class="avater">
+                                <span class="avater-img">
+                                    <img src="images/avatar/avater-2.png" alt="">
+                                </span>
+                                <%--<button type="button" class="btn btn-round btn-full-main btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar">
+                                    <i class="icon icon-mask icon-camera "></i>
+                                </button>--%>
+                            </span>
                         </div>
-                        <button class="btn btn-icon circle" onclick="showAvatar()">
-                            <i class="icon-photo-camera"></i>
-                        </button>
-                    </div>
-                    <div class="balance-info">
-                        <div class="balance-info-title" style="display: none;">
-                            <i class="icon-coin"></i>
-                            <div>SUFFY</div>
-                        </div>
-                        <div id="idAmount" class="amount">9,999</div>
-                    </div>
-                </div>
-                <div class="main-panel">
-                    <div class="sec-title-wrap">
-                        <div class="sec-title-inner">
-                            <h3 class="title language_replace">會員中心</h3>
-                        </div>
-                    </div>
+                        <div class="member-profile-data-wrapper dataList">
+                            <fieldset class="dataFieldset">
+                                <legend class="sec-title-container sec-title-member">
+                                    <div class="sec-title-wrapper">
+                                        <h1 class="sec-title title-deco"><span class="language_replace">アカウント情報</span></h1>
+                                    </div>
+                                    <!-- 資料更新 Button-->
+                                    <button type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccount()"><i class="icon icon-mask icon-pencile"></i></button>
+                                </legend>
 
-                    <div class="setting-container ">
-                        <!-- 姓名 -->
-                        <div class="box-item expansion">
-                            <div class="box-item-inner tab">
-                                <i class="icon-user"></i>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title sup language_replace">姓名</div>
-                                    <div id="idRealName" class="box-item-desc highlight"></div>
-                                </div>
-                                <%-- <div class="box-item-detail">
-                                    <div class="box-item-title sup language_replace">姓名</div>
-                                    <div id="idNickName" class="box-item-desc highlight"></div>
-                                </div>--%>
-                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-toggle="modal" data-click-btn="openPanel">
-                                    <span class="language_replace">檢視</span>
-                                </button>
-                            </div>
-                            <div class="box-item-inner panel ">
-                                <div class="form-content">
-                                    <form>
-                                        <div class="form-group info" style="display: none">
-                                            <label class="form-title language_replace">國家</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idCountryName"></div>
+                                <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
+                                <div class="dataFieldset-content row no-gutters">
+                                    <div class="data-item name" style="width:50%">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-people"></i>
+                                                <span class="title-name language_replace">姓名</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" class="custom-input-edit" id="RealName" value="" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="data-item password" style="width:50%">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">舊密碼</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="password" class="custom-input-edit" id="idOldPassword" value="">
+                                        </div>
+                                    </div>
+                                    <div class="data-item birth" style="width:50%">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-people"></i>
+                                                <span class="title-name language_replace">生日</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornYear" value="" >
+                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornMonth" value="" >
+                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornDay" value="" >
+                                        </div>
+                                    </div>
+                                    <div class="data-item password" style="width:50%">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">新密碼</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="password" class="custom-input-edit" id="idNewPassword" value="">
+                                        </div>
+                                    </div>
+                                    <div class="data-item mobile">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-mobile"></i>
+                                                <span class="title-name language_replace">電話</span>
+                                            </label>
+                                            <%--<div class="labels labels-status">
+                                                <span class="label language_replace update">更新</span>
+                                                <span class="label language_replace validated">驗證</span>
+                                                <span class="label language_replace unvalidated">未驗證</span>
+                                            </div>--%>
+
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" class="custom-input-edit" id="PhoneNumber" value="" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="data-item email" style="width:100%">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-mail"></i>
+                                                <span class="title-name language_replace">信箱</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="text" class="custom-input-edit" id="Email" value="" >
+                                        </div>
+                                    </div>
+                                    <div class="data-item-group">
+                                        <div class="data-item home" id="divAddress">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-location"></i>
+                                                    <span class="title-name language_replace">地址</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <input type="text" class="custom-input-edit" id="Address" value="" readonly>
                                             </div>
                                         </div>
-                                        <div class="form-group info" style="display: none">
-                                            <label class="form-title language_replace">郵遞區號</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idPostalCode"></div>
+                                        <div class="data-item news">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-flag"></i>
+                                                    <span class="title-name language_replace">メッセージ通知</span>
+                                                </label>
                                             </div>
-                                        </div>
-                                        <div class="form-group info" style="display: none">
-                                            <label class="form-title language_replace">都道縣府</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idPrefectures"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group info" style="display: none">
-                                            <label class="form-title language_replace">地址</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idAddress"></div>
-                                            </div>
-                                        </div>
-                                        <%-- <div class="form-group info">
-                                            <label class="form-title language_replace">生日</label>
-                                            <div class="input-group">
-                                                <input id="idBirthday" type="text" class="form-control custom-style">
-                                            </div>
-                                        </div>--%>
-                                        <div class="form-group info">
-                                            <label class="form-title language_replace">生日</label>
-                                            <div class="form-row">
-                                                <div class="form-group col">
-                                                    <div class="input-group">
-                                                        <input id="idBornYear" type="text" class="form-control custom-style" value="">
-                                                    </div>
+                                            <div class="data-item-content">
+                                                <div class="custom-control custom-checkboxValue custom-control-inline">
+                                                    <label class="custom-label">
+                                                        <input type="checkbox" class="custom-control-input-hidden" checked="checked" id="check_UserGetMail">
+                                                        <div class="custom-input checkbox"><span class="language_replace">最新のイベント情報を受信できるようにする</span></div>
+                                                    </label>
                                                 </div>
-                                                <div class="form-group col">
-                                                    <div class="input-group">
-                                                        <input id="idBornMonth" type="text" class="form-control custom-style" value="">
+
+                                            </div>
+                                        </div>
+                                        <div class="data-item qrcode">
+                                            <div class="data-item-title">
+                                                <label class="title">
+                                                    <i class="icon icon-mask icon-qrocde"></i>
+                                                    <span class="title-name language_replace">我的推廣碼</span>
+                                                </label>
+                                            </div>
+                                            <div class="data-item-content">
+                                                <div class="member-profile-QRcode">
+                                                    <div class="qrcode-img">
+                                                        <span class="img">
+                                                            <img id="QRCodeimg" src="" alt="">
+                                                        </span>
                                                     </div>
-                                                </div>
-                                                <div class="form-group col">
-                                                    <div class="input-group">
-                                                        <input id="idBornDay" type="text" class="form-control custom-style" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group info">
-                                            <label class="form-title language_replace">電話</label>
-                                            <div class="input-group">
-                                                <div class="form-data" id="idPhone"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group info">
-                                            <label class="form-title language_replace">信箱</label>
-                                            <div class="input-group">
-                                                <%--<div class="form-data" id="idEmail"></div>--%>
-                                                <input id="idEmail" type="text" class="form-control custom-style">
-                                            </div>
-                                        </div>
-                                        <%--<div class="text-wrap">
-                                            <p class="note primary text-s language_replace mt-2 mb-3">※會員資料若需要修改，請與客服聯繫。</p>
-                                        </div>--%>
-
-                                        <div class="btn-container">
-                                            <button type="button" class="btn btn-outline-primary btn-md" data-click-btn="closePanel"><span class="language_replace">取消</span></button>
-                                            <button type="button" class="btn btn-primary btn-md" onclick="updateUserAccount()"><span class="language_replace">儲存變更</span></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 生日 -->
-                        <%--  <div class="box-item">
-                            <div class="box-item-inner tab">
-                                <i class="icon-birth"></i>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title sup language_replace">生日</div>
-                                    <div id="idBirthday1" class="box-item-desc highlight"></div>
-                                </div>
-                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-toggle="modal" data-target="#alertContact">
-                                    <span class="language_replace">編輯</span>
-                                </button>
-                            </div>
-                        </div>--%>
-
-                        <!-- 登入密碼 -->
-                        <div id="idLoginPasswordBox" class="box-item expansion">
-                            <div class="box-item-inner tab">
-                                <i class="icon-pw"></i>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title language_replace">登入密碼</div>
-                                </div>
-                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-click-btn="openPanel">
-                                    <span class="language_replace">編輯</span>
-                                </button>
-                            </div>
-                            <div class="box-item-inner panel">
-                                <div class="form-content">
-
-                                    <form>
-                                        <div class="form-group">
-                                            <label class="form-title language_replace">舊密碼</label>
-                                            <div class="input-group">
-                                                <input id="idOldPassword" type="password" class="form-control custom-style" placeholder="" inputmode="email">
-                                                <div class="invalid-feedback language_replace">提示</div>
-                                            </div>
-                                            <button class="btn btn-icon" type="button" onclick="showPassword('idOldPassword')">
-                                                <i class="icon-eye-off"></i>
-                                            </button>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="form-title language_replace">新密碼</label>
-                                            <div class="input-group">
-                                                <input id="idNewPassword" type="password" class="form-control custom-style" placeholder="" inputmode="email">
-                                                <div class="invalid-feedback language_replace">提示</div>
-                                            </div>
-                                            <button class="btn btn-icon" type="button" onclick="showPassword('idNewPassword')">
-                                                <i class="icon-eye-off"></i>
-                                            </button>
-                                        </div>
-
-                                        <div class="btn-container">
-                                            <button type="button" class="btn btn-outline-primary btn-md" data-click-btn="closePanel"><span class="language_replace">取消</span></button>
-                                            <button type="button" class="btn btn-primary btn-md" onclick="changePassword()"><span class="language_replace">儲存變更</span></button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- 取款密碼 -->
-                        <%-- <div id="idWalletPasswordBoxItem" class="box-item expansion">
-                            <div class="box-item-inner tab">
-                                <i class="icon-withdraw-pw"></i>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title">
-                                        <span class="language_replace">取款密碼</span><span style="display: none" id="idWalletPasswordUnSet" class="box-item-status language_replace">尚未設定</span>
-                                    </div>
-                                </div>
-                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-click-btn="openPanel">
-                                    <span class="language_replace">編輯</span>
-                                </button>
-                            </div>
-                            <div class="box-item-inner panel">
-                                <!-- step 1 -->
-                                <div id="idPincodeStep1" class="form-content">
-                                    <div class="form-group pincode-box">
-                                        <label class="form-title language_replace">輸入密碼</label>
-                                        <div id="idWalletDivNew1" class="input-group">
-                                            <input type="password" class="form-control custom-style" maxlength="1" size="1">
-                                            <input type="password" class="form-control custom-style" maxlength="1" size="1">
-                                            <input type="password" class="form-control custom-style" maxlength="1" size="1">
-                                            <input type="password" class="form-control custom-style" maxlength="1" size="1">
-                                        </div>
-                                    </div>
-
-                                    <div class="btn-container">
-                                        <div class="btn btn-outline-primary btn-md" onclick="cancelWalletPassword()"><span class="language_replace">取消</span></div>
-                                        <button class="btn btn-primary btn-md" onclick="setWalletPasswordStep1()"><span class="language_replace">下一步</span></button>
-                                    </div>
-                                </div>
-                                <!-- step 2 -->
-                                <div id="idPincodeStep2" class="form-content is-hide">
-                                    <div class="form-group pincode-box">
-                                        <label class="form-title language_replace">確認密碼</label>
-                                        <div id="idWalletDivNew2" class="input-group">
-                                            <input type="password" class="form-control custom-style" maxlength="1" size="1">
-                                            <input type="password" class="form-control custom-style" maxlength="1" size="1">
-                                            <input type="password" class="form-control custom-style" maxlength="1" size="1">
-                                            <input type="password" class="form-control custom-style" maxlength="1" size="1">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-title language_replace">登入密碼</label>
-                                        <div class="input-group">
-                                            <input id="idWalletLoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="請輸入登入密碼確認" inputmode="email">
-                                            <div class="invalid-feedback language_replace">提示</div>
-                                        </div>
-                                        <button class="btn btn-icon" type="button" onclick="showPassword('idWalletLoginPassword')">
-                                            <i class="icon-eye-off"></i>
-                                        </button>
-                                    </div>
-                                    <div class="btn-container">
-                                        <button class="btn btn-outline-primary btn-md" onclick="cancelWalletPassword()"><span class="language_replace">取消</span></button>
-                                        <button class="btn btn-primary btn-md" onclick="setWalletPasswordStep2()"><span class="language_replace">儲存變更</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>--%>
-                        <!-- 推廣碼 -->
-                        <%--  <div id="idPersonCodeDiv" class="box-item is-hide">
-                            <div class="box-item-inner tab">
-                                <i class="icon-star"></i>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title sup language_replace">我的推薦碼</div>
-                                    <div id="idPersonCode" class="box-item-desc highlight"></div>
-                                    <input id="idCopyPersonCode" class="is-hide">
-                                    <button class="btn btn-icon" onclick="copyText('idCopyPersonCode')">
-                                        <i class="icon-copy"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>--%>
-                        <!-- 金幣轉移 -->
-                        <%--                        <div class="box-item" style="display: none" id="divTransfer">
-                            <div class="box-item-inner tab">
-                                <i class="icon-casinoworld-money-flow"></i>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title language_replace">金幣轉移</div>
-                                </div>
-                                <button class="btn btn-outline-primary btn-sm toggle-panel" onclick="goUserTransfer()">
-                                    <span class="language_replace">前往</span>
-                                </button>
-                            </div>
-                        </div>--%>
-                        <!-- 存款紀錄 -->
-                        <div id="idPaymentDepositHistoryBox" class="box-item expansion">
-                            <div class="box-item-inner tab">
-                                <i class="icon-wallet"></i>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title language_replace">存款紀錄</div>
-                                </div>
-                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-toggle="modal" onclick="window.parent.API_LoadPage('PaymentHistory', 'PaymentHistory.aspx', true)">
-                                    <span class="language_replace">檢視</span>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- 我的推廣碼 -->
-                        <div class="box-item expansion is-hide" id="idPersonCodeDiv">
-                            <div class="box-item-inner tab">
-                                <i class="icon-star"></i>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title language_replace">我的推廣碼</div>
-                                </div>
-                                <button class="btn btn-outline-primary btn-sm toggle-panel" data-toggle="modal" data-click-btn="openPanel">
-                                    <span class="language_replace">檢視</span>
-                                </button>
-                            </div>
-                            <div class="box-item-inner panel ">
-                                <div class="form-content">
-                                    <form>
-                                        <div class="text-wrap">
-                                            <div class="myPromotionCode">
-                                                <div class="myPromotionCode-img">
-                                                    <div class="img-crop">
-                                                        <img id="QRCodeimg" src="" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="myPromotionCode-container">
-                                                    <div class="myPromotionCode-info">
-                                                        <!-- <i class="icon-prepend icon-wallet"></i> -->
-                                                        <span id="idPersonCode" class="data"></span>
+                                                    <div class="qrcode-number">
+                                                        <span class="number" id="PersonCode"></span>
                                                         <input id="idCopyPersonCode" class="is-hide">
+
+                                                        <button type="button" class="btn btn-transparent btn-exchange-avater">
+                                                            <i class="icon icon-mask icon-copy" onclick="copyText('idCopyPersonCode')"></i>
+                                                   
+                                                        </button>
+
                                                     </div>
-                                                    <button class="btn btn-icon btn-copy">
-                                                        <i class="icon-copy" onclick="copyText('idCopyPersonCode')"></i>
-                                                    </button>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </section>
+
+                    <!-- 會員簽到進度顯示 + 活動中心 -->
+                    <section class="section-member-activity">
+
+                        <!-- 會員簽到進度顯示 -->
+                        <div class="activity-dailylogin-wrapper">
+                            <img src="images/member/activity_dailylogin_mobile.png" alt="" class="mobile">
+                            <img src="images/member/activity_dailylogin_desk.png" alt="" class="desktop">
+                        </div>
+
+                        <!-- 活動中心 -->
+                        <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                            <div class="activity-center-inner">
+                                <div class="title">キャンペーン</div>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
+                    <section class="section-member-wallet-transaction">
+                        <div class="member-wallet-deposit-wrapper">
+                            <!-- 錢包中心 -->
+                            <div class="member-wallet-wrapper">
+                                <div class="member-wallet-inner">
+                                    <div class="member-wallet-contnet">
+                                        <h3 class="member-wallet-title">メインウォレット</h3>
+                                        <div class="member-wallet-amount">
+                                            <span class="unit">Ocoin</span>
+                                            <div class="member-deposit">
+                                                <span class="amount" id="idAmount">999,999,999</span>
+                                                <!-- 入金 Button -->
+                                                <span class="btn btn-deposit btn-full-stress btn-round"><i class="icon icon-add"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 履歷紀錄 -->
+                                    <div class="member-record-wrapper">
+                                        <div class="btn" onclick="location.href='record.html';">
+                                            <div class="member-record-title">
+                                                <i class="icon icon-mask icon-list-time"></i>
+                                                <h3 class="title language_replace">履歷紀錄</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 出金門檻: class判斷=> 不足:lacking  足夠:enough-->
+                        <div class="member-withdraw-wrapper lacking" id="divThrehold">
+                            <div class="member-withdraw-limit-wrapper">
+                                <div class="member-withdraw-limit-inner ">
+                                    <i class="icon icon-mask icon-lock"></i>
+                                    <span class="member-withdraw-limit-content">
+                                        <!-- 出金門檻 不足-->
+                                        <span class="title lacking">出金ロック解除まで</span>
+                                        <!-- 出金門檻 足夠-->
+                                        <span class="title enough">ゴールドアウト</span>
+                                        <!-- 出入金說明 -->
+                                        <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
+                                        <!-- 出金門檻 -->
+                                        <span class="limit-amount" id="idThrehold"></span>
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </main>
+    <footer class="footer"></footer>
+    <!-- Modal - Game Info for Mobile Device-->
+    <div class="modal fade no-footer popupGameInfo " id="popupGameInfo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="game-info-mobile-wrapper gameinfo-pack-bg">
+                        <div class="game-item">
+                            <div class="game-item-inner">
+                                <div class="game-item-focus">
+                                    <div class="game-item-img">
+                                        <span class="game-item-link"></span>
+                                        <div class="img-wrap">
+                                            <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        </div>
+                                    </div>
+                                    <div class="game-item-info-detail open">
+                                        <div class="game-item-info-detail-wrapper">
+                                            <div class="game-item-info-detail-moreInfo">
+                                                <ul class="moreInfo-item-wrapper">
+                                                    <li class="moreInfo-item brand">
+                                                        <span class="title">メーカー</span>
+                                                        <span class="value">PG</span>
+                                                    </li>
+                                                    <li class="moreInfo-item RTP">
+                                                        <span class="title">RTP</span>
+                                                        <span class="value number">96.66</span>
+                                                    </li>
+                                                    <li class="moreInfo-item gamecode">
+                                                        <span class="title">NO.</span>
+                                                        <span class="value number">00976</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="game-item-info-detail-indicator">
+                                                <div class="game-item-info-detail-indicator-inner">
+                                                    <div class="info">
+                                                        <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                    </div>
+                                                    <div class="action">
+                                                        <div class="btn-s-wrapper">
+                                                            <button type="button" class="btn-thumbUp btn btn-round">
+                                                                <i class="icon icon-thumup"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-like btn btn-round">
+                                                                <i class="icon icon-heart-o"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-more btn btn-round">
+                                                                <i class="arrow arrow-down"></i>
+                                                            </button>
+                                                        </div>
+                                                        <button type="button" class="btn btn-play">
+                                                            <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="btn-container">
-                                            <button type="button" class="btn btn-outline-primary btn-md" data-click-btn="closePanel"><span class="language_replace">取消</span></button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="activity-container is-hide">
-                    <div class="activity-inner">
-                        <h5 class="subject-title language_replace">熱門活動</h5>
-                        <div class="text-wrap promo-container">
-                            <ul class="promo-list row">
-                                <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
-                                    <div class="promo-inner">
-                                        <div class="promo-img">
-                                            <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
-                                                target="_blank">
-                                                <div class="img-crop">
-                                                    <img src="images/activity/promo-02.jpg"
-                                                        alt="パチンコって何？それっておいしいの？">
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="promo-content">
-                                            <h6 class="title">お客様活用、紹介ランディングページその②（パチンコ好き）</h6>
-                                            <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
-                                                <span class="language_replace">複製活動連結</span>
-                                            </button>
-                                        </div>
                                     </div>
-                                </li>
-                                <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
-                                    <div class="promo-inner">
-                                        <div class="promo-img">
-                                            <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
-                                                target="_blank">
-                                                <div class="img-crop">
-                                                    <img src="images/activity/promo-01.jpg"
-                                                        alt="とりあえず、当社のドメインで紹介用LPをアップしてみました。">
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="promo-content">
-                                            <h6 class="title">お客様活用、紹介ランディングページその①（主婦）</h6>
-                                            <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()">
-                                                <span class="language_replace">複製活動連結</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </div>
-
-        <!-- avatar popup -->
-        <div id="idAvatarPopup" class="overlay-container is-hide" data-form-group="avatar">
-            <div class="box-item avatar-select-container">
-                <div class="box-item-inner">
-                    <p class="text-center mb-4 language_replace">選擇頭像</p>
-                    <div class="swiper-container" id="avatar-select">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="avatar-select">
-                                    <input type="radio" name="avatar" data-avatar_value="avatar-05">
-                                    <label for="avatar-05">
-                                        <div class="avatar">
-                                            <img src="images/assets/avatar/avatar-05.jpg">
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="avatar-select">
-                                    <input type="radio" name="avatar" data-avatar_value="avatar-06">
-                                    <label for="avatar-06">
-                                        <div class="avatar">
-                                            <img src="images/assets/avatar/avatar-06.jpg">
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            <%--
-                            <div class="swiper-slide">
-                                <div class="avatar-select">
-                                    <input type="radio" name="avatar" data-avatar_value="avatar-01">
-                                    <label for="avatar-01">
-                                        <div class="avatar">
-                                            <img src="images/assets/avatar/avatar-01.jpg">
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="avatar-select">
-                                    <input type="radio" name="avatar" data-avatar_value="avatar-02">
-                                    <label for="avatar-02">
-                                        <div class="avatar">
-                                            <img src="images/assets/avatar/avatar-02.jpg">
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="avatar-select">
-                                    <input type="radio" name="avatar" data-avatar_value="avatar-03">
-                                    <label av for="avatar-03">
-                                        <div class="avatar">
-                                            <img src="images/assets/avatar/avatar-03.jpg">
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="avatar-select">
-                                    <input type="radio" name="avatar" data-avatar_value="avatar-04">
-                                    <label for="avatar-04">
-                                        <div class="avatar">
-                                            <img src="images/assets/avatar/avatar-04.jpg">
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            --%>
-                        </div>
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                    </div>
-
-                    <div class="d-flex justify-content-center btn-container">
-                        <button class="btn btn-outline-primary btn-md" onclick="closeAvatar()"><span class="language_replace">取消</span></button>
-                        <button class="btn btn-primary btn-md" onclick="saveAvatar()"><span class="language_replace">儲存變更</span></button>
-                    </div>
-                </div>
-            </div>
-            <div class="overlay-backdrop"></div>
-        </div>
-
-
-        <!-- Modal 有按鈕-->
-        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContact" aria-hidden="true" id="alertContact">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="icon-close-small"></i></span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="modal-body-content">
-                            <i class="icon-error_outline primary"></i>
-                            <div class="text-wrap">
-                                <p class="language_replace">變更個人資訊，請透過客服進行 ！</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-container">
-                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">前往客服</span></button>
-                            <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 </html>
