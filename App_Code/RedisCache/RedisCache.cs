@@ -1417,6 +1417,41 @@ public static class RedisCache {
             return DT;
         }
 
+        public static int GetMaxGameID()
+        {
+            string Key;
+            string MaxGameID = "0";
+            Key = XMLPath + ":MaxGameID";
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                MaxGameID = JsonReadFromRedis(DBIndex, Key);
+            }
+       
+            return int.Parse(MaxGameID);
+        }
+
+        public static int UpdateMaxGameID(int MaxGameID)
+        {
+            string Key;
+
+            Key = XMLPath + ":MaxGameID";
+
+            for (int I = 0; I <= 3; I++)
+            {
+                try
+                {
+                    JsonStringWriteToRedis(0, MaxGameID.ToString(), Key);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            return MaxGameID;
+        }
+
         public static System.Data.DataTable UpdateCompanyGameCode() {
             string Key;
             string SS;
@@ -1483,7 +1518,7 @@ public static class RedisCache {
         public static string UpdateAllCompanyGameCodeFromDB()
         {
             string Key;
-            string JsonString="";
+            string JsonString = "";
             System.Data.SqlClient.SqlCommand DBCmd;
             EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
             EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
@@ -1524,17 +1559,18 @@ public static class RedisCache {
         public static string GetAllCompanyGameCode()
         {
             string Key;
-            string DATA="";
+            string DATA = "";
             Key = XMLPath + ":All";
 
             if (KeyExists(DBIndex, Key) == true)
             {
                 DATA = JsonReadFromRedis(DBIndex, Key);
             }
-            else {
+            else
+            {
                 DATA = UpdateAllCompanyGameCodeFromDB();
             }
-           
+
             return DATA;
         }
 

@@ -415,7 +415,7 @@
                 //API_LoadingStart(); 
                 //IFramePage.style.height = "0px";
                 IFramePage.src = url;
-
+                IFramePage.onload = null;
 
 
                 //IFramePage.
@@ -698,7 +698,9 @@
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 API_LoadingStart();
                 IFramePage.src = url;
-      
+                IFramePage.onload = function () {
+                    API_LoadingEnd();
+                }
             }
         }
     }
@@ -1827,7 +1829,11 @@
                         <div class="searchFilter-item input-group">
                             <select class="custom-select">
                                 <option class="title" selected><span class="language_replace">遊戲品牌</span></option>
+                                <option class="searchFilter-option" value=""><span class="language_replace">BTI</span></option>
+                                <option class="searchFilter-option" value=""><span class="language_replace">CG</span></option>
+                                <option class="searchFilter-option" value=""><span class="language_replace">KGS</span></option>
                                 <option class="searchFilter-option" value=""><span class="language_replace">PG</span></option>
+              
                             </select>
                         </div>
                         <div class="searchFilter-item input-group">
