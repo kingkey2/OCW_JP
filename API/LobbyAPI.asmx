@@ -543,32 +543,48 @@ public class LobbyAPI : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public OcwAllCompanyGameCodeResult GeAlltCompanyGameCode(string GUID)
     {
+        System.Data.DataTable CompanyCategoryDT = null;
+        System.Data.DataTable CompanyGameCodeDT = null;
+        int CategoryType = 0;
+        int CompanyCategoryID = 0;
+        CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
+
         OcwAllCompanyGameCodeResult Ret = new OcwAllCompanyGameCodeResult() { Datas = new List<OcwCompanyGameCode>() };
-        string GameCodeJsonStr = RedisCache.CompanyGameCode.GetAllCompanyGameCode();
 
-        if (!string.IsNullOrEmpty(GameCodeJsonStr))
+        if (CompanyCategoryDT!=null&&CompanyCategoryDT.Rows.Count>0)
         {
-            List<EWin.Lobby.GameCodeItem> gameCodeItems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EWin.Lobby.GameCodeItem>>(GameCodeJsonStr);
-            for (int i = 0; i < gameCodeItems.Count; i++)
+            for (int k = 0; k < CompanyCategoryDT.Rows.Count; k++)
             {
-                OcwCompanyGameCode ocwGameCode = new OcwCompanyGameCode()
+                CategoryType = int.Parse(CompanyCategoryDT.Rows[k]["CategoryType"].ToString());
+                if (CategoryType==3)
                 {
-                    GameID = gameCodeItems[i].GameID,
-                    GameBrand = gameCodeItems[i].BrandCode,
-                    GameCode = gameCodeItems[i].GameCode,
-                    GameName = gameCodeItems[i].GameName,
-                    GameCategoryCode = gameCodeItems[i].GameCategoryCode,
-                    GameCategorySubCode = gameCodeItems[i].GameCategorySubCode,
-                    AllowDemoPlay = gameCodeItems[i].AllowDemoPlay,
-                    RTPInfo = gameCodeItems[i].RTPInfo,
-                    IsHot = gameCodeItems[i].IsHot,
-                    IsNew = gameCodeItems[i].IsNew,
-                    SortIndex = gameCodeItems[i].SortIndex
-                    //Tag = gameCodeItems[i].Tag
-                };
+                    CompanyCategoryID= int.Parse(CompanyCategoryDT.Rows[k]["CompanyCategoryID"].ToString());
+                    CompanyGameCodeDT = RedisCache.CompanyGameCode.GetCompanyGameCodeByID(CompanyCategoryID);
+                    if (CompanyGameCodeDT != null && CompanyGameCodeDT.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < CompanyGameCodeDT.Rows.Count; i++)
+                        {
+                            OcwCompanyGameCode ocwGameCode = new OcwCompanyGameCode()
+                            {
+                                GameID = (int)CompanyGameCodeDT.Rows[i]["GameID"],
+                                GameBrand = (string)CompanyGameCodeDT.Rows[i]["BrandCode"],
+                                GameCode = (string)CompanyGameCodeDT.Rows[i]["GameCode"],
+                                GameName = (string)CompanyGameCodeDT.Rows[i]["GameName"],
+                                GameCategoryCode = (string)CompanyGameCodeDT.Rows[i]["GameCategoryCode"],
+                                GameCategorySubCode = (string)CompanyGameCodeDT.Rows[i]["GameCategorySubCode"],
+                                AllowDemoPlay = (int)CompanyGameCodeDT.Rows[i]["AllowDemoPlay"],
+                                RTPInfo = (string)CompanyGameCodeDT.Rows[i]["RTPInfo"],
+                                IsHot = (int)CompanyGameCodeDT.Rows[i]["IsHot"],
+                                IsNew = (int)CompanyGameCodeDT.Rows[i]["IsNew"],
+                                SortIndex = (int)CompanyGameCodeDT.Rows[i]["SortIndex"]
+                            };
 
-                Ret.Datas.Add(ocwGameCode);
+                            Ret.Datas.Add(ocwGameCode);
+                        }
+                    }
+                }
             }
+            Ret.MaxGameID = RedisCache.CompanyGameCode.GetMaxGameID();
 
             Ret.Result = EWin.Lobby.enumResult.OK;
         }
@@ -1685,6 +1701,7 @@ public class LobbyAPI : System.Web.Services.WebService
     public class OcwAllCompanyGameCodeResult : EWin.Lobby.APIResult
     {
         public List<OcwCompanyGameCode> Datas { get; set; }
+        public int MaxGameID { get; set; }
     }
 
     public class OcwCompanyCategory

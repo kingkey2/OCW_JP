@@ -179,8 +179,6 @@ public class SyncAPI : System.Web.Services.WebService
                                 InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxRTPYesterdayCategoryID, data.BrandCode, data.GameName, QTY.ToString(), data.GameID, data.GameCategoryCode, data.GameCategorySubCode,data.AllowDemoPlay, data.RTPInfo, data.IsHot, data.IsNew,string.IsNullOrEmpty(data.Tag)?"":data.Tag,0);
                             }
                         }
-
-                        RedisCache.CompanyGameCode.UpdateCompanyGameCode();
                     }
                     else
                     {
@@ -272,6 +270,7 @@ public class SyncAPI : System.Web.Services.WebService
         int IsGameBrandCategoryID;
         int IsCategoryCodeCategoryID = 0;
         System.Data.DataRow DataRow;
+        int MaxGameID = 0;
         string GameBrand;
         string GameCategoryCode;
         string GameCategorySubCode;
@@ -328,10 +327,16 @@ public class SyncAPI : System.Web.Services.WebService
                         EWinWebDB.CompanyGameCode.DeleteCompanyGameCode();
                         for (int i = 0; i < companyGameCodeResult.GameCodeList.Length; i++)
                         {
+                            if (MaxGameID<companyGameCodeResult.GameCodeList[i].GameID)
+                            {
+                                MaxGameID = companyGameCodeResult.GameCodeList[i].GameID;
+                            }
+
                             Tag = companyGameCodeResult.GameCodeList[i].Tag == null ? "" : Newtonsoft.Json.JsonConvert.SerializeObject(companyGameCodeResult.GameCodeList[i].Tag);
                             GameBrand = companyGameCodeResult.GameCodeList[i].GameCode.Split('.')[0];
                             GameCategoryCode = companyGameCodeResult.GameCodeList[i].GameCategoryCode;
                             GameCategorySubCode = companyGameCodeResult.GameCodeList[i].GameCategorySubCode;
+
                             #region 熱門遊戲
                             if (companyGameCodeResult.GameCodeList[i].IsHot == 1)
                             {
@@ -401,7 +406,6 @@ public class SyncAPI : System.Web.Services.WebService
                                     {
                                         CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
                                     }
-
                                 }
 
                                 IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameCategorySubCode + "'")[0]["CompanyCategoryID"];
@@ -455,9 +459,9 @@ public class SyncAPI : System.Web.Services.WebService
                         }
 
                         R= UpdateCompanyCategoryByStatistics();
-
+                        RedisCache.CompanyGameCode.UpdateMaxGameID(MaxGameID);
                         RedisCache.CompanyGameCode.UpdateCompanyGameCode();
-                        RedisCache.CompanyGameCode.UpdateAllCompanyGameCode(Newtonsoft.Json.JsonConvert.SerializeObject(companyGameCodeResult.GameCodeList));
+
                     }
                     else
                     {
