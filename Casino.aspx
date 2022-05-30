@@ -197,7 +197,7 @@
                     if (category.ShowType==0) {
                         categArea = c.getTemplate("temCategArea");
                         categName = category.CategoryName.replace('@', '').replace('#', '');
-                        $(categArea).find('.CategName').text(categName);
+                        $(categArea).find('.CategName').text(mlp.getLanguageKey(categName));
                     } else {
                         categArea = c.getTemplate("temCategArea2");
                     }
