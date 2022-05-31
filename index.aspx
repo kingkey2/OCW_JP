@@ -1256,7 +1256,7 @@
                 }
 
                 //getCompanyGameCode();
-                //getCompanyGameCodeTwo();
+                getCompanyGameCodeTwo();
                 //登入Check
                 window.setTimeout(function () {
                     lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
@@ -1412,6 +1412,7 @@
                     LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
 
                     LobbyGameList.CategoryList = CategoryList;
+                    notifyWindowEvent("GameLoadEnd",null);
                 } else {
                     showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
                 }

@@ -409,6 +409,7 @@
                     //selGameCategory(nowCateg);
                 });
                 break;
+
         }
     }
 

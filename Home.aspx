@@ -118,15 +118,14 @@
         p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
-        HotList = window.parent.API_GetGameList(1);
+        //HotList = window.parent.API_GetGameList(1);
         window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
             //if (WebInfo.FirstLoaded) {
-                window.parent.API_LoadingEnd();
+            
             //}
-
-            LobbyGameList = window.parent.API_GetGameList();
-            updateGameList();
+         
+         
             if (p != null) {
                 //window.parent.sleep(500).then(() => {
                 //    if (WebInfo.UserLogined) {
@@ -329,6 +328,12 @@
             case "IndexFirstLoad":
                 //window.parent.API_LoadingEnd();
 
+                break;
+            case "GameLoadEnd":
+                //window.parent.API_LoadingEnd();
+                LobbyGameList= window.parent.API_GetGameList();
+                updateGameList();
+                window.parent.API_LoadingEnd();
                 break;
         }
     }
