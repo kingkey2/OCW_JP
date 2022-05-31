@@ -445,11 +445,39 @@
                     <!-- 會員簽到進度顯示 + 活動中心 -->
                     <section class="section-member-activity">
 
-                        <!-- 會員簽到進度顯示 -->
-                        <div class="activity-dailylogin-wrapper">
-                            <img src="images/member/activity_dailylogin_mobile.png" alt="" class="mobile">
-                            <img src="images/member/activity_dailylogin_desk.png" alt="" class="desktop">
+                         <!-- 會員簽到進度顯示 -->
+                    <div class="activity-dailylogin-wrapper">
+                        <div class="dailylogin-bouns-wrapper">
+                            <div class="dailylogin-bouns-inner">
+                                <div class="dailylogin-bouns-content">
+                                    <h3 class="title">
+                                        <span class="name ">ログイン毎日の賞</span></h3>
+                                    <ul class="dailylogin-bouns-list">
+                                        <!-- 已領取 bouns => got-->
+                                        <li class="bouns-item got">
+                                            <span class="day"><span class="language_replace">金</span></span></li>
+                                        <li class="bouns-item saturday">
+                                            <span class="day"><span class="language_replace">土</span></span>
+                                        </li>
+                                        <li class="bouns-item sunday">
+                                            <span class="day"><span class="language_replace">日</span></span></li>
+                                        <li class="bouns-item">
+                                            <span class="day"><span class="language_replace">月</span></span>
+                                        </li>
+                                        <li class="bouns-item">
+                                            <span class="day"><span class="language_replace">火</span></span></li>
+                                        <li class="bouns-item">
+                                            <span class="day"><span class="language_replace">水</span></span>
+                                        </li>
+                                        <li class="bouns-item">
+                                            <span class="day"><span class="language_replace">木</span></span>
+                                        </li>
+                                    </ul>
+                                    
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
                         <!-- 活動中心 -->
                         <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
