@@ -192,6 +192,22 @@
 
     }
 
+     function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "LoginState":
+
+                break;
+            case "BalanceChange":
+                break;
+
+            case "SetLanguage":
+                var lang = param;
+
+                mlp.loadLanguage(lang);
+                break;
+        }
+    }
+
     function init() {
         if (self == top) {
             window.location.href = "index.aspx";
@@ -426,7 +442,7 @@
                                             <div class="member-deposit">
                                                 <span class="amount" id="idAmount">999,999,999</span>
                                                 <!-- 入金 Button -->
-                                                <span class="btn btn-deposit btn-full-stress btn-round"><i class="icon icon-add"></i></span>
+                                                <span class="btn btn-deposit btn-full-stress btn-round" onclick="window.top.API_LoadPage('Deposit','Deposit.aspx', true)"><i class="icon icon-add"></i></span>
                                             </div>
                                         </div>
                                     </div>

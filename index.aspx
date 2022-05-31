@@ -1505,7 +1505,7 @@
                                             <i class="icon icon-mask icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
                                     </li>
-                                    <li class="nav-item submenu dropdown">
+                                    <%--<li class="nav-item submenu dropdown">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-poker"></i>
                                             <span class="title language_replace">撲克</span></a>
@@ -1538,7 +1538,7 @@
                                             <i class="icon icon-mask icon-ect"></i>
                                             <span class="title language_replace">其他</span>
                                         </a>
-                                    </li>                                   
+                                    </li>--%>                                   
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory">
@@ -1564,7 +1564,7 @@
                                             <span class="title language_replace">個人錢包</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
-                                        <a class="nav-link">
+                                        <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
                                             <%--<i class="icon icon-mask icon-loudspeaker"></i>--%>
                                             <span class="title language_replace">履歷記錄</span></a>
                                     </li>

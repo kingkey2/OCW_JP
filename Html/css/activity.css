@@ -4,7 +4,7 @@
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .activity-item {
   position: relative;
-  width: calc(100% / 1);
+  width: 100%;
   padding: 10px;
 }
 .activity-item-group {
@@ -24,7 +24,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.25);
 }
 .activity-item .img-wrap {
-  padding-bottom: calc( 100% * ( 316 / 500));
+  padding-bottom: 63.2%;
   border-radius: 8px;
   background-repeat: no-repeat;
   background-position: center;
@@ -65,12 +65,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-bottom: 0.5rem;
 }
 
-.date-period .month:before, .date-period .day:before {
-  content: "/";
-  display: inline-block;
-  padding: 0;
-}
-
 .tab-prize {
   width: 20%;
   margin-bottom: 0;
@@ -81,15 +75,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .tab-prize .tab-scroller__content .tab-item {
   font-weight: bold;
 }
-.tab-prize .tab-scroller__content .tab-item:not(:first-child) {
-  border-left: solid 1px #000;
-  padding-left: 1rem;
-}
-
 .prize-item {
   position: relative;
   padding: 12px;
-  width: calc(100% / 1);
+  width: 100%;
   padding: 10px;
 }
 .prize-item-group {
@@ -112,7 +101,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   flex: 0 0 160px;
 }
 .prize-item .img-wrap {
-  padding-bottom: calc( (85 / 160) * 100% );
+  padding-bottom: 53.125%;
   border-radius: 8px;
   background-repeat: no-repeat;
   background-position: center;
@@ -162,7 +151,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .prize-item .btn-bouns:before {
   content: "";
   display: block;
-  width: calc( 100% - 20px);
+  width: calc(100% - 20px);
   height: 100%;
   height: 0;
   padding-bottom: 60%;
@@ -231,7 +220,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 768px) {
   .activity-item {
-    width: calc(100% / 2);
+    width: 50%;
   }
 
   .activity-popup-detail-img .mobile {
@@ -243,11 +232,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 992px) {
   .prize-item {
-    width: calc(100% / 2);
+    width: 50%;
   }
 
   .activity-item {
-    width: calc(100% / 3);
+    width: 33.3333333333%;
   }
 }
 @media screen and (max-width: 576px) {
