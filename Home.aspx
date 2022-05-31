@@ -55,7 +55,8 @@
     //var marqueeText = "<%=MarqueeText%>";
     var LobbyGameList;
     var HotList;
-    var v ="<%:Version%>";
+    var v = "<%:Version%>";
+    var initCreatedGameList = false;
     //temp
 
     var MyGames;
@@ -119,13 +120,18 @@
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         //HotList = window.parent.API_GetGameList(1);
-        window.parent.API_LoadingStart();
+        //window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
             //if (WebInfo.FirstLoaded) {
-            
+            window.parent.API_LoadingEnd(1);
             //}
-         
-         
+            LobbyGameList = window.parent.API_GetGameList();
+          
+            if (LobbyGameList) {
+                updateGameList();
+            }
+            
+          
             if (p != null) {
                 //window.parent.sleep(500).then(() => {
                 //    if (WebInfo.UserLogined) {
@@ -146,7 +152,7 @@
     }
 
     function updateGameList() {
-
+   
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
 
@@ -238,7 +244,7 @@
 
                     if (category.ShowType == 0) {
                         new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
-                            loop: true,
+                            loop: false,
                             slidesPerView: "auto",
                             slidesPerGroup: 8,
                             navigation: {
@@ -330,10 +336,13 @@
 
                 break;
             case "GameLoadEnd":
-                //window.parent.API_LoadingEnd();
-                LobbyGameList= window.parent.API_GetGameList();
-                updateGameList();
-                window.parent.API_LoadingEnd();
+                //if (!initCreatedGameList) {
+                        mlp = new multiLanguage(v);
+                        WebInfo = window.parent.API_GetWebInfo();
+                        LobbyGameList = window.parent.API_GetGameList();
+                        updateGameList();
+                //}
+                
                 break;
         }
     }

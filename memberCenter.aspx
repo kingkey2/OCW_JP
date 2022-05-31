@@ -33,6 +33,7 @@
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
 <script>
+
     if (self != top) {
         window.parent.API_LoadingStart();
     }
@@ -77,7 +78,7 @@
         $("#idAmount").text(new BigNumber(WebInfo.UserInfo.WalletList.find(x => x.CurrencyType == window.parent.API_GetCurrency()).PointValue).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
-        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
+        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"/**************************/"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
 
         var ThresholdInfos = WebInfo.UserInfo.ThresholdInfo;
         if (ThresholdInfos && ThresholdInfos.length > 0) {
@@ -109,45 +110,66 @@
 
     }
 
+    function updateUserAccountRemoveReadOnly() {
+        $('#idBornYear').removeAttr("readonly");
+        $('#idBornMonth').removeAttr("readonly");
+        $('#idBornDay').removeAttr("readonly");
+        $('#Email').removeAttr("readonly");
+        $('.data-item.password').show();
+        $('#updateUserAccountRemoveReadOnlyBtn').hide();
+        $('#updateUserAccountBtn').show();
+        
+    }
+
     function updateUserAccount() {
-        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+        
+        let ExtraData = WebInfo.UserInfo.ExtraData?JSON.parse(WebInfo.UserInfo.ExtraData):[];
         let strExtraData = "";
         let strEmail = "";
         let strOldPassword = "";
         let strNewPassword = "";
 
         if ($("#idBornYear").val() != "" && $("#idBornMonth").val() != "" && $("#idBornDay").val() != "") {
-            let findBirthday = ExtraData.filter(x => x.Name == "Birthday").length;
-            if (findBirthday == 0) {
-                let data_Birthday = {
+            if (ExtraData.length != 0 && ExtraData.filter(x => x.Name == "Birthday").length>0) {
+
+                let findBirthday = ExtraData.filter(x => x.Name == "Birthday").length;
+                if (findBirthday == 0) {
+                    var data_Birthday = {
+                        "Name": "Birthday",
+                        "Value": $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val()
+                    }
+
+                    ExtraData.push(data_Birthday);
+                }
+                else {
+                    for (var i = 0; i < ExtraData.length; i++) {
+                        if (ExtraData[i].Name == "Birthday") {
+                            ExtraData[i].Value = $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val();
+                        }
+                    }
+                }
+            } else {
+                var data_Birthday = {
                     "Name": "Birthday",
                     "Value": $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val()
                 }
 
                 ExtraData.push(data_Birthday);
-            } else {
-                for (var i = 0; i < ExtraData.length; i++) {
-                    if (ExtraData[i].Name == "Birthday") {
-                        ExtraData[i].Value = $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val();
-                    }
-                }
             }
         }
-
-        let findUserGetMail = ExtraData.filter(x => x.Name == "UserGetMail").length;
-        if (findUserGetMail == 0) {
-            let data_UserGetMail = {
-                "Name": "UserGetMail",
-                "Value": $("#check_UserGetMail").prop("checked")
-            }
-
-            ExtraData.push(data_UserGetMail);
-        } else {
+        if (ExtraData.length != 0 && ExtraData.filter(x => x.Name == "UserGetMail").length > 0) {
             for (var i = 0; i < ExtraData.length; i++) {
                 if (ExtraData[i].Name == "UserGetMail") {
                     ExtraData[i].Value = $("#check_UserGetMail").prop("checked");
                 }
             }
+        } else {
+            var data_UserGetMail = {
+                "Name": "UserGetMail",
+                "Value": $("#check_UserGetMail").prop("checked")
+            }
+
+            ExtraData.push(data_UserGetMail);
         }
 
         strExtraData = JSON.stringify(ExtraData);
@@ -157,14 +179,14 @@
         }
 
         if ($("#idOldPassword").val() != "") {
-            strOldPassword = $("#idOldPassword").val();
+            strOldPassword = $("#idOldPassword").val().trim();
         }
 
         if ($("#idNewPassword").val() != "") {
-            strNewPassword = $("#idNewPassword").val();
+            strNewPassword = $("#idNewPassword").val().trim();
         }
 
-        let updateinfo = {
+        var updateinfo = {
             "EMail": strEmail,
             "ExtraData": strExtraData,
             "OldPassword": strOldPassword,
@@ -174,7 +196,16 @@
         p.UpdateUserAccount(WebInfo.SID, Math.uuid(), updateinfo, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
+                    $('#idBornYear').attr("readonly", "readonly");
+                    $('#idBornMonth').attr("readonly", "readonly");
+                    $('#idBornDay').attr("readonly", "readonly");
+                    $('#Email').attr("readonly", "readonly");
+                    $('.data-item.password').hide();
+                    $('#updateUserAccountRemoveReadOnlyBtn').show();
+                    $('#updateUserAccountBtn').hide();
+
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("成功"), function () {
+
                          window.top.API_RefreshUserInfo(function () {
                         });
                     });
@@ -265,7 +296,8 @@
                                         <h1 class="sec-title title-deco"><span class="language_replace">アカウント情報</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
-                                    <button type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccount()"><i class="icon icon-mask icon-pencile"></i></button>
+                                    <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
+                                    <button id="updateUserAccountBtn" type="button" style="display:none;" class="btn btn-edit btn-full-main" onclick="updateUserAccount()"><i class="icon icon-mask icon-pencile"></i></button>
                                 </legend>
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
@@ -281,7 +313,7 @@
                                             <input type="text" class="custom-input-edit" id="RealName" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item password" style="width:50%">
+                                    <div class="data-item password" style="width:50%;display:none;">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
@@ -300,12 +332,12 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornYear" value="" >
-                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornMonth" value="" >
-                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornDay" value="" >
+                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornYear" value="" readonly>
+                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornMonth" value="" readonly>
+                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item password" style="width:50%">
+                                    <div class="data-item password" style="width:50%;display:none;">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
@@ -341,7 +373,7 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="text" class="custom-input-edit" id="Email" value="" >
+                                            <input type="text" class="custom-input-edit" id="Email" value="" readonly>
                                         </div>
                                     </div>
                                     <div class="data-item-group">
