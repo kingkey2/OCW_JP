@@ -329,7 +329,7 @@
                             $(RecordDom).find('.CategIcon').addClass('icon-real');
                             break;
                         case 'GameList_Electron':
-                            $(RecordDom).find('.CategIcon').addClass('icon-ect');
+                            $(RecordDom).find('.CategIcon').addClass('icon-slot');
                             break;
                         case 'GameList_Other':
                             $(RecordDom).find('.CategIcon').addClass('icon-ect');
@@ -409,6 +409,7 @@
                     //selGameCategory(nowCateg);
                 });
                 break;
+
         }
     }
 
