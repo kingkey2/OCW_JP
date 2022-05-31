@@ -174,6 +174,7 @@
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+<script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -205,7 +206,7 @@
 
     var selectedWallet = null;
     var v = "<%=Version%>";
-
+    var GCB;
     var GameInfoModal;
     var MessageModal;
     var gameWindow;
@@ -1215,6 +1216,15 @@
     }
 
     function init() {
+        if (navigator.webdriver == true) {
+            return;
+        }
+
+        GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 500, function () {
+
+        });
+    
+
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
 
@@ -1398,7 +1408,7 @@
     }
 
     function getCompanyGameCodeTwo() {
-
+        //return
         var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
 
         var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
