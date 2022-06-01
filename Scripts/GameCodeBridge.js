@@ -2,6 +2,7 @@
     var myWorker
     var CtList = null;
     var SearchCore = null;
+    var TimeStamp = 0;
 
     this.FirstLoaded = false;
     this.SearchGameCodeByLang = function (lang, searchText, gameBrand, gameCategoryCode) {
@@ -10,7 +11,7 @@
         let langTemp;
         //find GameID
 
-        if (brand) {
+        if (gameBrand) {
             let targetBrand = SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
 
             if (targetBrand) {
@@ -19,26 +20,28 @@
             } else {
                 langTemp = SearchCore.SearchDic.Langs[lang];
             }
+        } else {
+            langTemp = SearchCore.SearchDic.Langs[lang];
+        }
 
-            if (langTemp) {
-                findCharList = temp[searchText[0]];
+        if (langTemp) {
+            findCharList = temp[searchText[0]];
 
-                if (findCharIndexObj) {
-                    for (var i = 0; i < findCharList.length; i++) {
-                        // gameID + 
-                        let charObj = findCharList[i];
-                        if (charObj.TargetValue.indexOf(searchText) != -1) {
-                            let IndexOne = Math.trunc(charObj.GameID / 100);
-                            let IndexTwo = charObj.GameID % 100;
-                            let gameCodeObj = SearchCore.GameList.Slices[IndexOne][IndexTwo];
+            if (findCharIndexObj) {
+                for (var i = 0; i < findCharList.length; i++) {
+                    // gameID + 
+                    let charObj = findCharList[i];
+                    if (charObj.TargetValue.indexOf(searchText) != -1) {
+                        let IndexOne = Math.trunc(charObj.GameID / 100);
+                        let IndexTwo = charObj.GameID % 100;
+                        let gameCodeObj = SearchCore.GameList.Slices[IndexOne][IndexTwo];
 
-                            if (gameCategoryCode) {
-                                if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
-                                    Ret.push(gameCodeObj);
-                                }
-                            } else {
+                        if (gameCategoryCode) {
+                            if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
                                 Ret.push(gameCodeObj);
-                            }                            
+                            }
+                        } else {
+                            Ret.push(gameCodeObj);
                         }
                     }
                 }
@@ -52,7 +55,7 @@
         //find GameID
 
         let targetBrand = SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
-    
+
 
         for (var i = 0; i < targetBrand.AllGame.length; i++) {
             // gameID + 
@@ -75,7 +78,7 @@
     this.GetGameCode = function (gameID) {
         let IndexOne = Math.trunc(gameID / 100);
         let IndexTwo = gameID % 100;
-        return SearchCore.GameList.Slices[IndexOne][IndexTwo];
+        return this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
     }
     this.GetCategories = function (loactions) {
         let Ret;
@@ -91,7 +94,7 @@
         } else {
             Ret = CtList;
         }
-        
+
 
         return Ret;
     }
@@ -112,18 +115,26 @@
     this.onLoaded = loadedEvent;
     this.init = function () {
         myWorker = new Worker("/Scripts/worker.js");
+
+        //if (sessionStorage.getItem()) {
+
+        //}
+
+
         myWorker.postMessage({
-            Cmd : "Init",
+            Cmd: "Init",
             Params: [version, url, langUrl, 5000]
         });
+
         myWorker.onmessage = (function (e) {
             if (e.data) {
                 switch (e.data.Cmd) {
                     case "RefreshCtList":
                         this.CtList = e.data.Data;
 
-                        if (FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {                               
+
+                        if (this.FirstLoaded == false) {
+                            if (CtList != null && SearchCore != null) {
                                 if (this.onLoaded) {
                                     this.onLoaded();
                                 }
@@ -140,8 +151,8 @@
                     case "RefreshDic":
                         this.SearchCore = e.data.Data;
 
-                        if (FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {                               
+                        if (this.FirstLoaded == false) {
+                            if (CtList != null && SearchCore != null) {
                                 if (this.onLoaded) {
                                     this.onLoaded();
                                 }
