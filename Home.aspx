@@ -123,7 +123,15 @@
         //window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
             //if (WebInfo.FirstLoaded) {
-            window.parent.API_LoadingEnd(1);
+            //if ($('.footer').length == 2) {
+            //    window.parent.API_LoadingEnd(1);
+            //} else
+            if ($('.footer').length == 0 || ($('.footer').length == 1 && $('.footer').children().length == 0)) {
+                window.parent.API_LoadingEnd();
+            } else {
+                window.parent.API_LoadingEnd(1);
+            }
+            
             //}
             LobbyGameList = window.parent.API_GetGameList();
           
