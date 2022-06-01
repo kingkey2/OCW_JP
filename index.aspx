@@ -435,7 +435,7 @@
         //Game
         window.location.reload();
     }
-    
+
     function API_GetGameList(location) {
         return LobbyGameList;
     }
@@ -610,7 +610,7 @@
     //#endregion
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
-     
+
         $('#popupMoblieGameInfo .BrandName').text(brandName);
         $('#popupMoblieGameInfo .valueRTP').text(RTP);
         $('#popupMoblieGameInfo .gameName').text(API_GetGameLang(1, brandName, gameName));
@@ -635,7 +635,7 @@
     function popupMoblieGameInfoShowMore(doc) {
         $(doc).closest('.game-item-info-detail').toggleClass('open');
     }
-  
+
     function showPartialHtml(title, pathName, isNeedLang, cbOK) {
         var realPath;
         var divMessageBox = document.getElementById("alertPartialHtml");
@@ -1223,7 +1223,7 @@
         GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 500, function () {
 
         });
-    
+
 
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
@@ -1236,169 +1236,167 @@
         switchLang(EWinWebInfo.Lang, false);
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
-            mlpByGameCode.loadLanguageByOtherFile(EWinWebInfo.EWinUrl + "/GameCode.", EWinWebInfo.Lang, function () {
-                var dstPage = c.getParameter("DstPage");
-                lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
-                paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
+            var dstPage = c.getParameter("DstPage");
+            lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
+            paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
 
-                if (dstPage) {
-                    var loadPage;
-                    switch (dstPage.toUpperCase()) {
-                        case "Home".toUpperCase():
-                            loadPage = "Home";
-                            break;
-                        case "Reg".toUpperCase():
-                            loadPage = "register";
-                            break;
-                        case "Login".toUpperCase():
-                            loadPage = "Login";
-                            break;
-                        default:
-                            loadPage = "Home";
-                            break;
-                    }
-
-                    history.replaceState(null, null, "?" + c.removeParameter("DstPage"));
-                    API_LoadPage(loadPage, loadPage + ".aspx");
-
-                } else {
-                    API_Home();
+            if (dstPage) {
+                var loadPage;
+                switch (dstPage.toUpperCase()) {
+                    case "Home".toUpperCase():
+                        loadPage = "Home";
+                        break;
+                    case "Reg".toUpperCase():
+                        loadPage = "register";
+                        break;
+                    case "Login".toUpperCase():
+                        loadPage = "Login";
+                        break;
+                    default:
+                        loadPage = "Home";
+                        break;
                 }
 
-                //getCompanyGameCode();
-                //getCompanyGameCodeTwo();
-                //登入Check
-                window.setTimeout(function () {
-                    lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
-                        if (success) {
-                            if (o.Result == 0) {
-                                SiteInfo = o;
-                                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                                    API_SetLogin(EWinWebInfo.SID, function (logined) {
-                                        //顯示登入資訊 
-                                        //getLoginMessage(function () {
-                                        //    if (LoginMessage) {
-                                        //        if (!localStorage.getItem("LoginMessage")) {
-                                        //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                        //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                        //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                        //                    if (document.getElementById("cboxLoginMessage").checked) {
-                                        //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                        //                    }
-                                        //                });
-                                        //            } else {
-                                        //                if (!sessionStorage.getItem("LoginMessage")) {
-                                        //                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                        //                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                        //                        if (document.getElementById("cboxLoginMessage").checked) {
-                                        //                            localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                        //                        }
-                                        //                    });
-                                        //                } else {
-                                        //                    if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
-                                        //                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                        //                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                        //                            if (document.getElementById("cboxLoginMessage").checked) {
-                                        //                                localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                        //                            }
-                                        //                        });
-                                        //                    }
-                                        //                }
-                                        //            }
-                                        //        } else {
-                                        //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                        //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                        //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                        //                    if (document.getElementById("cboxLoginMessage").checked) {
-                                        //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                        //                    }
-                                        //                });
-                                        //            }
-                                        //        }
-                                        //    }
-                                        //});
+                history.replaceState(null, null, "?" + c.removeParameter("DstPage"));
+                API_LoadPage(loadPage, loadPage + ".aspx");
 
-                                        if (logined == false) {
-                                            userRecover();
-                                        } else {
-                                            var srcPage = window.sessionStorage.getItem("SrcPage");
+            } else {
+                API_Home();
+            }
 
-                                            if (srcPage) {
-                                                window.sessionStorage.removeItem("SrcPage");
-                                                API_LoadPage("SrcPage", srcPage, true);
-                                            }
+            //getCompanyGameCode();
+            //getCompanyGameCodeTwo();
+            //登入Check
+            window.setTimeout(function () {
+                lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
+                    if (success) {
+                        if (o.Result == 0) {
+                            SiteInfo = o;
+                            if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                                API_SetLogin(EWinWebInfo.SID, function (logined) {
+                                    //顯示登入資訊 
+                                    //getLoginMessage(function () {
+                                    //    if (LoginMessage) {
+                                    //        if (!localStorage.getItem("LoginMessage")) {
+                                    //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                                    //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                    //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                    if (document.getElementById("cboxLoginMessage").checked) {
+                                    //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                    }
+                                    //                });
+                                    //            } else {
+                                    //                if (!sessionStorage.getItem("LoginMessage")) {
+                                    //                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                    //                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                        if (document.getElementById("cboxLoginMessage").checked) {
+                                    //                            localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                        }
+                                    //                    });
+                                    //                } else {
+                                    //                    if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
+                                    //                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                    //                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                            if (document.getElementById("cboxLoginMessage").checked) {
+                                    //                                localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                            }
+                                    //                        });
+                                    //                    }
+                                    //                }
+                                    //            }
+                                    //        } else {
+                                    //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                                    //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                    //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                    if (document.getElementById("cboxLoginMessage").checked) {
+                                    //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                    }
+                                    //                });
+                                    //            }
+                                    //        }
+                                    //    }
+                                    //});
+
+                                    if (logined == false) {
+                                        userRecover();
+                                    } else {
+                                        var srcPage = window.sessionStorage.getItem("SrcPage");
+
+                                        if (srcPage) {
+                                            window.sessionStorage.removeItem("SrcPage");
+                                            API_LoadPage("SrcPage", srcPage, true);
                                         }
+                                    }
 
-                                        notifyWindowEvent("IndexFirstLoad", logined);
-                                        EWinWebInfo.FirstLoaded = true;
-                                    });
-                                } else {
-                                    updateBaseInfo();
-                                }
-
-                                //if (cb)
-                                //    cb(true);
+                                    notifyWindowEvent("IndexFirstLoad", logined);
+                                    EWinWebInfo.FirstLoaded = true;
+                                });
                             } else {
-                                if (o.Message == "InvalidSID") {
-                                    // login fail
-                                    EWinWebInfo.UserLogined = false;
-                                } else {
-                                    EWinWebInfo.UserLogined = false;
+                                updateBaseInfo();
+                            }
 
-                                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                            //if (cb)
+                            //    cb(true);
+                        } else {
+                            if (o.Message == "InvalidSID") {
+                                // login fail
+                                EWinWebInfo.UserLogined = false;
+                            } else {
+                                EWinWebInfo.UserLogined = false;
+
+                                showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                            }
+
+                        }
+                    }
+                    else {
+                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
+                            window.location.href = "index.aspx"
+                        });
+                    }
+
+                })
+            }, 500);
+
+            window.setInterval(function () {
+                // refresh SID and Token;
+                var guid = Math.uuid();
+
+                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                    lobbyClient.KeepSID(EWinWebInfo.SID, guid, function (success, o) {
+                        if (success == true) {
+                            if (o.ResultCode == 0) {
+                                needCheckLogin = true;
+                            } else {
+                                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                                    needCheckLogin = true;
                                 }
-
                             }
                         }
-                        else {
-                            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                                window.location.href = "index.aspx"
-                            });
-                        }
+                    });
 
-                    })
-                }, 500);
+                }
+            }, 10000);
 
-                window.setInterval(function () {
-                    // refresh SID and Token;
-                    var guid = Math.uuid();
+            window.setInterval(function () {
+                if (needCheckLogin == true) {
+                    needCheckLogin = false;
 
                     if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                        lobbyClient.KeepSID(EWinWebInfo.SID, guid, function (success, o) {
-                            if (success == true) {
-                                if (o.ResultCode == 0) {
-                                    needCheckLogin = true;
-                                } else {
-                                    if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                                        needCheckLogin = true;
-                                    }
-                                }
+                        API_SetLogin(EWinWebInfo.SID, function (logined) {
+                            if (logined == false) {
+                                userRecover();
                             }
                         });
-
+                    } else {
+                        updateBaseInfo();
                     }
-                }, 10000);
+                }
+            }, 1000);
 
-                window.setInterval(function () {
-                    if (needCheckLogin == true) {
-                        needCheckLogin = false;
-
-                        if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                            API_SetLogin(EWinWebInfo.SID, function (logined) {
-                                if (logined == false) {
-                                    userRecover();
-                                }
-                            });
-                        } else {
-                            updateBaseInfo();
-                        }
-                    }
-                }, 1000);
-
-                //window.setInterval(function () {
-                //    resize();
-                //}, 1000);
-            });
+            //window.setInterval(function () {
+            //    resize();
+            //}, 1000);
         });
 
         API_changeAvatarImg(getCookie("selectAvatar"));
@@ -1456,11 +1454,11 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-    <div class="loader-container" style="display:block; ">
+    <div class="loader-container" style="display: block;">
         <div class="loader-box">
             <div class="loader-spinner">
                 <div class="sk-fading-circle">
-                    <div class="loader-logo"></div>  
+                    <div class="loader-logo"></div>
                     <div class="sk-circle1 sk-circle"></div>
                     <div class="sk-circle2 sk-circle"></div>
                     <div class="sk-circle3 sk-circle"></div>
@@ -1474,13 +1472,13 @@
                     <div class="sk-circle11 sk-circle"></div>
                     <div class="sk-circle12 sk-circle"></div>
                 </div>
-                  <div class="loader-text language_replace">正在加載...</div>    
+                <div class="loader-text language_replace">正在加載...</div>
             </div>
-           
-            
+
+
         </div>
         <div class="loader-backdrop is-show"></div>
-    </div> 
+    </div>
     <header class="header_area" id="">
         <div class="header_menu ">
             <!-- class="navbar-expand-xl" trigger hidden -->
@@ -1550,7 +1548,7 @@
                                             <i class="icon icon-mask icon-ect"></i>
                                             <span class="title language_replace">其他</span>
                                         </a>
-                                    </li>--%>                                   
+                                    </li>--%>
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory">
@@ -1596,7 +1594,7 @@
                                             <span class="title language_replace">聯絡客服</span></a>
                                     </li>
                                 </ul>
-                            </li>                                                      
+                            </li>
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -1628,7 +1626,9 @@
                                     <li class="nav-item unLogIn_wrapper " id="idLoginBtn">
                                         <ul class="horiz-list">
                                             <li class="login">
-                                                <button class="btn-login btn" type="button" onclick="onBtnLoginShow()"><span class="avater"><img src="images/avatar/avater-2.png" alt=""></span>
+                                                <button class="btn-login btn" type="button" onclick="onBtnLoginShow()">
+                                                    <span class="avater">
+                                                        <img src="images/avatar/avater-2.png" alt=""></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register">
@@ -1639,7 +1639,7 @@
                                     <!--  ==== 登入後 ====-->
                                     <li class="nav-item logIned_wrapper is-hide" id="idMenuLogin">
                                         <ul class="horiz-list">
-                                            <li class="nav-item "  onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
+                                            <li class="nav-item " onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
@@ -1700,7 +1700,7 @@
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
                                             <i class="icon icon-mask icon-flag-EN"></i>
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
-                                        </button>   
+                                        </button>
                                 </ul>
                             </div>
                         </div>
@@ -1868,7 +1868,7 @@
                                 <option class="searchFilter-option" value=""><span class="language_replace">CG</span></option>
                                 <option class="searchFilter-option" value=""><span class="language_replace">KGS</span></option>
                                 <option class="searchFilter-option" value=""><span class="language_replace">PG</span></option>
-              
+
                             </select>
                         </div>
                         <div class="searchFilter-item input-group">
@@ -2182,22 +2182,22 @@
                 <div class="modal-body">
                     <div class="modal-body-content">
                         <article class="popup-detail-wrapper">
-                            <div class="popup-detail-inner">                               
+                            <div class="popup-detail-inner">
                                 <div class="popup-detail-content">
-                                  <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告時間</span></h6>
-                                    <div class="section-content">
-                                        <div class="alert_Time"></div>
-                                    </div>
-                                  </section>                    
-                                  <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告詳情</span></h6>
-                                    <div class="section-content">
-                                        <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>                     
-                                    </div>
-                                  </section>
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告時間</span></h6>
+                                        <div class="section-content">
+                                            <div class="alert_Time"></div>
+                                        </div>
+                                    </section>
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告詳情</span></h6>
+                                        <div class="section-content">
+                                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                                        </div>
+                                    </section>
                                 </div>
-            
+
                             </div>
                         </article>
                         <!-- <i class="icon-error_outline primary"></i>

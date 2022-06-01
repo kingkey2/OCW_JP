@@ -2,7 +2,7 @@
     var myWorker
     var CtList = null;
     var SearchCore = null;
-    var TimeStamp = 0;
+   
 
     this.FirstLoaded = false;
     this.SearchGameCodeByLang = function (lang, searchText, gameBrand, gameCategoryCode) {
@@ -120,8 +120,8 @@
         
         let recordObj;
         let timeStamp = 0;
-        let ctStr = localStorage.getItem("GCB_Core");
-        let coreStr = localStorage.getItem("GCB_Ct");
+        let ctStr = localStorage.getItem("GCB_Ct");
+        let coreStr = localStorage.getItem("GCB_Core");
 
         timeStamp = Number(localStorage.getItem("GCB_timeStamp"));
         if (timeStamp != NaN && timeStamp != 0) {
@@ -146,7 +146,7 @@
                         this.CtList = ctResult.CtList;
 
                         if (this.FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {                               
+                            if (this.CtList != null && this.SearchCore != null) {                               
                                 if (this.onLoaded) {
                                     this.onLoaded();
                                 }
@@ -155,11 +155,11 @@
                         }
 
                         if (this.onCtListChange) {
-                            this.onCtListChange(CtList);
+                            this.onCtListChange(this.CtList);
                         }
 
-                        localStorage.setItem("GCB_Ct", JSON.stringify(this.CtLists));
-                        localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
+                        localStorage.setItem("GCB_Ct", JSON.stringify(this.CtList));
+                        localStorage.setItem("GCB_timeStamp", ctResult.TimeStamp);
 
                         break;
 
@@ -168,7 +168,7 @@
                         this.SearchCore = SearchResult.SearchCore;
 
                         if (this.FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {                               
+                            if (this.CtList != null && this.SearchCore != null) {                               
                                 if (this.onLoaded) {
                                     this.onLoaded();
                                 }

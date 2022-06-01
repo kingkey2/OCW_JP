@@ -561,10 +561,6 @@ public class LobbyAPI : System.Web.Services.WebService
             {
                 CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
 
-
-
-
-
                 if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
                 {
 

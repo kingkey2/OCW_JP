@@ -218,11 +218,11 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
         //#endregion List
 
-
-        lobbyAPI.GetCompanyGameCodeTwo(Math.uuid(), this.RecordTimeStamp, (function (success, o) {
+        let tempStamp = this.RecordTimeStamp;
+        lobbyAPI.GetCompanyGameCodeTwo(Math.uuid(), tempStamp, (function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    if (this.RecordTimeStamp != o.TimeStamp) {
+                    if (o.CompanyCategoryDatas.length > 0) {
                         var GameCtList = [];
 
                         for (var i = 0; i < defineLocations.length; i++) {
@@ -300,24 +300,15 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                 CtList:GameCtList
                             });
                         }
-                    } else {
-                        this.RecordTimeStamp = o.TimeStamp;
-
-                        if (this.onRefreshCtEvent) {
-                            this.onRefreshCtEvent({
-                                TimeStamp: this.RecordTimeStamp,
-                                CtList: null
-                            });
-                        }
-                    }                                      
+                    }                                    
                 }
             }
         }).bind(this));
 
-        lobbyAPI.GeAllCompanyGameCode(Math.uuid(), this.RecordTimeStamp, (function (success, o) {
+        lobbyAPI.GeAllCompanyGameCode(Math.uuid(), tempStamp, (function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    if (this.RecordTimeStamp != o.TimeStamp) {
+                    if (o.Datas.length > 0) {
                         var GameList = {
                             Slices: [],
                             TotalCount: 0
@@ -488,18 +479,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     SearchDic: SearchDic
                                 }});
                         }
-                    } else {
-                        this.RecordTimeStamp = o.TimeStamp;
-                        if (this.onRefreshDicEvent) {
-                            this.onRefreshDicEvent({
-                                TimeStamp: this.RecordTimeStamp,
-                                SearchCore: {
-                                    GameList: GameList,
-                                    SearchDic: SearchDic
-                                }
-                            });
-                        }
-                    }                   
+                    }             
                 }
             }
         }).bind(this));
