@@ -427,7 +427,7 @@ public class SyncAPI : System.Web.Services.WebService
                             }
                         }
 
-                        RedisCache.CompanyGameCode.UpdateMaxGameID(MaxGameID);
+                        RedisCache.CompanyGameCode.UpdateSyncData(MaxGameID);
                         RedisCache.CompanyGameCode.UpdateCompanyGameCode();
 
                     }
