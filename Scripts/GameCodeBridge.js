@@ -113,12 +113,11 @@
         return Ret;
     }
     this.onCtListChange;
-    this.onLoaded = loadedEvent;
+    this.onFirstLoaded = loadedEvent;
     this.init = function () {
 
         //#region SetStorage
-        
-        let recordObj;
+                
         let timeStamp = 0;
         let ctStr = localStorage.getItem("GCB_Ct");
         let coreStr = localStorage.getItem("GCB_Core");
@@ -126,7 +125,9 @@
         timeStamp = Number(localStorage.getItem("GCB_timeStamp"));
         if (timeStamp != NaN && timeStamp != 0) {
             this.SearchCore = JSON.parse(coreStr);
-            this.CtList = JSON.parse(coreStr);         
+            this.CtList = JSON.parse(ctStr);
+            this.FirstLoaded = true;
+            
         }
         //#endregion 
 
@@ -135,7 +136,7 @@
         
         myWorker.postMessage({
             Cmd: "Init",
-            Params: [version, url, langUrl, 5000, timeStamp]
+            Params: [version, url, langUrl, second, timeStamp]
         });
 
         myWorker.onmessage = (function (e) {
@@ -147,8 +148,8 @@
 
                         if (this.FirstLoaded == false) {
                             if (this.CtList != null && this.SearchCore != null) {                               
-                                if (this.onLoaded) {
-                                    this.onLoaded();
+                                if (this.onFirstLoaded) {
+                                    this.onFirstLoaded();
                                 }
                                 this.FirstLoaded = true;
                             }
@@ -169,8 +170,8 @@
 
                         if (this.FirstLoaded == false) {
                             if (this.CtList != null && this.SearchCore != null) {                               
-                                if (this.onLoaded) {
-                                    this.onLoaded();
+                                if (this.onFirstLoaded) {
+                                    this.onFirstLoaded();
                                 }
                                 this.FirstLoaded = true;
                             }

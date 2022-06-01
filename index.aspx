@@ -214,6 +214,11 @@
     var LobbyGameList = {};
     //#region TOP API
 
+    function API_GetGCB() {
+        return GCB;
+    }
+
+
     function API_GetWebInfo() {
         return EWinWebInfo;
     }
@@ -1221,8 +1226,9 @@
             return;
         }
 
-        GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 500, function () {
-
+        GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 3000000, function () {
+            notifyWindowEvent("GameLoadEnd", null);
+            API_LoadingEnd(1);
         });
 
 
@@ -1454,34 +1460,33 @@
     };
 
     function getCompanyGameCodeTwo() {
-        //return
-        //var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
+        var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
 
-        //var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
-        //lobbyClient.GetCompanyGameCodeTwo(Math.uuid(), function (success, o) {
-        //    if (success) {
-        //        if (o.Result == 0) {
-        //            if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
-        //                o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
-        //            }
+        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
+        lobbyClient.GetCompanyGameCodeTwo(Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
+                        o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
+                    }
 
-        //            LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
+                    LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
 
-        //            LobbyGameList.CategoryList = CategoryList;
-        //            notifyWindowEvent("GameLoadEnd", null);
-        //            API_LoadingEnd();
-        //        } else {
-        //            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
-        //        }
-        //    } else {
-        //        if (o == "Timeout")
-        //            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
-        //        else
-        //            if ((o != null) && (o != ""))
-        //                alert(o);
-        //    }
+                    LobbyGameList.CategoryList = CategoryList;
+                    notifyWindowEvent("GameLoadEnd", null);
+                    API_LoadingEnd(1);
+                } else {
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
+                }
+            } else {
+                if (o == "Timeout")
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
+                else
+                    if ((o != null) && (o != ""))
+                        alert(o);
+            }
 
-        //});
+        });
     }
     //openFullSearch
     function openFullSearch(e) {
@@ -1603,7 +1608,7 @@
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
-                                            <%--<i class="icon icon-mask icon-loudspeaker"></i>--%>
+                                            <i class="icon icon-mask icon-loudspeaker"></i>
                                             <span class="title language_replace">會員中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
@@ -1618,7 +1623,7 @@
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
-                                            <%--<i class="icon icon-mask icon-loudspeaker"></i>--%>
+                                            <i class="icon icon-mask icon-loudspeaker"></i>
                                             <span class="title language_replace">履歷記錄</span></a>
                                     </li>
                                 </ul>
@@ -1638,7 +1643,7 @@
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link">
-                                            <%--<i class="icon icon-mask icon-logo"></i>--%>
+                                            <i class="icon icon-mask icon-logo"></i>
                                             <span class="title language_replace">聯絡客服</span></a>
                                     </li>
                                 </ul>

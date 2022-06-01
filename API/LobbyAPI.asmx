@@ -564,8 +564,6 @@ public class LobbyAPI : System.Web.Services.WebService
                 if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
                 {
 
-
-
                     for (int k = 0; k < CompanyCategoryDT.Rows.Count; k++)
                     {
                         CategoryType = int.Parse(CompanyCategoryDT.Rows[k]["CategoryType"].ToString());

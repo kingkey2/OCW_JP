@@ -273,7 +273,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     var language = languages[iii];
 
                                     if (language.type == "GameCode") {
-                                        pushGameData.GameText[language.lang] = mlp.getLanguageKey(pushGameData.GameCode);
+                                        pushGameData.GameText[language.lang] = mlp.getLanguageKey(pushGameData.GameBrand + "." + pushGameData.GameName);
 
                                     } else if (language.type == "GameBrand") {
                                         pushGameData.BrandText[language.lang] = mlp.getLanguageKey(pushGameData.GameBrand);
@@ -319,7 +319,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                             //廠牌搜尋
                             Brands: [],
                             //總文字搜尋
-                            Langs: []
+                            Langs: {}
                         };
 
                         GameList.Slices.length = Math.trunc(o.MaxGameID / 100) + 1;
@@ -596,7 +596,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
         LoadLang((function () {
             RefreshData.call(this);
-            setInterval(this.RefreshData, IntervalSecond);
+            setInterval(RefreshData.bind(this), IntervalSecond);
         }).bind(this));
     }
     //#endregion
