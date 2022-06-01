@@ -1266,7 +1266,7 @@
                 }
 
                 //getCompanyGameCode();
-                getCompanyGameCodeTwo();
+                //getCompanyGameCodeTwo();
                 //登入Check
                 window.setTimeout(function () {
                     lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
@@ -1409,33 +1409,33 @@
 
     function getCompanyGameCodeTwo() {
         //return
-        var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
+        //var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
 
-        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
-        lobbyClient.GetCompanyGameCodeTwo(Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
-                        o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
-                    }
+        //var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
+        //lobbyClient.GetCompanyGameCodeTwo(Math.uuid(), function (success, o) {
+        //    if (success) {
+        //        if (o.Result == 0) {
+        //            if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
+        //                o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
+        //            }
 
-                    LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
+        //            LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
 
-                    LobbyGameList.CategoryList = CategoryList;
-                    notifyWindowEvent("GameLoadEnd", null);
-                    API_LoadingEnd();
-                } else {
-                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                }
-            } else {
-                if (o == "Timeout")
-                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
-                else
-                    if ((o != null) && (o != ""))
-                        alert(o);
-            }
+        //            LobbyGameList.CategoryList = CategoryList;
+        //            notifyWindowEvent("GameLoadEnd", null);
+        //            API_LoadingEnd();
+        //        } else {
+        //            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
+        //        }
+        //    } else {
+        //        if (o == "Timeout")
+        //            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
+        //        else
+        //            if ((o != null) && (o != ""))
+        //                alert(o);
+        //    }
 
-        });
+        //});
     }
     //openFullSearch
     function openFullSearch(e) {

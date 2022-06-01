@@ -75,6 +75,8 @@
 
         return Ret;
     }
+
+
     this.GetGameCode = function (gameID) {
         let IndexOne = Math.trunc(gameID / 100);
         let IndexTwo = gameID % 100;
@@ -113,30 +115,42 @@
     this.onCtListChange;
     this.onLoaded = loadedEvent;
     this.init = function () {
+
+        //#region SetStorage
+        
+        let recordObj;
+        let timeStamp = 0;
+        let ctStr = localStorage.getItem("GCB_Core");
+        let coreStr = localStorage.getItem("GCB_Ct");
+
+        timeStamp = Number(localStorage.getItem("GCB_timeStamp"));
+        if (timeStamp != NaN && timeStamp != 0) {
+            this.SearchCore = JSON.parse(coreStr);
+            this.CtList = JSON.parse(coreStr);         
+        }
+        //#endregion 
+
         myWorker = new Worker("/Scripts/worker.js");
 
-        //if (sessionStorage.getItem()) {
-
-        //}
-
-
+        
         myWorker.postMessage({
             Cmd: "Init",
-            Params: [version, url, langUrl, 5000]
+            Params: [version, url, langUrl, 5000, timeStamp]
         });
 
         myWorker.onmessage = (function (e) {
             if (e.data) {
                 switch (e.data.Cmd) {
                     case "RefreshCtList":
-                        this.CtList = e.data.Data;
+                        let ctResult = e.data.Data;
+                        this.CtList = ctResult.CtList;
 
                         if (this.FirstLoaded == false) {
                             if (CtList != null && SearchCore != null) {                               
                                 if (this.onLoaded) {
                                     this.onLoaded();
                                 }
-                                FirstLoaded = true;
+                                this.FirstLoaded = true;
                             }
                         }
 
@@ -144,20 +158,28 @@
                             this.onCtListChange(CtList);
                         }
 
+                        localStorage.setItem("GCB_Ct", JSON.stringify(this.CtLists));
+                        localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
+
                         break;
 
                     case "RefreshDic":
-                        this.SearchCore = e.data.Data;
+                        let SearchResult = e.data.Data;
+                        this.SearchCore = SearchResult.SearchCore;
 
                         if (this.FirstLoaded == false) {
                             if (CtList != null && SearchCore != null) {                               
                                 if (this.onLoaded) {
                                     this.onLoaded();
                                 }
-                                FirstLoaded = true;
+                                this.FirstLoaded = true;
                             }
                         }
 
+
+
+                        localStorage.setItem("GCB_Core", JSON.stringify(this.SearchCore));
+                        localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
 
                         break;
                     default:

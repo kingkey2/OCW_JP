@@ -5,13 +5,14 @@
 //1.全部遊戲，做索引，做單遊戲搜尋與優化
 //2.按照分類、廠牌整理
 
+var wokerControl;
 self.addEventListener('message', function (e) {
     //data格式
     //Cmd => 執行動作
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new Worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], e.data.Params[3]);
+            wokerControl = new Worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], e.data.Params[3], e.data.Params[4]);
             wokerControl.onRefreshCtEvent = function (ctResult) {
                 self.postMessage({
                     Cmd: "RefreshCtList",
@@ -482,17 +483,20 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                         if (this.onRefreshDicEvent) {
                             this.onRefreshDicEvent({
                                 TimeStamp: this.RecordTimeStamp,
-                                GameList: GameList,
-                                SearchDic: SearchDic
-                            });
+                                SearchCore: {
+                                    GameList: GameList,
+                                    SearchDic: SearchDic
+                                }});
                         }
                     } else {
                         this.RecordTimeStamp = o.TimeStamp;
                         if (this.onRefreshDicEvent) {
                             this.onRefreshDicEvent({
                                 TimeStamp: this.RecordTimeStamp,
-                                GameList: GameList,
-                                SearchDic: null
+                                SearchCore: {
+                                    GameList: GameList,
+                                    SearchDic: SearchDic
+                                }
                             });
                         }
                     }                   
@@ -518,7 +522,8 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                 var postData;
 
                 postData = {
-                    GUID: GUID
+                    GUID: GUID,
+                    RecordTimeStamp: RecordTimeStamp
                 };
 
                 callService(url, postData, 10000, function (success, text) {
@@ -539,7 +544,8 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                 var postData;
 
                 postData = {
-                    GUID: GUID
+                    GUID: GUID,
+                    RecordTimeStamp: RecordTimeStamp
                 };
 
                 callService(url, postData, 10000, function (success, text) {
