@@ -218,6 +218,7 @@
                                 $(this).closest('.game-item-info-detail').toggleClass('open');
                             });
 
+                            $(GI).find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
                         } else {
                             GI = c.getTemplate("temGameItem2");
                         }
@@ -239,6 +240,8 @@
                         $(GI).find(".BrandName").text(gameItem.GameBrand);
                         if (gameItem.RTPInfo) {
                             $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                        } else {
+                            $(GI).find(".valueRTP").text('--');
                         }
 
                         $(GI).find(".GameID").text(gameItem.GameID);
