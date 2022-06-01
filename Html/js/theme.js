@@ -43,6 +43,18 @@ $(document).ready(function () {
         $(this).toggleClass('active');       
     });
 
+      //紀錄 下拉明細
+      $('.record-table-item:not(.show) .record-table-drop-panel').hide();
+
+    //   $('.btn-toggle').click(function(){
+    //       $(this).toggleClass('cur');
+    //       $(this).parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
+    //   });
+      $('.record-table-tab').click(function(){
+          $(this).find('.btn-toggle').toggleClass('cur');
+          $(this).parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
+      });
+
 
     //HERO 
     var heroIndex = new Swiper("#hero-slider", {
@@ -50,10 +62,10 @@ $(document).ready(function () {
     slidesPerView: 1,
     effect: "fade",
     speed: 1000, //Duration of transition between slides (in ms)
-    autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-    },
+    // autoplay: {
+    //     delay: 3500,
+    //     disableOnInteraction: false,
+    // },
     pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -87,24 +99,13 @@ $(document).ready(function () {
 
     // 推薦遊戲
     var gameRecommend = new Swiper("#game-recommend", {
-        // loop: true,
+        loop: true,
         slidesPerView: "auto",
-        // freeMode: true,
+        slidesPerGroup: 8,
         navigation: {
             nextEl: "#game-recommend .swiper-button-next",
             prevEl: "#game-recommend .swiper-button-prev",
           },
-        // breakpoints: {
-        //     768: {
-        //         slidesPerView: 4,
-        //         freeMode: false                
-        //     },
-        //     1200: {
-        //         slidesPerView: 6,
-        //         freeMode: false                
-        //     }
-        // }
-
 
     });
 
@@ -151,12 +152,11 @@ $(document).ready(function () {
     });
 
     var gamelobby_1 = new Swiper("#lobbyGame-1", {
-        // loop: true,
+        
         // slidesPerView: 2.3,
+        loop: true,
         slidesPerView: "auto",
-        slidesPerGroup: 8,
-        loopedSlides: 8,   
-        freeMode: true,        
+        slidesPerGroup: 8,          
         navigation: {
             nextEl: "#lobbyGame-1 .swiper-button-next",
             prevEl: "#lobbyGame-1 .swiper-button-prev",

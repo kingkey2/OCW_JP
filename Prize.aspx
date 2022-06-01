@@ -176,6 +176,9 @@
                                                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
                                                         GetPromotionCollectAvailable(collectareatype);
 
+                                                        window.top.API_RefreshUserInfo(function () {
+                                                        });
+
                                                         let now_date = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
                                                         search_Year = now_date.split('/')[0];
                                                         search_Month = now_date.split('/')[1];
