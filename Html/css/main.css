@@ -3,6 +3,8 @@
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap");
 @font-face {
   font-family: "maharaja";
   src: url("fonts/maharaja.eot");
@@ -215,7 +217,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 html,
 body {
-  font-family: "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, Microsoft JhengHei, "Noto Sans TC", "Segoe UI", Roboto, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Roboto", "Oswald", "Noto Sans JP", "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", "Noto Sans TC", "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   height: 100%;
   width: 100%;
   color: rgba(0, 0, 0, 0.8);
