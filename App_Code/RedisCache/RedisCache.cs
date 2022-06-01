@@ -1470,14 +1470,14 @@ public static class RedisCache {
             Key = XMLPath + ":SyncData";
 
             Dictionary<string, long> temp = new Dictionary<string, long>();
-            temp.Add("MaxGameID", MaxGameID);
+            temp.Add("MaxGameID", (long)MaxGameID);
             temp.Add("TimeStamp", DateTimeOffset.Now.ToUnixTimeSeconds());
 
             for (int I = 0; I <= 3; I++)
             {
                 try
                 {
-                    JsonStringWriteToRedis(0, temp.ToString(), Key);
+                    JsonStringWriteToRedis(0, Newtonsoft.Json.JsonConvert.SerializeObject(temp), Key);
                     break;
                 }
                 catch (Exception ex)

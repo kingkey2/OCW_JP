@@ -175,6 +175,7 @@
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
+<script src="Scripts/lozad.min.js"></script>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -1405,6 +1406,53 @@
         //resize();
     }
 
+    function searchGameList() {
+
+        var gameBrand = $('#alertSearchBrand').val();
+        var keyWord = $('#alertSearchKeyWord').val().trim();
+        var gameList = [];
+        var lang = EWinWebInfo.Lang;
+        if (gameBrand != "-1" && keyWord != '') {
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);
+        } else if (gameBrand == "-1" && keyWord != '') {
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord);
+        } else if (gameBrand != "-1" && keyWord == '') {
+            gameList = GCB.SearchGameCodeByBrand(gameBrand);
+        } else {
+            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
+        }
+
+        if (gameList.length>0) {
+            $('#alertSearchContent').empty();
+            for (var i = 0; i < gameList.length; i++) {
+                var gameItem = gameList[i];
+                var RTP = "";
+                if (gameItem.RTPInfo) {
+                    RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                }
+
+
+                GI = c.getTemplate("tmpSearchGameItem");
+                var GI_a = GI.querySelector(".btn-play");
+                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                var GI_img = GI.querySelector(".gameimg");
+                if (GI_img != null) {
+                    GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                    var el = GI_img;
+                    var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                    observer.observe();
+                }
+
+                $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                $(GI).find(".valueRTP").text(RTP);
+                $('#alertSearchContent').append(GI);
+            }
+        } else {
+            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
+        }
+    };
+
     function getCompanyGameCodeTwo() {
         //return
         //var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
@@ -1849,148 +1897,70 @@
             </div>
         </div>
     </div>
-
-    <!-- Search Modal -->
-    <div class="modal fade no-footer " id="alertSearch" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title"></h5> -->
-                    <div class="searchFilter-wrapper">
-                        <div class="searchFilter-item input-group">
-                            <input type="text" class="form-control" language_replace="placeholder" placeholder="請輸入關鍵字">
-                            <label for="" class="form-label"><span class="language_replace">請輸入關鍵字</span></label>
-                        </div>
-                        <div class="searchFilter-item input-group">
-                            <select class="custom-select">
-                                <option class="title" selected><span class="language_replace">遊戲品牌</span></option>
-                                <option class="searchFilter-option" value=""><span class="language_replace">BTI</span></option>
-                                <option class="searchFilter-option" value=""><span class="language_replace">CG</span></option>
-                                <option class="searchFilter-option" value=""><span class="language_replace">KGS</span></option>
-                                <option class="searchFilter-option" value=""><span class="language_replace">PG</span></option>
-
-                            </select>
-                        </div>
-                        <div class="searchFilter-item input-group">
-                            <select class="custom-select">
-                                <option class="title" selected><span class="language_replace">遊戲類型</span></option>
-                                <option class="searchFilter-option" value=""><span class="language_replace">真人</span></option>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-sm"><span class="">搜尋</span></button>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="game-search-wrapper">
-
-                        <div class="search-result-wrapper">
-                            <div class="search-result-inner">
-                                <div class="search-result-list game-item-group">
-                                    <div class="game-item">
-                                        <div class="game-item-inner">
-                                            <div class="game-item-focus">
-                                                <div class="game-item-img">
-                                                    <span class="game-item-link"></span>
-                                                    <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info">
-                                                <div class="game-item-info-inner">
-                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="game-item">
-                                        <div class="game-item-inner">
-                                            <div class="game-item-focus">
-                                                <div class="game-item-img">
-                                                    <span class="game-item-link"></span>
-                                                    <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info">
-                                                <div class="game-item-info-inner">
-                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="game-item">
-                                        <div class="game-item-inner">
-                                            <div class="game-item-focus">
-                                                <div class="game-item-img">
-                                                    <span class="game-item-link"></span>
-                                                    <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info">
-                                                <div class="game-item-info-inner">
-                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="game-item">
-                                        <div class="game-item-inner">
-                                            <div class="game-item-focus">
-                                                <div class="game-item-img">
-                                                    <span class="game-item-link"></span>
-                                                    <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info">
-                                                <div class="game-item-info-inner">
-                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="game-item">
-                                        <div class="game-item-inner">
-                                            <div class="game-item-focus">
-                                                <div class="game-item-img">
-                                                    <span class="game-item-link"></span>
-                                                    <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info">
-                                                <div class="game-item-info-inner">
-                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Modal Search -->
+<div class="modal fade no-footer" id="alertSearch" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+    <div class="modal-header">
+        <!-- <h5 class="modal-title"></h5> -->
+        <div class="searchFilter-wrapper">                  
+            <div class="searchFilter-item input-group">
+                    <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="請輸入關鍵字">
+                    <label for="" class="form-label"><span class="language_replace">請輸入關鍵字</span></label>                   
+            </div>
+            <div class="searchFilter-item input-group">                   
+                <select class="custom-select" id="alertSearchBrand">
+                    <option class="title" value="-1" selected><span class="language_replace">遊戲品牌</span></option>
+                    <option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
+                    <option class="searchFilter-option" value="BNG"><span class="language_replace">BNG</span></option>
+                    <option class="searchFilter-option" value="CG"><span class="language_replace">CG</span></option>
+                    <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9</span></option>
+                    <option class="searchFilter-option" value="EVO"><span class="language_replace">EVO</span></option>
+                    <option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
+                    <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
+                    <option class="searchFilter-option" value="KGS"><span class="language_replace">KGS</span></option>
+                    <option class="searchFilter-option" value="KX"><span class="language_replace">KX</span></option>
+                    <option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
+                    <option class="searchFilter-option" value="PG"><span class="language_replace">PG</span></option>
+                    <option class="searchFilter-option" value="PNG"><span class="language_replace">PNG</span></option>
+                    <option class="searchFilter-option" value="PP"><span class="language_replace">PP</span></option>
+                    <option class="searchFilter-option" value="VA"><span class="language_replace">VA</span></option>
+                    <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ZEUS</span></option>
+                </select>
+            </div>
+            <div class="searchFilter-item input-group">                   
+            <%--    <select class="custom-select">
+                    <option class="title" selected><span class="language_replace">遊戲類型</span></option>
+                    <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
+                </select>--%>
+            </div>
+            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm"><span class="">搜尋</span></button>              
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="game-search-wrapper">
+            <div class="search-result-wrapper">
+                <div class="search-result-inner">
+                    <div class="search-result-list">
+                        <div class="game-item-group list-row row" id="alertSearchContent">
+                       
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+    </div>
+    </div>
+</div>
+</div>
+
 
     <!-- 遊戲介紹 Modal-->
     <div class="modal fade modal-game" tabindex="-1" role="dialog" aria-labelledby="alertGameIntro" aria-hidden="true" id="alertGameIntro">
@@ -2288,6 +2258,53 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tmpSearchGameItem" class="is-hide">
+        <div class="game-item col-auto">
+            <div class="game-item-inner">
+                <div class="game-item-img">
+                    <span class="game-item-link"></span>
+                    <div class="img-wrap">
+                        <img class="gameimg" src="">
+                    </div>
+                </div>
+                <div class="game-item-info">
+                    <div class="game-item-info-inner">
+                        <div class="game-item-info-brief">
+                            <div class="game-item-info-pre">
+                                <h3 class="gameName"></h3>
+                            </div>
+                            <div class="game-item-info-moreInfo">
+                                <ul class="moreInfo-item-wrapper">
+                                    <li class="moreInfo-item brand">
+                                        <h4 class="value BrandName"></h4>
+                                    </li>
+                                    <li class="moreInfo-item RTP">
+                                        <span class="title">RTP</span>
+                                        <span class="value number valueRTP"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="game-item-info-indicator">
+                            <div class="action">
+                                <div class="btn-s-wrapper">
+                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                        <i class="icon icon-thumup"></i>
+                                    </button>
+                                    <button type="button" class="btn-like btn btn-round">
+                                        <i class="icon icon-heart-o"></i>
+                                    </button>                           
+                                </div>
+                                <button type="button" class="btn btn-play">
+                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

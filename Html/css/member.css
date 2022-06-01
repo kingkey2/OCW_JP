@@ -325,12 +325,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 3px 0;
   margin-bottom: 6px;
 }
-.dailylogin-bouns-list .bouns-item.saturday {
-  color: #009FE8;
-}
-.dailylogin-bouns-list .bouns-item.sunday {
-  color: #ff0000;
-}
 
 .member-withdraw-wrapper.lacking .member-withdraw-limit-wrapper {
   background: linear-gradient(180deg, #6F6F6F 0%, #848484 69.79%, #6F6F6F 74.48%);
