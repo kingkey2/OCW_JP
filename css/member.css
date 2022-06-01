@@ -253,7 +253,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: inline-flex;
   width: 140px;
   height: 72px;
-  background: url(../images/member/obj-golden-bag.svg) left center no-repeat;
+  background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
   background-size: contain;
   position: relative;
   z-index: 1;
@@ -281,7 +281,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 80%;
   height: 0;
   padding-bottom: 80%;
-  background: url(../images/member/obj-coin-bouns.svg) left center no-repeat;
+  background: url(../images/prize/obj-coin-bouns.svg) left center no-repeat;
   background-size: contain;
   position: relative;
   left: 0;
@@ -307,8 +307,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           mask-repeat: no-repeat;
   -webkit-mask-size: contain;
           mask-size: contain;
-  -webkit-mask-image: url(../images/member/obj-coin-bouns.svg);
-  mask-image: url(.../images/member/obj-coin-bouns.svg);
+  -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
+  mask-image: url(.../images/prize/obj-coin-bouns.svg);
   margin: 0 auto;
 }
 .dailylogin-bouns-list .bouns-item.got:after {
@@ -474,7 +474,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     padding-bottom: 45px;
   }
   .dailylogin-bouns-list .bouns-item .day {
-    background: url(../images/member/obj-dialog.svg) center center no-repeat;
+    background: url(../images/prize/obj-dialog.svg) center center no-repeat;
     background-size: cover;
     font-size: 1.5rem;
     padding: 0.5rem;

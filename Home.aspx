@@ -483,7 +483,41 @@
                                 </div>
                             </div>
                             <div class="item login">
-                                <img src="images/index/daily-prize-login.png" alt="">
+                                 <!-- 會員簽到進度顯示 -->
+                <div class="activity-dailylogin-wrapper" onclick="location.href='activity.html';">
+                    <div class="dailylogin-bouns-wrapper">
+                        <div class="dailylogin-bouns-inner">
+                            <div class="dailylogin-bouns-content">
+                                <h3 class="title">
+                                    <span class="name">ログイン毎日の賞</span></h3>
+                                <ul class="dailylogin-bouns-list">
+                                    <!-- 已領取 bouns => got-->
+                                    <li class="bouns-item got">
+                                        <span class="day"><span class="language_replace">金</span></span></li>
+                                    <li class="bouns-item saturday">
+                                        <span class="day"><span class="language_replace">土</span></span>
+                                    </li>
+                                    <li class="bouns-item sunday">
+                                        <span class="day"><span class="language_replace">日</span></span></li>
+                                    <li class="bouns-item">
+                                        <span class="day"><span class="language_replace">月</span></span>
+                                    </li>
+                                    <li class="bouns-item">
+                                        <span class="day"><span class="language_replace">火</span></span></li>
+                                    <li class="bouns-item">
+                                        <span class="day"><span class="language_replace">水</span></span>
+                                    </li>
+                                    <li class="bouns-item">
+                                        <span class="day"><span class="language_replace">木</span></span>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                               
                             </div>
                         </div>
                     </div>
@@ -594,7 +628,7 @@
                             <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                         </a>
                     </div>
-                    <div class="game_slider swiper_container gameinfo-hover round-arrow GameItemGroup">
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                        <div class="swiper-wrapper GameItemGroupContent">
                         
                        </div>
