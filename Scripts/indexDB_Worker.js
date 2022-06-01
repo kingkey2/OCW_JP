@@ -1,4 +1,4 @@
-﻿self.importScripts("/Scripts/Math.uuid.js");
+﻿var workerControl;
 
 //定期更新與整理資料吐回(背景執行)
 //整理成兩塊
@@ -11,44 +11,47 @@ self.addEventListener('message', function (e) {
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new Worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], e.data.Params[3]);
-            wokerControl.onRefreshCtEvent = function (ctList) {
-                self.postMessage({
-                    Cmd: "RefreshCtList",
-                    Data: ctList,
-                });
-            };
-            wokerControl.onRefreshDicEvent = function (searchCore) {
-                self.postMessage({
-                    Cmd: "RefreshDic",
-                    Data: searchCore,
-                });
-            };
-            wokerControl.start();
+            wokerControl = new Worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], e.data.Params[3], function () {
+                self.postMessage("RefreshData");
+            });
+        } else if (e.data.Cmd == "INIT") {
+
         }
     }
+    self.postMessage(res);
+    self.close();
 }, false);
 
 
 
 //#region  Class
-var Worker = function (version, url, langUrl, second) {
+var WorkerControl = function (version, url, second) {
     var defineLocations = ["Home", "GameList_All", "GameList_Slot", "GameList_Live", "GameList_Electron", "GameList_Other"];
     var defineLangs = ["JPN", "CHT"];
-    var mlp;
 
     var RecordTimeStamp = 0;
     var url = url
-    var langUrl = langUrl;
+
     var IntervalSecond = second;
     var version = version;
+    var lobbyAPI
 
-    var lobbyAPI;
+    //#region public屬性
+    //刷新全部
+    this.onRefreshAllEvent;
+    //刷新分類
+    this.onRefreshCtEvent;
+    //#endregion
 
+    //#region 語系暫時解決方案
+    var langUrl = langUrl;
     var languages = [
-
+        {
+            lang: "",
+            type: "Brand",
+            mlp: null
+        }
     ];
-
     var multiLanguage = function (v) {
         var _LanguageContextJSON = [];
 
@@ -111,33 +114,33 @@ var Worker = function (version, url, langUrl, second) {
                     if (v) {
                         loadLanguageFromFile(filePath + lang + ".json?" + v, function () {
                             if (cb)
-                                cb(lang);
+                                cb();
                         });
                     } else {
                         loadLanguageFromFile(filePath + lang + ".json", function () {
                             if (cb)
-                                cb(lang);
+                                cb();
                         });
                     }
                 } else {
                     if (cb)
-                        cb(lang);
+                        cb();
                 }
             } else {
                 if (cb)
-                    cb(lang);
+                    cb();
             }
         }
 
     };
-
     var LoadLang = function (cb) {
         var PromiseList = [];
-        mlp = new multiLanguage(version);
+
         for (var i = 0; i < defineLangs.length; i++) {
             var lang = defineLangs[i];
-            PromiseList.push(new Promise(function (resolve, reject) {               
-                mlp.loadLanguageByOtherFile(langUrl + "/GameCode.", lang, function (lang) {
+            promiseList.push(new Promise(function (resolve, reject) {
+                var mlp = new multiLanguage(version);
+                mlp.loadLanguageByOtherFile(langUrl + "/GameCode.", lang, function () {
                     languages.push({
                         lang: lang,
                         type: "GameCode",
@@ -146,9 +149,9 @@ var Worker = function (version, url, langUrl, second) {
                     resolve();
                 })
             }));
-
-            PromiseList.push(new Promise(function (resolve, reject) {             
-                mlp.loadLanguageByOtherFile(langUrl + "/GameBrand.", lang, function (lang) {
+            promiseList.push(new Promise(function (resolve, reject) {
+                var mlp = new multiLanguage(version);
+                mlp.loadLanguageByOtherFile(langUrl + "/GameBrand.", lang, function () {
                     languages.push({
                         lang: lang,
                         type: "GameBrand",
@@ -159,37 +162,21 @@ var Worker = function (version, url, langUrl, second) {
             }));
         }
 
-        Promise.all(PromiseList).then(function (values) {
+        Promise.all(promiseList).then(function (values) {
             cb();
         });
     }
+    //#endregion
 
-    var RefreshData = function RefreshData() {
+    var RefreshData = function () {
+        //兩部分
+        //全部的部分使用indexDB
+        //自定義部分使用記憶體(暫時)
 
         //#region List Define
 
-
-        //var GameList = {
-        //    Slices: [
-        //        {
-        //            Index: 0 // GameID /100
-        //            Datas: [
-        //          GameData                           
-        //            ]
-        //        }
-        //    ]
-        //};
-
-        //var SearchDic = {
-        //    //廠牌搜尋
-        //    Brands: [{GameBrand:,AllGame:[],GameIndex}],
-        //    //總文字搜尋
-        //    Langs: { CHT : { 好:[] }}
-        //};
-
-
         //var GameCtList = [{
-        //    Location: "",
+        //    Loacation: "",
         //    Categories: [
         //        {
         //            CategoryID: 0,
@@ -219,23 +206,14 @@ var Worker = function (version, url, langUrl, second) {
 
         //#endregion List
 
-
-        lobbyAPI.GetCompanyGameCodeTwo(Math.uuid(), (function (success, o) {
+        lobbyAPI.GetCompanyGameCodeTwo(getUUID(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     var GameCtList = [];
 
-                    for (var i = 0; i < defineLocations.length; i++) {
-                        GameCtList.push({
-                            Location: defineLocations[i],
-                            Categories: []
-                        });
-                    }
-
-
                     for (var i = 0; i < o.CompanyCategoryDatas.length; i++) {
-                        var ctData = o.CompanyCategoryDatas[i];
-                        var targetLocation = GameCtList.find(x => x.Location == ctData.Location);
+                        var ctData = CompanyCategoryDatas[i];
+                        var targetLoacation = GameCtList.find(x => x.Location == ctData.Location);
                         var pushCtData = {
                             CategoryID: ctData.CompanyCategoryID,
                             State: ctData.State,
@@ -247,7 +225,6 @@ var Worker = function (version, url, langUrl, second) {
                         };
 
                         for (var ii = 0; ii < ctData.Datas.length; ii++) {
-                          
                             var gameData = ctData.Datas[ii];
                             var pushGameData = {
                                 CategoryID: ctData.CompanyCategoryID,
@@ -270,7 +247,7 @@ var Worker = function (version, url, langUrl, second) {
                             };
 
                             for (var iii = 0; iii < languages.length; iii++) {
-                                var language = languages[iii];
+                                var language = languages[i];
 
                                 if (language.type == "GameCode") {
                                     pushGameData.GameText[language.lang] = mlp.getLanguageKey(pushGameData.GameCode);
@@ -285,27 +262,24 @@ var Worker = function (version, url, langUrl, second) {
 
                         pushCtData.Datas.sort((a, b) => a.SortIndex - b.SortIndex);
 
-                        targetLocation.Categories.push(pushCtData);
+                        targetLoacation.Categories.push(pushCtData);
                     }
 
-                    for (var i = 0; i < GameCtList.length; i++) {
+                    for (var i = 0; i < this.GameCtList.length; i++) {
                         GameCtList[i].Categories.sort((a, b) => a.SortIndex - b.SortIndex);
                     }
 
-                    if (this.onRefreshCtEvent) {
-                        this.onRefreshCtEvent(GameCtList);
-                    }
-                    
+
                 }
             }
-        }).bind(this));
+        });
 
-        lobbyAPI.GeAllCompanyGameCode(Math.uuid(), (function (success, o) {
+        lobbyAPI.GeAlltCompanyGameCode(getUUID(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     var GameList = {
                         Slices: [],
-                        TotalCount:0
+                        TotalCount
                     };
 
 
@@ -325,7 +299,7 @@ var Worker = function (version, url, langUrl, second) {
 
                     for (var i = 0; i < o.Datas.length; i++) {
                         //利用MaxGameID整理index                        
-                        var Data = o.Datas[i];
+                        var Data = Datas[i];
                         var targetBrand;
                         var pushData = {
                             GameID: Data.GameID,
@@ -351,7 +325,6 @@ var Worker = function (version, url, langUrl, second) {
 
 
                         if (targetBrand) {
-                            targetBrand.AllGame.push(Data.GameID);
                             var targeCharDatas = targetBrand.GameNameIndex[Data.GameName[0]];
                             if (targeCharDatas) {
                                 targeCharDatas.push({
@@ -375,8 +348,7 @@ var Worker = function (version, url, langUrl, second) {
                                 //廠牌文字搜尋，需再區分語系
                                 Langs: {
 
-                                },
-                                AllGame: [Data.GameID]
+                                }
                             };
 
                             //取第一個字母當作切片依據
@@ -384,110 +356,132 @@ var Worker = function (version, url, langUrl, second) {
                                 TargetValue: Data.GameName,
                                 GameID: Data.GameID
                             }];
-
-                            SearchDic.Brands.push(targetBrand);
                         }
 
                         //整理語系資料與依照字母加入搜尋索引
-                        for (var ii = 0; ii < languages.length; ii++) {
-                            var language = languages[ii];
+                        for (var ii = 0; ii < this.languages.length; ii++) {
+                            var language = this.languages[i];
                             var transGameText = mlp.getLanguageKey(Data.GameCode);
                             var transBrandText = mlp.getLanguageKey(Data.GameBrand);
                             var targetLangData;
 
                             if (language.type == "GameCode") {
-                                pushData.GameText[language.lang] = transGameText;
+                                Data.GameText[language.lang] = transGameText;
                             } else if (language.type == "GameBrand") {
-                                pushData.BrandText[language.lang] = transBrandText;
+                                Data.BrandText[language.lang] = transBrandText;
                             }
 
-                            if (language.type == "GameCode") {
-                                //新增至全部文字搜尋
-                                targetLangData = SearchDic.Langs[language.lang];
 
-                                if (targetLangData) {
-                                    var targetCharDatas = targetLangData[transGameText[0]];
+                            //新增至全部文字搜尋
+                            targetLangData = SearchDic.Langs[language];
 
-                                    if (targetCharDatas) {
-                                        targetCharDatas.push({
-                                            TargetValue: transGameText,
-                                            GameID: Data.GameID
-                                        });
-                                    } else {
-                                        targetLangData[transGameText[0]] = [{
-                                            TargetValue: transGameText,
-                                            GameID: Data.GameID
-                                        }];
-                                    }
+                            if (targetLangData) {
+                                var targetCharDatas = targetLangData[transGameText[0]];
+
+                                if (targetCharDatas) {
+                                    targetCharDatas.push({
+                                        TargetValue: transGameText,
+                                        GameID: Data.GameID
+                                    });
                                 } else {
-                                    var tempCharDatas = {};
-                                    tempCharDatas[transGameText[0]] = [{
+                                    targetLangData[transGameText[0]] = [{
                                         TargetValue: transGameText,
                                         GameID: Data.GameID
                                     }];
-                                    SearchDic.Langs[language.lang] = tempCharDatas;
                                 }
+                            } else {
+                                var tempCharDatas = {};
+                                tempCharDatas[transGameText[0]] = [{
+                                    TargetValue: transGameText,
+                                    GameID: Data.GameID
+                                }];
+                                SearchDic.Langs[language] = tempCharDatas;
+                            }
 
 
-                                //新增至廠牌全文字搜尋
-                                targetLangData = targetBrand.Langs[language.lang];
+                            //新增至廠牌全文字搜尋
+                            targetLangData = targetBrand.Langs[language];
 
-                                if (targetLangData) {
-                                    var targetCharDatasByBrand = targetLangData[transGameText[0]];
+                            if (targetLangData) {
+                                var targetCharDatasByBrand = targetLangData[transGameText[0]];
 
-                                    if (targetCharDatas) {
-                                        targetCharDatas.push({
-                                            TargetValue: transGameText,
-                                            GameID: Data.GameID
-                                        });
-                                    } else {
-                                        targetLangData[transGameText[0]] = [{
-                                            TargetValue: transGameText,
-                                            GameID: Data.GameID
-                                        }];
-                                    }
+                                if (targetCharDatas) {
+                                    targetCharDatas.push({
+                                        TargetValue: transGameText,
+                                        GameID: Data.GameID
+                                    });
                                 } else {
-                                    var tempCharDatas = {};
-                                    tempCharDatas[transGameText[0]] = [{
+                                    targetLangData[transGameText[0]] = [{
                                         TargetValue: transGameText,
                                         GameID: Data.GameID
                                     }];
-                                    targetBrand.Langs[language.lang] = tempCharDatas;
                                 }
-                            }                           
+                            } else {
+                                var tempCharDatas = {};
+                                tempCharDatas[transGameText[0]] = [{
+                                    TargetValue: transGameText,
+                                    GameID: Data.GameID
+                                }];
+                                targetBrand.Langs[language] = tempCharDatas;
+                            }
                         }
 
-                        var IndexOne = Math.trunc(Data.GameID / 100);
-                        var IndexTwo = Data.GameID % 100;
+                        var IndexOne = Math.trunc(o.MaxGameID / 100);
+                        var IndexTwo = o.MaxGameID % 100;
 
                         GameList.Slices[IndexOne][IndexTwo] = pushData;
-                        GameList.TotalCount++;                       
-                    }
 
-                    if (this.onRefreshDicEvent) {
-                        this.onRefreshDicEvent({
-                            GameList: GameList,
-                            SearchDic: SearchDic
-                        });
-                    }                    
+                        if (this.onRefreshAllEvent) {
+                            this.onRefreshAllEvent({
+                                GameList: GameList,
+                                SearchDic: SearchDic
+                            });
+                        }
+                    }
                 }
             }
-        }).bind(this));
+        });
     };
 
+    function getUUID(len, radix) {
+        if (len) {
+            // Compact form
+            for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
+        } else {
+            // rfc4122, version 4 form
+            var r;
 
-    //#region public屬性
-    //刷新全部
-    this.onRefreshDicEvent;
-    //刷新分類
-    this.onRefreshCtEvent;
+            // rfc4122 requires these characters
+            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+            uuid[14] = '4';
+
+            // Fill in random data.  At i==19 set the high bits of clock sequence as
+            // per rfc4122, sec. 4.1.5
+            for (i = 0; i < 36; i++) {
+                if (!uuid[i]) {
+                    r = 0 | Math.random() * 16;
+                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                }
+            }
+        }
+
+        return uuid.join('');
+    }
+
+    function init() {
 
 
+        //初始化分類
+        for (var i = 0; i < defineLocations.length; i++) {
+            GameCtList.push({
+                Loacation: defineLocations[i],
+                Categories: null
+            });
+        }
 
-    this.start = function () {
         lobbyAPI = new (function (APIUrl) {
-            this.GeAllCompanyGameCode = function (GUID, cb) {
-                var url = APIUrl + "/GeAllCompanyGameCode";
+            this.GeAlltCompanyGameCode = function (GUID, cb) {
+                var url = APIUrl + "/GeAlltCompanyGameCode";
                 var postData;
 
                 postData = {
@@ -579,11 +573,12 @@ var Worker = function (version, url, langUrl, second) {
             }
         })(url);
 
-        LoadLang((function () {
-            RefreshData.call(this);
-            setInterval(this.RefreshData, IntervalSecond);
-        }).bind(this));
+        LoadLang(function () {
+            RefreshData();
+            setInterval.call(this, this.RefreshData, IntervalSecond);
+        });
     }
-    //#endregion
+
+    init.call(this);
 };
 //#endregion

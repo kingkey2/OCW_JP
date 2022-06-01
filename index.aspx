@@ -174,6 +174,7 @@
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+<script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -205,7 +206,7 @@
 
     var selectedWallet = null;
     var v = "<%=Version%>";
-
+    var GCB;
     var GameInfoModal;
     var MessageModal;
     var gameWindow;
@@ -1215,6 +1216,15 @@
     }
 
     function init() {
+        if (navigator.webdriver == true) {
+            return;
+        }
+
+        GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 500, function () {
+
+        });
+    
+
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
 
@@ -1256,7 +1266,7 @@
                 }
 
                 //getCompanyGameCode();
-                //getCompanyGameCodeTwo();
+                getCompanyGameCodeTwo();
                 //登入Check
                 window.setTimeout(function () {
                     lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
@@ -1398,8 +1408,8 @@
     }
 
     function getCompanyGameCodeTwo() {
-
-        var CategoryList = ['GameList_All', 'GameList_Solt', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
+        //return
+        var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
 
         var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
         lobbyClient.GetCompanyGameCodeTwo(Math.uuid(), function (success, o) {
@@ -1412,6 +1422,8 @@
                     LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
 
                     LobbyGameList.CategoryList = CategoryList;
+                    notifyWindowEvent("GameLoadEnd", null);
+                    API_LoadingEnd();
                 } else {
                     showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
                 }
@@ -1779,7 +1791,7 @@
                 </div>
                 <div class="col-12 copy_right ">
                     <div class="container">
-                        <p class="text">Copyright © 2022 All Rights Reserved</p>
+                        <p class="text">Copyright © 2022 マハラジャ. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
