@@ -50,16 +50,40 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.textContent).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+        copyToClipboard(copyText.textContent)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
+    }
+
+    function copyToClipboard(textToCopy) {
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy);
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            });
+        }
     }
 
     function updateBaseInfo() {
         $("#RealName").val(WebInfo.UserInfo.RealName);
         $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
-        $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber); 
-         if (WebInfo.UserInfo.ExtraData) {
+        $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
+        if (WebInfo.UserInfo.ExtraData) {
             var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
             for (var i = 0; i < ExtraData.length; i++) {
                 if (ExtraData[i].Name == "Birthday") {
@@ -118,19 +142,19 @@
         $('.data-item.password').show();
         $('#updateUserAccountRemoveReadOnlyBtn').hide();
         $('#updateUserAccountBtn').show();
-        
+
     }
 
     function updateUserAccount() {
-        
-        let ExtraData = WebInfo.UserInfo.ExtraData?JSON.parse(WebInfo.UserInfo.ExtraData):[];
+
+        let ExtraData = WebInfo.UserInfo.ExtraData ? JSON.parse(WebInfo.UserInfo.ExtraData) : [];
         let strExtraData = "";
         let strEmail = "";
         let strOldPassword = "";
         let strNewPassword = "";
 
         if ($("#idBornYear").val() != "" && $("#idBornMonth").val() != "" && $("#idBornDay").val() != "") {
-            if (ExtraData.length != 0 && ExtraData.filter(x => x.Name == "Birthday").length>0) {
+            if (ExtraData.length != 0 && ExtraData.filter(x => x.Name == "Birthday").length > 0) {
 
                 let findBirthday = ExtraData.filter(x => x.Name == "Birthday").length;
                 if (findBirthday == 0) {
@@ -206,7 +230,7 @@
 
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("成功"), function () {
 
-                         window.top.API_RefreshUserInfo(function () {
+                        window.top.API_RefreshUserInfo(function () {
                         });
                     });
                 } else {
@@ -223,7 +247,7 @@
 
     }
 
-     function EWinEventNotify(eventName, isDisplay, param) {
+    function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
             case "LoginState":
 
@@ -297,12 +321,12 @@
                                     </div>
                                     <!-- 資料更新 Button-->
                                     <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
-                                    <button id="updateUserAccountBtn" type="button" style="display:none;" class="btn btn-edit btn-full-main" onclick="updateUserAccount()"><i class="icon icon-mask icon-pencile"></i></button>
+                                    <button id="updateUserAccountBtn" type="button" style="display: none;" class="btn btn-edit btn-full-main" onclick="updateUserAccount()"><i class="icon icon-mask icon-pencile"></i></button>
                                 </legend>
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
                                 <div class="dataFieldset-content row no-gutters">
-                                    <div class="data-item name" style="width:50%">
+                                    <div class="data-item name" style="width: 50%">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
@@ -313,7 +337,7 @@
                                             <input type="text" class="custom-input-edit" id="RealName" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item password" style="width:50%;display:none;">
+                                    <div class="data-item password" style="width: 50%; display: none;">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
@@ -324,7 +348,7 @@
                                             <input type="password" class="custom-input-edit" id="idOldPassword" value="">
                                         </div>
                                     </div>
-                                    <div class="data-item birth" style="width:50%">
+                                    <div class="data-item birth" style="width: 50%">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
@@ -332,12 +356,12 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornYear" value="" readonly>
-                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornMonth" value="" readonly>
-                                            <input type="text" style="width:30%" class="custom-input-edit" id="idBornDay" value="" readonly>
+                                            <input type="text" style="width: 30%" class="custom-input-edit" id="idBornYear" value="" readonly>
+                                            <input type="text" style="width: 30%" class="custom-input-edit" id="idBornMonth" value="" readonly>
+                                            <input type="text" style="width: 30%" class="custom-input-edit" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item password" style="width:50%;display:none;">
+                                    <div class="data-item password" style="width: 50%; display: none;">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
@@ -359,13 +383,12 @@
                                                 <span class="label language_replace validated">驗證</span>
                                                 <span class="label language_replace unvalidated">未驗證</span>
                                             </div>--%>
-
                                         </div>
                                         <div class="data-item-content">
                                             <input type="text" class="custom-input-edit" id="PhoneNumber" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item email" style="width:100%">
+                                    <div class="data-item email" style="width: 100%">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-mail"></i>
@@ -425,7 +448,7 @@
 
                                                         <button type="button" class="btn btn-transparent btn-exchange-avater">
                                                             <i class="icon icon-mask icon-copy" onclick="copyText('idCopyPersonCode')"></i>
-                                                   
+
                                                         </button>
 
                                                     </div>
@@ -445,39 +468,39 @@
                     <!-- 會員簽到進度顯示 + 活動中心 -->
                     <section class="section-member-activity">
 
-                         <!-- 會員簽到進度顯示 -->
-                    <div class="activity-dailylogin-wrapper">
-                        <div class="dailylogin-bouns-wrapper">
-                            <div class="dailylogin-bouns-inner">
-                                <div class="dailylogin-bouns-content">
-                                    <h3 class="title">
-                                        <span class="name ">ログイン毎日の賞</span></h3>
-                                    <ul class="dailylogin-bouns-list">
-                                        <!-- 已領取 bouns => got-->
-                                        <li class="bouns-item got">
-                                            <span class="day"><span class="language_replace">金</span></span></li>
-                                        <li class="bouns-item saturday">
-                                            <span class="day"><span class="language_replace">土</span></span>
-                                        </li>
-                                        <li class="bouns-item sunday">
-                                            <span class="day"><span class="language_replace">日</span></span></li>
-                                        <li class="bouns-item">
-                                            <span class="day"><span class="language_replace">月</span></span>
-                                        </li>
-                                        <li class="bouns-item">
-                                            <span class="day"><span class="language_replace">火</span></span></li>
-                                        <li class="bouns-item">
-                                            <span class="day"><span class="language_replace">水</span></span>
-                                        </li>
-                                        <li class="bouns-item">
-                                            <span class="day"><span class="language_replace">木</span></span>
-                                        </li>
-                                    </ul>
-                                    
+                        <!-- 會員簽到進度顯示 -->
+                        <div class="activity-dailylogin-wrapper">
+                            <div class="dailylogin-bouns-wrapper">
+                                <div class="dailylogin-bouns-inner">
+                                    <div class="dailylogin-bouns-content">
+                                        <h3 class="title">
+                                            <span class="name ">ログイン毎日の賞</span></h3>
+                                        <ul class="dailylogin-bouns-list">
+                                            <!-- 已領取 bouns => got-->
+                                            <li class="bouns-item got">
+                                                <span class="day"><span class="language_replace">金</span></span></li>
+                                            <li class="bouns-item saturday">
+                                                <span class="day"><span class="language_replace">土</span></span>
+                                            </li>
+                                            <li class="bouns-item sunday">
+                                                <span class="day"><span class="language_replace">日</span></span></li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">月</span></span>
+                                            </li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">火</span></span></li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">水</span></span>
+                                            </li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">木</span></span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                         <!-- 活動中心 -->
                         <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
@@ -508,7 +531,7 @@
                                     </div>
                                     <!-- 履歷紀錄 -->
                                     <div class="member-record-wrapper">
-                                        <div class="btn" onclick="location.href='record.html';">
+                                        <div class="btn" onclick="window.top.API_LoadPage('record','record.aspx', true)">
                                             <div class="member-record-title">
                                                 <i class="icon icon-mask icon-list-time"></i>
                                                 <h3 class="title language_replace">履歷紀錄</h3>

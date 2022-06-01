@@ -12,29 +12,29 @@
         //find GameID
 
         if (gameBrand) {
-            let targetBrand = SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
+            let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
 
             if (targetBrand) {
                 langTemp = targetBrand.Langs[lang];
 
             } else {
-                langTemp = SearchCore.SearchDic.Langs[lang];
+                langTemp = this.SearchCore.SearchDic.Langs[lang];
             }
         } else {
-            langTemp = SearchCore.SearchDic.Langs[lang];
+            langTemp = this.SearchCore.SearchDic.Langs[lang];
         }
 
         if (langTemp) {
-            findCharList = temp[searchText[0]];
+            findCharList = langTemp[searchText[0]];
 
-            if (findCharIndexObj) {
+            if (findCharList) {
                 for (var i = 0; i < findCharList.length; i++) {
                     // gameID + 
                     let charObj = findCharList[i];
                     if (charObj.TargetValue.indexOf(searchText) != -1) {
                         let IndexOne = Math.trunc(charObj.GameID / 100);
                         let IndexTwo = charObj.GameID % 100;
-                        let gameCodeObj = SearchCore.GameList.Slices[IndexOne][IndexTwo];
+                        let gameCodeObj = this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
 
                         if (gameCategoryCode) {
                             if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
@@ -54,15 +54,15 @@
         let Ret = [];
         //find GameID
 
-        let targetBrand = SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
-
+        let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
+    
 
         for (var i = 0; i < targetBrand.AllGame.length; i++) {
             // gameID + 
             let gameID = targetBrand.AllGame[i];
             let IndexOne = Math.trunc(gameID / 100);
             let IndexTwo = gameID % 100;
-            let gameCodeObj = SearchCore.GameList.Slices[IndexOne][IndexTwo];
+            let gameCodeObj = this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
 
             if (gameCategoryCode) {
                 if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
@@ -82,28 +82,27 @@
     }
     this.GetCategories = function (loactions) {
         let Ret;
-
+        let CtList = this.CtList;
         if (loactions) {
             Ret = [];
 
             for (var i = 0; i < CtList.length; i++) {
-                if (loactions.includes(CtList[i].Loacation)) {
+                if (CtList[i].Location.includes(loactions)) {
                     Ret.push(CtList[i]);
                 }
             }
         } else {
             Ret = CtList;
         }
-
-
+   
         return Ret;
     }
     this.GetCategory = function (loaction) {
 
         let Ret;
-
+        let CtList = this.CtList;
         for (var i = 0; i < CtList.length; i++) {
-            if (loaction == CtList[i].Loacation) {
+            if (loaction == CtList[i].Location) {
                 Ret = CtList[i];
                 break;
             }
@@ -132,9 +131,8 @@
                     case "RefreshCtList":
                         this.CtList = e.data.Data;
 
-
                         if (this.FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {
+                            if (CtList != null && SearchCore != null) {                               
                                 if (this.onLoaded) {
                                     this.onLoaded();
                                 }
@@ -152,7 +150,7 @@
                         this.SearchCore = e.data.Data;
 
                         if (this.FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {
+                            if (CtList != null && SearchCore != null) {                               
                                 if (this.onLoaded) {
                                     this.onLoaded();
                                 }

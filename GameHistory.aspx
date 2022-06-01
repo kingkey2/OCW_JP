@@ -683,7 +683,7 @@
                                     <span class="count">0</span>
                                 </div>
                             </td>
-                        </tr>--%>
+                        </tr>
             </tbody>
         </table>--%>
 

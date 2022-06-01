@@ -1722,6 +1722,105 @@ public class LobbyAPI : System.Web.Services.WebService
 
     #endregion
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public UserTwoMonthSummaryResult GetUserTwoMonthSummaryData(string WebSID, string GUID) {
+        EWin.OCW.OCW OCWAPI = new EWin.OCW.OCW();
+        RedisCache.SessionContext.SIDInfo SI;
+        UserTwoMonthSummaryResult R = new UserTwoMonthSummaryResult() { PaymentResult = null, GameResult = null, Result = EWin.Lobby.enumResult.ERR };
+        System.Data.DataTable PaymentDT;
+        EWin.OCW.UserSummaryGameDataResult GameRet = new EWin.OCW.UserSummaryGameDataResult();
+        List<UserTwoMonthSummaryResult.Payment> PaymentResult = new List<UserTwoMonthSummaryResult.Payment>();
+        UserTwoMonthSummaryResult.Payment P = new UserTwoMonthSummaryResult.Payment();
+        List<UserTwoMonthSummaryResult.Game> GameResult = new List<UserTwoMonthSummaryResult.Game>();
+        UserTwoMonthSummaryResult.Game G = new UserTwoMonthSummaryResult.Game();
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            var pre = DateTime.Now.AddMonths(-1).ToString("yyyy-MM") + "-01";
+            var now = DateTime.Now.ToString("yyyy-MM") + "-01";
+            var next = DateTime.Now.AddMonths(1).ToString("yyyy-MM") + "-01";
+
+            for (int i = 0; i < 2; i++) {
+                PaymentDT = null;
+                GameRet = new EWin.OCW.UserSummaryGameDataResult();
+                if (i == 0) {
+                    PaymentDT = EWinWebDB.UserAccountSummary.GetUserAccountPaymentSummaryData(SI.LoginAccount, pre, now);
+                    GameRet = OCWAPI.GetUserSummaryGameData(GetToken(), SI.EWinSID, GUID, pre, now);
+                } else {
+                    PaymentDT = EWinWebDB.UserAccountSummary.GetUserAccountPaymentSummaryData(SI.LoginAccount, now, next);
+                    GameRet = OCWAPI.GetUserSummaryGameData(GetToken(), SI.EWinSID, GUID, now, next);
+                }
+
+                if (PaymentDT != null) {
+                    if (PaymentDT.Rows.Count > 0) {
+                        P = new UserTwoMonthSummaryResult.Payment();
+                        P.SortIndex = i;
+                        P.DepositAmount = (decimal)PaymentDT.Rows[0]["DepositAmount"];
+                        P.WithdrawalAmount = (decimal)PaymentDT.Rows[0]["WithdrawalAmount"];
+                    } else {
+                        P = new UserTwoMonthSummaryResult.Payment();
+                        P.SortIndex = i;
+                        P.DepositAmount = 0;
+                        P.WithdrawalAmount = 0;
+                    }
+                } else {
+                    P = new UserTwoMonthSummaryResult.Payment();
+                    P.SortIndex = i;
+                    P.DepositAmount = 0;
+                    P.WithdrawalAmount = 0;
+                }
+
+                PaymentResult.Add(P);
+
+                if (GameRet.ResultState == EWin.OCW.enumResultState.OK) {
+                    G = new UserTwoMonthSummaryResult.Game();
+                    G.SortIndex = i;
+                    G.OrderValue = GameRet.OrderValue;
+                    G.ValidBetValue = GameRet.ValidBetValue;
+                    G.RewardValue = GameRet.RewardValue;
+                } else {
+                    G = new UserTwoMonthSummaryResult.Game();
+                    G.SortIndex = i;
+                    G.OrderValue = 0;
+                    G.ValidBetValue = 0;
+                    G.RewardValue = 0;
+                }
+
+                GameResult.Add(G);
+            }
+
+            R.Result = EWin.Lobby.enumResult.OK;
+            R.PaymentResult = PaymentResult;
+            R.GameResult = GameResult;
+        } else {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+
+        return R;
+    }
+
+    public class UserTwoMonthSummaryResult  : EWin.Lobby.APIResult {
+        public List<Payment> PaymentResult { get; set; }
+        public List<Game> GameResult { get; set; }
+
+        public class Payment {
+            public int SortIndex { get; set; }
+            public decimal DepositAmount { get; set; }
+            public decimal WithdrawalAmount { get; set; }
+        }
+
+        public class Game {
+            public int SortIndex { get; set; }
+            public decimal OrderValue { get; set; }
+            public decimal ValidBetValue { get; set; }
+            public decimal RewardValue { get; set; }
+        }
+    }
+
+
     private string GetToken()
     {
         string Token;

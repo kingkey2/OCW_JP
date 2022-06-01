@@ -123,7 +123,15 @@
         //window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
             //if (WebInfo.FirstLoaded) {
-            window.parent.API_LoadingEnd(1);
+            //if ($('.footer').length == 2) {
+            //    window.parent.API_LoadingEnd(1);
+            //} else
+            if ($('.footer').length == 0 || ($('.footer').length == 1 && $('.footer').children().length == 0)) {
+                window.parent.API_LoadingEnd();
+            } else {
+                window.parent.API_LoadingEnd(1);
+            }
+            
             //}
             LobbyGameList = window.parent.API_GetGameList();
           
@@ -210,6 +218,7 @@
                                 $(this).closest('.game-item-info-detail').toggleClass('open');
                             });
 
+                            $(GI).find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
                         } else {
                             GI = c.getTemplate("temGameItem2");
                         }
@@ -231,6 +240,8 @@
                         $(GI).find(".BrandName").text(gameItem.GameBrand);
                         if (gameItem.RTPInfo) {
                             $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                        } else {
+                            $(GI).find(".valueRTP").text('--');
                         }
 
                         $(GI).find(".GameID").text(gameItem.GameID);
@@ -466,13 +477,44 @@
                             <div class="item bulletin">
                                 <div class="bulletin_inner">
                                     <h2 class="title">重要な新しい情報</h1>
-                   
                                         <ul class="bulletin_list" id="idBulletinBoardContent">
                                         </ul>
                                 </div>
                             </div>
                             <div class="item login">
-                                <img src="images/index/daily-prize-login.png" alt="">
+                                 <!-- 會員簽到進度顯示 -->
+                                <div class="activity-dailylogin-wrapper">
+                                    <div class="dailylogin-bouns-wrapper">
+                                        <div class="dailylogin-bouns-inner">
+                                            <div class="dailylogin-bouns-content">
+                                                <h3 class="title">
+                                                    <span class="name">ログイン毎日の賞</span></h3>
+                                                <ul class="dailylogin-bouns-list">
+                                                    <!-- 已領取 bouns => got-->
+                                                    <li class="bouns-item got">
+                                                        <span class="day"><span class="language_replace">金</span></span></li>
+                                                    <li class="bouns-item saturday">
+                                                        <span class="day"><span class="language_replace">土</span></span>
+                                                    </li>
+                                                    <li class="bouns-item sunday">
+                                                        <span class="day"><span class="language_replace">日</span></span></li>
+                                                    <li class="bouns-item">
+                                                        <span class="day"><span class="language_replace">月</span></span>
+                                                    </li>
+                                                    <li class="bouns-item">
+                                                        <span class="day"><span class="language_replace">火</span></span></li>
+                                                    <li class="bouns-item">
+                                                        <span class="day"><span class="language_replace">水</span></span>
+                                                    </li>
+                                                    <li class="bouns-item">
+                                                        <span class="day"><span class="language_replace">木</span></span>
+                                                    </li>
+                                                </ul>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -583,7 +625,7 @@
                             <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                         </a>
                     </div>
-                    <div class="game_slider swiper_container gameinfo-hover round-arrow GameItemGroup">
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                        <div class="swiper-wrapper GameItemGroupContent">
                         
                        </div>
