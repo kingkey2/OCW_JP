@@ -1,19 +1,14 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-Hant-TW" class="innerHtml">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Maharaja</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="js/vendor/swiper/css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/member.css">
-    <!--===========JS========-->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="js/vendor/swiper/js/swiper-bundle.min.js"></script>
-    <script src="js/theme.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Maharaja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/basic.min.css">
+  <link rel="stylesheet" href="js/vendor/swiper/css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/member.css">
 </head>
 <body class="innerBody">
   <main class="innerMain">
@@ -27,7 +22,7 @@
                             <span class="avater-img">
                                 <img src="images/avatar/avater-2.png" alt="">
                             </span>
-                            <button type="button" class="btn btn-round btn-full-main btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar"><i class="icon icon-mask icon-camera "></i>
+                            <button type="button" class="btn btn-round btn-full-main btn-exchange-avater" data-toggle="modal" data-target="#ModalAvatar"><i class="icon icon-mask icon-camera "></i></span>
                             </button>
                         </span>
                     </div>
@@ -171,11 +166,38 @@
 
                 <!-- 會員簽到進度顯示 + 活動中心 -->
                 <section class="section-member-activity">
-                    
                     <!-- 會員簽到進度顯示 -->
                     <div class="activity-dailylogin-wrapper">
-                        <img src="images/member/activity_dailylogin_mobile.png" alt="" class="mobile">
-                        <img src="images/member/activity_dailylogin_desk.png" alt="" class="desktop">
+                        <div class="dailylogin-bouns-wrapper">
+                            <div class="dailylogin-bouns-inner">
+                                <div class="dailylogin-bouns-content">
+                                    <h3 class="title">
+                                        <span class="name ">ログイン毎日の賞</span></h3>
+                                    <ul class="dailylogin-bouns-list">
+                                        <!-- 已領取 bouns => got-->
+                                        <li class="bouns-item got">
+                                            <span class="day"><span class="language_replace">金</span></span></li>
+                                        <li class="bouns-item saturday">
+                                            <span class="day"><span class="language_replace">土</span></span>
+                                        </li>
+                                        <li class="bouns-item sunday">
+                                            <span class="day"><span class="language_replace">日</span></span></li>
+                                        <li class="bouns-item">
+                                            <span class="day"><span class="language_replace">月</span></span>
+                                        </li>
+                                        <li class="bouns-item">
+                                            <span class="day"><span class="language_replace">火</span></span></li>
+                                        <li class="bouns-item">
+                                            <span class="day"><span class="language_replace">水</span></span>
+                                        </li>
+                                        <li class="bouns-item">
+                                            <span class="day"><span class="language_replace">木</span></span>
+                                        </li>
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- 活動中心 -->
@@ -370,6 +392,11 @@
         </div>
     </div>
     </div>
+  <!--===========JS========-->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/vendor/bootstrap/bootstrap.min.js"></script>
+  <script src="js/vendor/swiper/js/swiper-bundle.min.js"></script>
+  <script src="js/theme.js"></script>
 </body>
 
 </html>
