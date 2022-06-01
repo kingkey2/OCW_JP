@@ -1571,11 +1571,6 @@
                                             <span class="title language_replace">領獎中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" onclick="API_LoadPage('WalletCenter','WalletCenter.aspx', true)">
-                                            <%--<i class="icon icon-mask icon-loudspeaker"></i>--%>
-                                            <span class="title language_replace">個人錢包</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
                                             <%--<i class="icon icon-mask icon-loudspeaker"></i>--%>
                                             <span class="title language_replace">履歷記錄</span></a>

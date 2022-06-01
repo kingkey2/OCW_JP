@@ -188,7 +188,11 @@
                             let GameBrand = record.GameCode.split('.')[0];
                             let GameName = record.GameCode.split('.')[1];
 
-                            GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
+                            if (GameBrand == "EWin") {
+                                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
+                            } else {
+                                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
+                            }
 
                             panel.appendChild(RecordDom);
                         }
@@ -452,9 +456,33 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
 
-        navigator.clipboard.writeText(copyText.value).then(
+        copyToClipboard(copyText.value).then(
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+    }
+
+    function copyToClipboard(textToCopy) {
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy);
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            });
+        }
     }
 
     function updateBaseInfo() {
@@ -532,7 +560,7 @@
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
                                     <div class="title">ゴールドフロー履歴情報</div>
-                                    <div class="btn btn-detail-link">詳細</div>
+                                    <%--<div class="btn btn-detail-link">詳細</div>--%>
                                 </div>
                                 <div class="record-overview-content">
                                     <div class="MT__table">
@@ -600,7 +628,7 @@
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
                                     <div class="title">ゴールドフロー履歴情報</div>
-                                    <div class="btn btn-detail-link">詳細</div>
+                                    <%--<div class="btn btn-detail-link">詳細</div>--%>
                                 </div>
                                 <div class="record-overview-content">
                                     <div class="MT__table">
