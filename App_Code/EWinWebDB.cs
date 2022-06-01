@@ -766,4 +766,28 @@ public static class EWinWebDB {
             return RetValue;
         }
     }
+
+    public static class UserAccountSummary {
+        public static System.Data.DataTable GetUserAccountPaymentSummaryData(string LoginAccount, string StartDate, string EndDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT ISNULL(Sum(DepositAmount),0)  DepositAmount, " +
+                      "                ISNULL(Sum(WithdrawalAmount),0) WithdrawalAmount " +
+                      " FROM   UserAccountSummary " +
+                      " WHERE  LoginAccount = @LoginAccount " +
+                      "        AND SummaryDate >= @StartDate " +
+                      "        AND SummaryDate < @EndDate  ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
+            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate);
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+    }
 }

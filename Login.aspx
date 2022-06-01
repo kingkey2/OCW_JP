@@ -7,7 +7,7 @@
     Random R = new Random();
     string Version = EWinWeb.Version;
     TelPhoneNormalize telPhoneNormalize;
-
+    
     if (CodingControl.FormSubmit()) {
         string LoginGUID = Request["LoginGUID"];
         string LoginPassword = Request["LoginPassword"];
@@ -364,8 +364,10 @@
         form.reportValidity();
 
         if (form.checkValidity()) {
-            form.action = "Login.aspx";
-            form.submit();
+            if (navigator.webdriver == false) {
+                form.action = "Login.aspx";
+                form.submit();
+            }
         }
     }
 
