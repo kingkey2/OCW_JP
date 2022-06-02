@@ -4293,6 +4293,7 @@ i {
 
 .game-area.overflow-hidden {
   overflow-x: hidden;
+  padding-bottom: 160px;
 }
 
 .game_wrapper {
