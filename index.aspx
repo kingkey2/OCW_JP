@@ -361,8 +361,6 @@
          
             // if (IFramePage.children.length > 0) {
             //var ifrm = IFramePage.children[0];
-            $('.header_menu, .navbarMenu').removeClass('show');
-            $('.navbar-toggler').attr("aria-expanded", "false");
 
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 //loadingStart();
