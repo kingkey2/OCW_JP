@@ -218,11 +218,11 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
         //#endregion List
 
-
-        lobbyAPI.GetCompanyGameCodeTwo(Math.uuid(), this.RecordTimeStamp, (function (success, o) {
+        let tempStamp = this.RecordTimeStamp;
+        lobbyAPI.GetCompanyGameCodeTwo(Math.uuid(), tempStamp, (function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    if (this.RecordTimeStamp != o.TimeStamp) {
+                    if (o.CompanyCategoryDatas.length > 0) {
                         var GameCtList = [];
 
                         for (var i = 0; i < defineLocations.length; i++) {
@@ -273,7 +273,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     var language = languages[iii];
 
                                     if (language.type == "GameCode") {
-                                        pushGameData.GameText[language.lang] = mlp.getLanguageKey(pushGameData.GameCode);
+                                        pushGameData.GameText[language.lang] = mlp.getLanguageKey(pushGameData.GameBrand + "." + pushGameData.GameName);
 
                                     } else if (language.type == "GameBrand") {
                                         pushGameData.BrandText[language.lang] = mlp.getLanguageKey(pushGameData.GameBrand);
@@ -300,24 +300,15 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                 CtList:GameCtList
                             });
                         }
-                    } else {
-                        this.RecordTimeStamp = o.TimeStamp;
-
-                        if (this.onRefreshCtEvent) {
-                            this.onRefreshCtEvent({
-                                TimeStamp: this.RecordTimeStamp,
-                                CtList: null
-                            });
-                        }
-                    }                                      
+                    }                                    
                 }
             }
         }).bind(this));
 
-        lobbyAPI.GeAllCompanyGameCode(Math.uuid(), this.RecordTimeStamp, (function (success, o) {
+        lobbyAPI.GeAllCompanyGameCode(Math.uuid(), tempStamp, (function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    if (this.RecordTimeStamp != o.TimeStamp) {
+                    if (o.Datas.length > 0) {
                         var GameList = {
                             Slices: [],
                             TotalCount: 0
@@ -328,7 +319,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                             //廠牌搜尋
                             Brands: [],
                             //總文字搜尋
-                            Langs: []
+                            Langs: {}
                         };
 
                         GameList.Slices.length = Math.trunc(o.MaxGameID / 100) + 1;
@@ -488,18 +479,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     SearchDic: SearchDic
                                 }});
                         }
-                    } else {
-                        this.RecordTimeStamp = o.TimeStamp;
-                        if (this.onRefreshDicEvent) {
-                            this.onRefreshDicEvent({
-                                TimeStamp: this.RecordTimeStamp,
-                                SearchCore: {
-                                    GameList: GameList,
-                                    SearchDic: SearchDic
-                                }
-                            });
-                        }
-                    }                   
+                    }             
                 }
             }
         }).bind(this));
@@ -616,7 +596,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
         LoadLang((function () {
             RefreshData.call(this);
-            setInterval(this.RefreshData, IntervalSecond);
+            setInterval(RefreshData.bind(this), IntervalSecond);
         }).bind(this));
     }
     //#endregion

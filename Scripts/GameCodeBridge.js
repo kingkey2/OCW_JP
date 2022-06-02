@@ -2,7 +2,7 @@
     var myWorker
     var CtList = null;
     var SearchCore = null;
-    var TimeStamp = 0;
+   
 
     this.FirstLoaded = false;
     this.SearchGameCodeByLang = function (lang, searchText, gameBrand, gameCategoryCode) {
@@ -113,20 +113,21 @@
         return Ret;
     }
     this.onCtListChange;
-    this.onLoaded = loadedEvent;
+    this.onFirstLoaded = loadedEvent;
     this.init = function () {
 
         //#region SetStorage
-        
-        let recordObj;
+                
         let timeStamp = 0;
-        let ctStr = localStorage.getItem("GCB_Core");
-        let coreStr = localStorage.getItem("GCB_Ct");
+        let ctStr = localStorage.getItem("GCB_Ct");
+        let coreStr = localStorage.getItem("GCB_Core");
 
         timeStamp = Number(localStorage.getItem("GCB_timeStamp"));
         if (timeStamp != NaN && timeStamp != 0) {
             this.SearchCore = JSON.parse(coreStr);
-            this.CtList = JSON.parse(coreStr);         
+            this.CtList = JSON.parse(ctStr);
+            this.FirstLoaded = true;
+            
         }
         //#endregion 
 
@@ -135,7 +136,7 @@
         
         myWorker.postMessage({
             Cmd: "Init",
-            Params: [version, url, langUrl, 5000, timeStamp]
+            Params: [version, url, langUrl, second, timeStamp]
         });
 
         myWorker.onmessage = (function (e) {
@@ -146,20 +147,20 @@
                         this.CtList = ctResult.CtList;
 
                         if (this.FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {                               
-                                if (this.onLoaded) {
-                                    this.onLoaded();
+                            if (this.CtList != null && this.SearchCore != null) {                               
+                                if (this.onFirstLoaded) {
+                                    this.onFirstLoaded();
                                 }
                                 this.FirstLoaded = true;
                             }
                         }
 
                         if (this.onCtListChange) {
-                            this.onCtListChange(CtList);
+                            this.onCtListChange(this.CtList);
                         }
 
-                        localStorage.setItem("GCB_Ct", JSON.stringify(this.CtLists));
-                        localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
+                        localStorage.setItem("GCB_Ct", JSON.stringify(this.CtList));
+                        localStorage.setItem("GCB_timeStamp", ctResult.TimeStamp);
 
                         break;
 
@@ -168,9 +169,9 @@
                         this.SearchCore = SearchResult.SearchCore;
 
                         if (this.FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {                               
-                                if (this.onLoaded) {
-                                    this.onLoaded();
+                            if (this.CtList != null && this.SearchCore != null) {                               
+                                if (this.onFirstLoaded) {
+                                    this.onFirstLoaded();
                                 }
                                 this.FirstLoaded = true;
                             }
