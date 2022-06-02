@@ -198,7 +198,9 @@
             var form = document.getElementById("registerStep1");
             CheckAccountPhoneExist(function (check) {
                 if (check) {
+                    window.top.API_ShowLoading();
                     p.SetUserMail(Math.uuid(), 0, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                        window.top.API_CloseLoading();
                         if (success) {
                             if (o.Result != 0) {
                                 window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
@@ -213,7 +215,7 @@
                     });
                 } else {
                     //window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
-                }                
+                }
             });
         } else {
             window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
@@ -614,13 +616,13 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <label class="form-check-label language_replace">電話號碼將用於發送確認碼，請輸入可以接收短信的電話號碼。</label></br>
+                                <label class="form-check-label language_replace">E-mail將用於發送確認碼，請填寫正確的E-mail。</label></br>
                                
-                                <label class="form-check-label language_replace">1.請先輸入電話號碼。</label></br>
+                                <label class="form-check-label language_replace">1.請先輸入正確E-mail。</label></br>
 
                                 <label class="form-check-label language_replace">2.從註冊會員的畫面點擊發送驗證碼。</label></br>
                                
-                                <label class="form-check-label language_replace">3.驗證碼將會發送到您指定的手機。</label></br>
+                                <label class="form-check-label language_replace">3.驗證碼將會發送到您填寫的E-mail。</label></br>
                                
                                 <label class="form-check-label language_replace">4.輸入驗證碼之後就可進行下一個步驟。</label></br>
                 

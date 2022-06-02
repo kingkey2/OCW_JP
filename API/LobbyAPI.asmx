@@ -1605,7 +1605,7 @@ public class LobbyAPI : System.Web.Services.WebService
         RedisCache.SessionContext.SIDInfo SI;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
         string Token = GetToken();
-        int CollectLimit = 500;
+        int CollectLimit = 100;
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
@@ -1720,7 +1720,6 @@ public class LobbyAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-
             EWin.Lobby.PromotionCollectHistoryResult EWinReturn = lobbyAPI.GetPromotionCollectHistory(GetToken(), SI.EWinSID, GUID, DateTime.Parse(BeginDate), DateTime.Parse(EndDate));
 
             if (EWinReturn.Result == EWin.Lobby.enumResult.OK)
@@ -1920,12 +1919,20 @@ public class LobbyAPI : System.Web.Services.WebService
                 PaymentResult.Add(P);
 
                 if (GameRet.Result == EWin.Lobby.enumResult.OK) {
-                    G = GameRet.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new UserTwoMonthSummaryResult.Game {
-                        ValidBetValue = sum.Sum(y => y.ValidBetValue),
-                        RewardValue = sum.Sum(y => y.RewardValue),
-                        OrderValue = sum.Sum(y => y.OrderValue),
-                        SortIndex = i
-                    }).ToList().FirstOrDefault();
+                    if (GameRet.SummaryList.Length > 0) {
+                        G = GameRet.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new UserTwoMonthSummaryResult.Game {
+                            ValidBetValue = sum.Sum(y => y.ValidBetValue),
+                            RewardValue = sum.Sum(y => y.RewardValue),
+                            OrderValue = sum.Sum(y => y.OrderValue),
+                            SortIndex = i
+                        }).ToList().FirstOrDefault();
+                    } else {
+                        G = new UserTwoMonthSummaryResult.Game();
+                        G.SortIndex = i;
+                        G.OrderValue = 0;
+                        G.ValidBetValue = 0;
+                        G.RewardValue = 0;
+                    }
                 } else {
                     G = new UserTwoMonthSummaryResult.Game();
                     G.SortIndex = i;
