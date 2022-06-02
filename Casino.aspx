@@ -4,28 +4,38 @@
     string Version = EWinWeb.Version;
 %>
 <!doctype html>
-<html>
+<html class="innerHtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maharaja</title>
-
-    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="Scripts/OutSrc/lib/swiper/css/swiper-bundle.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
-    <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-    <link rel="stylesheet" href="css/games.css" type="text/css" />
-
+    <title>Maharaja3</title>
+    <link href="css/basic.min.css" rel="stylesheet" />
+    <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/lobby.css" rel="stylesheet" />
+    <!--===========JS========-->
+    <script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
+    <%--<script type="text/javascript" src="/Scripts/UIControl.js"></script>--%>
+    <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
+    <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
+    <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+    <script src="Scripts/lozad.min.js"></script>
+    <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+    <script src="Scripts/theme.js"></script>
 </head>
-<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
+<%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
+<script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
+<script src="Scripts/theme.js"></script>--%>
 <%--<script src="Scripts/OutSrc/js/games.js"></script>--%>
 
 
@@ -33,7 +43,7 @@
     if (self != top) {
         window.parent.API_LoadingStart();
     }
-    var ui = new uiControl();
+    //var ui = new uiControl();
     var c = new common();
     var mlp;
     var sumask;
@@ -46,248 +56,199 @@
     var nowGameBrand = "All";
     var gameBrandList = [];
     var v = "<%:Version%>";
+    var GCB;
+
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
     }
 
-    function selGameCategory(categoryCode, subCategoryCode) {
-        var idGameItemTitle = document.getElementById("idGameItemTitle");
-        var idGameItemSubTitle = document.getElementById("idGameItemSubTitle");
-        nowCateg = categoryCode;
+    function selGameCategory(categoryCode, doc) {
+        $('#idGameItemTitle .tab-item').removeClass('active');
+        $(doc).addClass('active');
 
-        idGameItemSubTitle.querySelectorAll('.subCateg').forEach(li => {
-            idGameItemSubTitle.removeChild(li);
-        });
-
-        idGameItemTitle.querySelectorAll(".tab-item").forEach(GI => {
-            GI.classList.remove("actived");
-
-            if (GI.classList.contains("tab_" + nowCateg)) {
-                GI.classList.add("actived");
-                document.getElementById("idHeadText").innerText = mlp.getLanguageKey(nowCateg);
-            }
-        });
-
-        if (categoryCode != 'All') {
-            LobbyGameList.CategoryList.find(x => x.Categ == nowCateg).SubCategList.forEach(sc => {
-                if (sc != 'Other' && sc != 'others') {
-                    //上方tab
-                    var li = document.createElement("li");
-                    var li_a = document.createElement("a");
-                    var li_a_span = document.createElement("span");
-
-                    //上方tab
-                    li_a.appendChild(li_a_span);
-                    li.appendChild(li_a);
-                    li.classList.add("tab-item");
-                    li.classList.add("subCateg");
-                    li.classList.add("tab_" + sc);
-                    li_a.classList.add("tab-item-link");
-                    li_a_span.innerText = mlp.getLanguageKey(sc);
-
-                    li_a.onclick = new Function("selSubGameCategory('" + sc + "')");
-                    idGameItemSubTitle.appendChild(li);
-                }
-            });
-        }
-
-        selSubGameCategory(subCategoryCode);
+        updateGameList(categoryCode);
     }
 
-    function selSubGameCategory(subCategoryCode) {
-        var idGameItemSubTitle = document.getElementById("idGameItemSubTitle");
-
-        if (subCategoryCode) {
-            nowSubCateg = subCategoryCode;
-        } else {
-            nowSubCateg = "Hot";
-        }
-
-
-        idGameItemSubTitle.querySelectorAll(".tab-item").forEach(GI => {
-            GI.classList.remove("actived");
-
-            if (GI.classList.contains("tab_" + nowSubCateg)) {
-                GI.classList.add("actived");
-                //history.replaceState(null, null, "?" + "Category=" + categoryCode);
-                history.replaceState(null, null, "?" + "Category=" + nowCateg + "&" + "SubCategory=" + nowSubCateg);
-            }
-        });
-
-        showGame(nowCateg, nowSubCateg);
-    }
-
-    function changeGameBrand() {
-        nowGameBrand = document.getElementById("idGameBrandSel").value;
-        showGame(nowCateg, nowSubCateg);
-    }
-
-    function showGame(categoryCode, subCategoryCode) {
-        var idNoGameExist = document.getElementById("idNoGameExist");
-        idNoGameExist.classList.add("is-hide");
-
-        document.querySelectorAll(".game-item").forEach(GI => {
-            var orderVal = 3;
-
-            if (subCategoryCode == 'Hot' || subCategoryCode == 'New') {
-                GI.classList.remove("is-hide");
-
-                if (categoryCode == "All") {
-
-                } else {
-                    if (!GI.classList.contains("gc_" + nowCateg)) {
-                        GI.classList.add("is-hide");
-                    }
-                }
-
-                if (GI.classList.contains("subGc_Hot") || GI.classList.contains("subGc_New")) {
-                    if (GI.classList.contains("subGc_Hot") && GI.classList.contains("subGc_New")) {
-                        orderVal = 0;
-                    } else if (GI.classList.contains("subGc_" + subCategoryCode)) {
-                        orderVal = 1;
-                    } else {
-                        orderVal = 2;
-                    }
-                }  
-            } else {
-                GI.classList.add("is-hide");
-
-                if (categoryCode == "All") {
-                    if (GI.classList.contains("subGc_" + subCategoryCode)) {
-                        GI.classList.remove("is-hide");
-                    }
-                } else {
-                    if (GI.classList.contains("gc_" + nowCateg) && GI.classList.contains("subGc_" + subCategoryCode)) {
-                        GI.classList.remove("is-hide");
-                    }
-                }
-            }
-
-            GI.style.order = orderVal;
-
-
-            //補上遊戲廠牌篩選
-            if (nowGameBrand == "All") {
-
-            } else {
-                if (!GI.classList.contains("brand_" + nowGameBrand)) {
-                    GI.classList.add("is-hide");
-                }
-            }
-        });
-
-        if (!document.querySelector(".game-item:not(.is-hide)")) {
-            idNoGameExist.classList.remove("is-hide");
-        }
-    }
-
-    function updateGameCode() {
-        var idGameItemTitle = document.getElementById("idGameItemTitle");
-        //var idSecContent = document.getElementById("idSecContent");
-
-        var idGameItemGroup = document.getElementById("idGameItemGroup");
-        var idGameBrandSel = document.getElementById("idGameBrandSel");
-
-
-        idGameItemTitle.innerHTML = "";
+    function updateGameList(categoryCode) {
+        var FavoGames = window.parent.API_GetFavoGames();
+        var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
-        idGameBrandSel.innerHTML = '<option value="All">All</option>';
-        // 尋找新增
+
         if (LobbyGameList) {
-            if (LobbyGameList.CategoryList) {
-                for (var i = 0; i < LobbyGameList.CategoryList.length; i++) {
-                    //上方tab
-                    var li = document.createElement("li");
-                    var li_a = document.createElement("a");
-                    var li_a_span = document.createElement("span");
-                    var li_a_i = createITag(LobbyGameList.CategoryList[i].Categ);
-                    //下方遊戲內容，全隱藏
-                    //var secGameCateg = document.createElement("section");
+
+            var companyCategoryDatasCount = 0;
+            var categName;
+
+            var categorys = LobbyGameList.find(e => e.Location == categoryCode);
+
+            if (categorys) {
+                categorys.Categories.sort(function (a, b) {
+                    return b.SortIndex-a.SortIndex;
+                });
 
 
-                    //上方tab
+                categorys.Categories.forEach(category => {
+                    var count = 0;
+                    var categArea;
+                    companyCategoryDatasCount++;
 
-                    li_a.appendChild(li_a_i);
-                    li_a.appendChild(li_a_span);
-                    li.appendChild(li_a);
-                    li.classList.add("tab-item");
-                    li.classList.add("tab_" + LobbyGameList.CategoryList[i].Categ);
-                    li_a.classList.add("tab-item-link");
-                    li_a_span.innerText = mlp.getLanguageKey(LobbyGameList.CategoryList[i].Categ);
+                    if (category.Datas.length > 0) {
 
-                    li_a.onclick = new Function("selGameCategory('" + LobbyGameList.CategoryList[i].Categ + "')");
-                    idGameItemTitle.appendChild(li);
+                        if (category.ShowType == 0) {
+                            categArea = c.getTemplate("temCategArea");
+                            categName = category.CategoryName.replace('@', '').replace('#', '');
+                            $(categArea).find('.CategName').text(mlp.getLanguageKey(categName));
+                        } else {
+                            categArea = c.getTemplate("temCategArea2");
+                        }
 
-                    //下方遊戲內容建立
-                    //secGameCateg.classList.add("game-list");
-                    //secGameCateg.classList.add("section-wrap");
-                    //secGameCateg.classList.add("sec_" + LobbyGameList.CategoryList[i].Categ);
-                    //secGameCateg.classList.add("is-hide");
+                        $(categArea).find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
+                        $(categArea).find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
 
-                    //idSecContent.appendChild(secGameCateg);
+                        category.Datas.forEach(gameItem => {
+                            var GI;
+                         
+                            if (category.ShowType == 0) {
+                                GI = c.getTemplate("temGameItem");
+                                $(GI).addClass('gameid_' + gameItem.GameID);
+                                var GI_a = GI.querySelector(".btn-play");
+                                var GI_Favor = GI.querySelector(".btn-like");
 
-                }
-            }
+                                if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                                    $(GI_Favor).addClass("added");
+                                }
 
-            if (LobbyGameList.GameList) {
-                LobbyGameList.GameList.forEach(gameItem => {
-                    /* 
-                      <div id="idTemGameItem" class="is-hide">
-                           <div class="game-item">
-                               <a class="game-item-link" href="#"></a>
-                               <div class="img-wrap">
-                                   <img src="../src/img/games/icon/icon-01.jpg">
-                               </div>
-                           </div>
-                       </div>
-                    */
-                    if (gameBrandList.findIndex(x => x == gameItem.GameBrand) == -1) {
-                        gameBrandList.push(gameItem.GameBrand);
-                        var opt = document.createElement("option");
-                        opt.value = gameItem.GameBrand;
-                        opt.innerText = mlp.getLanguageKey(gameItem.GameBrand);
-                        idGameBrandSel.appendChild(opt);
+                                GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
+
+                                if (WebInfo.DeviceType == 1) {
+
+                                    var RTP = "";
+                                    if (gameItem.RTPInfo) {
+                                        RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                                    }
+
+                                    GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
+                                } else {
+                                    GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                                }
+
+                                $(GI).find('.btn-more').click(function () {
+                                    // $(this).toggleClass('show');
+                                    $(this).closest('.game-item-info-detail').toggleClass('open');
+                                });
+
+                                $(GI).find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
+                            } else {
+                                GI = c.getTemplate("temGameItem2");
+                            }
+
+                            var GI_img = GI.querySelector(".gameimg");
+
+                            if (GI_img != null) {
+                                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+                                var el = GI_img;
+                                var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                                observer.observe();
+                            }
+
+                            $(GI).find(".BrandName").text(gameItem.GameBrand);
+                            if (gameItem.RTPInfo) {
+                                $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                            } else {
+                                $(GI).find(".valueRTP").text('--');
+                            }
+  
+                            $(GI).find(".GameID").text(gameItem.GameID);
+                            $(GI).find(".game-item-name").text(gameItem.GameText[WebInfo.Lang]);
+
+                            $(categArea).find('.GameItemGroupContent').append(GI);
+
+                        });
+
+                        gameAreas.append(categArea);
+
+                        if (category.ShowType == 0) {
+                            new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
+                                slidesPerView: "auto",
+                                slidesPerGroup: 8,
+                                loopedSlides: 8,
+                                freeMode: true,
+                                navigation: {
+                                    nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
+                                    prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
+                                }
+                            });
+                        }
+                        else {
+                            new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
+                                effect: "coverflow",
+                                grabCursor: true,
+                                centeredSlides: true,
+                                slidesPerView: "auto",
+                                // slidesPerView: 5,
+                                coverflowEffect: {
+                                    rotate: 20,
+                                    stretch: 0,
+                                    depth: 200,
+                                    modifier: 1,
+                                    slideShadows: true,
+                                },
+                                // pagination: {
+                                //     el: ".swiper-pagination",
+                                // },
+                                loop: true,
+                                autuplay: {
+                                    delay: 100,
+                                    disableOnInteraction: false,
+                                }
+                            });
+                        }
                     }
-
-                    var GI = c.getTemplate("idTemGameItem");
-                    var GI_img = GI.querySelector("img");
-                    var GI_a = GI.querySelector(".OpenGame");
-
-                    if (GI_img != null) {
-                        GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
-                        GI_img.onerror = new Function("setDefaultIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
-                    }
-
-
-                    c.setClassText(GI, "GameCode", null, window.parent.API_GetGameLang(1, gameItem.GameBrand, gameItem.GameName));
-                    c.setClassText(GI, "GameID", null, c.padLeft(gameItem.GameID.toString(), 5));
-                    GI_a.onclick = new Function("window.parent.API_OpenGameCode('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
-                    GI.classList.add("is-hide");
-                    GI.classList.add("gc_" + gameItem.Categ);
-                    GI.classList.add("subGc_" + gameItem.SubCateg);
-                    GI.classList.add("brand_" + gameItem.GameBrand);
-
-                    if (gameItem.IsHot == 1) {
-                        GI.classList.add("subGc_Hot");
-                        GI.classList.add("label-hot");
-                    }
-
-                    if (gameItem.IsNew == 1) {
-                        GI.classList.add("subGc_New");
-                        GI.classList.add("label-new");
-                    }
-
-                    idGameItemGroup.appendChild(GI);
-
                 });
             }
         }
     }
 
-    function updateBaseInfo() {
-        //LobbyGameList = window.parent.API_GetGameList();
-        //updateGameCode();
-        //selGameCategory(nowCateg);
+    function updateGameCode() {
+        LobbyGameList = GCB.GetCategories("GameList");
+        var idGameItemTitle = document.getElementById("idGameItemTitle");
+        idGameItemTitle.innerHTML = "";
+        // 尋找新增+
+        var RecordDom;
+        var record;
+
+        if (LobbyGameList) {
+            for (var i = 0; i < LobbyGameList.length; i++) {
+                //="API_LoadPage('Casino', 'Casino.aspx', true)"
+
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(LobbyGameList[i].Location));
+                switch (LobbyGameList[i].Location) {
+                    case 'GameList_All':
+                        $(RecordDom).find('.CategIcon').addClass('icon-all');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-real');
+                        break;
+                    case 'GameList_Electron':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-ect');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + LobbyGameList[i].Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+
+            $('#idGameItemTitle').append('<div class="tab-slide"></div>');
+        }
+        updateGameList("GameList_All");
+
     }
 
     function init() {
@@ -295,6 +256,7 @@
             window.location.href = "index.aspx";
         }
 
+        GCB = window.parent.API_GetGCB();
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         nowCateg = c.getParameter("Category");
@@ -311,15 +273,18 @@
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
-            window.parent.API_LoadingEnd();
-            if ((WebInfo.SID != null)) {
-                updateBaseInfo()
-                LobbyGameList = window.parent.API_GetGameList();
-                updateGameCode();
-                selGameCategory(nowCateg, nowSubCateg);
+            if (p != null) {
+                if (GCB.FirstLoaded) {
+                    updateGameCode();
+                    window.parent.API_LoadingEnd();
+                }
             } else {
-                loginRecover();
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
+                    window.parent.location.href = "index.aspx";
+                });
             }
+
+            
         });
     }
 
@@ -341,123 +306,190 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
                     updateGameCode();
-                    selGameCategory(nowCateg);
                 });
                 break;
+
         }
-    }
-
-    function createITag(Category) {
-        var iTag = document.createElement("i");
-        var iTagCls = "";
-        switch (Category) {
-            case "All":
-                iTagCls = "icon-casinoworld-menu";
-                break;
-            case "Baccarat":
-                iTagCls = "icon-casino";
-                break;
-            case "Live":
-                iTagCls = "icon-casino";
-                break;
-            case "Sports":
-                iTagCls = "icon-casinoworld-football";
-                break;
-            case "Classic":
-                iTagCls = "icon-poker";
-                break;
-            case "Electron":
-                iTagCls = "icon-casinoworld-poker";
-                break;
-            case "Slot":
-                iTagCls = "icon-slot";
-                break;
-            case "Fish":
-                iTagCls = "icon-casinoworld-fish-1";
-                break;
-            case "Finance":
-                iTagCls = "icon-casinoworld-linear-chart-2";
-                break;
-            default:
-                iTagCls = "icon-casinoworld-game-default";
-                break;
-        }
-
-        iTag.classList.add(iTagCls);
-
-        return iTag;
     }
 
     window.onload = init;
 </script>
 
-<body>
-    <div class="page-container scroll-sticky casinoPage">
-        <header class="heading-top-container">
-            <div class="heading-top-inner">
-                <h2 id="idHeadText" class="heading-top-title"></h2>
+<body class="innerBody">
+ <main class="innerMain">
+    <section class="section-slider_lobby hero">      
+        <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">      
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="hero-item">
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="img-wrap">
+                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/hero-10.jpg?20211004" class="bg">                    
+                  </div>
+              </div>
             </div>
-            <img class="heading-top-img" src="images/assets/heading-img-01.jpg">
-        </header>
-        <div id="idSecContent" class="">
-            <section class="section-wrap sticky">
-                <div class="menu-wrap menu-wrap-main">
-                    <div class="menu-container">
-                        <ul id="idGameItemTitle" class="tab-menu menu-main">
-                        </ul>
-                    </div>
-                </div>
-                <div class="menu-wrap menu-wrap-sub">
-                    <div class="menu-container">
-                        <ul id="idGameItemSubTitle" class="tab-menu menu-sub">
-                            <li class="tab-item tab_Hot">
-                                <a class="tab-item-link" onclick="selSubGameCategory('Hot')">
-                                    <span class="language_replace">熱門</span>
-                                </a>
-                            </li>
-                            <li class="tab-item tab_New">
-                                <a class="tab-item-link" onclick="selSubGameCategory('New')">
-                                    <span class="language_replace">最新</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="menu-filter brand">
-                            <select id="idGameBrandSel" onchange="changeGameBrand();" class="form-control custom-style">
-                                <option value="All">All</option>
-                            </select>
+            <div class="swiper-slide">
+              <div class="hero-item">
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="img-wrap">   
+                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/hero-11.jpg" class="bg">             
+                  </div>                  
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="hero-item">
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="img-wrap">   
+                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/OpenIntroBonus-11.jpg" class="bg">             
+                  </div>                  
+              </div>
+            </div>
+            
+          </div> 
+          <div class="swiper-pagination"></div>                
+        </div>
+    </section>
+        <div class="tab-game tab-scroller tab-5">
+            <div class="tab-scroller__area">
+                <ul class="tab-scroller__content" id="idGameItemTitle">
+                    <div class="tab-slide"></div>
+                </ul>
+            </div>
+        </div>
+       
+        <section class="game-area overflow-hidden" id="gameAreas">
+         
+    </section>
+  </main>
+    <div id="temCategArea" class="is-hide">
+           <section class="section-wrap section-levelUp">
+                <div class="container-fluid">
+                    <div class="game_wrapper">
+                         <div class="sec-title-container">
+                            <div class="sec-title-wrapper">
+                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title CategName"></span></h3>
+                            </div>
+                        </div>
+                        <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                            <div class="swiper-wrapper GameItemGroupContent">
+                            </div>
+                             <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
-            <!-- 遊戲列表 -->
-            <section class="section-wrap game-list">
-                <div class="page-content">
-                    <div id="idGameItemGroup" class="game-item-group">
-                    </div>
-                    <div id="idNoGameExist" class="is-hide">
-                        <span class="language_replace">搜尋不到相關遊戲，請重設分類與廠牌</span>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div id="idTemGameItem" class="is-hide">
+    </div>
+
+    <div id="temGameItem" class="is-hide">
+         <div class="swiper-slide">
             <div class="game-item">
-                <a class="game-item-link"></a>
-                <div class="img-wrap">
-                    <img src="">
-                </div>
-                <div class="game-item-info">
-                    <h3 class="game-item-name GameCode"></h3>
-                    <button type="button" class="btn btn-primary game-item-btn OpenGame"><span class="language_replace">GO</span></button>
-                    <div class="game-item-name" style="text-align: right; position: absolute; bottom: 10px; right: 5px; font-size: 12px;">
-                        No:<span class="GameID"></span>
+                <div class="game-item-inner">
+                    <span class="game-item-mobile-popup" data-toggle="modal"></span>
+                    <div class="game-item-focus">
+                        <div class="game-item-img">
+                            <span class="game-item-link"></span>
+                            <div class="img-wrap">
+                                <img class="gameimg" src="">
+                            </div>
+                        </div>
+                        <div class="game-item-info-detail">
+                            <div class="game-item-info-detail-wrapper">
+                                <div class="game-item-info-detail-moreInfo">
+                                    <ul class="moreInfo-item-wrapper">
+                                        <li class="moreInfo-item brand">
+                                            <span class="title">メーカー</span>
+                                            <span class="value GameBrand"></span>
+                                        </li>
+                                        <li class="moreInfo-item RTP">
+                                            <span class="title">RTP</span>
+                                            <span class="value number valueRTP"></span>
+                                        </li>
+                                        <li class="moreInfo-item gamecode">
+                                            <span class="title">NO.</span>
+                                            <span class="value number GameID"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="game-item-info-detail-indicator">
+                                    <div class="game-item-info-detail-indicator-inner">
+                                        <div class="info">
+                                            <h3 class="game-item-name"></h3>
+                                        </div>
+                                        <div class="action">
+                                            <div class="btn-s-wrapper">
+                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                    <i class="icon icon-thumup"></i>
+                                                </button>
+                                                <button type="button" class="btn-like btn btn-round">
+                                                    <i class="icon icon-heart-o"></i>
+                                                </button>
+                                                <button type="button" class="btn-more btn btn-round">
+                                                    <i class="arrow arrow-down"></i>
+                                                </button>
+                                            </div>
+                                            <button type="button" class="btn btn-play">
+                                                <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="game-item-info">
+                        <div class="game-item-info-inner">
+                            <h3 class="game-item-name"></h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <%--推薦遊戲--%>
+    <div id="temCategArea2" class="is-hide">
+          <section class="section-wrap section_randomRem">
+            <div class="container-fluid">
+            <div class="game_wrapper">
+                <div class="sec-title-container">
+                <div class="sec-title-wrapper">
+                    <!-- <h3 class="title">隨機推薦遊戲</h3> -->
+                </div>
+                </div>
+                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                    <div class="swiper-wrapper GameItemGroupContent">
+                        
+                    </div>
+            </div>
+            </div>
+        </section>
+    </div>
+    <div id="temGameItem2" class="is-hide">
+         <div class="swiper-slide">
+                            <div class="game-item">
+                                <div class="game-item-inner">
+                                    <span class="game-item-link"></span>
+                                    <div class="img-wrap">
+                                        <img class="gameimg lozad" src="">
+                                    </div>
+                                </div>
+                                <div class="game-item-info">
+                                    <h3 class="game-item-name"></h3>
+                                </div>
+                            </div>
+                        </div>
+    </div>
+
+     <div id="temCategItem" class="is-hide">
+        <li class="tab-item">
+                    <span class="tab-item-link"> <i class="icon icon-mask CategIcon"></i>
+                        <span class="title language_replace CategName"></span></span>
+        </li>
+    </div>
+
+    <!-- Modal - Game Info for Mobile Device-->
+
 </body>
 </html>

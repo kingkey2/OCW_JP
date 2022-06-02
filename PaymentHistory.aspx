@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" />
 
 </head>
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
@@ -161,12 +162,8 @@
         var ParentMain = document.getElementById("idRecordContent");
         ParentMain.innerHTML = "";
 
-
         p.GetClosePayment(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
-                console.log("ff", o);
-            q= o;
-
                 if (o.Result == 0) {
                     if (o.Datas.length > 0) {
                         var RecordDom;
@@ -204,8 +201,6 @@
                                         paymentRecordText = mlp.getLanguageKey('主動取消');
                                         $(RecordDom).find('.PaymentStatus').addClass('fail');
                                         $(RecordDom).find('.PaymentStatus').addClass('icon-info_circle_outline');
-
-
                                         break;
                                     case 4:
                                         paymentRecordStatus = 4;
@@ -352,7 +347,9 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }

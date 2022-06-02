@@ -18,6 +18,12 @@
       "Path": "2022_4/DB002.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "DB003",
+      "Path": "2022_6/DB003.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
     }
   ],
   "ParentBonusAfterDeposit": [
@@ -34,6 +40,44 @@
       "Path": "Common/RegisterBouns.json",
       "MethodName": "RegisterBouns",
       "InfoMethodName": "RegisterBouns"
+    }
+  ],
+  "Keep": [
+    {
+      "Name": "OpenBonusDeposit",
+      "Path": "2022_3/OpenBonusDeposit.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "OpenIntroBonus",
+      "Path": "2022_3/OpenIntroBonus.json",
+      "MethodName": "OpenIntroBonus",
+      "InfoMethodName": "OpenIntroBonus"
+    },
+    {
+      "Name": "DB002",
+      "Path": "2022_4/DB002.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "RegisterBouns",
+      "Path": "Common/RegisterBouns.json",
+      "MethodName": "RegisterBouns",
+      "InfoMethodName": "RegisterBouns"
+    },
+    {
+      "Name": "OpenIntroBonus",
+      "Path": "2022_3/OpenIntroBonus.json",
+      "MethodName": "OpenIntroBonusToParent",
+      "InfoMethodName": "OpenIntroBonusToParent"
+    },
+    {
+      "Name": "DB003",
+      "Path": "2022_6/DB003.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
     }
   ]
 }

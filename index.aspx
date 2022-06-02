@@ -1,7 +1,8 @@
 <%@ Page Language="C#" %>
 
 <%
-    if (EWinWeb.IsInMaintain()) {
+    if (EWinWeb.IsInMaintain())
+    {
         Response.Redirect("/Maintain.aspx");
     }
 
@@ -15,7 +16,8 @@
     int RegisterParentPersonCode;
     string Version = EWinWeb.Version;
 
-    if (string.IsNullOrEmpty(Request["SID"]) == false) {
+    if (string.IsNullOrEmpty(Request["SID"]) == false)
+    {
         SID = Request["SID"];
     }
 
@@ -31,43 +33,78 @@
 
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
-    if (string.IsNullOrEmpty(Request["Lang"])) {
+    if (string.IsNullOrEmpty(Request["Lang"]))
+    {
         string userLang = CodingControl.GetDefaultLanguage();
 
-        if (userLang.ToUpper() == "zh-TW".ToUpper()) {
+        if (userLang.ToUpper() == "zh-TW".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-HK".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-HK".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-MO".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-MO".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-CHT".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-CHT".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-CHS".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-CHS".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-SG".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-SG".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-CN".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-CN".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "en-US".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "en-US".ToUpper())
+        {
             Lang = "ENG";
-        } else if (userLang.ToUpper() == "en-CA".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "en-CA".ToUpper())
+        {
             Lang = "ENG";
-        } else if (userLang.ToUpper() == "en-PH".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "en-PH".ToUpper())
+        {
             Lang = "ENG";
-        } else if (userLang.ToUpper() == "en".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "en".ToUpper())
+        {
             Lang = "ENG";
-        } else if (userLang.ToUpper() == "ko-KR".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "ko-KR".ToUpper())
+        {
             Lang = "ENG";
-        } else if (userLang.ToUpper() == "ko-KP".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "ko-KP".ToUpper())
+        {
             Lang = "ENG";
-        } else if (userLang.ToUpper() == "ko".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "ko".ToUpper())
+        {
             Lang = "ENG";
-        } else if (userLang.ToUpper() == "ja".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "ja".ToUpper())
+        {
             Lang = "JPN";
-        } else { Lang = "JPN"; }
-    } else {
+        }
+        else { Lang = "JPN"; }
+    }
+    else
+    {
         Lang = Request["Lang"];
     }
 
@@ -112,7 +149,8 @@
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<% if (EWinWeb.IsTestSite == false) { %>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRNSR38PQ7"></script>
 <script>
@@ -130,19 +168,19 @@
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
 <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-<script src="Scripts/theme.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+<script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
+<script src="Scripts/lozad.min.js"></script>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
     }
     var c = new common();
-    var ui = new uiControl();
     var mlp;
     var mlpByGameCode;
     var mlpByGameBrand;
@@ -158,30 +196,28 @@
         SID: "<%=SID%>",
         CT: "<%=CT%>",
         UserLogined: false,
+        FirstLoaded: false,
         Lang: "<%=Lang%>",
         UserInfo: null,
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
-        GameCodeList: {
-            CategoryList: [],
-            GameBrandList: [],
-            GameList: null
-        },
         DeviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 1 : 0,
         IsOpenGame: false
     };
-    var messageModal;
-    var SiteInfo;
-    var selectedCurrency = '';
-    var GameInfoModal;
-    var v = "<%=Version%>";
-    var LoginMessage;
-    var LoginMessageVersion;
-    var test = "";
-    var gameWindow;
-    var LobbyGameList;
 
+    var selectedWallet = null;
+    var v = "<%=Version%>";
+    var GCB;
+    var GameInfoModal;
+    var MessageModal;
+    var gameWindow;
+    var LobbyGameList = {};
     //#region TOP API
+
+    function API_GetGCB() {
+        return GCB;
+    }
+
 
     function API_GetWebInfo() {
         return EWinWebInfo;
@@ -201,61 +237,27 @@
 
 
     function API_GetCurrency() {
+        var selectedCurrency;
+
+        if (selectedWallet) {
+            selectedCurrency = selectedWallet.CurrencyType;
+        } else {
+            selectedCurrency = "";
+        }
+
         return selectedCurrency;
     }
 
-    function API_GetGameLang(type, gameBrand, gameName) {
+    // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
+    function API_GetGameLang(type, lang, data) {
         if (type == 0) {
-            return gameBrand;
-            //return mlpByGameBrand.getLanguageKey(gameBrand);
-        } else if (type == 1) {
-            return mlpByGameCode.getLanguageKey(gameBrand + "." + gameName);
-        } else if (type == 2) {
-            return mlpByGameCode.getLanguageKey(gameName);
+            return data;
+        } else if (type == 1) {//return gamecode
+            return GCB.GetGameText(lang, data);
+        } else if (type == 2) {//return gameBrand
+            return GCB.GetBrandText(lang, data);
         } else {
             return "";
-        }
-    }
-
-    // 打開客服系統
-    function API_OpenServiceChat() {
-        if (!EWinWebInfo.UserLogined) {
-            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("請先登入"), function () {
-                API_LoadPage("Login", "Login.aspx");
-            });
-        } else {
-            var idChatDivE = document.getElementById("idChatDiv");
-            var idChatFrameParent = document.getElementById("idChatFrameParent");
-            var idChatFrame = document.createElement("IFRAME");
-
-            if (idChatDivE.classList.contains("show")) {
-                idChatDivE.classList.remove("show");
-                idChatFrameParent.style.display = "none";
-            }
-            else {
-                //<iframe id="idChatFrame" name="idChatFrame" class="ChatFrame" border="0" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="no" scrolling="no"></iframe>
-                if (idChatDivE.getAttribute("isLoad") != "1") {
-                    idChatDivE.setAttribute("isLoad", "1");
-                    idChatFrame.id = "idChatFrame";
-                    idChatFrame.name = "idChatFrame";
-                    idChatFrame.className = "ChatFrame";
-                    idChatFrame.border = "0";
-                    idChatFrame.frameBorder = "0";
-                    idChatFrame.marginWidth = "0";
-                    idChatFrame.marginHeight = "0";
-                    idChatFrame.allowTransparency = "no";
-                    idChatFrame.scrolling = "no";
-
-                    idChatFrameParent.appendChild(idChatFrame);
-
-                    idChatFrame.src = "ChatMain.aspx?" + "SID=" + EWinWebInfo.SID + "&Acc=" + EWinWebInfo.UserInfo.LoginAccount + "&Url=" + EWinWebInfo.EWinUrl;
-
-                }
-
-                idChatFrameParent.style.display = "";
-                c.addClassName(idChatDivE, "show");
-
-            }
         }
     }
 
@@ -267,7 +269,6 @@
     function API_SetLogin(_SID, cb) {
         var sourceLogined = EWinWebInfo.UserLogined;
         checkUserLogin(_SID, function (logined) {
-            var raiseCurrencyChange = false;
             updateBaseInfo();
 
             if (cb) {
@@ -276,10 +277,6 @@
 
             if (sourceLogined == logined) {
                 notifyWindowEvent("LoginState", logined);
-            }
-
-            if (raiseCurrencyChange) {
-                notifyWindowEvent("BalanceChange", logined);
             }
         });
     }
@@ -310,37 +307,26 @@
         });
     }
 
-    function API_ShowMask(text, scope, cbClick) {
-        var IFramePage = document.getElementById("IFramePage");
-        var fullScope = false;
-
-        if (scope != null) {
-            if ((scope == true) || (scope == "f") || (scope == "full"))
-                fullScope = true;
-        }
-
-        if (fullScope == false)
-            ui.showMask(IFramePage, text, cbClick);
-        else
-            ui.showMask(null, text, cbClick);
-    }
-
-    function API_HideMask() {
-        ui.hideMask();
-    }
-
     function API_LoadingStart() {
         $('.loader-container').show();
         $('.loader-backdrop').removeClass('is-show');
     }
 
     function API_LoadingEnd(type) {
-        var footerDom = c.getTemplate("footer");
-        if (document.getElementById("IFramePage").contentDocument) {
+        var iframeDom = document.getElementById("IFramePage").contentDocument;
+        if (iframeDom) {
             if (type && type == 1) {
 
             } else {
-                //document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
+
+
+                var footerDom = c.getTemplate("footer");
+
+                if (true) {
+
+                }
+
+                document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
             }
         }
         $('.loader-backdrop').addClass('is-show');
@@ -348,71 +334,14 @@
             $('.iframe-container').addClass('is-show');
         });
 
-        resize();
-    }
-
-    function API_OpenGameCode(gameBrand, gameName) {
-        var gameItem = LobbyGameList.GameList.find(x => x.GameBrand == gameBrand && x.GameName == gameName);
-        var rtpInfoJson = gameItem.RTPInfo;
-        var categ = gameItem.Categ;
-
-        var divMessageBox = document.getElementById("alertGameIntro");
-        var isInFavoGames = checkInFavoriteGame(gameBrand, gameName);
-
-        if (divMessageBox != null) {
-            divMessageBox.querySelector(".gameRealName").innerText = API_GetGameLang(1, gameBrand, gameName);
-            divMessageBox.querySelector(".GameID").innerText = c.padLeft(gameItem.GameID.toString(), 5);
-            divMessageBox.querySelector(".GameImg").src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameBrand + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
-            divMessageBox.querySelector(".GameImg").onerror = new Function("setDefaultIcon('" + gameBrand + "', '" + gameName + "')");
-
-            if (rtpInfoJson) {
-                let JSON_RTPInfo = JSON.parse(rtpInfoJson);
-                divMessageBox.querySelector(".game-rtp").classList.remove("is-hide");
-
-                if (JSON_RTPInfo["RTP"] == "0") {
-                    divMessageBox.querySelector(".game-rtp").classList.add("is-hide");
-                } else {
-                    divMessageBox.querySelector(".RtpContent").innerText = JSON_RTPInfo["RTP"];
-                }
-            } else {
-                divMessageBox.querySelector(".game-rtp").classList.remove("is-hide");
-                divMessageBox.querySelector(".RtpContent").innerText = "-";
-            }
-
-            if (isInFavoGames) {
-                divMessageBox.querySelector(".game-myFavorite").classList.add("add");
-                divMessageBox.querySelector(".FavoText").innerText = mlp.getLanguageKey("移除最愛");
-            } else {
-                divMessageBox.querySelector(".game-myFavorite").classList.remove("add");
-                divMessageBox.querySelector(".FavoText").innerText = mlp.getLanguageKey("加入我的最愛");
-            }
-
-            divMessageBox.querySelector(".game-myFavorite").onclick = new Function("favBtnEvent('" + gameBrand + "', '" + gameName + "')");
-
-            if (gameItem.AllowDemoPlay == 1) {
-                divMessageBox.querySelector(".game-demo").classList.remove("is-hide");
-                divMessageBox.querySelector(".game-demo").onclick = new Function("openDemo('" + gameBrand + "', '" + gameName + "' , '" + categ + "')");
-            } else {
-                divMessageBox.querySelector(".game-demo").classList.add("is-hide");
-            }
-
-
-            if (EWinWebInfo.UserLogined) {
-                divMessageBox.querySelector(".game-login").innerText = mlp.getLanguageKey("開始遊戲");
-                divMessageBox.querySelector(".game-login").onclick = new Function("openGame('" + gameBrand + "', '" + gameName + "' , '" + categ + "')");
-            } else {
-                divMessageBox.querySelector(".game-login").innerText = mlp.getLanguageKey("登入玩遊戲");
-                divMessageBox.querySelector(".game-login").onclick = new Function("openGame('" + gameBrand + "', '" + gameName + "' , '" + categ + "')");
-            }
-
-            GameInfoModal.toggle();
-        }
+        //resize();
     }
 
     function API_LoadPage(title, url, checkLogined) {
+      
         if (EWinWebInfo.IsOpenGame) {
             EWinWebInfo.IsOpenGame = false;
-            SwitchGameHeader(0)
+            //SwitchGameHeader(0)
         }
 
         if (checkLogined) {
@@ -429,6 +358,7 @@
         var IFramePage = document.getElementById("IFramePage");
 
         if (IFramePage != null) {
+         
             // if (IFramePage.children.length > 0) {
             //var ifrm = IFramePage.children[0];
 
@@ -436,26 +366,16 @@
                 //loadingStart();
                 //上一頁針對iframe的問題，只能將loading的function都放於頁面中
                 //API_LoadingStart(); 
-                IFramePage.style.height = "0px";
+                //IFramePage.style.height = "0px";
                 IFramePage.src = url;
+                IFramePage.onload = null;
+
+
                 //IFramePage.
             }
 
         }
     }
-
-
-    function API_CloseGamePage() {
-        var GameIFDiv = document.querySelector(".GameHeader")
-        var IFramePage = document.getElementById("GameIFramePage");
-
-        GameIFDiv.classList.add("is-hide");
-
-        if (IFramePage) {
-            GameIFDiv.removeChild(IFramePage)
-        }
-    }
-
 
     function API_Home() {
         //Game
@@ -467,16 +387,8 @@
         window.location.reload();
     }
 
-    function API_GetGameList(type) {
-        if (type) {
-            if (type == 1) {
-                return LobbyGameList.HotList;
-            } else if (type == 2) {
-                return LobbyGameList.NewList;
-            }
-        } else {
-            return LobbyGameList;
-        }
+    function API_GetGameList(location) {
+        return LobbyGameList;
     }
 
     function API_ShowMessage(title, msg, cbOK, cbCancel) {
@@ -487,17 +399,13 @@
         return showMessageOK(title, msg, cbOK);
     }
 
-    function API_NonCloseShowMessageOK(title, msg, cbOK) {
-        return nonCloseShowMessageOK(title, msg, cbOK);
+    function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
+        return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID);
     }
 
     function API_ShowPartialHtml(title, pathName, isNeedLang, cbOK) {
         //return window.open(pathName);
         return showPartialHtml(title, pathName, isNeedLang, cbOK);
-    }
-
-    function API_ShowContactUs() {
-        return showContactUs();
     }
 
     function API_changeAvatarImg(avatar) {
@@ -508,6 +416,10 @@
 
     function API_GetFavoGames() {
         return getFavoriteGames();
+    }
+
+    function API_GetMyGames() {
+        return getMyGames();
     }
 
     function API_SendSerivceMail(subject, body, email) {
@@ -528,27 +440,48 @@
         });
     }
 
+    function API_ShowLoading() {
+        $('.loader-container').show();
+        $('.loader-backdrop').removeClass('is-show');
+    }
+
+    function API_CloseLoading() {
+        $('.loader-backdrop').addClass('is-show');
+        $('.loader-container').fadeOut(250, function () {
+            $('.iframe-container').addClass('is-show');
+        });
+    }
+
+    function API_ShowContactUs() {
+        if (!EWinWebInfo.UserLogined) {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
+                API_LoadPage("Login", "Login.aspx");
+            }, null);
+        } else {
+            return showContactUs();
+        }
+    }
     //#endregion
 
     //#region Alert
     function showMessage(title, message, cbOK, cbCancel) {
-        if ($("#alertContact").attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertContact");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+        if ($("#alertMsg").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertMsg");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
 
-            if (messageModal == null) {
-                messageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            if (MessageModal == null) {
+                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
             }
 
             if (divMessageBox != null) {
-                messageModal.toggle();
+                MessageModal.toggle();
 
                 if (divMessageBoxCloseButton != null) {
                     divMessageBoxCloseButton.classList.remove("is-hide");
                     divMessageBoxCloseButton.onclick = function () {
-                        messageModal.hide();
+                        MessageModal.hide();
 
                         if (cbCancel != null) {
                             cbCancel();
@@ -559,7 +492,7 @@
                 if (divMessageBoxOKButton != null) {
 
                     divMessageBoxOKButton.onclick = function () {
-                        messageModal.hide();
+                        MessageModal.hide();
 
                         if (cbOK != null)
                             cbOK();
@@ -572,18 +505,18 @@
     }
 
     function showMessageOK(title, message, cbOK) {
-        if ($("#alertContact").attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertContact");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+        if ($("#alertMsg").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertMsg");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertMsg_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertMsg_Text");
 
-            if (messageModal == null) {
-                messageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            if (MessageModal == null) {
+                MessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
             }
 
             if (divMessageBox != null) {
-                messageModal.show();
+                MessageModal.show();
 
                 if (divMessageBoxCloseButton != null) {
                     divMessageBoxCloseButton.classList.add("is-hide");
@@ -592,7 +525,7 @@
                 if (divMessageBoxOKButton != null) {
 
                     divMessageBoxOKButton.onclick = function () {
-                        messageModal.hide();
+                        MessageModal.hide();
 
                         if (cbOK != null)
                             cbOK();
@@ -604,70 +537,69 @@
         }
     }
 
-    function WithCheckBoxShowMessageOK(title, message, cbOK) {
-        var alertDom = $("#alertContactWithCheckBox")
-        if (alertDom.attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertContactWithCheckBox");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
-            var checkBoxmessageModal;
-            if (checkBoxmessageModal == null) {
-                checkBoxmessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
-            }
+    function showBoardMsg(title, message, time) {
+        if ($("#alertBoardMsg").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertBoardMsg");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
+            var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
+            var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
+            var divMessageBoxContent = divMessageBox.querySelector(".alert_Text");
+            var modal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
 
             if (divMessageBox != null) {
-                checkBoxmessageModal.show();
-                alertDom.attr("aria-hidden", 'false');
-
-                if (divMessageBoxCloseButton != null) {
-                    divMessageBoxCloseButton.classList.add("is-hide");
-                }
+                modal.show();
 
                 if (divMessageBoxOKButton != null) {
 
                     divMessageBoxOKButton.onclick = function () {
-                        checkBoxmessageModal.hide();
-                        alertDom.attr("aria-hidden", 'true');
-                        if (cbOK != null)
-                            cbOK();
+                        modal.hide();
                     }
                 }
 
+                divMessageBoxTitle.innerHTML = title;
+                divMessageBoTime.innerHTML = time;
                 divMessageBoxContent.innerHTML = message;
             }
         }
     }
 
-    function nonCloseShowMessageOK(title, message, cbOK) {
-        var nonCloseDom = $("#nonClose_alertContact");
-        if (nonCloseDom.attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("nonClose_alertContact");
-            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
-            var nonCloseMessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+    //#endregion
 
-            if (divMessageBox != null) {
-                nonCloseMessageModal.show();
-                nonCloseDom.attr("aria-hidden", 'false');
+    function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
+        var FavoGames = getFavoriteGames();
 
-                if (divMessageBoxCloseButton != null) {
-                    divMessageBoxCloseButton.classList.add("is-hide");
-                }
+        $('#popupMoblieGameInfo .BrandName').text(brandName);
+        $('#popupMoblieGameInfo .valueRTP').text(RTP);
+        $('#popupMoblieGameInfo .gameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName.gameName));
+        $('#popupMoblieGameInfo .GameID').text(GameID);
 
-                if (divMessageBoxOKButton != null) {
+        var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
+        playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
 
-                    divMessageBoxOKButton.onclick = function () {
-                        nonCloseMessageModal.hide();
-                        nonCloseDom.attr("aria-hidden", 'true');
-                        if (cbOK != null)
-                            cbOK();
-                    }
-                }
-                divMessageBoxContent.innerHTML = message;
-            }
+        var btnmore = document.getElementById('popupMoblieGameInfo').querySelector(".btn-more");
+        btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
+
+        var likebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-like");
+        if (FavoGames.filter(e => e.GameID === GameID).length > 0) {
+            $(likebtn).addClass("added");
+        } else {
+            $(likebtn).removeClass("added");
         }
+
+        likebtn.onclick = new Function("favBtnEvent(" + GameID + ",this)");
+
+        var GI_img = document.getElementById('popupMoblieGameInfo').querySelector(".imgsrc");
+        if (GI_img != null) {
+            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
+            //var el = GI_img;
+            //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+            //observer.observe();
+        }
+        $('#popupMoblieGameInfo').modal('show');
+    }
+
+    function popupMoblieGameInfoShowMore(doc) {
+        $(doc).closest('.game-item-info-detail').toggleClass('open');
     }
 
     function showPartialHtml(title, pathName, isNeedLang, cbOK) {
@@ -724,50 +656,8 @@
 
         API_SendSerivceMail(subjectText, "ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>" + bodyText, emailText);
     }
-    //#endregion
 
     //#region Game
-    function SwitchGameHeader(type, gameBrand, gameName, categ) {
-        var headers = document.querySelectorAll(".header-container .header-inner");
-
-        switch (type) {
-            case 0:
-                //Close
-
-                for (var i = 0; i < headers.length; i++) {
-                    var dom = headers[i];
-
-                    if (dom.classList.contains("GameHeader")) {
-                        dom.classList.add("is-hide");
-                    } else {
-                        dom.classList.remove("is-hide");
-                    }
-                }
-
-                break;
-            case 1:
-                //Open          
-
-                for (var i = 0; i < headers.length; i++) {
-                    var dom = headers[i];
-
-                    if (dom.classList.contains("GameHeader")) {
-                        var logoDom = dom.querySelector(".GameLogo");
-                        var nameDom = dom.querySelector(".GameName");
-                        dom.classList.remove("is-hide");
-                        logoDom.src = EWinWebInfo.EWinGameUrl + "/Lobby/images/lobby/logo/" + gameBrand + "/logoPC_" + categ + ".png";
-                        logoDom.alt = gameBrand;
-                        nameDom.innerText = API_GetGameLang(1, gameBrand, gameName);
-
-                    } else {
-                        dom.classList.add("is-hide");
-                    }
-                }
-
-                break;
-        }
-    }
-
     function GameLoadPage(url, gameBrand, gameName) {
         var IFramePage = document.getElementById("IFramePage");
 
@@ -785,44 +675,42 @@
     function setDefaultIcon(brand, name) {
         var img = event.currentTarget;
         img.onerror = null;
-        img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + WebInfo.Lang + "/" + name + ".png";
+        img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + EWinWebInfo.Lang + "/" + name + ".png";
     }
 
-    function openGame(gameBrand, gameName, categ) {
+    function openGame(gameBrand, gameName) {
+
+        //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
         }
 
         if (!EWinWebInfo.UserLogined) {
-            showMessageInGameInfo(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
-                GameInfoModal.hide();
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
                 API_LoadPage("Login", "Login.aspx");
             }, null);
         } else {
             EWinWebInfo.IsOpenGame = true;
             setGameCodeToMyGames(gameBrand, gameName);
-            GameInfoModal.hide();
 
             if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
                 if (EWinWebInfo.DeviceType == 1) {
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
                 } else {
-                    SwitchGameHeader(1, gameBrand, gameName, categ);
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href);
                 }
             } else {
-                setGameCodeToMyGames(gameBrand, gameName);
-                GameInfoModal.hide();
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
             }
         }
     }
 
-    function openDemo(gameBrand, gameName, categ) {
+    function openDemo(gameBrand, gameName) {
+        //先關閉Game彈出視窗(如果存在)
         EWinWebInfo.IsOpenGame = true;
         setGameCodeToMyGames(gameBrand, gameName);
-        GameInfoModal.hide();
 
+        //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
         }
@@ -831,41 +719,29 @@
             if (EWinWebInfo.DeviceType == 1) {
                 gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
             } else {
-                SwitchGameHeader(1, gameBrand, gameName, categ);
                 GameLoadPage("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href);
             }
         } else {
-            setGameCodeToMyGames(gameBrand, gameName);
-            GameInfoModal.hide();
             gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
         }
     }
-    //#endregion
 
-    //#region Game    
-    function favBtnEvent(gameBrand, gameName) {
-        var target = event.currentTarget;
-        var type = target.classList.contains("add") ? 1 : 0;
-
+    function favBtnEvent(gameID,doc) {
+        //var target = event.currentTarget;
+        var type = $(doc).hasClass("added") ? 1 : 0;
+        
         if (type == 0) {
-
-            showMessageInGameInfo(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("加入我的最愛"), function () {
-                target.classList.add("add");
-                setFavoriteGame(gameBrand, gameName, type);
-                if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
-                    document.getElementById('IFramePage').contentWindow.refreshFavoGame();
-                }
-                //setGameLobbySection(nowWebTag);
-            }, null);
+            $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').addClass("added");
+            setFavoriteGame(gameID);
+            if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
+                document.getElementById('IFramePage').contentWindow.refreshFavoGame();
+            }
         } else {
-            showMessageInGameInfo(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("是否從我的最愛移除"), function () {
-                target.classList.remove("add");
-                setFavoriteGame(gameBrand, gameName, type);
-                if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
-                    document.getElementById('IFramePage').contentWindow.refreshFavoGame();
-                }
-                //setGameLobbySection(nowWebTag);
-            }, null);
+            $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').removeClass("added");
+            setFavoriteGame(gameID);
+            if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
+                document.getElementById('IFramePage').contentWindow.refreshFavoGame();
+            }
         }
     };
 
@@ -882,27 +758,46 @@
         return favoriteGames;
     }
 
-    function setFavoriteGame(gameBrand, gameName, type) {
+    function setFavoriteGame(gameID) {
         var favoriteGames = getFavoriteGames();
         var favoriteGame = {
-            GameBrand: gameBrand,
-            GameName: gameName
+            GameID: gameID
         };
 
-        if (type == 0) {
+        if (!favoriteGames.filter(e => e.GameID === gameID).length > 0) {
             //add
             favoriteGames.splice(0, 0, favoriteGame);
             window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
         } else {
             //remove
-            var index = favoriteGames.findIndex(x => x.GameBrand == gameBrand && x.GameName == gameName);
+            var index = favoriteGames.findIndex(x => x.GameID == gameID);
             if (index > -1) {
                 favoriteGames.splice(index, 1);
             }
 
             window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已至移除我的最愛"));
         }
     }
+
+    //#endregion
+
+    //#region FavoriteGames And MyGames
+
+    function getFavoriteGames() {
+        var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
+        var favoriteGames;
+
+        if (favoriteGamesStr) {
+            favoriteGames = JSON.parse(favoriteGamesStr);
+        } else {
+            favoriteGames = [];
+        }
+
+        return favoriteGames;
+    }
+
 
     function checkInFavoriteGame(gameBrand, gameName) {
         var FavoGames = getFavoriteGames();
@@ -916,6 +811,7 @@
     }
 
     function setGameCodeToMyGames(gameBrand, gameName) {
+        var TotalCount = 14;
         var objMyGame = new Object();
         objMyGame.GameBrand = gameBrand;
         objMyGame.GameName = gameName;
@@ -935,7 +831,7 @@
             }
 
             if (!isDuplicate) {
-                if (arrayMyGames.length == 14) {
+                if (arrayMyGames.length == TotalCount) {
                     arrayMyGames.pop();
                     arrayMyGames.unshift(objMyGame);
                 } else {
@@ -946,22 +842,20 @@
             localStorage.setItem('MyGames', JSON.stringify(arrayMyGames));
         }
 
-        if (document.getElementById('IFramePage').contentWindow.refreshMyGmae) {
-            document.getElementById('IFramePage').contentWindow.refreshMyGmae();
+        notifyWindowEvent("RefreshMyGames", null);
+    }
+
+    function getMyGames() {
+        var MyGames;
+        if (window.localStorage.getItem('MyGames')) {
+            MyGames = JSON.parse(window.localStorage.getItem('MyGames'));
+        } else {
+            MyGames = [];
         }
 
+        return MyGames;
     }
     //#endregion
-
-    function copyText(copyVal) {
-        navigator.clipboard.writeText(copyVal).then(
-            () => {
-                //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功"))
-            },
-            () => {
-                //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗"))
-            });
-    }
 
     function checkUserLogin(SID, cb) {
         var guid = Math.uuid();
@@ -1009,6 +903,12 @@
     }
 
     function notifyWindowEvent(eventName, o) {
+        //#region eventNameList
+        //LoginState param: (bool)logined
+        //BalanceChange (number)point
+        //RefreshMyGame null
+        //RefreshFavoriteGames null
+        //#endregion
         var IFramePage = document.getElementById("IFramePage");
 
         if (IFramePage != null) {
@@ -1033,13 +933,23 @@
         if (EWinWebInfo.UserLogined) {
             var wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType);
 
+            //Check Balance Change
+            if (selectedWallet != null) {
+                if (wallet.PointValue != selectedWallet.PointValue) {
+                    idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
+                    notifyWindowEvent("BalanceChange", wallet.PointValue);
+                }
+            } else {
+                idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
+            }
+
+            selectedWallet = wallet;
 
             // 已登入
             idMenuLogin.classList.remove("is-hide");
             idLoginBtn.classList.add("is-hide");
-            idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
-            selectedCurrency = wallet.CurrencyType;
             document.getElementById('idLogoutItem').classList.remove('is-hide');
+            $(".avater-name").text(EWinWebInfo.UserInfo.EMail);
 
             //idWalletDiv.insertAdjacentHTML('beforeend', `<div class="currencyDiv">${EWinWebInfo.UserInfo.WalletList[0].CurrencyType}</div><div class="balanceDiv">${EWinWebInfo.UserInfo.WalletList[0].PointValue}</div>`);
         } else {
@@ -1047,7 +957,8 @@
             idMenuLogin.classList.add("is-hide");
             idLoginBtn.classList.remove("is-hide");
             document.getElementById('idLogoutItem').classList.add('is-hide');
-
+            $(".avater-name").text("");
+            selectedWallet = null;
         }
     }
 
@@ -1124,23 +1035,30 @@
     }
 
     function switchLang(Lang, isReload) {
+        API_ShowLoading();
         var LangText;
+        $("#btn_switchlang").children().remove();
 
         switch (Lang) {
             case "JPN":
                 LangText = "日本語";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
                 break;
             case "CHT":
                 LangText = "繁體中文";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 break;
             case "ENG":
                 LangText = "English";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-EN"></i>`);
                 break;
             case "CHS":
                 LangText = "簡體中文";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 break;
             default:
                 LangText = "日本語";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
                 break;
         }
 
@@ -1149,21 +1067,7 @@
             setLanguage(Lang);
         }
 
-        if (EWinWebInfo.Lang == "ENG") {
-            $("#Footer_PrivacyPolicy").attr("onclick", "window.parent.API_ShowPartialHtml('', 'KnowYourCustomer_ENG', false, null)");
-            $("#Footer_Rules").attr("onclick", "window.parent.API_ShowPartialHtml('', 'Terms&Conditions_ENG', false, null)");
-            $("#Footer_About").attr("onclick", "window.parent.API_ShowPartialHtml('', 'ResponsibleGambling_ENG', false, null)");
-            $("#li_HotArticle").hide();
-            $("#li_RegisterActivityReceive").hide();
-            $("#Footer_HotArticle").hide();
-        } else {
-            $("#Footer_PrivacyPolicy").attr("onclick", "window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)");
-            $("#Footer_Rules").attr("onclick", "window.parent.API_ShowPartialHtml('', 'Rules', true, null)");
-            $("#Footer_About").attr("onclick", "window.parent.API_LoadPage('About','About.html')");
-            $("#li_HotArticle").show();
-            $("#li_RegisterActivityReceive").show();
-            $("#Footer_HotArticle").show();
-        }
+        $("#btn_PupLangClose").click();
     }
 
     function getCookie(cname) {
@@ -1214,109 +1118,6 @@
         });
     }
 
-    function getCompanyGameCode(cb) {
-        LobbyGameList = {
-            HotList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
-            NewList: [],
-            CategoryList: [{
-                Categ: "All",
-                SubCategList: ["Baccarat"],
-                CategBrandList: ["EWin"]
-            }, {
-                Categ: "Live",
-                SubCategList: ["Baccarat"],
-                CategBrandList: ["EWin"]
-            }],
-            GameList: [{ Description: "EWin", Categ: "Live", SubCateg: "Baccarat", GameBrand: "EWin", GameName: "EWinGaming", GameID: "0", IsHot: 1, IsNew: 0, RTPInfo: '{ "RTP": "0" }', AllowDemoPlay: 0 }],
-        };
-
-        lobbyClient.GetCompanyGameCode(Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    //WebInfo.GameCodeList = o.GameCodeList;
-                    o.GameCodeList.forEach(e => {
-                        var tempSubCateg;
-
-
-
-                        if (e.GameCategorySubCode == '') {
-                            tempSubCateg = 'Other';
-                        } else {
-                            tempSubCateg = e.GameCategorySubCode;
-                        }
-
-                        var gameData = {
-                            GameName: e.GameName,
-                            GameBrand: e.BrandCode,
-                            GameID: e.GameID,
-                            Description: e.GameName,
-                            Categ: e.GameCategoryCode,
-                            SubCateg: tempSubCateg,
-                            IsHot: e.IsHot,
-                            IsNew: e.IsNew,
-                            RTPInfo: e.RTPInfo,
-                            AllowDemoPlay: e.AllowDemoPlay
-                        };
-
-                        if (e.IsNew == 1) {
-                            LobbyGameList.NewList.push(gameData);
-                        }
-
-                        if (e.IsHot == 1) {
-                            LobbyGameList.HotList.push(gameData);
-                        }
-
-                        //all
-                        if (LobbyGameList.CategoryList[0].CategBrandList.find(eb => eb == e.BrandCode) == undefined)
-                            LobbyGameList.CategoryList[0].CategBrandList.push(e.BrandCode);
-
-                        if (LobbyGameList.CategoryList[0].SubCategList.find(eb => eb == tempSubCateg) == undefined)
-                            LobbyGameList.CategoryList[0].SubCategList.push(tempSubCateg);
-
-                        if (LobbyGameList.CategoryList.find(eb => eb.Categ == e.GameCategoryCode) == undefined) {
-                            let data = {
-                                Categ: e.GameCategoryCode,
-                                SubCategList: [tempSubCateg],
-                                CategBrandList: [
-                                    e.BrandCode
-                                ]
-                            }
-                            LobbyGameList.CategoryList.push(data);
-                        } else {
-                            LobbyGameList.CategoryList.forEach(cl => {
-                                if (cl.Categ == e.GameCategoryCode) {
-                                    if (cl.CategBrandList.find(cbl => cbl == e.BrandCode) == undefined)
-                                        cl.CategBrandList.push(e.BrandCode)
-
-                                    if (cl.SubCategList.find(cbl => cbl == tempSubCateg) == undefined)
-                                        cl.SubCategList.push(tempSubCateg)
-                                }
-                            })
-                        }
-
-                        LobbyGameList.GameList.push(gameData);
-                    }
-                    );
-                } else {
-                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                }
-            } else {
-                if (o == "Timeout")
-                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
-                else
-                    if ((o != null) && (o != ""))
-                        alert(o);
-            }
-
-            if (cb)
-                cb(success);
-        });
-    }
-
-    function showErrorPage() {
-        $('#system-msg').show();
-    }
-
     function openHotArticle() {
         var orgin = "guides";
 
@@ -1338,43 +1139,6 @@
         API_LoadPage("Article", orgin);
     }
 
-    function openServiceChat() {
-        var idChatDivE = document.getElementById("idChatDiv");
-        var idChatFrameParent = document.getElementById("idChatFrameParent");
-        var idChatFrame = document.createElement("IFRAME");
-
-        if (idChatDivE.classList.contains("show")) {
-            idChatDivE.classList.remove("show");
-            idChatFrameParent.style.display = "none";
-        }
-        else {
-            //<iframe id="idChatFrame" name="idChatFrame" class="ChatFrame" border="0" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="no" scrolling="no"></iframe>
-            if (idChatDivE.getAttribute("isLoad") != "1") {
-                idChatDivE.setAttribute("isLoad", "1");
-                idChatFrame.id = "idChatFrame";
-                idChatFrame.name = "idChatFrame";
-                idChatFrame.className = "ChatFrame";
-                idChatFrame.border = "0";
-                idChatFrame.frameBorder = "0";
-                idChatFrame.marginWidth = "0";
-                idChatFrame.marginHeight = "0";
-                idChatFrame.allowTransparency = "no";
-                idChatFrame.scrolling = "no";
-
-                idChatFrameParent.appendChild(idChatFrame);
-
-                idChatFrame.src = "ChatMain.aspx?SID=" + EWinWebInfo.SID + "&Acc=" + EWinWebInfo.UserInfo.LoginAccount + "&Url=" + EWinWebInfo.EWinUrl;
-            }
-
-            idChatFrameParent.style.display = "";
-            c.addClassName(idChatDivE, "show");
-
-        }
-    }
-
-    function sleep(time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
-    }
 
     function resize() {
         if (IFramePage.contentWindow.document.body) {
@@ -1387,7 +1151,40 @@
         }
     }
 
+    function initByArt() {
+        $('[data-btn-click="openLag"]').click(function () {
+            $('.lang-select-panel').fadeToggle('fast');
+        });
+
+        $('.lang-select-panel a').click(function () {
+            var curLang = $(this).text();
+            $('.lang-select-panel').fadeToggle('fast');
+            $('[data-btn-click="openLag"]').find('span').text(curLang);
+        });
+
+        //主選單收合
+        $('.navbar-toggler').click(function () {
+            $('.vertical-menu').toggleClass('navbar-show');
+            $('.header_menu').toggleClass('show');
+        });
+        $('.header_area .mask_overlay').click(function () {
+            $('.vertical-menu').removeClass('navbar-show');   
+            $('.header_menu, .navbarMenu').removeClass('show');
+            $('.navbar-toggler').attr("aria-expanded", "false");
+        });
+    }
+
     function init() {
+        if (navigator.webdriver == true) {
+            return;
+        }
+
+        GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 3000000, function () {
+            notifyWindowEvent("GameLoadEnd", null);
+            API_LoadingEnd(1);
+        });
+
+
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
 
@@ -1395,169 +1192,171 @@
             EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         }
 
+        initByArt();
         switchLang(EWinWebInfo.Lang, false);
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
-            mlpByGameCode.loadLanguageByOtherFile(EWinWebInfo.EWinUrl + "/GameCode.", EWinWebInfo.Lang, function () {
-                var dstPage = c.getParameter("DstPage");
-                lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
-                paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
+            var dstPage = c.getParameter("DstPage");
+            lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
+            paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
 
-                if (dstPage) {
-                    var loadPage;
-                    switch (dstPage.toUpperCase()) {
-                        case "Home".toUpperCase():
-                            loadPage = "Home";
-                            break;
-                        case "Reg".toUpperCase():
-                            loadPage = "register";
-                            break;
-                        case "Login".toUpperCase():
-                            loadPage = "Login";
-                            break;
-                        default:
-                            loadPage = "Home";
-                            break;
-                    }
-
-                    history.replaceState(null, null, "?" + c.removeParameter("DstPage"));
-                    API_LoadPage(loadPage, loadPage + ".aspx");
-
-                } else {
-                    API_Home();
+            if (dstPage) {
+                var loadPage;
+                switch (dstPage.toUpperCase()) {
+                    case "Home".toUpperCase():
+                        loadPage = "Home";
+                        break;
+                    case "Reg".toUpperCase():
+                        loadPage = "register";
+                        break;
+                    case "Login".toUpperCase():
+                        loadPage = "Login";
+                        break;
+                    default:
+                        loadPage = "Home";
+                        break;
                 }
 
-                getCompanyGameCode();
+                history.replaceState(null, null, "?" + c.removeParameter("DstPage"));
+                API_LoadPage(loadPage, loadPage + ".aspx");
 
-                //登入Check
-                window.setTimeout(function () {
-                    lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
-                        if (success) {
-                            if (o.Result == 0) {
-                                SiteInfo = o;
-                                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                                    API_SetLogin(EWinWebInfo.SID, function (logined) {
-                                        //顯示登入資訊 
-                                        getLoginMessage(function () {
-                                            if (LoginMessage) {
-                                                if (!localStorage.getItem("LoginMessage")) {
-                                                    if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            if (document.getElementById("cboxLoginMessage").checked) {
-                                                                localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            }
-                                                        });
-                                                    } else {
-                                                        if (!sessionStorage.getItem("LoginMessage")) {
-                                                            WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                                sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                if (document.getElementById("cboxLoginMessage").checked) {
-                                                                    localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                }
-                                                            });
-                                                        } else {
-                                                            if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
-                                                                WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                    if (document.getElementById("cboxLoginMessage").checked) {
-                                                                        localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                                    }
-                                                                });
-                                                            }
-                                                        }
-                                                    }
-                                                } else {
-                                                    if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            if (document.getElementById("cboxLoginMessage").checked) {
-                                                                localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            }
-                                        });
+            } else {
+                API_Home();
+            }
 
-                                        if (logined == false) {
-                                            userRecover();
-                                        } else {
-                                            var srcPage = window.sessionStorage.getItem("SrcPage");
+            //getCompanyGameCode();
+            //getCompanyGameCodeTwo();
+            //登入Check
+            window.setTimeout(function () {
+                lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
+                    if (success) {
+                        if (o.Result == 0) {
+                            SiteInfo = o;
+                            if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                                API_SetLogin(EWinWebInfo.SID, function (logined) {
+                                    //顯示登入資訊 
+                                    //getLoginMessage(function () {
+                                    //    if (LoginMessage) {
+                                    //        if (!localStorage.getItem("LoginMessage")) {
+                                    //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                                    //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                    //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                    if (document.getElementById("cboxLoginMessage").checked) {
+                                    //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                    }
+                                    //                });
+                                    //            } else {
+                                    //                if (!sessionStorage.getItem("LoginMessage")) {
+                                    //                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                    //                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                        if (document.getElementById("cboxLoginMessage").checked) {
+                                    //                            localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                        }
+                                    //                    });
+                                    //                } else {
+                                    //                    if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
+                                    //                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                    //                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                            if (document.getElementById("cboxLoginMessage").checked) {
+                                    //                                localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                            }
+                                    //                        });
+                                    //                    }
+                                    //                }
+                                    //            }
+                                    //        } else {
+                                    //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                                    //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                                    //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                    if (document.getElementById("cboxLoginMessage").checked) {
+                                    //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
+                                    //                    }
+                                    //                });
+                                    //            }
+                                    //        }
+                                    //    }
+                                    //});
 
-                                            if (srcPage) {
-                                                window.sessionStorage.removeItem("SrcPage");
-                                                API_LoadPage("SrcPage", srcPage, true);
-                                            }
+                                    if (logined == false) {
+                                        userRecover();
+                                    } else {
+                                        var srcPage = window.sessionStorage.getItem("SrcPage");
+
+                                        if (srcPage) {
+                                            window.sessionStorage.removeItem("SrcPage");
+                                            API_LoadPage("SrcPage", srcPage, true);
                                         }
-                                    });
-                                } else {
-                                    updateBaseInfo();
-                                }
-                                API_HideMask();
-                                //if (cb)
-                                //    cb(true);
+                                    }
+
+                                    notifyWindowEvent("IndexFirstLoad", logined);
+                                    EWinWebInfo.FirstLoaded = true;
+                                });
                             } else {
-                                if (o.Message == "InvalidSID") {
-                                    // login fail
-                                    EWinWebInfo.UserLogined = false;
-                                } else {
-                                    EWinWebInfo.UserLogined = false;
+                                updateBaseInfo();
+                            }
 
-                                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                            //if (cb)
+                            //    cb(true);
+                        } else {
+                            if (o.Message == "InvalidSID") {
+                                // login fail
+                                EWinWebInfo.UserLogined = false;
+                            } else {
+                                EWinWebInfo.UserLogined = false;
+
+                                showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                            }
+
+                        }
+                    }
+                    else {
+                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
+                            window.location.href = "index.aspx"
+                        });
+                    }
+
+                })
+            }, 500);
+
+            window.setInterval(function () {
+                // refresh SID and Token;
+                var guid = Math.uuid();
+
+                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                    lobbyClient.KeepSID(EWinWebInfo.SID, guid, function (success, o) {
+                        if (success == true) {
+                            if (o.ResultCode == 0) {
+                                needCheckLogin = true;
+                            } else {
+                                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                                    needCheckLogin = true;
                                 }
-
                             }
                         }
-                        else {
-                            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                                window.location.href = "index.aspx"
-                            });
-                        }
+                    });
 
-                    })
-                }, 500);
+                }
+            }, 10000);
 
-                window.setInterval(function () {
-                    // refresh SID and Token;
-                    var guid = Math.uuid();
+            window.setInterval(function () {
+                if (needCheckLogin == true) {
+                    needCheckLogin = false;
 
                     if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                        lobbyClient.KeepSID(EWinWebInfo.SID, guid, function (success, o) {
-                            if (success == true) {
-                                if (o.ResultCode == 0) {
-                                    needCheckLogin = true;
-                                } else {
-                                    if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                                        needCheckLogin = true;
-                                    }
-                                }
+                        API_SetLogin(EWinWebInfo.SID, function (logined) {
+                            if (logined == false) {
+                                userRecover();
                             }
                         });
-
+                    } else {
+                        updateBaseInfo();
                     }
-                }, 10000);
+                }
+            }, 1000);
 
-                window.setInterval(function () {
-                    if (needCheckLogin == true) {
-                        needCheckLogin = false;
-
-                        if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
-                            API_SetLogin(EWinWebInfo.SID, function (logined) {
-                                if (logined == false) {
-                                    userRecover();
-                                }
-                            });
-                        } else {
-                            updateBaseInfo();
-                        }
-                    }
-                }, 1000);
-
-                window.setInterval(function () {
-                    resize();
-                }, 1000);
-            });
+            //window.setInterval(function () {
+            //    resize();
+            //}, 1000);
         });
 
         API_changeAvatarImg(getCookie("selectAvatar"));
@@ -1566,16 +1365,132 @@
         //resize();
     }
 
+    function searchGameList() {
+
+        var gameBrand = $('#alertSearchBrand').val();
+        var keyWord = $('#alertSearchKeyWord').val().trim();
+        var gameList = [];
+        var lang = EWinWebInfo.Lang;
+        if (gameBrand != "-1" && keyWord != '') {
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);
+        } else if (gameBrand == "-1" && keyWord != '') {
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord);
+        } else if (gameBrand != "-1" && keyWord == '') {
+            gameList = GCB.SearchGameCodeByBrand(gameBrand);
+        } else {
+            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
+        }
+
+        if (gameList.length>0) {
+            $('#alertSearchContent').empty();
+            for (var i = 0; i < gameList.length; i++) {
+                var gameItem = gameList[i];
+                var RTP = "";
+                if (gameItem.RTPInfo) {
+                    RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                }
+
+
+                GI = c.getTemplate("tmpSearchGameItem");
+                var GI_a = GI.querySelector(".btn-play");
+                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                var GI_img = GI.querySelector(".gameimg");
+                if (GI_img != null) {
+                    GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                    var el = GI_img;
+                    var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                    observer.observe();
+                }
+
+                $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                $(GI).find(".valueRTP").text(RTP);
+                $('#alertSearchContent').append(GI);
+            }
+        } else {
+            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
+        }
+    };
+
+    function getCompanyGameCodeTwo() {
+        var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
+
+        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
+        lobbyClient.GetCompanyGameCodeTwo(Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
+                        o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
+                    }
+
+                    LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
+
+                    LobbyGameList.CategoryList = CategoryList;
+                    notifyWindowEvent("GameLoadEnd", null);
+                    API_LoadingEnd(1);
+                } else {
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
+                }
+            } else {
+                if (o == "Timeout")
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
+                else
+                    if ((o != null) && (o != ""))
+                        alert(o);
+            }
+
+        });
+    }
+    //openFullSearch
+    function openFullSearch(e) {
+        var header_SearchFull = document.getElementById("header_SearchFull");
+        header_SearchFull.classList.add("open");
+    }
+
+    //openFullSearch
+    function closeFullSearch(e) {
+
+        var header_SearchFull = document.getElementById("header_SearchFull");
+
+        if (header_SearchFull.classList.contains("open")) {
+            header_SearchFull.classList.remove("open");
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
+    <div class="loader-container" style="display: block;">
+        <div class="loader-box">
+            <div class="loader-spinner">
+                <div class="sk-fading-circle">
+                    <div class="loader-logo"></div>
+                    <div class="sk-circle1 sk-circle"></div>
+                    <div class="sk-circle2 sk-circle"></div>
+                    <div class="sk-circle3 sk-circle"></div>
+                    <div class="sk-circle4 sk-circle"></div>
+                    <div class="sk-circle5 sk-circle"></div>
+                    <div class="sk-circle6 sk-circle"></div>
+                    <div class="sk-circle7 sk-circle"></div>
+                    <div class="sk-circle8 sk-circle"></div>
+                    <div class="sk-circle9 sk-circle"></div>
+                    <div class="sk-circle10 sk-circle"></div>
+                    <div class="sk-circle11 sk-circle"></div>
+                    <div class="sk-circle12 sk-circle"></div>
+                </div>
+                <div class="loader-text language_replace">正在加載...</div>
+            </div>
 
+
+        </div>
+        <div class="loader-backdrop is-show"></div>
+    </div>
     <header class="header_area" id="">
-        <div class="main_menu ">
+        <div class="header_menu ">
             <!-- class="navbar-expand-xl" trigger hidden -->
             <nav class="navbar">
                 <!-- TOP Search-->
-                <div class="search-full">
+                <div class="search-full" id="header_SearchFull">
                     <div class="container-fluid">
                         <form class="search__wrapper">
                             <div class="form-group-search search-plusbutton">
@@ -1584,7 +1499,7 @@
                                 <div class="btn btnSearch"><span class="language_replace">搜尋</span></div>
                                 <button type="reset" class="btn btnReset"><i class="icon icon-ewin-input-reset"></i></button>
                             </div>
-                            <span class="btn btn__closefullsearch"><i class="icon icon-ewin-input-compress"></i></span>
+                            <span class="btn btn__closefullsearch" onclick="closeFullSearch(this)"><i class="icon icon-ewin-input-compress"></i></span>
                         </form>
                     </div>
                 </div>
@@ -1600,35 +1515,96 @@
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" href="UserAccount_Edit_MySelf.html" target="mainiframe">
-                                            <i class="icon icon-mask icon-ewin-user"></i>
-                                            <span class="title language_replace">賭場</span></a>
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon icon-mask icon-all"></i>
+                                            <span class="title language_replace">遊戲大廳</span></a>
+                                    </li>
+                                    <%--<li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-poker"></i>
+                                            <span class="title language_replace">撲克</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" href="UserAccountAgentMulti_Maint.html" target="mainiframe">
-                                            <i class="icon icon-mask icon-ewin-user-multi"></i>
-                                            <span class="title language_replace">體育</span></a>
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-real"></i>
+                                            <span class="title language_replace">真人</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" href="UserAccountAgentMulti_Maint.html" target="mainiframe">
-                                            <i class="icon icon-mask icon-ewin-user-multi"></i>
-                                            <span class="title language_replace">麻將</span></a>
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-slot"></i>
+                                            <span class="title language_replace">SLOT</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-mahjong"></i>
+                                            <span class="title language_replace">麻將</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-sport"></i>
+                                            <span class="title language_replace">體育</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-ect"></i>
+                                            <span class="title language_replace">其他</span>
+                                        </a>
+                                    </li>--%>
+                                </ul>
+                            </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
+                                            <i class="icon icon-mask icon-people"></i>
+                                            <span class="title language_replace">會員中心</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
+                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <span class="title language_replace">活動中心</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                            <i class="icon icon-mask icon-prize"></i>
+                                            <span class="title language_replace">領獎中心</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
+                                            <i class="icon icon-mask icon-calendar"></i>
+                                            <span class="title language_replace">履歷記錄</span></a>
                                     </li>
                                 </ul>
                             </li>
-                            <!-- <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown with Mask <span class="caret"></span></a>
-                                <ul class="dropdown-menu list-inline">
-                                  <li><strong>Tools:</strong></li>
-                                  <li><a class="btn btn-default" href="#">Foo</a></li>
-                                  <li><a class="btn btn-default" href="#">Bar</a></li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown" onclick="openHotArticle()">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-hot"></i>
+                                            <span class="title language_replace">熱門文章</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-QA"></i>
+                                            <span class="title language_replace">Q&A</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown" onclick="API_ShowContactUs()">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-word"></i>
+                                            <span class="title language_replace">聯絡客服</span></a>
+                                    </li>
                                 </ul>
-                              </li>                   -->
+                            </li>
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
-                                    <i class="icon icon-mask icon-ewin-logout"></i>
+                                    <i class="icon icon-mask icon-logout"></i>
                                     <span class="language_replace" langkey="登出">登出</span></a>
                             </li>
                         </ul>
@@ -1637,38 +1613,39 @@
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
                         <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Home','Home.aspx')">
-                            <div class="logo">
-                                <div class="img-wrap">
-                                    <a>
-                                        <img src="images/logo.svg" alt=""></a>
-                                </div>
+                            <div class="navbar-brand">
+                                <div class="logo"><a></a></div>
                             </div>
                         </div>
                         <!-- 右上角 -->
                         <div class="header_rightWrapper">
 
                             <div class="header_setting">
-                                <ul class="nav">
+                                <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
-                                        <a href="#" class="btn btn-round nav-link" role="button" onclick="openFullSearch(this)">
-                                            <i class="icon icon-mask icon-search"></i></a>
+                                        <button type="button" class="btn btn-round nav-link btn-search" data-toggle="modal" data-target="#alertSearch">
+                                            <i class="icon icon-mask icon-search"></i>
+                                        </button>
                                     </li>
                                     <!-- ==== 登入前 ====-->
                                     <li class="nav-item unLogIn_wrapper " id="idLoginBtn">
                                         <ul class="horiz-list">
                                             <li class="login">
-                                                <button class="btn btn-full-main" type="button" onclick="onBtnLoginShow()"><span class="language_replace">登入</span></button>
+                                                <button class="btn-login btn" type="button" onclick="onBtnLoginShow()">
+                                                    <span class="avater">
+                                                        <img src="images/avatar/avater-2.png" alt=""></span>
+                                                    <span class="language_replace">登入</span></button>
                                             </li>
                                             <li class="register">
-                                                <button class="btn btn-full-sub" type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
+                                                <button class="btn-register btn " type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
                                             </li>
                                         </ul>
                                     </li>
                                     <!--  ==== 登入後 ====-->
                                     <li class="nav-item logIned_wrapper is-hide" id="idMenuLogin">
                                         <ul class="horiz-list">
-                                            <li class="nav-item ">
+                                            <li class="nav-item " onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
@@ -1677,14 +1654,26 @@
                                                             <img src="images/ico/coin-Ocoin.png" alt="">
                                                         </span>
                                                         <span class="balance-info">
-                                                            <span class="amount">999,999</span>
+                                                            <span class="amount">0</span>
                                                         </span>
+                                                        <button class="btn btn-deposit btn-full-stress" onclick="">
+                                                            <span class="icon icon-add"></span>
+                                                        </button>
                                                     </span>
                                                 </span>
                                             </li>
                                             <!-- User -->
-                                            <li class="nav-item submenu dropdown">
-                                                <a href="#" class="btn btn-round nav-link btnDropDown avater_wrapper"
+                                            <li class="nav-item submenu dropdown avater_wrapper">
+                                                <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown " role="button">
+                                                    <span class="avater">
+                                                        <span class="avater-img">
+                                                            <img src="images/avatar/avater-2.png" alt="">
+                                                        </span>
+                                                        <span class="avater-name"></span>
+                                                    </span>
+                                                </a>
+                                                <%--
+                                                <a class="btn btn-round nav-link btnDropDown avater_wrapper"
                                                     data-toggle="dropdown" role="button" aria-haspopup="true"
                                                     aria-expanded="false" id="dropdown_navbar_Member">
                                                     <span class="avater">
@@ -1705,29 +1694,19 @@
                                                         <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">錢包中心</span></a>
                                                     </li>
                                                 </ul>
+                                                --%>
                                             </li>
                                         </ul>
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item submenu dropdown">
-                                        <a href="#" onclick="dataToggleDropdown(this)"
-                                            class="btn btn-round nav-link btnDropDown"
-                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                            aria-expanded="false" id="dropdown_navbar_Lang">
-                                            <i class="icon icon-mask icon-user"></i></a>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Lang">
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('JPN', true)">日語</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('ENG', true)">英</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link language_replace" onclick="switchLang('CHT', true)">繁中</a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    <li class="nav-item lang_wrapper submenu dropdown">
+                                        <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
+                                            <!-- 語系 轉換 ICON -->
+                                            <%--<i class="icon icon-mask icon-flag-JP"></i>
+                                            <i class="icon icon-mask icon-flag-EN"></i>
+                                            <i class="icon icon-mask icon-flag-ZH"></i>--%>
+                                        </button>
                                 </ul>
                             </div>
                         </div>
@@ -1738,12 +1717,14 @@
         <div id="mask_overlay" class="mask_overlay"></div>
     </header>
     <!-- main_area = iframe高度 + Footer高度-->
-    <div class="main_area" style="height: auto;">
+    <%--    <div class="main_area" style="height: auto;">--%>
+    <div class="main_area">
         <!-- iframe高度 自動計算高度-->
-        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>
+        <%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
+        <iframe id="IFramePage" class="mainIframe" name="mainiframe"></iframe>
     </div>
     <!-- footer -->
-    <div id="footer">
+    <div id="footer" style="display: none">
         <footer class="footer">
             <div class="footer_inner">
                 <div class="container">
@@ -1811,7 +1792,7 @@
                 </div>
                 <div class="col-12 copy_right ">
                     <div class="container">
-                        <p class="text">Copyright © 2022 All Rights Reserved</p>
+                        <p class="text">Copyright © 2022 マハラジャ. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
@@ -1820,7 +1801,125 @@
 
     <!-- mask_overlay 黑色半透明遮罩-->
     <div id="mask_overlay_popup" class="mask_overlay_popup"></div>
-    <!--=========JS========-->
+
+
+    <!-- Modal Language -->
+    <div class="modal fade footer-center" id="ModalLanguage" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><span class="language_replace">言語を選択してください</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="lang-popup-wrapper">
+                        <ul class="lang-popup-list">
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('JPN', true)">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden"
+                                        checked>
+                                    <div class="custom-input radio-button">
+                                        <span class="flag JP"><i class="icon icon-mask icon-flag-JP"></i></span>
+                                        <span class="name">日本文</span>
+                                    </div>
+                                </label>
+                            </li>
+                            <%--<li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag EN"><i class="icon icon-mask icon-flag-EN"></i></span>
+                                        <span class="name">English</span>
+                                    </div>
+                                </label>
+                            </li>--%>
+                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('CHT', true)">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag ZH"><i class="icon icon-mask icon-flag-ZH"></i></span>
+                                        <span class="name">繁體中文</span>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+                <%--<div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                </div>--%>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Search -->
+<div class="modal fade no-footer" id="alertSearch" tabindex="-1" aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+    <div class="modal-header">
+        <!-- <h5 class="modal-title"></h5> -->
+        <div class="searchFilter-wrapper">                  
+            <div class="searchFilter-item input-group">
+                    <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="請輸入關鍵字">
+                    <label for="" class="form-label"><span class="language_replace">請輸入關鍵字</span></label>                   
+            </div>
+            <div class="searchFilter-item input-group">                   
+                <select class="custom-select" id="alertSearchBrand">
+                    <option class="title" value="-1" selected><span class="language_replace">遊戲品牌</span></option>
+                    <option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
+                    <option class="searchFilter-option" value="BNG"><span class="language_replace">BNG</span></option>
+                    <option class="searchFilter-option" value="CG"><span class="language_replace">CG</span></option>
+                    <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9</span></option>
+                    <option class="searchFilter-option" value="EVO"><span class="language_replace">EVO</span></option>
+                    <option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
+                    <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
+                    <option class="searchFilter-option" value="KGS"><span class="language_replace">KGS</span></option>
+                    <option class="searchFilter-option" value="KX"><span class="language_replace">KX</span></option>
+                    <option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
+                    <option class="searchFilter-option" value="PG"><span class="language_replace">PG</span></option>
+                    <option class="searchFilter-option" value="PNG"><span class="language_replace">PNG</span></option>
+                    <option class="searchFilter-option" value="PP"><span class="language_replace">PP</span></option>
+                    <option class="searchFilter-option" value="VA"><span class="language_replace">VA</span></option>
+                    <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ZEUS</span></option>
+                </select>
+            </div>
+            <div class="searchFilter-item input-group">                   
+            <%--    <select class="custom-select">
+                    <option class="title" selected><span class="language_replace">遊戲類型</span></option>
+                    <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
+                </select>--%>
+            </div>
+            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm"><span class="">搜尋</span></button>              
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="game-search-wrapper">
+            <div class="search-result-wrapper">
+                <div class="search-result-inner">
+                    <div class="search-result-list">
+                        <div class="game-item-group list-row row" id="alertSearchContent">
+                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+    </div>
+    </div>
+</div>
+</div>
+
+
     <!-- 遊戲介紹 Modal-->
     <div class="modal fade modal-game" tabindex="-1" role="dialog" aria-labelledby="alertGameIntro" aria-hidden="true" id="alertGameIntro">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
@@ -1965,6 +2064,204 @@
                     </button> -->
                     <div class="btn-container">
                         <button type="button" class="alertContact_OK btn btn-primary btn-block" data-dismiss="modal" onclick="sendContactUs();"><span class="language_replace">寄出</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--alert Msg-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertMsg" aria-hidden="true" id="alertMsg" style="z-index: 10000;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <p class="alertMsg_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertMsg_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                        <button type="button" class="alertMsg_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--alert Board Msg-->
+    <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertBoardMsg" aria-hidden="true" id="alertBoardMsg">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="alert_Title"></div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <article class="popup-detail-wrapper">
+                            <div class="popup-detail-inner">
+                                <div class="popup-detail-content">
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告時間</span></h6>
+                                        <div class="section-content">
+                                            <div class="alert_Time"></div>
+                                        </div>
+                                    </section>
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告詳情</span></h6>
+                                        <div class="section-content">
+                                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                                        </div>
+                                    </section>
+                                </div>
+
+                            </div>
+                        </article>
+                        <!-- <i class="icon-error_outline primary"></i>
+                        <div class="language_replace">公告時間：</div>
+                        <div class="alert_Time"></div>
+                        <div class="text-wrap">
+                            <div class="language_replace">公告詳情：</div>
+                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alert_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade no-footer popupGameInfo" id="popupMoblieGameInfo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="game-info-mobile-wrapper">
+                        <div class="game-item">
+                            <div class="game-item-inner">
+                                <div class="game-item-focus">
+                                    <div class="game-item-img">
+                                        <span class="game-item-link"></span>
+                                        <div class="img-wrap">
+                                            <img class="imgsrc" src="">
+                                        </div>
+                                    </div>
+                                    <div class="game-item-info-detail open">
+                                        <div class="game-item-info-detail-wrapper">
+                                            <div class="game-item-info-detail-moreInfo">
+                                                <ul class="moreInfo-item-wrapper">
+                                                    <li class="moreInfo-item brand">
+                                                        <span class="title language_replace">メーカー</span>
+                                                        <span class="value BrandName"></span>
+                                                    </li>
+                                                    <li class="moreInfo-item RTP">
+                                                        <span class="title">RTP</span>
+                                                        <span class="value number valueRTP"></span>
+                                                    </li>
+                                                    <li class="moreInfo-item gamecode">
+                                                        <span class="title">NO.</span>
+                                                        <span class="value number GameID"></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="game-item-info-detail-indicator">
+                                                <div class="game-item-info-detail-indicator-inner">
+                                                    <div class="info">
+                                                        <h3 class="game-item-name GameName"></h3>
+                                                    </div>
+                                                    <div class="action">
+                                                        <div class="btn-s-wrapper">
+                                                            <button type="button" class="btn-thumbUp btn btn-round">
+                                                                <i class="icon icon-thumup"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-like btn btn-round">
+                                                                <i class="icon icon-heart-o"></i>
+                                                            </button>
+                                                            <button type="button" class="btn-more btn btn-round">
+                                                                <i class="arrow arrow-down"></i>
+                                                            </button>
+                                                        </div>
+                                                        <button type="button" class="btn btn-play">
+                                                            <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tmpSearchGameItem" class="is-hide">
+        <div class="game-item col-auto">
+            <div class="game-item-inner">
+                <div class="game-item-img">
+                    <span class="game-item-link"></span>
+                    <div class="img-wrap">
+                        <img class="gameimg" src="">
+                    </div>
+                </div>
+                <div class="game-item-info">
+                    <div class="game-item-info-inner">
+                        <div class="game-item-info-brief">
+                            <div class="game-item-info-pre">
+                                <h3 class="gameName"></h3>
+                            </div>
+                            <div class="game-item-info-moreInfo">
+                                <ul class="moreInfo-item-wrapper">
+                                    <li class="moreInfo-item brand">
+                                        <h4 class="value BrandName"></h4>
+                                    </li>
+                                    <li class="moreInfo-item RTP">
+                                        <span class="title">RTP</span>
+                                        <span class="value number valueRTP"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="game-item-info-indicator">
+                            <div class="action">
+                                <div class="btn-s-wrapper">
+                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                        <i class="icon icon-thumup"></i>
+                                    </button>
+                                    <button type="button" class="btn-like btn btn-round">
+                                        <i class="icon icon-heart-o"></i>
+                                    </button>                           
+                                </div>
+                                <button type="button" class="btn btn-play">
+                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

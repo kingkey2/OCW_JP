@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -105,7 +106,9 @@
             case "SetLanguage":
                 lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }
@@ -233,11 +236,11 @@
     function GetDepositActivityInfoByOrderNumber(OrderNum) {
         PaymentClient.GetDepositActivityInfoByOrderNumber(WebInfo.SID, Math.uuid(), OrderNum, function (success, o) {
             if (success) {
-                if (o.DataList != null) {
-                    if (o.DataList.length > 0) {
+                if (o.Data != null) {
+                    if (o.Data.length > 0) {
                         var ThresholdValue = 0
-                        for (var i = 0; i < o.DataList.length; i++) {
-                            setActivity(o.DataList[i]["Title"], o.DataList[i]["SubTitle"], o.DataList[i]["ActivityName"], o.DataList[i]["ThresholdValue"], o.DataList[i]["BonusValue"]);
+                        for (var i = 0; i < o.Data.length; i++) {
+                            setActivity(o.Data[i]["Title"], o.Data[i]["SubTitle"], o.Data[i]["ActivityName"], o.Data[i]["ThresholdValue"], o.Data[i]["BonusValue"]);
                         }
                     }
                 }

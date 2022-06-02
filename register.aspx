@@ -71,6 +71,19 @@
 
         var idPhonePrefix = document.getElementById("idPhonePrefix");
         var idPhoneNumber = document.getElementById("idPhoneNumber");
+        var idLoginAccount = document.getElementById("idLoginAccount");
+
+        if (idLoginAccount.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
+            cb(false);
+            return;
+        } else {
+            if (!IsEmail(idLoginAccount.value)) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
+                cb(false);
+                return;
+            }
+        }
 
         if (idPhonePrefix.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
@@ -185,7 +198,9 @@
             var form = document.getElementById("registerStep1");
             CheckAccountPhoneExist(function (check) {
                 if (check) {
-                    p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                    window.top.API_ShowLoading();
+                    p.SetUserMail(Math.uuid(), 0, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                        window.top.API_CloseLoading();
                         if (success) {
                             if (o.Result != 0) {
                                 window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
@@ -200,7 +215,7 @@
                     });
                 } else {
                     //window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
-                }                
+                }
             });
         } else {
             window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
@@ -234,7 +249,7 @@
                         if (PhonePrefix.substring(0, 1) == "+") {
                             PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
                         }
-                        p.CheckValidateCode(Math.uuid(), 1, $("#idLoginAccount").val(), PhonePrefix, $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
+                        p.CheckValidateCode(Math.uuid(), 0, $("#idLoginAccount").val(), PhonePrefix, $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
                             if (success) {
                                 if (o.Result != 0) {
                                     window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
@@ -333,7 +348,7 @@
                             if (success) {
                                 if (o.Result == 0) {
                                     sendThanksMail();
-                                    sendReceiveRegisterRewardMail();
+                                    //sendReceiveRegisterRewardMail();
                                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
                                         document.getElementById("idRegister").classList.add("is-hide");
                                         document.getElementById("contentFinish").classList.remove("is-hide");
@@ -410,7 +425,7 @@
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
-            window.parent.API_LoadingEnd();
+            window.parent.API_LoadingEnd(1);
         });
 
         AdjustDate();
@@ -489,7 +504,9 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }
@@ -524,8 +541,6 @@
             <div></div>
         </div>
 
-        <!-- 側邊影像 -->
-        <div class="feature-panel"></div>
 
         <!-- 主內容框 -->
         <div class="main-panel">
@@ -603,13 +618,13 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <label class="form-check-label language_replace">電話號碼將用於發送確認碼，請輸入可以接收短信的電話號碼。</label></br>
+                                <label class="form-check-label language_replace">E-mail將用於發送確認碼，請填寫正確的E-mail。</label></br>
                                
-                                <label class="form-check-label language_replace">1.請先輸入電話號碼。</label></br>
+                                <label class="form-check-label language_replace">1.請先輸入正確E-mail。</label></br>
 
                                 <label class="form-check-label language_replace">2.從註冊會員的畫面點擊發送驗證碼。</label></br>
                                
-                                <label class="form-check-label language_replace">3.驗證碼將會發送到您指定的手機。</label></br>
+                                <label class="form-check-label language_replace">3.驗證碼將會發送到您填寫的E-mail。</label></br>
                                
                                 <label class="form-check-label language_replace">4.輸入驗證碼之後就可進行下一個步驟。</label></br>
                 

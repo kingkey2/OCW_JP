@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
         <link rel="stylesheet" href="css/basic.min.css">
+    <link rel="stylesheet" href="css/main.css" />
 <%--    <link rel="stylesheet" href="css/main.css">--%>
 </head>
 <script src="Scripts/jquery-3.3.1.min.js"></script>
@@ -110,7 +111,9 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }
@@ -133,7 +136,7 @@
                                 <div class="img-crop"><img src="images/assets/walletcenter.png"></div>
                             </div> -->
                             <div class="basic-info">
-                                <div class="name"><span class="language_replace">錢包中心</div>
+                                <div class="name"><span class="language_replace">錢包中心</span></div>
                             </div>
                         </div>
                         <div class="wallet">

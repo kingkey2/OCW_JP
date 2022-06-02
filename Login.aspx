@@ -7,7 +7,7 @@
     Random R = new Random();
     string Version = EWinWeb.Version;
     TelPhoneNormalize telPhoneNormalize;
-
+    
     if (CodingControl.FormSubmit()) {
         string LoginGUID = Request["LoginGUID"];
         string LoginPassword = Request["LoginPassword"];
@@ -238,6 +238,15 @@
                 }
 
             })
+
+            $(function () {
+                document.onkeydown = function (e) {
+                    var ev = document.all ? window.event : e;
+                    if (ev.keyCode == 13) {
+                        onBtnSendLogin();
+                    }
+                }
+            }); 
         });
 
         CreateLoginValidateCode();
@@ -355,8 +364,10 @@
         form.reportValidity();
 
         if (form.checkValidity()) {
-            form.action = "Login.aspx";
-            form.submit();
+            if (navigator.webdriver == false) {
+                form.action = "Login.aspx";
+                form.submit();
+            }
         }
     }
 
@@ -427,8 +438,6 @@
             <div></div>
         </div>
 
-        <!-- 側邊影像 -->
-        <div class="feature-panel"></div>
 
         <!-- 主內容框 -->
         <div class="main-panel">

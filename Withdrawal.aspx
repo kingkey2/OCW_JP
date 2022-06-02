@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" />
 
 </head>
 
@@ -108,7 +109,9 @@
             case "SetLanguage":
                 lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }

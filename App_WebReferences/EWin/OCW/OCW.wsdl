@@ -123,6 +123,42 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetUserPointValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserPointValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserPointValueResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollectUserAccountPromotion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Type" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CollectID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollectUserAccountPromotionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CollectUserAccountPromotionResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RefreshValue">
         <s:complexType>
           <s:sequence>
@@ -255,6 +291,8 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ExtraData" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OldPassword" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="UpdateUserAccountResponse">
@@ -287,6 +325,18 @@
   </wsdl:message>
   <wsdl:message name="CreateWalletDepositSoapOut">
     <wsdl:part name="parameters" element="tns:CreateWalletDepositResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserPointValue" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserPointValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionSoapIn">
+    <wsdl:part name="parameters" element="tns:CollectUserAccountPromotion" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionSoapOut">
+    <wsdl:part name="parameters" element="tns:CollectUserAccountPromotionResponse" />
   </wsdl:message>
   <wsdl:message name="RefreshValueSoapIn">
     <wsdl:part name="parameters" element="tns:RefreshValue" />
@@ -340,6 +390,26 @@
   </wsdl:message>
   <wsdl:message name="GetWalletDepositHttpGetOut">
     <wsdl:part name="Body" element="tns:CompanyWalletDepositResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="Type" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="CollectID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="RefreshValueHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
@@ -401,6 +471,26 @@
   </wsdl:message>
   <wsdl:message name="GetWalletDepositHttpPostOut">
     <wsdl:part name="Body" element="tns:CompanyWalletDepositResult" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserPointValueHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="Type" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="CollectID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CollectUserAccountPromotionHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="RefreshValueHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
@@ -465,6 +555,14 @@
       <wsdl:input message="tns:CreateWalletDepositSoapIn" />
       <wsdl:output message="tns:CreateWalletDepositSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <wsdl:input message="tns:GetUserPointValueSoapIn" />
+      <wsdl:output message="tns:GetUserPointValueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <wsdl:input message="tns:CollectUserAccountPromotionSoapIn" />
+      <wsdl:output message="tns:CollectUserAccountPromotionSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RefreshValue">
       <wsdl:input message="tns:RefreshValueSoapIn" />
       <wsdl:output message="tns:RefreshValueSoapOut" />
@@ -503,6 +601,14 @@
       <wsdl:input message="tns:GetWalletDepositHttpGetIn" />
       <wsdl:output message="tns:GetWalletDepositHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <wsdl:input message="tns:GetUserPointValueHttpGetIn" />
+      <wsdl:output message="tns:GetUserPointValueHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <wsdl:input message="tns:CollectUserAccountPromotionHttpGetIn" />
+      <wsdl:output message="tns:CollectUserAccountPromotionHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="RefreshValue">
       <wsdl:input message="tns:RefreshValueHttpGetIn" />
       <wsdl:output message="tns:RefreshValueHttpGetOut" />
@@ -536,6 +642,14 @@
     <wsdl:operation name="GetWalletDeposit">
       <wsdl:input message="tns:GetWalletDepositHttpPostIn" />
       <wsdl:output message="tns:GetWalletDepositHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <wsdl:input message="tns:GetUserPointValueHttpPostIn" />
+      <wsdl:output message="tns:GetUserPointValueHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <wsdl:input message="tns:CollectUserAccountPromotionHttpPostIn" />
+      <wsdl:output message="tns:CollectUserAccountPromotionHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="RefreshValue">
       <wsdl:input message="tns:RefreshValueHttpPostIn" />
@@ -584,6 +698,24 @@
     </wsdl:operation>
     <wsdl:operation name="CreateWalletDeposit">
       <soap:operation soapAction="http://tempuri.org/CreateWalletDeposit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <soap:operation soapAction="http://tempuri.org/GetUserPointValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <soap:operation soapAction="http://tempuri.org/CollectUserAccountPromotion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -684,6 +816,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <soap12:operation soapAction="http://tempuri.org/GetUserPointValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <soap12:operation soapAction="http://tempuri.org/CollectUserAccountPromotion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RefreshValue">
       <soap12:operation soapAction="http://tempuri.org/RefreshValue" style="document" />
       <wsdl:input>
@@ -768,6 +918,24 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <http:operation location="/GetUserPointValue" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <http:operation location="/CollectUserAccountPromotion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RefreshValue">
       <http:operation location="/RefreshValue" />
       <wsdl:input>
@@ -836,6 +1004,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetWalletDeposit">
       <http:operation location="/GetWalletDeposit" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPointValue">
+      <http:operation location="/GetUserPointValue" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollectUserAccountPromotion">
+      <http:operation location="/CollectUserAccountPromotion" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

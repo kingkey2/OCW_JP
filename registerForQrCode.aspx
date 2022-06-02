@@ -535,7 +535,9 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }
@@ -648,8 +650,6 @@
             <div></div>
         </div>
 
-        <!-- 側邊影像 -->
-        <div class="feature-panel"></div>
 
         <!-- 主內容框 -->
         <div class="main-panel">
