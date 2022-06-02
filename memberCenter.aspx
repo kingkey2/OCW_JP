@@ -317,7 +317,7 @@
                             <fieldset class="dataFieldset">
                                 <legend class="sec-title-container sec-title-member">
                                     <div class="sec-title-wrapper">
-                                        <h1 class="sec-title title-deco"><span class="language_replace">アカウント情報</span></h1>
+                                        <h1 class="sec-title title-deco"><span class="language_replace">會員中心</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
                                     <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
@@ -417,7 +417,7 @@
                                                     <i class="icon icon-mask icon-flag"></i>
                                                     <span class="title-name language_replace">メッセージ通知</span>
                                                 </label>
-                                            </div>
+                                            </div>                                            
                                             <div class="data-item-content">
                                                 <div class="custom-control custom-checkboxValue custom-control-inline">
                                                     <label class="custom-label">
@@ -427,6 +427,9 @@
                                                 </div>
 
                                             </div>
+                                        </div>
+                                        <div class="wrapper_center">
+                                            <button type="button" class="btn btn-confirm btn-full-stress-2"><span class="language_replace">確認</span></button>
                                         </div>
                                         <div class="data-item qrcode">
                                             <div class="data-item-title">
