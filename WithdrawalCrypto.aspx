@@ -181,7 +181,7 @@
             case "SetLanguage":
                 lang = param;
                 mlp.loadLanguage(lang, function () {
-                    window.parent.API_LoadingEnd();
+                    window.parent.API_LoadingEnd(1);
                 });
                 break;
         }

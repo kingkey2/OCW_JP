@@ -1069,22 +1069,6 @@
             setLanguage(Lang);
         }
 
-        if (EWinWebInfo.Lang == "ENG") {
-            $("#Footer_PrivacyPolicy").attr("onclick", "window.parent.API_ShowPartialHtml('', 'KnowYourCustomer_ENG', false, null)");
-            $("#Footer_Rules").attr("onclick", "window.parent.API_ShowPartialHtml('', 'Terms&Conditions_ENG', false, null)");
-            $("#Footer_About").attr("onclick", "window.parent.API_ShowPartialHtml('', 'ResponsibleGambling_ENG', false, null)");
-            $("#li_HotArticle").hide();
-            $("#li_RegisterActivityReceive").hide();
-            $("#Footer_HotArticle").hide();
-        } else {
-            $("#Footer_PrivacyPolicy").attr("onclick", "window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)");
-            $("#Footer_Rules").attr("onclick", "window.parent.API_ShowPartialHtml('', 'Rules', true, null)");
-            $("#Footer_About").attr("onclick", "window.parent.API_LoadPage('About','About.html')");
-            $("#li_HotArticle").show();
-            $("#li_RegisterActivityReceive").show();
-            $("#Footer_HotArticle").show();
-        }
-
         $("#btn_PupLangClose").click();
     }
 
