@@ -20,6 +20,7 @@
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
+    <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script type="text/javascript" src="Scripts/DateExtension.js"></script>
@@ -90,7 +91,7 @@
                             rowDom.querySelector(".month").innerText = collectDate.toString("MM");
                             rowDom.querySelector(".day").innerText = collectDate.toString("dd");
 
-                            rowDom.querySelector(".value").innerText = collect.PointValue;
+                            rowDom.querySelector(".value").innerText = new BigNumber(collect.PointValue).toFormat();
                             rowDom.querySelector(".title").innerText = collect.PromotionTitle;
 
                             ParentMain.appendChild(rowDom);
@@ -166,7 +167,7 @@
 
                                 DomBtn.onclick = function (e) {
                                     let CollectID = $(e.target).closest(".prize-item").data("collectid");
-                                    let val = $(e.target).closest(".prize-item").data("val");
+                                    let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 ") + val, function () {
 
@@ -277,6 +278,24 @@
 
     }
 
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "LoginState":
+
+                break;
+            case "BalanceChange":
+                break;
+
+            case "SetLanguage":
+                var lang = param;
+
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
+                break;
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -291,7 +310,7 @@
                     <div class="sec-title-wrapper">
                         <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
                         <!-- 獎金/禮金 TAB -->
-                        <div class="menu-prize tab-scroller">
+                        <div class="tab-prize tab-scroller tab-2">
                             <div class="tab-scroller__area">
                                 <ul class="tab-scroller__content">
                                     <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
@@ -306,6 +325,9 @@
                         </div>
                     </div>
                 </div>
+
+
+
 
                 <section class="section-wrap section-prize">
                     <div class="prize-item-wrapper">

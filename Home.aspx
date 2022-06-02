@@ -486,6 +486,7 @@
 
                 mlp.loadLanguage(lang, function () {
                     //updateBaseInfo();
+                window.parent.API_LoadingEnd(1);
                 });
 
                 break;
@@ -497,7 +498,7 @@
                 //if (!initCreatedGameList) {                                     
                 updateGameList();
                 //}
-                window.parent.API_LoadingEnd();
+                window.parent.API_LoadingEnd(1);
                 break;
         }
     }
