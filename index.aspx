@@ -1037,6 +1037,7 @@
     }
 
     function switchLang(Lang, isReload) {
+        API_ShowLoading();
         var LangText;
         $("#btn_switchlang").children().remove();
 
@@ -1842,7 +1843,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                            <%--<li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
@@ -1850,7 +1851,7 @@
                                         <span class="name">English</span>
                                     </div>
                                 </label>
-                            </li>
+                            </li>--%>
                             <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('CHT', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">

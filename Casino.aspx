@@ -310,6 +310,7 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd();
                     updateGameCode();
                 });
                 break;

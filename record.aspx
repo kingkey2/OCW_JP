@@ -175,9 +175,11 @@
                             } else {
                                 RecordDom = c.getTemplate("tmpGameDetail_L");
                             }
+                            let GameBrand = record.GameCode.split('.')[0];
+                            let GameName = record.GameCode.split('.')[1];
 
                             c.setClassText(RecordDom, "gameName", null, window.parent.API_GetGameLang(2, "", record.GameCode));
-                            RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
+                            RecordDom.querySelector(".gameName").setAttribute("gameLangkey", GameName);
                             RecordDom.querySelector(".gameName").classList.add("gameLangkey");
 
                             c.setClassText(RecordDom, "rewardValue", null, new BigNumber(record.RewardValue).toFormat());
@@ -185,8 +187,6 @@
                             c.setClassText(RecordDom, "validBet", null, new BigNumber(record.ValidBetValue).toFormat());
 
                             let GI_img = RecordDom.querySelector(".gameimg");
-                            let GameBrand = record.GameCode.split('.')[0];
-                            let GameName = record.GameCode.split('.')[1];
 
                             if (GameBrand == "EWin") {
                                 GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
@@ -507,7 +507,18 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+
+                    var gameDoms = document.querySelectorAll(".gameLangkey");
+
+                    for (var i = 0; i < gameDoms.length; i++) {
+                        var gameDom = gameDoms[i];
+                        var newGameLang = window.parent.API_GetGameLang(2, lang, gameDom.getAttribute("gameLangkey"));
+                        gameDom.innerText = newGameLang;
+                    }
+
+                    window.parent.API_LoadingEnd();
+                });
                 break;
         }
     }
@@ -550,7 +561,7 @@
                     </div>
                     <div class="record-overview-wrapper">
                         <!-- 出入金總覽 -->
-                        <div class="record-overview-box payment" onclick="showRecord(0)">
+                        <div class="record-overview-box payment">
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
                                     <div class="title">出入金紀錄資訊</div>
@@ -618,7 +629,7 @@
                             </div>
                         </div>
                         <!-- 遊戲總覽-->
-                        <div class="record-overview-box game" onclick="showRecord(1)">
+                        <div class="record-overview-box game">
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
                                     <div class="title">ゴールドフロー履歴情報</div>
