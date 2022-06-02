@@ -1605,7 +1605,7 @@ public class LobbyAPI : System.Web.Services.WebService
         RedisCache.SessionContext.SIDInfo SI;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
         string Token = GetToken();
-        int CollectLimit = 500;
+        int CollectLimit = 100;
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
