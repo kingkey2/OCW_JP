@@ -248,12 +248,12 @@
         return selectedCurrency;
     }
 
-    function API_GetGameLang(type, gameBrand, gameName) {
+    function API_GetGameLang(type, lang, ) {
         if (type == 0) {
             return gameBrand;
             //return mlpByGameBrand.getLanguageKey(gameBrand);
         } else if (type == 1) {
-            return mlpByGameCode.getLanguageKey(gameBrand + "." + gameName);
+            return g.getLanguageKey(gameBrand + "." + gameName);
         } else if (type == 2) {
             return mlpByGameCode.getLanguageKey(gameName);
         } else {
