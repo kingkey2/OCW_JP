@@ -110,7 +110,6 @@
         let Ret = "";
 
         let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
-        let findCharList = targetBrand.GameNameIndex[gameName[0]];
 
         if (targetBrand) {
             Ret = targetBrand.BrandText[lang];
