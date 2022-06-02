@@ -198,7 +198,9 @@
             var form = document.getElementById("registerStep1");
             CheckAccountPhoneExist(function (check) {
                 if (check) {
+                    window.top.API_ShowLoading();
                     p.SetUserMail(Math.uuid(), 0, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                        window.top.API_CloseLoading();
                         if (success) {
                             if (o.Result != 0) {
                                 window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
@@ -213,7 +215,7 @@
                     });
                 } else {
                     //window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
-                }                
+                }
             });
         } else {
             window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));

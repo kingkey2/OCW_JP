@@ -18,6 +18,12 @@
       "Path": "2022_4/DB002.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "DB003",
+      "Path": "2022_6/DB003.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
     }
   ],
   "ParentBonusAfterDeposit": [
@@ -66,6 +72,12 @@
       "Path": "2022_3/OpenIntroBonus.json",
       "MethodName": "OpenIntroBonusToParent",
       "InfoMethodName": "OpenIntroBonusToParent"
+    },
+    {
+      "Name": "DB003",
+      "Path": "2022_6/DB003.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
     }
   ]
 }
