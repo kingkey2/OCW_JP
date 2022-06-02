@@ -278,6 +278,24 @@
 
     }
 
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "LoginState":
+
+                break;
+            case "BalanceChange":
+                break;
+
+            case "SetLanguage":
+                var lang = param;
+
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
+                break;
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">

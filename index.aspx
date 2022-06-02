@@ -1037,6 +1037,7 @@
     }
 
     function switchLang(Lang, isReload) {
+        API_ShowLoading();
         var LangText;
         $("#btn_switchlang").children().remove();
 
@@ -1066,22 +1067,6 @@
         //document.getElementById("idLangText").innerText = LangText;
         if (isReload) {
             setLanguage(Lang);
-        }
-
-        if (EWinWebInfo.Lang == "ENG") {
-            $("#Footer_PrivacyPolicy").attr("onclick", "window.parent.API_ShowPartialHtml('', 'KnowYourCustomer_ENG', false, null)");
-            $("#Footer_Rules").attr("onclick", "window.parent.API_ShowPartialHtml('', 'Terms&Conditions_ENG', false, null)");
-            $("#Footer_About").attr("onclick", "window.parent.API_ShowPartialHtml('', 'ResponsibleGambling_ENG', false, null)");
-            $("#li_HotArticle").hide();
-            $("#li_RegisterActivityReceive").hide();
-            $("#Footer_HotArticle").hide();
-        } else {
-            $("#Footer_PrivacyPolicy").attr("onclick", "window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)");
-            $("#Footer_Rules").attr("onclick", "window.parent.API_ShowPartialHtml('', 'Rules', true, null)");
-            $("#Footer_About").attr("onclick", "window.parent.API_LoadPage('About','About.html')");
-            $("#li_HotArticle").show();
-            $("#li_RegisterActivityReceive").show();
-            $("#Footer_HotArticle").show();
         }
 
         $("#btn_PupLangClose").click();
@@ -1842,7 +1827,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                            <%--<li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
@@ -1850,7 +1835,7 @@
                                         <span class="name">English</span>
                                     </div>
                                 </label>
-                            </li>
+                            </li>--%>
                             <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('CHT', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
