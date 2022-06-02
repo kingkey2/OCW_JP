@@ -215,6 +215,9 @@
                         if (category.ShowType == 0) {
                             GI = c.getTemplate("temGameItem");
                             var GI_a = GI.querySelector(".btn-play");
+                            var GI_Favor = GI.querySelector(".btn-like");
+                            
+                            GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID  +  ")");
                             if (WebInfo.DeviceType == 1) {
 
                                 var RTP = "";

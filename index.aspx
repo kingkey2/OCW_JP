@@ -771,31 +771,68 @@
         }
     }
 
-    function favBtnEvent(gameBrand, gameName) {
-        var target = event.currentTarget;
-        var type = target.classList.contains("add") ? 1 : 0;
+    function favBtnEvent(gameID) {
+        //var target = event.currentTarget;
+        //var type = target.classList.contains("add") ? 1 : 0;
+        setFavoriteGame(gameID);
+        //if (type == 0) {
 
-        if (type == 0) {
-
-            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("加入我的最愛"), function () {
-                target.classList.add("add");
-                setFavoriteGame(gameBrand, gameName, type);
-                if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
-                    document.getElementById('IFramePage').contentWindow.refreshFavoGame();
-                }
-                //setGameLobbySection(nowWebTag);
-            }, null);
-        } else {
-            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("是否從我的最愛移除"), function () {
-                target.classList.remove("add");
-                setFavoriteGame(gameBrand, gameName, type);
-                if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
-                    document.getElementById('IFramePage').contentWindow.refreshFavoGame();
-                }
-                //setGameLobbySection(nowWebTag);
-            }, null);
-        }
+        //    showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("加入我的最愛"), function () {
+        //        target.classList.add("add");
+        //        setFavoriteGame(gameBrand, gameName, type);
+        //        if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
+        //            document.getElementById('IFramePage').contentWindow.refreshFavoGame();
+        //        }
+        //        //setGameLobbySection(nowWebTag);
+        //    }, null);
+        //} else {
+        //    showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("是否從我的最愛移除"), function () {
+        //        target.classList.remove("add");
+        //        setFavoriteGame(gameBrand, gameName, type);
+        //        if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
+        //            document.getElementById('IFramePage').contentWindow.refreshFavoGame();
+        //        }
+        //        //setGameLobbySection(nowWebTag);
+        //    }, null);
+        //}
     };
+
+    function getFavoriteGames() {
+        var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
+        var favoriteGames;
+
+        if (favoriteGamesStr) {
+            favoriteGames = JSON.parse(favoriteGamesStr);
+        } else {
+            favoriteGames = [];
+        }
+
+        return favoriteGames;
+    }
+
+    function setFavoriteGame(gameID) {
+        var favoriteGames = getFavoriteGames();
+        var favoriteGame = {
+            GameID: gameID
+        };
+
+        if (!favoriteGames.includes(gameID)) {
+            //add
+            favoriteGames.splice(0, 0, favoriteGame);
+            window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+            mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛");
+        } else {
+            //remove
+            var index = favoriteGames.findIndex(x => x.GameID == gameID);
+            if (index > -1) {
+                favoriteGames.splice(index, 1);
+            }
+
+            window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+            mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已至移除我的最愛");
+        }
+    }
+
     //#endregion
 
     //#region FavoriteGames And MyGames
@@ -1508,6 +1545,32 @@
             header_SearchFull.classList.remove("open");
         }
     }
+
+    function favBtnEvent(gameBrand, gameName) {
+        var target = event.currentTarget;
+        var type = target.classList.contains("add") ? 1 : 0;
+
+        if (type == 0) {
+
+            showMessageInGameInfo(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("加入我的最愛"), function () {
+                target.classList.add("add");
+                setFavoriteGame(gameBrand, gameName, type);
+                if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
+                    document.getElementById('IFramePage').contentWindow.refreshFavoGame();
+                }
+                //setGameLobbySection(nowWebTag);
+            }, null);
+        } else {
+            showMessageInGameInfo(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("是否從我的最愛移除"), function () {
+                target.classList.remove("add");
+                setFavoriteGame(gameBrand, gameName, type);
+                if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
+                    document.getElementById('IFramePage').contentWindow.refreshFavoGame();
+                }
+                //setGameLobbySection(nowWebTag);
+            }, null);
+        }
+    };
 
     window.onload = init;
 </script>
