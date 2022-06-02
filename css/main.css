@@ -1184,12 +1184,6 @@ hr.line {
 .navbar-brand img {
   width: 100%;
 }
-@media (min-width: 768px) {
-  .navbar-brand .logo {
-    width: 160px;
-    background: url(../images/logo.svg) left center no-repeat;
-  }
-}
 
 .navbar-search {
   display: none;
@@ -1446,6 +1440,9 @@ hr.line {
 .header_setting_content {
   flex-flow: row nowrap;
 }
+.header_setting_content > .nav-item:not(:first-child) {
+  padding-left: 0.5rem;
+}
 .header_setting .nav-link:after {
   content: unset;
 }
@@ -1520,22 +1517,21 @@ hr.line {
   color: #fff;
 }
 
-.logIned_wrapper .avater_wrapper {
+.logIned_wrapper .avater_wrapper .btn {
   padding: 0 !important;
 }
-.logIned_wrapper .avater_wrapper .avater {
+.logIned_wrapper .avater {
   display: inline-flex;
   align-items: center;
   height: 100%;
 }
-.logIned_wrapper .avater_wrapper .avater-img {
-  height: 100%;
-  margin-right: 0.5rem;
-}
-.logIned_wrapper .avater_wrapper .avater-img img {
+.logIned_wrapper .avater-img {
   height: 100%;
 }
-.logIned_wrapper .avater_wrapper .avater-name {
+.logIned_wrapper .avater-img img {
+  height: 100%;
+}
+.logIned_wrapper .avater-name {
   display: none;
 }
 
@@ -1599,6 +1595,32 @@ hr.line {
   justify-content: center;
 }
 
+@media (min-width: 375px) {
+  .navbar-brand .logo {
+    height: 40px;
+    width: 40px;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-brand .logo {
+    width: 160px;
+    background: url(../images/logo.svg) left center no-repeat;
+  }
+
+  .logIned_wrapper .avater-img {
+    margin-right: 0.5rem;
+  }
+  .logIned_wrapper .avater-name {
+    display: inherit;
+    width: 10rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
 @media (min-width: 1440px) {
   .header_area .mask_overlay {
     display: none;
@@ -2102,15 +2124,12 @@ main.innerMain.fixed {
 .vertical-menu .main_area {
   transition: all 0.35s ease;
 }
-@media (min-width: 375px) {
-  .vertical-menu .navbar-brand .logo {
-    height: 40px;
-    width: 40px;
-  }
-}
 @media (min-width: 768px) {
   .vertical-menu {
     /* Sidebar Menu 側邊選單 */
+  }
+  .vertical-menu .navbar-search {
+    display: inherit;
   }
   .vertical-menu .navbar-toggler {
     position: fixed;

@@ -1679,8 +1679,8 @@
                                                 </span>
                                             </li>
                                             <!-- User -->
-                                            <li class="nav-item submenu dropdown">
-                                                <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown avater_wrapper" role="button">
+                                            <li class="nav-item submenu dropdown avater_wrapper">
+                                                <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown " role="button">
                                                     <span class="avater">
                                                         <span class="avater-img">
                                                             <img src="images/avatar/avater-2.png" alt="">
