@@ -463,10 +463,6 @@
         return showPartialHtml(title, pathName, isNeedLang, cbOK);
     }
 
-    function API_ShowContactUs() {
-        return showContactUs();
-    }
-
     function API_changeAvatarImg(avatar) {
         if (avatar) {
             document.getElementById("idAvatarImg").src = "images/assets/avatar/" + avatar + ".jpg"
@@ -511,6 +507,15 @@
         });
     }
 
+    function API_ShowContactUs() {
+        if (!EWinWebInfo.UserLogined) {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
+                API_LoadPage("Login", "Login.aspx");
+            }, null);
+        } else {
+            return showContactUs();
+        }
+    }
     //#endregion
 
     //#region Alert
@@ -1641,7 +1646,7 @@
                                             <i class="icon icon-mask icon-QA"></i>
                                             <span class="title language_replace">Q&A</span></a>
                                     </li>
-                                    <li class="nav-item submenu dropdown">
+                                    <li class="nav-item submenu dropdown" onclick="API_ShowContactUs()">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-word"></i>
                                             <span class="title language_replace">聯絡客服</span></a>
