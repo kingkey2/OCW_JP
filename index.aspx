@@ -248,14 +248,14 @@
         return selectedCurrency;
     }
 
-    function API_GetGameLang(type, gameBrand, gameName) {
+    // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
+    function API_GetGameLang(type, lang, data) {
         if (type == 0) {
-            return gameBrand;
-            //return mlpByGameBrand.getLanguageKey(gameBrand);
-        } else if (type == 1) {
-            return mlpByGameCode.getLanguageKey(gameBrand + "." + gameName);
-        } else if (type == 2) {
-            return mlpByGameCode.getLanguageKey(gameName);
+            return data;
+        } else if (type == 1) {//return gamecode
+            return GCB.GetGameText(lang, data);
+        } else if (type == 2) {//return gameBrand
+            return GCB.GetBrandText(lang, data);
         } else {
             return "";
         }
@@ -572,7 +572,7 @@
 
         $('#popupMoblieGameInfo .BrandName').text(brandName);
         $('#popupMoblieGameInfo .valueRTP').text(RTP);
-        $('#popupMoblieGameInfo .gameName').text(API_GetGameLang(1, brandName, gameName));
+        $('#popupMoblieGameInfo .gameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName.gameName));
         $('#popupMoblieGameInfo .GameID').text(GameID);
 
         var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
