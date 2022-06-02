@@ -117,7 +117,9 @@ public class SyncAPI : System.Web.Services.WebService
         string GameCategorySubCode;
         string Location = "";
         string Tag;
+        List<OcwCompanyGameCode> AllGameCodeData = new List<OcwCompanyGameCode>();
         int ShowType = 0;
+        int CategoryGameCodeCountID = 0;
         List<CompanyCategoryByStatistics> SlotMaxBetCount3DayResult = new List<CompanyCategoryByStatistics>();
         List<CompanyCategoryByStatistics> SlotMaxBetCount30DayResult = new List<CompanyCategoryByStatistics>();
         List<CompanyCategoryByStatistics> SlotMaxWinValue7DayResult = new List<CompanyCategoryByStatistics>();
@@ -125,7 +127,7 @@ public class SyncAPI : System.Web.Services.WebService
         List<CompanyCategoryByStatistics> SlotMaxWinRate7DayResult = new List<CompanyCategoryByStatistics>();
         List<CompanyCategoryByStatistics> SlotMaxWinRateYesterdayResult = new List<CompanyCategoryByStatistics>();
         List<CompanyCategoryByStatistics> SlotMaxRTPYesterdayResult = new List<CompanyCategoryByStatistics>();
-
+        Dictionary<int, int> CategoryGameCodeCount = new Dictionary<int, int>();
         #region 統計值
 
         Location = "GameList_Slot";
@@ -176,7 +178,7 @@ public class SyncAPI : System.Web.Services.WebService
             {
                 EWinWebDB.CompanyGameCode.DeleteCompanyGameCode();
                 EWinWebDB.CompanyCategory.DeleteCompanyCategory(0);
-               
+
                 for (int i = 0; i < companyCategoryResult.CategoryList.Length; i++)
                 {
                     if (companyCategoryResult.CategoryList[i].Tag.Length == 4)
@@ -195,6 +197,10 @@ public class SyncAPI : System.Web.Services.WebService
 
                 CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
 
+                for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
+                {
+                    CategoryGameCodeCount.Add((int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"], 0);
+                }
                 if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
                 {
                     SlotMaxBetCount3DayCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + "SlotMaxBetCount3Day" + "' And CategoryType=1")[0]["CompanyCategoryID"];
@@ -251,8 +257,11 @@ public class SyncAPI : System.Web.Services.WebService
                     companyGameCodeResult = lobbyAPI.GetCompanyGameCode(GetToken(), Guid.NewGuid().ToString());
                     if (companyGameCodeResult.Result == EWin.Lobby.enumResult.OK)
                     {
+                        companyGameCodeResult.GameCodeList = companyGameCodeResult.GameCodeList.OrderByDescending(o => o.SortIndex).ToArray();
                         for (int i = 0; i < companyGameCodeResult.GameCodeList.Length; i++)
-                        {
+                        {   //建立全部GameCode資料
+
+                            //取得最大GameID
                             if (MaxGameID < companyGameCodeResult.GameCodeList[i].GameID)
                             {
                                 MaxGameID = companyGameCodeResult.GameCodeList[i].GameID;
@@ -264,6 +273,22 @@ public class SyncAPI : System.Web.Services.WebService
                             GameCategoryCode = companyGameCodeResult.GameCodeList[i].GameCategoryCode;
                             GameCategorySubCode = companyGameCodeResult.GameCodeList[i].GameCategorySubCode;
 
+                            OcwCompanyGameCode ocwGameCode = new OcwCompanyGameCode()
+                            {
+                                GameID = companyGameCodeResult.GameCodeList[i].GameID,
+                                GameBrand = GameBrand,
+                                GameCode = GameCode,
+                                GameName = companyGameCodeResult.GameCodeList[i].GameName,
+                                GameCategoryCode = GameCategoryCode,
+                                GameCategorySubCode = GameCategorySubCode,
+                                AllowDemoPlay = companyGameCodeResult.GameCodeList[i].AllowDemoPlay,
+                                RTPInfo = companyGameCodeResult.GameCodeList[i].RTPInfo,
+                                IsHot = companyGameCodeResult.GameCodeList[i].IsHot,
+                                IsNew = companyGameCodeResult.GameCodeList[i].IsNew,
+                                SortIndex = companyGameCodeResult.GameCodeList[i].SortIndex
+                            };
+
+                            AllGameCodeData.Add(ocwGameCode);
                             if (SlotMaxBetCount3DayResult.Where(w => w.GameCode == GameCode).Count() > 0)
                             {
                                 var QTY = SlotMaxBetCount3DayResult.Where(w => w.GameCode == GameCode).First().QTY;
@@ -309,11 +334,19 @@ public class SyncAPI : System.Web.Services.WebService
                             #region 熱門遊戲
                             if (companyGameCodeResult.GameCodeList[i].IsHot == 1)
                             {
-                                InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsHotCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
-                                if (InsertCompanyGameCodeReturn == 0)
+                                if (CategoryGameCodeCount.TryGetValue(IsHotCompanyCategoryID, out CategoryGameCodeCountID))
                                 {
-                                    R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsHotCompanyCategoryID;
-                                    //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+
+                                    if (CategoryGameCodeCount[IsHotCompanyCategoryID] < 20)
+                                    {
+                                        CategoryGameCodeCount[IsHotCompanyCategoryID] = CategoryGameCodeCount[IsHotCompanyCategoryID]+1;
+                                        InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsHotCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                        if (InsertCompanyGameCodeReturn == 0)
+                                        {
+                                            R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsHotCompanyCategoryID;
+                                            //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                        }
+                                    }
                                 }
                             }
                             #endregion
@@ -321,11 +354,16 @@ public class SyncAPI : System.Web.Services.WebService
                             #region 最新遊戲
                             if (companyGameCodeResult.GameCodeList[i].IsNew == 1)
                             {
-                                InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsNewCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
-                                if (InsertCompanyGameCodeReturn == 0)
+
+                                if (CategoryGameCodeCount[IsNewCompanyCategoryID] < 20)
                                 {
-                                    R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsNewCompanyCategoryID;
-                                    //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                    CategoryGameCodeCount[IsNewCompanyCategoryID] = CategoryGameCodeCount[IsNewCompanyCategoryID]+1;
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsNewCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    if (InsertCompanyGameCodeReturn == 0)
+                                    {
+                                        R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsNewCompanyCategoryID;
+                                        //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                    }
                                 }
                             }
                             #endregion
@@ -340,18 +378,25 @@ public class SyncAPI : System.Web.Services.WebService
                                 InsertCompanyCategoryReturn = EWinWebDB.CompanyCategory.InsertOcwCompanyCategory(0, 3, GameBrand, 99, 0, Location, ShowType);
                                 if (InsertCompanyCategoryReturn > 0)
                                 {
+                                    CategoryGameCodeCount.Add(InsertCompanyCategoryReturn, 0);
                                     CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
                                 }
-
                             }
 
                             IsGameBrandCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameBrand + "'")[0]["CompanyCategoryID"];
-                            InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsGameBrandCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
-                            if (InsertCompanyGameCodeReturn == 0)
+
+
+                            if (CategoryGameCodeCount[IsGameBrandCategoryID] < 20)
                             {
-                                R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsGameBrandCategoryID;
-                                //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                CategoryGameCodeCount[IsGameBrandCategoryID] = CategoryGameCodeCount[IsGameBrandCategoryID]+1;
+                                InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsGameBrandCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                if (InsertCompanyGameCodeReturn == 0)
+                                {
+                                    R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsGameBrandCategoryID;
+                                    //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                }
                             }
+
                             #endregion
 
                             #region 遊戲類型分類
@@ -373,11 +418,13 @@ public class SyncAPI : System.Web.Services.WebService
                                     InsertCompanyCategoryReturn = EWinWebDB.CompanyCategory.InsertOcwCompanyCategory(0, 4, GameCategorySubCode, 0, 0, Location, ShowType);
                                     if (InsertCompanyCategoryReturn > 0)
                                     {
+                                        CategoryGameCodeCount.Add(InsertCompanyCategoryReturn, 0);
                                         CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
                                     }
                                 }
 
                                 IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameCategorySubCode + "'")[0]["CompanyCategoryID"];
+
                             }
                             else
                             {
@@ -387,19 +434,27 @@ public class SyncAPI : System.Web.Services.WebService
                                     InsertCompanyCategoryReturn = EWinWebDB.CompanyCategory.InsertOcwCompanyCategory(0, 4, "Other", 0, 0, Location, ShowType);
                                     if (InsertCompanyCategoryReturn > 0)
                                     {
+                                        CategoryGameCodeCount.Add(InsertCompanyCategoryReturn, 0);
                                         CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
                                     }
                                 }
 
                                 IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + "Other" + "'")[0]["CompanyCategoryID"];
+
                             }
 
-                            InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsCategoryCodeCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
-                            if (InsertCompanyGameCodeReturn == 0)
+
+                            if (CategoryGameCodeCount[IsCategoryCodeCategoryID] < 20)
                             {
-                                R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsCategoryCodeCategoryID;
-                                //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                CategoryGameCodeCount[IsCategoryCodeCategoryID] = CategoryGameCodeCount[IsCategoryCodeCategoryID]+1;
+                                InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsCategoryCodeCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                if (InsertCompanyGameCodeReturn == 0)
+                                {
+                                    R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsCategoryCodeCategoryID;
+                                    //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                }
                             }
+
                             #endregion
 
 
@@ -414,13 +469,17 @@ public class SyncAPI : System.Web.Services.WebService
                                         if (CompanyCategoryRow.Length > 0)
                                         {
                                             CompanyCategoryID = (int)CompanyCategoryRow[0]["CompanyCategoryID"];
-
-                                            InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(CompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
-                                            if (InsertCompanyGameCodeReturn == 0)
+                                            if (CategoryGameCodeCount[CompanyCategoryID] < 20)
                                             {
-                                                R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID;
-                                                //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                                CategoryGameCodeCount[CompanyCategoryID] = CategoryGameCodeCount[CompanyCategoryID] + 1;
+                                                InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(CompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                                if (InsertCompanyGameCodeReturn == 0)
+                                                {
+                                                    R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID;
+                                                    //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
+                                                }
                                             }
+
                                         }
                                     }
                                 }
@@ -429,6 +488,7 @@ public class SyncAPI : System.Web.Services.WebService
 
                         RedisCache.CompanyGameCode.UpdateSyncData(MaxGameID);
                         RedisCache.CompanyGameCode.UpdateCompanyGameCode();
+                        RedisCache.CompanyGameCode.UpdateAllCompanyGameCode(Newtonsoft.Json.JsonConvert.SerializeObject(AllGameCodeData));
 
                     }
                     else
@@ -490,6 +550,24 @@ public class SyncAPI : System.Web.Services.WebService
         public int IsNew { get; set; }
         public int IsHot { get; set; }
         public string CompanyCategoryTag { get; set; }
+        public string Tag { get; set; }
+    }
+
+    public class OcwCompanyGameCode
+    {
+        public int forCompanyCategoryID { get; set; }
+        public int GameID { get; set; }
+        public string GameCode { get; set; }
+        public string GameBrand { get; set; }
+        public string GameName { get; set; }
+        public string GameCategoryCode { get; set; }
+        public string GameCategorySubCode { get; set; }
+        public int AllowDemoPlay { get; set; }
+        public string RTPInfo { get; set; }
+        public string Info { get; set; }
+        public int IsHot { get; set; }
+        public int IsNew { get; set; }
+        public int SortIndex { get; set; }
         public string Tag { get; set; }
     }
 }
