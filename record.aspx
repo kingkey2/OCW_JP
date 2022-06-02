@@ -106,9 +106,9 @@
                             }
 
                             c.setClassText(RecordDom, "SummaryDate", null, summaryDate.toString("yyyy/MM/dd"));
-                            c.setClassText(RecordDom, "orderValue", null, daySummary.TotalOrderValue);
-                            c.setClassText(RecordDom, "validBet", null, daySummary.TotalValidBetValue);
-                            c.setClassText(RecordDom, "rewardValue", null, daySummary.TotalRewardValue);
+                            c.setClassText(RecordDom, "orderValue", null, new BigNumber(daySummary.TotalOrderValue).toFormat());
+                            c.setClassText(RecordDom, "validBet", null, new BigNumber(daySummary.TotalValidBetValue).toFormat());
+                            c.setClassText(RecordDom, "rewardValue", null, new BigNumber(daySummary.TotalRewardValue).toFormat());
 
 
                             RecordDom.dataset.queryDate = daySummary.SummaryDate;
@@ -403,13 +403,13 @@
             if (success) {
                 if (o.Result == 0) {
                     for (var i = 0; i < o.GameResult.length; i++) {
-                        $("#Game_O_" + i).text(o.GameResult[i].OrderValue);
-                        $("#Game_R_" + i).text(o.GameResult[i].RewardValue);
+                        $("#Game_O_" + i).text(new BigNumber(o.GameResult[i].OrderValue).toFormat());
+                        $("#Game_R_" + i).text(new BigNumber(o.GameResult[i].RewardValue).toFormat());
                     }
 
                     for (var j = 0; j < o.PaymentResult.length; j++) {
-                        $("#Paymeny_D_" + j).text(o.PaymentResult[j].DepositAmount);
-                        $("#Paymeny_W_" + j).text(o.PaymentResult[j].WithdrawalAmount);
+                        $("#Paymeny_D_" + j).text(new BigNumber(o.PaymentResult[j].DepositAmount).toFormat());
+                        $("#Paymeny_W_" + j).text(new BigNumber(o.PaymentResult[j].WithdrawalAmount).toFormat());
                     }
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
