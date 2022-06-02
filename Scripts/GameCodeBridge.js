@@ -126,8 +126,7 @@
         if (timeStamp != NaN && timeStamp != 0) {
             this.SearchCore = JSON.parse(coreStr);
             this.CtList = JSON.parse(ctStr);
-            this.FirstLoaded = true;
-            
+            this.FirstLoaded = true;            
         }
         //#endregion 
 
@@ -152,6 +151,7 @@
                                     this.onFirstLoaded();
                                 }
                                 this.FirstLoaded = true;
+                                localStorage.setItem("GCB_timeStamp", ctResult.TimeStamp);
                             }
                         }
 
@@ -160,7 +160,7 @@
                         }
 
                         localStorage.setItem("GCB_Ct", JSON.stringify(this.CtList));
-                        localStorage.setItem("GCB_timeStamp", ctResult.TimeStamp);
+                       
 
                         break;
 
@@ -174,13 +174,14 @@
                                     this.onFirstLoaded();
                                 }
                                 this.FirstLoaded = true;
+                                localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
                             }
                         }
 
 
 
                         localStorage.setItem("GCB_Core", JSON.stringify(this.SearchCore));
-                        localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
+                  
 
                         break;
                     default:
