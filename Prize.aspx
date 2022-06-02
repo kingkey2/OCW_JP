@@ -20,6 +20,7 @@
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
+    <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script type="text/javascript" src="Scripts/DateExtension.js"></script>
@@ -90,7 +91,7 @@
                             rowDom.querySelector(".month").innerText = collectDate.toString("MM");
                             rowDom.querySelector(".day").innerText = collectDate.toString("dd");
 
-                            rowDom.querySelector(".value").innerText = collect.PointValue;
+                            rowDom.querySelector(".value").innerText = new BigNumber(collect.PointValue).toFormat();
                             rowDom.querySelector(".title").innerText = collect.PromotionTitle;
 
                             ParentMain.appendChild(rowDom);
@@ -166,7 +167,7 @@
 
                                 DomBtn.onclick = function (e) {
                                     let CollectID = $(e.target).closest(".prize-item").data("collectid");
-                                    let val = $(e.target).closest(".prize-item").data("val");
+                                    let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 ") + val, function () {
 
