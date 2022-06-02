@@ -1165,6 +1165,7 @@ hr.line {
   display: inline-flex;
   align-items: center;
   margin-right: 0;
+  cursor: pointer;
   transition: all 500ms ease;
 }
 .navbar-brand .logo {

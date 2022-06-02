@@ -1577,7 +1577,7 @@
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <i class="icon icon-mask icon-people"></i>
                                             <span class="title language_replace">會員中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
@@ -1587,12 +1587,12 @@
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <i class="icon icon-mask icon-prize"></i>
                                             <span class="title language_replace">領獎中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <i class="icon icon-mask icon-calendar"></i>
                                             <span class="title language_replace">履歷記錄</span></a>
                                     </li>
                                 </ul>
@@ -1612,7 +1612,7 @@
                                     </li>
                                     <li class="nav-item submenu dropdown" onclick="API_ShowContactUs()">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-logo"></i>
+                                            <i class="icon icon-mask icon-word"></i>
                                             <span class="title language_replace">聯絡客服</span></a>
                                     </li>
                                 </ul>
