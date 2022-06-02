@@ -383,7 +383,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     Langs: {
 
                                     },
-                                    BrandText: {}
+                                    BrandText: {},
                                     AllGame: [Data.GameID]
                                 };
 
