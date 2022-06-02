@@ -553,6 +553,14 @@ textarea:focus, input:focus, button:focus, select:focus {
   color: #2ee6d7;
 }
 
+.saturday {
+  color: #009FE8;
+}
+
+.sunday {
+  color: #ff0000;
+}
+
 .btn-moreClick {
   position: relative;
   width: 2.5rem;
@@ -2542,6 +2550,22 @@ main.innerMain.fixed {
 .icon-mask.icon-ect::before {
   -webkit-mask-image: url(../images/icon/ico-ect.svg);
   mask-image: url(../images/icon/ico-ect.svg);
+}
+.icon-mask.icon-rocket::before {
+  -webkit-mask-image: url(../images/icon/ico-rocket.svg);
+  mask-image: url(../images/icon/ico-rocket.svg);
+}
+.icon-mask.icon-wallet::before {
+  -webkit-mask-image: url(../images/icon/ico-wallet.svg);
+  mask-image: url(../images/icon/ico-wallet.svg);
+}
+.icon-mask.icon-calendar::before {
+  -webkit-mask-image: url(../images/icon/ico-calendar.svg);
+  mask-image: url(../images/icon/ico-calendar.svg);
+}
+.icon-mask.icon-prize::before {
+  -webkit-mask-image: url(../images/icon/ico-prize.svg);
+  mask-image: url(../images/icon/ico-prize.svg);
 }
 .icon-mask.icon-word::before {
   -webkit-mask-image: url(../images/icon/ico-word.svg);

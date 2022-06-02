@@ -332,7 +332,7 @@
                             $(RecordDom).find('.CategIcon').addClass('icon-real');
                             break;
                         case 'GameList_Electron':
-                            $(RecordDom).find('.CategIcon').addClass('icon-slot');
+                            $(RecordDom).find('.CategIcon').addClass('icon-rocket');
                             break;
                         case 'GameList_Other':
                             $(RecordDom).find('.CategIcon').addClass('icon-ect');
