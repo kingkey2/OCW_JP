@@ -528,33 +528,36 @@
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
                         <div class="hero-item">
                             <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="Images/banner/b1.png" class="bg">
-                                <div class="anim container">
-                                    <div class="role role-R">
-                                        <img src="images/banner/girl.png" alt="">
-                                    </div>
-                                    <div class="role role-L">
-                                        <img src="images/banner/dog.png" alt="">
-                                    </div>
+                            <div class="hero-item-box mobile">
+                                <img src="images/banner/b1-mobile.jpg" alt="">
+                              </div>
+                              <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/banner/b1.png" class="bg"> 
+                                    <div class="anim container">
+                                      <div class="role role-R"><img src="images/banner/girl.png" alt=""></div>
+                                      <div class="role role-L"><img src="images/banner/dog.png" alt=""></div>                    
+                                    </div>  
+                                  </div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">               
+                            <a class="hero-item-link" href="#"></a>
+                            <div class="hero-item-box mobile">
+                              <img src="images/banner/b1-mobile.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                              <div class="img-wrap">   
+                                  <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">             
                                 </div>
-                            </div>
-
+                            </div>                                    
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="img-wrap">
-                                <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <!-- <div class="hero-item" style="background-color: #010d4b;"> -->
+                    <!-- <div class="swiper-slide">                       
                         <div class="hero-item">
                             <a class="hero-item-link" href="#"></a>
                             <div class="img-wrap">
@@ -587,7 +590,7 @@
                                 <img src="https://images2.alphacoders.com/108/1083491.jpg" class="bg">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="swiper-mask"></div>
                 </div>

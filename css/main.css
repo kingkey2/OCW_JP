@@ -78,7 +78,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   content: "j";
 }
 
-.icon-icon-thumup:before {
+.icon-thumup:before {
   content: "k";
 }
 
@@ -804,9 +804,9 @@ hr.line {
 .sec-title .icon-mask {
   margin-right: 0.3rem;
 }
-.sec-title .icon-mask::before {
-  width: 1.8rem;
-  height: 1.8rem;
+.sec-title .icon-mask.icon-star {
+  width: 1.875rem;
+  height: 1.875rem;
 }
 
 .innerMain {
@@ -819,7 +819,7 @@ hr.line {
 }
 
 .section-wrap {
-  margin-bottom: 50px;
+  margin-bottom: 1.25rem;
 }
 
 .hidden {
@@ -864,6 +864,10 @@ hr.line {
   .shown-md {
     display: inherit !important;
   }
+
+  .section-wrap {
+    margin-bottom: 1.875rem;
+  }
 }
 @media (min-width: 992px) {
   .hidden-lg {
@@ -872,6 +876,10 @@ hr.line {
 
   .shown-lg {
     display: inherit !important;
+  }
+
+  .section-wrap {
+    margin-bottom: 3.125rem;
   }
 }
 @media (min-width: 1440px) {
@@ -1989,12 +1997,17 @@ main.innerMain.fixed {
 .vertical-menu .navbarMenu.navbar-collapse::-webkit-scrollbar {
   width: 0px;
 }
+.vertical-menu .navbarMenu.navbar-collapse .icon-mask {
+  width: 1.875rem;
+  height: 1.875rem;
+}
 .vertical-menu .navbarMenu.navbar-collapse > .navbar-nav {
   width: 100%;
   flex-flow: column nowrap;
   position: relative;
   height: 100%;
   padding-bottom: 20px;
+  overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;
   scrollbar-color: rgba(200, 219, 234, 0.4) transparent;
@@ -2057,54 +2070,6 @@ main.innerMain.fixed {
 .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link:after, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link:after {
   background-color: rgba(191, 165, 120, 0.5);
   right: 0;
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-user::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-user::before {
-  background-image: url(../images/theme/dark/icon/ewin-user.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-transfer-withdraw::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-transfer-withdraw::before {
-  background-image: url(../images/theme/dark/icon/ewin-transfer-withdraw.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-downline::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-downline::before {
-  background-image: url(../images/theme/dark/icon/ewin-downline.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-transfer-check::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-transfer-check::before {
-  background-image: url(../images/theme/dark/icon/ewin-transfer-check.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-transfer::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-transfer::before {
-  background-image: url(../images/theme/dark/icon/ewin-transfer.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-bankcard::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-bankcard::before {
-  background-image: url(../images/theme/dark/icon/ewin-bankcard.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-user-multi::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-user-multi::before {
-  background-image: url(../images/theme/dark/icon/ewin-user-multi.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-transfer-crypto::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-transfer-crypto::before {
-  background-image: url(../images/theme/dark/icon/ewin-transfer-crypto.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-assisant::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-assisant::before {
-  background-image: url(../images/theme/dark/icon/ewin-assisant.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-report-porker::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-report-porker::before {
-  background-image: url(../images/theme/dark/icon/ewin-report-porker.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-report-wallet::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-report-wallet::before {
-  background-image: url(../images/theme/dark/icon/ewin-report-wallet.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-report-crypto::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-report-crypto::before {
-  background-image: url(../images/theme/dark/icon/ewin-report-crypto.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-report-withdraw::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-report-withdraw::before {
-  background-image: url(../images/theme/dark/icon/ewin-report-withdraw.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-report-income::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-report-income::before {
-  background-image: url(../images/theme/dark/icon/ewin-report-income.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-report-income-daily::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-report-income-daily::before {
-  background-image: url(../images/theme/dark/icon/ewin-report-income-daily.svg);
-}
-.vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu:hover .nav-link .icon-mask.icon-ewin-report-income-total::before, .vertical-menu .navbarMenu.navbar-collapse .nav-item.submenu.active .nav-link .icon-mask.icon-ewin-report-income-total::before {
-  background-image: url(../images/theme/dark/icon/ewin-report-income-total.svg);
 }
 .vertical-menu .navbarMenu.navbar-collapse .tip {
   display: none;
@@ -2183,8 +2148,6 @@ main.innerMain.fixed {
   .vertical-menu .navbarMenu.navbar-collapse .icon-mask {
     margin-right: 1rem;
     margin-left: -7px;
-    width: 30px;
-    height: 30px;
   }
 }
 @media (min-width: 768px) and (min-width: 576px) {
@@ -4322,7 +4285,7 @@ i {
 
 .section-levelUp {
   position: relative;
-  padding-bottom: 30px;
+  padding-bottom: 0.625rem;
 }
 .section-levelUp:hover {
   z-index: 99;
@@ -4330,7 +4293,6 @@ i {
 
 .game-area.overflow-hidden {
   overflow-x: hidden;
-  padding-bottom: 160px;
 }
 
 .game_wrapper {
@@ -4836,6 +4798,10 @@ i {
 }
 
 @media (min-width: 768px) {
+  .section-levelUp {
+    padding-bottom: 1.5625rem;
+  }
+
   .game_slider .swiper-slide {
     width: calc((100% - 10px) / 5.35);
   }
@@ -4858,6 +4824,10 @@ i {
   }
 }
 @media (min-width: 1440px) {
+  .section-levelUp {
+    padding-bottom: 1.875rem;
+  }
+
   .game_slider .swiper-slide {
     width: calc((100% - 10px) / 7.35);
   }
