@@ -2127,6 +2127,9 @@ main.innerMain.fixed {
 .vertical-menu.navbar-show .navbarMenu.navbar-collapse {
   transform: translateX(0%);
 }
+.vertical-menu.navbar-show .navbar-toggler span {
+  background: #fff;
+}
 @media (min-width: 768px) {
   .vertical-menu {
     /* Sidebar Menu 側邊選單 */
