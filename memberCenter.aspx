@@ -140,8 +140,8 @@
         $('#idBornDay').removeAttr("readonly");
         $('#Email').removeAttr("readonly");
         $('.data-item.password').show();
-        $('#updateUserAccountRemoveReadOnlyBtn').hide();
-        $('#updateUserAccountBtn').show();
+        $('#updateUserAccountRemoveReadOnlyBtn').addClass('is-hide');
+        $('#updateUserAccountBtn').removeClass('is-hide');
 
     }
 
@@ -225,9 +225,8 @@
                     $('#idBornDay').attr("readonly", "readonly");
                     $('#Email').attr("readonly", "readonly");
                     $('.data-item.password').hide();
-                    $('#updateUserAccountRemoveReadOnlyBtn').show();
-                    $('#updateUserAccountBtn').hide();
-
+                    $('#updateUserAccountRemoveReadOnlyBtn').removeClass('is-hide');
+                    $('#updateUserAccountBtn').addClass('is-hide');
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("成功"), function () {
 
                         window.top.API_RefreshUserInfo(function () {
@@ -258,7 +257,9 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }
@@ -321,7 +322,6 @@
                                     </div>
                                     <!-- 資料更新 Button-->
                                     <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
-                                    <button id="updateUserAccountBtn" type="button" style="display: none;" class="btn btn-edit btn-full-main" onclick="updateUserAccount()"><i class="icon icon-mask icon-pencile"></i></button>
                                 </legend>
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
@@ -429,7 +429,7 @@
                                             </div>
                                         </div>
                                         <div class="wrapper_center">
-                                            <button type="button" class="btn btn-confirm btn-full-stress-2"><span class="language_replace">確認</span></button>
+                                            <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-stress-2 is-hide"><span class="language_replace">確認</span></button>
                                         </div>
                                         <div class="data-item qrcode">
                                             <div class="data-item-title">

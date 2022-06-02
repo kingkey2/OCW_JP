@@ -361,8 +361,6 @@
          
             // if (IFramePage.children.length > 0) {
             //var ifrm = IFramePage.children[0];
-            $('.header_menu, .navbarMenu').removeClass('show');
-            $('.navbar-toggler').attr("aria-expanded", "false");
 
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 //loadingStart();
@@ -1037,6 +1035,7 @@
     }
 
     function switchLang(Lang, isReload) {
+        API_ShowLoading();
         var LangText;
         $("#btn_switchlang").children().remove();
 
@@ -1066,22 +1065,6 @@
         //document.getElementById("idLangText").innerText = LangText;
         if (isReload) {
             setLanguage(Lang);
-        }
-
-        if (EWinWebInfo.Lang == "ENG") {
-            $("#Footer_PrivacyPolicy").attr("onclick", "window.parent.API_ShowPartialHtml('', 'KnowYourCustomer_ENG', false, null)");
-            $("#Footer_Rules").attr("onclick", "window.parent.API_ShowPartialHtml('', 'Terms&Conditions_ENG', false, null)");
-            $("#Footer_About").attr("onclick", "window.parent.API_ShowPartialHtml('', 'ResponsibleGambling_ENG', false, null)");
-            $("#li_HotArticle").hide();
-            $("#li_RegisterActivityReceive").hide();
-            $("#Footer_HotArticle").hide();
-        } else {
-            $("#Footer_PrivacyPolicy").attr("onclick", "window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)");
-            $("#Footer_Rules").attr("onclick", "window.parent.API_ShowPartialHtml('', 'Rules', true, null)");
-            $("#Footer_About").attr("onclick", "window.parent.API_LoadPage('About','About.html')");
-            $("#li_HotArticle").show();
-            $("#li_RegisterActivityReceive").show();
-            $("#Footer_HotArticle").show();
         }
 
         $("#btn_PupLangClose").click();
@@ -1577,7 +1560,7 @@
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <i class="icon icon-mask icon-people"></i>
                                             <span class="title language_replace">會員中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
@@ -1587,12 +1570,12 @@
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <i class="icon icon-mask icon-prize"></i>
                                             <span class="title language_replace">領獎中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <i class="icon icon-mask icon-calendar"></i>
                                             <span class="title language_replace">履歷記錄</span></a>
                                     </li>
                                 </ul>
@@ -1612,7 +1595,7 @@
                                     </li>
                                     <li class="nav-item submenu dropdown" onclick="API_ShowContactUs()">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-logo"></i>
+                                            <i class="icon icon-mask icon-word"></i>
                                             <span class="title language_replace">聯絡客服</span></a>
                                     </li>
                                 </ul>
@@ -1637,7 +1620,7 @@
                         <div class="header_rightWrapper">
 
                             <div class="header_setting">
-                                <ul class="nav">
+                                <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
                                         <button type="button" class="btn btn-round nav-link btn-search" data-toggle="modal" data-target="#alertSearch">
@@ -1672,15 +1655,15 @@
                                                         <span class="balance-info">
                                                             <span class="amount">0</span>
                                                         </span>
-                                                        <button class="btn btn-deposit btn-sub-main" onclick="">
-                                                            <span class="icon-add"></span>
+                                                        <button class="btn btn-deposit btn-full-stress" onclick="">
+                                                            <span class="icon icon-add"></span>
                                                         </button>
                                                     </span>
                                                 </span>
                                             </li>
                                             <!-- User -->
-                                            <li class="nav-item submenu dropdown">
-                                                <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown avater_wrapper" role="button">
+                                            <li class="nav-item submenu dropdown avater_wrapper">
+                                                <a onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)" class="btn nav-link btnDropDown " role="button">
                                                     <span class="avater">
                                                         <span class="avater-img">
                                                             <img src="images/avatar/avater-2.png" alt="">
@@ -1716,7 +1699,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item submenu dropdown">
+                                    <li class="nav-item lang_wrapper submenu dropdown">
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
@@ -1842,7 +1825,7 @@
                                     </div>
                                 </label>
                             </li>
-                            <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
+                            <%--<li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('ENG', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
                                     <div class="custom-input radio-button">
@@ -1850,7 +1833,7 @@
                                         <span class="name">English</span>
                                     </div>
                                 </label>
-                            </li>
+                            </li>--%>
                             <li class="lang-item custom-control custom-radioValue-lang" onclick="switchLang('CHT', true)">
                                 <label class="custom-label">
                                     <input type="radio" name="button-langExchange" class="custom-control-input-hidden">

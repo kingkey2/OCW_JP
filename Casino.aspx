@@ -107,11 +107,7 @@
 
                         category.Datas.forEach(gameItem => {
                             var GI;
-                            count++;
-                            if (count > 30) {
-                                return false;
-                            }
-
+                         
                             if (category.ShowType == 0) {
                                 GI = c.getTemplate("temGameItem");
                                 $(GI).addClass('gameid_' + gameItem.GameID);
@@ -310,6 +306,7 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
                     updateGameCode();
                 });
                 break;

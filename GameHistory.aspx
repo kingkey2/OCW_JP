@@ -376,7 +376,7 @@
                     var newGameLang = window.parent.API_GetGameLang(2, "", gameDom.getAttribute("gameLangkey"));
                     gameDom.innerText = newGameLang;
                 }
-
+                    window.parent.API_LoadingEnd(1);
                 break;
         }
     }
