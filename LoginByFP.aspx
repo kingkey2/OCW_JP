@@ -180,8 +180,6 @@
             <img src="images/assets/logo-icon.png">
         </div> -->
 
-        <!-- 側邊影像 -->
-        <div class="feature-panel"></div>
 
         <!-- 主內容框 -->
         <div class="main-panel">

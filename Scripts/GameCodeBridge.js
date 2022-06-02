@@ -2,7 +2,7 @@
     var myWorker
     var CtList = null;
     var SearchCore = null;
-   
+
 
     this.FirstLoaded = false;
     this.SearchGameCodeByLang = function (lang, searchText, gameBrand, gameCategoryCode) {
@@ -55,7 +55,7 @@
         //find GameID
 
         let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
-    
+
 
         for (var i = 0; i < targetBrand.AllGame.length; i++) {
             // gameID + 
@@ -76,6 +76,48 @@
         return Ret;
     }
 
+    this.GetGameText = function (lang, gameCode) {
+        let Ret = "";
+        let splitIndex = gameCode.indexOf(".");
+        if (splitIndex != -1) {
+            let gameBrand = gameCode.substring(0, splitIndex);
+            let gameName = gameCode.substring(splitIndex + 1, gameCode.length);
+            let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
+
+            if (targetBrand) {
+                let findCharList = targetBrand.GameNameIndex[gameName[0]];
+
+                if (findCharList) {
+                    for (var i = 0; i < findCharList.length; i++) {
+                        // gameID + 
+                        let charObj = findCharList[i];
+                        if (charObj.TargetValue == gameName) {
+                            let IndexOne = Math.trunc(charObj.GameID / 100);
+                            let IndexTwo = charObj.GameID % 100;
+                            let gameCodeObj = this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
+
+                            Ret = gameCodeObj.GameText[lang];
+                        }
+                    }
+                }
+            }            
+        }
+
+        return Ret;
+    }
+
+    this.GetBrandText = function (lang, gameBrand) {
+        let Ret = "";
+
+        let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
+        let findCharList = targetBrand.GameNameIndex[gameName[0]];
+
+        if (targetBrand) {
+            Ret = targetBrand.BrandText[lang];
+        }
+
+        return Ret;
+    }
 
     this.GetGameCode = function (gameID) {
         let IndexOne = Math.trunc(gameID / 100);
@@ -96,7 +138,7 @@
         } else {
             Ret = CtList;
         }
-   
+
         return Ret;
     }
     this.GetCategory = function (loaction) {
@@ -117,7 +159,7 @@
     this.init = function () {
 
         //#region SetStorage
-                
+
         let timeStamp = 0;
         let ctStr = localStorage.getItem("GCB_Ct");
         let coreStr = localStorage.getItem("GCB_Core");
@@ -127,13 +169,12 @@
             this.SearchCore = JSON.parse(coreStr);
             this.CtList = JSON.parse(ctStr);
             this.FirstLoaded = true;
-            
         }
         //#endregion 
 
         myWorker = new Worker("/Scripts/worker.js");
 
-        
+
         myWorker.postMessage({
             Cmd: "Init",
             Params: [version, url, langUrl, second, timeStamp]
@@ -147,11 +188,12 @@
                         this.CtList = ctResult.CtList;
 
                         if (this.FirstLoaded == false) {
-                            if (this.CtList != null && this.SearchCore != null) {                               
+                            if (this.CtList != null && this.SearchCore != null) {
                                 if (this.onFirstLoaded) {
                                     this.onFirstLoaded();
                                 }
                                 this.FirstLoaded = true;
+                                localStorage.setItem("GCB_timeStamp", ctResult.TimeStamp);
                             }
                         }
 
@@ -160,7 +202,7 @@
                         }
 
                         localStorage.setItem("GCB_Ct", JSON.stringify(this.CtList));
-                        localStorage.setItem("GCB_timeStamp", ctResult.TimeStamp);
+
 
                         break;
 
@@ -169,18 +211,19 @@
                         this.SearchCore = SearchResult.SearchCore;
 
                         if (this.FirstLoaded == false) {
-                            if (this.CtList != null && this.SearchCore != null) {                               
+                            if (this.CtList != null && this.SearchCore != null) {
                                 if (this.onFirstLoaded) {
                                     this.onFirstLoaded();
                                 }
                                 this.FirstLoaded = true;
+                                localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
                             }
                         }
 
 
 
                         localStorage.setItem("GCB_Core", JSON.stringify(this.SearchCore));
-                        localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
+
 
                         break;
                     default:
