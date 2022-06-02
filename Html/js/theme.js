@@ -1,4 +1,6 @@
 // $('.header_area').load('layout-header.html');
+$('#ModalActivity .activity-popup-detail-inner').load('activity/dailylogin/dailylogin.html');
+$('#ModalTest .activity-popup-detail-inner').load('activity/dailylogin/test.html');
 $('.footer').load('layout-footer.html');
 
 $(document).ready(function () {

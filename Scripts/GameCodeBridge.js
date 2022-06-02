@@ -2,6 +2,7 @@
     var myWorker
     var CtList = null;
     var SearchCore = null;
+   
 
     this.FirstLoaded = false;
     this.SearchGameCodeByLang = function (lang, searchText, gameBrand, gameCategoryCode) {
@@ -10,35 +11,37 @@
         let langTemp;
         //find GameID
 
-        if (brand) {
-            let targetBrand = SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
+        if (gameBrand) {
+            let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
 
             if (targetBrand) {
                 langTemp = targetBrand.Langs[lang];
 
             } else {
-                langTemp = SearchCore.SearchDic.Langs[lang];
+                langTemp = this.SearchCore.SearchDic.Langs[lang];
             }
+        } else {
+            langTemp = this.SearchCore.SearchDic.Langs[lang];
+        }
 
-            if (langTemp) {
-                findCharList = temp[searchText[0]];
+        if (langTemp) {
+            findCharList = langTemp[searchText[0]];
 
-                if (findCharIndexObj) {
-                    for (var i = 0; i < findCharList.length; i++) {
-                        // gameID + 
-                        let charObj = findCharList[i];
-                        if (charObj.TargetValue.indexOf(searchText) != -1) {
-                            let IndexOne = Math.trunc(charObj.GameID / 100);
-                            let IndexTwo = charObj.GameID % 100;
-                            let gameCodeObj = SearchCore.GameList.Slices[IndexOne][IndexTwo];
+            if (findCharList) {
+                for (var i = 0; i < findCharList.length; i++) {
+                    // gameID + 
+                    let charObj = findCharList[i];
+                    if (charObj.TargetValue.indexOf(searchText) != -1) {
+                        let IndexOne = Math.trunc(charObj.GameID / 100);
+                        let IndexTwo = charObj.GameID % 100;
+                        let gameCodeObj = this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
 
-                            if (gameCategoryCode) {
-                                if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
-                                    Ret.push(gameCodeObj);
-                                }
-                            } else {
+                        if (gameCategoryCode) {
+                            if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
                                 Ret.push(gameCodeObj);
-                            }                            
+                            }
+                        } else {
+                            Ret.push(gameCodeObj);
                         }
                     }
                 }
@@ -51,7 +54,7 @@
         let Ret = [];
         //find GameID
 
-        let targetBrand = SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
+        let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
     
 
         for (var i = 0; i < targetBrand.AllGame.length; i++) {
@@ -59,7 +62,7 @@
             let gameID = targetBrand.AllGame[i];
             let IndexOne = Math.trunc(gameID / 100);
             let IndexTwo = gameID % 100;
-            let gameCodeObj = SearchCore.GameList.Slices[IndexOne][IndexTwo];
+            let gameCodeObj = this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
 
             if (gameCategoryCode) {
                 if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
@@ -72,35 +75,36 @@
 
         return Ret;
     }
+
+
     this.GetGameCode = function (gameID) {
         let IndexOne = Math.trunc(gameID / 100);
         let IndexTwo = gameID % 100;
-        return SearchCore.GameList.Slices[IndexOne][IndexTwo];
+        return this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
     }
     this.GetCategories = function (loactions) {
         let Ret;
-
+        let CtList = this.CtList;
         if (loactions) {
             Ret = [];
 
             for (var i = 0; i < CtList.length; i++) {
-                if (loactions.includes(CtList[i].Loacation)) {
+                if (CtList[i].Location.includes(loactions)) {
                     Ret.push(CtList[i]);
                 }
             }
         } else {
             Ret = CtList;
         }
-        
-
+   
         return Ret;
     }
     this.GetCategory = function (loaction) {
 
         let Ret;
-
+        let CtList = this.CtList;
         for (var i = 0; i < CtList.length; i++) {
-            if (loaction == CtList[i].Loacation) {
+            if (loaction == CtList[i].Location) {
                 Ret = CtList[i];
                 break;
             }
@@ -109,46 +113,74 @@
         return Ret;
     }
     this.onCtListChange;
-    this.onLoaded = loadedEvent;
+    this.onFirstLoaded = loadedEvent;
     this.init = function () {
+
+        //#region SetStorage
+                
+        let timeStamp = 0;
+        let ctStr = localStorage.getItem("GCB_Ct");
+        let coreStr = localStorage.getItem("GCB_Core");
+
+        timeStamp = Number(localStorage.getItem("GCB_timeStamp"));
+        if (timeStamp != NaN && timeStamp != 0) {
+            this.SearchCore = JSON.parse(coreStr);
+            this.CtList = JSON.parse(ctStr);
+            this.FirstLoaded = true;
+            
+        }
+        //#endregion 
+
         myWorker = new Worker("/Scripts/worker.js");
+
+        
         myWorker.postMessage({
-            Cmd : "Init",
-            Params: [version, url, langUrl, 5000]
+            Cmd: "Init",
+            Params: [version, url, langUrl, second, timeStamp]
         });
+
         myWorker.onmessage = (function (e) {
             if (e.data) {
                 switch (e.data.Cmd) {
                     case "RefreshCtList":
-                        this.CtList = e.data.Data;
+                        let ctResult = e.data.Data;
+                        this.CtList = ctResult.CtList;
 
-                        if (FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {                               
-                                if (this.onLoaded) {
-                                    this.onLoaded();
+                        if (this.FirstLoaded == false) {
+                            if (this.CtList != null && this.SearchCore != null) {                               
+                                if (this.onFirstLoaded) {
+                                    this.onFirstLoaded();
                                 }
-                                FirstLoaded = true;
+                                this.FirstLoaded = true;
                             }
                         }
 
                         if (this.onCtListChange) {
-                            this.onCtListChange(CtList);
+                            this.onCtListChange(this.CtList);
                         }
+
+                        localStorage.setItem("GCB_Ct", JSON.stringify(this.CtList));
+                        localStorage.setItem("GCB_timeStamp", ctResult.TimeStamp);
 
                         break;
 
                     case "RefreshDic":
-                        this.SearchCore = e.data.Data;
+                        let SearchResult = e.data.Data;
+                        this.SearchCore = SearchResult.SearchCore;
 
-                        if (FirstLoaded == false) {
-                            if (CtList != null && SearchCore != null) {                               
-                                if (this.onLoaded) {
-                                    this.onLoaded();
+                        if (this.FirstLoaded == false) {
+                            if (this.CtList != null && this.SearchCore != null) {                               
+                                if (this.onFirstLoaded) {
+                                    this.onFirstLoaded();
                                 }
-                                FirstLoaded = true;
+                                this.FirstLoaded = true;
                             }
                         }
 
+
+
+                        localStorage.setItem("GCB_Core", JSON.stringify(this.SearchCore));
+                        localStorage.setItem("GCB_timeStamp", SearchResult.TimeStamp);
 
                         break;
                     default:

@@ -221,12 +221,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-bottom: 1rem;
   text-align: center;
 }
-.activity-dailylogin-wrapper .mobile {
-  display: inline-block;
-}
-.activity-dailylogin-wrapper .desktop {
-  display: none;
-}
 .activity-center-wrapper {
   background-color: #45c5ff;
   background-image: url(../images/theme/bg_dog_white.png), url(../images/member/bg_activity.svg);
@@ -246,6 +240,90 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   bottom: 20px;
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   font-weight: bold;
+}
+
+.dailylogin-bouns-inner {
+  background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
+}
+.dailylogin-bouns-content {
+  position: relative;
+}
+.dailylogin-bouns-content .title:before {
+  content: "";
+  display: inline-flex;
+  width: 140px;
+  height: 72px;
+  background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
+  background-size: contain;
+  position: relative;
+  z-index: 1;
+  left: 0;
+  bottom: -10px;
+}
+.dailylogin-bouns-list {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.dailylogin-bouns-list .bouns-item {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 25%;
+}
+.dailylogin-bouns-list .bouns-item:before {
+  content: "";
+  display: inline-flex;
+  width: 80%;
+  height: 0;
+  padding-bottom: 80%;
+  background: url(../images/prize/obj-coin-bouns.svg) left center no-repeat;
+  background-size: contain;
+  position: relative;
+  left: 0;
+  right: 0;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+  margin: 0 auto;
+}
+.dailylogin-bouns-list .bouns-item:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: inline-flex;
+  width: 80%;
+  height: 0;
+  padding-bottom: 80%;
+  background-color: #dbdbdb;
+  mix-blend-mode: color;
+  -webkit-mask-position: center center;
+          mask-position: center center;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
+  mask-image: url(.../images/prize/obj-coin-bouns.svg);
+  margin: 0 auto;
+}
+.dailylogin-bouns-list .bouns-item.got:after {
+  opacity: 0;
+}
+.dailylogin-bouns-list .bouns-item .day {
+  position: relative;
+  order: -1;
+  width: 85%;
+  max-width: 54px;
+  margin: 0 auto;
+  font-weight: 700;
+  font-size: 1.75rem;
+  padding: 3px 0;
+  margin-bottom: 6px;
 }
 
 .member-withdraw-wrapper.lacking .member-withdraw-limit-wrapper {
@@ -336,13 +414,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 @media (min-width: 640px) {
-  .activity-dailylogin-wrapper .mobile {
-    display: none;
-  }
-  .activity-dailylogin-wrapper .desktop {
-    display: block;
-  }
-
   .section-member-wallet-transaction {
     display: flex;
     justify-content: space-between;
@@ -357,6 +428,53 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .section-member-wallet-transaction .member-withdraw-wrapper {
     padding-left: 0.4rem;
   }
+
+  .dailylogin-bouns-inner {
+    border-bottom: solid 15px #4288C9;
+    border-radius: 20px 20px 0 0;
+    padding-top: 15px;
+  }
+  .dailylogin-bouns-content {
+    display: flex;
+  }
+  .dailylogin-bouns-content .title {
+    position: relative;
+    bottom: -10px;
+  }
+  .dailylogin-bouns-content .title .name {
+    position: absolute;
+    width: 90%;
+    right: 0;
+    font-size: 0.8em;
+    top: -30px;
+    width: 4em;
+    font-weight: 900;
+  }
+  .dailylogin-bouns-list {
+    position: absolute;
+    width: calc(100% - 150px);
+    right: 0;
+    bottom: -10px;
+  }
+  .dailylogin-bouns-list .bouns-item {
+    width: 14.2857142857%;
+  }
+  .dailylogin-bouns-list .bouns-item:before {
+    max-width: 45px;
+    padding-bottom: 45px;
+  }
+  .dailylogin-bouns-list .bouns-item:after {
+    max-width: 45px;
+    padding-bottom: 45px;
+  }
+  .dailylogin-bouns-list .bouns-item .day {
+    background: url(../images/prize/obj-dialog.svg) center center no-repeat;
+    background-size: cover;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    max-width: 65px;
+    right: -20px;
+  }
 }
 @media (min-width: 768px) {
   .data-item-group {
@@ -364,19 +482,19 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .data-item.name {
-    width: calc( 55% / 2);
+    width: 27.5%;
     order: initial;
   }
   .data-item.password {
-    width: calc( 55% / 2);
+    width: 27.5%;
     order: initial;
   }
   .data-item.birth {
-    width: calc( 45% / 2);
+    width: 22.5%;
     order: initial;
   }
   .data-item.currency {
-    width: calc( 45% / 2);
+    width: 22.5%;
     order: initial;
   }
   .data-item.email {
@@ -430,7 +548,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .section-member-wallet-transaction {
     position: absolute;
     right: 0;
-    top: 260px;
+    bottom: 0;
   }
 
   .section-member-profile {
@@ -465,5 +583,67 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .section-member-activity {
     order: -1;
+  }
+
+  .dailylogin-bouns-inner {
+    padding: 50px 10px 10px;
+    border-radius: 20px;
+  }
+  .dailylogin-bouns-content {
+    background: #fff;
+    padding-top: 20px;
+  }
+  .dailylogin-bouns-content .title {
+    position: absolute;
+    width: 100%;
+    top: -70px;
+    color: #fff;
+    text-shadow: 0px 0px 5px #000000;
+  }
+  .dailylogin-bouns-content .title .name {
+    position: relative;
+    z-index: 1;
+    font-size: 1em;
+  }
+  .dailylogin-bouns-content .title:after {
+    content: "";
+    display: inline-flex;
+    width: 100%;
+    height: 15px;
+    background: #4288C9;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .dailylogin-bouns-list .bouns-item {
+    margin-bottom: 15px;
+  }
+  .dailylogin-bouns-list .bouns-item .day {
+    background: #FFE9A8;
+    border: 2px solid #E69D00;
+    border-radius: 13px;
+    margin-bottom: 10px;
+  }
+  .dailylogin-bouns-list .bouns-item .day:before {
+    content: "";
+    position: absolute;
+    bottom: -11px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 6px 0 6px;
+    border-color: #E69D00 transparent transparent transparent;
+    transform: translateX(8px);
+  }
+  .dailylogin-bouns-list .bouns-item .day:after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 6px 0 6px;
+    border-color: #FFE9A8 transparent transparent transparent;
+    transform: translateX(-18.5px);
   }
 }

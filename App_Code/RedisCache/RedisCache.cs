@@ -1441,31 +1441,43 @@ public static class RedisCache {
             return DT;
         }
 
-        public static int GetMaxGameID()
+        public static Dictionary<string, long> GetSyncData()
         {
             string Key;
-            string MaxGameID = "0";
-            Key = XMLPath + ":MaxGameID";
+            string Value = null;
+            Dictionary<string, long> SyncData;
+            Key = XMLPath + ":SyncData";
 
             if (KeyExists(DBIndex, Key) == true)
             {
-                MaxGameID = JsonReadFromRedis(DBIndex, Key);
+                Value = JsonReadFromRedis(DBIndex, Key);
             }
-       
-            return int.Parse(MaxGameID);
+
+            if (!string.IsNullOrEmpty(Value))
+            {
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, long>>(Value);
+            }
+            else {
+                return null;
+            }
+            
         }
 
-        public static int UpdateMaxGameID(int MaxGameID)
+        public static int UpdateSyncData(int MaxGameID)
         {
             string Key;
 
-            Key = XMLPath + ":MaxGameID";
+            Key = XMLPath + ":SyncData";
+
+            Dictionary<string, long> temp = new Dictionary<string, long>();
+            temp.Add("MaxGameID", (long)MaxGameID);
+            temp.Add("TimeStamp", DateTimeOffset.Now.ToUnixTimeSeconds());
 
             for (int I = 0; I <= 3; I++)
             {
                 try
                 {
-                    JsonStringWriteToRedis(0, MaxGameID.ToString(), Key);
+                    JsonStringWriteToRedis(0, Newtonsoft.Json.JsonConvert.SerializeObject(temp), Key);
                     break;
                 }
                 catch (Exception ex)

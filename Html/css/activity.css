@@ -197,27 +197,108 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .activity-popup-detail-img .desktop {
   display: none;
 }
-.activity-popup-detail-content {
-  padding-left: 1.4rem;
-}
-.activity-popup-detail-content .title {
+.activity-popup-detail-content .section-wrap-title {
   font-size: 1.125rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  text-indent: -1.4rem;
+  display: flex;
+  align-items: center;
 }
-.activity-popup-detail-content .title .icon {
+.activity-popup-detail-content .section-wrap-title:before {
+  content: "";
+  display: inline-flex;
+  width: 16px;
+  height: 24px;
+  background: url(../images/icon/ico-grid.svg) center center no-repeat;
+  background-size: cover;
   margin-right: 0.5rem;
 }
-.activity-popup-detail-content .title .icon-mask {
+.activity-popup-detail-content .section-wrap-title .icon {
+  margin-right: 0.5rem;
+}
+.activity-popup-detail-content .section-wrap-title .icon-mask {
   margin-left: 0.5rem;
 }
-.activity-popup-detail-content .title .icon-mask::before {
+.activity-popup-detail-content .section-wrap-title .icon-mask::before {
   background-color: #009FE8;
 }
 .activity-popup-detail-content .section-wrap {
   margin-bottom: 50px;
 }
+.calendar-item-container {
+  max-width: 520px;
+  margin: 0 auto;
+}
+.calendar-head {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.calendar-head .name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: solid #F4D9BD 1px;
+  border-left: solid #F4D9BD 1px;
+}
+.calendar-body .body-item {
+  position: relative;
+  aspect-ratio: 1/1;
+  border-right: solid #F4D9BD 1px;
+  border-bottom: solid #F4D9BD 1px;
+}
+.calendar-body .body-item-link {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  top: 0;
+}
+.calendar-body .body-item-link:hover {
+  cursor: pointer;
+}
+.calendar-body .body-item .date {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 25px;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  color: #d27f29;
+}
+.calendar-body .body-item:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url(../images/icon/icon-dog-dailylogin.svg) center center no-repeat;
+  background-size: auto 90%;
+  z-index: 0;
+  top: 0;
+  opacity: 0.5;
+}
+.calendar-body .body-item.got:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url(../images/icon/icon-stamp-dailylogin.svg) center center no-repeat;
+  background-size: auto 75%;
+  z-index: 2;
+  top: 0;
+}
+
 @media (min-width: 768px) {
   .activity-item {
     width: 50%;

@@ -40,7 +40,7 @@
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
-        <script src="Scripts/lozad.min.js"></script>
+    <script src="Scripts/lozad.min.js"></script>
 </head>
 <script type="text/javascript">
     if (self != top) {
@@ -57,6 +57,7 @@
     var HotList;
     var v = "<%:Version%>";
     var initCreatedGameList = false;
+    var GCB;
     //temp
 
     var MyGames;
@@ -114,39 +115,19 @@
             window.location.href = "index.aspx";
         }
 
-
+        GCB = window.parent.API_GetGCB();
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         //HotList = window.parent.API_GetGameList(1);
         //window.parent.API_LoadingStart();
-        mlp.loadLanguage(lang, function () {
-            //if (WebInfo.FirstLoaded) {
-            //if ($('.footer').length == 2) {
-            //    window.parent.API_LoadingEnd(1);
-            //} else
-            if ($('.footer').length == 0 || ($('.footer').length == 1 && $('.footer').children().length == 0)) {
-                window.parent.API_LoadingEnd();
-            } else {
-                window.parent.API_LoadingEnd(1);
-            }
-            
-            //}
-            LobbyGameList = window.parent.API_GetGameList();
-          
-            if (LobbyGameList) {
-                updateGameList();
-            }
-            
-          
+        mlp.loadLanguage(lang, function () {                            
             if (p != null) {
-                //window.parent.sleep(500).then(() => {
-                //    if (WebInfo.UserLogined) {
-                //        document.getElementById("idGoRegBtn").classList.add("is-hide");
-                //        $(".register-list").hide();
-                //    }
-                //})
+                if (GCB.FirstLoaded) {
+                    updateGameList();
+                    window.parent.API_LoadingEnd();
+                }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -160,25 +141,21 @@
     }
 
     function updateGameList() {
-   
+        var LobbyGameList = GCB.GetCategory("Home");
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
 
-        if (LobbyGameList && LobbyGameList.CompanyCategoryDatas) {
+        if (LobbyGameList && LobbyGameList.Categories) {
 
             var companyCategoryDatasCount = 0;
             var categName;
 
-            LobbyGameList.CompanyCategoryDatas.sort(function (a, b) {
-                return a.SortIndex - b.SortIndex;
-            });
-
-            LobbyGameList.CompanyCategoryDatas.forEach(category => {
+            LobbyGameList.Categories.forEach(category => {
                 var count = 0;
                 var categArea;
                 companyCategoryDatasCount++;
 
-                if (category.Location == "Home"&&category.Datas.length > 0) {
+                if (category.Location == "Home" && category.Datas.length > 0) {
 
                     if (category.ShowType == 0) {
                         categArea = c.getTemplate("temCategArea");
@@ -245,7 +222,7 @@
                         }
 
                         $(GI).find(".GameID").text(gameItem.GameID);
-                        $(GI).find(".game-item-name").text(window.parent.API_GetGameLang(1, gameItem.GameBrand, gameItem.GameName));
+                        $(GI).find(".game-item-name").text(gameItem.GameText[lang]);
 
                         $(categArea).find('.GameItemGroupContent').append(GI);
 
@@ -325,7 +302,7 @@
             }
         });
     }
-    
+
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
             case "LoginState":
@@ -347,13 +324,10 @@
 
                 break;
             case "GameLoadEnd":
-                //if (!initCreatedGameList) {
-                        mlp = new multiLanguage(v);
-                        WebInfo = window.parent.API_GetWebInfo();
-                        LobbyGameList = window.parent.API_GetGameList();
-                        updateGameList();
+                //if (!initCreatedGameList) {                                     
+                updateGameList();
                 //}
-                
+                window.parent.API_LoadingEnd();
                 break;
         }
     }
@@ -477,13 +451,12 @@
                             <div class="item bulletin">
                                 <div class="bulletin_inner">
                                     <h2 class="title">重要な新しい情報</h1>
-                   
                                         <ul class="bulletin_list" id="idBulletinBoardContent">
                                         </ul>
                                 </div>
                             </div>
                             <div class="item login">
-                                 <!-- 會員簽到進度顯示 -->
+                                <!-- 會員簽到進度顯示 -->
                                 <div class="activity-dailylogin-wrapper">
                                     <div class="dailylogin-bouns-wrapper">
                                         <div class="dailylogin-bouns-inner">
@@ -511,7 +484,7 @@
                                                         <span class="day"><span class="language_replace">木</span></span>
                                                     </li>
                                                 </ul>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -524,7 +497,6 @@
         </section>
 
         <section class="game-area section-wrap container overflow-hidden" id="gameAreas">
-          
         </section>
 
     </main>
@@ -615,126 +587,124 @@
         </div>
     </div>
 
-<div id="temCategArea" class="is-hide">
-          <section class="section-wrap section-levelUp new">
-                <div class="game_wrapper">
-                    <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName"></span></h3>
-                        </div>
-                        <a class="text-link" href="casino.html">
-                            <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
-                        </a>
+    <div id="temCategArea" class="is-hide">
+        <section class="section-wrap section-levelUp new">
+            <div class="game_wrapper">
+                <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName"></span></h3>
                     </div>
-                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
-                       <div class="swiper-wrapper GameItemGroupContent">
-                        
-                       </div>
+                    <a class="text-link" href="casino.html">
+                        <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
+                    </a>
+                </div>
+                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                    <div class="swiper-wrapper GameItemGroupContent">
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
     </div>
 
-<div id="temGameItem" class="is-hide">
-         <div class="swiper-slide">
-                                <div class="game-item">
-                                    <div class="game-item-inner">
-                                        <span class="game-item-mobile-popup" data-toggle="modal" data-target="#popupGameInfo"></span>
-                                        <div class="game-item-focus">
-                                            <div class="game-item-img">
-                                                <span class="game-item-link"></span>
-                                                <div class="img-wrap">
-                                                    <img class="gameimg" src="">
-                                                </div>
-                                            </div>
-                                            <div class="game-item-info-detail">
-                                                <div class="game-item-info-detail-wrapper">
-                                                    <div class="game-item-info-detail-moreInfo">
-                                                        <ul class="moreInfo-item-wrapper">
-                                                            <li class="moreInfo-item brand">
-                                                                <span class="title">メーカー</span>
-                                                                <span class="value GameBrand">PG</span>
-                                                            </li>
-                                                            <li class="moreInfo-item RTP">
-                                                                <span class="title">RTP</span>
-                                                                <span class="value number valueRTP"></span>
-                                                            </li>
-                                                            <li class="moreInfo-item gamecode">
-                                                                <span class="title">NO.</span>
-                                                                <span class="value number GameID"></span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="game-item-info-detail-indicator">
-                                                        <div class="game-item-info-detail-indicator-inner">
-                                                            <div class="info">
-                                                                <h3 class="game-item-name"></h3>
-                                                            </div>
-                                                            <div class="action">
-                                                                <div class="btn-s-wrapper">
-                                                                    <button type="button" class="btn-thumbUp btn btn-round">
-                                                                        <i class="icon icon-thumup"></i>
-                                                                    </button>
-                                                                    <button type="button" class="btn-like btn btn-round">
-                                                                        <i class="icon icon-heart-o"></i>
-                                                                    </button>
-                                                                    <button type="button" class="btn-more btn btn-round">
-                                                                        <i class="arrow arrow-down"></i>
-                                                                    </button>
-                                                                </div>
-                                                                <button type="button" class="btn btn-play">
-                                                                    <span class="language_replace">プレイ</span><i class="triangle"></i></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
+    <div id="temGameItem" class="is-hide">
+        <div class="swiper-slide">
+            <div class="game-item">
+                <div class="game-item-inner">
+                    <span class="game-item-mobile-popup" data-toggle="modal" data-target="#popupGameInfo"></span>
+                    <div class="game-item-focus">
+                        <div class="game-item-img">
+                            <span class="game-item-link"></span>
+                            <div class="img-wrap">
+                                <img class="gameimg" src="">
+                            </div>
+                        </div>
+                        <div class="game-item-info-detail">
+                            <div class="game-item-info-detail-wrapper">
+                                <div class="game-item-info-detail-moreInfo">
+                                    <ul class="moreInfo-item-wrapper">
+                                        <li class="moreInfo-item brand">
+                                            <span class="title">メーカー</span>
+                                            <span class="value GameBrand">PG</span>
+                                        </li>
+                                        <li class="moreInfo-item RTP">
+                                            <span class="title">RTP</span>
+                                            <span class="value number valueRTP"></span>
+                                        </li>
+                                        <li class="moreInfo-item gamecode">
+                                            <span class="title">NO.</span>
+                                            <span class="value number GameID"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="game-item-info-detail-indicator">
+                                    <div class="game-item-info-detail-indicator-inner">
+                                        <div class="info">
+                                            <h3 class="game-item-name"></h3>
                                         </div>
-                                        <div class="game-item-info">
-                                            <div class="game-item-info-inner">
-                                                <h3 class="game-item-name">バタフライブロッサム</h3>
+                                        <div class="action">
+                                            <div class="btn-s-wrapper">
+                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                    <i class="icon icon-thumup"></i>
+                                                </button>
+                                                <button type="button" class="btn-like btn btn-round">
+                                                    <i class="icon icon-heart-o"></i>
+                                                </button>
+                                                <button type="button" class="btn-more btn btn-round">
+                                                    <i class="arrow arrow-down"></i>
+                                                </button>
                                             </div>
+                                            <button type="button" class="btn btn-play">
+                                                <span class="language_replace">プレイ</span><i class="triangle"></i></button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
+
+                        </div>
+                    </div>
+                    <div class="game-item-info">
+                        <div class="game-item-info-inner">
+                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
-<%--推薦遊戲--%>
-<div id="temCategArea2" class="is-hide">
-    <section class="section-wrap section_randomRem">
-    <div class="container-fluid">
-    <div class="game_wrapper">
-        <div class="sec-title-container">
-        <div class="sec-title-wrapper">
-            <!-- <h3 class="title">隨機推薦遊戲</h3> -->
-        </div>
-        </div>
-        <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
-            <div class="swiper-wrapper GameItemGroupContent">
-                        
-            </div>
-    </div>
-    </div>
-</section>
-</div>
-<div id="temGameItem2" class="is-hide">
-    <div class="swiper-slide">
-                    <div class="game-item">
-                        <div class="game-item-inner">
-                            <span class="game-item-link"></span>
-                            <div class="img-wrap">
-                                <img class="gameimg lozad" src="">
-                            </div>
+    <%--推薦遊戲--%>
+    <div id="temCategArea2" class="is-hide">
+        <section class="section-wrap section_randomRem">
+            <div class="container-fluid">
+                <div class="game_wrapper">
+                    <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
+                            <!-- <h3 class="title">隨機推薦遊戲</h3> -->
                         </div>
-                        <div class="game-item-info">
-                            <h3 class="game-item-name"></h3>
+                    </div>
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                        <div class="swiper-wrapper GameItemGroupContent">
                         </div>
                     </div>
                 </div>
-</div>
+        </section>
+    </div>
+    <div id="temGameItem2" class="is-hide">
+        <div class="swiper-slide">
+            <div class="game-item">
+                <div class="game-item-inner">
+                    <span class="game-item-link"></span>
+                    <div class="img-wrap">
+                        <img class="gameimg lozad" src="">
+                    </div>
+                </div>
+                <div class="game-item-info">
+                    <h3 class="game-item-name"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
