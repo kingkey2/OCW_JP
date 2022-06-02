@@ -168,7 +168,7 @@
                                     let CollectID = $(e.target).closest(".prize-item").data("collectid");
                                     let val = $(e.target).closest(".prize-item").data("val");
 
-                                    window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 " + val), function () {
+                                    window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 ") + val, function () {
 
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
@@ -286,20 +286,20 @@
                 <div class="sec-title-container sec-title-prize">
                     <!-- 活動中心 link-->
                     <a class="btn btn-link btn-activity" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')">
-                        <span class="title language_replace">クイックピックアップ</span><i class="icon icon-mask icon-arrow-right-dot"></i>
+                        <span class="title language_replace">前往活動中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
-                        <h1 class="sec-title title-deco"><span class="language_replace">コレクションセンター</span></h1>
+                        <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
                         <!-- 獎金/禮金 TAB -->
                         <div class="menu-prize tab-scroller">
                             <div class="tab-scroller__area">
                                 <ul class="tab-scroller__content">
                                     <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
-                                        <span class="tab-item-link"><span class="title language_replace">ボーナス</span>
+                                        <span class="tab-item-link"><span class="title language_replace">獎金</span>
                                         </span>
                                     </li>
                                     <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
-                                        <span class="tab-item-link"><span class="title language_replace">ギフトマネー</span></span>
+                                        <span class="tab-item-link"><span class="title language_replace">禮金</span></span>
                                     </li>
                                 </ul>
                             </div>
@@ -318,12 +318,12 @@
                 <section class="section-wrap section-prize-record">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">ボーナス履歴</span></h1>
+                            <h1 class="sec-title title-deco"><span class="language_replace">獎金紀錄</span></h1>
                         </div>
                         <!-- 前/後 月 -->
                         <div class="sec_link">
-                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">先月</span></button>
-                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">来月︎</span><i class="icon arrow arrow-right ml-1"></i></button>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">上個月</span></button>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">下個月</span><i class="icon arrow arrow-right ml-1"></i></button>
                         </div>
 
                     </div>

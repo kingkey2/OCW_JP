@@ -91,7 +91,6 @@
         ParentMain.innerHTML = "";
 
         LobbyClient.GetGameOrderSummaryHistoryGroupGameCode(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
-            console.log("ff", o);
             if (success) {
                 if (o.Result == 0) {
                     if (o.SummaryList.length > 0) {
@@ -401,7 +400,6 @@
 
     function GetUserTwoMonthSummaryData() {
         LobbyClient.GetUserTwoMonthSummaryData(WebInfo.SID, Math.uuid(), function (success, o) {
-            console.log("GetUserTwoMonthSummaryData", o);
             if (success) {
                 if (o.Result == 0) {
                     for (var i = 0; i < o.GameResult.length; i++) {
@@ -555,7 +553,7 @@
                         <div class="record-overview-box payment" onclick="showRecord(0)">
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
-                                    <div class="title">ゴールドフロー履歴情報</div>
+                                    <div class="title">出入金紀錄資訊</div>
                                     <%--<div class="btn btn-detail-link">詳細</div>--%>
                                 </div>
                                 <div class="record-overview-content">
@@ -568,7 +566,7 @@
                                                     <span class="unit">OCoin</span>
                                                 </div>
                                                 <div class="thead__th">
-                                                    <span class="title language_replace">今月</span>
+                                                    <span class="title language_replace">這個月</span>
                                                     <span class="unit">OCoin</span>
                                                 </div>
                                             </div>
@@ -807,7 +805,7 @@
                                         <span class="language_replace">有效投注</span>
                                     </div>
                                     <div class="record-table-cell td-rewardValue">
-                                        <span class="language_replace">輸/贏</span>
+                                        <span class="language_replace">勝/負</span>
                                     </div>
                                 </div>
 
@@ -1058,7 +1056,7 @@
                         <span class="title language_replace">実際ベット</span>
                         <span class="data number validBet">50090</span>
                     </div>
-                    <!-- 輸/贏 -->
+                    <!-- 勝/負 -->
                     <div class="record-table-cell td-rewardValue">
                         <span class="data number rewardValue">+50000</span>
                     </div>
@@ -1083,7 +1081,7 @@
                         <span class="language_replace">有效投注</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
-                        <span class="language_replace">輸/贏</span>
+                        <span class="language_replace">勝/負</span>
                     </div>
                 </div>
                 <div class="GameDetailDropPanel">
@@ -1121,7 +1119,7 @@
                         <span class="title language_replace">実際ベット</span>
                         <span class="data number validBet">50090</span>
                     </div>
-                    <!-- 輸/贏 -->
+                    <!-- 勝/負 -->
                     <div class="record-table-cell td-rewardValue">
                         <span class="data number rewardValue">+50000</span>
                     </div>
@@ -1146,7 +1144,7 @@
                         <span class="language_replace validBet">有效投注</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
-                        <span class="language_replace rewardValue">輸/贏</span>
+                        <span class="language_replace rewardValue">勝/負</span>
                     </div>
                 </div>
                 <div class="GameDetailDropPanel">
