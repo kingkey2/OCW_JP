@@ -1955,9 +1955,6 @@ main.innerMain.fixed {
   scrollbar-width: none;
   scrollbar-color: rgba(200, 219, 234, 0.4) transparent;
 }
-.vertical-menu .navbarMenu.navbar-collapse.show {
-  transform: translateX(0%);
-}
 @media (min-width: 576px) {
   .vertical-menu .navbarMenu.navbar-collapse {
     scrollbar-width: thin;
@@ -2118,11 +2115,17 @@ main.innerMain.fixed {
 .vertical-menu .header_area.show {
   background-color: white;
 }
+.vertical-menu .header_menu {
+  transition: all 0.3s ease;
+}
 .vertical-menu .header_menu .navbar {
   padding: 0;
 }
 .vertical-menu .main_area {
-  transition: all 0.35s ease;
+  transition: all 0.3s ease;
+}
+.vertical-menu.navbar-show .navbarMenu.navbar-collapse {
+  transform: translateX(0%);
 }
 @media (min-width: 768px) {
   .vertical-menu {
@@ -2142,7 +2145,7 @@ main.innerMain.fixed {
   .vertical-menu .main_area {
     padding-left: 56px;
   }
-  .vertical-menu .header_area .header_menu {
+  .vertical-menu .header_menu {
     width: 100%;
     padding-left: 56px;
   }
@@ -2165,9 +2168,6 @@ main.innerMain.fixed {
     scrollbar-width: none;
     scrollbar-color: rgba(173, 181, 189, 0.8) transparent;
     /* scroll 樣式 -- chrome   */
-  }
-  .vertical-menu .navbarMenu.navbar-collapse.show {
-    width: 200px;
   }
   .vertical-menu .navbarMenu.navbar-collapse .tip {
     position: absolute;
@@ -2228,6 +2228,11 @@ main.innerMain.fixed {
     width: 0px;
   }
 }
+@media (min-width: 768px) {
+  .vertical-menu.navbar-show .navbarMenu.navbar-collapse {
+    width: 200px;
+  }
+}
 @media (min-width: 1440px) {
   .vertical-menu {
     /* Sidebar Menu 側邊選單 */
@@ -2242,11 +2247,7 @@ main.innerMain.fixed {
   .vertical-menu .header_area .header_menu > .navbar .nav-item {
     margin-right: 0px;
   }
-  .vertical-menu .header_area .header_menu.show {
-    width: calc(100vw - 200px);
-  }
   .vertical-menu .navbarMenu.navbar-collapse {
-    width: 56px;
     align-items: flex-start;
     /* scroll 樣式 -- IE，Edge不適用   */
     scrollbar-face-color: rgba(200, 219, 234, 0.4);
@@ -2308,6 +2309,9 @@ main.innerMain.fixed {
 }
 @media (min-width: 1440px) {
   .vertical-menu.navbar-show .main_area {
+    padding-left: 200px;
+  }
+  .vertical-menu.navbar-show .header_menu {
     padding-left: 200px;
   }
 }

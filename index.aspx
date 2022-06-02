@@ -1170,6 +1170,7 @@
             $('.header_menu').toggleClass('show');
         });
         $('.header_area .mask_overlay').click(function () {
+            $('.vertical-menu').removeClass('navbar-show');   
             $('.header_menu, .navbarMenu').removeClass('show');
             $('.navbar-toggler').attr("aria-expanded", "false");
         });

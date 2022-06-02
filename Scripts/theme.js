@@ -20,8 +20,10 @@ $(document).ready(function () {
         $('.header_menu').toggleClass('show');
     });
     $('.header_area .mask_overlay').click(function () {
+        $('.vertical-menu').removeClass('navbar-show');   
         $('.header_menu, .navbarMenu').removeClass('show'); //Sidebar Menu
         $('.navbar-toggler').attr("aria-expanded", "false");
+        
     });
 
     //遊戲 "更多" Button 下滑
