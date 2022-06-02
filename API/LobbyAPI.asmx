@@ -834,7 +834,7 @@ public class LobbyAPI : System.Web.Services.WebService
                     GUID = GUID
                 };
 
-                R.DetailList = callResult.DetailList.GroupBy(x => new { x.GameCode, x.CurrencyType, x.SummaryDate }, x => x, (key, detail) => new EWin.Lobby.GameOrderDetail
+                R.DetailList = callResult.DetailList.Where(r => r.CurrencyType == EWinWeb.MainCurrencyType).GroupBy(x => new { x.GameCode, x.CurrencyType, x.SummaryDate }, x => x, (key, detail) => new EWin.Lobby.GameOrderDetail
                 {
                     GameCode = key.GameCode,
                     ValidBetValue = detail.Sum(y => y.ValidBetValue),
@@ -890,7 +890,7 @@ public class LobbyAPI : System.Web.Services.WebService
                     GUID = GUID
                 };
 
-                R.SummaryList = callResult.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary
+                R.SummaryList = callResult.SummaryList.Where(r => r.CurrencyType == EWinWeb.MainCurrencyType).GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary
                 {
                     ValidBetValue = sum.Sum(y => y.ValidBetValue),
                     RewardValue = sum.Sum(y => y.RewardValue),
@@ -1672,10 +1672,11 @@ public class LobbyAPI : System.Web.Services.WebService
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public UserTwoMonthSummaryResult GetUserTwoMonthSummaryData(string WebSID, string GUID) {
         EWin.OCW.OCW OCWAPI = new EWin.OCW.OCW();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
         UserTwoMonthSummaryResult R = new UserTwoMonthSummaryResult() { PaymentResult = null, GameResult = null, Result = EWin.Lobby.enumResult.ERR };
         System.Data.DataTable PaymentDT;
-        EWin.OCW.UserSummaryGameDataResult GameRet = new EWin.OCW.UserSummaryGameDataResult();
+        EWin.Lobby.OrderSummaryResult GameRet = new EWin.Lobby.OrderSummaryResult();
         List<UserTwoMonthSummaryResult.Payment> PaymentResult = new List<UserTwoMonthSummaryResult.Payment>();
         UserTwoMonthSummaryResult.Payment P = new UserTwoMonthSummaryResult.Payment();
         List<UserTwoMonthSummaryResult.Game> GameResult = new List<UserTwoMonthSummaryResult.Game>();
@@ -1690,13 +1691,13 @@ public class LobbyAPI : System.Web.Services.WebService
 
             for (int i = 0; i < 2; i++) {
                 PaymentDT = null;
-                GameRet = new EWin.OCW.UserSummaryGameDataResult();
+                GameRet = new EWin.Lobby.OrderSummaryResult();
                 if (i == 0) {
                     PaymentDT = EWinWebDB.UserAccountSummary.GetUserAccountPaymentSummaryData(SI.LoginAccount, pre, now);
-                    GameRet = OCWAPI.GetUserSummaryGameData(GetToken(), SI.EWinSID, GUID, pre, now);
+                    GameRet = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, GUID, pre, now);
                 } else {
                     PaymentDT = EWinWebDB.UserAccountSummary.GetUserAccountPaymentSummaryData(SI.LoginAccount, now, next);
-                    GameRet = OCWAPI.GetUserSummaryGameData(GetToken(), SI.EWinSID, GUID, now, next);
+                    GameRet = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, GUID, now, next);
                 }
 
                 if (PaymentDT != null) {
@@ -1720,12 +1721,14 @@ public class LobbyAPI : System.Web.Services.WebService
 
                 PaymentResult.Add(P);
 
-                if (GameRet.ResultState == EWin.OCW.enumResultState.OK) {
-                    G = new UserTwoMonthSummaryResult.Game();
-                    G.SortIndex = i;
-                    G.OrderValue = GameRet.OrderValue;
-                    G.ValidBetValue = GameRet.ValidBetValue;
-                    G.RewardValue = GameRet.RewardValue;
+                if (GameRet.Result == EWin.Lobby.enumResult.OK) {
+                    G = GameRet.SummaryList.Where(r => r.CurrencyType == EWinWeb.MainCurrencyType)
+                            .GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new UserTwoMonthSummaryResult.Game {
+                        ValidBetValue = sum.Sum(y => y.ValidBetValue),
+                        RewardValue = sum.Sum(y => y.RewardValue),
+                        OrderValue = sum.Sum(y => y.OrderValue),
+                        SortIndex = i
+                    }).ToList().FirstOrDefault();
                 } else {
                     G = new UserTwoMonthSummaryResult.Game();
                     G.SortIndex = i;
