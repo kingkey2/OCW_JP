@@ -1638,7 +1638,7 @@
                         <div class="header_rightWrapper">
 
                             <div class="header_setting">
-                                <ul class="nav">
+                                <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
                                         <button type="button" class="btn btn-round nav-link btn-search" data-toggle="modal" data-target="#alertSearch">
@@ -1673,8 +1673,8 @@
                                                         <span class="balance-info">
                                                             <span class="amount">0</span>
                                                         </span>
-                                                        <button class="btn btn-deposit btn-sub-main" onclick="">
-                                                            <span class="icon-add"></span>
+                                                        <button class="btn btn-deposit btn-full-stress" onclick="">
+                                                            <span class="icon icon-add"></span>
                                                         </button>
                                                     </span>
                                                 </span>
@@ -1717,7 +1717,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item submenu dropdown">
+                                    <li class="nav-item lang_wrapper submenu dropdown">
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
