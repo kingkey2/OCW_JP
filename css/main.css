@@ -4900,13 +4900,6 @@ i {
   border-radius: 50%;
   padding: 5px;
 }
-.btn-round:hover, .btn-round:focus {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-.btn-round:focus, .btn-round.focus {
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
 .btn-roundcorner {
   border-radius: 20px;
   min-width: calc(4rem + 30px);
