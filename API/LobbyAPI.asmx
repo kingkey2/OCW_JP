@@ -1720,7 +1720,6 @@ public class LobbyAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-
             EWin.Lobby.PromotionCollectHistoryResult EWinReturn = lobbyAPI.GetPromotionCollectHistory(GetToken(), SI.EWinSID, GUID, DateTime.Parse(BeginDate), DateTime.Parse(EndDate));
 
             if (EWinReturn.Result == EWin.Lobby.enumResult.OK)
