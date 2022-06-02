@@ -173,7 +173,7 @@
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
-                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
+                                                    //window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
                                                         GetPromotionCollectAvailable(collectareatype);
 
                                                         window.top.API_RefreshUserInfo(function () {
@@ -187,7 +187,7 @@
                                                         let endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
 
                                                         GetPromotionCollectHistory(beginDate, endDate);
-                                                    });
+                                                    //});
                                                 } else {
                                                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                                                 }

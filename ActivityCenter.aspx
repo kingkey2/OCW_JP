@@ -49,7 +49,7 @@
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
 
-            if (p != null) {
+            if (LobbyClient != null) {
                 //window.parent.sleep(500).then(() => {
                 //    if (WebInfo.UserLogined) {
                 //        document.getElementById("idGoRegBtn").classList.add("is-hide");
