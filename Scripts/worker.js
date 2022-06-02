@@ -35,8 +35,7 @@ self.addEventListener('message', function (e) {
 //#region  Class
 var Worker = function (version, url, langUrl, second, timeStamp) {
     var defineLocations = ["Home", "GameList_All", "GameList_Slot", "GameList_Live", "GameList_Electron", "GameList_Other"];
-    var defineLangs = ["JPN", "CHT"];
-    var mlp;    
+    var defineLangs = ["JPN", "CHT"];    
     var url = url
     var langUrl = langUrl;
     var IntervalSecond = second;   
@@ -132,30 +131,32 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
     var LoadLang = function (cb) {
         var PromiseList = [];
-        mlp = new multiLanguage(version);
+        
         for (var i = 0; i < defineLangs.length; i++) {
+            var gameCodeMlp = new multiLanguage(version);
+            var gameBrandMlp = new multiLanguage(version);
             var lang = defineLangs[i];
             PromiseList.push(new Promise(function (resolve, reject) {               
-                mlp.loadLanguageByOtherFile(langUrl + "/GameCode.", lang, function (lang) {
+                gameCodeMlp.loadLanguageByOtherFile(langUrl + "/GameCode.", lang, (function (lang) {
                     languages.push({
                         lang: lang,
                         type: "GameCode",
-                        mlp: mlp
+                        mlp: this
                     });
                     resolve();
-                })
+                }).bind(gameCodeMlp));
             }));
 
             PromiseList.push(new Promise(function (resolve, reject) {             
-                mlp.loadLanguageByOtherFile(langUrl + "/GameBrand.", lang, function (lang) {
+                gameBrandMlp.loadLanguageByOtherFile(langUrl + "/GameBrand.", lang, (function (lang) {
                     languages.push({
                         lang: lang,
                         type: "GameBrand",
-                        mlp: mlp
+                        mlp: this
                     });
                     resolve();
-                })
-            }));
+                }).bind(gameBrandMlp));
+            }));         
         }
 
         Promise.all(PromiseList).then(function (values) {
@@ -273,10 +274,10 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     var language = languages[iii];
 
                                     if (language.type == "GameCode") {
-                                        pushGameData.GameText[language.lang] = mlp.getLanguageKey(pushGameData.GameBrand + "." + pushGameData.GameName);
+                                        pushGameData.GameText[language.lang] = language.mlp.getLanguageKey(pushGameData.GameBrand + "." + pushGameData.GameName);
 
                                     } else if (language.type == "GameBrand") {
-                                        pushGameData.BrandText[language.lang] = mlp.getLanguageKey(pushGameData.GameBrand);
+                                        pushGameData.BrandText[language.lang] = language.mlp.getLanguageKey(pushGameData.GameBrand);
                                     }
                                 }
 
@@ -382,6 +383,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     Langs: {
 
                                     },
+                                    BrandText: {}
                                     AllGame: [Data.GameID]
                                 };
 
@@ -391,14 +393,29 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     GameID: Data.GameID
                                 }];
 
+
+                                
+
+                                for (var ii = 0; ii < languages.length; ii++) {
+                                    var language = languages[ii];
+                                    var transBrandText = language.mlp.getLanguageKey(Data.GameBrand);
+                                    var targetLangData;
+
+                                    if (language.type == "GameCode") {
+                                       
+                                    } else if (language.type == "GameBrand") {
+                                        targetBrand.BrandText[language.lang] = transBrandText;
+                                    }
+                                }
+
                                 SearchDic.Brands.push(targetBrand);
                             }
 
                             //整理語系資料與依照字母加入搜尋索引
                             for (var ii = 0; ii < languages.length; ii++) {
                                 var language = languages[ii];
-                                var transGameText = mlp.getLanguageKey(Data.GameCode);
-                                var transBrandText = mlp.getLanguageKey(Data.GameBrand);
+                                var transGameText = language.mlp.getLanguageKey(Data.GameCode);
+                                var transBrandText = language.mlp.getLanguageKey(Data.GameBrand);
                                 var targetLangData;
 
                                 if (language.type == "GameCode") {
