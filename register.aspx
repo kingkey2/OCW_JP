@@ -66,7 +66,6 @@
         }, 1000);
     }
 
-
     function CheckAccountPhoneExist(cb) {
 
         var idPhonePrefix = document.getElementById("idPhonePrefix");

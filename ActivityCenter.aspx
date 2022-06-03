@@ -44,6 +44,7 @@
         WebInfo = window.parent.API_GetWebInfo();
         LobbyClient = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
+        getUserAccountEventSummary();
         mlp = new multiLanguage(v);
 
         mlp.loadLanguage(lang, function () {
@@ -60,6 +61,38 @@
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
                 });
+            }
+        });
+    }
+
+    function getUserAccountEventSummary() {
+        LobbyClient.GetUserAccountEventSummary(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.Datas.length > 0) {
+                        for (var i = 0; i < o.Datas.length; i++) {
+                            if (o.Datas[i].ActivityName == 'RegisterBouns') {
+                                if (o.Datas[i].CollectCount == o.Datas[i].JoinCount) {
+                                    $('#ModalRegister .btn-secondary').removeClass('is-hide');    
+                                } else {
+                                    $('#ModalRegister .btn-full-sub').removeClass('is-hide');
+                                }
+                                $('#ModalRegister .btn-primary').addClass('is-hide');
+
+                            } else if (o.Datas[i].ActivityName == 'Act001') {
+                                if (o.Datas[i].CollectCount == o.Datas[i].JoinCount) {
+                                    $('#ModalDeposit .btn-secondary').removeClass('is-hide');  
+                                } else {
+                                    $('#ModalDeposit .btn-full-sub').removeClass('is-hide');
+                                }
+                                $('#ModalDeposit .btn-primary').addClass('is-hide');
+                            }
+                        }
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                        //document.getElementById('gameTotalValidBetValue').textContent = 0;
+                    }
+                }
             }
         });
     }
@@ -241,13 +274,13 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">參加活動</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
                 </div>
             </div>
         </div>
@@ -269,13 +302,13 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">參加活動</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
                 </div>
             </div>
         </div>
@@ -297,13 +330,13 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">參加活動</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
                 </div>
             </div>
         </div>
@@ -325,13 +358,13 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">參加活動</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
                 </div>
             </div>
         </div>
@@ -353,13 +386,13 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">參加活動</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
                 </div>
             </div>
         </div>

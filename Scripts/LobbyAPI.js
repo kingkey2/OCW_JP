@@ -703,6 +703,27 @@
         });
     };
 
+    this.GetUserAccountEventSummary = function (WebSID, GUID, cb) {
+        var url = APIUrl + "/GetUserAccountEventSummary";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
 
     this.GetCompanyCategoryID = function (GUID, Loaction, cb) {
         var url = APIUrl + "/GetCompanyCategoryID";

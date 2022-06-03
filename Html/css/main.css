@@ -292,7 +292,6 @@ button, input {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 }
 
-/*Noto Sans TC FONT*/
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
 }
@@ -623,6 +622,7 @@ textarea:focus, input:focus, button:focus, select:focus {
   border-radius: 2px;
   margin: 0 0 0 5px;
 }
+
 .status-active,
 .status-deactive {
   display: inline-flex;
@@ -674,26 +674,6 @@ textarea:focus, input:focus, button:focus, select:focus {
 }
 .num-negative {
   color: #ff6060 !important;
-}
-
-.num-overUpline {
-  display: inline-flex;
-  align-items: center;
-}
-.num-overUpline:before {
-  content: "!";
-  display: inline-flex;
-  width: 0.875rem;
-  height: 0.875rem;
-  color: #ff8282;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  border: solid 1px #ff6060;
-  margin-right: 0.125rem;
-  font-size: 0.625rem;
-  font-weight: 500;
-  padding: 0.1875rem;
 }
 
 .WalletNotExist {
@@ -774,6 +754,14 @@ hr.line {
 .sec-title-container .btn-link {
   border-radius: 50px;
   background-color: #B4B4B4;
+}
+.sec-title-container .btn-link .icon-arrow-right-dot {
+  width: 70px;
+  height: 20px;
+  margin-left: 0.5rem;
+}
+.sec-title-container .sec_link .btn:hover {
+  background-color: #369AD6;
 }
 .sec-title-container .btn-activity {
   background: linear-gradient(89.85deg, #EB8E03 1.12%, #FFB103 99.86%);
@@ -913,9 +901,31 @@ hr.line {
     box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.12);
   }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 640px) {
+  .sec-title {
+    margin-bottom: 0.6em;
+  }
+  .sec-title-container {
+    flex-flow: row wrap;
+  }
+  .sec-title-container .sec_link {
+    width: 100%;
+    display: flex;
+  }
+  .sec-title-container .sec-month .btn {
+    flex: 1;
+  }
   .sec-title-container .btn-link {
-    margin-bottom: 0.5rem;
+    order: -1;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+  .sec-title-wrapper {
+    flex: 0 0 100%;
+    flex-flow: row wrap;
+  }
+  .sec-title-wrapper .tab-scroller {
+    width: 100%;
   }
 }
 @media (min-width: 768px) {
@@ -1213,8 +1223,8 @@ hr.line {
   cursor: pointer;
   /* margin-top: 27px;
   margin-bottom: 23px; */
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   /* background: url(../images/bg_btn_nav.png) center center no-repeat; */
   background-size: cover;
 }
@@ -1225,7 +1235,7 @@ hr.line {
   background: #132d44;
   margin: auto;
   margin-bottom: 4px;
-  transition: all 400ms linear;
+  transition: transform 400ms linear;
   cursor: pointer;
   background-color: #000000;
 }
@@ -1444,6 +1454,7 @@ hr.line {
   display: flex;
   justify-content: flex-end;
 }
+
 .header_setting {
   width: auto;
   display: flex;
@@ -1594,9 +1605,10 @@ hr.line {
 }
 .balance-container .balance-inner .balance-info {
   margin: 0 0.5em 0 0;
+  font-weight: 600;
 }
 .balance-container .balance-inner .balance-info .amount {
-  font-size: 0.9375rem;
+  font-size: 1rem;
 }
 .balance-container .btn-deposit {
   width: 30px;
@@ -1615,8 +1627,13 @@ hr.line {
 }
 @media (min-width: 768px) {
   .navbar-brand .logo {
-    width: 160px;
+    width: 190px;
     background: url(../images/logo.svg) left center no-repeat;
+  }
+
+  .navbar-toggler {
+    width: 48px;
+    height: 48px;
   }
 
   .logIned_wrapper .avater-img {
@@ -1631,6 +1648,7 @@ hr.line {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    font-weight: 500;
   }
 }
 @media (min-width: 1440px) {
@@ -2672,8 +2690,8 @@ main.innerMain.fixed {
   mask-image: url(../images/icon/ico-flag.svg);
 }
 .icon-mask.icon-gift::before {
-  -webkit-mask-image: url(../images/icon/ico-gift..svg);
-  mask-image: url(../images/icon/ico-gift..svg);
+  -webkit-mask-image: url(../images/icon/ico-gift.svg);
+  mask-image: url(../images/icon/ico-gift.svg);
 }
 .icon-mask.icon-location::before {
   -webkit-mask-image: url(../images/icon/ico-location.svg);
@@ -3423,8 +3441,7 @@ i {
   transition: transform 0.2s ease-in;
 }
 .MT__table:not(.table-RWD) .Tbody .tbody__tr:hover {
-  background-color: rgba(0, 0, 0, 0.55);
-  color: rgba(227, 195, 141, 0.9);
+  background-color: rgba(0, 0, 0, 0.15);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .MT__table:not(.table-RWD) .Tbody .tbody__td {
@@ -3611,8 +3628,7 @@ i {
     transition: transform 0.2s ease-in;
   }
   .MT__table.table-RWD .Tbody .tbody__tr:hover {
-    background-color: rgba(0, 0, 0, 0.55);
-    color: rgba(227, 195, 141, 0.9);
+    background-color: rgba(0, 0, 0, 0.15);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   }
   .MT__table.table-RWD .Tbody .tbody__td {
@@ -4819,7 +4835,7 @@ i {
   background-color: transparent;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 712px) {
   .section-levelUp {
     padding-bottom: 1.5625rem;
   }
@@ -4828,7 +4844,7 @@ i {
     width: calc((100% - 10px) / 5.35);
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 712px) {
   .game_slider .swiper-slide {
     width: calc((100% - 10px) / 6.35);
   }

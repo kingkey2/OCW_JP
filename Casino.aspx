@@ -342,29 +342,29 @@
         <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">      
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">
-                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/hero-10.jpg?20211004" class="bg">                    
-                  </div>
+                <div class="hero-item">
+                    <a class="hero-item-link" href="#"></a>
+                    <div class="img-wrap">
+                      <img src="images/lobby/newopen.jpg" class="bg">                  
+                    </div>
+                </div>
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">   
-                    <img src="images/lobby/PNG.jpg" class="bg">
-                  </div>                  
+              <div class="swiper-slide">
+                <div class="hero-item">
+                    <a class="hero-item-link" href="#"></a>
+                    <div class="img-wrap">   
+                      <img src="images/lobby/evo.jpg" class="bg">       
+                    </div>                  
+                </div>
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">   
-                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/OpenIntroBonus-11.jpg" class="bg">             
-                  </div>                  
+              <div class="swiper-slide">
+                <div class="hero-item">
+                    <a class="hero-item-link" href="#"></a>
+                    <div class="img-wrap">   
+                      <img src="images/lobby/PNG.jpg" class="bg">            
+                    </div>                  
+                </div>
               </div>
-            </div>
             
           </div> 
           <div class="swiper-pagination"></div>                
