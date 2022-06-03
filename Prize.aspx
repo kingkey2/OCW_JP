@@ -139,8 +139,9 @@
                         for (var i = 0; i < o.CollectList.length; i++) {
                             let RecordDom;
                             let Collect = o.CollectList[i];
+                            let collectAreaType = Collect.CollectAreaType;
 
-                            if (Collect.CollectAreaType == collectareatype) {
+                            if (collectAreaType == collectareatype) {
                                 let CreateDate = Date.parse(Collect.CreateDate);
                                 let ExpireDate = Date.parse(Collect.ExpireDate);
                                 let PointValue = Collect.PointValue;
@@ -169,6 +170,14 @@
                                     let CollectID = $(e.target).closest(".prize-item").data("collectid");
                                     let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
+                                    if (collectAreaType == 1) {
+                                        var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+                                        if (wallet.PointValue > 100) {
+                                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("PointLimit"));
+                                            return;
+                                        }
+                                    }
+
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 ") + val, function () {
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
@@ -196,7 +205,7 @@
                                                 if (o == "Timeout") {
                                                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
                                                 } else {
-                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o));
                                                 }
                                             }
                                         })
