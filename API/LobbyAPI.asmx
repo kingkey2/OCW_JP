@@ -372,6 +372,7 @@ public class LobbyAPI : System.Web.Services.WebService
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
 
                     lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 2, 30, description, PropertySets.ToArray());
+                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount,description,1,activityData.ThresholdValue,activityData.BonusValue);
                 }
             }
         }
@@ -1627,6 +1628,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
                         if (CollecResult.Result == EWin.Lobby.enumResult.OK)
                         {
+                             EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount,Collect.Description,0,0,0);
                             R.Result = EWin.Lobby.enumResult.OK;
                         }
                         else
@@ -1660,6 +1662,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
                                     if (CollecResult.Result == EWin.Lobby.enumResult.OK)
                                     {
+                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount,Collect.Description,0,0,0);
                                         R.Result = EWin.Lobby.enumResult.OK;
                                     }
                                     else

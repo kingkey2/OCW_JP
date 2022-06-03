@@ -216,20 +216,27 @@ public static class EWinWebDB {
             //Type: 0=Collect/1=Join
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
-
+            int ReturnValue = -1;
             SS = "spUpdateUserAccountEventSummary";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
-            DBCmd.Parameters.Add("@OrderNumber", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
             DBCmd.Parameters.Add("@ActivityName", System.Data.SqlDbType.VarChar).Value = ActivityName;
             DBCmd.Parameters.Add("@Type", System.Data.SqlDbType.Int).Value = Type;
             DBCmd.Parameters.Add("@ThresholdValue", System.Data.SqlDbType.Decimal).Value = ThresholdValue;
             DBCmd.Parameters.Add("@BonusValue", System.Data.SqlDbType.Decimal).Value = BonusValue;
             DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
             DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
 
-            return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+            if (ReturnValue==0)
+            {
+                RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccount(LoginAccount);
+                RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+            }
+            
+            return ReturnValue;
         }
 
     }
