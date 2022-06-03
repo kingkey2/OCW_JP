@@ -710,7 +710,7 @@
                         <div class="sec-title-container sec-title-record sec-record-payment">
                             <!-- 活動中心 link-->
                             <!-- 前/後 月 -->
-                            <div class="sec_link">
+                            <div class="sec_link sec-month">
                                 <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth_Payment()">
                                     <i class="icon arrow arrow-left mr-1"></i><span
                                         class="language_replace">先月</span></button>
@@ -772,7 +772,7 @@
                         <div class="sec-title-container sec-title-record sec-record-games">
                             <!-- 活動中心 link-->
                             <!-- 前/後 月 -->
-                            <div class="sec_link">
+                            <div class="sec_link sec-month">
                                 <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth_Game()">
                                     <i class="icon arrow arrow-left mr-1"></i><span
                                         class="language_replace">先月</span></button>
