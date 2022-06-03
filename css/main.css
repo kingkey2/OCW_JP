@@ -1213,8 +1213,8 @@ hr.line {
   cursor: pointer;
   /* margin-top: 27px;
   margin-bottom: 23px; */
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   /* background: url(../images/bg_btn_nav.png) center center no-repeat; */
   background-size: cover;
 }
@@ -1225,7 +1225,7 @@ hr.line {
   background: #132d44;
   margin: auto;
   margin-bottom: 4px;
-  transition: all 400ms linear;
+  transition: transform 400ms linear;
   cursor: pointer;
   background-color: #000000;
 }
@@ -1444,6 +1444,7 @@ hr.line {
   display: flex;
   justify-content: flex-end;
 }
+
 .header_setting {
   width: auto;
   display: flex;
@@ -1594,9 +1595,10 @@ hr.line {
 }
 .balance-container .balance-inner .balance-info {
   margin: 0 0.5em 0 0;
+  font-weight: 600;
 }
 .balance-container .balance-inner .balance-info .amount {
-  font-size: 0.9375rem;
+  font-size: 1rem;
 }
 .balance-container .btn-deposit {
   width: 30px;
@@ -1615,8 +1617,13 @@ hr.line {
 }
 @media (min-width: 768px) {
   .navbar-brand .logo {
-    width: 160px;
+    width: 190px;
     background: url(../images/logo.svg) left center no-repeat;
+  }
+
+  .navbar-toggler {
+    width: 48px;
+    height: 48px;
   }
 
   .logIned_wrapper .avater-img {
@@ -1631,6 +1638,7 @@ hr.line {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    font-weight: 500;
   }
 }
 @media (min-width: 1440px) {
@@ -2672,8 +2680,8 @@ main.innerMain.fixed {
   mask-image: url(../images/icon/ico-flag.svg);
 }
 .icon-mask.icon-gift::before {
-  -webkit-mask-image: url(../images/icon/ico-gift..svg);
-  mask-image: url(../images/icon/ico-gift..svg);
+  -webkit-mask-image: url(../images/icon/ico-gift.svg);
+  mask-image: url(../images/icon/ico-gift.svg);
 }
 .icon-mask.icon-location::before {
   -webkit-mask-image: url(../images/icon/ico-location.svg);
@@ -4819,7 +4827,7 @@ i {
   background-color: transparent;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 712px) {
   .section-levelUp {
     padding-bottom: 1.5625rem;
   }
@@ -4828,7 +4836,7 @@ i {
     width: calc((100% - 10px) / 5.35);
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 712px) {
   .game_slider .swiper-slide {
     width: calc((100% - 10px) / 6.35);
   }
