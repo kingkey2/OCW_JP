@@ -505,7 +505,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .data-item.qrcode {
     width: 45%;
-    position: absolute;
     right: 0;
   }
 }

@@ -78,10 +78,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   content: "j";
 }
 
-.icon-thumup:before {
-  content: "k";
-}
-
 .icon-poker:before {
   content: "l";
 }
@@ -198,8 +194,16 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   content: "P";
 }
 
-.icon-error:before {
-  content: "P";
+.icon-check-mark-4:before {
+  content: "M";
+}
+
+.icon-thumup:before {
+  content: "k";
+}
+
+.icon-thumup-full:before {
+  content: "Q";
 }
 
 [class^=icon-ewin]:before,
@@ -4076,7 +4080,7 @@ i {
     top: 15rem;
   }
 }
-@media (min-width: 1854px) {
+@media (min-width: 1920px) {
   .wrapper__TopCollapse.orderHistory_userAccount {
     height: calc(100% - 15rem);
     top: 15rem;
@@ -4270,6 +4274,21 @@ i {
     opacity: 0;
   }
 }
+.icon-favorite:before {
+  content: "b";
+}
+
+.icon-thumup {
+  font-size: 17px;
+}
+
+.btn.added .icon-favorite:before {
+  content: "a";
+}
+.btn.added .icon-thumup:before {
+  content: "Q";
+}
+
 .tab-game {
   margin-bottom: 25px;
 }
@@ -4831,7 +4850,7 @@ i {
     width: calc((100% - 10px) / 7.35);
   }
 }
-@media (min-width: 1854px) {
+@media (min-width: 1920px) {
   .game_slider .swiper-slide {
     width: calc((100% - 10px) / 9.35);
   }
