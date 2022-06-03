@@ -182,7 +182,7 @@
                     <div class="notice-item">
                         <i class="icon-wallet"></i>
                         <div class="text-wrap">
-                            <p class="title language_replace text-link" onclick="window.parent.API_LoadPage('PaymentHistory', 'PaymentHistory.aspx', true)">檢視存款紀錄</p>
+                            <p class="title language_replace text-link" onclick="window.parent.API_LoadPage('record','record.aspx', true)">檢視存款紀錄</p>
                         </div>
                     </div>
                 </div>
