@@ -64,11 +64,34 @@
         });
     }
 
-    function GoActivityDetail(url) {
+    function GoActivityDetail(type,url) {
         event.stopPropagation();
-
+        //001 入金
+        //002 註冊
+        //003 7日
+        //004 BNG端午節
         if (url) {
-
+            switch (type) {
+                case 1:
+                    $('#ModalDeposit .activity-popup-detail-inner').load(url);
+                    $('#ModalDeposit').modal('show');
+                    break;
+                case 2:
+                    $('#ModalRegister .activity-popup-detail-inner').load(url);
+                    $('#ModalRegister').modal('show');
+                    break;
+                case 3:
+                    $('#ModalDailylogin .activity-popup-detail-inner').load(url);
+                    $('#ModalDailylogin').modal('show');
+                    break;
+                case 4:
+                    $('#ModalBNG .activity-popup-detail-inner').load(url);
+                    $('#ModalBNG').modal('show');
+                    break;
+                default:
+                    break;
+            }
+           
         }
     }
 
@@ -110,7 +133,7 @@
                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal" data-target="#ModalDailylogin">
+                                <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img class="" src="images/activity/activity-dailylogin.jpg">
                                     </div>
@@ -123,7 +146,7 @@
                                             </div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +154,7 @@
                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal" data-target="#ModalDeposit">
+                                <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img class="" src="images/activity/activity-deposit.jpg">
                                     </div>
@@ -145,7 +168,7 @@
                                             </div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +176,7 @@
                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal" data-target="#ModalRegister">
+                                <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img class="" src="images/activity/activity-register.jpg">
                                     </div>
@@ -166,7 +189,7 @@
                                             </div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(2,'/Activity/Act002/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +197,7 @@
                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal" data-target="#ModalBNG">
+                                <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img class="" src="images/activity/activity-BNG.jpg">
                                     </div>
@@ -184,7 +207,7 @@
                                             <div class="desc language_replace"></div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(4,'/Activity/Act004/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
                                     </div>
                                 </div>
                             </div>
