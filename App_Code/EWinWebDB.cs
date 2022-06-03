@@ -216,7 +216,7 @@ public static class EWinWebDB {
             //Type: 0=Collect/1=Join
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
-
+            int ReturnValue = -1;
             SS = "spUpdateUserAccountEventSummary";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
@@ -228,8 +228,15 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@BonusValue", System.Data.SqlDbType.Decimal).Value = BonusValue;
             DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
             DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
 
-            return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+            if (ReturnValue==0)
+            {
+                RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccount(LoginAccount);
+                RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+            }
+            
+            return ReturnValue;
         }
 
     }
