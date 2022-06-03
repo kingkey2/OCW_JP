@@ -1641,6 +1641,118 @@ public static class RedisCache {
 
     }
 
+    public static class UserAccountEventSummary
+    {
+        private static string XMLPath = "UserAccountEventSummary";
+        private static int DBIndex = 0;
+
+        public static System.Data.DataTable GetUserAccountEventSummaryByLoginAccount(string LoginAccount)
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":LoginAccount:" + LoginAccount;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                DT = DTReadFromRedis(DBIndex, Key);
+            }
+            else
+            {
+                DT = UpdateUserAccountEventSummaryByLoginAccount(LoginAccount);
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateUserAccountEventSummaryByLoginAccount(string LoginAccount)
+        {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM UserAccountEventSummary WITH (NOLOCK)" +
+                 " WHERE LoginAccount=@LoginAccount ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+                Key = XMLPath + ":LoginAccount:" + LoginAccount;
+
+                for (int I = 0; I <= 3; I++)
+                {
+                    try
+                    {
+                        DTWriteToRedis(DBIndex, DT, Key);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
+            return DT;
+        }
+
+
+        public static System.Data.DataTable GetUserAccountEventSummaryByLoginAccountAndActivityName(string LoginAccount,string ActivityName)
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":LoginAccount:" + LoginAccount+ ":ActivityName:" + ActivityName;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                DT = DTReadFromRedis(DBIndex, Key);
+            }
+            else
+            {
+                DT = UpdateUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateUserAccountEventSummaryByLoginAccountAndActivityName(string LoginAccount, string ActivityName)
+        {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM UserAccountEventSummary WITH (NOLOCK)" +
+                 " WHERE LoginAccount=@LoginAccount And ActivityName=@ActivityName";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@ActivityName", System.Data.SqlDbType.VarChar).Value = ActivityName;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+                Key = XMLPath + ":LoginAccount:" + LoginAccount + ":ActivityName:" + ActivityName;
+
+                for (int I = 0; I <= 3; I++)
+                {
+                    try
+                    {
+                        DTWriteToRedis(DBIndex, DT, Key);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
+            return DT;
+        }
+    }
+
     public static void UpdateRedisByPrivateKey() {
         PaymentCategory.UpdatePaymentCategory();
         PaymentMethod.UpdatePaymentMethodByCategory("Paypal");

@@ -107,6 +107,7 @@
                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
 
                                                 lobbyAPI.AddPromotionCollect(Token, GUID, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, 1, 30, description,  PropertySets.ToArray());
+                                                //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary();
                                             }
 
                                             if (string.IsNullOrEmpty(TotalErrorMsg))

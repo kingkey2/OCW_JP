@@ -194,7 +194,7 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure class="activity-item">
+                   <%--     <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -211,7 +211,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </figure>
+                        </figure>--%>
 
                     </div>
                 </section>
