@@ -443,7 +443,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 100%;
   }
 }
-@media (min-width: 1854px) {
+@media (min-width: 1920px) {
   .hero_slider .img-wrap {
     padding-bottom: 76.9230769231vh;
   }
