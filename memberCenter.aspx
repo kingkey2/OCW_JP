@@ -623,7 +623,7 @@
                                                                 <i class="icon icon-thumup"></i>
                                                             </button>
                                                             <button type="button" class="btn-like btn btn-round">
-                                                                <i class="icon icon-heart-o"></i>
+                                                                <i class="icon icon-favorite"></i>
                                                             </button>
                                                             <button type="button" class="btn-more btn btn-round">
                                                                 <i class="arrow arrow-down"></i>
