@@ -478,6 +478,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     else
                     {
                         SetResultException(R, "WalletAddressCanNotUse");
+                        //SetResultException(R, walletDepositResult.ResultState.ToString());
                     }
                 }
                 else

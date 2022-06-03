@@ -510,6 +510,10 @@ public class MgmtAPI : System.Web.Services.WebService {
     //        var response = await client.SendEmailAsync(msg);
     //    }
     //}
+    [WebMethod]
+    public void test() {
+            ActivityCore.GetAllParentBonusAfterDepositResult("k123456789");
+    }
 
     private bool CheckPassword(string Hash) {
         string key = EWinWeb.PrivateKey;

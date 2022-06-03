@@ -398,8 +398,9 @@ public static class ActivityExpand
                                     BonusValue = (decimal)ActivityDetail["Parent"]["BonusValue"],
                                     ThresholdValue = (decimal)ActivityDetail["Parent"]["ThresholdValue"],
                                     LoginAccount = LoginAccount,
-                                    ParentLoginAccount = ocwResult.ParentLoginAccount
-                                };
+                                    ParentLoginAccount = ocwResult.ParentLoginAccount,
+                                    ActivityName = ActivityDetail["Name"].ToString()
+                            };
 
                                 R.Data = RetData;
                                 R.Result = ActivityCore.enumActResult.OK;

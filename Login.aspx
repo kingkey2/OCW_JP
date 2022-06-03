@@ -7,7 +7,7 @@
     Random R = new Random();
     string Version = EWinWeb.Version;
     TelPhoneNormalize telPhoneNormalize;
-    
+
     if (CodingControl.FormSubmit()) {
         string LoginGUID = Request["LoginGUID"];
         string LoginPassword = Request["LoginPassword"];
@@ -54,69 +54,75 @@
             }
 
             if (string.IsNullOrEmpty(WebSID) == false) {
-                DT = RedisCache.UserAccountFingerprint.GetUserAccountFingerprint(LoginAccount);
+                Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
+                Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
+                Response.SetCookie(new HttpCookie("SID", WebSID));
+                Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
 
-                if (DT != null && DT.Rows.Count > 0) {
-                    for (int i = 0; i < DT.Rows.Count; i++) {
-                        if (DT.Rows[i]["FingerprintID"].ToString() == NewFingerPrint) {
-                            IsOldFingerPrint = true;
-                            break;
-                        }
-                    }
-                }
+                Response.Redirect("RefreshParent.aspx?index.aspx");
+                //DT = RedisCache.UserAccountFingerprint.GetUserAccountFingerprint(LoginAccount);
 
-                if (IsOldFingerPrint || LoginType == "0") {
-                    if (LoginType == "0") {
-                        if (IsOldFingerPrint == false) {
-                            EWinWebDB.UserAccountFingerprint.InsertUserAccountFingerprint(LoginAccount, NewFingerPrint, UserAgent);
-                            RedisCache.UserAccountFingerprint.UpdateUserAccountFingerprint(LoginAccount);
-                        }
-                    }
+                //if (DT != null && DT.Rows.Count > 0) {
+                //    for (int i = 0; i < DT.Rows.Count; i++) {
+                //        if (DT.Rows[i]["FingerprintID"].ToString() == NewFingerPrint) {
+                //            IsOldFingerPrint = true;
+                //            break;
+                //        }
+                //    }
+                //}
 
-                    Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
-                    Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
-                    Response.SetCookie(new HttpCookie("SID", WebSID));
-                    Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
+                //if (IsOldFingerPrint || LoginType == "0") {
+                //    if (LoginType == "0") {
+                //        if (IsOldFingerPrint == false) {
+                //            EWinWebDB.UserAccountFingerprint.InsertUserAccountFingerprint(LoginAccount, NewFingerPrint, UserAgent);
+                //            RedisCache.UserAccountFingerprint.UpdateUserAccountFingerprint(LoginAccount);
+                //        }
+                //    }
 
-                    Response.Redirect("RefreshParent.aspx?index.aspx");
-                } else {
-                    if (EWinWeb.IsTestSite) {
-                        var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
-                        dynamic tempFP = new System.Dynamic.ExpandoObject();
-                        tempFP.ValidateCode = ValidateCode;
-                        tempFP.RecoverToken = LoginAPIResult.RecoverToken;
-                        tempFP.LoginAccount = LoginAccount;
-                        tempFP.SID = WebSID;
-                        tempFP.CT = LoginAPIResult.CT;
-                        tempFP.FingerPrint = NewFingerPrint;
+                //    Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
+                //    Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
+                //    Response.SetCookie(new HttpCookie("SID", WebSID));
+                //    Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
 
-                        RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
-                        Response.Write("<script>window.parent.API_ShowMessageOK('測試', '測試驗證碼:" + ValidateCode + "',function(){ window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx');});</script>");
-                    } else {
-                        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-                        var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
-                        string smsContent = "ただいまマハラジャへのログインは本人確認を行なっております。確認コード（" + ValidateCode + "）入力して下さい。";
+                //    Response.Redirect("RefreshParent.aspx?index.aspx");
+                //} else {
+                //    if (EWinWeb.IsTestSite) {
+                //        var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
+                //        dynamic tempFP = new System.Dynamic.ExpandoObject();
+                //        tempFP.ValidateCode = ValidateCode;
+                //        tempFP.RecoverToken = LoginAPIResult.RecoverToken;
+                //        tempFP.LoginAccount = LoginAccount;
+                //        tempFP.SID = WebSID;
+                //        tempFP.CT = LoginAPIResult.CT;
+                //        tempFP.FingerPrint = NewFingerPrint;
+
+                //        RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
+                //        Response.Write("<script>window.parent.API_ShowMessageOK('測試', '測試驗證碼:" + ValidateCode + "',function(){ window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx');});</script>");
+                //    } else {
+                //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+                //        var ValidateCode = CodingControl.RandomPassword(new Random(), 4, "0123456789");
+                //        string smsContent = "ただいまマハラジャへのログインは本人確認を行なっております。確認コード（" + ValidateCode + "）入力して下さい。";
 
 
 
-                        var SendResult = lobbyAPI.SendSMS(Token, System.Guid.NewGuid().ToString(), "0", 0, LoginAccount, smsContent);
+                //        var SendResult = lobbyAPI.SendSMS(Token, System.Guid.NewGuid().ToString(), "0", 0, LoginAccount, smsContent);
 
-                        if (SendResult.Result == EWin.Lobby.enumResult.OK) {
-                            dynamic tempFP = new System.Dynamic.ExpandoObject();
-                            tempFP.ValidateCode = ValidateCode;
-                            tempFP.RecoverToken = LoginAPIResult.RecoverToken;
-                            tempFP.LoginAccount = LoginAccount;
-                            tempFP.SID = WebSID;
-                            tempFP.CT = LoginAPIResult.CT;
-                            tempFP.FingerPrint = NewFingerPrint;
+                //        if (SendResult.Result == EWin.Lobby.enumResult.OK) {
+                //            dynamic tempFP = new System.Dynamic.ExpandoObject();
+                //            tempFP.ValidateCode = ValidateCode;
+                //            tempFP.RecoverToken = LoginAPIResult.RecoverToken;
+                //            tempFP.LoginAccount = LoginAccount;
+                //            tempFP.SID = WebSID;
+                //            tempFP.CT = LoginAPIResult.CT;
+                //            tempFP.FingerPrint = NewFingerPrint;
 
-                            RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
-                            Response.Write("<script>window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx')</script>");
-                        } else {
-                            Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");
-                        }
-                    }
-                }
+                //            RedisCache.FingerPrint.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(tempFP, Newtonsoft.Json.Formatting.None), NewFingerPrint);
+                //            Response.Write("<script>window.parent.API_LoadPage('LoginByFP', 'LoginByFP.aspx')</script>");
+                //        } else {
+                //            Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗'),function () { })};</script>");
+                //        }
+                //    }
+                //}
             } else {
                 Response.Write("<script> var defaultError = function(){ window.parent.showMessageOK('', mlp.getLanguageKey('登入失敗') ,function () { })};</script>");
             }

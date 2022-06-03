@@ -18,7 +18,6 @@
         };
 
 
-
         if (string.IsNullOrEmpty(PostBody) == false)
         {
             try { BodyObj = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentCallbackInfo>(PostBody); }
@@ -106,7 +105,8 @@
                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
 
-                                                lobbyAPI.AddPromotionCollect(Token, GUID, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, 1, 30, description,  PropertySets.ToArray());
+                                                //lobbyAPI.AddPromotionCollect(Token, GUID, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, 1, 30, description,  PropertySets.ToArray());
+                                                lobbyAPI.AddPromotionCollect(Token, GUID, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, 1, 30, description,  PropertySets.ToArray());
                                             }
 
                                             if (string.IsNullOrEmpty(TotalErrorMsg))
