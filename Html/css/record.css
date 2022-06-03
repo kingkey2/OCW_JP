@@ -64,6 +64,33 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-color: #C89447;
 }
 
+.no-Data {
+  position: relative;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+}
+.no-Data .data {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
+  padding: 20px 0;
+}
+.no-Data .data .text {
+  font-size: 1.125rem;
+}
+.no-Data .data::before {
+  content: "";
+  display: flex;
+  width: 100%;
+  height: 100px;
+  background: url(../images/theme/blue/icon/icon-no-data.svg) center center no-repeat;
+  background-size: contain;
+  text-align: center;
+}
+
 .record-overview-wrapper {
   display: flex;
   flex-flow: row wrap;
@@ -122,9 +149,39 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-bottom: 10px;
   font-size: 1.25rem;
 }
+.MT__table {
+  position: relative;
+}
 .MT__table .arrow {
   border-color: white;
   margin-left: 0.5rem;
+}
+.MT__table .no-Data {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100px;
+}
+.MT__table .no-Data .data {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
+  padding: 20px 0;
+}
+.MT__table .no-Data .data .text {
+  font-size: 1.125rem;
+}
+.MT__table .no-Data .data::before {
+  content: "";
+  display: flex;
+  width: 100%;
+  height: 100px;
+  background: url(../images/theme/blue/icon/icon-no-data.svg) center center no-repeat;
+  background-size: contain;
+  text-align: center;
 }
 
 .table-payment .Thead .thead__th {

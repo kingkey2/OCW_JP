@@ -3441,8 +3441,7 @@ i {
   transition: transform 0.2s ease-in;
 }
 .MT__table:not(.table-RWD) .Tbody .tbody__tr:hover {
-  background-color: rgba(0, 0, 0, 0.55);
-  color: rgba(227, 195, 141, 0.9);
+  background-color: rgba(0, 0, 0, 0.15);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .MT__table:not(.table-RWD) .Tbody .tbody__td {
@@ -3629,8 +3628,7 @@ i {
     transition: transform 0.2s ease-in;
   }
   .MT__table.table-RWD .Tbody .tbody__tr:hover {
-    background-color: rgba(0, 0, 0, 0.55);
-    color: rgba(227, 195, 141, 0.9);
+    background-color: rgba(0, 0, 0, 0.15);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   }
   .MT__table.table-RWD .Tbody .tbody__td {
