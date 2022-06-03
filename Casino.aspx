@@ -334,7 +334,7 @@
               <div class="hero-item">
                   <a class="hero-item-link" href="#"></a>
                   <div class="img-wrap">   
-                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/hero-11.jpg" class="bg">             
+                    <img src="images/lobby/PNG.jpg" class="bg">
                   </div>                  
               </div>
             </div>
@@ -425,7 +425,7 @@
                                                     <i class="icon icon-thumup"></i>
                                                 </button>
                                                 <button type="button" class="btn-like btn btn-round">
-                                                    <i class="icon icon-heart-o"></i>
+                                                    <i class="icon icon-favorite"></i>
                                                 </button>
                                                 <button type="button" class="btn-more btn btn-round">
                                                     <i class="arrow arrow-down"></i>

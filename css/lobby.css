@@ -75,4 +75,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 4.0625rem;
     height: 4.0625rem;
   }
+  .hero_slider_lobby .img-wrap {
+    padding-bottom: 500px;
+  }
+}
+@media (min-width: 1440px) {
+  .hero_slider_lobby .img-wrap {
+    padding-bottom: 550px;
+  }
+}
+@media (min-width: 1920px) {
+  .hero_slider_lobby .img-wrap {
+    padding-bottom: 600px;
+  }
 }

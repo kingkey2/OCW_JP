@@ -1,6 +1,10 @@
 // $('.header_area').load('layout-header.html');
-$('#ModalActivity .activity-popup-detail-inner').load('activity/dailylogin/dailylogin.html');
-$('#ModalTest .activity-popup-detail-inner').load('activity/dailylogin/test.html');
+$('#ModalDailylogin .activity-popup-detail-inner').load('activity/dailylogin/index.html');
+
+$('#ModalDeposit .activity-popup-detail-inner').load('activity/deposit/index.html');
+$('#ModalRegister .activity-popup-detail-inner').load('activity/register/index.html');
+$('#ModalBNG .activity-popup-detail-inner').load('activity/BNG/index.html');
+
 $('.footer').load('layout-footer.html');
 
 $(document).ready(function () {
@@ -23,7 +27,8 @@ $(document).ready(function () {
     });
     $('.header_area .mask_overlay').click(function(){
         $('.header_menu, .navbarMenu').removeClass('show'); //Sidebar Menu
-        $('.navbar-toggler').attr("aria-expanded","false");        
+        $('.navbar-toggler').attr("aria-expanded","false");
+        $('.vertical-menu').removeClass('navbar-show');        
     });
 
     //遊戲 "更多" Button 下滑
