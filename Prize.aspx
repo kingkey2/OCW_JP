@@ -170,7 +170,6 @@
                                     let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 ") + val, function () {
-
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
@@ -190,7 +189,8 @@
                                                         GetPromotionCollectHistory(beginDate, endDate);
                                                     //});
                                                 } else {
-                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                                                    //window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                                                    alert(mlp.getLanguageKey(o.Message));
                                                 }
                                             } else {
                                                 if (o == "Timeout") {
