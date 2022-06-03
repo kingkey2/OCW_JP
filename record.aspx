@@ -89,7 +89,7 @@
     function updateGameHistory(startDate, endDate) {
         var ParentMain = document.getElementById("divGame");
         ParentMain.innerHTML = "";
-
+        document.getElementById("idSearchDate_G").innerText = new Date(endDate).toString("yyyy/MM");
         LobbyClient.GetGameOrderSummaryHistoryGroupGameCode(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -112,7 +112,8 @@
 
 
                             RecordDom.dataset.queryDate = daySummary.SummaryDate;
-                            RecordDom.querySelector(".btn-toggle").onclick = function () {
+                            var toggle = RecordDom.querySelector(".btn-toggle")
+                            RecordDom.onclick = (function () {
                                 var nowJQ = $(this);
                                 var summaryDateDom = nowJQ.parents(".record-table-item").get(0);
                                 var queryDate = summaryDateDom.dataset.queryDate;
@@ -136,7 +137,7 @@
                                         });
                                     }
                                 }
-                            };
+                            }).bind(toggle);
 
                             ParentMain.prepend(RecordDom);
 
@@ -274,7 +275,7 @@
         var ParentMain_M = document.getElementById("divPayment_M");
         ParentMain.innerHTML = "";
         ParentMain_M.innerHTML = "";
-
+        document.getElementById("idSearchDate_P").innerText = new Date(endDate).toString("yyyy/MM");
         p.GetClosePayment(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -363,12 +364,13 @@
                                 c.setClassText(RecordDom_M, "BasicType", null, BasicType);
                                 c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
 
-                                RecordDom_M.querySelector(".btn-toggle").onclick = function () {
+                                var toggle = RecordDom_M.querySelector(".btn-toggle");
+                                RecordDom_M.onclick = (function () {
                                     var nowJQ = $(this);
 
                                     nowJQ.toggleClass('cur');
                                     nowJQ.parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
-                                };
+                                }).bind(toggle);
 
                                 $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
                                 $(RecordDom_M).find('.inputPaymentSerial').val(record.PaymentSerial);
@@ -714,6 +716,7 @@
                                 <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth_Payment()">
                                     <i class="icon arrow arrow-left mr-1"></i><span
                                         class="language_replace">先月</span></button>
+                                <span id="idSearchDate_P" class="date_text"></span>
                                 <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth_Payment()">
                                     <span class="language_replace">来月︎</span><i
                                         class="icon arrow arrow-right ml-1"></i></button>
@@ -725,11 +728,12 @@
                                     <div class="tab-scroller__area">
                                         <ul class="tab-scroller__content">
                                             <li class="tab-item active" onclick="showRecord(0)">
-                                                <span class="tab-item-link"><span class="title language_replace">出入金紀錄</span>
+                                                <span class="tab-item-link"><span class="title"><span class="language_replace">出入金紀錄</span></span>
                                                 </span>
                                             </li>
                                             <li class="tab-item" onclick="showRecord(1)">
-                                                <span class="tab-item-link"><span class="title language_replace">遊戲紀錄</span></span>
+                                                <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲紀錄</span></span>
+                                                 </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -776,6 +780,7 @@
                                 <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth_Game()">
                                     <i class="icon arrow arrow-left mr-1"></i><span
                                         class="language_replace">先月</span></button>
+                                <span id="idSearchDate_G" class="date_text"></span>
                                 <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth_Game()">
                                     <span class="language_replace">来月︎</span><i
                                         class="icon arrow arrow-right ml-1"></i></button>

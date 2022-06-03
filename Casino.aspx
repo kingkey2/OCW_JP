@@ -24,7 +24,6 @@
     <script src="Scripts/lozad.min.js"></script>
     <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
-    <script src="Scripts/theme.js"></script>
 </head>
 <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -172,7 +171,7 @@
                                 slidesPerView: "auto",
                                 slidesPerGroup: 8,
                                 loopedSlides: 8,
-                                freeMode: true,
+                      
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
@@ -270,6 +269,26 @@
         if (nowSubCateg == undefined || nowSubCateg == "") {
             nowSubCateg = "Hot";
         }
+
+
+        var heroLobby = new Swiper("#hero-slider-lobby", {
+            loop: true,
+            // slidesPerView: 1,
+            slidesPerView: "auto",
+            centeredSlides: true,
+            // freeMode: true,
+            // spaceBetween: 20,  
+            speed: 1000, //Duration of transition between slides (in ms)
+            // autoplay: {
+            //     delay: 3500,
+            //     disableOnInteraction: false,
+            // },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+        });
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {

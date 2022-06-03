@@ -31,18 +31,35 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .sec-record-payment .tab-record .tab-item:hover, .sec-record-payment .tab-record .tab-item.active {
-  color: #459E74;
+    color: #459E74;
 }
+
+.sec-record-payment .sec_link .date_text {
+    color: #459E74;
+}
+
+ .sec-record-payment .tab-record .tab-item.active .title {
+    border-bottom: 2px #459E74 solid;
+}
+
 .sec-record-payment .sec_link .btn:hover, .sec-record-payment .sec_link .btn.active {
   background-color: #459E74;
 }
 
-.sec-record-games .tab-record .tab-item:hover, .sec-record-games .tab-record .tab-item.active {
-  color: #C89447;
+.sec-record-games .tab-record .tab-item:hover, .sec-record-games .tab-record .tab-item.active{
+    color: #C89447;
 }
+.sec-record-games .sec_link .date_text {
+    color: #C89447;
+}
+
 .sec-record-games .sec_link .btn:hover, .sec-record-games .sec_link .btn.active {
-  background-color: #C89447;
+    background-color: #C89447;
 }
+
+    .sec-record-games .sec_link .btn.active .title {
+        background-color: #C89447;
+    }
 
 .record-overview-wrapper {
   display: flex;

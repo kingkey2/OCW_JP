@@ -250,15 +250,32 @@
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
     function API_GetGameLang(type, lang, data) {
+        var Ret;
+
         if (type == 0) {
-            return data;
+            Ret = data;
         } else if (type == 1) {//return gamecode
-            return GCB.GetGameText(lang, data);
+ 
+            Ret = GCB.GetGameText(lang, data);
+
+            if (!Ret) {
+                Ret = GCB.OtherFindGameCodeText(lang, data);
+            }
         } else if (type == 2) {//return gameBrand
-            return GCB.GetBrandText(lang, data);
+            Ret = GCB.GetBrandText(lang, data);
+
+            if (!Ret) {
+                Ret = GCB.OtherFindGameBrandText(lang, data);
+            }
         } else {
-            return "";
+            Ret = data;
         }
+
+        if (!Ret) {
+            Ret = data;
+        }
+
+        return Ret;
     }
 
     //打開熱門文章
