@@ -20,8 +20,14 @@
             //{
             if (Common.CheckSign(RequestData))
             {
-                PaymentOrderDT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber((string)RequestData.OrderID);
+                PaymentOrderDT = EWinWebDB.UserAccountPayment.GetPaymentByPaymentSerial((string)RequestData.OrderID);
 
+                R.ResultState = APIResult.enumResultCode.ERR;
+                R.Message = (string)RequestData.OrderID;
+
+                Response.Write(R.Message);
+                Response.Flush();
+                Response.End();
                 if (PaymentOrderDT != null && PaymentOrderDT.Rows.Count > 0)
                 {
                     if ((string)RequestData.PayingStatus == "0")
