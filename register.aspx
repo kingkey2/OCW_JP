@@ -183,7 +183,7 @@
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
             return false;
         } else if (idLoginPassword.value.length < 6) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
+            window.parent.showMessageOK("", mlp.getLanguageKey("登入密碼需大於6位"));
             return false;
         } else if (!rules.test(idLoginPassword.value)) {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
