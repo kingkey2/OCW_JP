@@ -58,8 +58,8 @@ $(document).ready(function () {
     //       $(this).parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
     //   });
       $('.record-table-tab').click(function(){
-          $(this).find('.btn-toggle').toggleClass('cur');
-          $(this).parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
+        //   $(this).find('.btn-toggle').toggleClass('cur');
+          $(this).parents('.record-table-item').toggleClass('show').find('.record-table-drop-panel').slideToggle();
       });
 
 
@@ -161,7 +161,7 @@ $(document).ready(function () {
     var gamelobby_1 = new Swiper("#lobbyGame-1", {
         
         // slidesPerView: 2.3,
-        loop: true,
+        // loop: true,
         slidesPerView: "auto",
         slidesPerGroup: 8,          
         navigation: {
@@ -171,12 +171,12 @@ $(document).ready(function () {
     });
 
     var gamelobby_2 = new Swiper("#lobbyGame-2", {
-        loop: true,                
+        // loop: true,                
         slidesPerView: "auto",
         slidesPerGroup: 8,
         // centeredSlides: true,
         // loopFillGroupWithBlank: true,
-        loopedSlides: 24,        
+        // loopedSlides: 24,        
         // freeMode: true, //拖曳時 會呈現 free mode
         navigation: {
             nextEl: "#lobbyGame-2 .swiper-button-next",
