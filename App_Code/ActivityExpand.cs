@@ -21,11 +21,11 @@ public static class ActivityExpand
 
             ActivityDetail = GetActivityDetail(DetailPath);
 
-            UserAccountTotalValueDT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(LoginAccount);
+            UserAccountTotalValueDT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityDetail["Name"].ToString());
 
             if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0)
             {
-                DepositCount = (int)UserAccountTotalValueDT.Rows[0]["DepositCount"];
+                DepositCount = (int)UserAccountTotalValueDT.Rows[0]["JoinCount"];
             }
             else
             {
@@ -190,11 +190,11 @@ public static class ActivityExpand
 
             ActivityDetail = GetActivityDetail(DetailPath);
 
-            UserAccountTotalValueDT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(LoginAccount);
+            UserAccountTotalValueDT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityDetail["Name"].ToString());
 
             if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0)
             {
-                DepositCount = (int)UserAccountTotalValueDT.Rows[0]["DepositCount"];
+                DepositCount = (int)UserAccountTotalValueDT.Rows[0]["JoinCount"];
             }
             else
             {
@@ -260,11 +260,11 @@ public static class ActivityExpand
 
             ActivityDetail = GetActivityDetail(DetailPath);
 
-            UserAccountTotalValueDT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(LoginAccount);
+            UserAccountTotalValueDT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityDetail["Name"].ToString());
 
             if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0)
             {
-                DepositCount = (int)UserAccountTotalValueDT.Rows[0]["DepositCount"];
+                DepositCount = (int)UserAccountTotalValueDT.Rows[0]["JoinCount"];
             }
             else
             {
@@ -369,11 +369,11 @@ public static class ActivityExpand
 
                 ActivityDetail = GetActivityDetail(DetailPath);
 
-                UserAccountTotalValueDT = RedisCache.UserAccountTotalSummary.GetUserAccountTotalSummaryByLoginAccount(LoginAccount);
+                UserAccountTotalValueDT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityDetail["Name"].ToString());
 
                 if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0)
                 {
-                    DepositCount = (int)UserAccountTotalValueDT.Rows[0]["DepositCount"];
+                    DepositCount = (int)UserAccountTotalValueDT.Rows[0]["JoinCount"];
                 }
                 else
                 {
@@ -398,8 +398,9 @@ public static class ActivityExpand
                                     BonusValue = (decimal)ActivityDetail["Parent"]["BonusValue"],
                                     ThresholdValue = (decimal)ActivityDetail["Parent"]["ThresholdValue"],
                                     LoginAccount = LoginAccount,
-                                    ParentLoginAccount = ocwResult.ParentLoginAccount
-                                };
+                                    ParentLoginAccount = ocwResult.ParentLoginAccount,
+                                    ActivityName = ActivityDetail["Name"].ToString()
+                            };
 
                                 R.Data = RetData;
                                 R.Result = ActivityCore.enumActResult.OK;

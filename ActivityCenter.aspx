@@ -44,8 +44,9 @@
         WebInfo = window.parent.API_GetWebInfo();
         LobbyClient = window.parent.API_GetLobbyAPI();
         lang = window.parent.API_GetLang();
+        getUserAccountEventSummary();
         mlp = new multiLanguage(v);
-        
+
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
 
@@ -61,14 +62,69 @@
                     window.parent.location.href = "index.aspx";
                 });
             }
-        });     
+        });
     }
 
-    function GoActivityDetail(url) {
-        event.stopPropagation();
+    function getUserAccountEventSummary() {
+        LobbyClient.GetUserAccountEventSummary(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.Datas.length > 0) {
+                        for (var i = 0; i < o.Datas.length; i++) {
+                            if (o.Datas[i].ActivityName == 'RegisterBouns') {
+                                if (o.Datas[i].CollectCount == o.Datas[i].JoinCount) {
+                                    $('#ModalRegister .btn-secondary').removeClass('is-hide');    
+                                } else {
+                                    $('#ModalRegister .btn-full-sub').removeClass('is-hide');
+                                }
+                                $('#ModalRegister .btn-primary').addClass('is-hide');
 
+                            } else if (o.Datas[i].ActivityName == 'Act001') {
+                                if (o.Datas[i].CollectCount == o.Datas[i].JoinCount) {
+                                    $('#ModalDeposit .btn-secondary').removeClass('is-hide');  
+                                } else {
+                                    $('#ModalDeposit .btn-full-sub').removeClass('is-hide');
+                                }
+                                $('#ModalDeposit .btn-primary').addClass('is-hide');
+                            }
+                        }
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                        //document.getElementById('gameTotalValidBetValue').textContent = 0;
+                    }
+                }
+            }
+        });
+    }
+
+    function GoActivityDetail(type,url) {
+        event.stopPropagation();
+        //001 入金
+        //002 註冊
+        //003 7日
+        //004 BNG端午節
         if (url) {
-            
+            switch (type) {
+                case 1:
+                    $('#ModalDeposit .activity-popup-detail-inner').load(url);
+                    $('#ModalDeposit').modal('show');
+                    break;
+                case 2:
+                    $('#ModalRegister .activity-popup-detail-inner').load(url);
+                    $('#ModalRegister').modal('show');
+                    break;
+                case 3:
+                    $('#ModalDailylogin .activity-popup-detail-inner').load(url);
+                    $('#ModalDailylogin').modal('show');
+                    break;
+                case 4:
+                    $('#ModalBNG .activity-popup-detail-inner').load(url);
+                    $('#ModalBNG').modal('show');
+                    break;
+                default:
+                    break;
+            }
+           
         }
     }
 
@@ -110,18 +166,20 @@
                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal" data-target="#exampleModa11">
+                                <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="images/activity-01.jpg">
+                                        <img class="" src="images/activity/activity-dailylogin.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
-                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
+                                            <!-- <figcaption class="title language_replace">ゴールドヒット！</figcaption> -->
+                                            <div class="desc language_replace">
+                                                デイリーミッションキャンペーン機能実装！女神様のご命令で、この狛犬大吉が勤勉なマハラジャ全会員に豊かなデイリーギフトマネーをプレゼントするぞ！
+                       
+                                            </div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button"  class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
-
+                                        <button onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -129,75 +187,21 @@
                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
-                                <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal2">
+                                <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="images/activity-01.jpg">
+                                        <img class="" src="images/activity/activity-deposit.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
-                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
+                                            <!-- <figcaption class="title language_replace">ゴールドヒット！</figcaption> -->
+                                            <div class="desc language_replace">
+                                                リニューアルしたマハラジャのグランドオープンを祝うため、四葉が女神様の祝福をささげます。キャンペーン期間中任意金額を入金された方に、相応のボーナス（上限5万Ocoinまで）をプレゼントいたします！！
+
+                       
+                                            </div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                         <figure class="activity-item">
-                            <div class="activity-item-inner">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal2">
-                                    <div class="img-wrap">
-                                        <img class="" src="images/activity-01.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
-                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                         <figure class="activity-item">
-                            <div class="activity-item-inner">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal2">
-                                    <div class="img-wrap">
-                                        <img class="" src="images/activity-01.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
-                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                         <figure class="activity-item">
-                            <div class="activity-item-inner">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal2">
-                                    <div class="img-wrap">
-                                        <img class="" src="images/activity-01.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
-                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
-
+                                        <button onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -205,21 +209,43 @@
                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
-                                <div class="activity-item-link"  data-toggle="modal" data-target="#exampleModal3">
+                                <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="images/activity-01.jpg">
+                                        <img class="" src="images/activity/activity-register.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <figcaption class="title language_replace">ゴールドヒット！</figcaption>
-                                            <div class="desc language_replace">オンラインカジノで遊ぶならKonibet!!!コニベ島の住民になるだけで、限定$20体験ボーナスをプレゼント！この機会に是非、Konibetに登録しましょう！</div>
+                                            <!-- <figcaption class="title language_replace">ゴールドヒット！</figcaption> -->
+                                            <div class="desc language_replace">
+                                                新しい友達大歓迎！新規登録の方にも、友達を招待した方にも、この狛犬大吉が歓迎ギフトマネーをプレゼントするぞ！
+                       
+                                            </div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"  onclick="GoActivityDetail()"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(2,'/Activity/Act002/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
                                     </div>
                                 </div>
                             </div>
                         </figure>
+                   <%--     <figure class="activity-item">
+                            <div class="activity-item-inner">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="images/activity/activity-BNG.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">ゴールドヒット！</figcaption> -->
+                                            <div class="desc language_replace"></div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button onclick="GoActivityDetail(4,'/Activity/Act004/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>--%>
+
                     </div>
                 </section>
 
@@ -230,13 +256,13 @@
     </main>
 
 
-    
+
     <!-- Modal -->
-    <div class="modal fade footer-center" id="exampleModa11" tabindex="-1" aria-hidden="true">
+    <div class="modal fade footer-center" id="ModalTest" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!-- <h5 class="modal-title"></h5>          -->
+                    <h5 class="modal-title">我是標題</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -244,63 +270,27 @@
                 <div class="modal-body">
                     <article class="activity-popup-detail-wrapper">
                         <div class="activity-popup-detail-inner">
-                            <div class="activity-popup-detail-img">
-                                <img src="images/activity-popup-b-01.jpg" class="desktop" alt="">
-                                <img src="images/activity-popup-b-m-01.jpg" class="mobile" alt="">
-                            </div>
-                            <div class="activity-popup-detail-content">
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">開催期間</span></h6>
-                                    <div class="section-content">
-                                        <p>2021年1月1日(土) 00：00 ～ 2021年1月3日(月) 23：59</p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">対象者</span></h6>
-                                    <div class="section-content">
-                                        <p>開催期間中にログインし、【リアルマネー】でプレイしたプレイヤー様 </p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">プロモーション内容</span></h6>
-                                    <div class="section-content">
-                                        <p>
-                                            開催期間中、1日の間にログインし、ゲームをリアルマネーでプレイしたプレイヤー様を12時間ごとにランダムで抽選し、$500のボーナスクーポンをお送りいたします。 ボーナスの進呈はインボックスでお知らせしますのでお見逃しなく！ ※ランダムでの進呈となりますので、ライブチャットへのお問い合わせはご遠慮ください。 ボーナスクーポンの賭け条件は5倍！スロットゲームでのみご使用いただけます(出金するために$2,500分のプレイが必要です）。 ボーナスクーポンの有効期限は配布から24時間です。 ボーナスクーポンを受け取ったプレイヤー様が受け取った旨をご自身のSNSにシェアし、そのスクリーンショットをカスタマサービスにご提出いただければ、追加の$500ボーナスクーポンをお送りいたします。 追加ボーナスも、賭け条件は5倍で、スロットゲームでのみご使用いただけます。有効期限は配布から24時間です。 翌日になると対象プレイヤーがまたリセットされるため、何度もボーナスを受け取れるチャンスがございます。3日間、12時間毎の抽選なので、3日連続でログインされたプレイヤー様は当たるチャンスがさらに高まります（1人当たりの最大当選回数は1日に1回となります） 
-                                        </p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">申請方法</span></h6>
-                                    <div class="section-content">
-                                        <p>
-                                            $500のボーナスクーポンはランダムで抽選されますので、申請する必要はございません。 追加の$500ボーナスクーポンは、SNSでシェアされたスクリーンショットをカスタマーサービスのライブチャットにご提出ください。 ※日時とユーザーネームが入ったスクリーンショットをお願い致します。※.LINE,Facebook,Twitter,Instagram（ストーリーを除く）でのご投稿をお願
-                                        </p>
-                                    </div>
-                                </section>
-                            </div>
-
                         </div>
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">參加活動</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade footer-center" id="exampleModal2" tabindex="-1" aria-hidden="true">
+    <!-- Modal - ModalDailylogin-->
+    <div class="modal fade footer-center" id="ModalDailylogin" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!-- <h5 class="modal-title"></h5>          -->
+                    <h5 class="modal-title">ゴールドヒット！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -308,63 +298,27 @@
                 <div class="modal-body">
                     <article class="activity-popup-detail-wrapper">
                         <div class="activity-popup-detail-inner">
-                            <div class="activity-popup-detail-img">
-                                <img src="images/activity-popup-b-01.jpg" class="desktop" alt="">
-                                <img src="images/activity-popup-b-m-01.jpg" class="mobile" alt="">
-                            </div>
-                            <div class="activity-popup-detail-content">
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">開催期間</span></h6>
-                                    <div class="section-content">
-                                        <p>2021年1月1日(土) 00：00 ～ 2021年1月3日(月) 23：59</p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">対象者</span></h6>
-                                    <div class="section-content">
-                                        <p>開催期間中にログインし、【リアルマネー】でプレイしたプレイヤー様 </p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">プロモーション内容</span></h6>
-                                    <div class="section-content">
-                                        <p>
-                                            開催期間中、1日の間にログインし、ゲームをリアルマネーでプレイしたプレイヤー様を12時間ごとにランダムで抽選し、$500のボーナスクーポンをお送りいたします。 ボーナスの進呈はインボックスでお知らせしますのでお見逃しなく！ ※ランダムでの進呈となりますので、ライブチャットへのお問い合わせはご遠慮ください。 ボーナスクーポンの賭け条件は5倍！スロットゲームでのみご使用いただけます(出金するために$2,500分のプレイが必要です）。 ボーナスクーポンの有効期限は配布から24時間です。 ボーナスクーポンを受け取ったプレイヤー様が受け取った旨をご自身のSNSにシェアし、そのスクリーンショットをカスタマサービスにご提出いただければ、追加の$500ボーナスクーポンをお送りいたします。 追加ボーナスも、賭け条件は5倍で、スロットゲームでのみご使用いただけます。有効期限は配布から24時間です。 翌日になると対象プレイヤーがまたリセットされるため、何度もボーナスを受け取れるチャンスがございます。3日間、12時間毎の抽選なので、3日連続でログインされたプレイヤー様は当たるチャンスがさらに高まります（1人当たりの最大当選回数は1日に1回となります） 
-                                        </p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">申請方法</span></h6>
-                                    <div class="section-content">
-                                        <p>
-                                            $500のボーナスクーポンはランダムで抽選されますので、申請する必要はございません。 追加の$500ボーナスクーポンは、SNSでシェアされたスクリーンショットをカスタマーサービスのライブチャットにご提出ください。 ※日時とユーザーネームが入ったスクリーンショットをお願い致します。※.LINE,Facebook,Twitter,Instagram（ストーリーを除く）でのご投稿をお願
-                                        </p>
-                                    </div>
-                                </section>
-                            </div>
-
                         </div>
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">參加活動</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade footer-center" id="exampleModal3" tabindex="-1" aria-hidden="true">
+    <!-- Modal - ModalDeposit-->
+    <div class="modal fade footer-center" id="ModalDeposit" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!-- <h5 class="modal-title"></h5>          -->
+                    <h5 class="modal-title">ゴールドヒット！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -372,52 +326,73 @@
                 <div class="modal-body">
                     <article class="activity-popup-detail-wrapper">
                         <div class="activity-popup-detail-inner">
-                            <div class="activity-popup-detail-img">
-                                <img src="images/activity-popup-b-01.jpg" class="desktop" alt="">
-                                <img src="images/activity-popup-b-m-01.jpg" class="mobile" alt="">
-                            </div>
-                            <div class="activity-popup-detail-content">
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">開催期間</span></h6>
-                                    <div class="section-content">
-                                        <p>2021年1月1日(土) 00：00 ～ 2021年1月3日(月) 23：59</p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">対象者</span></h6>
-                                    <div class="section-content">
-                                        <p>開催期間中にログインし、【リアルマネー】でプレイしたプレイヤー様 </p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">プロモーション内容</span></h6>
-                                    <div class="section-content">
-                                        <p>
-                                            開催期間中、1日の間にログインし、ゲームをリアルマネーでプレイしたプレイヤー様を12時間ごとにランダムで抽選し、$500のボーナスクーポンをお送りいたします。 ボーナスの進呈はインボックスでお知らせしますのでお見逃しなく！ ※ランダムでの進呈となりますので、ライブチャットへのお問い合わせはご遠慮ください。 ボーナスクーポンの賭け条件は5倍！スロットゲームでのみご使用いただけます(出金するために$2,500分のプレイが必要です）。 ボーナスクーポンの有効期限は配布から24時間です。 ボーナスクーポンを受け取ったプレイヤー様が受け取った旨をご自身のSNSにシェアし、そのスクリーンショットをカスタマサービスにご提出いただければ、追加の$500ボーナスクーポンをお送りいたします。 追加ボーナスも、賭け条件は5倍で、スロットゲームでのみご使用いただけます。有効期限は配布から24時間です。 翌日になると対象プレイヤーがまたリセットされるため、何度もボーナスを受け取れるチャンスがございます。3日間、12時間毎の抽選なので、3日連続でログインされたプレイヤー様は当たるチャンスがさらに高まります（1人当たりの最大当選回数は1日に1回となります） 
-                                        </p>
-                                    </div>
-                                </section>
-                                <section class="section-wrap">
-                                    <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">申請方法</span></h6>
-                                    <div class="section-content">
-                                        <p>
-                                            $500のボーナスクーポンはランダムで抽選されますので、申請する必要はございません。 追加の$500ボーナスクーポンは、SNSでシェアされたスクリーンショットをカスタマーサービスのライブチャットにご提出ください。 ※日時とユーザーネームが入ったスクリーンショットをお願い致します。※.LINE,Facebook,Twitter,Instagram（ストーリーを除く）でのご投稿をお願
-                                        </p>
-                                    </div>
-                                </section>
-                            </div>
-
                         </div>
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">參加活動</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - ModalDeposit-->
+    <div class="modal fade footer-center" id="ModalRegister" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ゴールドヒット！</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
+
+                    <!--獎勵可領取-->
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+
+                    <!--獎勵不可領取-->
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - ModalDeposit-->
+    <div class="modal fade footer-center" id="ModalBNG" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ゴールドヒット！</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
+
+                    <!--獎勵可領取-->
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+
+                    <!--獎勵不可領取-->
+                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
                 </div>
             </div>
         </div>

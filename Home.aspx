@@ -124,9 +124,9 @@
         //window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {                            
             if (p != null) {
+                window.parent.API_LoadingEnd();
                 if (GCB.FirstLoaded) {
                     updateGameList();
-                    window.parent.API_LoadingEnd();
                 }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
