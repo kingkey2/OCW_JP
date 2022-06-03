@@ -16,8 +16,8 @@
   ],
   "ParentBonusAfterDeposit": [
     {
-      "Name": "Act002",
-      "Path": "2022_6/Act002.json",
+      "Name": "Act005",
+      "Path": "2022_6/Act005.json",
       "MethodName": "OpenIntroBonusToParent",
       "InfoMethodName": "OpenIntroBonusToParent"
     }

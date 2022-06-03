@@ -122,35 +122,21 @@
             }
         }
 
-        p.GetLoginAccount(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o1) {
+        p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
             if (success) {
-                if (o1.Result == 0) {
-                    LoginAccount = o1.Message;
-                    p.CheckAccountExist(Math.uuid(), LoginAccount, function (success, o) {
-                        if (success) {
-                            if (o.Result != 0) {
-                                cb(true);
-                            } else {
-                                cb(false);
-                                window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
-                            }
-                        }
-
-                    });
+                if (o.Result != 0) {
+                    cb(true);
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
-
-                    });
                     cb(false);
+                    window.parent.showMessageOK("", mlp.getLanguageKey("信箱已存在"));
                 }
             }
+
         });
     }
 
     function CheckUserAccountExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
-
-        //idLoginAccount.setCustomValidity(mlp.getLanguageKey("請等待信箱檢查完畢"));
 
         if (idLoginAccount.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
@@ -161,8 +147,7 @@
                 return false;
             }
         }
-
-        return true
+        return true;
         //p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
         //    if (success) {
         //        if (o.Result != 0) {
@@ -340,43 +325,32 @@
                 { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
             ];
 
-            p.GetLoginAccount(Math.uuid(), PhonePrefix, PhoneNumber, function (success, o1) {
+            p.CreateAccount(Math.uuid(), document.getElementById("idLoginAccount").value, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
-                    if (o1.Result == 0) {
-                        LoginAccount = o1.Message;
-                        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
-                            if (success) {
-                                if (o.Result == 0) {
-                                    sendThanksMail();
-                                    //sendReceiveRegisterRewardMail();
-                                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
-                                        document.getElementById("idRegister").classList.add("is-hide");
-                                        document.getElementById("contentFinish").classList.remove("is-hide");
-                                    });
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                }
-                            } else {
-                                if (o == "Timeout") {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                }
-                            }
+                    if (o.Result == 0) {
+                        sendThanksMail();
+                        //sendReceiveRegisterRewardMail();
+                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
+                            document.getElementById("idRegister").classList.add("is-hide");
+                            document.getElementById("contentFinish").classList.remove("is-hide");
                         });
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        });
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        });
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
                             window.parent.API_LoadPage("Register", "Register.aspx")
                         });
                     }
                 }
-            })
+            });
         }
     }
 
