@@ -292,7 +292,6 @@ button, input {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 }
 
-/*Noto Sans TC FONT*/
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
 }
@@ -623,6 +622,7 @@ textarea:focus, input:focus, button:focus, select:focus {
   border-radius: 2px;
   margin: 0 0 0 5px;
 }
+
 .status-active,
 .status-deactive {
   display: inline-flex;
@@ -674,26 +674,6 @@ textarea:focus, input:focus, button:focus, select:focus {
 }
 .num-negative {
   color: #ff6060 !important;
-}
-
-.num-overUpline {
-  display: inline-flex;
-  align-items: center;
-}
-.num-overUpline:before {
-  content: "!";
-  display: inline-flex;
-  width: 0.875rem;
-  height: 0.875rem;
-  color: #ff8282;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  border: solid 1px #ff6060;
-  margin-right: 0.125rem;
-  font-size: 0.625rem;
-  font-weight: 500;
-  padding: 0.1875rem;
 }
 
 .WalletNotExist {
@@ -774,6 +754,14 @@ hr.line {
 .sec-title-container .btn-link {
   border-radius: 50px;
   background-color: #B4B4B4;
+}
+.sec-title-container .btn-link .icon-arrow-right-dot {
+  width: 70px;
+  height: 20px;
+  margin-left: 0.5rem;
+}
+.sec-title-container .sec_link .btn:hover {
+  background-color: #369AD6;
 }
 .sec-title-container .btn-activity {
   background: linear-gradient(89.85deg, #EB8E03 1.12%, #FFB103 99.86%);
@@ -914,6 +902,9 @@ hr.line {
   }
 }
 @media screen and (max-width: 640px) {
+  .sec-title {
+    margin-bottom: 0.6em;
+  }
   .sec-title-container {
     flex-flow: row wrap;
   }
@@ -923,6 +914,11 @@ hr.line {
   }
   .sec-title-container .sec-month .btn {
     flex: 1;
+  }
+  .sec-title-container .btn-link {
+    order: -1;
+    width: 100%;
+    margin-bottom: 1em;
   }
   .sec-title-wrapper {
     flex: 0 0 100%;
@@ -3445,8 +3441,7 @@ i {
   transition: transform 0.2s ease-in;
 }
 .MT__table:not(.table-RWD) .Tbody .tbody__tr:hover {
-  background-color: rgba(0, 0, 0, 0.55);
-  color: rgba(227, 195, 141, 0.9);
+  background-color: rgba(0, 0, 0, 0.15);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .MT__table:not(.table-RWD) .Tbody .tbody__td {
@@ -3633,8 +3628,7 @@ i {
     transition: transform 0.2s ease-in;
   }
   .MT__table.table-RWD .Tbody .tbody__tr:hover {
-    background-color: rgba(0, 0, 0, 0.55);
-    color: rgba(227, 195, 141, 0.9);
+    background-color: rgba(0, 0, 0, 0.15);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   }
   .MT__table.table-RWD .Tbody .tbody__td {

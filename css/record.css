@@ -51,35 +51,45 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .sec-record-payment .tab-record .tab-item:hover, .sec-record-payment .tab-record .tab-item.active {
-    color: #459E74;
+  color: #459E74;
 }
-
-.sec-record-payment .sec_link .date_text {
-    color: #459E74;
-}
-
- .sec-record-payment .tab-record .tab-item.active .title {
-    border-bottom: 2px #459E74 solid;
-}
-
 .sec-record-payment .sec_link .btn:hover, .sec-record-payment .sec_link .btn.active {
   background-color: #459E74;
 }
 
-.sec-record-games .tab-record .tab-item:hover, .sec-record-games .tab-record .tab-item.active{
-    color: #C89447;
+.sec-record-games .tab-record .tab-item:hover, .sec-record-games .tab-record .tab-item.active {
+  color: #C89447;
 }
-.sec-record-games .sec_link .date_text {
-    color: #C89447;
-}
-
 .sec-record-games .sec_link .btn:hover, .sec-record-games .sec_link .btn.active {
-    background-color: #C89447;
+  background-color: #C89447;
 }
 
-    .sec-record-games .sec_link .btn.active .title {
-        background-color: #C89447;
-    }
+.no-Data {
+  position: relative;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+}
+.no-Data .data {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
+  padding: 20px 0;
+}
+.no-Data .data .text {
+  font-size: 1.125rem;
+}
+.no-Data .data::before {
+  content: "";
+  display: flex;
+  width: 100%;
+  height: 100px;
+  background: url(../images/theme/blue/icon/icon-no-data.svg) center center no-repeat;
+  background-size: contain;
+  text-align: center;
+}
 
 .record-overview-wrapper {
   display: flex;
@@ -139,9 +149,39 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-bottom: 10px;
   font-size: 1.25rem;
 }
+.MT__table {
+  position: relative;
+}
 .MT__table .arrow {
   border-color: white;
   margin-left: 0.5rem;
+}
+.MT__table .no-Data {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100px;
+}
+.MT__table .no-Data .data {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
+  padding: 20px 0;
+}
+.MT__table .no-Data .data .text {
+  font-size: 1.125rem;
+}
+.MT__table .no-Data .data::before {
+  content: "";
+  display: flex;
+  width: 100%;
+  height: 100px;
+  background: url(../images/theme/blue/icon/icon-no-data.svg) center center no-repeat;
+  background-size: contain;
+  text-align: center;
 }
 
 .table-payment .Thead .thead__th {
@@ -341,6 +381,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .record-table.games-record .record-table-item .number {
   display: block;
+  font-weight: 500;
 }
 .record-table.games-record .record-table-tab {
   border: solid 1px rgba(0, 0, 0, 0.1);
@@ -416,6 +457,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .record-table.games-record .record-table-drop-panel .record-drop-item-rewardValue {
   flex: 0 0 100px;
+  align-items: center;
+  display: inline-flex;
+  justify-content: flex-end;
 }
 .record-table.games-record .record-table-drop-panel .record-drop-item-img {
   order: -2;
@@ -497,6 +541,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .record-overview-box {
     width: 49%;
   }
+
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue {
+    flex: 0 0 120px;
+  }
 }
 @media (min-width: 936px) {
   .section-record-payment .table-desktop {
@@ -540,11 +588,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     padding-right: 10px;
   }
   .record-table.games-record .record-table-drop-panel {
-    padding-left: 100px;
+    padding-left: 70px;
     padding-right: 50px;
   }
   .record-table.games-record .record-table-drop-panel .record-drop-item.header {
     display: none;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-rewardValue {
+    flex: 0 0 150px;
   }
   .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper {
     justify-content: flex-end;
