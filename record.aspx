@@ -895,7 +895,7 @@
                                 </div>
                             </div>
                             <!-- tbody -->
-                            <div class="Tbody" id="divPayment" style="display:none">
+                            <div class="Tbody" id="divPayment">
                                 <%--<div style="display:none"></div>--%>
                                 <!-- 無資料 ========================= -->
                                 <%--<div class="no-Data" id="idNoPaymentData" style="display:none">

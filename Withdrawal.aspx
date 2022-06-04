@@ -2,7 +2,7 @@
 
 <%
     string Version = EWinWeb.Version;
-    string InOpenTime = EWinWeb.CheckInWithdrawalTime() ? "Y":"N";
+    string InOpenTime = EWinWeb.CheckInWithdrawalTime() ? "Y" : "N";
     string IsWithdrawlTemporaryMaintenance = EWinWeb.IsWithdrawlTemporaryMaintenance() ? "Y" : "N";
 %>
 <!DOCTYPE html>
@@ -18,7 +18,19 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
     <link rel="stylesheet" href="css/main.css" />
-
+       <style>
+        .tempCard {
+        cursor:pointer;
+        }
+        .comingSoon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 99999;
+            height: calc(100% - 20px);
+            width: calc(100% - 20px);
+        }
+    </style>
 </head>
 
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
@@ -62,7 +74,7 @@
         }, "PaymentAPI");
     }
 
-     function API_showMessageOK(title, message, cbOK) {
+    function API_showMessageOK(title, message, cbOK) {
         if ($("#alertContact").attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("alertContact");
             var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
@@ -73,7 +85,7 @@
             if (messageModal == null) {
                 messageModal = new bootstrap.Modal(divMessageBox);
             }
-           
+
             if (divMessageBox != null) {
                 messageModal.show();
 
@@ -114,6 +126,10 @@
                 });
                 break;
         }
+    }
+
+    function TempAlert() {
+        window.parent.API_ShowMessageOK("", mlp.getLanguageKey("近期開放"));
     }
 
     window.onload = init;
@@ -203,7 +219,22 @@
                             <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
                         </a>
                     </div>
-
+                    <!-- EPay -->
+                    <div class="card-item sd-04 tempCard" onclick="TempAlert()">
+                        <a class="card-item-link ">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">Maharaja</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center">
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                </div>
+                            </div>
+                        </a>
+                           <img class="comingSoon" src="../images/assets/card-surface/cs.png">
+                    </div>
                 </div>
                 <!-- 出款紀錄 -->
                 <div class="notice-container mt-5">

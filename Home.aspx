@@ -41,6 +41,18 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script src="Scripts/lozad.min.js"></script>
+    <style>
+        .hero-item-href {
+            position: absolute;
+            margin: auto;
+            height: 60%;
+            width: 50%;
+            top: 5%;
+            left: 25%;
+            cursor: pointer;
+            z-index:99999;
+        }
+    </style>
 </head>
 <script type="text/javascript">
     if (self != top) {
@@ -122,7 +134,7 @@
         mlp = new multiLanguage(v);
         //HotList = window.parent.API_GetGameList(1);
         //window.parent.API_LoadingStart();
-        mlp.loadLanguage(lang, function () {                            
+        mlp.loadLanguage(lang, function () {
             if (p != null) {
                 window.parent.API_LoadingEnd();
                 if (GCB.FirstLoaded) {
@@ -141,14 +153,14 @@
     }
 
     function refreshFavoGame() {
-    
+
         FavoGames = window.parent.API_GetFavoGames();
         var idFavoGameItemGroup = document.getElementById('idFavoGameItemGroup');
         if (idFavoGameItemGroup) {
             $(idFavoGameItemGroup).find('.GameItemGroupContent').empty();
             if (FavoGames) {
                 if (FavoGames && FavoGames.length > 0) {
-                    $('#idFavoGameItemGroup').parent().parent().removeClass('is-hide'); 
+                    $('#idFavoGameItemGroup').parent().parent().removeClass('is-hide');
                 } else {
                     $('#idFavoGameItemGroup').parent().parent().addClass('is-hide');
                 }
@@ -259,7 +271,7 @@
 
                     category.Datas.forEach(gameItem => {
                         var GI;
-                     
+
                         if (category.ShowType == 0) {
                             GI = c.getTemplate("temGameItem");
                             $(GI).addClass('gameid_' + gameItem.GameID);
@@ -267,7 +279,7 @@
                             var GI_Favor = GI.querySelector(".btn-like");
 
                             if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
-                                $(GI_Favor).addClass("added");         
+                                $(GI_Favor).addClass("added");
                             }
 
                             GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
@@ -369,11 +381,11 @@
                 if (gameItem) {
                     var GI;
                     GI = c.getTemplate("temGameItem");
-                    $(GI).addClass('gameid_'+ gameItem.GameID);
+                    $(GI).addClass('gameid_' + gameItem.GameID);
                     var GI_a = GI.querySelector(".btn-play");
                     var GI_Favor = GI.querySelector(".btn-like");
                     GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
-                    
+
                     if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
                         $(GI_Favor).addClass("added");
                     }
@@ -486,7 +498,7 @@
 
                 mlp.loadLanguage(lang, function () {
                     //updateBaseInfo();
-                window.parent.API_LoadingEnd(1);
+                    window.parent.API_LoadingEnd(1);
                 });
 
                 break;
@@ -519,6 +531,18 @@
         return "";
     }
 
+    function ComingSoonAlert() {
+        window.parent.API_ShowMessageOK("", mlp.getLanguageKey("近期開放"));
+    }
+
+    function ActLogin() {
+        if (WebInfo.UserLogined) {
+            window.parent.API_LoadPage('', 'Deposit.aspx', true)
+        } else {
+            window.parent.API_LoadPage('', 'Login.aspx', true)
+        }
+    }
+
     window.onload = init;
 
 </script>
@@ -527,47 +551,65 @@
         <section class="section-wrap hero">
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
-                     
-            <div class="swiper-slide">
-                <div class="hero-item">               
-                    <a class="hero-item-link" href="#"></a>
-                    <div class="hero-item-box mobile">
-                      <img src="images/banner/b1-m.jpg" alt="">
-                    </div>
-                    <div class="hero-item-box desktop">
-                      <div class="img-wrap">   
-                          <img src="images/banner/b1.jpg" class="bg">             
-                        </div>
-                    </div>                                    
-                </div>
+                    <!-- <div class="swiper-slide">              
+              <div class="hero-item">
+                  <a class="hero-item-link" href="#"></a>
+                  <div class="hero-item-box mobile">
+                    <img src="images/banner/b1-mobile.jpg" alt="">
+                  </div>
+                  <div class="hero-item-box desktop">
+                    <div class="img-wrap">
+                        <img src="images/banner/b1.png" class="bg"> 
+                        <div class="anim container">
+                          <div class="role role-R"><img src="images/banner/girl.png" alt=""></div>
+                          <div class="role role-L"><img src="images/banner/dog.png" alt=""></div>                    
+                        </div>  
+                      </div>
+                  </div>
               </div>
-              <div class="swiper-slide">
-                <div class="hero-item">               
-                    <a class="hero-item-link" href="#"></a>
-                    <div class="hero-item-box mobile">
-                      <img src="images/banner/b2-m.jpg" alt="">
-                    </div>
-                    <div class="hero-item-box desktop">
-                      <div class="img-wrap">   
-                          <img src="images/banner/b2.jpg" class="bg">             
+            </div> -->
+                    <div class="swiper-slide">
+                        <div class="hero-item" >
+                            <a class="hero-item-link hero-item-href" onclick="ComingSoonAlert()"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/banner/b1-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/banner/b1.jpg" class="bg">
+                                </div>
+                            </div>
                         </div>
-                    </div>                                    
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="hero-item">               
-                    <a class="hero-item-link" href="#"></a>
-                    <div class="hero-item-box mobile">
-                      <img src="images/banner/b3-m.jpg" alt="">
                     </div>
-                    <div class="hero-item-box desktop">
-                      <div class="img-wrap">   
-                          <img src="images/banner/b3.jpg" class="bg">             
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href"  onclick="window.parent.API_LoadPage('', 'Deposit.aspx', true)"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/banner/b2-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/banner/b2.jpg" class="bg">
+                                </div>
+                            </div>
                         </div>
-                    </div>                                    
-                </div>
-              </div>                   
-                <div class="swiper-mask"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href" onclick="ComingSoonAlert()"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/banner/b3-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/banner/b3.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-mask"></div>
                 </div>
 
                 <div class="container">
