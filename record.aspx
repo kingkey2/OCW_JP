@@ -89,6 +89,7 @@
     function updateGameHistory(startDate, endDate) {
         var ParentMain = document.getElementById("divGame");
         ParentMain.innerHTML = "";
+        document.getElementById("idNoGameData").style.display = "none";
         document.getElementById("idSearchDate_G").innerText = new Date(endDate).toString("yyyy/MM");
         LobbyClient.GetGameOrderSummaryHistoryGroupGameCode(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
@@ -145,11 +146,12 @@
                         window.parent.API_CloseLoading();
 
                     } else {
-
+                        document.getElementById("idNoGameData").style.display = "block";
                         window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                         window.parent.API_CloseLoading();
                     }
                 } else {
+                    document.getElementById("idNoGameData").style.display = "block";
                     window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
                     window.parent.API_CloseLoading();
                 }
@@ -275,6 +277,8 @@
         var ParentMain_M = document.getElementById("divPayment_M");
         ParentMain.innerHTML = "";
         ParentMain_M.innerHTML = "";
+        document.getElementById("idNoPaymentData").style.display = "none";
+        document.getElementById("idNoPaymentData_M").style.display = "none";
         document.getElementById("idSearchDate_P").innerText = new Date(endDate).toString("yyyy/MM");
         p.GetClosePayment(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
@@ -386,10 +390,22 @@
 
                         window.parent.API_CloseLoading();
                     } else {
+                        if (WebInfo.DeviceType == 1) {
+                            document.getElementById("idNoPaymentData_M").style.display = "block";
+                        } else {
+                            document.getElementById("idNoPaymentData").style.display = "block";
+                        }
+                     
+                       
                         window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                         window.parent.API_CloseLoading();
                     }
                 } else {
+                    if (WebInfo.DeviceType == 1) {
+                        document.getElementById("idNoPaymentData_M").style.display = "block";
+                    } else {
+                        document.getElementById("idNoPaymentData").style.display = "block";
+                    }
                     window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                     window.parent.API_CloseLoading();
                 }
@@ -624,7 +640,12 @@
                                                 </div>
 
                                             </div>
-
+                                            <!-- 無資料 ========================= -->
+                                            <%--                                        <div class="no-Data" id="idNoData_P">
+                                                <div class="data">
+                                                    <span class="text language_replace">無資料</span>
+                                                </div>
+                                            </div>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -660,7 +681,7 @@
                                                         <span class="title language_replace">ベット</span>
                                                     </span>
                                                     <span class="td__content">
-                                                        <span class="deposit-amount amount" id ="Game_O_0">0</span>
+                                                        <span class="deposit-amount amount" id="Game_O_0">0</span>
                                                     </span>
                                                 </div>
                                                 <div class="tbody__td">
@@ -668,7 +689,7 @@
                                                         <span class="title language_replace">ベット</span>
                                                     </span>
                                                     <span class="td__content">
-                                                        <span class="deposit-amount amount" id ="Game_O_1">0</span>
+                                                        <span class="deposit-amount amount" id="Game_O_1">0</span>
                                                     </span>
                                                 </div>
 
@@ -679,7 +700,7 @@
                                                         <span class="title language_replace">勝/負</span>
                                                     </span>
                                                     <span class="td__content">
-                                                        <span class="withdraw-amount amount" id ="Game_R_0">0</span>
+                                                        <span class="withdraw-amount amount" id="Game_R_0">0</span>
                                                     </span>
                                                 </div>
                                                 <div class="tbody__td">
@@ -687,12 +708,17 @@
                                                         <span class="title language_replace">勝/負</span>
                                                     </span>
                                                     <span class="td__content">
-                                                        <span class="withdraw-amount amount" id ="Game_R_1">0</span>
+                                                        <span class="withdraw-amount amount" id="Game_R_1">0</span>
                                                     </span>
                                                 </div>
 
                                             </div>
-
+                                            <!-- 無資料 ========================= -->
+                                            <%--                                            <div class="no-Data" id="idNoData_G">
+                                                <div class="data">
+                                                    <span class="text language_replace">無資料</span>
+                                                </div>
+                                            </div>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -733,7 +759,7 @@
                                             </li>
                                             <li class="tab-item" onclick="showRecord(1)">
                                                 <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲紀錄</span></span>
-                                                 </span>
+                                                </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -757,13 +783,25 @@
                                 </div>
                             </div>
                             <!-- tbody -->
-                            <div class="Tbody" id="divPayment">
+                            <div class="Tbody">
+                                <div id="divPayment"></div>
+                                <!-- 無資料 ========================= -->
+                                <div class="no-Data" id="idNoPaymentData">
+                                    <div class="data">
+                                        <span class="text language_replace">無資料</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- TABLE for Mobile -->
                         <div class="record-table-container table-mobile">
                             <div class="record-table payment-record">
                                 <div id="divPayment_M">
+                                </div>
+                                <div class="no-Data" id="idNoPaymentData_M">
+                                    <div class="data">
+                                        <span class="text language_replace">無資料</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -826,6 +864,11 @@
                                 </div>
 
                                 <div id="divGame">
+                                </div>
+                                 <div class="no-Data" id="idNoGameData">
+                                    <div class="data">
+                                        <span class="text language_replace">無資料</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
