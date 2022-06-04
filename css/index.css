@@ -39,8 +39,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   right: 0;
   bottom: 0;
   left: 0;
-  object-fit: cover;
-  object-position: center top;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center top;
+     object-position: center top;
   width: 100%;
   height: 100%;
 }
@@ -100,7 +102,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-size: cover;
 }
 .hero_slider .swiper-slide-active .role.role-L {
-  animation: anim-role_left 3.5s linear 1s 1 normal both;
+  -webkit-animation: anim-role_left 3.5s linear 1s 1 normal both;
+          animation: anim-role_left 3.5s linear 1s 1 normal both;
 }
 .hero_slider .swiper-slide-active .role.role-L img {
   position: absolute;
@@ -119,8 +122,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   opacity: 1;
   background-color: #fff;
   border: solid 3px #008fd0;
+  -webkit-transition: all 0.3s ease-in;
   transition: all 0.3s ease-in;
-  transform: scale(1);
+  -webkit-transform: scale(1);
+          transform: scale(1);
   overflow: hidden;
   position: relative;
 }
@@ -140,8 +145,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   bottom: -8px;
 }
 .hero_slider .swiper-pagination-bullet-active {
-  transform: scale(1.35);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-transform: scale(1.35);
+          transform: scale(1.35);
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .section_publicize img {
@@ -151,30 +158,49 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-bottom: 0.625rem;
 }
 .section_publicize .publicize_top_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .section_publicize .publicize_top_inner .item {
-  flex: 0 0 100%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
 }
 .section_publicize .publicize_bottom {
   margin-bottom: 40px;
 }
 .section_publicize .publicize_bottom_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .section_publicize .publicize_bottom_inner .publicize-wrap {
-  flex: 0 0 100%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
 }
 .section_publicize .publicize_bottom_inner .bulletin {
   display: none;
   margin-bottom: 10px;
 }
 .section_publicize .publicize_bottom_inner .bulletin_inner {
-  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
   padding: 15px 15px;
   border-radius: 8px;
   margin-top: 20px;
@@ -186,12 +212,18 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: bold;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin-bottom: 0.8rem;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item:before {
   content: "";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   width: 3px;
   height: 1rem;
@@ -208,18 +240,22 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-bottom: 1rem;
   text-align: center;
   overflow: hidden;
+  position: relative;
 }
 
 .dailylogin-bouns-wrapper {
   margin-top: 35px;
 }
 .dailylogin-bouns-inner {
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFFAC3), to(#FFDFD2));
   background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
   border-radius: 20px 20px 0 0;
   height: 80px;
 }
 .dailylogin-bouns-content {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 100%;
   bottom: 10px;
@@ -230,6 +266,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .dailylogin-bouns-content .title:before {
   content: "";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   width: 160px;
   height: 100px;
@@ -255,15 +293,24 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .dailylogin-bouns-list {
   position: relative;
   z-index: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: absolute;
   width: calc(100% - 150px);
   right: 0;
 }
 .dailylogin-bouns-list:after {
   content: "";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   width: calc(100% + 10px);
   height: 10px;
@@ -275,16 +322,27 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   border-radius: 5px 0 0 5px;
 }
 .dailylogin-bouns-list .bouns-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: relative;
   width: 14.2857142857%;
   z-index: 1;
 }
 .dailylogin-bouns-list .bouns-item:before {
   content: "";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   width: 100%;
   height: 90px;
@@ -302,6 +360,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   bottom: 0;
   left: 0;
   right: 0;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   width: 100%;
   height: 90px;
@@ -371,7 +431,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .dailylogin-bouns-list .bouns-item .day {
   position: relative;
-  order: -1;
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
   width: 80%;
   max-width: 54px;
   margin: 0 auto 3px;
@@ -427,20 +489,32 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .section_publicize .publicize_top_inner .item {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
   }
   .section_publicize .publicize_top_inner .item.writer {
     padding-right: 1.3rem;
   }
   .section_publicize .publicize_bottom_inner .way_payment {
-    flex: 0 0 auto;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
     padding-right: 1.3rem;
   }
   .section_publicize .publicize_bottom_inner .bulletin-login {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: row wrap;
-    align-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -ms-flex-line-pack: justify;
+        align-content: space-between;
   }
   .section_publicize .publicize_bottom_inner .bulletin {
     display: inherit;

@@ -589,11 +589,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
                     <div class="swiper-mask"></div>
                    </div>
-
                 <div class="container">
                     <div class="swiper-pagination"></div>
                 </div>
@@ -630,7 +628,7 @@
                             </div>
                             <div class="item login">
                                 <!-- 會員簽到進度顯示 -->
-                                <div class="activity-dailylogin-wrapper">
+                                <div class="activity-dailylogin-wrapper coming-soon">
                                     <div class="dailylogin-bouns-wrapper">
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
