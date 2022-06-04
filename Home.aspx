@@ -84,8 +84,9 @@
             effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
             autoplay: {
-                delay: 5000,
+                delay: 10000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true
             },
             pagination: {
                 el: ".swiper-pagination",
@@ -535,14 +536,6 @@
         window.parent.API_ShowMessageOK("", mlp.getLanguageKey("近期開放"));
     }
 
-    function ActLogin() {
-        if (WebInfo.UserLogined) {
-            window.parent.API_LoadPage('', 'Deposit.aspx', true)
-        } else {
-            window.parent.API_LoadPage('', 'Login.aspx', true)
-        }
-    }
-
     window.onload = init;
 
 </script>
@@ -570,7 +563,7 @@
             </div> -->
                     <div class="swiper-slide">
                         <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" onclick="ComingSoonAlert()"></a>
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('', 'Deposit.aspx', true)"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -633,7 +626,7 @@
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
                         <div class="publicize-wrap way_payment">
-                            <div class="item payment">
+                            <div class="item payment" style="cursor:pointer" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
                                 <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
                                 <img src="images/index/way-payment.png" class="desktop" alt="">
                             </div>
