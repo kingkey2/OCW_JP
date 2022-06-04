@@ -1763,76 +1763,83 @@
     </div>
     <!-- footer -->
     <div id="footer" style="display: none">
-        <footer class="footer">
-            <div class="footer_inner">
+        <footer class="footer-container">            
+            <div class="footer-inner">
                 <div class="container">
-                    <div class="row content">
-                        <div class="footer_provider col-12 col-md-6">
-                            <ul class="row ">
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-PG.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-CG.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-PP.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-BG.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-VA.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-BNG.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-pagcor.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-Bti.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-zeus.png" alt="">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="footer_company col-12 col-md-6">
-                            <ul class="company-info row">
-                                <li class="info-item col">
-                                    <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
-                                </li>
-                                <li class="info-item col">
-                                    <a onclick="window.parent.API_ShowContactUs()">
-                                        <span class="language_replace">聯絡客服</span>
-                                    </a>
-                                </li>
-                                <li class="info-item col">
-                                    <a id="Footer_Rules" onclick="window.parent.API_ShowPartialHtml('', 'Rules', true, null)">
-                                        <span class="language_replace">利用規約</span>
-                                    </a>
-                                </li>
-                                <li class="info-item col">
-                                    <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
-                                        <span class="language_replace">隱私權政策</span>
-                                    </a>
-                                </li>
-                                <li class="info-item col" id="li_HotArticle">
-                                    <a onclick="openHotArticle()">
-                                        <span class="language_replace">熱門文章</span>
-                                    </a>
-                                </li>
-                            </ul>
+                    <div class="partner">
+                        <div class="logo">
+                            <div class="row">
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-PG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-CG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-PP.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-BG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-VA.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-BNG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-pagcor.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-12 copy_right ">
-                    <div class="container">
-                        <p class="text">Copyright © 2022 マハラジャ. All Rights Reserved.</p>
+                    <ul class="company-info row">
+                        <li class="info-item col">
+                            <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
+                        </li>
+                        <li class="info-item col">
+                            <a onclick="window.parent.API_ShowContactUs()">
+                                <span class="language_replace">聯絡客服</span>
+                            </a>
+                        </li>
+                        <li class="info-item col">
+                            <a id="Footer_Rules" onclick="window.parent.API_ShowPartialHtml('', 'Rules', true, null)">
+                                <span class="language_replace">利用規約</span>
+                            </a>
+                        </li>
+                        <li class="info-item col">
+                            <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
+                                <span class="language_replace">隱私權政策</span>
+                            </a>
+                        </li>
+                        <li class="info-item col" id="li_HotArticle">
+                            <a onclick="openHotArticle()">
+                                <span class="language_replace">熱門文章</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="company-address">
+                        <p class="name">The Orange Crest Limited</p>
+                        <p class="address">Sino Centre, 582-592 Nathan Rd., Mongkok, Kowloon, Hong Kong.</p>
                     </div>
-                </div>
+                    <div class="footer-copyright">
+                        <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
+                    </div>
+                </div>                
             </div>
         </footer>
     </div>
