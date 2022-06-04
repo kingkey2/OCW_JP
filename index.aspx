@@ -1629,12 +1629,12 @@
                                     <li class="nav-item submenu dropdown"
                                         onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-prize"></i>
+                                            <i class="icon icon-mask icon-deposit"></i>
                                             <span class="title language_replace">存款</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-prize"></i>
+                                            <i class="icon icon-mask icon-withdarw"></i>
                                             <span class="title language_replace">出款</span></a>
                                     </li>
                                 </ul>
@@ -1720,10 +1720,10 @@
                                                 <!--下拉 dropdown-menu 選單 -->
                                                 <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Member">
                                                     <li class="nav-item" onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
-                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">入金</span></a>
+                                                        <a class="nav-link"><i class="icon icon-mask icon-deposit"></i><span class="language_replace">入金</span></a>
                                                     </li>
                                                     <li class="nav-item" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
-                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">出金</span></a>
+                                                        <a class="nav-link"><i class="icon icon-mask icon-withdarw"></i><span class="language_replace">出金</span></a>
                                                     </li>
                                                     <li class="nav-item" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
                                                         <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">會員設定</span></a>

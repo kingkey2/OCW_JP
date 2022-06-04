@@ -3209,6 +3209,14 @@ main.innerMain.fixed {
   -webkit-mask-image: url(../images/icon/ico-exclamation.svg);
   mask-image: url(../images/icon/ico-exclamation.svg);
 }
+.icon-mask.icon-deposit::before {
+  -webkit-mask-image: url(../images/icon/ico-deposit.svg);
+  mask-image: url(../images/icon/ico-deposit.svg);
+}
+.icon-mask.icon-withdarw::before {
+  -webkit-mask-image: url(../images/icon/ico-withdarw.svg);
+  mask-image: url(../images/icon/ico-withdarw.svg);
+}
 .icon-mask.icon-user::before {
   -webkit-mask-image: url(../images/theme/dark/icon/icon-ewin-user.svg);
   mask-image: url(../images/theme/dark/icon/icon-ewin-user.svg);
