@@ -119,6 +119,13 @@
                                 var summaryDateDom = nowJQ.parents(".record-table-item").get(0);
                                 var queryDate = summaryDateDom.dataset.queryDate;
 
+                                if (summaryDateDom.classList.contains("show")) {
+                                    summaryDateDom.classList.remove("show");
+                                } else {
+                                    summaryDateDom.classList.add("show");                              
+                                }
+
+
                                 //Loading => 不重複點擊
                                 //Loaded => 只做切換，不重新撈取數據
                                 if (!summaryDateDom.classList.contains("Loading")) {
@@ -371,9 +378,15 @@
                                 var toggle = RecordDom_M.querySelector(".btn-toggle");
                                 RecordDom_M.onclick = (function () {
                                     var nowJQ = $(this);
-
+                                    var parentTarget = nowJQ.parents('.record-table-item');
                                     nowJQ.toggleClass('cur');
-                                    nowJQ.parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
+                                    parentTarget.find('.record-table-drop-panel').slideToggle();
+
+                                    if (parentTarget.hasClass("show")) {
+                                        parentTarget.removeClass("show");
+                                    } else {
+                                        parentTarget.addClass("show");
+                                    }
                                 }).bind(toggle);
 
                                 $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
