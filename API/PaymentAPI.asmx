@@ -1905,6 +1905,57 @@ public class PaymentAPI : System.Web.Services.WebService
         return R;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public PaymentCommonListResult GetPaymentHistory(string WebSID, string GUID, DateTime StartDate, DateTime EndDate) {
+        PaymentCommonListResult R = new PaymentCommonListResult() { Result = enumResult.ERR };
+        EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            R.Datas = new List<PaymentCommonData>();
+            R.NotFinishDatas = new List<PaymentCommonData>();
+            R.Result = enumResult.OK;
+
+            for (int i = 0; i <= EndDate.Subtract(StartDate).TotalDays; i++) {
+                var QueryDate = StartDate.AddDays(i);
+                string Content = string.Empty;
+                Content = ReportSystem.UserAccountPayment.GetUserAccountPayment(QueryDate, SI.LoginAccount);
+
+                foreach (string EachString in Content.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)) {
+                    PaymentCommonData data = null;
+                    try { data = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentCommonData>(EachString); } catch (Exception ex) { }
+                    if (data != null) {
+                        R.Datas.Add(data);
+                    }
+                }
+            }
+
+            DT = EWinWebDB.UserAccountPayment.GetPaymentByNonFinishedByLoginAccount(SI.LoginAccount);
+
+            if (DT != null && DT.Rows.Count > 0) {
+                for (int i = 0; i < DT.Rows.Count; i++) {
+                    var Row = DT.Rows[i];
+                    PaymentCommonData data = CovertFromRow(Row);
+
+                    R.NotFinishDatas.Add(data);
+                }
+            }
+
+            if (R.Datas.Count > 0 ||  R.NotFinishDatas.Count > 0) {
+                R.Result = enumResult.OK;
+            } else {
+                SetResultException(R, "NoData");
+            }
+        } else {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -2368,6 +2419,7 @@ public class PaymentAPI : System.Web.Services.WebService
     public class PaymentCommonListResult : APIResult
     {
         public List<PaymentCommonData> Datas { get; set; }
+        public List<PaymentCommonData> NotFinishDatas { get; set; }
     }
 
     public class PaymentCommonData

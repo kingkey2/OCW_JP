@@ -45,6 +45,29 @@
         });
     };
 
+    this.GetPaymentHistory = function (WebSID, GUID, startDate, endDate, cb) {
+        var url = APIUrl + "/GetPaymentHistory";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            StartDate: startDate,
+            EndDate: endDate
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
 
     this.GetPaymentMethodByCategory = function (WebSID, GUID, PaymentCategoryCode, PaymentType, cb) {
         var url = APIUrl + "/GetPaymentMethodByCategory";

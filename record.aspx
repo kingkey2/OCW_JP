@@ -284,17 +284,109 @@
         var ParentMain_M = document.getElementById("divPayment_M");
         ParentMain.innerHTML = "";
         ParentMain_M.innerHTML = "";
-        document.getElementById("idNoPaymentData").style.display = "none";
-        document.getElementById("idNoPaymentData_M").style.display = "none";
         document.getElementById("idSearchDate_P").innerText = new Date(endDate).toString("yyyy/MM");
-        p.GetClosePayment(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
+
+        p.GetPaymentHistory(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    if (o.Datas.length > 0) {
-                        var RecordDom;
-                        var RecordDom_M;
-                        let Amount;
+                    var RecordDom;
+                    var RecordDom_M;
+                    let Amount;
 
+                    if (o.NotFinishDatas.length > 0) {
+                        for (var j = 0; j < o.NotFinishDatas.length; j++) {
+                            var record = o.NotFinishDatas[j];
+                            if (record.PaymentType == 0) {
+                                RecordDom = c.getTemplate("tmpPayment_D");
+                                RecordDom_M = c.getTemplate("tmpPayment_M_D");
+                            } else {
+                                RecordDom = c.getTemplate("tmpPayment_W");
+                                RecordDom_M = c.getTemplate("tmpPayment_M_W");
+                            }
+
+                            var paymentRecordText;
+                            var BasicType;
+
+                            paymentRecordStatus = 0;
+                            paymentRecordText = mlp.getLanguageKey('進行中');
+                            $(RecordDom_M).find('.processing').show();
+
+                            // 0=一般/1=銀行卡/2=區塊鏈
+                            switch (record.BasicType) {
+                                case 0:
+                                    BasicType = mlp.getLanguageKey('一般');
+                                    break;
+                                case 1:
+                                    BasicType = mlp.getLanguageKey('銀行卡');
+                                    break;
+                                case 2:
+                                    BasicType = mlp.getLanguageKey('區塊鏈');
+                                    break;
+                                default:
+                            }
+
+                            if (record.PaymentType == 0) {
+                                Amount = record.Amount;
+                            } else {
+                                Amount = record.Amount * -1;
+                            }
+
+                            //金額處理
+                            var countDom = RecordDom.querySelector(".amount");
+                            var countDom_M = RecordDom_M.querySelector(".amount");
+                            if (Amount >= 0) {
+                                countDom.classList.add("positive");
+                                countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFormat();
+
+                                countDom_M.classList.add("positive");
+                                countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFormat();
+                            } else {
+                                countDom.classList.add("negative");
+                                countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFormat();
+
+                                countDom_M.classList.add("negative");
+                                countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFormat();
+                            }
+
+                            c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
+                            c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                            c.setClassText(RecordDom, "BasicType", null, BasicType);
+                            c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
+
+                            c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
+                            c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                            c.setClassText(RecordDom_M, "BasicType", null, BasicType);
+                            c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
+
+                            let paymentSerial = record.PaymentSerial;
+                            let paymentType = record.PaymentType;
+                            var toggle = RecordDom_M.querySelector(".btn-toggle");
+
+                            RecordDom_M.onclick = (function () {
+                                if (paymentType == 0) {
+                                    window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + paymentSerial, true);
+                                } else {
+                                    window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + paymentSerial, true);
+                                }
+                            }).bind(toggle);
+
+                            RecordDom.onclick = (function () {
+                                if (paymentType == 0) {
+                                    window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + paymentSerial, true);
+                                } else {
+                                    window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + paymentSerial, true);
+                                }
+                            })
+
+                            $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
+                            $(RecordDom_M).find('.inputPaymentSerial').val(record.PaymentSerial);
+
+                            ParentMain.appendChild(RecordDom);
+                            ParentMain_M.appendChild(RecordDom_M);
+                        }
+                    }
+
+                    if (o.Datas.length > 0) {
                         for (var i = 0; i < o.Datas.length; i++) {
                             var record = o.Datas[i];
                             if (record.PaymentType == 0) {
@@ -400,24 +492,31 @@
                                 }
                             }
                         }
+                    } 
+                    
+                    if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
+                        if (WebInfo.DeviceType == 1) {
+                            $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
+                        } else {
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
+                        }
 
+                        window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                         window.parent.API_CloseLoading();
                     } else {
                         if (WebInfo.DeviceType == 1) {
-                            document.getElementById("idNoPaymentData_M").style.display = "block";
+                            $("#divPayment_M").show();
                         } else {
-                            document.getElementById("idNoPaymentData").style.display = "block";
+                            $("#divPayment").show();
                         }
-                     
-                       
-                        window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                        window.parent.API_CloseLoading();
                     }
+
+                    window.parent.API_CloseLoading();
                 } else {
                     if (WebInfo.DeviceType == 1) {
-                        document.getElementById("idNoPaymentData_M").style.display = "block";
+                        $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
                     } else {
-                        document.getElementById("idNoPaymentData").style.display = "block";
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
                     }
                     window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                     window.parent.API_CloseLoading();
@@ -796,26 +895,26 @@
                                 </div>
                             </div>
                             <!-- tbody -->
-                            <div class="Tbody">
-                                <div id="divPayment"></div>
+                            <div class="Tbody" id="divPayment" style="display:none">
+                                <%--<div style="display:none"></div>--%>
                                 <!-- 無資料 ========================= -->
-                                <div class="no-Data" id="idNoPaymentData">
+                                <%--<div class="no-Data" id="idNoPaymentData" style="display:none">
                                     <div class="data">
                                         <span class="text language_replace">無資料</span>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                         <!-- TABLE for Mobile -->
                         <div class="record-table-container table-mobile">
-                            <div class="record-table payment-record">
-                                <div id="divPayment_M">
+                            <div class="record-table payment-record" id="divPayment_M" style="display:none">
+                                <%--<div style="display:none">
                                 </div>
-                                <div class="no-Data" id="idNoPaymentData_M">
+                                <div class="no-Data" id="idNoPaymentData_M" style="display:none">
                                     <div class="data">
                                         <span class="text language_replace">無資料</span>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </section>
