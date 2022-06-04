@@ -123,7 +123,15 @@
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {
-                                        RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                                        var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
+                                        
+                                        if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                                            RTP = RtpInfoObj.RTP.toString();
+                                        } else {
+                                            RTP = '--';
+                                        }
+                                    } else {
+                                        RTP = '--';
                                     }
 
                                     GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -152,7 +160,13 @@
 
                             $(GI).find(".BrandName").text(gameItem.GameBrand);
                             if (gameItem.RTPInfo) {
-                                $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                                var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
+
+                                if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                                    $(GI).find(".valueRTP").text(RtpInfoObj.RTP);
+                                } else {
+                                    $(GI).find(".valueRTP").text('--');
+                                }
                             } else {
                                 $(GI).find(".valueRTP").text('--');
                             }
@@ -169,9 +183,9 @@
                         if (category.ShowType == 0) {
                             new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
                                 slidesPerView: "auto",
-                                slidesPerGroup: 8,
+                                slidesPerGroup: 2,
                                 loopedSlides: 8,
-                      
+                                lazy: true,
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",

@@ -129,7 +129,7 @@
     }
 
     function TempAlert() {
-        window.parent.API_ShowMessageOK("", mlp.getLanguageKey("近期開放"));
+        window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" + mlp.getLanguageKey("近期開放") + "</p>");
     }
 
     window.onload = init;
