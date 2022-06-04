@@ -121,7 +121,7 @@
         window.parent.API_ShowLoading();
         var ParentMain = document.getElementById("div_Prize");
         ParentMain.innerHTML = "";
-        $(".menu-prize").children().find("li").removeClass("active");
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_bonus" + collectareatype).addClass("active");
 
         //CollectAreaType

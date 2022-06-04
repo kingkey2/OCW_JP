@@ -587,7 +587,7 @@
 
         $('#popupMoblieGameInfo .BrandName').text(brandName);
         $('#popupMoblieGameInfo .valueRTP').text(RTP);
-        $('#popupMoblieGameInfo .gameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName.gameName));
+        $('#popupMoblieGameInfo .GameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
         $('#popupMoblieGameInfo .GameID').text(GameID);
 
         var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
