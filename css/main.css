@@ -38,36 +38,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -moz-osx-font-smoothing: grayscale;
 }
 
-.no-Data {
-    position: relative;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: 100%;
-}
-
-    .no-Data .data {
-        display: flex;
-        justify-content: center;
-        flex-flow: column wrap;
-        align-items: center;
-        padding: 20px 0;
-    }
-
-        .no-Data .data .text {
-            font-size: 1.125rem;
-        }
-
-        .no-Data .data::before {
-            content: "";
-            display: flex;
-            width: 100%;
-            height: 100px;
-            background: url(../images/theme/blue/icon/icon-no-data.svg) center center no-repeat;
-            background-size: contain;
-            text-align: center;
-        }
-
 .icon-heart-f:before {
   content: "a";
 }

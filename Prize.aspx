@@ -77,7 +77,7 @@
     function GetPromotionCollectHistory(BeginDate, EndDate) {
         var ParentMain = document.getElementById("div_History");
         ParentMain.innerHTML = "";
-
+        $("#idNoHistoryData").addClass("is-hide");
         LobbyClient.GetPromotionCollectHistory(WebInfo.SID, Math.uuid(), BeginDate, EndDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -98,9 +98,11 @@
                         }
                         window.parent.API_CloseLoading();
                     } else {
+                        $("#idNoHistoryData").removeClass("is-hide");
                         window.parent.API_CloseLoading();
                     }
                 } else {
+                    $("#idNoHistoryData").removeClass("is-hide");
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -123,7 +125,7 @@
         ParentMain.innerHTML = "";
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_bonus" + collectareatype).addClass("active");
-
+        $("#idNoPrizeData").addClass("is-hide");
         //CollectAreaType
         // 1 (獎金 bonus) => i.   本金歸零時可領 
         //                                    ii.   出金時歸零
@@ -183,19 +185,19 @@
                                             if (success) {
                                                 if (o.Result == 0) {
                                                     //window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
-                                                        GetPromotionCollectAvailable(collectareatype);
+                                                    GetPromotionCollectAvailable(collectareatype);
 
-                                                        window.top.API_RefreshUserInfo(function () {
-                                                        });
+                                                    window.top.API_RefreshUserInfo(function () {
+                                                    });
 
-                                                        let now_date = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-                                                        search_Year = now_date.split('/')[0];
-                                                        search_Month = now_date.split('/')[1];
+                                                    let now_date = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
+                                                    search_Year = now_date.split('/')[0];
+                                                    search_Month = now_date.split('/')[1];
 
-                                                        let beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-                                                        let endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
+                                                    let beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
+                                                    let endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
 
-                                                        GetPromotionCollectHistory(beginDate, endDate);
+                                                    GetPromotionCollectHistory(beginDate, endDate);
                                                     //});
                                                 } else {
                                                     //window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
@@ -217,9 +219,11 @@
                         }
                         window.parent.API_CloseLoading();
                     } else {
+                        $("#idNoPrizeData").removeClass("is-hide");
                         window.parent.API_CloseLoading();
                     }
                 } else {
+                    $("#idNoPrizeData").removeClass("is-hide");
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -340,7 +344,14 @@
 
                 <section class="section-wrap section-prize">
                     <div class="prize-item-wrapper">
-                        <div class="prize-item-group" id="div_Prize">
+                        <div class="prize-item-group">
+                            <div id="div_Prize"></div>
+                            <!-- 無資料 ========================= -->
+                            <div class="no-Data" id="idNoPrizeData">
+                                <div class="data">
+                                    <span class="text language_replace">無資料</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -368,7 +379,14 @@
                             </div>
                         </div>
                         <!-- Tbody -->
-                        <div class="Tbody" id="div_History">
+                        <div class="Tbody" >
+                            <div id="div_History"></div>
+                             <!-- 無資料 ========================= -->
+                            <div class="no-Data" id="idNoHistoryData">
+                                <div class="data">
+                                    <span class="text language_replace">無資料</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>

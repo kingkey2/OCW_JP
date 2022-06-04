@@ -361,6 +361,12 @@
             //SwitchGameHeader(0)
         }
 
+        if ($('.header_menu').hasClass("show")) {
+            $('.vertical-menu').toggleClass('navbar-show');
+            $('.header_menu').toggleClass('show');
+            $('.navbar-toggler').attr("aria-expanded", "false");
+        }
+ 
         if (checkLogined) {
             if (!EWinWebInfo.UserLogined) {
                 showMessageOK(mlp.getLanguageKey("尚未登入"), mlp.getLanguageKey("請先登入"), function () {
