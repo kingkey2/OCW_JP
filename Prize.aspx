@@ -20,6 +20,7 @@
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
+    <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script type="text/javascript" src="Scripts/DateExtension.js"></script>
@@ -90,7 +91,7 @@
                             rowDom.querySelector(".month").innerText = collectDate.toString("MM");
                             rowDom.querySelector(".day").innerText = collectDate.toString("dd");
 
-                            rowDom.querySelector(".value").innerText = collect.PointValue;
+                            rowDom.querySelector(".value").innerText = new BigNumber(collect.PointValue).toFormat();
                             rowDom.querySelector(".title").innerText = collect.PromotionTitle;
 
                             ParentMain.appendChild(rowDom);
@@ -138,8 +139,9 @@
                         for (var i = 0; i < o.CollectList.length; i++) {
                             let RecordDom;
                             let Collect = o.CollectList[i];
+                            let collectAreaType = Collect.CollectAreaType;
 
-                            if (Collect.CollectAreaType == collectareatype) {
+                            if (collectAreaType == collectareatype) {
                                 let CreateDate = Date.parse(Collect.CreateDate);
                                 let ExpireDate = Date.parse(Collect.ExpireDate);
                                 let PointValue = Collect.PointValue;
@@ -166,15 +168,25 @@
 
                                 DomBtn.onclick = function (e) {
                                     let CollectID = $(e.target).closest(".prize-item").data("collectid");
-                                    let val = $(e.target).closest(".prize-item").data("val");
+                                    let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
-                                    window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 " + val), function () {
+                                    if (collectAreaType == 1) {
+                                        var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+                                        if (wallet.PointValue > 100) {
+                                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("PointLimit"));
+                                            return;
+                                        }
+                                    }
 
+                                    window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 ") + val, function () {
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
-                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
+                                                    //window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
                                                         GetPromotionCollectAvailable(collectareatype);
+
+                                                        window.top.API_RefreshUserInfo(function () {
+                                                        });
 
                                                         let now_date = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
                                                         search_Year = now_date.split('/')[0];
@@ -184,15 +196,16 @@
                                                         let endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
 
                                                         GetPromotionCollectHistory(beginDate, endDate);
-                                                    });
+                                                    //});
                                                 } else {
-                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                                                    //window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
+                                                    alert(mlp.getLanguageKey(o.Message));
                                                 }
                                             } else {
                                                 if (o == "Timeout") {
                                                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
                                                 } else {
-                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
+                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o));
                                                 }
                                             }
                                         })
@@ -274,6 +287,24 @@
 
     }
 
+    function EWinEventNotify(eventName, isDisplay, param) {
+        switch (eventName) {
+            case "LoginState":
+
+                break;
+            case "BalanceChange":
+                break;
+
+            case "SetLanguage":
+                var lang = param;
+
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
+                break;
+        }
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -283,26 +314,29 @@
                 <div class="sec-title-container sec-title-prize">
                     <!-- 活動中心 link-->
                     <a class="btn btn-link btn-activity" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')">
-                        <span class="title language_replace">クイックピックアップ</span><i class="icon icon-mask icon-arrow-right-dot"></i>
+                        <span class="title language_replace">前往活動中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
-                        <h1 class="sec-title title-deco"><span class="language_replace">コレクションセンター</span></h1>
+                        <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
                         <!-- 獎金/禮金 TAB -->
-                        <div class="menu-prize tab-scroller">
+                        <div class="tab-prize tab-scroller tab-2">
                             <div class="tab-scroller__area">
                                 <ul class="tab-scroller__content">
                                     <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
-                                        <span class="tab-item-link"><span class="title language_replace">ボーナス</span>
+                                        <span class="tab-item-link"><span class="title language_replace">獎金</span>
                                         </span>
                                     </li>
                                     <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
-                                        <span class="tab-item-link"><span class="title language_replace">ギフトマネー</span></span>
+                                        <span class="tab-item-link"><span class="title language_replace">禮金</span></span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
 
                 <section class="section-wrap section-prize">
                     <div class="prize-item-wrapper">
@@ -315,12 +349,12 @@
                 <section class="section-wrap section-prize-record">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">ボーナス履歴</span></h1>
+                            <h1 class="sec-title title-deco"><span class="language_replace">獎金紀錄</span></h1>
                         </div>
                         <!-- 前/後 月 -->
                         <div class="sec_link">
-                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">先月</span></button>
-                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">来月︎</span><i class="icon arrow arrow-right ml-1"></i></button>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">上個月</span></button>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">下個月</span><i class="icon arrow arrow-right ml-1"></i></button>
                         </div>
 
                     </div>

@@ -66,7 +66,6 @@
         }, 1000);
     }
 
-
     function CheckAccountPhoneExist(cb) {
 
         var idPhonePrefix = document.getElementById("idPhonePrefix");
@@ -122,35 +121,21 @@
             }
         }
 
-        p.GetLoginAccount(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o1) {
+        p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
             if (success) {
-                if (o1.Result == 0) {
-                    LoginAccount = o1.Message;
-                    p.CheckAccountExist(Math.uuid(), LoginAccount, function (success, o) {
-                        if (success) {
-                            if (o.Result != 0) {
-                                cb(true);
-                            } else {
-                                cb(false);
-                                window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
-                            }
-                        }
-
-                    });
+                if (o.Result != 0) {
+                    cb(true);
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
-
-                    });
                     cb(false);
+                    window.parent.showMessageOK("", mlp.getLanguageKey("信箱已存在"));
                 }
             }
+
         });
     }
 
     function CheckUserAccountExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
-
-        //idLoginAccount.setCustomValidity(mlp.getLanguageKey("請等待信箱檢查完畢"));
 
         if (idLoginAccount.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
@@ -161,8 +146,7 @@
                 return false;
             }
         }
-
-        return true
+        return true;
         //p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
         //    if (success) {
         //        if (o.Result != 0) {
@@ -183,7 +167,7 @@
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
             return false;
         } else if (idLoginPassword.value.length < 6) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
+            window.parent.showMessageOK("", mlp.getLanguageKey("登入密碼需大於6位"));
             return false;
         } else if (!rules.test(idLoginPassword.value)) {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
@@ -198,7 +182,9 @@
             var form = document.getElementById("registerStep1");
             CheckAccountPhoneExist(function (check) {
                 if (check) {
+                    window.top.API_ShowLoading();
                     p.SetUserMail(Math.uuid(), 0, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                        window.top.API_CloseLoading();
                         if (success) {
                             if (o.Result != 0) {
                                 window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
@@ -213,7 +199,7 @@
                     });
                 } else {
                     //window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
-                }                
+                }
             });
         } else {
             window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
@@ -338,43 +324,32 @@
                 { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
             ];
 
-            p.GetLoginAccount(Math.uuid(), PhonePrefix, PhoneNumber, function (success, o1) {
+            p.CreateAccount(Math.uuid(), document.getElementById("idLoginAccount").value, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
-                    if (o1.Result == 0) {
-                        LoginAccount = o1.Message;
-                        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
-                            if (success) {
-                                if (o.Result == 0) {
-                                    sendThanksMail();
-                                    //sendReceiveRegisterRewardMail();
-                                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
-                                        document.getElementById("idRegister").classList.add("is-hide");
-                                        document.getElementById("contentFinish").classList.remove("is-hide");
-                                    });
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                }
-                            } else {
-                                if (o == "Timeout") {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
-                                        window.parent.API_LoadPage("Register", "Register.aspx")
-                                    });
-                                }
-                            }
+                    if (o.Result == 0) {
+                        sendThanksMail();
+                        //sendReceiveRegisterRewardMail();
+                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
+                            document.getElementById("idRegister").classList.add("is-hide");
+                            document.getElementById("contentFinish").classList.remove("is-hide");
                         });
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        });
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        });
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
                             window.parent.API_LoadPage("Register", "Register.aspx")
                         });
                     }
                 }
-            })
+            });
         }
     }
 
@@ -502,7 +477,9 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }
@@ -537,8 +514,6 @@
             <div></div>
         </div>
 
-        <!-- 側邊影像 -->
-        <div class="feature-panel"></div>
 
         <!-- 主內容框 -->
         <div class="main-panel">
@@ -616,13 +591,13 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <label class="form-check-label language_replace">電話號碼將用於發送確認碼，請輸入可以接收短信的電話號碼。</label></br>
+                                <label class="form-check-label language_replace">E-mail將用於發送確認碼，請填寫正確的E-mail。</label></br>
                                
-                                <label class="form-check-label language_replace">1.請先輸入電話號碼。</label></br>
+                                <label class="form-check-label language_replace">1.請先輸入正確E-mail。</label></br>
 
                                 <label class="form-check-label language_replace">2.從註冊會員的畫面點擊發送驗證碼。</label></br>
                                
-                                <label class="form-check-label language_replace">3.驗證碼將會發送到您指定的手機。</label></br>
+                                <label class="form-check-label language_replace">3.驗證碼將會發送到您填寫的E-mail。</label></br>
                                
                                 <label class="form-check-label language_replace">4.輸入驗證碼之後就可進行下一個步驟。</label></br>
                 

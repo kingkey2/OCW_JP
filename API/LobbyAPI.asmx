@@ -241,6 +241,41 @@ public class LobbyAPI : System.Web.Services.WebService
         }
     }
 
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public UserAccountEventSummaryResult GetUserAccountEventSummary(string WebSID, string GUID)
+    {
+        UserAccountEventSummaryResult R = new UserAccountEventSummaryResult() { Result = EWin.Lobby.enumResult.ERR };
+        List<UserAccountEventSummary> Datas = new List<UserAccountEventSummary>();
+        RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccount(SI.LoginAccount);
+            if (DT != null && DT.Rows.Count > 0)
+            {
+                for (int i = 0; i < DT.Rows.Count; i++)
+                {
+                    var Data = new UserAccountEventSummary();
+                        Data.ActivityName = (string)DT.Rows[i]["ActivityName"];
+                        Data.BonusValue = (decimal)DT.Rows[i]["BonusValue"];
+                        Data.CollectCount = (int)DT.Rows[i]["CollectCount"];
+                        Data.JoinCount = (int)DT.Rows[i]["JoinCount"];
+                        Data.LoginAccount = (string)DT.Rows[i]["LoginAccount"];
+                        Data.ThresholdValue = (decimal)DT.Rows[i]["ThresholdValue"];
+                        Datas.Add(Data);
+                    
+                }
+                R.Datas = Datas;
+                R.Result = EWin.Lobby.enumResult.OK;
+            }
+        }
+        return R;
+    }
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult GetSIDParam(string WebSID, string GUID, string ParamName)
@@ -371,7 +406,8 @@ public class LobbyAPI : System.Web.Services.WebService
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
 
-                    R = lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 2, 30, description, PropertySets.ToArray());
+                    lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 2, 30, description, PropertySets.ToArray());
+                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount,description,1,activityData.ThresholdValue,activityData.BonusValue);
                 }
             }
         }
@@ -418,10 +454,10 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public LoginMessageResult GetLoginMessage(string WebSID, string GUID)
+    public OcwLoginMessageResult GetLoginMessage(string WebSID, string GUID)
     {
         RedisCache.SessionContext.SIDInfo SI;
-        LoginMessageResult R = new LoginMessageResult() { Result = EWin.Lobby.enumResult.ERR };
+        OcwLoginMessageResult R = new OcwLoginMessageResult() { Result = EWin.Lobby.enumResult.ERR };
         Newtonsoft.Json.Linq.JObject SettingData;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
@@ -541,41 +577,81 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public OcwAllCompanyGameCodeResult GeAlltCompanyGameCode(string GUID)
+    public OcwAllCompanyGameCodeResult GeAllCompanyGameCode(string GUID, long RecordTimeStamp)
     {
         OcwAllCompanyGameCodeResult Ret = new OcwAllCompanyGameCodeResult() { Datas = new List<OcwCompanyGameCode>() };
-        string GameCodeJsonStr = RedisCache.CompanyGameCode.GetAllCompanyGameCode();
+        System.Data.DataTable CompanyCategoryDT = null;
+        System.Data.DataTable CompanyGameCodeDT = null;
+        int CategoryType = 0;
+        int CompanyCategoryID = 0;
+        Dictionary<string, long> SyncData;
+        SyncData = RedisCache.CompanyGameCode.GetSyncData();
 
-        if (!string.IsNullOrEmpty(GameCodeJsonStr))
+
+        if (SyncData != null)
         {
-            List<EWin.Lobby.GameCodeItem> gameCodeItems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EWin.Lobby.GameCodeItem>>(GameCodeJsonStr);
-            for (int i = 0; i < gameCodeItems.Count; i++)
+            Ret.MaxGameID = (int)SyncData["MaxGameID"];
+            Ret.TimeStamp = SyncData["TimeStamp"];
+
+            if (Ret.TimeStamp != RecordTimeStamp)
             {
-                OcwCompanyGameCode ocwGameCode = new OcwCompanyGameCode()
+                CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
+
+                if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
                 {
-                    GameID = gameCodeItems[i].GameID,
-                    GameBrand = gameCodeItems[i].BrandCode,
-                    GameCode = gameCodeItems[i].GameCode,
-                    GameName = gameCodeItems[i].GameName,
-                    GameCategoryCode = gameCodeItems[i].GameCategoryCode,
-                    GameCategorySubCode = gameCodeItems[i].GameCategorySubCode,
-                    AllowDemoPlay = gameCodeItems[i].AllowDemoPlay,
-                    RTPInfo = gameCodeItems[i].RTPInfo,
-                    IsHot = gameCodeItems[i].IsHot,
-                    IsNew = gameCodeItems[i].IsNew,
-                    SortIndex = gameCodeItems[i].SortIndex
-                    //Tag = gameCodeItems[i].Tag
-                };
 
-                Ret.Datas.Add(ocwGameCode);
+                    for (int k = 0; k < CompanyCategoryDT.Rows.Count; k++)
+                    {
+                        CategoryType = int.Parse(CompanyCategoryDT.Rows[k]["CategoryType"].ToString());
+                        if (CategoryType == 3)
+                        {
+                            CompanyCategoryID = int.Parse(CompanyCategoryDT.Rows[k]["CompanyCategoryID"].ToString());
+                            CompanyGameCodeDT = RedisCache.CompanyGameCode.GetCompanyGameCodeByID(CompanyCategoryID);
+                            if (CompanyGameCodeDT != null && CompanyGameCodeDT.Rows.Count > 0)
+                            {
+                                for (int i = 0; i < CompanyGameCodeDT.Rows.Count; i++)
+                                {
+                                    OcwCompanyGameCode ocwGameCode = new OcwCompanyGameCode()
+                                    {
+                                        GameID = (int)CompanyGameCodeDT.Rows[i]["GameID"],
+                                        GameBrand = (string)CompanyGameCodeDT.Rows[i]["GameBrand"],
+                                        GameCode = (string)CompanyGameCodeDT.Rows[i]["GameBrand"] + "." + (string)CompanyGameCodeDT.Rows[i]["GameName"],
+                                        GameName = (string)CompanyGameCodeDT.Rows[i]["GameName"],
+                                        GameCategoryCode = (string)CompanyGameCodeDT.Rows[i]["GameCategoryCode"],
+                                        GameCategorySubCode = (string)CompanyGameCodeDT.Rows[i]["GameCategorySubCode"],
+                                        AllowDemoPlay = (int)CompanyGameCodeDT.Rows[i]["AllowDemoPlay"],
+                                        RTPInfo = (string)CompanyGameCodeDT.Rows[i]["RTPInfo"],
+                                        IsHot = (int)CompanyGameCodeDT.Rows[i]["IsHot"],
+                                        IsNew = (int)CompanyGameCodeDT.Rows[i]["IsNew"],
+                                        SortIndex = (int)CompanyGameCodeDT.Rows[i]["SortIndex"]
+                                    };
+
+                                    Ret.Datas.Add(ocwGameCode);
+                                }
+                            }
+                        }
+                    }
+
+                    Ret.Result = EWin.Lobby.enumResult.OK;
+                }
+                else
+                {
+                    Ret.Result = EWin.Lobby.enumResult.ERR;
+                    Ret.Message = "NoData";
+                }
+
             }
-
-            Ret.Result = EWin.Lobby.enumResult.OK;
+            else
+            {
+                Ret.Result = EWin.Lobby.enumResult.OK;
+            }
         }
         else
         {
             Ret.Result = EWin.Lobby.enumResult.ERR;
-            Ret.Message = "NoData";
+            Ret.Message = "NoSync";
+            Ret.MaxGameID = 0;
+            Ret.TimeStamp = 0;
         }
 
         return Ret;
@@ -584,66 +660,90 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public OcwCompanyGameCodeResult GetCompanyGameCodeTwo(string GUID)
+    public OcwCompanyGameCodeResult GetCompanyGameCodeTwo(string GUID, long RecordTimeStamp)
     {
+        OcwCompanyGameCodeResult Ret = new OcwCompanyGameCodeResult() { CompanyCategoryDatas = new List<OcwCompanyCategory>() };
         System.Data.DataTable CompanyCategoryDT;
         System.Data.DataTable CompanyGameCodeDT;
         int CompanyCategoryID;
         CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
-        OcwCompanyGameCodeResult Ret = new OcwCompanyGameCodeResult() { CompanyCategoryDatas = new List<OcwCompanyCategory>() };
-        if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
+        Dictionary<string, long> SyncData;
+        SyncData = RedisCache.CompanyGameCode.GetSyncData();
+
+        if (SyncData != null)
         {
-            for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
+            Ret.MaxGameID = (int)SyncData["MaxGameID"];
+            Ret.TimeStamp = SyncData["TimeStamp"];
+
+            if ( Ret.TimeStamp != RecordTimeStamp)
             {
-                if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
+                if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
                 {
-                    CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
-                    CompanyGameCodeDT = RedisCache.CompanyGameCode.GetCompanyGameCodeByID(CompanyCategoryID);
-
-                    var companyCategoryData = new OcwCompanyCategory();
-                    companyCategoryData.CompanyCategoryID = CompanyCategoryID;
-                    companyCategoryData.CategoryName = (string)CompanyCategoryDT.Rows[i]["CategoryName"];
-                    companyCategoryData.SortIndex = (int)CompanyCategoryDT.Rows[i]["SortIndex"];
-                    companyCategoryData.State = (int)CompanyCategoryDT.Rows[i]["State"];
-                    companyCategoryData.Location = (string)CompanyCategoryDT.Rows[i]["Location"];
-                    companyCategoryData.ShowType = (int)CompanyCategoryDT.Rows[i]["ShowType"];
-                    companyCategoryData.Datas = new List<OcwCompanyGameCode>();
-
-
-                    if (CompanyGameCodeDT != null && CompanyGameCodeDT.Rows.Count > 0)
+                    for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
                     {
-                        for (int k = 0; k < CompanyGameCodeDT.Rows.Count; k++)
+                        if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
                         {
-                            var data = new OcwCompanyGameCode();
-                            data.AllowDemoPlay = (int)CompanyGameCodeDT.Rows[k]["AllowDemoPlay"];
-                            data.forCompanyCategoryID = (int)CompanyGameCodeDT.Rows[k]["forCompanyCategoryID"];
-                            data.GameBrand = (string)CompanyGameCodeDT.Rows[k]["GameBrand"];
-                            data.GameCategoryCode = (string)CompanyGameCodeDT.Rows[k]["GameCategoryCode"];
-                            data.GameCategorySubCode = (string)CompanyGameCodeDT.Rows[k]["GameCategorySubCode"];
-                            data.GameID = (int)CompanyGameCodeDT.Rows[k]["GameID"];
-                            data.GameName = (string)CompanyGameCodeDT.Rows[k]["GameName"];
-                            data.Info = (string)CompanyGameCodeDT.Rows[k]["Info"];
-                            data.IsHot = (int)CompanyGameCodeDT.Rows[k]["IsHot"];
-                            data.IsNew = (int)CompanyGameCodeDT.Rows[k]["IsNew"];
-                            data.RTPInfo = (string)CompanyGameCodeDT.Rows[k]["RTPInfo"];
-                            data.SortIndex = (int)CompanyGameCodeDT.Rows[k]["SortIndex"];
+                            CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
+                            CompanyGameCodeDT = RedisCache.CompanyGameCode.GetCompanyGameCodeByID(CompanyCategoryID);
+
+                            var companyCategoryData = new OcwCompanyCategory();
+                            companyCategoryData.CompanyCategoryID = CompanyCategoryID;
+                            companyCategoryData.CategoryName = (string)CompanyCategoryDT.Rows[i]["CategoryName"];
+                            companyCategoryData.SortIndex = (int)CompanyCategoryDT.Rows[i]["SortIndex"];
+                            companyCategoryData.State = (int)CompanyCategoryDT.Rows[i]["State"];
+                            companyCategoryData.Location = (string)CompanyCategoryDT.Rows[i]["Location"];
+                            companyCategoryData.ShowType = (int)CompanyCategoryDT.Rows[i]["ShowType"];
+                            companyCategoryData.Datas = new List<OcwCompanyGameCode>();
 
 
-                            companyCategoryData.Datas.Add(data);
+                            if (CompanyGameCodeDT != null && CompanyGameCodeDT.Rows.Count > 0)
+                            {
+                                for (int k = 0; k < CompanyGameCodeDT.Rows.Count; k++)
+                                {
+                                    var data = new OcwCompanyGameCode();
+                                    data.AllowDemoPlay = (int)CompanyGameCodeDT.Rows[k]["AllowDemoPlay"];
+                                    data.forCompanyCategoryID = (int)CompanyGameCodeDT.Rows[k]["forCompanyCategoryID"];
+                                    data.GameBrand = (string)CompanyGameCodeDT.Rows[k]["GameBrand"];
+                                    data.GameCategoryCode = (string)CompanyGameCodeDT.Rows[k]["GameCategoryCode"];
+                                    data.GameCategorySubCode = (string)CompanyGameCodeDT.Rows[k]["GameCategorySubCode"];
+                                    data.GameID = (int)CompanyGameCodeDT.Rows[k]["GameID"];
+                                    data.GameName = (string)CompanyGameCodeDT.Rows[k]["GameName"];
+                                    data.Info = (string)CompanyGameCodeDT.Rows[k]["Info"];
+                                    data.IsHot = (int)CompanyGameCodeDT.Rows[k]["IsHot"];
+                                    data.IsNew = (int)CompanyGameCodeDT.Rows[k]["IsNew"];
+                                    data.RTPInfo = (string)CompanyGameCodeDT.Rows[k]["RTPInfo"];
+                                    data.SortIndex = (int)CompanyGameCodeDT.Rows[k]["SortIndex"];
 
+
+                                    companyCategoryData.Datas.Add(data);
+
+                                }
+                            }
+
+                            Ret.CompanyCategoryDatas.Add(companyCategoryData);
                         }
                     }
 
-                    Ret.CompanyCategoryDatas.Add(companyCategoryData);
+                    Ret.Result = EWin.Lobby.enumResult.OK;
+                }
+                else
+                {
+                    Ret.Result = EWin.Lobby.enumResult.ERR;
                 }
             }
-
-            Ret.Result = EWin.Lobby.enumResult.OK;
+            else
+            {
+                Ret.Result = EWin.Lobby.enumResult.OK;
+            }
         }
         else
         {
             Ret.Result = EWin.Lobby.enumResult.ERR;
+            Ret.Message = "NoSync";
+            Ret.MaxGameID = 0;
+            Ret.TimeStamp = 0;
         }
+
         return Ret;
 
     }
@@ -982,22 +1082,91 @@ public class LobbyAPI : System.Web.Services.WebService
         }
     }
 
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public EWin.Lobby.APIResult SendCSMail(string WebSID, string GUID, string EMail, string Topic, string SendBody)
+    //{
+    //    EWin.Lobby.APIResult R;
+
+    //    RedisCache.SessionContext.SIDInfo SI;
+
+    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID) || string.IsNullOrEmpty(EMail) == false)
+    //    {
+    //        if (string.IsNullOrEmpty(Topic) == false && string.IsNullOrEmpty(SendBody) == false)
+    //        {
+    //            string returnMail = string.IsNullOrEmpty(EMail) ? SI.LoginAccount : EMail;
+    //            string returnLoginAccount = string.IsNullOrEmpty(SI.LoginAccount) ? "" : SI.LoginAccount;
+    //            //string subjectString = String.Format("問題分類：{0},回覆信箱：{1}", Topic, returnMail);
+    //            //string bodyString = String.Format("問題分類：{0}\r\n"
+    //            //                        + "問題內容：{1}\r\n"
+    //            //                        + "回覆信箱：{2}\r\n"
+    //            //                        + "相關帳號：{3}\r\n"
+    //            //                        + "詢問時間：{4}\r\n"
+    //            //                        , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
+    //            string subjectString = String.Format("お問い合わせ類型：{0},お返事のメールアドレス：{1}", Topic, returnMail);
+    //            string bodyString = String.Format("お問い合わせ類型：{0}\r\n"
+    //                                    + "お問い合わせ内容：{1}\r\n"
+    //                                    + "お返事のメールアドレス：{2}\r\n"
+    //                                    + "アカウント：{3}\r\n"
+    //                                    + "お問い合わせ時間：{4}\r\n"
+    //                                    , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
+
+    //            /*
+    //            お問い合わせ類型:
+    //            お問い合わせ内容:
+    //            お返事のメールアドレス:
+    //            アカウント:
+    //            お問い合わせ時間:
+    //            */
+    //            CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress("edm@casino-maharaja.com"), subjectString, bodyString, "edm@casino-maharaja.com", "wjggvbkjosunoilx", "utf-8", true);
+
+    //            R = new EWin.Lobby.APIResult()
+    //            {
+    //                Result = EWin.Lobby.enumResult.OK,
+    //                Message = "",
+    //                GUID = GUID
+    //            };
+    //        }
+    //        else
+    //        {
+    //            R = new EWin.Lobby.APIResult()
+    //            {
+    //                Result = EWin.Lobby.enumResult.ERR,
+    //                Message = "SubjectOrSendBodyIsEmpty",
+    //                GUID = GUID
+    //            };
+    //        }
+    //    }
+    //    else
+    //    {
+    //        R = new EWin.Lobby.APIResult()
+    //        {
+    //            Result = EWin.Lobby.enumResult.ERR,
+    //            Message = "EMailNotFind",
+    //            GUID = GUID
+    //        };
+    //    }
+
+    //    return R;
+    //}
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SendCSMail(string WebSID, string GUID, string EMail, string Topic, string SendBody)
-    {
+    public EWin.Lobby.APIResult SendCSMail(string WebSID, string GUID, string EMail, string Topic, string SendBody) {
         EWin.Lobby.APIResult R;
 
         RedisCache.SessionContext.SIDInfo SI;
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID) || string.IsNullOrEmpty(EMail) == false)
-        {
-            if (string.IsNullOrEmpty(Topic) == false && string.IsNullOrEmpty(SendBody) == false)
-            {
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID) || string.IsNullOrEmpty(EMail) == false) {
+            if (string.IsNullOrEmpty(Topic) == false && string.IsNullOrEmpty(SendBody) == false) {
                 string returnMail = string.IsNullOrEmpty(EMail) ? SI.LoginAccount : EMail;
                 string returnLoginAccount = string.IsNullOrEmpty(SI.LoginAccount) ? "" : SI.LoginAccount;
+                string apiURL = "https://mail.surenotifyapi.com/v1/messages";
+                string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
                 //string subjectString = String.Format("問題分類：{0},回覆信箱：{1}", Topic, returnMail);
                 //string bodyString = String.Format("問題分類：{0}\r\n"
                 //                        + "問題內容：{1}\r\n"
@@ -1020,29 +1189,38 @@ public class LobbyAPI : System.Web.Services.WebService
                 アカウント:
                 お問い合わせ時間:
                 */
-                CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress("edm@casino-maharaja.com"), subjectString, bodyString, "edm@casino-maharaja.com", "wjggvbkjosunoilx", "utf-8", true);
 
-                R = new EWin.Lobby.APIResult()
-                {
+                Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
+                Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+                Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
+
+                objBody.Add("subject", subjectString);
+                objBody.Add("fromName", "edm@casino-maharaja.com");
+                objBody.Add("fromAddress", "edm@casino-maharaja.com");
+                objBody.Add("content", bodyString);
+
+                objRecipients.Add("name", "edm@casino-maharaja.com");
+                objRecipients.Add("address", "edm@casino-maharaja.com");
+                aryRecipients.Add(objRecipients);
+
+                objBody.Add("recipients", aryRecipients);
+
+                CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
+
+                R = new EWin.Lobby.APIResult() {
                     Result = EWin.Lobby.enumResult.OK,
                     Message = "",
                     GUID = GUID
                 };
-            }
-            else
-            {
-                R = new EWin.Lobby.APIResult()
-                {
+            } else {
+                R = new EWin.Lobby.APIResult() {
                     Result = EWin.Lobby.enumResult.ERR,
                     Message = "SubjectOrSendBodyIsEmpty",
                     GUID = GUID
                 };
             }
-        }
-        else
-        {
-            R = new EWin.Lobby.APIResult()
-            {
+        } else {
+            R = new EWin.Lobby.APIResult() {
                 Result = EWin.Lobby.enumResult.ERR,
                 Message = "EMailNotFind",
                 GUID = GUID
@@ -1051,7 +1229,6 @@ public class LobbyAPI : System.Web.Services.WebService
 
         return R;
     }
-
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -1135,47 +1312,120 @@ public class LobbyAPI : System.Web.Services.WebService
         return lobbyAPI.GetCompanyExchange(GetToken(), GUID);
     }
 
-    private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType)
-    {
+    //private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType)
+    //{
+    //    string Subject = string.Empty;
+    //    string SendBody = string.Empty;
+    //    Subject = "Verify Code";
+
+    //    SendBody = CodingControl.GetEmailTemp(EMail, ValidateCode, SendMailType);
+
+    //    try
+    //    {
+    //        //CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <service@OCW888.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "service@OCW888.com", "koajejksxfyiwixx", "utf-8", true);
+    //        CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "eanrbmhmqflaqzac", "utf-8", true);
+    //        result.Result = EWin.Lobby.enumResult.OK;
+    //        result.Message = "";
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        result.Result = EWin.Lobby.enumResult.ERR;
+    //        result.Message = "";
+    //    }
+    //    return result;
+    //}
+
+    //private EWin.Lobby.APIResult SendRegisterReceiveRewardMail(string EMail, EWin.Lobby.APIResult result, string ReceiveRegisterRewardURL)
+    //{
+    //    string Subject = string.Empty;
+    //    string SendBody = string.Empty;
+    //    Subject = "RegisterReceiveReward";
+
+    //    SendBody = CodingControl.GetRegisterReceiveRewardEmailTemp(EMail, ReceiveRegisterRewardURL);
+
+    //    try
+    //    {
+    //        CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "eanrbmhmqflaqzac", "utf-8", true);
+    //        result.Result = EWin.Lobby.enumResult.OK;
+    //        result.Message = "";
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        result.Result = EWin.Lobby.enumResult.ERR;
+    //        result.Message = "";
+    //    }
+    //    return result;
+    //}
+
+    private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType) {
         string Subject = string.Empty;
         string SendBody = string.Empty;
+        string apiURL = "https://mail.surenotifyapi.com/v1/messages";
+        string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
         Subject = "Verify Code";
 
         SendBody = CodingControl.GetEmailTemp(EMail, ValidateCode, SendMailType);
 
-        try
-        {
-            //CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <service@OCW888.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "service@OCW888.com", "koajejksxfyiwixx", "utf-8", true);
-            CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "eanrbmhmqflaqzac", "utf-8", true);
+        try {
+            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
+
+            objBody.Add("subject", Subject);
+            objBody.Add("fromName", "edm@casino-maharaja.com");
+            objBody.Add("fromAddress", "edm@casino-maharaja.com");
+            objBody.Add("content", SendBody);
+
+            objRecipients.Add("name", EMail);
+            objRecipients.Add("address", EMail);
+            aryRecipients.Add(objRecipients);
+
+            objBody.Add("recipients", aryRecipients);
+
+            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
             result.Result = EWin.Lobby.enumResult.OK;
             result.Message = "";
 
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             result.Result = EWin.Lobby.enumResult.ERR;
             result.Message = "";
         }
         return result;
     }
 
-    private EWin.Lobby.APIResult SendRegisterReceiveRewardMail(string EMail, EWin.Lobby.APIResult result, string ReceiveRegisterRewardURL)
-    {
+    private EWin.Lobby.APIResult SendRegisterReceiveRewardMail(string EMail, EWin.Lobby.APIResult result, string ReceiveRegisterRewardURL) {
         string Subject = string.Empty;
         string SendBody = string.Empty;
+        string apiURL = "https://mail.surenotifyapi.com/v1/messages";
+        string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
         Subject = "RegisterReceiveReward";
 
         SendBody = CodingControl.GetRegisterReceiveRewardEmailTemp(EMail, ReceiveRegisterRewardURL);
 
-        try
-        {
-            CodingControl.SendMail("smtp.gmail.com", new System.Net.Mail.MailAddress("Service <edm@casino-maharaja.com>"), new System.Net.Mail.MailAddress(EMail), Subject, SendBody, "edm@casino-maharaja.com", "eanrbmhmqflaqzac", "utf-8", true);
+        try {
+
+            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
+
+            objBody.Add("subject", Subject);
+            objBody.Add("fromName", "edm@casino-maharaja.com");
+            objBody.Add("fromAddress", "edm@casino-maharaja.com");
+            objBody.Add("content", SendBody);
+
+            objRecipients.Add("name", EMail);
+            objRecipients.Add("address", EMail);
+            aryRecipients.Add(objRecipients);
+
+            objBody.Add("recipients", aryRecipients);
+
+            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
             result.Result = EWin.Lobby.enumResult.OK;
             result.Message = "";
 
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             result.Result = EWin.Lobby.enumResult.ERR;
             result.Message = "";
         }
@@ -1281,10 +1531,10 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public BulletinBoardResult GetBulletinBoard(string GUID)
+    public OcwBulletinBoardResult GetBulletinBoard(string GUID)
     {
 
-        BulletinBoardResult R = new BulletinBoardResult() { Datas = new List<BulletinBoard>(), Result = EWin.Lobby.enumResult.ERR };
+        OcwBulletinBoardResult R = new OcwBulletinBoardResult() { Datas = new List<OcwBulletinBoard>(), Result = EWin.Lobby.enumResult.ERR };
         System.Data.DataTable DT;
         RedisCache.SessionContext.SIDInfo SI;
 
@@ -1293,7 +1543,7 @@ public class LobbyAPI : System.Web.Services.WebService
         {
             for (int i = 0; i < DT.Rows.Count; i++)
             {
-                var data = new BulletinBoard();
+                var data = new OcwBulletinBoard();
                 if ((int)DT.Rows[i]["State"] == 0)
                 {
                     data.BulletinBoardID = (int)DT.Rows[i]["BulletinBoardID"];
@@ -1391,7 +1641,7 @@ public class LobbyAPI : System.Web.Services.WebService
         RedisCache.SessionContext.SIDInfo SI;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
         string Token = GetToken();
-        int CollectLimit = 500;
+        int CollectLimit = 100;
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
@@ -1413,6 +1663,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
                         if (CollecResult.Result == EWin.Lobby.enumResult.OK)
                         {
+                            EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount,Collect.Description,0,0,0);
                             R.Result = EWin.Lobby.enumResult.OK;
                         }
                         else
@@ -1446,6 +1697,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
                                     if (CollecResult.Result == EWin.Lobby.enumResult.OK)
                                     {
+                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount,Collect.Description,0,0,0);
                                         R.Result = EWin.Lobby.enumResult.OK;
                                     }
                                     else
@@ -1496,26 +1748,25 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PromotionCollectHistoryResult GetPromotionCollectHistory(string WebSID, string GUID, string BeginDate, string EndDate)
+    public OcwPromotionCollectHistoryResult GetPromotionCollectHistory(string WebSID, string GUID, string BeginDate, string EndDate)
     {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        PromotionCollectHistoryResult R = new PromotionCollectHistoryResult() { CollectList = null, QueryBeginDate = BeginDate, QueryEndDate = EndDate, Result = EWin.Lobby.enumResult.ERR };
+        OcwPromotionCollectHistoryResult R = new OcwPromotionCollectHistoryResult() { CollectList = null, QueryBeginDate = BeginDate, QueryEndDate = EndDate, Result = EWin.Lobby.enumResult.ERR };
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-
             EWin.Lobby.PromotionCollectHistoryResult EWinReturn = lobbyAPI.GetPromotionCollectHistory(GetToken(), SI.EWinSID, GUID, DateTime.Parse(BeginDate), DateTime.Parse(EndDate));
 
             if (EWinReturn.Result == EWin.Lobby.enumResult.OK)
             {
-                List<PromotionCollect> collectList = new List<PromotionCollect>();
+                List<OcwPromotionCollect> collectList = new List<OcwPromotionCollect>();
 
                 foreach (var item in EWinReturn.CollectList)
                 {
-                    PromotionCollect PC = new PromotionCollect()
+                    OcwPromotionCollect PC = new OcwPromotionCollect()
                     {
 
                         CollectID = item.CollectID,
@@ -1523,7 +1774,7 @@ public class LobbyAPI : System.Web.Services.WebService
                         PromotionID = item.PromotionID,
                         PromotionDetailID = item.PromotionDetailID,
                         CollectAreaType = item.CollectAreaType,
-                        Status = (PromotionCollect.enumStatus)item.Status,
+                        Status = (OcwPromotionCollect.OcwEnumStatus)item.Status,
                         Description = item.Description,
                         ActionContent = item.ActionContent,
                         ExpireDate = item.ExpireDate,
@@ -1535,7 +1786,7 @@ public class LobbyAPI : System.Web.Services.WebService
                     {
                         var obj_ActionContent = Newtonsoft.Json.Linq.JObject.Parse(PC.ActionContent);
 
-                        List<ActionContentSet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActionContentSet>>(obj_ActionContent["ActionList"].ToString());
+                        List<OcwActionContentSet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<OcwActionContentSet>>(obj_ActionContent["ActionList"].ToString());
                         PC.PointValue = decimal.Parse(actions.Where(x => x.Field == "PointValue").FirstOrDefault().Value);
                     }
 
@@ -1574,12 +1825,12 @@ public class LobbyAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public PromotionCollectResult GetPromotionCollectAvailable(string WebSID, string GUID)
+    public OcwPromotionCollectResult GetPromotionCollectAvailable(string WebSID, string GUID)
     {
 
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        PromotionCollectResult R = new PromotionCollectResult() { CollectList = null, Result = EWin.Lobby.enumResult.ERR };
+        OcwPromotionCollectResult R = new OcwPromotionCollectResult() { CollectList = null, Result = EWin.Lobby.enumResult.ERR };
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
@@ -1589,11 +1840,11 @@ public class LobbyAPI : System.Web.Services.WebService
 
             if (EWinReturn.Result == EWin.Lobby.enumResult.OK)
             {
-                List<PromotionCollect> collectList = new List<PromotionCollect>();
+                List<OcwPromotionCollect> collectList = new List<OcwPromotionCollect>();
 
                 foreach (var item in EWinReturn.CollectList)
                 {
-                    PromotionCollect PC = new PromotionCollect()
+                    OcwPromotionCollect PC = new OcwPromotionCollect()
                     {
 
                         CollectID = item.CollectID,
@@ -1601,7 +1852,7 @@ public class LobbyAPI : System.Web.Services.WebService
                         PromotionID = item.PromotionID,
                         PromotionDetailID = item.PromotionDetailID,
                         CollectAreaType = item.CollectAreaType,
-                        Status = (PromotionCollect.enumStatus)item.Status,
+                        Status = (OcwPromotionCollect.OcwEnumStatus)item.Status,
                         Description = item.Description,
                         ActionContent = item.ActionContent,
                         ExpireDate = item.ExpireDate,
@@ -1613,7 +1864,7 @@ public class LobbyAPI : System.Web.Services.WebService
                     {
                         var obj_ActionContent = Newtonsoft.Json.Linq.JObject.Parse(PC.ActionContent);
 
-                        List<ActionContentSet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActionContentSet>>(obj_ActionContent["ActionList"].ToString());
+                        List<OcwActionContentSet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<OcwActionContentSet>>(obj_ActionContent["ActionList"].ToString());
                         PC.PointValue = decimal.Parse(actions.Where(x => x.Field == "PointValue").FirstOrDefault().Value);
                     }
 
@@ -1652,6 +1903,115 @@ public class LobbyAPI : System.Web.Services.WebService
 
     #endregion
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public UserTwoMonthSummaryResult GetUserTwoMonthSummaryData(string WebSID, string GUID) {
+        EWin.OCW.OCW OCWAPI = new EWin.OCW.OCW();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        UserTwoMonthSummaryResult R = new UserTwoMonthSummaryResult() { PaymentResult = null, GameResult = null, Result = EWin.Lobby.enumResult.ERR };
+        System.Data.DataTable PaymentDT;
+        EWin.Lobby.OrderSummaryResult GameRet = new EWin.Lobby.OrderSummaryResult();
+        List<UserTwoMonthSummaryResult.Payment> PaymentResult = new List<UserTwoMonthSummaryResult.Payment>();
+        UserTwoMonthSummaryResult.Payment P = new UserTwoMonthSummaryResult.Payment();
+        List<UserTwoMonthSummaryResult.Game> GameResult = new List<UserTwoMonthSummaryResult.Game>();
+        UserTwoMonthSummaryResult.Game G = new UserTwoMonthSummaryResult.Game();
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            var pre = DateTime.Now.AddMonths(-1).ToString("yyyy-MM") + "-01";
+            var now = DateTime.Now.ToString("yyyy-MM") + "-01";
+            var next = DateTime.Now.AddMonths(1).ToString("yyyy-MM") + "-01";
+
+            for (int i = 0; i < 2; i++) {
+                PaymentDT = null;
+                GameRet = new EWin.Lobby.OrderSummaryResult();
+                if (i == 0) {
+                    PaymentDT = EWinWebDB.UserAccountSummary.GetUserAccountPaymentSummaryData(SI.LoginAccount, pre, now);
+                    GameRet = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, GUID, pre, now);
+                } else {
+                    PaymentDT = EWinWebDB.UserAccountSummary.GetUserAccountPaymentSummaryData(SI.LoginAccount, now, next);
+                    GameRet = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, GUID, now, next);
+                }
+
+                if (PaymentDT != null) {
+                    if (PaymentDT.Rows.Count > 0) {
+                        P = new UserTwoMonthSummaryResult.Payment();
+                        P.SortIndex = i;
+                        P.DepositAmount = (decimal)PaymentDT.Rows[0]["DepositAmount"];
+                        P.WithdrawalAmount = (decimal)PaymentDT.Rows[0]["WithdrawalAmount"];
+                    } else {
+                        P = new UserTwoMonthSummaryResult.Payment();
+                        P.SortIndex = i;
+                        P.DepositAmount = 0;
+                        P.WithdrawalAmount = 0;
+                    }
+                } else {
+                    P = new UserTwoMonthSummaryResult.Payment();
+                    P.SortIndex = i;
+                    P.DepositAmount = 0;
+                    P.WithdrawalAmount = 0;
+                }
+
+                PaymentResult.Add(P);
+
+                if (GameRet.Result == EWin.Lobby.enumResult.OK) {
+                    if (GameRet.SummaryList.Length > 0) {
+                        G = GameRet.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new UserTwoMonthSummaryResult.Game {
+                            ValidBetValue = sum.Sum(y => y.ValidBetValue),
+                            RewardValue = sum.Sum(y => y.RewardValue),
+                            OrderValue = sum.Sum(y => y.OrderValue),
+                            SortIndex = i
+                        }).ToList().FirstOrDefault();
+                    } else {
+                        G = new UserTwoMonthSummaryResult.Game();
+                        G.SortIndex = i;
+                        G.OrderValue = 0;
+                        G.ValidBetValue = 0;
+                        G.RewardValue = 0;
+                    }
+                } else {
+                    G = new UserTwoMonthSummaryResult.Game();
+                    G.SortIndex = i;
+                    G.OrderValue = 0;
+                    G.ValidBetValue = 0;
+                    G.RewardValue = 0;
+                }
+
+                GameResult.Add(G);
+            }
+
+            R.Result = EWin.Lobby.enumResult.OK;
+            R.PaymentResult = PaymentResult;
+            R.GameResult = GameResult;
+        } else {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+
+        return R;
+    }
+
+    public class UserTwoMonthSummaryResult  : EWin.Lobby.APIResult {
+        public List<Payment> PaymentResult { get; set; }
+        public List<Game> GameResult { get; set; }
+
+        public class Payment {
+            public int SortIndex { get; set; }
+            public decimal DepositAmount { get; set; }
+            public decimal WithdrawalAmount { get; set; }
+        }
+
+        public class Game {
+            public int SortIndex { get; set; }
+            public decimal OrderValue { get; set; }
+            public decimal ValidBetValue { get; set; }
+            public decimal RewardValue { get; set; }
+        }
+    }
+
+
     private string GetToken()
     {
         string Token;
@@ -1663,12 +2023,12 @@ public class LobbyAPI : System.Web.Services.WebService
         return Token;
     }
 
-    public class BulletinBoardResult : EWin.Lobby.APIResult
+    public class OcwBulletinBoardResult : EWin.Lobby.APIResult
     {
-        public List<BulletinBoard> Datas { get; set; }
+        public List<OcwBulletinBoard> Datas { get; set; }
     }
 
-    public class BulletinBoard
+    public class OcwBulletinBoard
     {
         public int BulletinBoardID { get; set; }
         public string BulletinTitle { get; set; }
@@ -1679,12 +2039,16 @@ public class LobbyAPI : System.Web.Services.WebService
 
     public class OcwCompanyGameCodeResult : EWin.Lobby.APIResult
     {
+        public int MaxGameID { get; set; }
+        public long TimeStamp { get; set; }
         public List<OcwCompanyCategory> CompanyCategoryDatas { get; set; }
     }
 
     public class OcwAllCompanyGameCodeResult : EWin.Lobby.APIResult
     {
         public List<OcwCompanyGameCode> Datas { get; set; }
+        public int MaxGameID { get; set; }
+        public long TimeStamp { get; set; }
     }
 
     public class OcwCompanyCategory
@@ -1716,27 +2080,27 @@ public class LobbyAPI : System.Web.Services.WebService
         public string Tag { get; set; }
     }
 
-    public class LoginMessageResult : EWin.Lobby.APIResult
+    public class OcwLoginMessageResult : EWin.Lobby.APIResult
     {
         public string Version { get; set; }
     }
 
-    public class PromotionCollectHistoryResult : EWin.Lobby.APIResult
+    public class OcwPromotionCollectHistoryResult : EWin.Lobby.APIResult
     {
         public string QueryBeginDate { get; set; }
         public string QueryEndDate { get; set; }
-        public PromotionCollect[] CollectList { get; set; }
+        public OcwPromotionCollect[] CollectList { get; set; }
     }
 
-    public class PromotionCollectResult : EWin.Lobby.APIResult
+    public class OcwPromotionCollectResult : EWin.Lobby.APIResult
     {
-        public PromotionCollect[] CollectList { get; set; }
+        public OcwPromotionCollect[] CollectList { get; set; }
     }
 
-    public class PromotionCollect
+    public class OcwPromotionCollect
     {
         //0=尚未領取/1=已領取/2=已過期
-        public enum enumStatus
+        public enum OcwEnumStatus
         {
             None = 0,
             Taked = 1,
@@ -1748,7 +2112,7 @@ public class LobbyAPI : System.Web.Services.WebService
         public int PromotionID { get; set; }
         public int PromotionDetailID { get; set; }
         public int CollectAreaType { get; set; }
-        public enumStatus Status { get; set; }
+        public OcwEnumStatus Status { get; set; }
         public string Description { get; set; }
         public string ActionContent { get; set; }
         public string ExpireDate { get; set; }
@@ -1758,15 +2122,30 @@ public class LobbyAPI : System.Web.Services.WebService
         public string PromotionTitle { get; set; }
     }
 
-    public class PropertySet
+    public class OcwPropertySet
     {
         public string Name { get; set; }
         public string Value { get; set; }
     }
 
-    public class ActionContentSet
+    public class OcwActionContentSet
     {
         public string Field { get; set; }
         public string Value { get; set; }
+    }
+
+    public class UserAccountEventSummaryResult: EWin.Lobby.APIResult
+    {
+        public List<UserAccountEventSummary> Datas { get; set; }
+    }
+
+    public class UserAccountEventSummary
+    {
+        public string LoginAccount { get; set; }
+        public string ActivityName { get; set; }
+        public int CollectCount { get; set; }
+        public int JoinCount { get; set; }
+        public decimal ThresholdValue { get; set; }
+        public decimal BonusValue { get; set; }
     }
 }

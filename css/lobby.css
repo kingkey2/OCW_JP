@@ -6,10 +6,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background: linear-gradient(180deg, rgba(251, 251, 251, 0) 0%, #D6D6D6 100%);
 }
 .tab-game .content {
-  max-width: calc(120px * 7);
+  max-width: 840px;
   margin: 0 auto;
 }
-.tab-game .icon-mask::before {
+.tab-game .icon-mask {
   width: 1.5625rem;
   height: 1.5625rem;
 }
@@ -71,8 +71,21 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 @media (min-width: 768px) {
-  .tab-game .icon-mask::before {
+  .tab-game .icon-mask {
     width: 4.0625rem;
     height: 4.0625rem;
+  }
+  .hero_slider_lobby .img-wrap {
+    padding-bottom: 500px;
+  }
+}
+@media (min-width: 1440px) {
+  .hero_slider_lobby .img-wrap {
+    padding-bottom: 550px;
+  }
+}
+@media (min-width: 1920px) {
+  .hero_slider_lobby .img-wrap {
+    padding-bottom: 600px;
   }
 }

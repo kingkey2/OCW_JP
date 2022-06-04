@@ -1,0 +1,644 @@
+/*=================== fonts ====================*/
+@import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
+/* animation =================================
+animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
+.icon-mask:before {
+  background-color: #fff;
+}
+
+.date-period {
+  font-size: 0.875rem;
+}
+.date-period .time {
+  margin-left: 0.5rem;
+}
+
+.btn-copy {
+  width: 45px;
+  height: 45px;
+  background-color: transparent;
+}
+.btn-copy .icon {
+  background-color: #FF6396;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  padding: 0.25em;
+  transition: all 0.3s ease;
+}
+.btn-copy:hover .icon {
+  background-color: #ff2d72;
+}
+
+.deposit .label-status {
+  background-color: #F47BAB;
+}
+
+.withdraw .label-status {
+  background-color: #369AD6;
+}
+
+.win .label-status {
+  background-color: #FFB103;
+}
+
+.lose .label-status {
+  background-color: #2477A8;
+}
+
+.tab-record {
+  width: 250px;
+}
+
+.sec-record-payment .tab-record .tab-item:hover, .sec-record-payment .tab-record .tab-item.active {
+  color: #459E74;
+}
+.sec-record-payment .sec_link .btn:hover, .sec-record-payment .sec_link .btn.active {
+  background-color: #459E74;
+}
+
+.sec-record-games .tab-record .tab-item:hover, .sec-record-games .tab-record .tab-item.active {
+  color: #C89447;
+}
+.sec-record-games .sec_link .btn:hover, .sec-record-games .sec_link .btn.active {
+  background-color: #C89447;
+}
+
+.no-Data {
+  position: relative;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+}
+.no-Data .data {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
+  padding: 20px 0;
+}
+.no-Data .data .text {
+  font-size: 1.125rem;
+}
+.no-Data .data::before {
+  content: "";
+  display: flex;
+  width: 100%;
+  height: 100px;
+  background: url(../images/theme/blue/icon/icon-no-data.svg) center center no-repeat;
+  background-size: contain;
+  text-align: center;
+}
+
+.record-overview-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-bottom: 1.6rem;
+  color: #fff;
+}
+.record-overview-wrapper .MT__table {
+  border-radius: 15px;
+  padding: 10px;
+}
+.record-overview-wrapper .MT__table .Thead .thead__th {
+  background-color: transparent;
+}
+.record-overview-wrapper .MT__table .amount {
+  font-size: 1.875rem;
+}
+.record-overview-wrapper .MT__table .tbody__tr.stress .tbody__td {
+  padding: 0;
+}
+.record-overview-inner {
+  padding: 10px;
+}
+.record-overview-box {
+  width: 100%;
+  border-radius: 15px;
+  padding: 10px 5px;
+}
+.record-overview-box.payment {
+  background-color: #7ACEA6;
+}
+.record-overview-box.payment .MT__table {
+  background-color: #459E74;
+}
+.record-overview-box.payment .btn-detail-link {
+  background-color: #459E74;
+}
+.record-overview-box.payment .MT__table .tbody__tr.stress .td__content {
+  background-color: #7ACEA6;
+}
+.record-overview-box.game {
+  background-color: #E5C573;
+}
+.record-overview-box.game .MT__table {
+  background-color: #C89447;
+}
+.record-overview-box.game .btn-detail-link {
+  background-color: #C89447;
+}
+.record-overview-box.game .MT__table .tbody__tr.stress .td__content {
+  background-color: #E5C573;
+}
+.record-overview-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+.MT__table {
+  position: relative;
+}
+.MT__table .arrow {
+  border-color: white;
+  margin-left: 0.5rem;
+}
+.MT__table .no-Data {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100px;
+}
+.MT__table .no-Data .data {
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-items: center;
+  padding: 20px 0;
+}
+.MT__table .no-Data .data .text {
+  font-size: 1.125rem;
+}
+.MT__table .no-Data .data::before {
+  content: "";
+  display: flex;
+  width: 100%;
+  height: 100px;
+  background: url(../images/theme/blue/icon/icon-no-data.svg) center center no-repeat;
+  background-size: contain;
+  text-align: center;
+}
+
+.table-payment .Thead .thead__th {
+  background-color: #459E74;
+}
+
+.label.order-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 0.2em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.label.order-status.success {
+  background-color: #59B587;
+}
+.label.order-status.fail {
+  background-color: #D33605;
+}
+.label.order-status.processing {
+  background-color: #FFB103;
+}
+.label.order-status .icon {
+  width: 20px;
+  height: 20px;
+  color: #fff;
+}
+
+.section-record-payment .table-desktop {
+  display: none;
+}
+
+.record-table-container {
+  padding-left: 22.5px;
+}
+
+.record-table td, .record-table th {
+  word-break: break-all;
+}
+.record-table-date-select {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 0.25em;
+}
+.record-table-date-select .desc {
+  font-size: 1.25em;
+  font-weight: 500;
+}
+.record-table-date-select .btn-container {
+  display: flex;
+}
+.record-table-date-select .btn-icon {
+  margin: 0;
+  padding: 0.25em;
+  color: #000;
+}
+.record-table-date-select .btn-icon:hover {
+  opacity: 0.5;
+}
+.record-table-date-select .modal-info {
+  margin: 0 12px 0 0;
+}
+.record-table-date-select .wrap-box {
+  display: flex;
+  align-items: center;
+}
+.record-table .header .arrow {
+  border-color: #fff;
+  margin-left: 0.5rem;
+}
+.record-table-item {
+  margin: 0 0 0.55em;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+.record-table-item.show .btn-toggle .arrow {
+  transform: rotate(-45deg);
+}
+.record-table-item.header {
+  display: flex;
+  padding: 0.25em 1em;
+  background-color: gray;
+  border: 0;
+  border-radius: 4px;
+}
+.record-table-item.header:hover {
+  box-shadow: none;
+}
+.record-table-item.header .record-table-cell {
+  flex: auto;
+  white-space: nowrap;
+  text-align: center;
+}
+.record-table-item.deposit .label-status {
+  background-color: #F47BAB;
+}
+.record-table-item.deposit .thead-th .title {
+  background-color: #F47BAB;
+  padding: 0.1em 0;
+}
+.record-table-item.withdraw .label-status {
+  background-color: #369AD6;
+}
+.record-table-item.withdraw .thead-th .title {
+  background-color: #369AD6;
+}
+.record-table-tab {
+  display: flex;
+  width: 100%;
+  position: relative;
+  padding-left: 30px;
+  transition: all 0.3s ease;
+}
+.record-table-tab:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+.record-table-tab:hover .btn-toggle {
+  background-color: #B4B4B4;
+  border-color: #B4B4B4;
+}
+.record-table-tab:hover .btn-toggle .arrow {
+  border-color: #fff;
+}
+.record-table-tab .record-table-cell {
+  flex: auto;
+  padding: 0.45em 0.75em;
+}
+.record-table-tab .record-table-cell .count {
+  font-size: 1.25em;
+  font-weight: 500;
+}
+.record-table-tab .record-table-cell .count.positive {
+  color: #2AC3CD;
+}
+.record-table-tab .td-toggle {
+  flex: 0 0 auto;
+}
+.record-table-tab .td-status {
+  position: absolute;
+  left: -30px;
+  top: 5px;
+}
+.record-table-tab .td-amount {
+  font-weight: 700;
+}
+.record-table-tab .td-paymentWay {
+  font-weight: 500;
+}
+.record-table-tab .data-amount {
+  display: inline-flex;
+  align-items: center;
+}
+.record-table-tab .data-amount .label {
+  margin-left: 0.5em;
+}
+.record-table-drop-panel {
+  padding: 1em 0;
+}
+.record-table-drop-panel .tbody-td {
+  display: flex;
+  justify-content: space-between;
+}
+.record-table-drop-panel .thead-th .title {
+  border-radius: 20px;
+  background-color: gray;
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  color: #fff;
+}
+.record-table-drop-panel .table {
+  margin: 0 auto;
+  font-size: 0.9125em;
+}
+.record-table-drop-panel .table th {
+  font-weight: lighter;
+  border: 0;
+}
+.record-table-drop-panel .table td {
+  border: 0;
+}
+.record-table.payment-record {
+  margin: 0 auto;
+}
+.record-table.payment-record .record-table-item {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.record-table.games-record .record-table-item.header {
+  display: none;
+  background-color: #C89447;
+  color: #fff;
+}
+.record-table.games-record .record-table-item .number {
+  display: block;
+  font-weight: 500;
+}
+.record-table.games-record .record-table-tab {
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px 0 5px;
+  padding-left: 30px;
+}
+.record-table.games-record .record-table-wrapper {
+  flex: 1;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.record-table.games-record .record-table-wrapper .record-table-cell {
+  flex: 0 0 50%;
+  padding: 0.05rem 0.35rem;
+}
+.record-table.games-record .record-table-wrapper .td-orderValue,
+.record-table.games-record .record-table-wrapper .td-validBet {
+  display: flex;
+}
+.record-table.games-record .record-table-wrapper .td-rewardValue {
+  font-size: 1.5rem;
+  text-align: right;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item {
+  margin-bottom: 0.5rem;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item.header {
+  display: flex;
+  background-color: #E5C573;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item.header:hover {
+  box-shadow: none;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item.header .record-table-cell {
+  flex: auto;
+  padding: 0.5em 0.3em;
+  white-space: nowrap;
+  text-align: center;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item.header .record-table-cell.cell-orderValue, .record-table.games-record .record-table-drop-panel .record-drop-item.header .record-table-cell.cell-validBet, .record-table.games-record .record-table-drop-panel .record-drop-item.header .record-table-cell.cell-rewardValue {
+  flex: 0 0 100px;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item .data {
+  word-break: break-all;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item.win .record-drop-item-rewardValue {
+  color: #FF0000;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item.win:before {
+  background-color: #FFB103;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item.lose .record-drop-item-rewardValue {
+  color: #59B587;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item.lose:before {
+  background-color: #2477A8;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item-inner {
+  display: flex;
+  flex-flow: row wrap;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item-wrapper {
+  flex: 1;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item-rewardValue {
+  flex: 0 0 100px;
+  align-items: center;
+  display: inline-flex;
+  justify-content: flex-end;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item-img {
+  order: -2;
+  width: 50px;
+  margin-right: 0.5rem;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item-img .img-wrap {
+  border-radius: 5px;
+}
+.record-table.games-record .record-table-drop-panel .record-drop-item-img img {
+  width: 100%;
+}
+.record-table .btn-toggle {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #969696;
+  border-radius: 50%;
+}
+.record-table .btn-toggle .arrow {
+  display: inline-flex;
+  border-color: #969696;
+}
+
+@media (min-width: 640px) {
+  .record-table.games-record .record-table-tab {
+    justify-content: space-between;
+  }
+  .record-table.games-record .record-table-wrapper .td-orderValue {
+    justify-content: flex-end;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item {
+    display: flex;
+    align-items: center;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    margin-right: 0.8rem;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item .record-item {
+    padding: 0.5em 0.3em;
+    text-align: center;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-inner {
+    flex: 1;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper {
+    order: -1;
+    justify-content: space-between;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-gameName {
+    flex: 1;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-gameName .data {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue,
+.record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet {
+    flex: 0 0 100px;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue .title,
+.record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet .title {
+    display: none;
+  }
+}
+@media (min-width: 712px) {
+  .record-overview-box {
+    width: 49%;
+  }
+
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue {
+    flex: 0 0 120px;
+  }
+}
+@media (min-width: 936px) {
+  .section-record-payment .table-desktop {
+    display: table;
+  }
+  .record-table.games-record .record-table-tab {
+    border-radius: 0;
+    border: 0;
+    padding-left: 0;
+  }
+  .record-table.games-record .record-table-tab .td-status {
+    position: static;
+    flex: 0 0 40px;
+  }
+  .record-table.games-record .record-table-item.header {
+    display: flex;
+    padding: 10px 8px;
+    padding-right: 60px;
+  }
+  .record-table.games-record .record-table-item.header .td-validBet,
+.record-table.games-record .record-table-item.header .td-orderValue,
+.record-table.games-record .record-table-item.header .td-rewardValue {
+    flex: 0 0 150px;
+  }
+  .record-table.games-record .record-table-wrapper {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    padding-bottom: 1rem;
+  }
+  .record-table.games-record .record-table-wrapper .record-table-cell {
+    flex: 1;
+  }
+  .record-table.games-record .record-table-wrapper .record-table-cell.td-orderValue, .record-table.games-record .record-table-wrapper .record-table-cell.td-validBet, .record-table.games-record .record-table-wrapper .record-table-cell.td-rewardValue {
+    flex: 0 0 150px;
+    justify-content: center;
+  }
+  .record-table.games-record .record-table-wrapper .record-table-cell .title {
+    display: none;
+  }
+  .record-table.games-record .record-table-wrapper .record-table-cell.td-rewardValue {
+    font-size: 1rem;
+    padding-right: 10px;
+  }
+  .record-table.games-record .record-table-drop-panel {
+    padding-left: 70px;
+    padding-right: 50px;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item.header {
+    display: none;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-rewardValue {
+    flex: 0 0 150px;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper {
+    justify-content: flex-end;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue,
+.record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet {
+    flex: 0 0 150px;
+  }
+}
+@media screen and (max-width: 711px) {
+  .record-overview-box {
+    margin-bottom: 1rem;
+  }
+
+  .record-table.games-record .record-table-drop-panel .record-drop-item.header {
+    display: none;
+  }
+}
+@media screen and (max-width: 639px) {
+  .record-table.games-record .record-table-tab .td-date {
+    order: -2;
+  }
+  .record-table.games-record .record-table-tab .td-rewardValue {
+    order: -1;
+  }
+  .record-table.games-record .record-table-tab .td-orderValue,
+.record-table.games-record .record-table-tab .td-validBet {
+    flex: 0 0 100%;
+    justify-content: space-between;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper > * {
+    width: 100%;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-gameName .data {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue,
+.record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet {
+    display: flex;
+    justify-content: space-between;
+  }
+}

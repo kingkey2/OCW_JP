@@ -27,6 +27,8 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
             CategoryCount = Convert.ToInt32(DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd));
 
+            RedisCache.CompanyCategory.DeleteCompanyCategory();
+
             return CategoryCount;
         }
 
@@ -180,6 +182,20 @@ public static class EWinWebDB {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int DeleteCount = 0;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM CompanyCategory WITH (NOLOCK)";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+                for (int i = 0; i < DT.Rows.Count; i++)
+                { 
+                    RedisCache.CompanyGameCode.DeleteCompanyGameCode((int)DT.Rows[i]["CompanyCategoryID"]);
+                }
+            }
 
             SS = " DELETE FROM CompanyGameCode ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
@@ -187,8 +203,42 @@ public static class EWinWebDB {
             DBCmd.CommandType = System.Data.CommandType.Text;
             DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
 
+            
+
             return DeleteCount;
         }
+    }
+
+    public static class UserAccountEventSummary
+    {
+        public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, int Type, decimal ThresholdValue, decimal BonusValue)
+        {
+            //Type: 0=Collect/1=Join
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int ReturnValue = -1;
+            SS = "spUpdateUserAccountEventSummary";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@ActivityName", System.Data.SqlDbType.VarChar).Value = ActivityName;
+            DBCmd.Parameters.Add("@Type", System.Data.SqlDbType.Int).Value = Type;
+            DBCmd.Parameters.Add("@ThresholdValue", System.Data.SqlDbType.Decimal).Value = ThresholdValue;
+            DBCmd.Parameters.Add("@BonusValue", System.Data.SqlDbType.Decimal).Value = BonusValue;
+            DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
+            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+
+            if (ReturnValue==0)
+            {
+                RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccount(LoginAccount);
+                RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+            }
+            
+            return ReturnValue;
+        }
+
     }
 
     public static class UserAccountPayment
@@ -746,6 +796,30 @@ public static class EWinWebDB {
             RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
 
             return RetValue;
+        }
+    }
+
+    public static class UserAccountSummary {
+        public static System.Data.DataTable GetUserAccountPaymentSummaryData(string LoginAccount, string StartDate, string EndDate) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = " SELECT ISNULL(Sum(DepositAmount),0)  DepositAmount, " +
+                      "                ISNULL(Sum(WithdrawalAmount),0) WithdrawalAmount " +
+                      " FROM   UserAccountSummary " +
+                      " WHERE  LoginAccount = @LoginAccount " +
+                      "        AND SummaryDate >= @StartDate " +
+                      "        AND SummaryDate < @EndDate  ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@StartDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(StartDate);
+            DBCmd.Parameters.Add("@EndDate", System.Data.SqlDbType.DateTime).Value = DateTime.Parse(EndDate);
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
         }
     }
 }

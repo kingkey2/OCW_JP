@@ -1,118 +1,66 @@
-﻿var workerControl;
+﻿self.importScripts("/Scripts/Math.uuid.js");
 
 //定期更新與整理資料吐回(背景執行)
 //整理成兩塊
 //1.全部遊戲，做索引，做單遊戲搜尋與優化
 //2.按照分類、廠牌整理
 
+var wokerControl;
 self.addEventListener('message', function (e) {
     //data格式
     //Cmd => 執行動作
     //Params => data參數
     if (e.data) {
-        if (e.data.Cmd == "INIT") {
-            wokerControl = new Worker(Params[0]);
-        } else if (e.data.Cmd == "INIT") {
+        if (e.data.Cmd == "Init") {
+            wokerControl = new Worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], e.data.Params[3], e.data.Params[4]);
+            wokerControl.onRefreshCtEvent = function (ctResult) {
+                self.postMessage({
+                    Cmd: "RefreshCtList",
+                    Data: ctResult,
+                });
+            };
+            wokerControl.onRefreshDicEvent = function (searchResult) {
+                self.postMessage({
+                    Cmd: "RefreshDic",
+                    Data: searchResult,
+                });
+            };
 
+            wokerControl.onLoadLangEnd = function (langs) {
+                self.postMessage({
+                    Cmd: "LangsLoaded",
+                    Data: langs,
+                });
+            };
+
+            wokerControl.start();
         }
     }
-    self.postMessage(res);
-    self.close();
 }, false);
-
-
-workerControl
-
-function UpdateGameCodeDic() {
-
-}
-
-function SetGameCategory() {
-    var GameList = [
-        {
-            Loacation: "",
-            Category: [
-                {
-
-                }
-            ]
-        }
-    ];
-
-    workerControl
-}
-
 
 
 
 //#region  Class
-var Worker = function (version, url, langUrl, second, finishNotifyEvent) {
+var Worker = function (version, url, langUrl, second, timeStamp) {
     var defineLocations = ["Home", "GameList_All", "GameList_Slot", "GameList_Live", "GameList_Electron", "GameList_Other"];
-    var defineLangs = ["JPN", "CHT"];
-
-    var RecordTimeStamp = 0;
+    var defineLangs = ["JPN", "CHT"];    
     var url = url
     var langUrl = langUrl;
-    var IntervalSecond = second;
+    var IntervalSecond = second;   
     var version = version;
-    var onFinish = finishNotifyEvent;
 
-    //#region List
-    var GameList = {
-        Slice: [
-            {
-                Index: 0 // GameID /100
-                Datas: [
-
-                ]
-            }
-        ],
-
-    };
-
-    var BrandList = [];
-
-    var GameCtList = [{
-        Loacation: "",
-        Categories: [
-            {
-                CategoryID: 0,
-                State: 0,
-                SortIndex: 0,
-                Location: 0,
-                ShowType: 0,
-                Datas: [
-                    {
-                        CategoryID: 0,
-                        GameID: 0,
-                        GameCode: "",
-                        GameName: "",
-                        GameCategoryCode: "",
-                        GameCategorySubCode: "",
-                        AllowDemoPlay: 0,
-                        RTPInfo: 0,
-                        Info: 0,
-                        IsHot: 0,
-                        IsNew: 0,
-                        SortIndex: 0
-                    }
-                ]
-            }
-        ]
-    }];
-
-    //#endregion List
+    var lobbyAPI;
 
     var languages = [
-        {
-            lang: "",
-            type: "Brand",
-            mlp: null
-        }
+
     ];
 
     var multiLanguage = function (v) {
         var _LanguageContextJSON = [];
+
+        this.getLangText = function () {
+            return _LanguageContextJSON[0];
+        }
 
         function loadLanguageFromFile(langFile, cb) {
             readTextFile(langFile, function (success, text) {
@@ -173,224 +121,418 @@ var Worker = function (version, url, langUrl, second, finishNotifyEvent) {
                     if (v) {
                         loadLanguageFromFile(filePath + lang + ".json?" + v, function () {
                             if (cb)
-                                cb();
+                                cb(lang);
                         });
                     } else {
                         loadLanguageFromFile(filePath + lang + ".json", function () {
                             if (cb)
-                                cb();
+                                cb(lang);
                         });
                     }
                 } else {
                     if (cb)
-                        cb();
+                        cb(lang);
                 }
             } else {
                 if (cb)
-                    cb();
+                    cb(lang);
             }
         }
 
     };
 
-
-    this.UpdateGameCodeDic = function () { };
-
-    this.LoadLang = function (cb) {
+    var LoadLang = function (cb) {
         var PromiseList = [];
-
+        
         for (var i = 0; i < defineLangs.length; i++) {
+            var gameCodeMlp = new multiLanguage(version);
+            var gameBrandMlp = new multiLanguage(version);
             var lang = defineLangs[i];
-            promiseList.push(new Promise(function (resolve, reject) {
-                var mlp = new multiLanguage(version);
-                mlp.loadLanguageByOtherFile(langUrl + "/GameCode.", lang, function () {
+            PromiseList.push(new Promise(function (resolve, reject) {               
+                gameCodeMlp.loadLanguageByOtherFile(langUrl + "/GameCode.", lang, (function (lang) {
                     languages.push({
                         lang: lang,
                         type: "GameCode",
-                        mlp: mlp
+                        mlp: this
                     });
-                    resolve();
-                })
+                    resolve({ Data: this.getLangText(), lang: lang, type: "GameCode"});
+                }).bind(gameCodeMlp));
             }));
-            promiseList.push(new Promise(function (resolve, reject) {
-                var mlp = new multiLanguage(version);
-                mlp.loadLanguageByOtherFile(langUrl + "/GameBrand.", lang, function () {
+
+            PromiseList.push(new Promise(function (resolve, reject) {             
+                gameBrandMlp.loadLanguageByOtherFile(langUrl + "/GameBrand.", lang, (function (lang) {
                     languages.push({
                         lang: lang,
                         type: "GameBrand",
-                        mlp: mlp
+                        mlp: this
                     });
-                    resolve();
-                })
-            }));
+                    resolve({ Data: this.getLangText(), lang: lang, type: "GameBrand"});
+                }).bind(gameBrandMlp));
+            }));         
         }
 
-        Promise.all(promiseList).then(function (values) {
-            cb();
+        Promise.all(PromiseList).then(function (values) {
+            cb(values);
         });
     }
 
-    this.RefreshData = function () {
-        this.lobbyAPI.GetCompanyGameCodeTwo(getUUID(), function (success, o) {
+    var RefreshData = function RefreshData() {
+
+        //#region List Define
+
+
+        //var GameList = {
+        //    Slices: [
+        //        {
+        //            Index: 0 // GameID /100
+        //            Datas: [
+        //          GameData                           
+        //            ]
+        //        }
+        //    ]
+        //};
+
+        //var SearchDic = {
+        //    //廠牌搜尋
+        //    Brands: [{GameBrand:,AllGame:[],GameIndex}],
+        //    //總文字搜尋
+        //    Langs: { CHT : { 好:[] }}
+        //};
+
+
+        //var GameCtList = [{
+        //    Location: "",
+        //    Categories: [
+        //        {
+        //            CategoryID: 0,
+        //            State: 0,
+        //            SortIndex: 0,
+        //            Location: 0,
+        //            ShowType: 0,
+        //            Datas: [
+        //                {
+        //                    CategoryID: 0,
+        //                    GameID: 0,
+        //                    GameCode: "",
+        //                    GameName: "",
+        //                    GameCategoryCode: "",
+        //                    GameCategorySubCode: "",
+        //                    AllowDemoPlay: 0,
+        //                    RTPInfo: 0,
+        //                    Info: 0,
+        //                    IsHot: 0,
+        //                    IsNew: 0,
+        //                    SortIndex: 0
+        //                }
+        //            ]
+        //        }
+        //    ]
+        //}];
+
+        //#endregion List
+
+        let tempStamp = this.RecordTimeStamp;
+        lobbyAPI.GetCompanyGameCodeTwo(Math.uuid(), tempStamp, (function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    for (var i = 0; i < CompanyCategoryDatas.length; i++) {
-                        var ctData = CompanyCategoryDatas[i];
-                        var targetLoacation = GameCtList.find(x => x.Location == ctData.Location);                      
-                        var pushCtData = {
-                            CategoryID : ctData.CompanyCategoryID,
-                            State : ctData.State,
-                            SortIndex : ctData.SortIndex,
-                            CategoryName : ctData.CategoryName,
-                            Location : ctData.Location,
-                            ShowType : ctData.ShowType,
-                            Datas : [],
+                    if (o.CompanyCategoryDatas.length > 0) {
+                        var GameCtList = [];
+
+                        for (var i = 0; i < defineLocations.length; i++) {
+                            GameCtList.push({
+                                Location: defineLocations[i],
+                                Categories: []
+                            });
+                        }
+
+
+                        for (var i = 0; i < o.CompanyCategoryDatas.length; i++) {
+                            var ctData = o.CompanyCategoryDatas[i];
+                            var targetLocation = GameCtList.find(x => x.Location == ctData.Location);
+                            var pushCtData = {
+                                CategoryID: ctData.CompanyCategoryID,
+                                State: ctData.State,
+                                SortIndex: ctData.SortIndex,
+                                CategoryName: ctData.CategoryName,
+                                Location: ctData.Location,
+                                ShowType: ctData.ShowType,
+                                Datas: [],
+                            };
+
+                            for (var ii = 0; ii < ctData.Datas.length; ii++) {
+
+                                var gameData = ctData.Datas[ii];
+                                var pushGameData = {
+                                    CategoryID: ctData.CompanyCategoryID,
+                                    GameID: gameData.GameID,
+                                    GameCode: gameData.GameCode,
+                                    GameBrand: gameData.GameBrand,
+                                    GameName: gameData.GameName,
+                                    GameCategoryCode: gameData.GameCategoryCode,
+                                    GameCategorySubCode: gameData.GameCategorySubCode,
+                                    AllowDemoPlay: gameData.AllowDemoPlay,
+                                    RTPInfo: gameData.RTPInfo,
+                                    Info: gameData.Info,
+                                    RTPInfo: gameData.RTPInfo,
+                                    IsHot: gameData.IsHot,
+                                    IsNew: gameData.IsNew,
+                                    SortIndex: gameData.SortIndex,
+                                    Tag: gameData.Tag,
+                                    GameText: {},
+                                    BrandText: {}
+                                };
+
+                                for (var iii = 0; iii < languages.length; iii++) {
+                                    var language = languages[iii];
+
+                                    if (language.type == "GameCode") {
+                                        pushGameData.GameText[language.lang] = language.mlp.getLanguageKey(pushGameData.GameBrand + "." + pushGameData.GameName);
+
+                                    } else if (language.type == "GameBrand") {
+                                        pushGameData.BrandText[language.lang] = language.mlp.getLanguageKey(pushGameData.GameBrand);
+                                    }
+                                }
+
+                                pushCtData.Datas.push(pushGameData);
+                            }
+
+                            pushCtData.Datas.sort((a, b) => a.SortIndex - b.SortIndex);
+
+                            targetLocation.Categories.push(pushCtData);
+                        }
+
+                        for (var i = 0; i < GameCtList.length; i++) {
+                            GameCtList[i].Categories.sort((a, b) => a.SortIndex - b.SortIndex);
+                        }
+
+
+                        this.RecordTimeStamp = o.TimeStamp;
+                        if (this.onRefreshCtEvent) {
+                            this.onRefreshCtEvent({
+                                TimeStamp: this.RecordTimeStamp,
+                                CtList:GameCtList
+                            });
+                        }
+                    }                                    
+                }
+            }
+        }).bind(this));
+
+        lobbyAPI.GeAllCompanyGameCode(Math.uuid(), tempStamp, (function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.Datas.length > 0) {
+                        var GameList = {
+                            Slices: [],
+                            TotalCount: 0
                         };
 
-                        for (var ii = 0; ii < ctData.Datas.length; ii++) {
-                            var gameData = ctData.Datas[ii];
-                            var pushGameData = {
-                                CategoryID: ctData.CompanyCategoryID,
-                                GameID: gameData.GameID,
-                                GameCode: gameData.GameCode,
-                                GameBrand: gameData.GameBrand,
-                                GameName: gameData.GameName,
-                                GameCategoryCode: gameData.GameCategoryCode,
-                                GameCategorySubCode: gameData.GameCategorySubCode,
-                                AllowDemoPlay: gameData.AllowDemoPlay,
-                                RTPInfo: gameData.RTPInfo,
-                                Info: gameData.Info,
-                                RTPInfo: gameData.RTPInfo,
-                                IsHot: gameData.IsHot,
-                                IsNew: gameData.IsNew,
-                                SortIndex: gameData.SortIndex,
-                                Tag: gameData.Tag,
+
+                        var SearchDic = {
+                            //廠牌搜尋
+                            Brands: [],
+                            //總文字搜尋
+                            Langs: {}
+                        };
+
+                        GameList.Slices.length = Math.trunc(o.MaxGameID / 100) + 1;
+
+                        for (var i = 0; i < GameList.Slices.length; i++) {
+                            GameList.Slices[i] = [];
+                            GameList.Slices[i].length = 100;
+                        }
+
+                        for (var i = 0; i < o.Datas.length; i++) {
+                            //利用MaxGameID整理index                        
+                            var Data = o.Datas[i];
+                            var targetBrand;
+                            var pushData = {
+                                GameID: Data.GameID,
+                                GameCode: Data.GameCode,
+                                GameBrand: Data.GameBrand,
+                                GameName: Data.GameName,
+                                GameCategoryCode: Data.GameCategoryCode,
+                                GameCategorySubCode: Data.GameCategorySubCode,
+                                AllowDemoPlay: Data.AllowDemoPlay,
+                                RTPInfo: Data.RTPInfo,
+                                Info: Data.Info,
+                                IsHot: Data.IsHot,
+                                IsNew: Data.IsNew,
+                                SortIndex: Data.SortIndex,
+                                Tag: Data.Tag,
                                 GameText: {},
                                 BrandText: {}
                             };
 
-                            for (var iii = 0; iii < languages.length; iii++) {
-                                var language = languages[i];
+
+                            //依據廠牌整理搜尋索引
+                            targetBrand = SearchDic.Brands.find(x => x.GameBrand == Data.GameBrand);
+
+
+                            if (targetBrand) {
+                                targetBrand.AllGame.push(Data.GameID);
+                                var targeCharDatas = targetBrand.GameNameIndex[Data.GameName[0]];
+                                if (targeCharDatas) {
+                                    targeCharDatas.push({
+                                        TargetValue: Data.GameName,
+                                        GameID: Data.GameID
+                                    });
+                                } else {
+                                    targetBrand.GameNameIndex[Data.GameName[0]] = [{
+                                        TargetValue: Data.GameName,
+                                        GameID: Data.GameID
+                                    }];
+                                }
+                            } else {
+                                //初始化廠牌
+                                targetBrand = {
+                                    GameBrand: Data.GameBrand,
+                                    //廠牌GameCode搜尋
+                                    GameNameIndex: {
+
+                                    },
+                                    //廠牌文字搜尋，需再區分語系
+                                    Langs: {
+
+                                    },
+                                    BrandText: {},
+                                    AllGame: [Data.GameID]
+                                };
+
+                                //取第一個字母當作切片依據
+                                targetBrand.GameNameIndex[Data.GameName[0]] = [{
+                                    TargetValue: Data.GameName,
+                                    GameID: Data.GameID
+                                }];
+
+
+                                
+
+                                for (var ii = 0; ii < languages.length; ii++) {
+                                    var language = languages[ii];
+                                    var transBrandText = language.mlp.getLanguageKey(Data.GameBrand);
+                                    var targetLangData;
+
+                                    if (language.type == "GameCode") {
+                                       
+                                    } else if (language.type == "GameBrand") {
+                                        targetBrand.BrandText[language.lang] = transBrandText;
+                                    }
+                                }
+
+                                SearchDic.Brands.push(targetBrand);
+                            }
+
+                            //整理語系資料與依照字母加入搜尋索引
+                            for (var ii = 0; ii < languages.length; ii++) {
+                                var language = languages[ii];
+                                var transGameText = language.mlp.getLanguageKey(Data.GameCode);
+                                var transBrandText = language.mlp.getLanguageKey(Data.GameBrand);
+                                var targetLangData;
 
                                 if (language.type == "GameCode") {
-                                    pushGameData.GameText[language.lang] = mlp.getLanguageKey(GameCode);
+                                    pushData.GameText[language.lang] = transGameText;
                                 } else if (language.type == "GameBrand") {
-                                    pushGameData.BrandText[language.lang] = mlp.getLanguageKey(GameBrand);
-                                }                                                                                           
+                                    pushData.BrandText[language.lang] = transBrandText;
+                                }
+
+                                if (language.type == "GameCode") {
+                                    //新增至全部文字搜尋
+                                    targetLangData = SearchDic.Langs[language.lang];
+
+                                    if (targetLangData) {
+                                        var targetCharDatas = targetLangData[transGameText[0]];
+
+                                        if (targetCharDatas) {
+                                            targetCharDatas.push({
+                                                TargetValue: transGameText,
+                                                GameID: Data.GameID
+                                            });
+                                        } else {
+                                            targetLangData[transGameText[0]] = [{
+                                                TargetValue: transGameText,
+                                                GameID: Data.GameID
+                                            }];
+                                        }
+                                    } else {
+                                        var tempCharDatas = {};
+                                        tempCharDatas[transGameText[0]] = [{
+                                            TargetValue: transGameText,
+                                            GameID: Data.GameID
+                                        }];
+                                        SearchDic.Langs[language.lang] = tempCharDatas;
+                                    }
+
+
+                                    //新增至廠牌全文字搜尋
+                                    targetLangData = targetBrand.Langs[language.lang];
+
+                                    if (targetLangData) {
+                                        var targetCharDatasByBrand = targetLangData[transGameText[0]];
+
+                                        if (targetCharDatas) {
+                                            targetCharDatas.push({
+                                                TargetValue: transGameText,
+                                                GameID: Data.GameID
+                                            });
+                                        } else {
+                                            targetLangData[transGameText[0]] = [{
+                                                TargetValue: transGameText,
+                                                GameID: Data.GameID
+                                            }];
+                                        }
+                                    } else {
+                                        var tempCharDatas = {};
+                                        tempCharDatas[transGameText[0]] = [{
+                                            TargetValue: transGameText,
+                                            GameID: Data.GameID
+                                        }];
+                                        targetBrand.Langs[language.lang] = tempCharDatas;
+                                    }
+                                }
                             }
-                                                        
-                            pushCtData.Datas.push(pushGameData);
+
+                            var IndexOne = Math.trunc(Data.GameID / 100);
+                            var IndexTwo = Data.GameID % 100;
+
+                            GameList.Slices[IndexOne][IndexTwo] = pushData;
+                            GameList.TotalCount++;
                         }
 
-                        targetLoacation.Categories.push(pushCtData);
-                    }
-                }
-            }
-        });
-
-        this.lobbyAPI.GetCompanyGameCodeTwo(getUUID(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    for (var i = 0; i < CompanyCategoryDatas.length; i++) {
-                        var ctData = CompanyCategoryDatas[i];
-                        var targetLoacation = GameCtList.find(x => x.Location == ctData.Location);
-                        var pushCtData = {
-                            CategoryID: ctData.CompanyCategoryID,
-                            State: ctData.State,
-                            SortIndex: ctData.SortIndex,
-                            CategoryName: ctData.CategoryName,
-                            Location: ctData.Location,
-                            ShowType: ctData.ShowType,
-                            Datas: [],
-                        };
-
-
-
-                        targetLoacation.Categories.push(pushCtData);
-                    }
-
-
-                    for (var ii = 0; ii < ctData.Datas.length; ii++) {
-                        var gameData = ctData.Datas[ii];
-                        var pushGameData = {
-                            CategoryID: ctData.CompanyCategoryID,
-                            GameID: gameData.GameID,
-                            GameCode: gameData.GameCode,
-                            GameBrand: gameData.GameBrand,
-                            GameName: gameData.GameName,
-                            GameCategoryCode: gameData.GameCategoryCode,
-                            GameCategorySubCode: gameData.GameCategorySubCode,
-                            AllowDemoPlay: gameData.AllowDemoPlay,
-                            RTPInfo: gameData.RTPInfo,
-                            Info: gameData.Info,
-                            RTPInfo: gameData.RTPInfo,
-                            IsHot: gameData.IsHot,
-                            IsNew: gameData.IsNew,
-                            SortIndex: gameData.SortIndex,
-                            Tag: gameData.Tag,
-                            GameText: {},
-                            BrandText: {}
-                        };
-
-                        for (var iii = 0; iii < languages.length; iii++) {
-                            var language = languages[i];
-
-                            if (language.type == "GameCode") {
-                                pushGameData.GameText[language.lang] = mlp.getLanguageKey(GameCode);
-                            } else if (language.type == "GameBrand") {
-                                pushGameData.BrandText[language.lang] = mlp.getLanguageKey(GameBrand);
-                            }
+                        this.RecordTimeStamp = o.TimeStamp;
+                        if (this.onRefreshDicEvent) {
+                            this.onRefreshDicEvent({
+                                TimeStamp: this.RecordTimeStamp,
+                                SearchCore: {
+                                    GameList: GameList,
+                                    SearchDic: SearchDic
+                                }});
                         }
-
-                        pushCtData.Datas.push(pushGameData);
-                    }
+                    }             
                 }
             }
-        });
+        }).bind(this));
     };
 
-    function getUUID(len, radix) {
-        if (len) {
-            // Compact form
-            for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
-        } else {
-            // rfc4122, version 4 form
-            var r;
 
-            // rfc4122 requires these characters
-            uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
-            uuid[14] = '4';
+    //#region public屬性
+    this.RecordTimeStamp = timeStamp;
+    //刷新全部
+    this.onRefreshDicEvent;
+    //刷新分類
+    this.onRefreshCtEvent;
 
-            // Fill in random data.  At i==19 set the high bits of clock sequence as
-            // per rfc4122, sec. 4.1.5
-            for (i = 0; i < 36; i++) {
-                if (!uuid[i]) {
-                    r = 0 | Math.random() * 16;
-                    uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
-                }
-            }
-        }
+    this.onLoadLangEnd;
 
-        return uuid.join('');
-    }
-
-    function init() {
-        //執行 init
-
-        for (var i = 0; i < defineLocations.length; i++) {
-            GameCtList.push({
-                Loacation: defineLocations[i],
-                Categories: null
-            });
-        }
-
-        this.lobbyAPI = new (function (APIUrl) {
-            this.GeAlltCompanyGameCode = function (GUID, cb) {
-                var url = APIUrl + "/GeAlltCompanyGameCode";
+    this.start = function () {
+        lobbyAPI = new (function (APIUrl) {
+            this.GeAllCompanyGameCode = function (GUID, RecordTimeStamp, cb) {
+                var url = APIUrl + "/GeAllCompanyGameCode";
                 var postData;
 
                 postData = {
-                    GUID: GUID
+                    GUID: GUID,
+                    RecordTimeStamp: RecordTimeStamp
                 };
 
                 callService(url, postData, 10000, function (success, text) {
@@ -406,12 +548,13 @@ var Worker = function (version, url, langUrl, second, finishNotifyEvent) {
                 });
             };
 
-            this.GetCompanyGameCodeTwo = function (GUID, cb) {
+            this.GetCompanyGameCodeTwo = function (GUID, RecordTimeStamp, cb) {
                 var url = APIUrl + "/GetCompanyGameCodeTwo";
                 var postData;
 
                 postData = {
-                    GUID: GUID
+                    GUID: GUID,
+                    RecordTimeStamp: RecordTimeStamp
                 };
 
                 callService(url, postData, 10000, function (success, text) {
@@ -478,12 +621,14 @@ var Worker = function (version, url, langUrl, second, finishNotifyEvent) {
             }
         })(url);
 
+        
 
-        this.LoadLang(function () {
-            setInterval.call(this, this.RefreshData, IntervalSecond);
-        });
+        LoadLang((function (values) {
+            this.onLoadLangEnd(values);
+            RefreshData.call(this);
+            setInterval(RefreshData.bind(this), IntervalSecond);
+        }).bind(this));
     }
-
-    init.call(this);
+    //#endregion
 };
 //#endregion

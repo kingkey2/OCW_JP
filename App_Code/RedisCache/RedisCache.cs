@@ -1372,6 +1372,18 @@ public static class RedisCache {
             return DT;
         }
 
+        public static void DeleteCompanyCategory()
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                KeyDelete(DBIndex, Key);
+            }
+        }
+
         public static System.Data.DataTable UpdateCompanyCategory() {
             string Key;
             string SS;
@@ -1403,6 +1415,18 @@ public static class RedisCache {
         private static string XMLPath = "CompanyGameCode";
         private static int DBIndex = 0;
 
+        public static void DeleteCompanyGameCode(int CompanyCategoryID)
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                KeyDelete(DBIndex, Key);
+            }
+        }
+
         public static System.Data.DataTable GetCompanyGameCodeByID(int CompanyCategoryID) {
             string Key;
             System.Data.DataTable DT;
@@ -1415,6 +1439,53 @@ public static class RedisCache {
             }
 
             return DT;
+        }
+
+        public static Dictionary<string, long> GetSyncData()
+        {
+            string Key;
+            string Value = null;
+            Dictionary<string, long> SyncData;
+            Key = XMLPath + ":SyncData";
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                Value = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            if (!string.IsNullOrEmpty(Value))
+            {
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, long>>(Value);
+            }
+            else {
+                return null;
+            }
+            
+        }
+
+        public static int UpdateSyncData(int MaxGameID)
+        {
+            string Key;
+
+            Key = XMLPath + ":SyncData";
+
+            Dictionary<string, long> temp = new Dictionary<string, long>();
+            temp.Add("MaxGameID", (long)MaxGameID);
+            temp.Add("TimeStamp", DateTimeOffset.Now.ToUnixTimeSeconds());
+
+            for (int I = 0; I <= 3; I++)
+            {
+                try
+                {
+                    JsonStringWriteToRedis(0, Newtonsoft.Json.JsonConvert.SerializeObject(temp), Key);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            return MaxGameID;
         }
 
         public static System.Data.DataTable UpdateCompanyGameCode() {
@@ -1434,6 +1505,7 @@ public static class RedisCache {
                 foreach (System.Data.DataRow DR in DT.Rows) {
                     int CompanyCategoryID = (int)DR["CompanyCategoryID"];
                     Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+
                     CompanyGameCodeDT = new System.Data.DataTable();
 
                     SS = "SELECT * FROM CompanyGameCode WITH (NOLOCK) WHERE forCompanyCategoryID = @forCompanyCategoryID";
@@ -1483,7 +1555,7 @@ public static class RedisCache {
         public static string UpdateAllCompanyGameCodeFromDB()
         {
             string Key;
-            string JsonString="";
+            string JsonString = "";
             System.Data.SqlClient.SqlCommand DBCmd;
             EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
             EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
@@ -1524,17 +1596,18 @@ public static class RedisCache {
         public static string GetAllCompanyGameCode()
         {
             string Key;
-            string DATA="";
+            string DATA = "";
             Key = XMLPath + ":All";
 
             if (KeyExists(DBIndex, Key) == true)
             {
                 DATA = JsonReadFromRedis(DBIndex, Key);
             }
-            else {
+            else
+            {
                 DATA = UpdateAllCompanyGameCodeFromDB();
             }
-           
+
             return DATA;
         }
 
@@ -1566,7 +1639,118 @@ public static class RedisCache {
             return CompanyGameCodeDT;
         }
 
-       
+    }
+
+    public static class UserAccountEventSummary
+    {
+        private static string XMLPath = "UserAccountEventSummary";
+        private static int DBIndex = 0;
+
+        public static System.Data.DataTable GetUserAccountEventSummaryByLoginAccount(string LoginAccount)
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":LoginAccount:" + LoginAccount;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                DT = DTReadFromRedis(DBIndex, Key);
+            }
+            else
+            {
+                DT = UpdateUserAccountEventSummaryByLoginAccount(LoginAccount);
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateUserAccountEventSummaryByLoginAccount(string LoginAccount)
+        {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM UserAccountEventSummary WITH (NOLOCK)" +
+                 " WHERE LoginAccount=@LoginAccount ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+                Key = XMLPath + ":LoginAccount:" + LoginAccount;
+
+                for (int I = 0; I <= 3; I++)
+                {
+                    try
+                    {
+                        DTWriteToRedis(DBIndex, DT, Key);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
+            return DT;
+        }
+
+
+        public static System.Data.DataTable GetUserAccountEventSummaryByLoginAccountAndActivityName(string LoginAccount,string ActivityName)
+        {
+            string Key;
+            System.Data.DataTable DT;
+            Key = XMLPath + ":LoginAccount:" + LoginAccount+ ":ActivityName:" + ActivityName;
+
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                DT = DTReadFromRedis(DBIndex, Key);
+            }
+            else
+            {
+                DT = UpdateUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateUserAccountEventSummaryByLoginAccountAndActivityName(string LoginAccount, string ActivityName)
+        {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM UserAccountEventSummary WITH (NOLOCK)" +
+                 " WHERE LoginAccount=@LoginAccount And ActivityName=@ActivityName";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@ActivityName", System.Data.SqlDbType.VarChar).Value = ActivityName;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+                Key = XMLPath + ":LoginAccount:" + LoginAccount + ":ActivityName:" + ActivityName;
+
+                for (int I = 0; I <= 3; I++)
+                {
+                    try
+                    {
+                        DTWriteToRedis(DBIndex, DT, Key);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
+            return DT;
+        }
     }
 
     public static void UpdateRedisByPrivateKey() {

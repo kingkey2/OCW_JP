@@ -1,4 +1,10 @@
 // $('.header_area').load('layout-header.html');
+$('#ModalDailylogin .activity-popup-detail-inner').load('activity/dailylogin/index.html');
+
+$('#ModalDeposit .activity-popup-detail-inner').load('activity/deposit/index.html');
+$('#ModalRegister .activity-popup-detail-inner').load('activity/register/index.html');
+$('#ModalBNG .activity-popup-detail-inner').load('activity/BNG/index.html');
+
 $('.footer').load('layout-footer.html');
 
 $(document).ready(function () {
@@ -21,7 +27,8 @@ $(document).ready(function () {
     });
     $('.header_area .mask_overlay').click(function(){
         $('.header_menu, .navbarMenu').removeClass('show'); //Sidebar Menu
-        $('.navbar-toggler').attr("aria-expanded","false");        
+        $('.navbar-toggler').attr("aria-expanded","false");
+        $('.vertical-menu').removeClass('navbar-show');        
     });
 
     //遊戲 "更多" Button 下滑
@@ -43,6 +50,18 @@ $(document).ready(function () {
         $(this).toggleClass('active');       
     });
 
+      //紀錄 下拉明細
+      $('.record-table-item:not(.show) .record-table-drop-panel').hide();
+
+    //   $('.btn-toggle').click(function(){
+    //       $(this).toggleClass('cur');
+    //       $(this).parents('.record-table-item').find('.record-table-drop-panel').slideToggle();
+    //   });
+      $('.record-table-tab').click(function(){
+        //   $(this).find('.btn-toggle').toggleClass('cur');
+          $(this).parents('.record-table-item').toggleClass('show').find('.record-table-drop-panel').slideToggle();
+      });
+
 
     //HERO 
     var heroIndex = new Swiper("#hero-slider", {
@@ -50,10 +69,10 @@ $(document).ready(function () {
     slidesPerView: 1,
     effect: "fade",
     speed: 1000, //Duration of transition between slides (in ms)
-    autoplay: {
-        delay: 3500,
-        disableOnInteraction: false,
-    },
+    // autoplay: {
+    //     delay: 3500,
+    //     disableOnInteraction: false,
+    // },
     pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -87,24 +106,13 @@ $(document).ready(function () {
 
     // 推薦遊戲
     var gameRecommend = new Swiper("#game-recommend", {
-        // loop: true,
+        loop: true,
         slidesPerView: "auto",
-        // freeMode: true,
+        slidesPerGroup: 8,
         navigation: {
             nextEl: "#game-recommend .swiper-button-next",
             prevEl: "#game-recommend .swiper-button-prev",
           },
-        // breakpoints: {
-        //     768: {
-        //         slidesPerView: 4,
-        //         freeMode: false                
-        //     },
-        //     1200: {
-        //         slidesPerView: 6,
-        //         freeMode: false                
-        //     }
-        // }
-
 
     });
 
@@ -151,12 +159,11 @@ $(document).ready(function () {
     });
 
     var gamelobby_1 = new Swiper("#lobbyGame-1", {
-        // loop: true,
+        
         // slidesPerView: 2.3,
+        // loop: true,
         slidesPerView: "auto",
-        slidesPerGroup: 8,
-        loopedSlides: 8,   
-        freeMode: true,        
+        slidesPerGroup: 8,          
         navigation: {
             nextEl: "#lobbyGame-1 .swiper-button-next",
             prevEl: "#lobbyGame-1 .swiper-button-prev",
@@ -164,12 +171,12 @@ $(document).ready(function () {
     });
 
     var gamelobby_2 = new Swiper("#lobbyGame-2", {
-        loop: true,                
+        // loop: true,                
         slidesPerView: "auto",
         slidesPerGroup: 8,
         // centeredSlides: true,
         // loopFillGroupWithBlank: true,
-        loopedSlides: 24,        
+        // loopedSlides: 24,        
         // freeMode: true, //拖曳時 會呈現 free mode
         navigation: {
             nextEl: "#lobbyGame-2 .swiper-button-next",
