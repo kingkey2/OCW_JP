@@ -56,7 +56,7 @@
                                             <i class="icon icon-mask icon icon-mask icon-all"></i>
                                             <span class="title language_replace">賭場</span></a>
                                     </li>
-                                    <li class="nav-item submenu dropdown">
+                                    <!-- <li class="nav-item submenu dropdown">
                                         <a href="lobby.html" class="nav-link" target="mainiframe">
                                             <i class="icon icon-mask icon-poker"></i>
                                             <span class="title language_replace">撲克</span></a>
@@ -89,32 +89,31 @@
                                             <i class="icon icon-mask icon-ect"></i>
                                             <span class="title language_replace">其他</span>
                                         </a>
-                                    </li>                                   
+                                    </li>                                    -->
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown">
                                         <a href="memberCenter.html" class="nav-link" target="mainiframe">
-                                            <i class="icon icon-mask icon-logo"></i>
+                                            <i class="icon icon-mask icon-people"></i>
                                             <span class="title language_replace">會員中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
+                                        <a href="record.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-wallet"></i>
+                                            <span class="title language_replace">錢包中心</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
                                         <a href="memberCenter.html" class="nav-link" target="mainiframe">
-                                            <i class="icon icon-mask icon-logo"></i>
-                                            <span class="title language_replace">會員中心</span></a>
+                                            <i class="icon icon-mask icon-calendar"></i>
+                                            <span class="title language_replace">履歷記錄</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" target="mainiframe">
                                             <i class="icon icon-mask icon-logo"></i>
                                             <span class="title language_replace">關於我們</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('RegisterActivityReceive','RegisterActivityReceive.aspx', true)">
-                                        <a class="nav-link" target="mainiframe">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
-                                            <span class="title language_replace">註冊獎勵領取</span></a>
-                                    </li>
+                                    </li>                                    
                                     <li class="nav-item submenu dropdown">
                                         <a class="nav-link" target="mainiframe">
                                             <i class="icon icon-mask icon-hot"></i>
@@ -133,8 +132,13 @@
                                     </li>
                                     <li class="nav-item submenu dropdown">
                                         <a href="prize.html" class="nav-link" target="mainiframe">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
+                                            <i class="icon icon-mask icon-prize"></i>
                                             <span class="title language_replace">領獎</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="prize.html" class="nav-link" target="mainiframe">
+                                            <i class="icon icon-mask icon-word"></i>
+                                            <span class="title language_replace">客服信箱</span></a>
                                     </li>
                                 </ul>
                             </li>                          
@@ -168,28 +172,28 @@
                     <!-- 右上角 -->
                     <div class="header_rightWrapper">                        
                         <div class="header_setting"> 
-                            <ul class="nav">
+                            <ul class="nav header_setting_content">
                                 <!-- Search -->
                                <li class="navbar-search nav-item">                                   
-                                       <button type="button" class="btn nav-link btn-search" data-toggle="modal" data-target="#exampleModal"><i class="icon icon-mask icon-search"></i>
+                                       <button type="button" class="btn btn-search" data-toggle="modal" data-target="#exampleModal"><i class="icon icon-mask icon-search"></i>
                                      </button>
                                </li> 
                                <!-- ==== 登入前 ====-->
-                               <li class="nav-item unLogIn_wrapper ">
+                               <li class="nav-item unLogIn_wrapper is-hide">
                                    <ul class="horiz-list">
                                        <li class="login">
                                            <button class="btn-login btn " type="button">
                                             <span class="avater"><img src="images/avatar/avater-2.png" alt=""></span>
-                                            <span class="language_replace">ログイン</span></button>
+                                            <span class="title language_replace">ログイン</span></button>
                                        </li>
                                        <li class="register">
-                                           <button class="btn-register btn" type="button"><span class="language_replace">登録</span></button>
+                                           <button class="btn-register btn" type="button"><span class="title language_replace">登録</span></button>
                                        </li>
                                    </ul>
                                </li>
                                <!--  ==== 登入後 ====-->
-                               <!-- <li class="nav-item logIned_wrapper hidden"> -->
                                <li class="nav-item logIned_wrapper ">
+                               <!-- <li class="nav-item logIned_wrapper "> -->
                                 <ul class="horiz-list">
                                     <li class="nav-item ">
                                         <span class="balance-container">
@@ -202,7 +206,7 @@
                                                 <span class="balance-info">
                                                     <span class="amount">999,999</span>
                                                 </span>
-                                                <button class="btn btn-deposit btn-full-sub" onclick="">
+                                                <button class="btn btn-deposit btn-full-stress" onclick="">
                                                     <span class="icon icon-add"></span>
                                                 </button>
                                             </span> 
@@ -210,13 +214,13 @@
                                         </span>
                                     </li>
                                      <!-- User 無下拉選項-->
-                                     <li class="nav-item submenu dropdown"> 
-                                        <a href="memberCenter.html" class="btn nav-link btnDropDown avater_wrapper" role="button" target="mainiframe">
+                                     <li class="nav-item submenu dropdown avater_wrapper"> 
+                                        <a href="memberCenter.html" class="btn nav-link btnDropDown" role="button" target="mainiframe">
                                             <span class="avater">
                                                 <span class="avater-img">
                                                     <img src="images/avatar/avater-2.png" alt="">
                                                 </span>
-                                                <span class="avater-name">YAMAHA JAM</span>
+                                                <span class="avater-name">elma@kingkey.com.tw</span>
                                             </span>
                                         </a>
                                     </li> 
@@ -256,7 +260,7 @@
                                 </ul>
                                </li>
                                <!-- 語系 -->
-                               <li class="nav-item submenu dropdown">
+                               <li class="nav-item lang_wrapper submenu dropdown">
                                    <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage">
                                        <!-- 語系 轉換 ICON -->
                                        <i class="icon icon-mask icon-flag-JP"></i>
@@ -300,7 +304,7 @@
 </header>
 
 <div class="main_area" >       
-   <iframe frameborder="0" marginwidth="0" marginheight="0" src="activity.html" class="mainIframe" name="mainiframe"></iframe>    
+   <iframe frameborder="0" marginwidth="0" marginheight="0" src="record.html" class="mainIframe" name="mainiframe"></iframe>    
 </div>
 <!-- Modal Language -->
 <div class="modal fade footer-center" id="ModalLanguage" tabindex="-1" aria-hidden="true">
@@ -426,7 +430,7 @@
                                                         <i class="icon icon-thumup"></i>
                                                     </button>
                                                     <button type="button" class="btn-like btn btn-round">
-                                                        <i class="icon icon-heart-o"></i>
+                                                        <i class="icon icon-favorite"></i>
                                                     </button>                           
                                                 </div>
                                                 <button type="button" class="btn btn-play">
@@ -471,7 +475,7 @@
                                                             <i class="icon icon-thumup"></i>
                                                         </button>
                                                         <button type="button" class="btn-like btn btn-round">
-                                                            <i class="icon icon-heart-o"></i>
+                                                            <i class="icon icon-favorite"></i>
                                                         </button>                           
                                                     </div>
                                                     <button type="button" class="btn btn-play">
@@ -521,7 +525,7 @@
                                                                     <i class="icon icon-thumup"></i>
                                                                 </button>
                                                                 <button type="button" class="btn-like btn btn-round">
-                                                                    <i class="icon icon-heart-o"></i>
+                                                                    <i class="icon icon-favorite"></i>
                                                                 </button>
                                                                 <button type="button" class="btn-more btn btn-round">
                                                                     <i class="arrow arrow-down"></i>

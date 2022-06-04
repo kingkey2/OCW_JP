@@ -241,6 +241,41 @@ public class LobbyAPI : System.Web.Services.WebService
         }
     }
 
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public UserAccountEventSummaryResult GetUserAccountEventSummary(string WebSID, string GUID)
+    {
+        UserAccountEventSummaryResult R = new UserAccountEventSummaryResult() { Result = EWin.Lobby.enumResult.ERR };
+        List<UserAccountEventSummary> Datas = new List<UserAccountEventSummary>();
+        RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccount(SI.LoginAccount);
+            if (DT != null && DT.Rows.Count > 0)
+            {
+                for (int i = 0; i < DT.Rows.Count; i++)
+                {
+                    var Data = new UserAccountEventSummary();
+                        Data.ActivityName = (string)DT.Rows[i]["ActivityName"];
+                        Data.BonusValue = (decimal)DT.Rows[i]["BonusValue"];
+                        Data.CollectCount = (int)DT.Rows[i]["CollectCount"];
+                        Data.JoinCount = (int)DT.Rows[i]["JoinCount"];
+                        Data.LoginAccount = (string)DT.Rows[i]["LoginAccount"];
+                        Data.ThresholdValue = (decimal)DT.Rows[i]["ThresholdValue"];
+                        Datas.Add(Data);
+                    
+                }
+                R.Datas = Datas;
+                R.Result = EWin.Lobby.enumResult.OK;
+            }
+        }
+        return R;
+    }
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult GetSIDParam(string WebSID, string GUID, string ParamName)
@@ -371,7 +406,8 @@ public class LobbyAPI : System.Web.Services.WebService
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
 
-                    R = lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 2, 30, description, PropertySets.ToArray());
+                    lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 2, 30, description, PropertySets.ToArray());
+                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount,description,1,activityData.ThresholdValue,activityData.BonusValue);
                 }
             }
         }
@@ -1627,6 +1663,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
                         if (CollecResult.Result == EWin.Lobby.enumResult.OK)
                         {
+                            EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount,Collect.Description,0,0,0);
                             R.Result = EWin.Lobby.enumResult.OK;
                         }
                         else
@@ -1660,6 +1697,7 @@ public class LobbyAPI : System.Web.Services.WebService
 
                                     if (CollecResult.Result == EWin.Lobby.enumResult.OK)
                                     {
+                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount,Collect.Description,0,0,0);
                                         R.Result = EWin.Lobby.enumResult.OK;
                                     }
                                     else
@@ -2094,5 +2132,20 @@ public class LobbyAPI : System.Web.Services.WebService
     {
         public string Field { get; set; }
         public string Value { get; set; }
+    }
+
+    public class UserAccountEventSummaryResult: EWin.Lobby.APIResult
+    {
+        public List<UserAccountEventSummary> Datas { get; set; }
+    }
+
+    public class UserAccountEventSummary
+    {
+        public string LoginAccount { get; set; }
+        public string ActivityName { get; set; }
+        public int CollectCount { get; set; }
+        public int JoinCount { get; set; }
+        public decimal ThresholdValue { get; set; }
+        public decimal BonusValue { get; set; }
     }
 }

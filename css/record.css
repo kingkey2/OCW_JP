@@ -6,8 +6,28 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-color: #fff;
 }
 
+.date-period {
+  font-size: 0.875rem;
+}
+.date-period .time {
+  margin-left: 0.5rem;
+}
+
 .btn-copy {
-  background-color: #F47BAB;
+  width: 45px;
+  height: 45px;
+  background-color: transparent;
+}
+.btn-copy .icon {
+  background-color: #FF6396;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  padding: 0.25em;
+  transition: all 0.3s ease;
+}
+.btn-copy:hover .icon {
+  background-color: #ff2d72;
 }
 
 .deposit .label-status {
@@ -31,18 +51,35 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .sec-record-payment .tab-record .tab-item:hover, .sec-record-payment .tab-record .tab-item.active {
-  color: #459E74;
+    color: #459E74;
 }
+
+.sec-record-payment .sec_link .date_text {
+    color: #459E74;
+}
+
+ .sec-record-payment .tab-record .tab-item.active .title {
+    border-bottom: 2px #459E74 solid;
+}
+
 .sec-record-payment .sec_link .btn:hover, .sec-record-payment .sec_link .btn.active {
   background-color: #459E74;
 }
 
-.sec-record-games .tab-record .tab-item:hover, .sec-record-games .tab-record .tab-item.active {
-  color: #C89447;
+.sec-record-games .tab-record .tab-item:hover, .sec-record-games .tab-record .tab-item.active{
+    color: #C89447;
 }
+.sec-record-games .sec_link .date_text {
+    color: #C89447;
+}
+
 .sec-record-games .sec_link .btn:hover, .sec-record-games .sec_link .btn.active {
-  background-color: #C89447;
+    background-color: #C89447;
 }
+
+    .sec-record-games .sec_link .btn.active .title {
+        background-color: #C89447;
+    }
 
 .record-overview-wrapper {
   display: flex;
@@ -139,6 +176,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: none;
 }
 
+.record-table-container {
+  padding-left: 22.5px;
+}
+
+.record-table td, .record-table th {
+  word-break: break-all;
+}
 .record-table-date-select {
   display: flex;
   justify-content: space-between;
@@ -171,11 +215,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-left: 0.5rem;
 }
 .record-table-item {
-  margin: 0 0 0.25em;
+  margin: 0 0 0.55em;
   background: #fff;
   box-sizing: border-box;
   border-radius: 8px;
   transition: all 0.25s ease;
+}
+.record-table-item.show .btn-toggle .arrow {
+  transform: rotate(-45deg);
 }
 .record-table-item.header {
   display: flex;
@@ -197,6 +244,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .record-table-item.deposit .thead-th .title {
   background-color: #F47BAB;
+  padding: 0.1em 0;
 }
 .record-table-item.withdraw .label-status {
   background-color: #369AD6;
@@ -206,10 +254,21 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .record-table-tab {
   display: flex;
-  align-items: center;
   width: 100%;
   position: relative;
   padding-left: 30px;
+  transition: all 0.3s ease;
+}
+.record-table-tab:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+.record-table-tab:hover .btn-toggle {
+  background-color: #B4B4B4;
+  border-color: #B4B4B4;
+}
+.record-table-tab:hover .btn-toggle .arrow {
+  border-color: #fff;
 }
 .record-table-tab .record-table-cell {
   flex: auto;
@@ -232,6 +291,16 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .record-table-tab .td-amount {
   font-weight: 700;
+}
+.record-table-tab .td-paymentWay {
+  font-weight: 500;
+}
+.record-table-tab .data-amount {
+  display: inline-flex;
+  align-items: center;
+}
+.record-table-tab .data-amount .label {
+  margin-left: 0.5em;
 }
 .record-table-drop-panel {
   padding: 1em 0;
@@ -298,6 +367,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-size: 1.5rem;
   text-align: right;
 }
+.record-table.games-record .record-table-drop-panel .record-drop-item {
+  margin-bottom: 0.5rem;
+}
 .record-table.games-record .record-table-drop-panel .record-drop-item.header {
   display: flex;
   background-color: #E5C573;
@@ -335,7 +407,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .record-table.games-record .record-table-drop-panel .record-drop-item-inner {
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
 }
 .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper {
   flex: 1;
@@ -349,6 +420,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .record-table.games-record .record-table-drop-panel .record-drop-item-img {
   order: -2;
   width: 50px;
+  margin-right: 0.5rem;
 }
 .record-table.games-record .record-table-drop-panel .record-drop-item-img .img-wrap {
   border-radius: 5px;
@@ -358,9 +430,18 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .record-table .btn-toggle {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #969696;
+  border-radius: 50%;
+}
+.record-table .btn-toggle .arrow {
+  display: inline-flex;
+  border-color: #969696;
 }
 
 @media (min-width: 640px) {
@@ -412,19 +493,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: none;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 712px) {
   .record-overview-box {
     width: 49%;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 936px) {
   .section-record-payment .table-desktop {
     display: table;
   }
-  .section-record-payment .table-mobile {
-    display: none;
-  }
-
   .record-table.games-record .record-table-tab {
     border-radius: 0;
     border: 0;
@@ -475,6 +552,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue,
 .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet {
     flex: 0 0 150px;
+  }
+}
+@media screen and (max-width: 711px) {
+  .record-overview-box {
+    margin-bottom: 1rem;
+  }
+
+  .record-table.games-record .record-table-drop-panel .record-drop-item.header {
+    display: none;
   }
 }
 @media screen and (max-width: 639px) {

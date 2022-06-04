@@ -79,8 +79,10 @@ public class SyncAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult UpdateCompanyCategory()
+    public EWin.Lobby.APIResult UpdateCompanyCategory(string Key)
     {
+
+
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
         EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
         EWin.Lobby.CompanyCategoryResult companyCategoryResult;
@@ -128,6 +130,13 @@ public class SyncAPI : System.Web.Services.WebService
         List<CompanyCategoryByStatistics> SlotMaxWinRateYesterdayResult = new List<CompanyCategoryByStatistics>();
         List<CompanyCategoryByStatistics> SlotMaxRTPYesterdayResult = new List<CompanyCategoryByStatistics>();
         Dictionary<int, int> CategoryGameCodeCount = new Dictionary<int, int>();
+
+        if (Key!="e3dd4c33-0720-4ae9-ae7b-5b7813a080c3")
+        {
+            R.Message = "Key Error";
+            return R;
+        }
+
         #region 統計值
 
         Location = "GameList_Slot";

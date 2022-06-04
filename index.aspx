@@ -250,15 +250,32 @@
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
     function API_GetGameLang(type, lang, data) {
+        var Ret;
+
         if (type == 0) {
-            return data;
+            Ret = data;
         } else if (type == 1) {//return gamecode
-            return GCB.GetGameText(lang, data);
+ 
+            Ret = GCB.GetGameText(lang, data);
+
+            if (!Ret) {
+                Ret = GCB.OtherFindGameCodeText(lang, data);
+            }
         } else if (type == 2) {//return gameBrand
-            return GCB.GetBrandText(lang, data);
+            Ret = GCB.GetBrandText(lang, data);
+
+            if (!Ret) {
+                Ret = GCB.OtherFindGameBrandText(lang, data);
+            }
         } else {
-            return "";
+            Ret = data;
         }
+
+        if (!Ret) {
+            Ret = data;
+        }
+
+        return Ret;
     }
 
     //打開熱門文章
@@ -1601,6 +1618,21 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-prize"></i>
+                                            <span class="title language_replace">存款</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-prize"></i>
+                                            <span class="title language_replace">出款</span></a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -2195,7 +2227,7 @@
                                                                 <i class="icon icon-thumup"></i>
                                                             </button>
                                                             <button type="button" class="btn-like btn btn-round">
-                                                                <i class="icon icon-heart-o"></i>
+                                                                <i class="icon icon-favorite"></i>
                                                             </button>
                                                             <button type="button" class="btn-more btn btn-round">
                                                                 <i class="arrow arrow-down"></i>
@@ -2254,7 +2286,7 @@
                                         <i class="icon icon-thumup"></i>
                                     </button>
                                     <button type="button" class="btn-like btn btn-round">
-                                        <i class="icon icon-heart-o"></i>
+                                        <i class="icon icon-favorite"></i>
                                     </button>                           
                                 </div>
                                 <button type="button" class="btn btn-play">

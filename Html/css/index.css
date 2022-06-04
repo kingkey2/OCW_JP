@@ -7,7 +7,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .hero {
-  margin-bottom: 30px;
+  margin-bottom: 0.625rem;
 }
 
 .hero_slider {
@@ -21,9 +21,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 100%;
   height: 100%;
 }
+.hero_slider .hero-item-box.mobile {
+  display: inherit !important;
+}
+.hero_slider .hero-item-box.desktop {
+  display: none !important;
+}
 .hero_slider .img-wrap {
   position: relative;
-  padding-bottom: 83.3333333333vh;
+  padding-bottom: 66.6666666667vh;
   min-height: 480px;
   overflow: hidden;
 }
@@ -76,6 +82,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   bottom: -1px;
   z-index: 1;
   background-size: cover;
+  display: none;
 }
 .hero_slider .swiper-slide-active {
   z-index: 2;
@@ -200,6 +207,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .activity-dailylogin-wrapper {
   margin-bottom: 1rem;
   text-align: center;
+  overflow: hidden;
 }
 
 .dailylogin-bouns-wrapper {
@@ -387,7 +395,22 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   color: #ff0000;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 712px) {
+  .hero_slider .hero-item-box.mobile {
+    display: none !important;
+  }
+  .hero_slider .hero-item-box.desktop {
+    display: inherit !important;
+  }
+  .hero_slider .img-wrap {
+    padding-bottom: 400px;
+    min-height: auto;
+  }
+  .hero_slider .swiper-mask {
+    display: inherit;
+  }
+}
+@media (min-width: 936px) {
   .mobile {
     display: none !important;
   }
@@ -396,6 +419,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: inherit !important;
   }
 
+  .hero_slider .img-wrap {
+    padding-bottom: 66.6666666667vh;
+  }
   .hero_slider .swiper-pagination {
     display: initial;
   }
@@ -424,7 +450,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 100%;
   }
 }
-@media (min-width: 1854px) {
+@media (min-width: 1864px) {
   .hero_slider .img-wrap {
     padding-bottom: 76.9230769231vh;
   }

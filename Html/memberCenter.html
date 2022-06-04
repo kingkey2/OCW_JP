@@ -48,19 +48,35 @@
                                         <input type="text" class="custom-input-edit" value="elma2" readonly>
                                     </div>
                                 </div>                               
-                                <div class="data-item password">
-                                    <div class="data-item-title">
-                                        <label class="title"><i class="icon icon-mask icon-lock-closed"></i>                                            
-                                            <span class="title-name language_replace">PASSWORD</span>
-                                        </label>
+                                <div class="data-item-group group-password">
+                                    <div class="data-item password" style="display: ;">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">舊密碼</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="password" class="custom-input-edit" id="idOldPassword" value="">
+                                        </div>
                                     </div>
-                                    <div class="data-item-content">
-                                        <input type="password" class="custom-input-edit" value="123456" >
+                                    <div class="data-item password" style=" display: ;">
+                                        
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">新密碼</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="password" class="custom-input-edit" id="idNewPassword" value="">
+                                        </div>
                                     </div>
-                                </div>                               
+
+                                </div>                              
                                 <div class="data-item birth">
                                     <div class="data-item-title">
-                                        <label class="title"><i class="icon icon-mask icon-people"></i>                                            
+                                        <label class="title"><i class="icon icon-mask icon-gift"></i>                                            
                                             <span class="title-name language_replace">誕生日</span>
                                         </label>
                                     </div>
@@ -131,6 +147,9 @@
                                         
                                         </div>
                                     </div>  
+                                    <div class="wrapper_center">
+                                        <button type="button" class="btn btn-confirm btn-full-stress-2"><span class="language_replace">確認</span></button>
+                                    </div>
                                     <div class="data-item qrcode">
                                         <div class="data-item-title">
                                             <label class="title"><i class="icon icon-mask icon-qrocde"></i>                                            
@@ -316,7 +335,7 @@
                                                             <i class="icon icon-thumup"></i>
                                                         </button>
                                                         <button type="button" class="btn-like btn btn-round">
-                                                            <i class="icon icon-heart-o"></i>
+                                                            <i class="icon icon-favorite"></i>
                                                         </button>
                                                         <button type="button" class="btn-more btn btn-round">
                                                             <i class="arrow arrow-down"></i>

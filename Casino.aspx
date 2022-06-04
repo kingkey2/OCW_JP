@@ -24,7 +24,6 @@
     <script src="Scripts/lozad.min.js"></script>
     <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
-    <script src="Scripts/theme.js"></script>
 </head>
 <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -172,7 +171,7 @@
                                 slidesPerView: "auto",
                                 slidesPerGroup: 8,
                                 loopedSlides: 8,
-                                freeMode: true,
+                      
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
@@ -271,6 +270,26 @@
             nowSubCateg = "Hot";
         }
 
+
+        var heroLobby = new Swiper("#hero-slider-lobby", {
+            loop: true,
+            // slidesPerView: 1,
+            slidesPerView: "auto",
+            centeredSlides: true,
+            // freeMode: true,
+            // spaceBetween: 20,  
+            speed: 1000, //Duration of transition between slides (in ms)
+            // autoplay: {
+            //     delay: 3500,
+            //     disableOnInteraction: false,
+            // },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+        });
+
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
@@ -323,29 +342,29 @@
         <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">      
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">
-                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/hero-10.jpg?20211004" class="bg">                    
-                  </div>
+                <div class="hero-item">
+                    <a class="hero-item-link" href="#"></a>
+                    <div class="img-wrap">
+                      <img src="images/lobby/newopen.jpg" class="bg">                  
+                    </div>
+                </div>
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">   
-                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/hero-11.jpg" class="bg">             
-                  </div>                  
+              <div class="swiper-slide">
+                <div class="hero-item">
+                    <a class="hero-item-link" href="#"></a>
+                    <div class="img-wrap">   
+                      <img src="images/lobby/evo.jpg" class="bg">       
+                    </div>                  
+                </div>
               </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">   
-                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/OpenIntroBonus-11.jpg" class="bg">             
-                  </div>                  
+              <div class="swiper-slide">
+                <div class="hero-item">
+                    <a class="hero-item-link" href="#"></a>
+                    <div class="img-wrap">   
+                      <img src="images/lobby/PNG.jpg" class="bg">            
+                    </div>                  
+                </div>
               </div>
-            </div>
             
           </div> 
           <div class="swiper-pagination"></div>                
@@ -425,7 +444,7 @@
                                                     <i class="icon icon-thumup"></i>
                                                 </button>
                                                 <button type="button" class="btn-like btn btn-round">
-                                                    <i class="icon icon-heart-o"></i>
+                                                    <i class="icon icon-favorite"></i>
                                                 </button>
                                                 <button type="button" class="btn-more btn btn-round">
                                                     <i class="arrow arrow-down"></i>
