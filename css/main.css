@@ -1936,10 +1936,6 @@ hr.line {
   }
 }
 @media (min-width: 1440px) {
-  .header_area .mask_overlay {
-    display: none;
-  }
-
   .unLogIn_wrapper .register {
     display: inherit;
   }
@@ -2728,9 +2724,6 @@ main.innerMain.fixed {
   }
 }
 @media (min-width: 1440px) {
-  .vertical-menu.navbar-show .main_area {
-    padding-left: 200px;
-  }
   .vertical-menu.navbar-show .header_menu {
     padding-left: 200px;
   }
