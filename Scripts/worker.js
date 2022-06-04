@@ -470,8 +470,8 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     if (targetLangData) {
                                         var targetCharDatasByBrand = targetLangData[transGameText[0]];
 
-                                        if (targetCharDatas) {
-                                            targetCharDatas.push({
+                                        if (targetCharDatasByBrand) {
+                                            targetCharDatasByBrand.push({
                                                 TargetValue: transGameText,
                                                 GameID: Data.GameID
                                             });
