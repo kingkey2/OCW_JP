@@ -33,7 +33,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   height: 100%;
 }
 .hero_slider_lobby .hero-item-box {
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
 }
 .hero_slider_lobby .hero-item-box.mobile {
@@ -103,6 +103,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .hero_slider_lobby .hero-item-box.desktop {
     display: inherit !important;
+  }
+  .hero_slider_lobby .swiper-slide {
+    max-width: 75%;
   }
 }
 @media (min-width: 1384px) {
