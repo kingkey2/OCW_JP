@@ -364,6 +364,7 @@
         if ($('.header_menu').hasClass("show")) {
             $('.vertical-menu').toggleClass('navbar-show');
             $('.header_menu').toggleClass('show');
+            $('.navbar-toggler').attr("aria-expanded", "false");
         }
  
         if (checkLogined) {
