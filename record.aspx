@@ -492,7 +492,7 @@
                                 }
                             }
                         }
-                    } 
+                    }
                     
                     if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
                         if (WebInfo.DeviceType == 1) {

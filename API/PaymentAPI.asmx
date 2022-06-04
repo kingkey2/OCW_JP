@@ -2093,50 +2093,46 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public APIResult CancelPayment(string WebSID, string GUID, string PaymentSerial, string OrderNumber)
-    {
+    public APIResult CancelPayment(string WebSID, string GUID, string PaymentSerial, string OrderNumber) {
         APIResult R = new APIResult() { Result = enumResult.ERR, GUID = GUID };
         EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
         RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT = null;
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
-        {
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
 
+            DT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber(OrderNumber);
 
-            PaymentCommonData paymentCommonData = RedisCache.PaymentContent.GetPaymentContent<PaymentCommonData>(OrderNumber);
-            if (paymentCommonData != null)
-            {
-                if (paymentCommonData.PaymentType == 0)
-                {
-                    if (paymentCommonData.BasicType == 2)
-                    {
-                        new EWin.OCW.OCW().FinishCompanyWallet(SI.EWinCT, (EWin.OCW.enumWalletType)paymentCommonData.WalletType, paymentCommonData.ToWalletAddress);
-                    }
+            if (DT != null) {
+                if (DT.Rows.Count > 0) {
+                    int WalletType = int.Parse(DT.Rows[0]["EWinCryptoWalletType"].ToString());
+                    string ToWalletAddress = DT.Rows[0]["ToInfo"].ToString();
+                    int BasicType = int.Parse(DT.Rows[0]["BasicType"].ToString());
+                    int PaymentType = int.Parse(DT.Rows[0]["PaymentType"].ToString());
 
-                    var paymentResult = paymentAPI.CancelPayment(GetToken(), GUID, PaymentSerial);
-                    if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
-                    {
-                        R.Result = enumResult.OK;
+                    if (PaymentType == 0) {
+                        if (BasicType == 2) {
+                            new EWin.OCW.OCW().FinishCompanyWallet(SI.EWinCT, (EWin.OCW.enumWalletType)WalletType, ToWalletAddress);
+                        }
+                        var paymentResult = paymentAPI.CancelPayment(GetToken(), GUID, PaymentSerial);
+
+                        if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK) {
+                            R.Result = enumResult.OK;
+                        } else {
+                            SetResultException(R, paymentResult.ResultMessage);
+                        }
+                    } else {
+                        SetResultException(R, "OnlyDepositCanCancel");
                     }
-                    else
-                    {
-                        SetResultException(R, paymentResult.ResultMessage);
-                    }
+                } else {
+                    SetResultException(R, "NotFoundData");
                 }
-                else
-                {
-                    SetResultException(R, "OnlyDepositCanCancel");
-                }
-            }
-            else
-            {
+            } else {
                 SetResultException(R, "NotFoundData");
             }
-        }
-        else
-        {
+        } else {
             SetResultException(R, "InvalidWebSID");
         }
 
