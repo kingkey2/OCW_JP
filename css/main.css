@@ -2122,12 +2122,12 @@ hr.line {
   }
 }
 .footer {
-  background: rgba(0, 0, 0, 0.05);
   font-size: 0.9375rem;
   text-align: center;
   width: 100%;
   bottom: 0;
   padding-top: 10px;
+  background: url(../images/bg_Footer.jpg) center bottom no-repeat;
 }
 .footer .logo {
   background: url(../images/logo_text_w.png) center top no-repeat;
