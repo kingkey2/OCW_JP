@@ -1914,7 +1914,7 @@
             </div>
             <div class="searchFilter-item input-group">                   
                 <select class="custom-select" id="alertSearchBrand">
-                    <option class="title" value="-1" selected><span class="language_replace">遊戲品牌</span></option>
+                    <option class="title" value="-1" selected><span class="language_replace">遊戲品牌（全部）</span></option>
                     <option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
                     <option class="searchFilter-option" value="BNG"><span class="language_replace">BNG</span></option>
                     <option class="searchFilter-option" value="CG"><span class="language_replace">CG</span></option>
