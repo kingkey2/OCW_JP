@@ -183,6 +183,7 @@
                         if (category.ShowType == 0) {
                             new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
                                 slidesPerView: "auto",
+                                loop:true,
                                 // slidesPerGroup: 2,
                                 // loopedSlides: 8,
                                 slidesPerGroup: 4,

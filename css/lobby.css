@@ -14,6 +14,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 2.1875rem;
   height: 2.1875rem;
 }
+.tab-game .title {
+  display: none;
+}
 
 .section-wrap.hero {
   overflow: hidden;
@@ -142,9 +145,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-transform: translateX(500%);
             transform: translateX(500%);
   }
+  .tab-game .tab-item.active .icon-mask::before {
+    background-color: #0081bd;
+  }
   .tab-game .tab-item:hover .title {
     opacity: 1;
     top: -40px;
+  }
+  .tab-game .tab-item:hover .icon-mask::before {
+    background-color: #0095da;
   }
 
   .hero_slider_lobby .img-wrap {
