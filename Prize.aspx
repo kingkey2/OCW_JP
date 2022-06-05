@@ -77,7 +77,7 @@
     function GetPromotionCollectHistory(BeginDate, EndDate) {
         var ParentMain = document.getElementById("div_History");
         ParentMain.innerHTML = "";
-        $("#idNoHistoryData").addClass("is-hide");
+        
         LobbyClient.GetPromotionCollectHistory(WebInfo.SID, Math.uuid(), BeginDate, EndDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -96,13 +96,18 @@
 
                             ParentMain.appendChild(rowDom);
                         }
+
+                        if ($("#div_History").children().length == 0) {
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
+                        }
+
                         window.parent.API_CloseLoading();
                     } else {
-                        $("#idNoHistoryData").removeClass("is-hide");
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
                         window.parent.API_CloseLoading();
                     }
                 } else {
-                    $("#idNoHistoryData").removeClass("is-hide");
+                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -125,7 +130,7 @@
         ParentMain.innerHTML = "";
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_bonus" + collectareatype).addClass("active");
-        $("#idNoPrizeData").addClass("is-hide");
+ 
         //CollectAreaType
         // 1 (獎金 bonus) => i.   本金歸零時可領 
         //                                    ii.   出金時歸零
@@ -217,13 +222,17 @@
                                 ParentMain.appendChild(RecordDom);
                             }
                         }
+                        
+                        if ($("#div_Prize").children().length == 0) {
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
+                        }
                         window.parent.API_CloseLoading();
                     } else {
-                        $("#idNoPrizeData").removeClass("is-hide");
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
                         window.parent.API_CloseLoading();
                     }
                 } else {
-                    $("#idNoPrizeData").removeClass("is-hide");
+                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('無資料')}</span></div></div>`);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -341,13 +350,14 @@
 
                 <section class="section-wrap section-prize">
                     <div class="prize-item-wrapper">
-                        <div class="prize-item-group" id="div_Prize">                           
-                        </div>
-                         <!-- 無資料 ========================= -->
-                         <div class="no-Data" id="idNoPrizeData">
-                            <div class="data">
-                                <span class="text language_replace">無資料</span>
-                            </div>
+                        <div class="prize-item-group" id="div_Prize">
+                            <%--<div ></div>
+                            <!-- 無資料 ========================= -->
+                            <div class="no-Data" id="idNoPrizeData">
+                                <div class="data">
+                                    <span class="text language_replace">無資料</span>
+                                </div>
+                            </div>--%>
                         </div>
                     </div>
                 </section>
@@ -375,14 +385,14 @@
                             </div>
                         </div>
                         <!-- Tbody -->
-                        <div class="Tbody" >
-                            <div id="div_History"></div>
+                        <div class="Tbody"  id="div_History">
+                            <%--<div></div>
                              <!-- 無資料 ========================= -->
                             <div class="no-Data" id="idNoHistoryData">
                                 <div class="data">
                                     <span class="text language_replace">無資料</span>
                                 </div>
-                            </div>
+                            </div>--%>
                         </div>
                     </div>
                 </section>
