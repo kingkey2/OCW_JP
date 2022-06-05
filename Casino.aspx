@@ -196,7 +196,7 @@
                                         slidesPerGroup: 5,                                       
                                     },
                                     1384: {
-                                        slidesPerGroup: 7,                                      
+                                        slidesPerGroup: 6,                                      
                                     },
                                     1864: {
                                         slidesPerGroup: 8,                                      
