@@ -25,8 +25,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class^=icon-]:before,
-[class*=" icon-"]:before {
+[class^=icon-m]:before,
+[class*=" icon-m"]:before {
   font-family: "maharaja" !important;
   font-style: normal !important;
   font-weight: normal !important;
@@ -38,128 +38,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-heart-f:before {
+.icon-m-heart-f:before {
   content: "a";
 }
 
-.icon-heart-o:before {
+.icon-m-heart-o:before {
   content: "b";
-}
-
-.icon-fish-2:before {
-  content: "c";
-}
-
-.icon-fish-1:before {
-  content: "d";
-}
-
-.icon-crypto-jkc:before {
-  content: "e";
-}
-
-.icon-logo-eth-o:before {
-  content: "f";
-}
-
-.icon-logo-hln:before {
-  content: "g";
-}
-
-.icon-logo-omi:before {
-  content: "h";
-}
-
-.icon-linear-chart-2:before {
-  content: "i";
-}
-
-.icon-linear-chart-1:before {
-  content: "j";
-}
-
-.icon-poker:before {
-  content: "l";
-}
-
-.icon-newspaper:before {
-  content: "m";
-}
-
-.icon-mail:before {
-  content: "n";
-}
-
-.icon-magazine:before {
-  content: "o";
-}
-
-.icon-logo-usdt:before {
-  content: "p";
-}
-
-.icon-logo-usdc:before {
-  content: "q";
-}
-
-.icon-refresh:before {
-  content: "r";
-}
-
-.icon-smartphone:before {
-  content: "s";
-}
-
-.icon-question-outline:before {
-  content: "t";
-}
-
-.icon-american-football:before {
-  content: "u";
-}
-
-.icon-football:before {
-  content: "v";
-}
-
-.icon-time-is-money:before {
-  content: "w";
-}
-
-.icon-money-flow:before {
-  content: "x";
-}
-
-.icon-ewin-user:before {
-  content: "y";
-}
-
-.icon-ewin-user-add:before {
-  content: "z";
-}
-
-.icon-ewin-trash:before {
-  content: "A";
-}
-
-.icon-ewin-user-list:before {
-  content: "B";
-}
-
-.icon-ewin-user-multi-add:before {
-  content: "C";
-}
-
-.icon-ewin-user-multi-exchange-1:before {
-  content: "D";
-}
-
-.icon-ewin-user-setting:before {
-  content: "E";
-}
-
-.icon-icon-ewin-user-multi:before {
-  content: "F";
 }
 
 .icon-angle-down:before {
@@ -198,11 +82,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   content: "M";
 }
 
-.icon-thumup:before {
+.icon-m-thumup:before {
   content: "k";
 }
 
-.icon-thumup-full:before {
+.icon-m-thumup-full:before {
   content: "Q";
 }
 
@@ -5157,18 +5041,18 @@ i {
     opacity: 0;
   }
 }
-.icon-favorite:before {
+.icon-m-favorite:before {
   content: "b";
 }
 
-.icon-thumup {
+.icon-m-thumup {
   font-size: 17px;
 }
 
-.btn.added .icon-favorite:before {
+.btn.added .icon-m-favorite:before {
   content: "a";
 }
-.btn.added .icon-thumup:before {
+.btn.added .icon-m-thumup:before {
   content: "Q";
 }
 
@@ -5881,9 +5765,6 @@ i {
   }
 }
 @media (min-width: 1384px) and (max-width: 1863px) {
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 6 - 1.2vw);
-  }
   .game_slider .swiper-slide {
     width: 16.6666666667%;
   }
@@ -5902,9 +5783,6 @@ i {
   }
 }
 @media (min-width: 1864px) {
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 8 - 1.2vw);
-  }
   .game_slider .swiper-slide {
     width: 12.5%;
   }

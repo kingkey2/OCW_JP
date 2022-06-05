@@ -620,10 +620,10 @@
                                                     <div class="action">
                                                         <div class="btn-s-wrapper">
                                                             <button type="button" class="btn-thumbUp btn btn-round">
-                                                                <i class="icon icon-thumup"></i>
+                                                                <i class="icon icon-m-thumup"></i>
                                                             </button>
                                                             <button type="button" class="btn-like btn btn-round">
-                                                                <i class="icon icon-favorite"></i>
+                                                                <i class="icon icon-m-favorite"></i>
                                                             </button>
                                                             <button type="button" class="btn-more btn btn-round">
                                                                 <i class="arrow arrow-down"></i>
