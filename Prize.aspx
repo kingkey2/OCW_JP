@@ -352,12 +352,13 @@
                     <div class="prize-item-wrapper">
                         <div class="prize-item-group" id="div_Prize">
                             <%--<div ></div>
-                            <!-- 無資料 ========================= -->
-                            <div class="no-Data" id="idNoPrizeData">
-                                <div class="data">
-                                    <span class="text language_replace">無資料</span>
-                                </div>
-                            </div>--%>
+                            --%>
+                        </div>
+                        <!-- 無資料 ========================= -->
+                        <div class="no-Data" id="idNoPrizeData">
+                            <div class="data">
+                                <span class="text language_replace">無資料</span>
+                            </div>
                         </div>
                     </div>
                 </section>
