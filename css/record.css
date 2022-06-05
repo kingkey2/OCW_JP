@@ -349,7 +349,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-left: 0.5em;
 }
 .record-table-drop-panel {
-  padding: 1em 0;
+  padding: 1em 1em 2em 0;
 }
 .record-table-drop-panel .tbody-td {
   display: -webkit-box;
@@ -518,6 +518,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  padding-right: 1.5em;
 }
 .record-table.games-record .record-table-drop-panel .record-drop-item-img {
   -webkit-box-ordinal-group: -1;
