@@ -5320,7 +5320,7 @@ i {
 }
 .game-item-name {
   margin-bottom: 0.5rem;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 1.125rem;
 }
 .game-item.label-new .img-wrap:before, .game-item.label-hot .img-wrap:after {
@@ -5371,6 +5371,7 @@ i {
   position: absolute;
   width: 100%;
   height: calc(100% + 55px);
+  border-radius: 15px 15px 0 0;
   -webkit-transition: top 0.55s ease-in-out, opacity 0s linear;
   transition: top 0.55s ease-in-out, opacity 0s linear;
   background-size: cover;
@@ -5383,6 +5384,7 @@ i {
   height: 100%;
   background: url(../images/theme/blue/game-bg-hover.png) center top no-repeat;
   background-size: cover;
+  border-radius: 15px 15px 0 0;
 }
 .game-item-info-detail-wrapper {
   position: relative;
@@ -5453,6 +5455,9 @@ i {
   transition: top 0.35s ease-in-out, -webkit-box-shadow 0.35s ease-in-out;
   transition: box-shadow 0.35s ease-in-out, top 0.35s ease-in-out;
   transition: box-shadow 0.35s ease-in-out, top 0.35s ease-in-out, -webkit-box-shadow 0.35s ease-in-out;
+  -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 15px 15px;
 }
 .game-item-info-detail-indicator-inner {
   position: relative;
@@ -5562,15 +5567,6 @@ i {
   top: -27px;
   -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
           box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 15px 15px 0 0;
-}
-.gameinfo-hover .game-item-focus:hover .game-item-info-detail-indicator {
-  -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 0 0 15px 15px;
-}
-.gameinfo-hover .game-item-focus:hover .game-item-info-detail:before {
-  border-radius: 15px 15px 0 0;
 }
 .gameinfo-hover .game-item-info-detail {
   position: absolute;
