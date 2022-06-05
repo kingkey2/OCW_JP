@@ -1068,6 +1068,12 @@ hr.line {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
   .sec-title-container .sec-month .btn {
     -webkit-box-flex: 1;
@@ -1075,11 +1081,13 @@ hr.line {
             flex: 1;
   }
   .sec-title-container .btn-link {
-    -webkit-box-ordinal-group: 0;
-        -ms-flex-order: -1;
-            order: -1;
     width: 100%;
-    margin-bottom: 1em;
+  }
+  .sec-title-container .date_text {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+    padding: 0 20px;
   }
   .sec-title-wrapper {
     -webkit-box-flex: 0;
