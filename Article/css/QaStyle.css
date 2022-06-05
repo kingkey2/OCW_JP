@@ -28,13 +28,16 @@
     border-top-right-radius: 0.25rem;
     white-space: nowrap;
 }
+.nav-link:focus, .nav-link:hover{
+  color: #009FE8;
+}
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    color: #fc5b8c;
+    color: #009FE8;
     padding-bottom: 20px;
     background-color: none;
     border-color: none;
-    border-bottom:4px solid #fc5b8c ;
+    border-bottom:4px solid #009FE8 ;
 }
 
 .nav-link {

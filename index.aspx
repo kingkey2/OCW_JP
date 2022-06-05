@@ -1834,8 +1834,8 @@
                         </li>
                     </ul>
                     <div class="company-address">
-                        <p class="name">The Orange Crest Limited</p>
-                        <p class="address">Sino Centre, 582-592 Nathan Rd., Mongkok, Kowloon, Hong Kong.</p>
+                        <p class="name">Online Chip World Co. N.V</p>
+                        <p class="address">Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao</p>
                     </div>
                     <div class="footer-copyright">
                         <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
