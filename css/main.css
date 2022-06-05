@@ -2150,7 +2150,7 @@ hr.line {
   }
 }
 .footer-container {
-  padding: 10px 0 0;
+  padding: 50px 0 0;
   background: #fff;
   background: url(../images/bg_Footer.jpg) center bottom no-repeat;
 }
@@ -5175,7 +5175,6 @@ i {
   display: inline-flex;
   width: 1px;
   height: 14px;
-  margin-left: 1rem;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
