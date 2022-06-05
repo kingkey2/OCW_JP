@@ -5201,12 +5201,17 @@ i {
 
 .swiper-button-next, .swiper-button-prev {
   color: #fff;
+  opacity: 0;
 }
 
 .game_wrapper {
   margin-bottom: 20px;
 }
-.game_wrapper:hover .swiper-button-next, .game_wrapper:hover .swiper-button-prev {
+.game_wrapper:hover .swiper-button-next:not(.swiper-button-disabled),
+.game_wrapper:hover .swiper-button-prev:not(.swiper-button-disabled) {
+  opacity: 1;
+}
+.game_wrapper:hover .game_slider::before, .game_wrapper:hover .game_slider::after {
   opacity: 1;
 }
 
@@ -5220,6 +5225,7 @@ i {
   background-size: contain;
   z-index: 5;
   top: 55px;
+  opacity: 0;
 }
 .game_slider::before {
   background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.4)), color-stop(50%, rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0)));
@@ -5887,6 +5893,9 @@ i {
   }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
+  .game_slider::before, .game_slider::after {
+    height: calc((100vw - 56px) / 5 - 1.2vw);
+  }
   .game_slider .swiper-slide {
     width: 20%;
   }
@@ -5903,9 +5912,6 @@ i {
   .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
     right: 60px;
   }
-  .game_slider .swiper-slide::before, .game_slider .swiper-slide::after {
-    height: calc((100vw - 56px) / 5 - 1.2vw);
-  }
 }
 @media (min-width: 1384px) {
   .section-levelUp {
@@ -5913,6 +5919,9 @@ i {
   }
 }
 @media (min-width: 1384px) and (max-width: 1863px) {
+  .game_slider::before, .game_slider::after {
+    height: calc((100vw - 56px) / 6 - 1.2vw);
+  }
   .game_slider .swiper-slide {
     width: 16.6666666667%;
   }
@@ -5929,11 +5938,11 @@ i {
   .game_slider .swiper-slide:nth-child(6n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
     right: 80px;
   }
-  .game_slider .swiper-slide::before, .game_slider .swiper-slide::after {
-    height: calc((100vw - 56px) / 6 - 1.2vw);
-  }
 }
 @media (min-width: 1864px) {
+  .game_slider::before, .game_slider::after {
+    height: calc((100vw - 56px) / 8 - 1.2vw);
+  }
   .game_slider .swiper-slide {
     width: 12.5%;
   }
