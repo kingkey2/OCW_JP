@@ -5857,18 +5857,31 @@ i {
   .game_slider .swiper-slide {
     width: 20%;
   }
-  .game_slider .swiper-slide:nth-child(1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(1) .game-item-focus:hover .game-item-img {
-    left: 60px;
-  }
 }
 @media (min-width: 936px) {
   .game-item-mobile-popup {
     display: none;
   }
 
+  .game_slider .swiper-slide:nth-child(1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(1) .game-item-focus:hover .game-item-img {
+    left: 60px;
+  }
+  .game_slider .swiper-slide:last-child .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    right: 60px;
+  }
+
+  .game-item-group.list-row .game-item {
+    width: 50%;
+  }
+}
+@media (min-width: 936px) and (max-width: 1383px) {
   .game_slider .swiper-slide {
     width: 20%;
   }
@@ -5885,23 +5898,46 @@ i {
   .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img {
     right: 60px;
   }
-
-  .game-item-group.list-row .game-item {
-    width: 50%;
-  }
 }
 @media (min-width: 1384px) {
   .section-levelUp {
     padding-bottom: 1.875rem;
   }
-
+}
+@media (min-width: 1384px) and (max-width: 1863px) {
   .game_slider .swiper-slide {
-    width: calc((100% - 10px) / 7.35);
+    width: 14.2857142857%;
+  }
+  .game_slider .swiper-slide:nth-child(7n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(7n+1) .game-item-focus:hover .game-item-img {
+    left: 60px;
+  }
+  .game_slider .swiper-slide:nth-child(7n) .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:nth-child(7n) .game-item-focus:hover .game-item-img {
+    right: 60px;
   }
 }
 @media (min-width: 1864px) {
   .game_slider .swiper-slide {
-    width: calc((100% - 10px) / 9.35);
+    width: 12.5%;
+  }
+  .game_slider .swiper-slide:nth-child(8n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(8n+1) .game-item-focus:hover .game-item-img {
+    left: 60px;
+  }
+  .game_slider .swiper-slide:nth-child(8n) .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:nth-child(8n) .game-item-focus:hover .game-item-img {
+    right: 60px;
   }
 }
 @-webkit-keyframes anim-role_left {
