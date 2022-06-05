@@ -684,9 +684,9 @@
                     <div class="sec-title-wrapper">
                         <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName"></span></h3>
                     </div>
-                    <a class="text-link" href="casino.html">
+                    <%--<a class="text-link" href="casino.html">
                         <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
-                    </a>
+                    </a>--%>
                 </div>
                 <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                     <div class="swiper-wrapper GameItemGroupContent">
