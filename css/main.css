@@ -2339,7 +2339,7 @@ html::-webkit-scrollbar-thumb {
   border-radius: 5px;
 }
 html::-webkit-scrollbar-thumb:active, html::-webkit-scrollbar-thumb:hover {
-  background: #c1a678;
+  background: #3DB6FF;
 }
 html.mainHtml {
   background: #ffffff;
@@ -5642,6 +5642,7 @@ i {
 .game-item-group.list-row .game-item {
   position: relative;
   width: 100%;
+  margin-bottom: 1rem;
 }
 .game-item-group.list-row .game-item .gameName {
   font-size: 1rem;
@@ -8018,6 +8019,52 @@ select:-webkit-autofill:focus {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+.modal .modal-body {
+  /* scroll 樣式 -- IE，Edge不適用   */
+  scrollbar-face-color: rgba(173, 181, 189, 0.8);
+  scrollbar-arrow-color: #444;
+  scrollbar-track-color: #222;
+  scrollbar-shadow-color: rgba(173, 181, 189, 0.8);
+  scrollbar-highlight-color: rgba(173, 181, 189, 0.8);
+  scrollbar-3dlight-color: rgba(173, 181, 189, 0.8);
+  scrollbar-darkshadow-Color: rgba(173, 181, 189, 0.8);
+  /* scroll 樣式 -- Firefox Scrollbar  */
+  scrollbar-width: none;
+  scrollbar-color: rgba(173, 181, 189, 0.8) transparent;
+  /* scroll 樣式 -- chrome   */
+}
+@media (min-width: 576px) {
+  .modal .modal-body {
+    scrollbar-width: thin;
+  }
+}
+.modal .modal-body::-webkit-scrollbar {
+  background-color: #222;
+  width: 0px;
+}
+@media (min-width: 768px) {
+  .modal .modal-body::-webkit-scrollbar {
+    width: 5px;
+  }
+}
+@media (min-width: 992px) {
+  .modal .modal-body::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+.modal .modal-body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0);
+  background-color: #222;
+  border-radius: 5px;
+}
+.modal .modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(173, 181, 189, 0.8);
+  border-radius: 5px;
+}
+.modal .modal-body::-webkit-scrollbar-thumb:active, .modal .modal-body::-webkit-scrollbar-thumb:hover {
+  background: #3DB6FF;
 }
 
 .popUp {
