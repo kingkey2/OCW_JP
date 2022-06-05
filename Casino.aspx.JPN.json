@@ -30,5 +30,10 @@
   "BNG": "ブーンゴー",
   "VA": "ビクトリーアークゲーミング",
   "BG": "ビッグゲーミング",
-  "PNG": "プレインゴー"
+  "PNG": "プレインゴー",
+  "GameList_All": "全部",
+  "GameList_Slot": "スポーツ",
+  "GameList_Live": "ライブ",
+  "GameList_Electron": "電子",
+  "GameList_Other": "他の"
 }
