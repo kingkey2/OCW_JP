@@ -16,3 +16,6 @@
 /.vs/slnx.sqlite
 /memberCenter copy.aspx
 /Html/prepros.config
+/css/vendors/bootstrap/bootstrap.css
+/css/vendors/bootstrap/bootstrap-reboot.css
+/css/vendors/bootstrap/bootstrap-grid.css

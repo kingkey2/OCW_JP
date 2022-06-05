@@ -1874,7 +1874,7 @@ hr.line {
   }
 }
 .header_topNavBar {
-  width: calc(100% - 50px);
+  width: calc(100% - 40px);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -5713,7 +5713,7 @@ i {
   }
 
   .game_slider .swiper-slide {
-    width: 20%;
+    width: 25%;
   }
 }
 @media (min-width: 936px) {
@@ -5764,37 +5764,37 @@ i {
 }
 @media (min-width: 1384px) and (max-width: 1863px) {
   .game_slider .swiper-slide {
+    width: 20%;
+  }
+  .game_slider .swiper-slide:nth-child(5n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(5n+1) .game-item-focus:hover .game-item-img {
+    left: 80px;
+  }
+  .game_slider .swiper-slide:nth-child(5n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    right: 80px;
+  }
+}
+@media (min-width: 1864px) {
+  .game_slider .swiper-slide {
     width: 16.6666666667%;
   }
   .game_slider .swiper-slide:nth-child(6n+1) .game-item-info-detail {
     left: 0;
   }
   .game_slider .swiper-slide:nth-child(6n+1) .game-item-focus:hover .game-item-img {
-    left: 80px;
+    left: 75px;
   }
   .game_slider .swiper-slide:nth-child(6n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
     left: auto;
     right: 0;
   }
   .game_slider .swiper-slide:nth-child(6n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 80px;
-  }
-}
-@media (min-width: 1864px) {
-  .game_slider .swiper-slide {
-    width: 12.5%;
-  }
-  .game_slider .swiper-slide:nth-child(8n+1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(8n+1) .game-item-focus:hover .game-item-img {
-    left: 75px;
-  }
-  .game_slider .swiper-slide:nth-child(8n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:nth-child(8n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
     right: 75px;
   }
 }
