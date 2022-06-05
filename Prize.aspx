@@ -348,9 +348,6 @@
                     </div>
                 </div>
 
-
-
-
                 <section class="section-wrap section-prize">
                     <div class="prize-item-wrapper">
                         <div class="prize-item-group" id="div_Prize">

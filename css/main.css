@@ -5449,10 +5449,10 @@ i {
   padding: 10px;
   width: 100%;
   top: 0;
-  -webkit-transition: -webkit-box-shadow 0.35s ease-in-out;
-  transition: -webkit-box-shadow 0.35s ease-in-out;
-  transition: box-shadow 0.35s ease-in-out;
-  transition: box-shadow 0.35s ease-in-out, -webkit-box-shadow 0.35s ease-in-out;
+  -webkit-transition: top 0.35s ease-in-out, -webkit-box-shadow 0.35s ease-in-out;
+  transition: top 0.35s ease-in-out, -webkit-box-shadow 0.35s ease-in-out;
+  transition: box-shadow 0.35s ease-in-out, top 0.35s ease-in-out;
+  transition: box-shadow 0.35s ease-in-out, top 0.35s ease-in-out, -webkit-box-shadow 0.35s ease-in-out;
 }
 .game-item-info-detail-indicator-inner {
   position: relative;
