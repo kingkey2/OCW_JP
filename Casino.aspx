@@ -415,10 +415,10 @@
             <div class="tab-scroller__area">
                 <ul class="tab-scroller__content" id="idGameItemTitle">
                     <div class="tab-slide"></div>
+                    <div class="tab-tooltip"></div>
                 </ul>
             </div>
-        </div>
-       
+        </div>       
         <section class="game-area overflow-hidden" id="gameAreas">
          
     </section>
