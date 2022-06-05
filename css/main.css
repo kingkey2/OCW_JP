@@ -5182,6 +5182,11 @@ i {
   margin-bottom: 0.5rem;
   font-weight: 500;
   font-size: 1.125rem;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .game-item.label-new .img-wrap:before, .game-item.label-hot .img-wrap:after {
   position: absolute;

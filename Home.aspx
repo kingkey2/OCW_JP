@@ -336,7 +336,7 @@
                         new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
                             loop: false,
                             slidesPerView: "auto",
-                            slidesPerGroup: 2,
+                            slidesPerGroup: 4,
                             navigation: {
                                 nextEl: "#game-recommend .swiper-button-next",
                                 prevEl: "#game-recommend .swiper-button-prev",
