@@ -183,12 +183,24 @@
                         if (category.ShowType == 0) {
                             new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
                                 slidesPerView: "auto",
-                                slidesPerGroup: 2,
-                                loopedSlides: 8,
+                                // slidesPerGroup: 2,
+                                // loopedSlides: 8,
+                                slidesPerGroup: 4,
                                 lazy: true,
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
+                                },
+                                breakpoints: {
+                                    936: {
+                                        slidesPerGroup: 5,                                       
+                                    },
+                                    1384: {
+                                        slidesPerGroup: 6,                                      
+                                    },
+                                    1864: {
+                                        slidesPerGroup: 8,                                      
+                                    }
                                 }
                             });
                         }
@@ -405,8 +417,7 @@
                     <div class="tab-slide"></div>
                 </ul>
             </div>
-        </div>
-       
+        </div>       
         <section class="game-area overflow-hidden" id="gameAreas">
          
     </section>

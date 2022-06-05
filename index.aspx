@@ -71,31 +71,31 @@
         }
         else if (userLang.ToUpper() == "en-US".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "en-CA".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "en-PH".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "en".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "ko-KR".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "ko-KP".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "ko".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "ja".ToUpper())
         {
@@ -1072,8 +1072,8 @@
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 break;
             case "ENG":
-                LangText = "English";
-                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-EN"></i>`);
+                LangText = "日本語";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
                 break;
             case "CHS":
                 LangText = "簡體中文";
@@ -1151,7 +1151,7 @@
             case "CHT":
                 break;
             case "ENG":
-                orgin = orgin + "_en";
+                orgin = orgin + "_jp";
                 break;
             default:
                 break;

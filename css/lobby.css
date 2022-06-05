@@ -3,6 +3,7 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .tab-game {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(251, 251, 251, 0)), to(#D6D6D6));
   background: linear-gradient(180deg, rgba(251, 251, 251, 0) 0%, #D6D6D6 100%);
 }
 .tab-game .content {
@@ -10,11 +11,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin: 0 auto;
 }
 .tab-game .icon-mask {
-  width: 1.5625rem;
-  height: 1.5625rem;
-}
-.tab-game .title {
-  display: none;
+  width: 2.1875rem;
+  height: 2.1875rem;
 }
 
 .section-wrap.hero {
@@ -54,8 +52,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   right: 0;
   bottom: 0;
   left: 0;
-  object-fit: cover;
-  object-position: center top;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center top;
+     object-position: center top;
   width: 100%;
   height: 100%;
 }
@@ -95,6 +95,58 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 4.0625rem;
     height: 4.0625rem;
   }
+  .tab-game.tab-scroller {
+    overflow: visible;
+  }
+  .tab-game.tab-scroller .tab-scroller__area {
+    overflow-x: visible;
+  }
+  .tab-game.tab-scroller .tab-item-link {
+    position: relative;
+  }
+  .tab-game.tab-scroller .tab-item {
+    overflow: visible;
+  }
+  .tab-game .title {
+    position: absolute;
+    display: inline-block;
+    font-size: 0.875rem;
+    background-color: #009fe8;
+    color: #fff;
+    padding: 3px;
+    border-radius: 10px;
+    text-align: center;
+    top: -30px;
+    width: calc((100vw - 30px) / 5);
+    max-width: 150px;
+    z-index: 99;
+    pointer-events: none;
+    word-break: break-all;
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-box-shadow: 0 0 10px 0 #000;
+            box-shadow: 0 0 10px 0 #000;
+  }
+  .tab-game .title:after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 10px 6px 0px;
+    border-color: #009fe8 transparent transparent;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateX(500%);
+            transform: translateX(500%);
+  }
+  .tab-game .tab-item:hover .title {
+    opacity: 1;
+    top: -40px;
+  }
+
   .hero_slider_lobby .img-wrap {
     padding-bottom: 350px;
   }

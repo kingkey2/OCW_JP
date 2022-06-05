@@ -422,18 +422,20 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 33.3333333333%;
   }
 }
+@media screen and (max-width: 640px) {
+  .sec-title-activity .btn-link,
+.sec-title-prize .btn-link {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    margin: 0 0 1rem 0;
+  }
+}
 @media screen and (max-width: 576px) {
   .prize-item-img {
     display: none;
   }
   .prize-item .btn-bouns {
-    -webkit-box-ordinal-group: 0;
-        -ms-flex-order: -1;
-            order: -1;
-  }
-
-  .sec-title-activity .btn-link,
-.sec-title-prize .btn-link {
     -webkit-box-ordinal-group: 0;
         -ms-flex-order: -1;
             order: -1;
