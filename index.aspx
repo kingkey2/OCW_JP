@@ -1395,17 +1395,18 @@
         var gameList = [];
         var lang = EWinWebInfo.Lang;
         if (gameBrand != "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);  
         } else if (gameBrand == "-1" && keyWord != '') {
             gameList = GCB.SearchGameCodeByLang(lang, keyWord);
         } else if (gameBrand != "-1" && keyWord == '') {
             gameList = GCB.SearchGameCodeByBrand(gameBrand);
         } else {
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
+            return false;
         }
-
+        $('#alertSearchContent').empty();
         if (gameList.length>0) {
-            $('#alertSearchContent').empty();
+           
             for (var i = 0; i < gameList.length; i++) {
                 var gameItem = gameList[i];
                 var RTP = "";
