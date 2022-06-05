@@ -183,12 +183,21 @@
                         if (category.ShowType == 0) {
                             new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
                                 slidesPerView: "auto",
-                                slidesPerGroup: 2,
-                                loopedSlides: 8,
+                                // slidesPerGroup: 2,
+                                // loopedSlides: 8,
+                                slidesPerGroup: 4,
                                 lazy: true,
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
+                                },
+                                breakpoints: {
+                                    936: {
+                                        slidesPerGroup: 5,                                       
+                                    },
+                                    1920: {
+                                        slidesPerGroup: 8,                                       
+                                    }
                                 }
                             });
                         }
