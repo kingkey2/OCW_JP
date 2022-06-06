@@ -29,5 +29,7 @@
   "OnlyDepositCanCancel": "チャージの注文のみ取り消しすることができます。",
   "NotFoundData": "データがありません。",
   "LockFailure": "ロックが失敗しました。",
-  "InvalidStatus": "注文の状態が誤っています。"
+  "InvalidStatus": "注文の状態が誤っています。",
+  "WithdrawlTemporaryMaintenance": "出金手続きはメンテナンス中です。",
+  "OPFailure": "残高不足"
 }
