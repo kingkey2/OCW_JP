@@ -336,12 +336,19 @@
                         new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
                             loop: false,
                             slidesPerView: "auto",
-                            slidesPerGroup: 4,
+                            // slidesPerView: 2,
+                            // slidesPerGroup: 2,
                             navigation: {
                                 nextEl: "#game-recommend .swiper-button-next",
                                 prevEl: "#game-recommend .swiper-button-prev",
                             },
                             breakpoints: {
+                                // 576: {
+                                //     slidesPerGroup: 3,
+                                // },
+                                // 640: {
+                                //     slidesPerGroup: 4,
+                                // },
                                 936: {
                                     slidesPerGroup: 5,
                                 },
@@ -610,7 +617,7 @@
                             <img src="images/index/writer.png" alt="">
                         </div>
                         <div class="item vtuber">
-                            <img src="images/index/vtuber.png" alt="">
+                            <img src="images/index/vtuber1.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -775,6 +782,7 @@
     </div>
 
     <%--推薦遊戲--%>
+    <%--
     <div id="temCategArea2" class="is-hide">
         <section class="section-wrap section_randomRem">
             <div class="container-fluid">
@@ -791,6 +799,7 @@
                 </div>
         </section>
     </div>
+    --%>
     <div id="temGameItem2" class="is-hide">
         <div class="swiper-slide">
             <div class="game-item">

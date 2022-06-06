@@ -42,5 +42,6 @@
   "關於我們": "会社について",
   "NormalizeError": "エラーの正常化",
   "SubjectOrSendBodyIsEmpty": "題名もしくは内容が空白は不可",
-  "EMailNotFind": "メールアドレスが存在しません。"
+  "EMailNotFind": "メールアドレスが存在しません。",
+  "近期開放": "間もなくスタート"
 }

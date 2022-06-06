@@ -187,22 +187,36 @@
                                 // loop:true,
                                 // slidesPerGroup: 2,
                                 // loopedSlides: 8,
-                                slidesPerGroup: 4,
                                 lazy: true,
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
                                 },
                                 breakpoints: {
+                                    // 576: {
+                                    //  slidesPerGroup: 3,
+                                    // },
+                                    // 640: {
+                                    //     slidesPerGroup: 4,
+                                    // },
                                     936: {
-                                        slidesPerGroup: 5,
+                                        slidesPerGroup: 5, //index:992px
+                                    },
+                                    1144: {
+                                        slidesPerGroup: 6, //index:1200px
                                     },
                                     1384: {
-                                        slidesPerGroup: 6,
+                                        slidesPerGroup: 6, //index:1440px
+                                    },
+                                    1544: {
+                                        slidesPerGroup: 7, //index:1600px
                                     },
                                     1864: {
-                                        slidesPerGroup: 8,
-                                    }
+                                        slidesPerGroup: 8, //index:1920px
+                                    },
+                                    1920: {
+                                        slidesPerGroup: 10, //index:1920px
+                                    },
                                 }
                             });
                         }

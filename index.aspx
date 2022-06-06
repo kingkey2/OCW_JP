@@ -124,8 +124,8 @@
     <%--<meta name='keywords' content="Casino、Slot、Amusement、Game" />
     <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
 
-    <%--<meta property="og:site_name" content="マハラジャ" />--%>
-    <meta property="og:site_name" content="Maharaja" />
+    <meta property="og:site_name" content="マハラジャ" />
+    <%--<meta property="og:site_name" content="Maharaja" />--%>
 
     <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
@@ -136,15 +136,16 @@
 
     <meta property="og:url" content="https://casino-maharaja.com/" />
     <!--日文圖片-->
-    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
+    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic1.png" />
     <!--英文圖片-->
     <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
     <meta property="og:type" content="website" />
     <!-- Share image -->
     <!--日文圖片-->
-    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
+    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic1.png">
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
+    <link rel="shortcut icon" href="images/share_pic1.png">
 
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -485,6 +486,10 @@
             return showContactUs();
         }
     }
+
+    function API_NonCloseShowMessageOK(title, msg, cbOK) {
+        return nonCloseShowMessageOK(title, msg, cbOK);
+    }
     //#endregion
 
     //#region Alert
@@ -587,6 +592,38 @@
         }
     }
 
+        function nonCloseShowMessageOK(title, message, cbOK) {
+        var nonCloseDom = $("#nonClose_alertContact");
+        if (nonCloseDom.attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("nonClose_alertContact");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
+            //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+            var nonCloseMessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+
+            if (divMessageBox != null) {
+                nonCloseMessageModal.show();
+                nonCloseDom.attr("aria-hidden", 'false');
+
+                if (divMessageBoxCloseButton != null) {
+                    divMessageBoxCloseButton.classList.add("is-hide");
+                }
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        nonCloseMessageModal.hide();
+                        nonCloseDom.attr("aria-hidden", 'true');
+                        if (cbOK != null)
+                            cbOK();
+                    }
+                }
+                
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
     //#endregion
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
@@ -801,7 +838,7 @@
             }
 
             window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
-            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已至移除我的最愛"));
+            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
         }
     }
 
@@ -1537,6 +1574,12 @@
                     </button>
                     <!-- Sidebar Menu 側邊選單-->
                     <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
+                        <!-- <div class="search-bar mobile">
+                            <button type="button" class="btn btn-search " data-toggle="modal" data-target="#alertSearch">
+                                <i class="icon icon-mask icon-search"></i>
+                            </button>
+                        </div> -->
+                       
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
@@ -1638,6 +1681,16 @@
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-withdarw"></i>
                                             <span class="title language_replace">出款</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="window.open('https://lin.ee/KD05l9X')">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-line"></i>
+                                            <span class="title language_replace">Line</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -1828,11 +1881,11 @@
                                 <span class="language_replace">隱私權政策</span>
                             </a>
                         </li>
-                        <li class="info-item col" id="li_HotArticle">
+                       <%-- <li class="info-item col" id="li_HotArticle">
                             <a onclick="openHotArticle()">
                                 <span class="language_replace">熱門文章</span>
                             </a>
-                        </li>
+                        </li>--%>
                     </ul>
                     <div class="company-address">
                         <p class="name">Online Chip World Co. N.V</p>
@@ -1910,27 +1963,27 @@
         <!-- <h5 class="modal-title"></h5> -->
         <div class="searchFilter-wrapper">                  
             <div class="searchFilter-item input-group">
-                    <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="請輸入關鍵字">
-                    <label for="" class="form-label"><span class="language_replace">請輸入關鍵字</span></label>                   
+                    <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード">
+                    <label for="" class="form-label"><span class="language_replace">キーワード</span></label>                   
             </div>
             <div class="searchFilter-item input-group">                   
                 <select class="custom-select" id="alertSearchBrand">
-                    <option class="title" value="-1" selected><span class="language_replace">遊戲品牌（全部）</span></option>
-                    <option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
-                    <option class="searchFilter-option" value="BNG"><span class="language_replace">BNG</span></option>
-                    <option class="searchFilter-option" value="CG"><span class="language_replace">CG</span></option>
-                    <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9</span></option>
-                    <option class="searchFilter-option" value="EVO"><span class="language_replace">EVO</span></option>
-                    <option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                    <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
-                    <option class="searchFilter-option" value="KGS"><span class="language_replace">KGS</span></option>
-                    <option class="searchFilter-option" value="KX"><span class="language_replace">KX</span></option>
-                    <option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
-                    <option class="searchFilter-option" value="PG"><span class="language_replace">PG</span></option>
-                    <option class="searchFilter-option" value="PNG"><span class="language_replace">PNG</span></option>
-                    <option class="searchFilter-option" value="PP"><span class="language_replace">PP</span></option>
-                    <option class="searchFilter-option" value="VA"><span class="language_replace">VA</span></option>
-                    <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ZEUS</span></option>
+                    <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
+                    <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
+                    <option class="searchFilter-option" value="BNG"><span class="language_replace">ブーンゴー</span></option>
+                    <option class="searchFilter-option" value="CG"><span class="language_replace">クレティクゲーミング</span></option>
+                    <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9ゲーミング</span></option>
+                    <option class="searchFilter-option" value="EVO"><span class="language_replace">エボリューションゲーミング</span></option>
+                    <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
+                    <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
+                    <option class="searchFilter-option" value="KGS"><span class="language_replace">キングゲーム</span></option>
+                    <option class="searchFilter-option" value="KX"><span class="language_replace">KXゲーミング</span></option>
+                    <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
+                    <option class="searchFilter-option" value="PG"><span class="language_replace">ポケットゲームソフト</span></option>
+                    <option class="searchFilter-option" value="PNG"><span class="language_replace">プレインゴー</span></option>
+                    <option class="searchFilter-option" value="PP"><span class="language_replace">プラグマティックプレイ</span></option>
+                    <option class="searchFilter-option" value="VA"><span class="language_replace">ビクトリーアークゲーミング</span></option>
+                    <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
                 </select>
             </div>
             <div class="searchFilter-item input-group">                   
@@ -1939,7 +1992,7 @@
                     <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
                 </select>--%>
             </div>
-            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm"><span class="">搜尋</span></button>              
+            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm"><span class="language_replace">検索</span></button>              
         </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -2138,6 +2191,32 @@
                     <div class="btn-container">
                         <button type="button" class="alertMsg_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
                         <button type="button" class="alertMsg_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--alert-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="nonClose_alertContact" aria-hidden="true" id="nonClose_alertContact">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
                     </div>
                 </div>
             </div>

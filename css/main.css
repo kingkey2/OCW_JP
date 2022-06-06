@@ -205,6 +205,7 @@ ul {
   right: 0;
   margin: 0 auto;
   width: 100%;
+  min-height: 150px;
 }
 .no-Data .data {
   display: -webkit-box;
@@ -1105,8 +1106,8 @@ hr.line {
 }
 
 .loader-spinner {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   position: absolute;
   top: 0;
   left: 0;
@@ -1308,6 +1309,39 @@ hr.line {
             transform: rotate(0deg);
   }
 }
+.btn-search.mobile {
+  background-color: rgba(0, 127, 187, 0.95);
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  padding: 10px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.btn-search.mobile .icon {
+  margin: 0 !important;
+  width: 25px !important;
+  height: 25px !important;
+}
+.btn-search.mobile .icon:before {
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .btn-search.mobile {
+    display: none;
+  }
+}
+
 .navbar-brand {
   padding: 0;
   display: -webkit-inline-box;
@@ -1447,6 +1481,9 @@ hr.line {
 }
 .header_area .icon {
   font-size: 1.25rem;
+}
+.header_area .navbarMenu {
+  position: relative;
 }
 .header_area .navbarMenu .nav-link {
   display: -webkit-box;
@@ -2042,7 +2079,7 @@ hr.line {
   }
 }
 .footer-container {
-  padding: 50px 0 0;
+  padding: 0px 0 0;
   background: #fff;
   background: url(../images/bg_Footer.jpg) center bottom no-repeat;
 }
@@ -3000,6 +3037,10 @@ main.innerMain.fixed {
   -webkit-mask-image: url(../images/icon/ico-QA.svg);
   mask-image: url(../images/icon/ico-QA.svg);
 }
+.icon-mask.icon-line::before {
+  -webkit-mask-image: url(../images/icon/ico-line.svg);
+  mask-image: url(../images/icon/ico-line.svg);
+}
 .icon-mask.icon-logout::before {
   -webkit-mask-image: url(../images/icon/ico-logout.svg);
   mask-image: url(../images/icon/ico-logout.svg);
@@ -3865,12 +3906,17 @@ i {
   word-break: break-all;
 }
 .MT__table .no-Data {
+  display: table-row;
+  min-height: 200px;
+  height: 200px;
+}
+.MT__table .no-Data .data {
   position: absolute;
   left: 0;
   right: 0;
   margin: 0 auto;
   width: 100%;
-  min-height: 100px;
+  padding-top: 30px;
 }
 
 .MT__tableDiv {
@@ -5454,8 +5500,6 @@ i {
 .game_slider .swiper-slide {
   -webkit-transition: all 0.35s linear;
   transition: all 0.35s linear;
-  padding-right: 1.2vw;
-  width: 50%;
 }
 .game_slider .img-wrap {
   border-radius: 15px;
@@ -5697,28 +5741,9 @@ i {
   background-color: transparent;
 }
 
-@media (min-width: 375px) {
-  .game_slider .swiper-slide {
-    width: 40%;
-  }
-}
-@media (min-width: 576px) {
-  .game_slider .swiper-slide {
-    width: 28.5714285714%;
-  }
-}
-@media (min-width: 640px) {
-  .game_slider .swiper-slide {
-    width: 25%;
-  }
-}
 @media (min-width: 712px) {
   .section-levelUp {
     padding-bottom: 1.25rem;
-  }
-
-  .game_slider .swiper-slide {
-    width: 25%;
   }
 }
 @media (min-width: 936px) {
@@ -5726,81 +5751,13 @@ i {
     display: none;
   }
 
-  .game_slider .swiper-slide:nth-child(1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(1) .game-item-focus:hover .game-item-img {
-    left: 60px;
-  }
-  .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 60px;
-  }
-
   .game-item-group.list-row .game-item {
     width: 50%;
-  }
-}
-@media (min-width: 936px) and (max-width: 1383px) {
-  .game_slider .swiper-slide {
-    width: 20%;
-  }
-  .game_slider .swiper-slide:nth-child(5n+1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(5n+1) .game-item-focus:hover .game-item-img {
-    left: 60px;
-  }
-  .game_slider .swiper-slide:nth-child(5n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 60px;
   }
 }
 @media (min-width: 1384px) {
   .section-levelUp {
     padding-bottom: 1.875rem;
-  }
-}
-@media (min-width: 1384px) and (max-width: 1863px) {
-  .game_slider .swiper-slide {
-    width: 20%;
-  }
-  .game_slider .swiper-slide:nth-child(5n+1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(5n+1) .game-item-focus:hover .game-item-img {
-    left: 80px;
-  }
-  .game_slider .swiper-slide:nth-child(5n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 80px;
-  }
-}
-@media (min-width: 1864px) {
-  .game_slider .swiper-slide {
-    width: 16.6666666667%;
-  }
-  .game_slider .swiper-slide:nth-child(6n+1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(6n+1) .game-item-focus:hover .game-item-img {
-    left: 75px;
-  }
-  .game_slider .swiper-slide:nth-child(6n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:nth-child(6n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 75px;
   }
 }
 @-webkit-keyframes anim-role_left {
@@ -7211,7 +7168,6 @@ select:-webkit-autofill:focus {
           box-shadow: 0 0 0 0.15rem rgba(227, 195, 141, 0.5);
 }
 .custom-select option {
-  background: #262936;
   border: none;
   padding: 8px 0;
   margin: 8px 0;
@@ -7398,7 +7354,6 @@ select:-webkit-autofill:focus {
   border-bottom-color: rgba(227, 195, 141, 0.7);
 }
 .form-control-underline .custom-select option {
-  background-color: #262936;
   color: #ffffff;
 }
 .form-control-underline.iconCheck::before, .form-control-underline.iconCheck::after {

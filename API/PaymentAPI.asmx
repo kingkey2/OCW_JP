@@ -49,7 +49,7 @@ public class PaymentAPI : System.Web.Services.WebService
                 if (DT.Rows.Count > 0)
                 {
                     R.Result = enumResult.OK;
-                    R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType).ToList();
+                    R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType && x.State == 0).ToList();
                 }
                 else
                 {

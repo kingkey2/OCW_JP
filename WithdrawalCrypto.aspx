@@ -460,6 +460,13 @@
                 if (ToWalletAddress != "") {
 
                     if (WAValidator.validate(ToWalletAddress, GetWalletChain(selWalletType))) {
+
+                        var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+                        if (wallet.PointValue < amount) {
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), "残高不足");
+                            return;
+                        }
+
                         PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
                             if (success) {
                                 let UserAccountPayments = o.UserAccountPayments;
