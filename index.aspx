@@ -124,8 +124,8 @@
     <%--<meta name='keywords' content="Casino、Slot、Amusement、Game" />
     <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
 
-    <%--<meta property="og:site_name" content="マハラジャ" />--%>
-    <meta property="og:site_name" content="Maharaja" />
+    <meta property="og:site_name" content="マハラジャ" />
+    <%--<meta property="og:site_name" content="Maharaja" />--%>
 
     <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
@@ -142,7 +142,7 @@
     <meta property="og:type" content="website" />
     <!-- Share image -->
     <!--日文圖片-->
-    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
+    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic1.png">
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
 
