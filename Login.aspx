@@ -270,7 +270,9 @@
             case "SetLanguage":
                 var lang = param;
 
-                mlp.loadLanguage(lang);
+                mlp.loadLanguage(lang, function () {
+                    window.parent.API_LoadingEnd(1);
+                });
                 break;
         }
     }
@@ -455,8 +457,8 @@
                 </div>
                 <div class="identity_login slideButton-menu-container">
                     <div class="slideButton-menu-wraper">
-                        <button onclick="setLoginType(1)" class="btn menu-item active" id="btnPhone"><i class="icon icon-casinoworld-smartphone"></i><span class="language_replace">電話登入</span></button>
-                        <button onclick="setLoginType(0)" class="btn menu-item " id="btnMail"><i class="icon icon-casinoworld-mail"></i><span class="language_replace">信箱登入</span></button>
+                        <button onclick="setLoginType(1)" class="btn menu-item active" id="btnPhone"><span class="language_replace">電話登入</span></button>
+                        <button onclick="setLoginType(0)" class="btn menu-item " id="btnMail"><span class="language_replace">信箱登入</span></button>
                         <div class="tracking-bar"></div>
                     </div>
                 </div>

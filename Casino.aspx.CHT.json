@@ -19,5 +19,10 @@
   "Finance": "金融",
   "BinaryOption": "二元期權",
   "目前無資料": "目前尚無資料",
-  "搜尋不到相關遊戲，請重設分類與廠牌": "搜尋不到相關遊戲，請重設分類與廠牌"
+  "搜尋不到相關遊戲，請重設分類與廠牌": "搜尋不到相關遊戲，請重設分類與廠牌",
+  "GameList_All": "全部",
+  "GameList_Slot": "老虎機",
+  "GameList_Live": "真人",
+  "GameList_Electron": "電子",
+  "GameList_Other": "其他"
 }

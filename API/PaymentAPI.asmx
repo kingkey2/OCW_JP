@@ -49,7 +49,7 @@ public class PaymentAPI : System.Web.Services.WebService
                 if (DT.Rows.Count > 0)
                 {
                     R.Result = enumResult.OK;
-                    R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType).ToList();
+                    R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType && x.State == 0).ToList();
                 }
                 else
                 {
@@ -1905,6 +1905,57 @@ public class PaymentAPI : System.Web.Services.WebService
         return R;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public PaymentCommonListResult GetPaymentHistory(string WebSID, string GUID, DateTime StartDate, DateTime EndDate) {
+        PaymentCommonListResult R = new PaymentCommonListResult() { Result = enumResult.ERR };
+        EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            R.Datas = new List<PaymentCommonData>();
+            R.NotFinishDatas = new List<PaymentCommonData>();
+            R.Result = enumResult.OK;
+
+            for (int i = 0; i <= EndDate.Subtract(StartDate).TotalDays; i++) {
+                var QueryDate = StartDate.AddDays(i);
+                string Content = string.Empty;
+                Content = ReportSystem.UserAccountPayment.GetUserAccountPayment(QueryDate, SI.LoginAccount);
+
+                foreach (string EachString in Content.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)) {
+                    PaymentCommonData data = null;
+                    try { data = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentCommonData>(EachString); } catch (Exception ex) { }
+                    if (data != null) {
+                        R.Datas.Add(data);
+                    }
+                }
+            }
+
+            DT = EWinWebDB.UserAccountPayment.GetPaymentByNonFinishedByLoginAccount(SI.LoginAccount);
+
+            if (DT != null && DT.Rows.Count > 0) {
+                for (int i = 0; i < DT.Rows.Count; i++) {
+                    var Row = DT.Rows[i];
+                    PaymentCommonData data = CovertFromRow(Row);
+
+                    R.NotFinishDatas.Add(data);
+                }
+            }
+
+            if (R.Datas.Count > 0 ||  R.NotFinishDatas.Count > 0) {
+                R.Result = enumResult.OK;
+            } else {
+                SetResultException(R, "NoData");
+            }
+        } else {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -2042,50 +2093,46 @@ public class PaymentAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public APIResult CancelPayment(string WebSID, string GUID, string PaymentSerial, string OrderNumber)
-    {
+    public APIResult CancelPayment(string WebSID, string GUID, string PaymentSerial, string OrderNumber) {
         APIResult R = new APIResult() { Result = enumResult.ERR, GUID = GUID };
         EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
         RedisCache.SessionContext.SIDInfo SI;
+        System.Data.DataTable DT = null;
 
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
-        {
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
 
+            DT = EWinWebDB.UserAccountPayment.GetPaymentByOrderNumber(OrderNumber);
 
-            PaymentCommonData paymentCommonData = RedisCache.PaymentContent.GetPaymentContent<PaymentCommonData>(OrderNumber);
-            if (paymentCommonData != null)
-            {
-                if (paymentCommonData.PaymentType == 0)
-                {
-                    if (paymentCommonData.BasicType == 2)
-                    {
-                        new EWin.OCW.OCW().FinishCompanyWallet(SI.EWinCT, (EWin.OCW.enumWalletType)paymentCommonData.WalletType, paymentCommonData.ToWalletAddress);
-                    }
+            if (DT != null) {
+                if (DT.Rows.Count > 0) {
+                    int WalletType = int.Parse(DT.Rows[0]["EWinCryptoWalletType"].ToString());
+                    string ToWalletAddress = DT.Rows[0]["ToInfo"].ToString();
+                    int BasicType = int.Parse(DT.Rows[0]["BasicType"].ToString());
+                    int PaymentType = int.Parse(DT.Rows[0]["PaymentType"].ToString());
 
-                    var paymentResult = paymentAPI.CancelPayment(GetToken(), GUID, PaymentSerial);
-                    if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
-                    {
-                        R.Result = enumResult.OK;
+                    if (PaymentType == 0) {
+                        if (BasicType == 2) {
+                            new EWin.OCW.OCW().FinishCompanyWallet(SI.EWinCT, (EWin.OCW.enumWalletType)WalletType, ToWalletAddress);
+                        }
+                        var paymentResult = paymentAPI.CancelPayment(GetToken(), GUID, PaymentSerial);
+
+                        if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK) {
+                            R.Result = enumResult.OK;
+                        } else {
+                            SetResultException(R, paymentResult.ResultMessage);
+                        }
+                    } else {
+                        SetResultException(R, "OnlyDepositCanCancel");
                     }
-                    else
-                    {
-                        SetResultException(R, paymentResult.ResultMessage);
-                    }
+                } else {
+                    SetResultException(R, "NotFoundData");
                 }
-                else
-                {
-                    SetResultException(R, "OnlyDepositCanCancel");
-                }
-            }
-            else
-            {
+            } else {
                 SetResultException(R, "NotFoundData");
             }
-        }
-        else
-        {
+        } else {
             SetResultException(R, "InvalidWebSID");
         }
 
@@ -2368,6 +2415,7 @@ public class PaymentAPI : System.Web.Services.WebService
     public class PaymentCommonListResult : APIResult
     {
         public List<PaymentCommonData> Datas { get; set; }
+        public List<PaymentCommonData> NotFinishDatas { get; set; }
     }
 
     public class PaymentCommonData

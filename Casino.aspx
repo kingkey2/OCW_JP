@@ -24,7 +24,6 @@
     <script src="Scripts/lozad.min.js"></script>
     <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
-    <script src="Scripts/theme.js"></script>
 </head>
 <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -83,7 +82,7 @@
 
             if (categorys) {
                 categorys.Categories.sort(function (a, b) {
-                    return b.SortIndex-a.SortIndex;
+                    return b.SortIndex - a.SortIndex;
                 });
 
 
@@ -98,6 +97,7 @@
                             categArea = c.getTemplate("temCategArea");
                             categName = category.CategoryName.replace('@', '').replace('#', '');
                             $(categArea).find('.CategName').text(mlp.getLanguageKey(categName));
+                            $(categArea).find('.CategName').attr('langkey', categName);
                         } else {
                             categArea = c.getTemplate("temCategArea2");
                         }
@@ -107,7 +107,7 @@
 
                         category.Datas.forEach(gameItem => {
                             var GI;
-                         
+
                             if (category.ShowType == 0) {
                                 GI = c.getTemplate("temGameItem");
                                 $(GI).addClass('gameid_' + gameItem.GameID);
@@ -124,7 +124,15 @@
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {
-                                        RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                                        var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
+
+                                        if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                                            RTP = RtpInfoObj.RTP.toString();
+                                        } else {
+                                            RTP = '--';
+                                        }
+                                    } else {
+                                        RTP = '--';
                                     }
 
                                     GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -151,13 +159,19 @@
                                 observer.observe();
                             }
 
-                            $(GI).find(".BrandName").text(gameItem.GameBrand);
+                            $(GI).find(".GameBrand").text(gameItem.GameBrand);
                             if (gameItem.RTPInfo) {
-                                $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                                var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
+
+                                if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                                    $(GI).find(".valueRTP").text(RtpInfoObj.RTP);
+                                } else {
+                                    $(GI).find(".valueRTP").text('--');
+                                }
                             } else {
                                 $(GI).find(".valueRTP").text('--');
                             }
-  
+
                             $(GI).find(".GameID").text(gameItem.GameID);
                             $(GI).find(".game-item-name").text(gameItem.GameText[WebInfo.Lang]);
 
@@ -170,12 +184,25 @@
                         if (category.ShowType == 0) {
                             new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
                                 slidesPerView: "auto",
-                                slidesPerGroup: 8,
-                                loopedSlides: 8,
-                                freeMode: true,
+                                // loop:true,
+                                // slidesPerGroup: 2,
+                                // loopedSlides: 8,
+                                slidesPerGroup: 4,
+                                lazy: true,
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
+                                },
+                                breakpoints: {
+                                    936: {
+                                        slidesPerGroup: 5,
+                                    },
+                                    1384: {
+                                        slidesPerGroup: 6,
+                                    },
+                                    1864: {
+                                        slidesPerGroup: 8,
+                                    }
                                 }
                             });
                         }
@@ -223,6 +250,7 @@
 
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(LobbyGameList[i].Location));
+                $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
                 switch (LobbyGameList[i].Location) {
                     case 'GameList_All':
                         $(RecordDom).find('.CategIcon').addClass('icon-all');
@@ -271,6 +299,26 @@
             nowSubCateg = "Hot";
         }
 
+
+        var heroLobby = new Swiper("#hero-slider-lobby", {
+            loop: true,
+            // slidesPerView: 1,
+            slidesPerView: "auto",
+            centeredSlides: true,
+            // freeMode: true,
+            // spaceBetween: 20,  
+            speed: 1000, //Duration of transition between slides (in ms)
+            // autoplay: {
+            //     delay: 3500,
+            //     disableOnInteraction: false,
+            // },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+        });
+
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
@@ -284,7 +332,7 @@
                 });
             }
 
-            
+
         });
     }
 
@@ -318,39 +366,54 @@
 </script>
 
 <body class="innerBody">
- <main class="innerMain">
-    <section class="section-slider_lobby hero">      
-        <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">      
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">
-                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/hero-10.jpg?20211004" class="bg">                    
-                  </div>
-              </div>
+    <main class="innerMain">
+        <section class="section-slider_lobby hero">
+            <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" href="#"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/newopen-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/newopen.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" href="#"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/evo-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/evo.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" href="#"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/PNG-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/PNG.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">   
-                    <img src="images/lobby/PNG.jpg" class="bg">
-                  </div>                  
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="hero-item">
-                  <a class="hero-item-link" href="#"></a>
-                  <div class="img-wrap">   
-                    <img src="http://onlinecasinoworld-jp.dev.mts.idv.tw/images/games/hero/OpenIntroBonus-11.jpg" class="bg">             
-                  </div>                  
-              </div>
-            </div>
-            
-          </div> 
-          <div class="swiper-pagination"></div>                
-        </div>
-    </section>
+        </section>
         <div class="tab-game tab-scroller tab-5">
             <div class="tab-scroller__area">
                 <ul class="tab-scroller__content" id="idGameItemTitle">
@@ -358,34 +421,32 @@
                 </ul>
             </div>
         </div>
-       
         <section class="game-area overflow-hidden" id="gameAreas">
-         
-    </section>
-  </main>
+        </section>
+    </main>
     <div id="temCategArea" class="is-hide">
-           <section class="section-wrap section-levelUp">
-                <div class="container-fluid">
-                    <div class="game_wrapper">
-                         <div class="sec-title-container">
-                            <div class="sec-title-wrapper">
-                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title CategName"></span></h3>
-                            </div>
-                        </div>
-                        <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
-                            <div class="swiper-wrapper GameItemGroupContent">
-                            </div>
-                             <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+        <section class="section-wrap section-levelUp">
+            <div class="container-fluid">
+                <div class="game_wrapper">
+                    <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
+                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName"></span></h3>
                         </div>
                     </div>
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                        <div class="swiper-wrapper GameItemGroupContent">
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
     </div>
 
     <div id="temGameItem" class="is-hide">
-         <div class="swiper-slide">
+        <div class="swiper-slide">
             <div class="game-item">
                 <div class="game-item-inner">
                     <span class="game-item-mobile-popup" data-toggle="modal"></span>
@@ -422,10 +483,10 @@
                                         <div class="action">
                                             <div class="btn-s-wrapper">
                                                 <button type="button" class="btn-thumbUp btn btn-round">
-                                                    <i class="icon icon-thumup"></i>
+                                                    <i class="icon icon-m-thumup"></i>
                                                 </button>
                                                 <button type="button" class="btn-like btn btn-round">
-                                                    <i class="icon icon-favorite"></i>
+                                                    <i class="icon icon-m-favorite"></i>
                                                 </button>
                                                 <button type="button" class="btn-more btn btn-round">
                                                     <i class="arrow arrow-down"></i>
@@ -438,7 +499,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="game-item-info">
                         <div class="game-item-info-inner">
                             <h3 class="game-item-name"></h3>
@@ -450,42 +511,41 @@
     </div>
     <%--推薦遊戲--%>
     <div id="temCategArea2" class="is-hide">
-          <section class="section-wrap section_randomRem">
+        <section class="section-wrap section_randomRem">
             <div class="container-fluid">
-            <div class="game_wrapper">
-                <div class="sec-title-container">
-                <div class="sec-title-wrapper">
-                    <!-- <h3 class="title">隨機推薦遊戲</h3> -->
-                </div>
-                </div>
-                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
-                    <div class="swiper-wrapper GameItemGroupContent">
-                        
+                <div class="game_wrapper">
+                    <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
+                            <!-- <h3 class="title">隨機推薦遊戲</h3> -->
+                        </div>
                     </div>
-            </div>
-            </div>
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                        <div class="swiper-wrapper GameItemGroupContent">
+                        </div>
+                    </div>
+                </div>
         </section>
     </div>
     <div id="temGameItem2" class="is-hide">
-         <div class="swiper-slide">
-                            <div class="game-item">
-                                <div class="game-item-inner">
-                                    <span class="game-item-link"></span>
-                                    <div class="img-wrap">
-                                        <img class="gameimg lozad" src="">
-                                    </div>
-                                </div>
-                                <div class="game-item-info">
-                                    <h3 class="game-item-name"></h3>
-                                </div>
-                            </div>
-                        </div>
+        <div class="swiper-slide">
+            <div class="game-item">
+                <div class="game-item-inner">
+                    <span class="game-item-link"></span>
+                    <div class="img-wrap">
+                        <img class="gameimg lozad" src="">
+                    </div>
+                </div>
+                <div class="game-item-info">
+                    <h3 class="game-item-name"></h3>
+                </div>
+            </div>
+        </div>
     </div>
 
-     <div id="temCategItem" class="is-hide">
+    <div id="temCategItem" class="is-hide">
         <li class="tab-item">
-                    <span class="tab-item-link"> <i class="icon icon-mask CategIcon"></i>
-                        <span class="title language_replace CategName"></span></span>
+            <span class="tab-item-link"><i class="icon icon-mask CategIcon"></i>
+                <span class="title language_replace CategName"></span></span>
         </li>
     </div>
 

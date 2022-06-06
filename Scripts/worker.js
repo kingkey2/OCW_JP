@@ -25,6 +25,14 @@ self.addEventListener('message', function (e) {
                     Data: searchResult,
                 });
             };
+
+            wokerControl.onLoadLangEnd = function (langs) {
+                self.postMessage({
+                    Cmd: "LangsLoaded",
+                    Data: langs,
+                });
+            };
+
             wokerControl.start();
         }
     }
@@ -49,6 +57,10 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
     var multiLanguage = function (v) {
         var _LanguageContextJSON = [];
+
+        this.getLangText = function () {
+            return _LanguageContextJSON[0];
+        }
 
         function loadLanguageFromFile(langFile, cb) {
             readTextFile(langFile, function (success, text) {
@@ -143,7 +155,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                         type: "GameCode",
                         mlp: this
                     });
-                    resolve();
+                    resolve({ Data: this.getLangText(), lang: lang, type: "GameCode"});
                 }).bind(gameCodeMlp));
             }));
 
@@ -154,13 +166,13 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                         type: "GameBrand",
                         mlp: this
                     });
-                    resolve();
+                    resolve({ Data: this.getLangText(), lang: lang, type: "GameBrand"});
                 }).bind(gameBrandMlp));
             }));         
         }
 
         Promise.all(PromiseList).then(function (values) {
-            cb();
+            cb(values);
         });
     }
 
@@ -458,8 +470,8 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
                                     if (targetLangData) {
                                         var targetCharDatasByBrand = targetLangData[transGameText[0]];
 
-                                        if (targetCharDatas) {
-                                            targetCharDatas.push({
+                                        if (targetCharDatasByBrand) {
+                                            targetCharDatasByBrand.push({
                                                 TargetValue: transGameText,
                                                 GameID: Data.GameID
                                             });
@@ -510,7 +522,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
     //刷新分類
     this.onRefreshCtEvent;
 
-
+    this.onLoadLangEnd;
 
     this.start = function () {
         lobbyAPI = new (function (APIUrl) {
@@ -611,7 +623,8 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
         
 
-        LoadLang((function () {
+        LoadLang((function (values) {
+            this.onLoadLangEnd(values);
             RefreshData.call(this);
             setInterval(RefreshData.bind(this), IntervalSecond);
         }).bind(this));

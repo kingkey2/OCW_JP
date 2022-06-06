@@ -1,7 +1,7 @@
 <%@ Page Language="C#" %>
 
 <%
-       string Version=EWinWeb.Version;
+    string Version = EWinWeb.Version;
 
 %>
 <!DOCTYPE html>
@@ -11,13 +11,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maharaja</title>
-    
-    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css"/>
-    <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css"/>
-    <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-    <link rel="stylesheet" href="css/wallet.css" type="text/css"/>
-    <link rel="stylesheet" href="css/main.css" />
 
+    <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
+    <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
+    <link rel="stylesheet" href="css/wallet.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+        .card-item.tempCard:after {
+            background-color: #523b13;
+        }
+        .tempCard {
+        cursor:pointer;
+        }
+        .comingSoon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 99999;
+            height: calc(100% - 20px);
+            width: calc(100% - 20px);
+        }
+    </style>
 </head>
 
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
@@ -54,7 +69,7 @@
             }
 
             window.parent.API_LoadingEnd();
-        },"PaymentAPI");
+        }, "PaymentAPI");
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -75,6 +90,10 @@
         }
     }
 
+    function TempAlert() {
+        window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" +  mlp.getLanguageKey("近期開放") + "</p>");
+    }
+
     window.onload = init;
 
 </script>
@@ -82,9 +101,9 @@
     <div class="page-container">
         <!-- Heading-Top -->
         <div id="heading-top"></div>
-        
+
         <div class="page-content">
-            
+
             <section class="sec-wrap">
                 <!-- 頁面標題 -->
                 <div class="page-title-container">
@@ -94,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- 步驟 -->
                 <div class="progress-container progress-line">
                     <div class="progress-step cur">
@@ -115,7 +134,7 @@
                 </div>
 
                 <!-- 選擇存款管道  -->
-                <div class="card-container">                    
+                <div class="card-container">
                     <!-- PayPal -->
                     <div class="card-item sd-08" id="idDepositPaypal">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPayPal','DepositPayPal.aspx')">
@@ -129,14 +148,14 @@
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-08.svg" class="card-item-bg">
-                        </a>     
+                        </a>
                     </div>
                     <!-- 虛擬錢包 -->
                     <div class="card-item sd-02" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
-                                    <span>Crypto Wallet</span>                                   
+                                    <span>Crypto Wallet</span>
                                 </div>
                                 <div class="title vertical-center">
                                     <span class="language_replace">虛擬貨幣</span>
@@ -174,9 +193,26 @@
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
-                        </a>     
+                        </a>
                     </div>
-                </div>                
+
+                    <!-- EPay -->
+                    <div class="card-item tempCard" id="idDepositJKC"  onclick="TempAlert()">
+                        <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card_jkc.png)">
+                            <div class="card-item-inner">
+                                <div class="title">
+
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center">
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <%-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">--%>
+                                </div>
+                            </div>
+                        </a>
+                        <img class="comingSoon" src="../images/assets/card-surface/cs.png">
+                    </div>
+                </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">
                     <div class="notice-item">
@@ -200,8 +236,8 @@
                             <p class="language_replace">（計算例）</p>
                             <p class="language_replace">PayPal　10,000+ボーナス10,000の場合​</p>
                             <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
-                            <p class="language_replace">ローリングについての詳しい説明は<span class="link" style="cursor:pointer" onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)">こちら</span></p>
-                            
+                            <p class="language_replace">ローリングについての詳しい説明は<span class="link" style="cursor: pointer" onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)">こちら</span></p>
+
                         </div>
                     </div>
                 </div>

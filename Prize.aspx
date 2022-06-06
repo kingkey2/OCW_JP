@@ -77,7 +77,7 @@
     function GetPromotionCollectHistory(BeginDate, EndDate) {
         var ParentMain = document.getElementById("div_History");
         ParentMain.innerHTML = "";
-
+        
         LobbyClient.GetPromotionCollectHistory(WebInfo.SID, Math.uuid(), BeginDate, EndDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -96,11 +96,21 @@
 
                             ParentMain.appendChild(rowDom);
                         }
+
+                        if ($("#div_History").children().length == 0) {
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                            $("#div_History").height(50);
+                        }
+
                         window.parent.API_CloseLoading();
                     } else {
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                        $("#div_History").height(50);
                         window.parent.API_CloseLoading();
                     }
                 } else {
+                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                    $("#div_History").height(50);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -121,9 +131,9 @@
         window.parent.API_ShowLoading();
         var ParentMain = document.getElementById("div_Prize");
         ParentMain.innerHTML = "";
-        $(".menu-prize").children().find("li").removeClass("active");
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_bonus" + collectareatype).addClass("active");
-
+ 
         //CollectAreaType
         // 1 (獎金 bonus) => i.   本金歸零時可領 
         //                                    ii.   出金時歸零
@@ -183,19 +193,19 @@
                                             if (success) {
                                                 if (o.Result == 0) {
                                                     //window.parent.API_ShowMessageOK(mlp.getLanguageKey("確認"), mlp.getLanguageKey("領取成功"), function () {
-                                                        GetPromotionCollectAvailable(collectareatype);
+                                                    GetPromotionCollectAvailable(collectareatype);
 
-                                                        window.top.API_RefreshUserInfo(function () {
-                                                        });
+                                                    window.top.API_RefreshUserInfo(function () {
+                                                    });
 
-                                                        let now_date = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-                                                        search_Year = now_date.split('/')[0];
-                                                        search_Month = now_date.split('/')[1];
+                                                    let now_date = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
+                                                    search_Year = now_date.split('/')[0];
+                                                    search_Month = now_date.split('/')[1];
 
-                                                        let beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
-                                                        let endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
+                                                    let beginDate = Date.today().moveToFirstDayOfMonth().toString("yyyy/MM/dd");
+                                                    let endDate = Date.today().moveToLastDayOfMonth().toString("yyyy/MM/dd");
 
-                                                        GetPromotionCollectHistory(beginDate, endDate);
+                                                    GetPromotionCollectHistory(beginDate, endDate);
                                                     //});
                                                 } else {
                                                     //window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
@@ -215,11 +225,17 @@
                                 ParentMain.appendChild(RecordDom);
                             }
                         }
+                        
+                        if ($("#div_Prize").children().length == 0) {
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                        }
                         window.parent.API_CloseLoading();
                     } else {
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
                         window.parent.API_CloseLoading();
                     }
                 } else {
+                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -314,20 +330,20 @@
                 <div class="sec-title-container sec-title-prize">
                     <!-- 活動中心 link-->
                     <a class="btn btn-link btn-activity" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')">
-                        <span class="title language_replace">前往活動中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
+                        <span class="title language_replace">キャンペーンへ</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
-                        <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
+                        <h1 class="sec-title title-deco"><span class="language_replace">受取箱</span></h1>
                         <!-- 獎金/禮金 TAB -->
                         <div class="tab-prize tab-scroller tab-2">
                             <div class="tab-scroller__area">
                                 <ul class="tab-scroller__content">
                                     <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
-                                        <span class="tab-item-link"><span class="title language_replace">獎金</span>
+                                        <span class="tab-item-link"><span class="title language_replace">ボーナス</span>
                                         </span>
                                     </li>
                                     <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
-                                        <span class="tab-item-link"><span class="title language_replace">禮金</span></span>
+                                        <span class="tab-item-link"><span class="title language_replace">ギフトマネー</span></span>
                                     </li>
                                 </ul>
                             </div>
@@ -335,12 +351,16 @@
                     </div>
                 </div>
 
-
-
-
                 <section class="section-wrap section-prize">
                     <div class="prize-item-wrapper">
                         <div class="prize-item-group" id="div_Prize">
+                            <%--<div ></div>
+                            <!-- 無資料 ========================= -->
+                            <div class="no-Data" id="idNoPrizeData">
+                                <div class="data">
+                                    <span class="text language_replace">データーがありません</span>
+                                </div>
+                            </div>--%>
                         </div>
                     </div>
                 </section>
@@ -349,12 +369,12 @@
                 <section class="section-wrap section-prize-record">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">獎金紀錄</span></h1>
+                            <h1 class="sec-title title-deco"><span class="language_replace">受取履歴</span></h1>
                         </div>
                         <!-- 前/後 月 -->
                         <div class="sec_link">
-                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">上個月</span></button>
-                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">下個月</span><i class="icon arrow arrow-right ml-1"></i></button>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">前の月</span></button>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">次の月</span><i class="icon arrow arrow-right ml-1"></i></button>
                         </div>
 
                     </div>
@@ -362,13 +382,20 @@
                         <!-- Thead  -->
                         <div class="Thead">
                             <div class="thead__tr">
-                                <div class="thead__th"><span class="language_replace">領取日期</span></div>
-                                <div class="thead__th"><span class="language_replace">活動名稱</span></div>
+                                <div class="thead__th"><span class="language_replace">受け取った時間</span></div>
+                                <div class="thead__th"><span class="language_replace">キャンペーンタイトル</span></div>
                                 <div class="thead__th"><span class="language_replace">金額</span></div>
                             </div>
                         </div>
                         <!-- Tbody -->
-                        <div class="Tbody" id="div_History">
+                        <div class="Tbody"  id="div_History">
+                            <%--<div></div>
+                             <!-- 無資料 ========================= -->
+                            <div class="no-Data" id="idNoHistoryData">
+                                <div class="data">
+                                    <span class="text language_replace">データーがありません</span>
+                                </div>
+                            </div>--%>
                         </div>
                     </div>
                 </section>

@@ -1,8 +1,8 @@
 ﻿var GameCodeBridge = function (version, url, langUrl, second, loadedEvent) {
     var myWorker
-    var CtList = null;
-    var SearchCore = null;
-
+    this.CtList = null;
+    this.SearchCore = null;
+    this.LangDic = null;
 
     this.FirstLoaded = false;
     this.SearchGameCodeByLang = function (lang, searchText, gameBrand, gameCategoryCode) {
@@ -74,6 +74,24 @@
         }
 
         return Ret;
+    }
+
+    this.OtherFindGameCodeText = function (lang, GameCode) {
+        for (var i = 0; i < this.LangDic.length; i++) {
+            var langData = this.LangDic[i];
+            if (langData.type == "GameCode") {
+                return langData.Data[GameCode];
+            }
+        }
+    }
+
+    this.OtherFindGameBrandText = function (lang, GameBrand) {
+        for (var i = 0; i < this.LangDic.length; i++) {
+            var langData = this.LangDic[i];
+            if (langData.type == "GameBrand") {
+                return langData.Data[GameBrand];
+            }
+        }
     }
 
     this.GetGameText = function (lang, gameCode) {
@@ -162,11 +180,13 @@
         let timeStamp = 0;
         let ctStr = localStorage.getItem("GCB_Ct");
         let coreStr = localStorage.getItem("GCB_Core");
+        let langStr = localStorage.getItem("GCB_LangDic");
 
         timeStamp = Number(localStorage.getItem("GCB_timeStamp"));
         if (timeStamp != NaN && timeStamp != 0) {
             this.SearchCore = JSON.parse(coreStr);
             this.CtList = JSON.parse(ctStr);
+            this.LangDic = JSON.parse(langStr);
             this.FirstLoaded = true;
         }
         //#endregion 
@@ -222,6 +242,14 @@
 
 
                         localStorage.setItem("GCB_Core", JSON.stringify(this.SearchCore));
+
+
+                        break;
+                    case "LangsLoaded":
+                        this.LangDic = e.data.Data;
+
+
+                        localStorage.setItem("GCB_LangDic", JSON.stringify(this.LangDic));
 
 
                         break;

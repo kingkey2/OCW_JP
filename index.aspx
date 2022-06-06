@@ -71,31 +71,31 @@
         }
         else if (userLang.ToUpper() == "en-US".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "en-CA".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "en-PH".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "en".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "ko-KR".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "ko-KP".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "ko".ToUpper())
         {
-            Lang = "ENG";
+            Lang = "JPN";
         }
         else if (userLang.ToUpper() == "ja".ToUpper())
         {
@@ -116,35 +116,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <%--<title>マハラジャ - 一番人気なオンラインカジノアミューズメント</title>--%>
-    <title>Maharaja，The most popular online casino amusement.</title>
+    <title>マハラジャ - 一番人気なオンラインカジノアミューズメント</title>
+    <%--<title>Maharaja，The most popular online casino amusement.</title>--%>
 
-    <%--<meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
-    <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />--%>
-    <meta name='keywords' content="Casino、Slot、Amusement、Game" />
-    <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />
+    <meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
+    <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+    <%--<meta name='keywords' content="Casino、Slot、Amusement、Game" />
+    <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
 
     <%--<meta property="og:site_name" content="マハラジャ" />--%>
     <meta property="og:site_name" content="Maharaja" />
 
-    <%--<meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
+    <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
-    <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />--%>
-    <meta property="og:title" content="The most popular online casino amusement." />
+    <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+    <%--<meta property="og:title" content="The most popular online casino amusement." />
     <meta property="og:Keyword" content="Casino、Slot、Amusement、Game" />
-    <meta property="og:description" content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />
+    <meta property="og:description" content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
 
     <meta property="og:url" content="https://casino-maharaja.com/" />
     <!--日文圖片-->
-    <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />--%>
+    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
     <!--英文圖片-->
-    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />
+    <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
     <meta property="og:type" content="website" />
     <!-- Share image -->
     <!--日文圖片-->
-    <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">--%>
+    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
     <!--英文圖片-->
-    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">
+    <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
 
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -167,6 +167,7 @@
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
+<script src="Scripts/jquery-3.3.1.min.js"></script>
 <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -250,15 +251,32 @@
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
     function API_GetGameLang(type, lang, data) {
+        var Ret;
+
         if (type == 0) {
-            return data;
+            Ret = data;
         } else if (type == 1) {//return gamecode
-            return GCB.GetGameText(lang, data);
+ 
+            Ret = GCB.GetGameText(lang, data);
+
+            if (!Ret) {
+                Ret = GCB.OtherFindGameCodeText(lang, data);
+            }
         } else if (type == 2) {//return gameBrand
-            return GCB.GetBrandText(lang, data);
+            Ret = GCB.GetBrandText(lang, data);
+
+            if (!Ret) {
+                Ret = GCB.OtherFindGameBrandText(lang, data);
+            }
         } else {
-            return "";
+            Ret = data;
         }
+
+        if (!Ret) {
+            Ret = data;
+        }
+
+        return Ret;
     }
 
     //打開熱門文章
@@ -344,6 +362,12 @@
             //SwitchGameHeader(0)
         }
 
+        if ($('.header_menu').hasClass("show")) {
+            $('.vertical-menu').toggleClass('navbar-show');
+            $('.header_menu').toggleClass('show');
+            $('.navbar-toggler').attr("aria-expanded", "false");
+        }
+ 
         if (checkLogined) {
             if (!EWinWebInfo.UserLogined) {
                 showMessageOK(mlp.getLanguageKey("尚未登入"), mlp.getLanguageKey("請先登入"), function () {
@@ -570,7 +594,7 @@
 
         $('#popupMoblieGameInfo .BrandName').text(brandName);
         $('#popupMoblieGameInfo .valueRTP').text(RTP);
-        $('#popupMoblieGameInfo .gameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName.gameName));
+        $('#popupMoblieGameInfo .GameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
         $('#popupMoblieGameInfo .GameID').text(GameID);
 
         var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
@@ -777,7 +801,7 @@
             }
 
             window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
-            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已至移除我的最愛"));
+            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
         }
     }
 
@@ -1049,8 +1073,8 @@
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
                 break;
             case "ENG":
-                LangText = "English";
-                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-EN"></i>`);
+                LangText = "日本語";
+                $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
                 break;
             case "CHS":
                 LangText = "簡體中文";
@@ -1128,7 +1152,7 @@
             case "CHT":
                 break;
             case "ENG":
-                orgin = orgin + "_en";
+                orgin = orgin + "_jp";
                 break;
             default:
                 break;
@@ -1372,17 +1396,18 @@
         var gameList = [];
         var lang = EWinWebInfo.Lang;
         if (gameBrand != "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);  
         } else if (gameBrand == "-1" && keyWord != '') {
             gameList = GCB.SearchGameCodeByLang(lang, keyWord);
         } else if (gameBrand != "-1" && keyWord == '') {
             gameList = GCB.SearchGameCodeByBrand(gameBrand);
         } else {
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
+            return false;
         }
-
+        $('#alertSearchContent').empty();
         if (gameList.length>0) {
-            $('#alertSearchContent').empty();
+           
             for (var i = 0; i < gameList.length; i++) {
                 var gameItem = gameList[i];
                 var RTP = "";
@@ -1583,11 +1608,11 @@
                             </li>
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown" onclick="openHotArticle()">
+                                    <%--<li class="nav-item submenu dropdown" onclick="openHotArticle()">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-hot"></i>
                                             <span class="title language_replace">熱門文章</span></a>
-                                    </li>
+                                    </li>--%>
                                     <li class="nav-item submenu dropdown"
                                         onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
                                         <a class="nav-link">
@@ -1606,12 +1631,12 @@
                                     <li class="nav-item submenu dropdown"
                                         onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-prize"></i>
+                                            <i class="icon icon-mask icon-deposit"></i>
                                             <span class="title language_replace">存款</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-prize"></i>
+                                            <i class="icon icon-mask icon-withdarw"></i>
                                             <span class="title language_replace">出款</span></a>
                                     </li>
                                 </ul>
@@ -1697,10 +1722,10 @@
                                                 <!--下拉 dropdown-menu 選單 -->
                                                 <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Member">
                                                     <li class="nav-item" onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
-                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">入金</span></a>
+                                                        <a class="nav-link"><i class="icon icon-mask icon-deposit"></i><span class="language_replace">入金</span></a>
                                                     </li>
                                                     <li class="nav-item" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
-                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">出金</span></a>
+                                                        <a class="nav-link"><i class="icon icon-mask icon-withdarw"></i><span class="language_replace">出金</span></a>
                                                     </li>
                                                     <li class="nav-item" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
                                                         <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">會員設定</span></a>
@@ -1740,76 +1765,83 @@
     </div>
     <!-- footer -->
     <div id="footer" style="display: none">
-        <footer class="footer">
-            <div class="footer_inner">
+        <footer class="footer-container">            
+            <div class="footer-inner">
                 <div class="container">
-                    <div class="row content">
-                        <div class="footer_provider col-12 col-md-6">
-                            <ul class="row ">
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-PG.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-CG.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-PP.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-BG.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-VA.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-BNG.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-pagcor.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-Bti.png" alt="">
-                                </li>
-                                <li class="col logo-item">
-                                    <img src="images/logo/logo-zeus.png" alt="">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="footer_company col-12 col-md-6">
-                            <ul class="company-info row">
-                                <li class="info-item col">
-                                    <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
-                                </li>
-                                <li class="info-item col">
-                                    <a onclick="window.parent.API_ShowContactUs()">
-                                        <span class="language_replace">聯絡客服</span>
-                                    </a>
-                                </li>
-                                <li class="info-item col">
-                                    <a id="Footer_Rules" onclick="window.parent.API_ShowPartialHtml('', 'Rules', true, null)">
-                                        <span class="language_replace">利用規約</span>
-                                    </a>
-                                </li>
-                                <li class="info-item col">
-                                    <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
-                                        <span class="language_replace">隱私權政策</span>
-                                    </a>
-                                </li>
-                                <li class="info-item col" id="li_HotArticle">
-                                    <a onclick="openHotArticle()">
-                                        <span class="language_replace">熱門文章</span>
-                                    </a>
-                                </li>
-                            </ul>
+                    <div class="partner">
+                        <div class="logo">
+                            <div class="row">
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-PG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-CG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-PP.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-BG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-VA.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-BNG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/logo-pagcor.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-12 copy_right ">
-                    <div class="container">
-                        <p class="text">Copyright © 2022 マハラジャ. All Rights Reserved.</p>
+                    <ul class="company-info row">
+                        <li class="info-item col">
+                            <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
+                        </li>
+                        <li class="info-item col">
+                            <a onclick="window.parent.API_ShowContactUs()">
+                                <span class="language_replace">聯絡客服</span>
+                            </a>
+                        </li>
+                        <li class="info-item col">
+                            <a id="Footer_Rules" onclick="window.parent.API_ShowPartialHtml('', 'Rules', true, null)">
+                                <span class="language_replace">利用規約</span>
+                            </a>
+                        </li>
+                        <li class="info-item col">
+                            <a id="Footer_PrivacyPolicy" onclick="window.parent.API_ShowPartialHtml('', 'PrivacyPolicy', true, null)">
+                                <span class="language_replace">隱私權政策</span>
+                            </a>
+                        </li>
+                       <%-- <li class="info-item col" id="li_HotArticle">
+                            <a onclick="openHotArticle()">
+                                <span class="language_replace">熱門文章</span>
+                            </a>
+                        </li>--%>
+                    </ul>
+                    <div class="company-address">
+                        <p class="name">Online Chip World Co. N.V</p>
+                        <p class="address">Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao</p>
                     </div>
-                </div>
+                    <div class="footer-copyright">
+                        <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
+                    </div>
+                </div>                
             </div>
         </footer>
     </div>
@@ -1837,7 +1869,7 @@
                                         checked>
                                     <div class="custom-input radio-button">
                                         <span class="flag JP"><i class="icon icon-mask icon-flag-JP"></i></span>
-                                        <span class="name">日本文</span>
+                                        <span class="name">日本語</span>
                                     </div>
                                 </label>
                             </li>
@@ -1883,7 +1915,7 @@
             </div>
             <div class="searchFilter-item input-group">                   
                 <select class="custom-select" id="alertSearchBrand">
-                    <option class="title" value="-1" selected><span class="language_replace">遊戲品牌</span></option>
+                    <option class="title" value="-1" selected><span class="language_replace">遊戲品牌（全部）</span></option>
                     <option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
                     <option class="searchFilter-option" value="BNG"><span class="language_replace">BNG</span></option>
                     <option class="searchFilter-option" value="CG"><span class="language_replace">CG</span></option>
@@ -2207,10 +2239,10 @@
                                                     <div class="action">
                                                         <div class="btn-s-wrapper">
                                                             <button type="button" class="btn-thumbUp btn btn-round">
-                                                                <i class="icon icon-thumup"></i>
+                                                                <i class="icon icon-m-thumup"></i>
                                                             </button>
                                                             <button type="button" class="btn-like btn btn-round">
-                                                                <i class="icon icon-favorite"></i>
+                                                                <i class="icon icon-m-favorite"></i>
                                                             </button>
                                                             <button type="button" class="btn-more btn btn-round">
                                                                 <i class="arrow arrow-down"></i>
@@ -2266,10 +2298,10 @@
                             <div class="action">
                                 <div class="btn-s-wrapper">
                                     <button type="button" class="btn-thumbUp btn btn-round">
-                                        <i class="icon icon-thumup"></i>
+                                        <i class="icon icon-m-thumup"></i>
                                     </button>
                                     <button type="button" class="btn-like btn btn-round">
-                                        <i class="icon icon-favorite"></i>
+                                        <i class="icon icon-m-favorite"></i>
                                     </button>                           
                                 </div>
                                 <button type="button" class="btn btn-play">

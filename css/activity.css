@@ -3,27 +3,45 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .activity-item {
-  position: relative;
-  width: 100%;
   padding: 10px;
 }
 .activity-item-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 .activity-item-inner {
   position: relative;
+  height: 100%;
 }
 .activity-item-link {
   cursor: pointer;
   border-radius: 0.9375rem;
-  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  position: relative;
+  width: 100%;
 }
 .activity-item-link:hover {
-  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.25);
 }
 .activity-item .img-wrap {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
   padding-bottom: 63.2%;
   border-radius: 8px;
   background-repeat: no-repeat;
@@ -36,8 +54,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   right: 0;
   bottom: 0;
   left: 0;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   width: 100%;
   height: 100%;
 }
@@ -55,6 +75,19 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .activity-item .info {
   padding: 0.75rem;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .activity-item .title {
   font-weight: bold;
@@ -66,11 +99,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .tab-prize {
-  width: 20%;
   margin-bottom: 0;
+  width: 250px;
 }
 .tab-prize .tab-scroller__content .tab-item.active {
   color: #459E74;
+}
+.tab-prize .tab-scroller__content .tab-item.active .tab-item-link {
+  border-bottom: solid 4px #459E74;
 }
 .tab-prize .tab-scroller__content .tab-item {
   font-weight: bold;
@@ -82,23 +118,42 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 10px;
 }
 .prize-item-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 .prize-item-inner {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 .prize-item-link {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   cursor: pointer;
   border-radius: 0.9375rem;
 }
 .prize-item-img {
-  flex: 0 0 160px;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 160px;
+          flex: 0 0 160px;
 }
 .prize-item .img-wrap {
   padding-bottom: 53.125%;
@@ -113,8 +168,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   right: 0;
   bottom: 0;
   left: 0;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   width: 100%;
   height: 100%;
 }
@@ -124,16 +181,27 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .prize-item .btn-bouns {
   color: #fff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#45C5FF), color-stop(15.1%, #45C5FF), color-stop(64.06%, #036EB7));
   background: linear-gradient(180deg, #45C5FF 0%, #45C5FF 15.1%, #036EB7 64.06%);
   border: 2px solid #FFFFFF;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  flex: 0 0 100px;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100px;
+          flex: 0 0 100px;
   padding: 0;
   overflow: hidden;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .prize-item .btn-bouns:disabled {
   opacity: 1;
@@ -161,9 +229,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-size: auto 80%;
 }
 .prize-item .btn-bouns-num {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #fff;
   width: 100%;
   padding: 4px;
@@ -173,7 +247,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-color: #FFB103;
 }
 .prize-item .detail {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   padding: 0 10px;
 }
 .prize-item .title {
@@ -201,11 +277,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-size: 1.125rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .activity-popup-detail-content .section-wrap-title:before {
   content: "";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   width: 16px;
   height: 24px;
@@ -230,18 +312,28 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin: 0 auto;
 }
 .calendar-head {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: (1fr)[7];
   grid-template-columns: repeat(7, 1fr);
 }
 .calendar-head .name {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 1.125rem;
   font-weight: 500;
 }
 .calendar-body {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: (1fr)[7];
   grid-template-columns: repeat(7, 1fr);
   border-top: solid #F4D9BD 1px;
   border-left: solid #F4D9BD 1px;
@@ -254,6 +346,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .calendar-body .body-item-link {
   position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
   height: 100%;
@@ -264,10 +358,18 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   cursor: pointer;
 }
 .calendar-body .body-item .date {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-weight: 700;
   font-size: 25px;
   height: 100%;
@@ -299,7 +401,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   top: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 712px) {
   .activity-item {
     width: 50%;
   }
@@ -311,7 +413,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: block;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 936px) {
   .prize-item {
     width: 50%;
   }
@@ -320,11 +422,22 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 33.3333333333%;
   }
 }
+@media screen and (max-width: 640px) {
+  .sec-title-activity .btn-link,
+.sec-title-prize .btn-link {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    margin: 0 0 1rem 0;
+  }
+}
 @media screen and (max-width: 576px) {
   .prize-item-img {
     display: none;
   }
   .prize-item .btn-bouns {
-    order: -1;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
   }
 }

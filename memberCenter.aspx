@@ -318,7 +318,7 @@
                             <fieldset class="dataFieldset">
                                 <legend class="sec-title-container sec-title-member">
                                     <div class="sec-title-wrapper">
-                                        <h1 class="sec-title title-deco"><span class="language_replace">會員中心</span></h1>
+                                        <h1 class="sec-title title-deco"><span class="language_replace">メンバーページ</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
                                     <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
@@ -330,7 +330,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
-                                                <span class="title-name language_replace">姓名</span>
+                                                <span class="title-name language_replace">名前</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -341,7 +341,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">舊密碼</span>
+                                                <span class="title-name language_replace">現在のパスワード</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -352,7 +352,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
-                                                <span class="title-name language_replace">生日</span>
+                                                <span class="title-name language_replace">誕生日</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -365,7 +365,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">新密碼</span>
+                                                <span class="title-name language_replace">新しいパスワード</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -376,12 +376,12 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-mobile"></i>
-                                                <span class="title-name language_replace">電話</span>
+                                                <span class="title-name language_replace">携帯電話番号</span>
                                             </label>
                                             <%--<div class="labels labels-status">
                                                 <span class="label language_replace update">更新</span>
-                                                <span class="label language_replace validated">驗證</span>
-                                                <span class="label language_replace unvalidated">未驗證</span>
+                                                <span class="label language_replace validated">認証</span>
+                                                <span class="label language_replace unvalidated">認証済み</span>
                                             </div>--%>
                                         </div>
                                         <div class="data-item-content">
@@ -392,7 +392,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-mail"></i>
-                                                <span class="title-name language_replace">信箱</span>
+                                                <span class="title-name language_replace">メールアドレス</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -404,7 +404,7 @@
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-location"></i>
-                                                    <span class="title-name language_replace">地址</span>
+                                                    <span class="title-name language_replace">住所</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
@@ -422,7 +422,7 @@
                                                 <div class="custom-control custom-checkboxValue custom-control-inline">
                                                     <label class="custom-label">
                                                         <input type="checkbox" class="custom-control-input-hidden" checked="checked" id="check_UserGetMail">
-                                                        <div class="custom-input checkbox"><span class="language_replace">最新のイベント情報を受信できるようにする</span></div>
+                                                        <div class="custom-input checkbox"><span class="language_replace">最新情報を受信できるようにする</span></div>
                                                     </label>
                                                 </div>
 
@@ -435,7 +435,7 @@
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-qrocde"></i>
-                                                    <span class="title-name language_replace">我的推廣碼</span>
+                                                    <span class="title-name language_replace">招待コード</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
@@ -473,11 +473,11 @@
 
                         <!-- 會員簽到進度顯示 -->
                         <div class="activity-dailylogin-wrapper">
-                            <div class="dailylogin-bouns-wrapper">
+                            <div class="dailylogin-bouns-wrapper coming-soon">
                                 <div class="dailylogin-bouns-inner">
                                     <div class="dailylogin-bouns-content">
                                         <h3 class="title">
-                                            <span class="name ">ログイン毎日の賞</span></h3>
+                                            <span class="name ">金曜日のプレゼント</span></h3>
                                         <ul class="dailylogin-bouns-list">
                                             <!-- 已領取 bouns => got-->
                                             <li class="bouns-item got">
@@ -522,7 +522,7 @@
                             <div class="member-wallet-wrapper">
                                 <div class="member-wallet-inner">
                                     <div class="member-wallet-contnet">
-                                        <h3 class="member-wallet-title">メインウォレット</h3>
+                                        <h3 class="member-wallet-title">ウォレット</h3>
                                         <div class="member-wallet-amount">
                                             <span class="unit">Ocoin</span>
                                             <div class="member-deposit">
@@ -537,7 +537,7 @@
                                         <div class="btn" onclick="window.top.API_LoadPage('record','record.aspx', true)">
                                             <div class="member-record-title">
                                                 <i class="icon icon-mask icon-list-time"></i>
-                                                <h3 class="title language_replace">履歷紀錄</h3>
+                                                <h3 class="title language_replace">履歷一覧</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -552,9 +552,9 @@
                                     <i class="icon icon-mask icon-lock"></i>
                                     <span class="member-withdraw-limit-content">
                                         <!-- 出金門檻 不足-->
-                                        <span class="title lacking">出金ロック解除まで</span>
+                                        <span class="title lacking">出金不可</span>
                                         <!-- 出金門檻 足夠-->
-                                        <span class="title enough">ゴールドアウト</span>
+                                        <span class="title enough">出金可</span>
                                         <!-- 出入金說明 -->
                                         <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
                                         <!-- 出金門檻 -->
@@ -620,10 +620,10 @@
                                                     <div class="action">
                                                         <div class="btn-s-wrapper">
                                                             <button type="button" class="btn-thumbUp btn btn-round">
-                                                                <i class="icon icon-thumup"></i>
+                                                                <i class="icon icon-m-thumup"></i>
                                                             </button>
                                                             <button type="button" class="btn-like btn btn-round">
-                                                                <i class="icon icon-favorite"></i>
+                                                                <i class="icon icon-m-favorite"></i>
                                                             </button>
                                                             <button type="button" class="btn-more btn btn-round">
                                                                 <i class="arrow arrow-down"></i>
