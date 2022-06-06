@@ -260,8 +260,8 @@ public class SyncAPI : System.Web.Services.WebService
 
                     }
 
-                    IsHotCompanyCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + "Hot" + "'")[0]["CompanyCategoryID"];
-                    IsNewCompanyCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + "New" + "'")[0]["CompanyCategoryID"];
+                    IsHotCompanyCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + "Hot" + "'"+ " And Location='GameList_All'")[0]["CompanyCategoryID"];
+                    IsNewCompanyCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + "New" + "'"+ " And Location='GameList_All'")[0]["CompanyCategoryID"];
 
                     companyGameCodeResult = lobbyAPI.GetCompanyGameCode(GetToken(), Guid.NewGuid().ToString());
                     if (companyGameCodeResult.Result == EWin.Lobby.enumResult.OK)
@@ -382,7 +382,7 @@ public class SyncAPI : System.Web.Services.WebService
                             Location = "GameList_All";
                             ShowType = 0;
 
-                            if (CompanyCategoryDT.Select("CategoryName='" + GameBrand + "'").Length == 0)
+                            if (CompanyCategoryDT.Select("CategoryName='" + GameBrand + "'"+ " And Location='"+Location+"'").Length == 0)
                             {
                                 InsertCompanyCategoryReturn = EWinWebDB.CompanyCategory.InsertOcwCompanyCategory(0, 3, GameBrand, 99, 0, Location, ShowType);
                                 if (InsertCompanyCategoryReturn > 0)
@@ -392,7 +392,7 @@ public class SyncAPI : System.Web.Services.WebService
                                 }
                             }
 
-                            IsGameBrandCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameBrand + "'")[0]["CompanyCategoryID"];
+                            IsGameBrandCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameBrand + "'"+ " And Location='"+Location+"'")[0]["CompanyCategoryID"];
 
 
                             if (CategoryGameCodeCount[IsGameBrandCategoryID] < 20)
@@ -422,7 +422,7 @@ public class SyncAPI : System.Web.Services.WebService
                                     Location = "GameList_Live";
                                 }
 
-                                if (CompanyCategoryDT.Select("CategoryName='" + GameCategorySubCode + "'").Length == 0)
+                                if (CompanyCategoryDT.Select("CategoryName='" + GameCategorySubCode + "' And Location='"+Location+"'").Length == 0)
                                 {
                                     InsertCompanyCategoryReturn = EWinWebDB.CompanyCategory.InsertOcwCompanyCategory(0, 4, GameCategorySubCode, 0, 0, Location, ShowType);
                                     if (InsertCompanyCategoryReturn > 0)
@@ -431,14 +431,22 @@ public class SyncAPI : System.Web.Services.WebService
                                         CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
                                     }
                                 }
+                                try
+                                {
+                                    IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameCategorySubCode + "' And Location='"+Location+"'")[0]["CompanyCategoryID"];
+                                }
+                                catch (Exception ex)
+                                {
+                                    var adsd = ex.Message;
+                                    throw;
+                                }
 
-                                IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameCategorySubCode + "'")[0]["CompanyCategoryID"];
 
                             }
                             else
                             {
                                 Location = "GameList_Other";
-                                if (CompanyCategoryDT.Select("CategoryName='" + "Other" + "'").Length == 0)
+                                if (CompanyCategoryDT.Select("CategoryName='" + "Other" + "'"+ " And Location='"+Location+"'").Length == 0)
                                 {
                                     InsertCompanyCategoryReturn = EWinWebDB.CompanyCategory.InsertOcwCompanyCategory(0, 4, "Other", 0, 0, Location, ShowType);
                                     if (InsertCompanyCategoryReturn > 0)
@@ -448,7 +456,7 @@ public class SyncAPI : System.Web.Services.WebService
                                     }
                                 }
 
-                                IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + "Other" + "'")[0]["CompanyCategoryID"];
+                                IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + "Other" + "'"+ " And Location='"+Location+"'")[0]["CompanyCategoryID"];
 
                             }
 

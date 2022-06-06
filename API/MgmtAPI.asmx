@@ -24,7 +24,8 @@ public class MgmtAPI : System.Web.Services.WebService {
 
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public string GetUserAccountSummary2(string a) {
+    //public string GetUserAccountSummary2(string a)
+    //{
     //    return EWinWeb.GetToken();
     //}
 
