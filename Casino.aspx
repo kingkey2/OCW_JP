@@ -187,13 +187,19 @@
                                 // loop:true,
                                 // slidesPerGroup: 2,
                                 // loopedSlides: 8,
-                                slidesPerGroup: 4,
+                                slidesPerGroup: 2,
                                 lazy: true,
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
                                 },
                                 breakpoints: {
+                                    576: {
+                                    slidesPerGroup: 3,
+                                    },
+                                    640: {
+                                        slidesPerGroup: 4,
+                                    },
                                     936: {
                                         slidesPerGroup: 5,
                                     },
