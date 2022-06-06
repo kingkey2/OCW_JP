@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 /*=================== fonts ====================*/
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
@@ -3222,10 +3222,6 @@ main.innerMain.fixed {
   -webkit-mask-image: url(../images/theme/dark/icon/ewin-logout-w.svg);
   mask-image: url(../images/theme/dark/icon/ewin-logout-w.svg);
 }
-    .icon-mask.icon-line::before {
-        -webkit-mask-image: url(../images/theme/dark/icon/icon_line.svg);
-        mask-image: url(../images/theme/dark/icon/icon_line.svg);
-    }
 
 .arrow {
   -webkit-transition: all 0.3s ease-out;
