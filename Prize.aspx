@@ -99,18 +99,18 @@
 
                         if ($("#div_History").children().length == 0) {
                             $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
-                            $("#div_History").height(50);
+                            // $("#div_History").height(50);
                         }
 
                         window.parent.API_CloseLoading();
                     } else {
                         $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
-                        $("#div_History").height(50);
+                        // $("#div_History").height(50);
                         window.parent.API_CloseLoading();
                     }
                 } else {
                     $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
-                    $("#div_History").height(50);
+                    // $("#div_History").height(50);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }

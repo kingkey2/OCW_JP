@@ -205,6 +205,7 @@ ul {
   right: 0;
   margin: 0 auto;
   width: 100%;
+  min-height: 150px;
 }
 .no-Data .data {
   display: -webkit-box;
@@ -2078,7 +2079,7 @@ hr.line {
   }
 }
 .footer-container {
-  padding: 50px 0 0;
+  padding: 0px 0 0;
   background: #fff;
   background: url(../images/bg_Footer.jpg) center bottom no-repeat;
 }
@@ -3901,12 +3902,17 @@ i {
   word-break: break-all;
 }
 .MT__table .no-Data {
+  display: table-row;
+  min-height: 200px;
+  height: 200px;
+}
+.MT__table .no-Data .data {
   position: absolute;
   left: 0;
   right: 0;
   margin: 0 auto;
   width: 100%;
-  min-height: 100px;
+  padding-top: 30px;
 }
 
 .MT__tableDiv {
