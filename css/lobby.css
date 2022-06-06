@@ -259,8 +259,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     left: 60px;
   }
   .game_slider .swiper-slide:nth-child(5n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
+    right: 60px;
   }
   .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
     right: 60px;
@@ -294,6 +293,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     right: 0;
   }
   .game_slider .swiper-slide:nth-child(6n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    left: auto;
     right: 80px;
   }
 }

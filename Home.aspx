@@ -782,6 +782,7 @@
     </div>
 
     <%--推薦遊戲--%>
+    <%--
     <div id="temCategArea2" class="is-hide">
         <section class="section-wrap section_randomRem">
             <div class="container-fluid">
@@ -798,6 +799,7 @@
                 </div>
         </section>
     </div>
+    --%>
     <div id="temGameItem2" class="is-hide">
         <div class="swiper-slide">
             <div class="game-item">
