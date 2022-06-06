@@ -1537,6 +1537,9 @@
                     </button>
                     <!-- Sidebar Menu 側邊選單-->
                     <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
+                        <button type="button" class="btn btn-search mobile" data-toggle="modal" data-target="#alertSearch">
+                            <i class="icon icon-mask icon-search"></i>
+                        </button>
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
