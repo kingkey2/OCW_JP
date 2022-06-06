@@ -136,7 +136,7 @@
 
     <meta property="og:url" content="https://casino-maharaja.com/" />
     <!--日文圖片-->
-    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
+    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic1.png" />
     <!--英文圖片-->
     <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
     <meta property="og:type" content="website" />
@@ -1910,27 +1910,27 @@
         <!-- <h5 class="modal-title"></h5> -->
         <div class="searchFilter-wrapper">                  
             <div class="searchFilter-item input-group">
-                    <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="請輸入關鍵字">
-                    <label for="" class="form-label"><span class="language_replace">請輸入關鍵字</span></label>                   
+                    <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード">
+                    <label for="" class="form-label"><span class="language_replace">キーワード</span></label>                   
             </div>
             <div class="searchFilter-item input-group">                   
                 <select class="custom-select" id="alertSearchBrand">
-                    <option class="title" value="-1" selected><span class="language_replace">遊戲品牌（全部）</span></option>
-                    <option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
-                    <option class="searchFilter-option" value="BNG"><span class="language_replace">BNG</span></option>
-                    <option class="searchFilter-option" value="CG"><span class="language_replace">CG</span></option>
-                    <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9</span></option>
-                    <option class="searchFilter-option" value="EVO"><span class="language_replace">EVO</span></option>
-                    <option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                    <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
-                    <option class="searchFilter-option" value="KGS"><span class="language_replace">KGS</span></option>
-                    <option class="searchFilter-option" value="KX"><span class="language_replace">KX</span></option>
-                    <option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
-                    <option class="searchFilter-option" value="PG"><span class="language_replace">PG</span></option>
-                    <option class="searchFilter-option" value="PNG"><span class="language_replace">PNG</span></option>
-                    <option class="searchFilter-option" value="PP"><span class="language_replace">PP</span></option>
-                    <option class="searchFilter-option" value="VA"><span class="language_replace">VA</span></option>
-                    <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ZEUS</span></option>
+                    <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
+                    <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
+                    <option class="searchFilter-option" value="BNG"><span class="language_replace">ブーンゴー</span></option>
+                    <option class="searchFilter-option" value="CG"><span class="language_replace">クレティクゲーミング</span></option>
+                    <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9ゲーミング</span></option>
+                    <option class="searchFilter-option" value="EVO"><span class="language_replace">エボリューションゲーミング</span></option>
+                    <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
+                    <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
+                    <option class="searchFilter-option" value="KGS"><span class="language_replace">キングゲーム</span></option>
+                    <option class="searchFilter-option" value="KX"><span class="language_replace">KXゲーミング</span></option>
+                    <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
+                    <option class="searchFilter-option" value="PG"><span class="language_replace">ポケットゲームソフト</span></option>
+                    <option class="searchFilter-option" value="PNG"><span class="language_replace">プレインゴー</span></option>
+                    <option class="searchFilter-option" value="PP"><span class="language_replace">プラグマティックプレイ</span></option>
+                    <option class="searchFilter-option" value="VA"><span class="language_replace">ビクトリーアークゲーミング</span></option>
+                    <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
                 </select>
             </div>
             <div class="searchFilter-item input-group">                   
@@ -1939,7 +1939,7 @@
                     <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
                 </select>--%>
             </div>
-            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm"><span class="">搜尋</span></button>              
+            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm"><span class="language_replace">検索</span></button>              
         </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
