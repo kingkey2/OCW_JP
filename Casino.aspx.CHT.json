@@ -24,5 +24,12 @@
   "GameList_Slot": "老虎機",
   "GameList_Live": "真人",
   "GameList_Electron": "電子",
-  "GameList_Other": "其他"
+  "GameList_Other": "其他",
+  "SlotMaxBetCount3Day": "老虎機最多轉",
+  "SlotMaxBetCount30Day": "maharaja最多轉",
+  "SlotMaxWinValue7Day": "7天內最大開獎",
+  "SlotMaxWinValueYesterday": "前天最大開獎",
+  "SlotMaxWinRate7Day": "7天內最大倍率",
+  "SlotMaxWinRateYesterday": "前天最大倍率",
+  "SlotMaxRTPYesterday": "前天最高RTP"
 }
