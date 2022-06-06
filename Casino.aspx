@@ -214,6 +214,10 @@
                                     1864: {
                                         slidesPerGroup: 8, //index:1920px
                                     }
+                                    },
+                                    1920: {
+                                        slidesPerGroup: 10, //index:1920px
+                                    }
                                 }
                             });
                         }
