@@ -801,7 +801,7 @@
             }
 
             window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
-            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已至移除我的最愛"));
+            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
         }
     }
 
@@ -1828,11 +1828,11 @@
                                 <span class="language_replace">隱私權政策</span>
                             </a>
                         </li>
-                        <li class="info-item col" id="li_HotArticle">
+                       <%-- <li class="info-item col" id="li_HotArticle">
                             <a onclick="openHotArticle()">
                                 <span class="language_replace">熱門文章</span>
                             </a>
-                        </li>
+                        </li>--%>
                     </ul>
                     <div class="company-address">
                         <p class="name">Online Chip World Co. N.V</p>
