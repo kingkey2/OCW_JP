@@ -145,6 +145,7 @@
     <link rel="image_src" href="https://casino-maharaja.com/images/share_pic1.png">
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
+    <link rel="shortcut icon" href="images/share_pic1.png">
 
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -485,6 +486,10 @@
             return showContactUs();
         }
     }
+
+    function API_NonCloseShowMessageOK(title, msg, cbOK) {
+        return nonCloseShowMessageOK(title, msg, cbOK);
+    }
     //#endregion
 
     //#region Alert
@@ -587,6 +592,38 @@
         }
     }
 
+        function nonCloseShowMessageOK(title, message, cbOK) {
+        var nonCloseDom = $("#nonClose_alertContact");
+        if (nonCloseDom.attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("nonClose_alertContact");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
+            //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+            var nonCloseMessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+
+            if (divMessageBox != null) {
+                nonCloseMessageModal.show();
+                nonCloseDom.attr("aria-hidden", 'false');
+
+                if (divMessageBoxCloseButton != null) {
+                    divMessageBoxCloseButton.classList.add("is-hide");
+                }
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        nonCloseMessageModal.hide();
+                        nonCloseDom.attr("aria-hidden", 'true');
+                        if (cbOK != null)
+                            cbOK();
+                    }
+                }
+                
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
     //#endregion
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
@@ -1647,6 +1684,16 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="window.open('https://lin.ee/KD05l9X')">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-line"></i>
+                                            <span class="title language_replace">Line</span></a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -2144,6 +2191,32 @@
                     <div class="btn-container">
                         <button type="button" class="alertMsg_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
                         <button type="button" class="alertMsg_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--alert-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="nonClose_alertContact" aria-hidden="true" id="nonClose_alertContact">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
                     </div>
                 </div>
             </div>
