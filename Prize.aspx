@@ -320,12 +320,29 @@
                 break;
         }
     }
-
+    
+    var MessageModal1;
     function aa() {
-        window.parent.API_ShowMessageOK("", `ボーナスとギフトマネーは何か違いますか？
-‧ボーナスはOCoinが100以下になって初めて受け取ることができます。そして一回に一筆しか受け取れません。
-‧ギフトマネーは受け取るに制限がなく、常に受取可能です。
-詳しい内容は書くキャンペーン詳細をご覧ください。`);
+        if ($("#alertMsg1").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertMsg1");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
+
+            if (MessageModal1 == null) {
+                MessageModal1 = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            }
+
+            if (divMessageBox != null) {
+                MessageModal1.toggle();
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        MessageModal1.hide();
+                    }
+                }
+               
+            }
+        }
     }
 
     window.onload = init;
@@ -485,6 +502,33 @@
         </figure>
     </div>
 
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertMsg" aria-hidden="true" id="alertMsg1" style="z-index: 10000;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <p class="alertMsg_Text language_replace">ボーナスとギフトマネーは何か違いますか？</p>
+                            <p class="alertMsg_Text language_replace">‧ボーナスはOCoinが100以下になって初めて受け取ることができます。そして一回に一筆しか受け取れません。</p>
+                            <p class="alertMsg_Text language_replace">‧ギフトマネーは受け取るに制限がなく、常に受取可能です。</p>
+                            <p class="alertMsg_Text language_replace">詳しい内容は各キャンペーン詳細をご覧ください。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertMsg_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
