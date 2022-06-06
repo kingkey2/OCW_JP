@@ -1684,6 +1684,16 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="window.open('https://lin.ee/KD05l9X')">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-line"></i>
+                                            <span class="title language_replace">Line</span></a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
