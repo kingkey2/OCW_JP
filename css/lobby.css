@@ -112,7 +112,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .game_slider .swiper-slide {
   -webkit-transition: all 0.35s linear;
   transition: all 0.35s linear;
-  padding-right: 1.2vw;
+  padding-right: 10px;
   width: 50%;
 }
 
@@ -234,6 +234,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     opacity: 1;
   }
 
+  .game_slider .swiper-slide {
+    padding-right: 1vw;
+  }
   .game_slider .swiper-slide:nth-child(1) .game-item-info-detail {
     left: 0;
   }
