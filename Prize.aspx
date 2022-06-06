@@ -98,18 +98,18 @@
                         }
 
                         if ($("#div_History").children().length == 0) {
-                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                             $("#div_History").height(50);
                         }
 
                         window.parent.API_CloseLoading();
                     } else {
-                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                         $("#div_History").height(50);
                         window.parent.API_CloseLoading();
                     }
                 } else {
-                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                     $("#div_History").height(50);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
@@ -227,15 +227,15 @@
                         }
                         
                         if ($("#div_Prize").children().length == 0) {
-                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                         }
                         window.parent.API_CloseLoading();
                     } else {
-                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                         window.parent.API_CloseLoading();
                     }
                 } else {
-                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -358,7 +358,7 @@
                             <!-- 無資料 ========================= -->
                             <div class="no-Data" id="idNoPrizeData">
                                 <div class="data">
-                                    <span class="text language_replace">データーがありません</span>
+                                    <span class="text language_replace">データがありません</span>
                                 </div>
                             </div>--%>
                         </div>
@@ -393,7 +393,7 @@
                              <!-- 無資料 ========================= -->
                             <div class="no-Data" id="idNoHistoryData">
                                 <div class="data">
-                                    <span class="text language_replace">データーがありません</span>
+                                    <span class="text language_replace">データがありません</span>
                                 </div>
                             </div>--%>
                         </div>

@@ -496,9 +496,9 @@
                     
                     if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
                         if (WebInfo.DeviceType == 1) {
-                            $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                            $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                         } else {
-                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                         }
 
                         window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
@@ -514,9 +514,9 @@
                     window.parent.API_CloseLoading();
                 } else {
                     if (WebInfo.DeviceType == 1) {
-                        $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                        $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                     } else {
-                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データーがありません')}</span></div></div>`);
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
                     }
                     window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                     window.parent.API_CloseLoading();
@@ -755,7 +755,7 @@
                                             <!-- 無資料 ========================= -->
                                             <%--                                        <div class="no-Data" id="idNoData_P">
                                                 <div class="data">
-                                                    <span class="text language_replace">データーがありません</span>
+                                                    <span class="text language_replace">データがありません</span>
                                                 </div>
                                             </div>--%>
                                         </div>
@@ -828,7 +828,7 @@
                                             <!-- 無資料 ========================= -->
                                             <%--                                            <div class="no-Data" id="idNoData_G">
                                                 <div class="data">
-                                                    <span class="text language_replace">データーがありません</span>
+                                                    <span class="text language_replace">データがありません</span>
                                                 </div>
                                             </div>--%>
                                         </div>
@@ -900,7 +900,7 @@
                                 <!-- 無資料 ========================= -->
                                 <%--<div class="no-Data" id="idNoPaymentData" style="display:none">
                                     <div class="data">
-                                        <span class="text language_replace">データーがありません</span>
+                                        <span class="text language_replace">データがありません</span>
                                     </div>
                                 </div>--%>
                             </div>
@@ -912,7 +912,7 @@
                                 </div>
                                 <div class="no-Data" id="idNoPaymentData_M" style="display:none">
                                     <div class="data">
-                                        <span class="text language_replace">データーがありません</span>
+                                        <span class="text language_replace">データがありません</span>
                                     </div>
                                 </div>--%>
                             </div>
@@ -979,7 +979,7 @@
                                 </div>
                                  <div class="no-Data" id="idNoGameData">
                                     <div class="data">
-                                        <span class="text language_replace">データーがありません</span>
+                                        <span class="text language_replace">データがありません</span>
                                     </div>
                                 </div>
                             </div>
