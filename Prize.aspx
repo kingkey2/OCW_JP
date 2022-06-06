@@ -321,6 +321,13 @@
         }
     }
 
+    function aa() {
+        window.parent.API_ShowMessageOK("", `ボーナスとギフトマネーは何か違いますか？
+‧ボーナスはOCoinが100以下になって初めて受け取ることができます。そして一回に一筆しか受け取れません。
+‧ギフトマネーは受け取るに制限がなく、常に受取可能です。
+詳しい内容は書くキャンペーン詳細をご覧ください。`);
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -334,6 +341,7 @@
                     </a>
                     <div class="sec-title-wrapper">
                         <h1 class="sec-title title-deco"><span class="language_replace">受取箱</span></h1>
+                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="aa()"><i class="icon icon-mask icon-question"></i></span>
                         <!-- 獎金/禮金 TAB -->
                         <div class="tab-prize tab-scroller tab-2">
                             <div class="tab-scroller__area">
