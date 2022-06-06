@@ -401,7 +401,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 1920px) {
   .game_slider::before, .game_slider::after {
     height: calc((100vw - 56px) / 10 - 1.2vw);
-    max-height: 200px;
+    max-height: 240px;
   }
 
   .game_slider .swiper-slide {
