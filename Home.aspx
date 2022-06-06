@@ -211,7 +211,7 @@
                             observer.observe();
                         }
 
-                        $(GI).find(".BrandName").text(gameItem.GameBrand);
+                        $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                         if (gameItem.RTPInfo) {
                             $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
                         } else {
@@ -261,7 +261,7 @@
 
                     if (category.ShowType == 0) {
                         categArea = c.getTemplate("temCategArea");
-                        categName = category.CategoryName.replace('@', '').replace('#', '');
+                        categName = category.CategoryName.replace('@', '').replace('#', ''); 
                         $(categArea).find('.CategoryName').text(mlp.getLanguageKey(categName));
                     } else {
                         categArea = c.getTemplate("temCategArea2");
@@ -316,7 +316,7 @@
                             observer.observe();
                         }
 
-                        $(GI).find(".BrandName").text(gameItem.GameBrand);
+                        $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                         if (gameItem.RTPInfo) {
                             $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
                         } else {
@@ -433,7 +433,7 @@
                         observer.observe();
                     }
 
-                    $(GI).find(".BrandName").text(gameItem.GameBrand);
+                    $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                     if (gameItem.RTPInfo) {
                         $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
                     } else {
@@ -509,7 +509,7 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
-                    //updateBaseInfo();
+                       updateGameList();
                     window.parent.API_LoadingEnd(1);
                 });
 
