@@ -188,7 +188,7 @@
                                         }
                                     }
 
-                                    window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 ") + val, function () {
+                                    window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), val + mlp.getLanguageKey(" 確認領取"), function () {
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
