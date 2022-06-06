@@ -35,5 +35,12 @@
   "GameList_Slot": "スロット",
   "GameList_Live": "ライブ",
   "GameList_Electron": "電子",
-  "GameList_Other": "その他"
+  "GameList_Other": "その他",
+  "SlotMaxBetCount3Day": "スロット人気ランキング",
+  "SlotMaxBetCount30Day": "マハラジャ定番ランキング",
+  "SlotMaxWinValue7Day": "７日間ビックウィンランキング",
+  "SlotMaxWinValueYesterday": "２４時間ビックウィンランキング",
+  "SlotMaxWinRate7Day": "７日間最大倍率ランキング",
+  "SlotMaxWinRateYesterday": "２４時間最大倍率ランキング",
+  "SlotMaxRTPYesterday": "激アツランキング"
 }
