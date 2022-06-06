@@ -159,7 +159,7 @@
                                 observer.observe();
                             }
 
-                            $(GI).find(".BrandName").text(gameItem.GameBrand);
+                            $(GI).find(".GameBrand").text(gameItem.GameBrand);
                             if (gameItem.RTPInfo) {
                                 var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
 

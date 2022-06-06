@@ -116,35 +116,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <%--<title>マハラジャ - 一番人気なオンラインカジノアミューズメント</title>--%>
-    <title>Maharaja，The most popular online casino amusement.</title>
+    <title>マハラジャ - 一番人気なオンラインカジノアミューズメント</title>
+    <%--<title>Maharaja，The most popular online casino amusement.</title>--%>
 
-    <%--<meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
-    <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />--%>
-    <meta name='keywords' content="Casino、Slot、Amusement、Game" />
-    <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />
+    <meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
+    <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+    <%--<meta name='keywords' content="Casino、Slot、Amusement、Game" />
+    <meta name='description' content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
 
     <%--<meta property="og:site_name" content="マハラジャ" />--%>
     <meta property="og:site_name" content="Maharaja" />
 
-    <%--<meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
+    <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
-    <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />--%>
-    <meta property="og:title" content="The most popular online casino amusement." />
+    <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+    <%--<meta property="og:title" content="The most popular online casino amusement." />
     <meta property="og:Keyword" content="Casino、Slot、Amusement、Game" />
-    <meta property="og:description" content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />
+    <meta property="og:description" content="We have partnered with well-known online game brands, and they are reliable and ready to play. Register your site now and start the game without wasting money!" />--%>
 
     <meta property="og:url" content="https://casino-maharaja.com/" />
     <!--日文圖片-->
-    <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />--%>
+    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
     <!--英文圖片-->
-    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />
+    <%--<meta property="og:image" content="https://casino-maharaja.com/images/share_pic_en.png" />--%>
     <meta property="og:type" content="website" />
     <!-- Share image -->
     <!--日文圖片-->
-    <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">--%>
+    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
     <!--英文圖片-->
-    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">
+    <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
 
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
@@ -1607,11 +1607,11 @@
                             </li>
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown" onclick="openHotArticle()">
+                                    <%--<li class="nav-item submenu dropdown" onclick="openHotArticle()">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-hot"></i>
                                             <span class="title language_replace">熱門文章</span></a>
-                                    </li>
+                                    </li>--%>
                                     <li class="nav-item submenu dropdown"
                                         onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
                                         <a class="nav-link">
@@ -1868,7 +1868,7 @@
                                         checked>
                                     <div class="custom-input radio-button">
                                         <span class="flag JP"><i class="icon icon-mask icon-flag-JP"></i></span>
-                                        <span class="name">日本文</span>
+                                        <span class="name">日本語</span>
                                     </div>
                                 </label>
                             </li>

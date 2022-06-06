@@ -363,8 +363,9 @@
                                     <li class="item">
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data Paymentserial"></span>
-                                         <i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>     
-                                        <input class="inputPaymentSerial is-hide" />
+                                         <%--<i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>     --%>
+                                        <i class="icon icon-mask icon-copy" onclick="copyText('idinputPaymentSerial')"></i>
+                                        <input class="inputPaymentSerial is-hide" id="idinputPaymentSerial" />
                                     </li>
                                     <li class="item">
                                         <h6 class="title language_replace">支付方式</h6>
