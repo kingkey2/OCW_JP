@@ -7211,7 +7211,6 @@ select:-webkit-autofill:focus {
           box-shadow: 0 0 0 0.15rem rgba(227, 195, 141, 0.5);
 }
 .custom-select option {
-  background: #262936;
   border: none;
   padding: 8px 0;
   margin: 8px 0;
@@ -7398,7 +7397,6 @@ select:-webkit-autofill:focus {
   border-bottom-color: rgba(227, 195, 141, 0.7);
 }
 .form-control-underline .custom-select option {
-  background-color: #262936;
   color: #ffffff;
 }
 .form-control-underline.iconCheck::before, .form-control-underline.iconCheck::after {

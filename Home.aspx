@@ -336,12 +336,18 @@
                         new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
                             loop: false,
                             slidesPerView: "auto",
-                            slidesPerGroup: 4,
+                            slidesPerGroup: 2,
                             navigation: {
                                 nextEl: "#game-recommend .swiper-button-next",
                                 prevEl: "#game-recommend .swiper-button-prev",
                             },
                             breakpoints: {
+                                576: {
+                                    slidesPerGroup: 3,
+                                },
+                                640: {
+                                    slidesPerGroup: 4,
+                                },
                                 936: {
                                     slidesPerGroup: 5,
                                 },
