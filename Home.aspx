@@ -610,7 +610,7 @@
                             <img src="images/index/writer.png" alt="">
                         </div>
                         <div class="item vtuber">
-                            <img src="images/index/vtuber.png" alt="">
+                            <img src="images/index/vtuber1.png" alt="">
                         </div>
                     </div>
                 </div>
