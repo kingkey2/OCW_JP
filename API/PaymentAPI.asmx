@@ -29,7 +29,42 @@ public class PaymentAPI : System.Web.Services.WebService
         return R;
     }
 
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public PaymentMethodResult GetUserAccountJKCValue(string WebSID, string GUID)
+    //{
+    //    RedisCache.SessionContext.SIDInfo SI;
+    //    PaymentMethodResult R = new PaymentMethodResult() { GUID = GUID, Result = enumResult.ERR, PaymentMethodResults = new List<PaymentMethod>() };
+    //    System.Data.DataTable DT = new System.Data.DataTable();
 
+    //    SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+    //    if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+    //    {
+    //        if (DT != null)
+    //        {
+    //            if (DT.Rows.Count > 0)
+    //            {
+    //                R.Result = enumResult.OK;
+    //                R.PaymentMethodResults = EWinWeb.ToList<PaymentMethod>(DT).Where(x => x.PaymentType == PaymentType && x.State == 0).ToList();
+    //            }
+    //            else
+    //            {
+    //                SetResultException(R, "NoData");
+    //            }
+    //        }
+    //        else
+    //        {
+    //            SetResultException(R, "NoData");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        SetResultException(R, "InvalidWebSID");
+    //    }
+
+    //    return R;
+    //}
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
