@@ -52,6 +52,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           order: -1;
 }
 
+input.year {
+  width: 3rem !important;
+}
+input.month, input.day {
+  width: 2rem !important;
+  text-align: center;
+}
+
 .data-item-group {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -86,7 +94,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .member-profile-avater-wrapper {
   max-width: 145px;
-  margin: 0 auto 1rem;
+  margin: 2rem auto 2rem;
   position: relative;
 }
 .member-profile-avater-wrapper .avater {
@@ -285,6 +293,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-position: center center, 100% 120%;
   background-repeat: repeat, no-repeat;
   background-size: auto, auto 100px;
+  cursor: pointer;
   min-height: 120px;
   border-radius: 10px;
   overflow: hidden;
@@ -487,8 +496,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 10px 5px;
-  width: 99%;
+  padding: 10px 10%;
+  width: 100%;
   margin: 0 auto;
 }
 .member-withdraw-limit-inner .icon-lock {
@@ -512,6 +521,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .member-withdraw-limit-content .limit-amount {
   font-size: 2.25rem;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
 }
 .member-withdraw-limit-content .btn-QA-transaction {
   width: 26px;
