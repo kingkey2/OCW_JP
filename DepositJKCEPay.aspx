@@ -63,7 +63,7 @@
         //    this.setTime(this.getTime() + (s * 1000));
         //    return this;
         //}
-
+        GetUserAccountJKCValue();
         GetPaymentMethod();
     }
 
@@ -148,6 +148,26 @@
             //加入參加的活動
             setActivityNames();
         });
+    }
+
+    function GetUserAccountJKCValue(cb) {
+        PaymentClient.GetUserAccountJKCValue(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    cb(o.Message);
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("JKC貨幣餘額不足"), function () {
+                        window.location.href = "index.aspx"
+                    });
+                }
+            }
+            else {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
+                    window.location.href = "index.aspx"
+                });
+            }
+
+        })
     }
 
     function GetPaymentMethod() {
