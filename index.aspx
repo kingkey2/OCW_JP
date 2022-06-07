@@ -490,6 +490,10 @@
     function API_NonCloseShowMessageOK(title, msg, cbOK) {
         return nonCloseShowMessageOK(title, msg, cbOK);
     }
+
+    function API_ComingSoonAlert() {
+        window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" +  mlp.getLanguageKey("近期開放") + "</p>");
+    }
     //#endregion
 
     //#region Alert
