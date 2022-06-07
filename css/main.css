@@ -8307,12 +8307,6 @@ select:-webkit-autofill:focus {
   margin-right: 8px;
 }
 
-select,
-textarea,
-input {
-  font-size: 1rem;
-}
-
 .searchFilter-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
