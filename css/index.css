@@ -2,10 +2,13 @@
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
-.game-area.overflow-hidden {
-  padding: 0;
-  max-width: 1440px;
+.game-area {
+  padding-left: 10px;
+}
+.game-area .container {
   overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .desktop {

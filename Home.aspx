@@ -678,7 +678,8 @@
             </div>
         </section>
 
-        <section class="game-area section-wrap container overflow-hidden" id="gameAreas">
+        <section class="game-area section-wrap  overflow-hidden">
+            <div class="container"  id="gameAreas"></div>
         </section>
 
     </main>
