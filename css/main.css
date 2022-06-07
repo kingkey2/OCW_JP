@@ -179,6 +179,24 @@ button, input {
           box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 }
 
+.btn-game-close {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  right: 90px;
+  top: 90px;
+  border: solid 1px rgba(255, 255, 255, 0.55);
+}
+.btn-game-close .icon {
+  width: 50px;
+  height: 50px;
+}
+.btn-game-close .icon:before {
+  background-color: #fff;
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
 }
@@ -2985,11 +3003,11 @@ main.innerMain.fixed {
   width: 100%;
   height: 100%;
   -webkit-mask-position: center center;
-          mask-position: center center;
+  mask-position: center center;
   -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   -webkit-mask-size: contain;
-          mask-size: contain;
+  mask-size: contain;
   background-color: rgba(0, 0, 0, 0.8);
   background-image: none;
   background-size: cover;
