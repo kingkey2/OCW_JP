@@ -1968,11 +1968,11 @@
     <div class="modal-header">
         <!-- <h5 class="modal-title"></h5> -->
         <div class="searchFilter-wrapper">                  
-            <div class="searchFilter-item input-group">
+            <div class="searchFilter-item input-group keyword">
                     <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード">
                     <label for="" class="form-label"><span class="language_replace">キーワード</span></label>                   
             </div>
-            <div class="searchFilter-item input-group">                   
+            <div class="searchFilter-item input-group game-brand">                   
                 <select class="custom-select" id="alertSearchBrand">
                     <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
                     <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
@@ -1992,13 +1992,15 @@
                     <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
                 </select>
             </div>
-            <div class="searchFilter-item input-group">                   
-            <%--    <select class="custom-select">
+            <%--
+            <div class="searchFilter-item input-group game-type">                   
+                <select class="custom-select">
                     <option class="title" selected><span class="language_replace">遊戲類型</span></option>
                     <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
-                </select>--%>
+                </select>
             </div>
-            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm"><span class="language_replace">検索</span></button>              
+            --%>
+            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>              
         </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
