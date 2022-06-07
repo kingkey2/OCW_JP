@@ -79,6 +79,14 @@ public class SyncAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GetGameCodeRTP(){
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        var gameCodeRTPResult = lobbyAPI.GetGameCodeRTP(GetToken(), Guid.NewGuid().ToString(), DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+        return Newtonsoft.Json.JsonConvert.SerializeObject(gameCodeRTPResult);
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult UpdateCompanyCategory(string Key)
     {
 
@@ -431,16 +439,8 @@ public class SyncAPI : System.Web.Services.WebService
                                         CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
                                     }
                                 }
-                                try
-                                {
-                                    IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameCategorySubCode + "' And Location='"+Location+"'")[0]["CompanyCategoryID"];
-                                }
-                                catch (Exception ex)
-                                {
-                                    var adsd = ex.Message;
-                                    throw;
-                                }
 
+                                IsCategoryCodeCategoryID = (int)CompanyCategoryDT.Select("CategoryName='" + GameCategorySubCode + "' And Location='"+Location+"'")[0]["CompanyCategoryID"];
 
                             }
                             else
