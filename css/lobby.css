@@ -3,8 +3,11 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .tab-game {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(251, 251, 251, 0)), to(#D6D6D6));
-  background: linear-gradient(180deg, rgba(251, 251, 251, 0) 0%, #D6D6D6 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#D6D6D6));
+  background: linear-gradient(180deg, white 0%, #D6D6D6 100%);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 .tab-game .content {
   max-width: 840px;
@@ -314,34 +317,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1544px) and (max-width: 1863px) {
   .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 7 - 1.2vw);
-  }
-
-  .game_slider .swiper-slide {
-    width: 12.5%;
-  }
-  .game_slider .swiper-slide:nth-child(7n+1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(7n+1) .game-item-focus:hover .game-item-img {
-    left: auto;
-    -webkit-transform: translateX(38%);
-            transform: translateX(38%);
-  }
-  .game_slider .swiper-slide:nth-child(7n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:nth-child(7n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    left: auto;
-    right: auto;
-    -webkit-transform: translateX(-38%);
-            transform: translateX(-38%);
-  }
-}
-@media (min-width: 1864px) and (max-width: 1919px) {
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 8 - 1.2vw);
+    height: calc((100vw - 56px) / 9 - 1.2vw);
   }
 
   .game_slider .swiper-slide {
@@ -360,6 +336,33 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     right: 0;
   }
   .game_slider .swiper-slide:nth-child(9n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
+  }
+}
+@media (min-width: 1864px) and (max-width: 1919px) {
+  .game_slider::before, .game_slider::after {
+    height: calc((100vw - 56px) / 10 - 1.2vw);
+  }
+
+  .game_slider .swiper-slide {
+    width: 10%;
+  }
+  .game_slider .swiper-slide:nth-child(10n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(10n+1) .game-item-focus:hover .game-item-img {
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
+  }
+  .game_slider .swiper-slide:nth-child(10n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:nth-child(10n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
     left: auto;
     right: auto;
     -webkit-transform: translateX(-38%);

@@ -209,10 +209,10 @@
                                         slidesPerGroup: 8, //index:1440px
                                     },
                                     1544: {
-                                        slidesPerGroup: 8, //index:1600px
+                                        slidesPerGroup: 9, //index:1600px
                                     },
                                     1864: {
-                                        slidesPerGroup: 9, //index:1920px
+                                        slidesPerGroup: 10, //index:1920px
                                     },
                                     1920: {
                                         slidesPerGroup: 10, //index:1920px
