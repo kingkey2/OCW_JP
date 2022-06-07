@@ -1574,11 +1574,12 @@
                     </button>
                     <!-- Sidebar Menu 側邊選單-->
                     <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
-                        <!-- <div class="search-bar mobile">
-                            <button type="button" class="btn btn-search " data-toggle="modal" data-target="#alertSearch">
+                        <div class="search-bar mobile" data-toggle="modal" data-target="#alertSearch">
+                            <span class="text">ゲーム検索</span>
+                            <span class="btn btn-search" >
                                 <i class="icon icon-mask icon-search"></i>
-                            </button>
-                        </div> -->
+                            </span>
+                        </div>
                        
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <li class="nav-item navbarMenu__catagory">

@@ -458,25 +458,23 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .game_slider .swiper-slide {
-  -webkit-transition: all 0.35s linear;
-  transition: all 0.35s linear;
-  padding-right: 1.2vw;
-  width: 50%;
+  padding-right: 10px;
+  width: 31.25%;
 }
 
 @media (min-width: 375px) {
   .game_slider .swiper-slide {
-    width: 40%;
+    width: 28.5714285714%;
   }
 }
 @media (min-width: 576px) {
   .game_slider .swiper-slide {
-    width: 28.5714285714%;
+    width: 22.2222222222%;
   }
 }
 @media (min-width: 640px) {
   .game_slider .swiper-slide {
-    width: 25%;
+    width: 18.1818181818%;
   }
 }
 @media (min-width: 712px) {
@@ -495,7 +493,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .game_slider .swiper-slide {
-    width: 25%;
+    width: 18.1818181818%;
   }
 }
 @media (min-width: 936px) {
@@ -549,20 +547,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .section_publicize .publicize_bottom_inner .login {
     width: 100%;
   }
-
-  .game_slider .swiper-slide:nth-child(1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(1) .game-item-focus:hover .game-item-img {
-    left: 60px;
-  }
-  .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 60px;
-  }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
   .game_slider .swiper-slide {
@@ -572,32 +556,42 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     left: 0;
   }
   .game_slider .swiper-slide:nth-child(5n+1) .game-item-focus:hover .game-item-img {
-    left: 60px;
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
   }
   .game_slider .swiper-slide:nth-child(5n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
     left: auto;
     right: 0;
   }
   .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 60px;
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
   }
 }
 @media (min-width: 1384px) and (max-width: 1863px) {
   .game_slider .swiper-slide {
-    width: 20%;
+    width: 16.6666666667%;
   }
   .game_slider .swiper-slide:nth-child(5n+1) .game-item-info-detail {
     left: 0;
   }
   .game_slider .swiper-slide:nth-child(5n+1) .game-item-focus:hover .game-item-img {
-    left: 80px;
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
   }
   .game_slider .swiper-slide:nth-child(5n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
     left: auto;
     right: 0;
   }
   .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 80px;
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
   }
 }
 @media (min-width: 1864px) {
@@ -606,19 +600,24 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .game_slider .swiper-slide {
-    width: 16.6666666667%;
+    width: 12.5%;
   }
   .game_slider .swiper-slide:nth-child(6n+1) .game-item-info-detail {
     left: 0;
   }
   .game_slider .swiper-slide:nth-child(6n+1) .game-item-focus:hover .game-item-img {
-    left: 75px;
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
   }
   .game_slider .swiper-slide:nth-child(6n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
     left: auto;
     right: 0;
   }
   .game_slider .swiper-slide:nth-child(6n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    right: 75px;
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
   }
 }
