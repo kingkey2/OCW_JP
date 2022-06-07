@@ -1267,7 +1267,7 @@
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
-                        <span class="label-status deposit language_replace">勝ち</span>
+                        <span class="label-status deposit language_replace">負け</span>
                     </div>
                 </div>
 

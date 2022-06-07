@@ -99,18 +99,18 @@
 
                         if ($("#div_History").children().length == 0) {
                             $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
-                            $("#div_History").height(50);
+                            // $("#div_History").height(50);
                         }
 
                         window.parent.API_CloseLoading();
                     } else {
                         $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
-                        $("#div_History").height(50);
+                        // $("#div_History").height(50);
                         window.parent.API_CloseLoading();
                     }
                 } else {
                     $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
-                    $("#div_History").height(50);
+                    // $("#div_History").height(50);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -188,7 +188,7 @@
                                         }
                                     }
 
-                                    window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), mlp.getLanguageKey("確認領取 ") + val, function () {
+                                    window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), val + mlp.getLanguageKey(" 確認領取"), function () {
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
