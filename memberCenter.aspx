@@ -337,7 +337,7 @@
                             <fieldset class="dataFieldset">
                                 <legend class="sec-title-container sec-title-member">
                                     <div class="sec-title-wrapper">
-                                        <h1 class="sec-title title-deco"><span class="language_replace">會員中心</span></h1>
+                                        <h1 class="sec-title title-deco"><span class="language_replace">メンバーページ</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
                                     <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
@@ -349,7 +349,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
-                                                <span class="title-name language_replace">姓名</span>
+                                                <span class="title-name language_replace">名前</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -360,7 +360,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">舊密碼</span>
+                                                <span class="title-name language_replace">現在のパスワード</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -371,7 +371,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
-                                                <span class="title-name language_replace">出生年月日</span>
+                                                <span class="title-name language_replace">誕生日</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -384,7 +384,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">新密碼</span>
+                                                <span class="title-name language_replace">新しいパスワード</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -395,12 +395,12 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-mobile"></i>
-                                                <span class="title-name language_replace">手機號碼</span>
+                                                <span class="title-name language_replace">携帯電話番号</span>
                                             </label>
                                             <%--<div class="labels labels-status">
                                                 <span class="label language_replace update">更新</span>
-                                                <span class="label language_replace validated">認證</span>
-                                                <span class="label language_replace unvalidated">未認證</span>
+                                                <span class="label language_replace validated">認証</span>
+                                                <span class="label language_replace unvalidated">認証済み</span>
                                             </div>--%>
                                         </div>
                                         <div class="data-item-content">
@@ -411,7 +411,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-mail"></i>
-                                                <span class="title-name language_replace">E-mail</span>
+                                                <span class="title-name language_replace">メールアドレス</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -423,7 +423,7 @@
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-location"></i>
-                                                    <span class="title-name language_replace">地址</span>
+                                                    <span class="title-name language_replace">住所</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
@@ -434,14 +434,14 @@
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-flag"></i>
-                                                    <span class="title-name language_replace">訊息通知</span>
+                                                    <span class="title-name language_replace">メッセージ通知</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
                                                 <div class="custom-control custom-checkboxValue custom-control-inline">
                                                     <label class="custom-label">
                                                         <input type="checkbox" class="custom-control-input-hidden" checked="checked" id="check_UserGetMail">
-                                                        <div class="custom-input checkbox"><span class="language_replace">接收最新資訊</span></div>
+                                                        <div class="custom-input checkbox"><span class="language_replace">最新情報を受信できるようにする</span></div>
                                                     </label>
                                                 </div>
 
@@ -454,7 +454,7 @@
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-qrocde"></i>
-                                                    <span class="title-name language_replace">推薦碼</span>
+                                                    <span class="title-name language_replace">招待コード</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
@@ -544,7 +544,7 @@
                                 <div class="dailylogin-bouns-inner">
                                     <div class="dailylogin-bouns-content">
                                         <h3 class="title">
-                                            <span class="name ">金曜日的禮物</span></h3>
+                                            <span class="name ">金曜日のプレゼント</span></h3>
                                         <ul class="dailylogin-bouns-list">
                                             <!-- 已領取 bouns => got-->
                                             <li class="bouns-item got">
@@ -575,7 +575,7 @@
                         <!-- 活動中心 -->
                         <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
                             <div class="activity-center-inner">
-                                <div class="title">活動中心</div>
+                                <div class="title">キャンペーン</div>
                             </div>
                         </div>
 

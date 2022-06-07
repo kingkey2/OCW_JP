@@ -357,7 +357,7 @@
                         <span class="title language_replace">前往活動中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
-                        <h1 class="sec-title title-deco"><span class="language_replace">領取中心</span></h1>
+                        <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
                         <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="aa()"><i class="icon icon-mask icon-question"></i></span>
                         <!-- 獎金/禮金 TAB -->
                         <div class="tab-prize tab-scroller tab-2">
@@ -394,7 +394,7 @@
                 <section class="section-wrap section-prize-record">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">領取紀錄</span></h1>
+                            <h1 class="sec-title title-deco"><span class="language_replace">受取履歴</span></h1>
                         </div>
                         <!-- 前/後 月 -->
                         <div class="sec_link">
