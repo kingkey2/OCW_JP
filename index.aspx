@@ -1001,11 +1001,13 @@
             //Check Balance Change
             if (selectedWallet != null) {
                 if (wallet.PointValue != selectedWallet.PointValue) {
-                    idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
+                    //idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
+                    idWalletDiv.innerText = parseInt(wallet.PointValue);
                     notifyWindowEvent("BalanceChange", wallet.PointValue);
                 }
             } else {
-                idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
+                //idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
+                idWalletDiv.innerText = parseInt(wallet.PointValue);
             }
 
             selectedWallet = wallet;
@@ -1229,14 +1231,20 @@
 
         //主選單收合
         $('.navbar-toggler').click(function () {
+            debugger
             $('.vertical-menu').toggleClass('navbar-show');
             $('.header_menu').toggleClass('show');
-            $('.navbar-toggler').attr("aria-expanded", "true");
+            if ($('.navbar-toggler').attr("aria-expanded") == "false") {
+                $('.navbar-toggler').attr("aria-expanded", "true");
+            }
         });
         $('.header_area .mask_overlay').click(function () {
+            debugger
             $('.vertical-menu').removeClass('navbar-show');   
             $('.header_menu, .navbarMenu').removeClass('show');
-            $('.navbar-toggler').attr("aria-expanded", "false");
+            if ($('.navbar-toggler').attr("aria-expanded") == "true") {
+                $('.navbar-toggler').attr("aria-expanded", "false");
+            }
         });
     }
 
