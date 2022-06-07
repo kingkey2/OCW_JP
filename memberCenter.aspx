@@ -335,7 +335,7 @@
                         </div>
                         <div class="member-profile-data-wrapper dataList">
                             <fieldset class="dataFieldset">
-                                <legend class="sec-title-container sec-title-member">
+                                <legend class="sec-title-container sec-col-2 sec-title-member ">
                                     <div class="sec-title-wrapper">
                                         <h1 class="sec-title title-deco"><span class="language_replace">メンバーページ</span></h1>
                                     </div>
@@ -375,9 +375,9 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="text" style="width: 30%" class="custom-input-edit" id="idBornYear" value="" readonly>
-                                            <input type="text" style="width: 30%" class="custom-input-edit" id="idBornMonth" value="" readonly>
-                                            <input type="text" style="width: 30%" class="custom-input-edit" id="idBornDay" value="" readonly>
+                                            <input type="text" class="custom-input-edit year" id="idBornYear" value="" readonly>
+                                            <input type="text"  class="custom-input-edit month" id="idBornMonth" value="" readonly>
+                                            <input type="text"  class="custom-input-edit day" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>
                                     <div class="data-item password" style="width: 50%; display: none;">
