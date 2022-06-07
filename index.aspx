@@ -1574,6 +1574,7 @@
                     </button>
                     <!-- Sidebar Menu 側邊選單-->
                     <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
+
                         <div class="search-bar mobile" data-toggle="modal" data-target="#alertSearch">
                             <span class="text">ゲーム検索</span>
                             <span class="btn btn-search" >
@@ -1958,7 +1959,7 @@
     </div>
     <!-- Modal Search -->
 <div class="modal fade no-footer" id="alertSearch" tabindex="-1" aria-hidden="true">
-<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+<div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
     <div class="modal-header">
         <!-- <h5 class="modal-title"></h5> -->
