@@ -55,7 +55,7 @@
                 <!-- -->
                 <div class="dlP_Con agentLoadDiv">
                     <div class="dlP_ConAppInfo">
-                        <div class="dlP_AppIcon"><img src="../images/MaharajaAgent.png" alt="icon_game"></div>
+                        <div class="dlP_AppIcon"><img src="../images/MaharajaAgent1.png" alt="icon_game"></div>
                         <div class="dlP_AppType"><span>Agent APP</span></div>
                         <div class="dlP_AppName"><span>Club Maharaja</span></div>
                     </div>
