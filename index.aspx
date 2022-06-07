@@ -1231,7 +1231,6 @@
 
         //主選單收合
         $('.navbar-toggler').click(function () {
-            debugger
             $('.vertical-menu').toggleClass('navbar-show');
             $('.header_menu').toggleClass('show');
             if ($('.navbar-toggler').attr("aria-expanded") == "false") {
@@ -1239,7 +1238,6 @@
             }
         });
         $('.header_area .mask_overlay').click(function () {
-            debugger
             $('.vertical-menu').removeClass('navbar-show');   
             $('.header_menu, .navbarMenu').removeClass('show');
             if ($('.navbar-toggler').attr("aria-expanded") == "true") {
