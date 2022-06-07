@@ -371,7 +371,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-gift"></i>
-                                                <span class="title-name language_replace">誕生日</span>
+                                                <span class="title-name language_replace">出生年月日</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
