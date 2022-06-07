@@ -252,6 +252,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .hero_slider_lobby .img-wrap {
     padding-bottom: 500px;
   }
+
+  .swiper-button-next, .swiper-button-prev {
+    height: calc(100% - 65px);
+    top: 65px;
+  }
 }
 @media (min-width: 1384px) and (max-width: 1543px) {
   .game_slider::before, .game_slider::after {
