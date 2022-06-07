@@ -495,7 +495,6 @@ public static class ActivityExpand
         }
     }
 
-
     public static class Basic
     {
         //任何無法參加之原因皆要傳回

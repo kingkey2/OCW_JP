@@ -1231,6 +1231,7 @@
         $('.navbar-toggler').click(function () {
             $('.vertical-menu').toggleClass('navbar-show');
             $('.header_menu').toggleClass('show');
+            $('.navbar-toggler').attr("aria-expanded", "true");
         });
         $('.header_area .mask_overlay').click(function () {
             $('.vertical-menu').removeClass('navbar-show');   
