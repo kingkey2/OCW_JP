@@ -346,7 +346,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .game_slider .swiper-slide {
     width: 10%;
-    max-width: 240px;
   }
   .game_slider .swiper-slide:nth-child(10n+1) .game-item-info-detail {
     left: 0;
