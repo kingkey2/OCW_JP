@@ -1830,7 +1830,7 @@
     <!-- main_area = iframe高度 + Footer高度-->
     <%--    <div class="main_area" style="height: auto;">--%>
     <div class="main_area">
-        <div class="btn btn-game-close"><i class="icon icon-mask icon-error"></i></span></div>
+        <div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></span></div>
         <!-- iframe高度 自動計算高度-->
         <%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
         <iframe id="IFramePage" class="mainIframe" name="mainiframe"></iframe>
