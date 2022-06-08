@@ -371,10 +371,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1864px) {
   .hero_slider_lobby .img-wrap {
-    padding-bottom: 400px;
+    padding-bottom: 410px;
   }
   .hero_slider_lobby .swiper-slide {
-    max-width: 60%;
+    max-width: 73%;
   }
 }
 @media (min-width: 1920px) {
@@ -411,9 +411,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .hero_slider_lobby .img-wrap {
-    padding-bottom: 480px;
+    padding-bottom: 570px;
   }
   .hero_slider_lobby .swiper-slide {
-    max-width: 55%;
+    max-width: 70%;
   }
 }
