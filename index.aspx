@@ -1878,11 +1878,11 @@
                                         <img src="images/logo/logo-pagcor.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=seal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>
