@@ -223,6 +223,10 @@
         return lobbyClient;
     }
 
+    function API_SearchGameByBrand(gameBrand) {
+        return searchGameByBrand(gameBrand);
+    }
+
     function API_GetPaymentAPI() {
         return paymentClient;
     }
@@ -820,17 +824,24 @@
         }
     }
 
-    function favBtnEvent(gameID, doc) {
+    function favBtnEvent(gameID, doc, isSearchGame) {
+        debugger;
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
         if (type == 0) {
+            if (isSearchGame) {
+                $(doc).addClass("added");
+            }
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').addClass("added");
             setFavoriteGame(gameID);
             if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
                 document.getElementById('IFramePage').contentWindow.refreshFavoGame();
             }
         } else {
+            if (isSearchGame) {
+                $(doc).removeClass("added");
+            }
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').removeClass("added");
             setFavoriteGame(gameID);
             if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
@@ -1478,6 +1489,15 @@
      
     }
 
+    function searchGameByBrand(gameBrand) {
+      
+        $('#alertSearchBrand').val(gameBrand);
+        $('#alertSearchKeyWord').val('');
+        $("#seleGameCategory").val('');
+        $('#alertSearch').modal('show');
+        searchGameList();
+    }
+
     //#region 搜尋彈出
     function searchGameList() {
         var gameBrand = $('#alertSearchBrand').val();
@@ -1500,11 +1520,11 @@
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
             return false;
         }
-        console.log("dd", gameList);
+       
         $('#alertSearchContent').empty();
 
         if (gameList.length > 0) {
-
+            var FavoGames = getFavoriteGames();
             for (var i = 0; i < gameList.length; i++) {
                 var gameItem = gameList[i];
                 var RTP = "";
@@ -1522,6 +1542,15 @@
                     var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                     observer.observe();
                 }
+
+                var likebtn = GI.querySelector(".btn-like");
+                if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                    $(likebtn).addClass("added");
+                } else {
+                    $(likebtn).removeClass("added");
+                }
+
+                likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
 
                 $(GI).find(".gameName").text(gameItem.GameText[lang]);
                 $(GI).find(".BrandName").text(gameItem.BrandText[lang]);

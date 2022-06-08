@@ -24,6 +24,11 @@
     <script src="Scripts/lozad.min.js"></script>
     <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+    <style>
+        .title-showAll:hover {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -105,6 +110,7 @@
                             if (category.SortIndex==99) {
                                 $(categArea).find('.text-link').css('display', 'block');
                                 $(categArea).find('.title-showAll').text(mlp.getLanguageKey('全部顯示'));
+                               
                             }
                         } else {
                             categArea = c.getTemplate("temCategArea2");
@@ -115,6 +121,9 @@
 
                         category.Datas.forEach(gameItem => {
                             var GI;
+
+                            var showAllbtn = categArea.querySelector('.title-showAll');
+                            showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
 
                             if (category.ShowType == 0) {
                                 GI = c.getTemplate("temGameItem");
