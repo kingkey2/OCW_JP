@@ -2,10 +2,10 @@
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
-.game-area {
+.game-area.overflow-hidden {
   padding-left: 10px;
 }
-.game-area .container {
+.game-area.overflow-hidden .container {
   overflow: hidden;
   padding-left: 0;
   padding-right: 0;
@@ -555,6 +555,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .section_publicize .publicize_bottom_inner .login {
     width: 100%;
+  }
+
+  .game-area.overflow-hidden {
+    padding-bottom: 0px;
+  }
+  .game-area.overflow-hidden .container {
+    padding-bottom: 160px;
   }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
