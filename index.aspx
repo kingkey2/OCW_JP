@@ -1441,12 +1441,13 @@
         //resize();
     }
 
+    //#region 搜尋彈出
     function searchGameList() {
-
         var gameBrand = $('#alertSearchBrand').val();
         var keyWord = $('#alertSearchKeyWord').val().trim();
         var gameList = [];
         var lang = EWinWebInfo.Lang;
+
         if (gameBrand != "-1" && keyWord != '') {
             gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);
         } else if (gameBrand == "-1" && keyWord != '') {
@@ -1457,7 +1458,9 @@
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
             return false;
         }
+
         $('#alertSearchContent').empty();
+
         if (gameList.length > 0) {
 
             for (var i = 0; i < gameList.length; i++) {
@@ -1466,7 +1469,6 @@
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
-
 
                 GI = c.getTemplate("tmpSearchGameItem");
                 var GI_a = GI.querySelector(".btn-play");
@@ -1488,6 +1490,29 @@
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
         }
     };
+
+    function SearchGameCodeChange() {
+        var gameBrand = $('#alertSearchBrand').val();
+        var keyWord = $('#alertSearchKeyWord').val().trim();
+
+        if (gameBrand == "-1" && keyWord == "") {
+            $("#div_SearchBrand").hide();
+        } else {
+            $("#div_SearchBrand").show();
+        }
+    }
+
+    function SearchKeyWordKeyup() {
+        var gameBrand = $('#alertSearchBrand').val();
+        var keyWord = $('#alertSearchKeyWord').val().trim();
+
+        if (gameBrand == "-1" && keyWord == "") {
+            $("#div_SearchBrand").hide();
+        } else {
+            $("#div_SearchBrand").show();
+        }
+    }
+    //#endregion
 
     function getCompanyGameCodeTwo() {
         var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
@@ -2000,11 +2025,11 @@
                     <!-- <h5 class="modal-title"></h5> -->
                     <div class="searchFilter-wrapper">
                         <div class="searchFilter-item input-group keyword">
-                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード">
+                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
                             <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                         </div>
-                        <div class="searchFilter-item input-group game-brand">
-                            <select class="custom-select" id="alertSearchBrand">
+                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
+                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
                                 <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
                                 <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
                                 <option class="searchFilter-option" value="BNG"><span class="language_replace">ブーンゴー</span></option>
@@ -2023,14 +2048,16 @@
                                 <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
                             </select>
                         </div>
-                        <%--
-            <div class="searchFilter-item input-group game-type">                   
-                <select class="custom-select">
-                    <option class="title" selected><span class="language_replace">遊戲類型</span></option>
-                    <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
-                </select>
-            </div>
-                        --%>
+                        <div class="searchFilter-item input-group game-type" id="div_SearchBrand" style="display:none">                   
+                            <select class="custom-select">
+                                <option class="title" value="All" selected><span class="language_replace">全部</span></option>
+                                <option class="searchFilter-option" value="Electron" ><span class="language_replace">電子</span></option>
+                                <option class="searchFilter-option" value="Fish" ><span class="language_replace">捕魚機</span></option>
+                                <option class="searchFilter-option" value="Live" ><span class="language_replace">真人</span></option>
+                                <option class="searchFilter-option" value="Slot" ><span class="language_replace">老虎機</span></option>
+                                <option class="searchFilter-option" value="Sports" ><span class="language_replace">體育</span></option>
+                            </select>
+                        </div>
                         <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
