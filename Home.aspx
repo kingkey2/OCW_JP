@@ -50,7 +50,52 @@
             top: 5%;
             left: 25%;
             cursor: pointer;
-            z-index:99999;
+            z-index: 99999;
+        }
+
+        .Line-AddFriend img {
+            width: 100%;
+        }
+
+        .Line-AddFriend .addFriend {
+            width: 100%;
+            max-width: 66px;
+            margin: 0 auto;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            background-color: #00b900;
+            color: #fff;
+            border-radius: 50%;
+            padding: 10px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+
+            .Line-AddFriend .addFriend .logo {
+                height: 100%;
+                width: auto;
+            }
+
+            .Line-AddFriend .addFriend .text {
+                font-size: 0.9375rem;
+                width: 90%;
+                text-align: center;
+            }
+
+        .float_SideBar {
+            position: fixed;
+            right: 3vw;
+            bottom: 5vh;
+            width: 10%;
+            min-width: 43px;
+            max-width: 60px;
+            z-index: 2;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -58,7 +103,7 @@
     if (self != top) {
         window.parent.API_LoadingStart();
     }
-
+    var iframeWidth;
     var c = new common();
     var ui = new uiControl();
     var mlp;
@@ -151,10 +196,12 @@
         initSwiper();
 
         setBulletinBoard();
+
+        //iframeWidth = $(window.parent.document).find('#IFramePage').width();
     }
 
     function refreshFavoGame() {
-
+  
         FavoGames = window.parent.API_GetFavoGames();
         var idFavoGameItemGroup = document.getElementById('idFavoGameItemGroup');
         if (idFavoGameItemGroup) {
@@ -180,7 +227,7 @@
                             $(GI_Favor).addClass("added");
                         }
 
-                        if (WebInfo.DeviceType == 1) {
+                        if (iframeWidth < 936) {
 
                             var RTP = "";
                             if (gameItem.RTPInfo) {
@@ -189,7 +236,10 @@
 
                             GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                         } else {
-                            GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                           
+                            var GI_gameitemlink = GI.querySelector(".game-item-link");
+                            GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                            GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
                         }
 
                         $(GI).find('.btn-more').click(function () {
@@ -203,8 +253,8 @@
                         var GI_img = GI.querySelector(".gameimg");
                         var GI_gameitem = GI.querySelector(".game-item");
 
-
                         if (GI_img != null) {
+
                             GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
                             var el = GI_img;
                             var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
@@ -241,6 +291,7 @@
     }
 
     function updateGameList() {
+        iframeWidth = $(window.parent.document).find('#IFramePage').width();
         var LobbyGameList = GCB.GetCategory("Home");
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
@@ -261,7 +312,7 @@
 
                     if (category.ShowType == 0) {
                         categArea = c.getTemplate("temCategArea");
-                        categName = category.CategoryName.replace('@', '').replace('#', ''); 
+                        categName = category.CategoryName.replace('@', '').replace('#', '');
                         $(categArea).find('.CategoryName').text(mlp.getLanguageKey(categName));
                     } else {
                         categArea = c.getTemplate("temCategArea2");
@@ -285,7 +336,7 @@
 
                             GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
 
-                            if (WebInfo.DeviceType == 1) {
+                            if (iframeWidth < 936) {
 
                                 var RTP = "";
                                 if (gameItem.RTPInfo) {
@@ -294,7 +345,10 @@
 
                                 GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                             } else {
-                                GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+
+                                var GI_gameitemlink = GI.querySelector(".game-item-link");
+                                GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                                GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
                             }
 
                             $(GI).find('.btn-more').click(function () {
@@ -338,10 +392,10 @@
                             slidesPerView: "auto",
                             // slidesPerView: 2,
                             // slidesPerGroup: 2,
-                              navigation: {
-                                    nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
-                                    prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
-                                },
+                            navigation: {
+                                nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
+                                prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
+                            },
                             breakpoints: {
                                 // 576: {
                                 //     slidesPerGroup: 3,
@@ -409,7 +463,7 @@
                         $(GI_Favor).addClass("added");
                     }
 
-                    if (WebInfo.DeviceType == 1) {
+                    if (iframeWidth < 936) {
 
                         var RTP = "";
                         if (gameItem.RTPInfo) {
@@ -418,7 +472,10 @@
 
                         GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                     } else {
-                        GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+
+                        var GI_gameitemlink = GI.querySelector(".game-item-link");
+                        GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                        GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
                     }
 
                     $(GI).find('.btn-more').click(function () {
@@ -516,10 +573,17 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
-                       updateGameList();
+                    updateGameList();
                     window.parent.API_LoadingEnd(1);
                 });
 
+                break;
+            case "resize":
+                if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
+                    updateGameList();
+                    refreshFavoGame();
+                } 
+                
                 break;
             case "IndexFirstLoad":
                 //window.parent.API_LoadingEnd();
@@ -551,7 +615,7 @@
     }
 
     function ComingSoonAlert() {
-        window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" +  mlp.getLanguageKey("近期開放") + "</p>");
+        window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" + mlp.getLanguageKey("近期開放") + "</p>");
     }
 
     window.onload = init;
@@ -561,10 +625,10 @@
     <main class="innerMain">
         <section class="section-wrap hero">
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
-                <div class="swiper-wrapper">                    
+                <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('', 'Deposit.aspx', true)"></a>
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -577,7 +641,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href"  onclick="window.parent.API_LoadPage('', 'Deposit.aspx', true)"></a>
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
                             </div>
@@ -600,9 +664,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="swiper-mask"></div>
-                   </div>
+                </div>
                 <div class="container">
                     <div class="swiper-pagination"></div>
                 </div>
@@ -624,7 +688,7 @@
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
                         <div class="publicize-wrap way_payment">
-                            <div class="item payment" style="cursor:pointer" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
+                            <div class="item payment" style="cursor: pointer" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
                                 <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
                                 <img src="images/index/way-payment.png" class="desktop" alt="">
                             </div>
@@ -679,7 +743,7 @@
         </section>
 
         <section class="game-area section-wrap  overflow-hidden">
-            <div class="container"  id="gameAreas"></div>
+            <div class="container" id="gameAreas"></div>
         </section>
 
     </main>
@@ -710,8 +774,8 @@
                 <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                     <div class="swiper-wrapper GameItemGroupContent">
                     </div>
-                       <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </section>
@@ -816,6 +880,30 @@
                     <h3 class="game-item-name"></h3>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <%--<div class="float_SideBar">
+        <div class="Line-AddFriend">
+            <a onclick="window.open('https://lin.ee/KD05l9X')">
+                <span class="addFriend">
+                    <span class="logo">
+                        <img src="../images/assets/LINE/Line_W.png" alt=""></span>
+                </span>
+            </a>
+        </div>
+    </div>--%>
+
+    <div class="float_SideBar" id="float_SideBar">
+        <div class="guide-QA" onclick="window.parent.API_LoadPage('guide_QnA', '/Article/guide_Q&amp;A_jp.html', false)">
+            <a>
+                <div class="text">
+                    <h3 class="title language_replace" langkey="Q&amp;A">Q&amp;A</h3>
+                </div>
+                <div class="img-wrap">
+                    <img src="images/games/a-chi-QA.svg">
+                </div>
+            </a>
         </div>
     </div>
 </body>

@@ -29,7 +29,66 @@ public class PaymentAPI : System.Web.Services.WebService
         return R;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public APIResult GetUserAccountJKCValue(string WebSID, string GUID)
+    {
+        EWin.Lobby.UserInfoResult userInfoResult;
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        string Filename;
+        APIResult R = new APIResult() { GUID = GUID, Result = enumResult.ERR};
+        System.Data.DataTable DT = new System.Data.DataTable();
+        Newtonsoft.Json.Linq.JObject jo;
+        Newtonsoft.Json.Linq.JArray UserJKCData;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            userInfoResult= lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+            if (userInfoResult != null && userInfoResult.Result == EWin.Lobby.enumResult.OK)
+            {
+                if (EWinWeb.IsTestSite)
+                {
+                    Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Test_" + "UserJKCData.json");
+                }
+                else
+                {
+                    Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Formal_" + "UserJKCData.json");
+                }
+
+                UserJKCData = LoadSetting(Filename);
+
+                if (UserJKCData != null && UserJKCData.Count > 0)
+                {
+                    jo = UserJKCData.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["Name"] != null && o["Name"].ToString() == userInfoResult.ContactPhoneNumber);
+                    if (jo != null)
+                    {
+                        R.Message = jo["Value"].ToString();
+                        R.Result = enumResult.OK;
+                    }
+                    else
+                    {
+                        SetResultException(R, "NoData");
+                    }
+                }
+                else
+                {
+                    SetResultException(R, "NoData");
+                }
+            }
+            else
+            {
+                SetResultException(R, "NoData");
+            }
+        }
+        else
+        {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -2392,6 +2451,22 @@ public class PaymentAPI : System.Web.Services.WebService
         Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
         return Token;
+    }
+
+    private  Newtonsoft.Json.Linq.JArray LoadSetting(string Path) {
+        Newtonsoft.Json.Linq.JArray o = null;
+
+        if (System.IO.File.Exists(Path)) {
+            string SettingContent;
+
+            SettingContent = System.IO.File.ReadAllText(Path);
+
+            if (string.IsNullOrEmpty(SettingContent) == false) {
+                try { o = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(SettingContent); } catch (Exception ex) { }
+            }
+        }
+
+        return o;
     }
 
     public class APIResult

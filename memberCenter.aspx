@@ -102,7 +102,7 @@
         //$("#idAmount").text(new BigNumber(WebInfo.UserInfo.WalletList.find(x => x.CurrencyType == window.parent.API_GetCurrency()).PointValue).toFormat());
 
         let wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
-        $("#idAmount").text(parseInt(wallet.PointValue));
+        $("#idAmount").text(new BigNumber(parseInt(wallet.PointValue)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
         $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"/**************************/"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
