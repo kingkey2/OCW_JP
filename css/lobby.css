@@ -371,7 +371,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1864px) {
   .hero_slider_lobby .img-wrap {
-    padding-bottom: 410px;
+    padding-bottom: 420px;
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 73%;
