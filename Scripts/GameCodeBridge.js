@@ -75,6 +75,20 @@
 
         return Ret;
     }
+    this.SearchGameCtByBrand = function (gameBrand) {
+        let Ret = [];
+        //find GameID
+
+        let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
+
+
+        if (targetBrand) {
+            Ret = targetBrand.GameCtList;
+        }
+
+        return Ret;
+    }
+
 
     this.OtherFindGameCodeText = function (lang, GameCode) {
         for (var i = 0; i < this.LangDic.length; i++) {

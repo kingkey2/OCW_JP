@@ -396,6 +396,7 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
                                     },
                                     BrandText: {},
+                                    GameCtList:[],
                                     AllGame: [Data.GameID]
                                 };
 
@@ -422,6 +423,12 @@ var Worker = function (version, url, langUrl, second, timeStamp) {
 
                                 SearchDic.Brands.push(targetBrand);
                             }
+
+                            //處理Brand的Category
+                            if (targetBrand.GameCtList.indexOf(pushData.GameCategoryCode) == -1) {
+                                targetBrand.GameCtList.push(pushData.GameCategoryCode);
+                            }
+
 
                             //整理語系資料與依照字母加入搜尋索引
                             for (var ii = 0; ii < languages.length; ii++) {
