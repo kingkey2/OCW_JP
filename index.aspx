@@ -1445,20 +1445,25 @@
     function searchGameList() {
         var gameBrand = $('#alertSearchBrand').val();
         var keyWord = $('#alertSearchKeyWord').val().trim();
+        var gamecategory = $("#seleGameCategory").val() == "All" ? "" : $("#seleGameCategory").val();
         var gameList = [];
         var lang = EWinWebInfo.Lang;
-
+        
         if (gameBrand != "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
         } else if (gameBrand == "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord);
-        } else if (gameBrand != "-1" && keyWord == '') {
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
+        } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
             gameList = GCB.SearchGameCodeByBrand(gameBrand);
-        } else {
+        } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
+            gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
+        } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+        }else {
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
             return false;
         }
-
+        console.log("dd", gameList);
         $('#alertSearchContent').empty();
 
         if (gameList.length > 0) {
@@ -1496,9 +1501,35 @@
         var keyWord = $('#alertSearchKeyWord').val().trim();
 
         if (gameBrand == "-1" && keyWord == "") {
-            $("#div_SearchBrand").hide();
+            $("#div_SearchGameCategory").hide();
         } else {
-            $("#div_SearchBrand").show();
+            $("#div_SearchGameCategory").show();
+        }
+
+        let allGameCategory = [
+            "Electron",
+            "Fish",
+            "Live",
+            "Slot",
+            "Sports"
+        ]
+
+        let o;
+        $("#seleGameCategory").empty();
+        o = new Option(mlp.getLanguageKey("全部"), "All");
+        $("#seleGameCategory").append(o);
+
+        if (gameBrand != "-1") {
+
+            let gameCategory = GCB.SearchGameCtByBrand($("#alertSearchBrand").val());
+
+            if (gameCategory.length > 0) {
+                for (var i = 0; i < gameCategory.length; i++) {
+                    o = new Option(mlp.getLanguageKey(gameCategory[i]), gameCategory[i]);
+                    $("#seleGameCategory").append(o);
+                }
+            }
+
         }
     }
 
@@ -1507,9 +1538,9 @@
         var keyWord = $('#alertSearchKeyWord').val().trim();
 
         if (gameBrand == "-1" && keyWord == "") {
-            $("#div_SearchBrand").hide();
+            $("#div_SearchGameCategory").hide();
         } else {
-            $("#div_SearchBrand").show();
+            $("#div_SearchGameCategory").show();
         }
     }
     //#endregion
@@ -2041,8 +2072,8 @@
                                 <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
                             </select>
                         </div>
-                        <div class="searchFilter-item input-group game-type" id="div_SearchBrand" style="display:none">                   
-                            <select class="custom-select">
+                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display:none">                   
+                            <select class="custom-select" id="seleGameCategory">
                                 <option class="title" value="All" selected><span class="language_replace">全部</span></option>
                                 <option class="searchFilter-option" value="Electron" ><span class="language_replace">電子</span></option>
                                 <option class="searchFilter-option" value="Fish" ><span class="language_replace">捕魚機</span></option>
