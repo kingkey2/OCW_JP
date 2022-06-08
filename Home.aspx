@@ -343,10 +343,10 @@
                             slidesPerView: "auto",
                             // slidesPerView: 2,
                             // slidesPerGroup: 2,
-                            navigation: {
-                                nextEl: "#game-recommend .swiper-button-next",
-                                prevEl: "#game-recommend .swiper-button-prev",
-                            },
+                              navigation: {
+                                    nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
+                                    prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
+                                },
                             breakpoints: {
                                 // 576: {
                                 //     slidesPerGroup: 3,
@@ -473,8 +473,8 @@
                 slidesPerView: "auto",
                 slidesPerGroup: 8,
                 navigation: {
-                    nextEl: "#game-recommend .swiper-button-next",
-                    prevEl: "#game-recommend .swiper-button-prev",
+                    nextEl: "#idFavoGameItemGroup .swiper-button-next",
+                    prevEl: "#idFavoGameItemGroup .swiper-button-prev",
                 }
             });
         }
@@ -598,7 +598,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="ComingSoonAlert()"></a>
+                            <a class="hero-item-link hero-item-href" onclick="window.top.API_ComingSoonAlert()"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
@@ -717,6 +717,8 @@
                 <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                     <div class="swiper-wrapper GameItemGroupContent">
                     </div>
+                       <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </section>

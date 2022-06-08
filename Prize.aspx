@@ -98,18 +98,18 @@
                         }
 
                         if ($("#div_History").children().length == 0) {
-                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                             // $("#div_History").height(50);
                         }
 
                         window.parent.API_CloseLoading();
                     } else {
-                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                         // $("#div_History").height(50);
                         window.parent.API_CloseLoading();
                     }
                 } else {
-                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                     // $("#div_History").height(50);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
@@ -180,15 +180,22 @@
                                     let CollectID = $(e.target).closest(".prize-item").data("collectid");
                                     let val = new BigNumber($(e.target).closest(".prize-item").data("val")).toFormat();
 
-                                    if (collectAreaType == 1) {
-                                        var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
-                                        if (wallet.PointValue > 100) {
-                                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("PointLimit"));
-                                            return;
-                                        }
-                                    }
-
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), val + mlp.getLanguageKey(" 確認領取"), function () {
+                                        if (collectAreaType == 1) {
+                                            var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+                                            if (wallet.PointValue > 100) {
+                                                //window.top.MessageModal.toggle();
+                                                //window.top.MessageModal.hide();
+
+                                                window.setTimeout(function () {
+                                                    window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("PointLimit"));
+                                                }, 500);
+                                                //window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("PointLimit"));
+                                                //alert(mlp.getLanguageKey("PointLimit"));
+                                                return false;
+                                            }
+                                        }
+
                                         LobbyClient.CollectUserAccountPromotion(WebInfo.SID, Math.uuid(), CollectID, function (success, o) {
                                             if (success) {
                                                 if (o.Result == 0) {
@@ -227,15 +234,15 @@
                         }
                         
                         if ($("#div_Prize").children().length == 0) {
-                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                         }
                         window.parent.API_CloseLoading();
                     } else {
-                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                         window.parent.API_CloseLoading();
                     }
                 } else {
-                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                    $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
                     window.parent.API_CloseLoading();
                 }
@@ -354,21 +361,21 @@
                 <div class="sec-title-container sec-title-prize">
                     <!-- 活動中心 link-->
                     <a class="btn btn-link btn-activity" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')">
-                        <span class="title language_replace">キャンペーンへ</span><i class="icon icon-mask icon-arrow-right-dot"></i>
+                        <span class="title language_replace">前往活動中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
-                        <h1 class="sec-title title-deco"><span class="language_replace">受取箱</span></h1>
+                        <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
                         <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="aa()"><i class="icon icon-mask icon-question"></i></span>
                         <!-- 獎金/禮金 TAB -->
                         <div class="tab-prize tab-scroller tab-2">
                             <div class="tab-scroller__area">
                                 <ul class="tab-scroller__content">
                                     <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
-                                        <span class="tab-item-link"><span class="title language_replace">ボーナス</span>
+                                        <span class="tab-item-link"><span class="title language_replace">獎金</span>
                                         </span>
                                     </li>
                                     <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
-                                        <span class="tab-item-link"><span class="title language_replace">ギフトマネー</span></span>
+                                        <span class="tab-item-link"><span class="title language_replace">禮金</span></span>
                                     </li>
                                 </ul>
                             </div>
@@ -383,7 +390,7 @@
                             <!-- 無資料 ========================= -->
                             <div class="no-Data" id="idNoPrizeData">
                                 <div class="data">
-                                    <span class="text language_replace">データがありません</span>
+                                    <span class="text language_replace">沒有資料</span>
                                 </div>
                             </div>--%>
                         </div>
@@ -398,8 +405,8 @@
                         </div>
                         <!-- 前/後 月 -->
                         <div class="sec_link">
-                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">前の月</span></button>
-                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">次の月</span><i class="icon arrow arrow-right ml-1"></i></button>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">上個月</span></button>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">下個月</span><i class="icon arrow arrow-right ml-1"></i></button>
                         </div>
 
                     </div>
@@ -407,8 +414,8 @@
                         <!-- Thead  -->
                         <div class="Thead">
                             <div class="thead__tr">
-                                <div class="thead__th"><span class="language_replace">受け取った時間</span></div>
-                                <div class="thead__th"><span class="language_replace">キャンペーンタイトル</span></div>
+                                <div class="thead__th"><span class="language_replace">領取時間</span></div>
+                                <div class="thead__th"><span class="language_replace">活動名稱</span></div>
                                 <div class="thead__th"><span class="language_replace">金額</span></div>
                             </div>
                         </div>
@@ -418,7 +425,7 @@
                              <!-- 無資料 ========================= -->
                             <div class="no-Data" id="idNoHistoryData">
                                 <div class="data">
-                                    <span class="text language_replace">データがありません</span>
+                                    <span class="text language_replace">沒有資料</span>
                                 </div>
                             </div>--%>
                         </div>
@@ -469,7 +476,7 @@
                     </div>
                 </div>
                 <!-- 獎金Button - 可領取 -->
-                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace">受け取る</span></button>
+                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace">領取</span></button>
             </div>
         </figure>
     </div>

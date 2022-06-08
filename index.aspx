@@ -114,7 +114,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <title>マハラジャ - 一番人気なオンラインカジノアミューズメント</title>
     <%--<title>Maharaja，The most popular online casino amusement.</title>--%>
@@ -494,6 +494,10 @@
 
     function API_NonCloseShowMessageOK(title, msg, cbOK) {
         return nonCloseShowMessageOK(title, msg, cbOK);
+    }
+
+    function API_ComingSoonAlert() {
+        window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" +  mlp.getLanguageKey("近期開放") + "</p>");
     }
     //#endregion
 
@@ -1034,7 +1038,8 @@
                     notifyWindowEvent("BalanceChange", wallet.PointValue);
                 }
             } else {
-                idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
+                //idWalletDiv.innerText = new BigNumber(wallet.PointValue).toFormat();
+                idWalletDiv.innerText = parseInt(wallet.PointValue);
             }
 
             selectedWallet = wallet;
@@ -1260,16 +1265,16 @@
         $('.navbar-toggler').click(function () {
             $('.vertical-menu').toggleClass('navbar-show');
             $('.header_menu').toggleClass('show');
-            $('.navbar-toggler').attr("aria-expanded", "true");
-            $('#navbarMenu').collapse('show');
-            //console.log("isTrue,"+$('.navbar-toggler').attr("aria-expanded"));
+            if ($('.navbar-toggler').attr("aria-expanded") == "false") {
+                $('.navbar-toggler').attr("aria-expanded", "true");
+            }
         });
         $('.header_area .mask_overlay').click(function () {
             $('.vertical-menu').removeClass('navbar-show');   
             $('.header_menu, .navbarMenu').removeClass('show');
-            $('.navbar-toggler').attr("aria-expanded", "false");
-            $('#navbarMenu').collapse('hide');
-            //console.log("isFalse," +$('.navbar-toggler').attr("aria-expanded"));
+            if ($('.navbar-toggler').attr("aria-expanded") == "true") {
+                $('.navbar-toggler').attr("aria-expanded", "false");
+            }
         });
     }
 
@@ -1863,6 +1868,7 @@
     <!-- main_area = iframe高度 + Footer高度-->
     <%--    <div class="main_area" style="height: auto;">--%>
     <div class="main_area">
+        <div class="btn btn-game-close"><i class="icon icon-mask icon-error"></i></span></div>
         <!-- iframe高度 自動計算高度-->
         <%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
           <iframe id="GameIFramePage" style="z-index:2;display:none;" class="mainIframe" name="mainiframe">
@@ -2018,11 +2024,11 @@
     <div class="modal-header">
         <!-- <h5 class="modal-title"></h5> -->
         <div class="searchFilter-wrapper">                  
-            <div class="searchFilter-item input-group">
+            <div class="searchFilter-item input-group keyword">
                     <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード">
                     <label for="" class="form-label"><span class="language_replace">キーワード</span></label>                   
             </div>
-            <div class="searchFilter-item input-group">                   
+            <div class="searchFilter-item input-group game-brand">                   
                 <select class="custom-select" id="alertSearchBrand">
                     <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
                     <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
@@ -2042,13 +2048,15 @@
                     <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
                 </select>
             </div>
-            <div class="searchFilter-item input-group">                   
-            <%--    <select class="custom-select">
+            <%--
+            <div class="searchFilter-item input-group game-type">                   
+                <select class="custom-select">
                     <option class="title" selected><span class="language_replace">遊戲類型</span></option>
                     <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
-                </select>--%>
+                </select>
             </div>
-            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm"><span class="language_replace">検索</span></button>              
+            --%>
+            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>              
         </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
