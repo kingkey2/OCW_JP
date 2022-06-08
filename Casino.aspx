@@ -56,7 +56,8 @@
     var gameBrandList = [];
     var v = "<%:Version%>";
     var GCB;
-
+    var iframeWidth;
+    var selectedCategoryCode;
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
     }
@@ -69,6 +70,8 @@
     }
 
     function updateGameList(categoryCode) {
+        selectedCategoryCode = categoryCode;
+        iframeWidth = $(window.parent.document).find('#IFramePage').width();
         var FavoGames = window.parent.API_GetFavoGames();
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
@@ -98,6 +101,11 @@
                             categName = category.CategoryName.replace('@', '').replace('#', '');
                             $(categArea).find('.CategName').text(mlp.getLanguageKey(categName));
                             $(categArea).find('.CategName').attr('langkey', categName);
+
+                            if (category.SortIndex==99) {
+                                $(categArea).find('.text-link').css('display', 'block');
+                                $(categArea).find('.title-showAll').text(mlp.getLanguageKey('全部顯示'));
+                            }
                         } else {
                             categArea = c.getTemplate("temCategArea2");
                         }
@@ -120,7 +128,7 @@
 
                                 GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
 
-                                if (WebInfo.DeviceType == 1) {
+                                if (iframeWidth<936) {
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {
@@ -138,8 +146,8 @@
                                     GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                                 } else {
                                     var GI_gameitemlink = GI.querySelector(".game-item-link");
-                                    GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
-                                    GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                                    GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                                    GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
                                 }
 
                                 $(GI).find('.btn-more').click(function () {
@@ -253,6 +261,7 @@
     }
 
     function updateGameCode() {
+        iframeWidth = $(window.parent.document).find('#IFramePage').width();
         LobbyGameList = GCB.GetCategories("GameList");
         var idGameItemTitle = document.getElementById("idGameItemTitle");
         idGameItemTitle.innerHTML = "";
@@ -366,6 +375,12 @@
                 break;
             case "BalanceChange":
                 break;
+            case "resize":
+                if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
+                    updateGameList(selectedCategoryCode);
+                }
+
+                break;
             case "SetLanguage":
                 lang = param;
 
@@ -448,6 +463,9 @@
                         <div class="sec-title-wrapper">
                             <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName"></span></h3>
                         </div>
+                         <a class="text-link" style="display:none;">
+                           <span class="title-showAll"></span><i class="icon arrow arrow-right"></i>             
+                         </a>
                     </div>
                     <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                         <div class="swiper-wrapper GameItemGroupContent">
