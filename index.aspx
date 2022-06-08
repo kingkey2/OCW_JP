@@ -1790,9 +1790,16 @@
                                 <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
-                                        <button type="button" class="btn btn-search" data-toggle="modal" data-target="#alertSearch">
+
+                                        <span class="search-bar desktop" data-toggle="modal" data-target="#alertSearch">
+                                            <span class="btn btn-search">
+                                                <i class="icon icon-mask icon-search"></i>
+                                            </span>
+                                            <span class="text">ゲーム検索</span>
+                                        </span>
+                                        <!-- <button type="button" class="btn btn-search" data-toggle="modal" data-target="#alertSearch">
                                             <i class="icon icon-mask icon-search"></i>
-                                        </button>
+                                        </button> -->
                                     </li>
                                     <!-- ==== 登入前 ====-->
                                     <li class="nav-item unLogIn_wrapper " id="idLoginBtn">

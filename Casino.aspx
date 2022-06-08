@@ -278,7 +278,7 @@
                         $(RecordDom).find('.CategIcon').addClass('icon-rocket');
                         break;
                     case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-ect');
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
                         break;
                     case 'GameList_Slot':
                         $(RecordDom).find('.CategIcon').addClass('icon-slot');
@@ -394,7 +394,7 @@
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/newopen.jpg" class="bg">
+                                    <img src="images/lobby/newopen-2.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
@@ -407,7 +407,7 @@
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/evo.jpg" class="bg">
+                                    <img src="images/lobby/evo-2.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
@@ -420,7 +420,7 @@
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/PNG.jpg" class="bg">
+                                    <img src="images/lobby/PNG-2.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
