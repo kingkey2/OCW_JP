@@ -5969,6 +5969,7 @@ i {
   .swiper-button-next, .swiper-button-next.swiper-button-disabled, .swiper-button-prev, .swiper-button-prev.swiper-button-disabled {
     display: inline-block;
     color: #fff;
+    opacity: 0;
   }
 
   .game_wrapper:hover .swiper-button-next:not(.swiper-button-disabled),
