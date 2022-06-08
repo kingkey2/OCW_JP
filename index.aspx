@@ -784,6 +784,11 @@
         }
 
         if (!EWinWebInfo.UserLogined) {
+
+            if ($("#alertSearch").css("display") == "block") {
+                $("#alertSearchCloseButton").click();
+            }
+
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
                 API_LoadPage("Login", "Login.aspx");
             }, null);
@@ -1868,7 +1873,7 @@
     <!-- main_area = iframe高度 + Footer高度-->
     <%--    <div class="main_area" style="height: auto;">--%>
     <div class="main_area">
-        <div class="btn btn-game-close"><i class="icon icon-mask icon-error"></i></span></div>
+        <div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></span></div>
         <!-- iframe高度 自動計算高度-->
         <%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
           <iframe id="GameIFramePage" style="z-index:2;display:none;" class="mainIframe" name="mainiframe">
@@ -1921,6 +1926,11 @@
                                         <img src="images/logo/logo-pagcor.png" alt="">
                                     </div>
                                 </div>
+                                <%--<div class="logo-item">
+                                    <div class="img-crop">
+                                        <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=seal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
+                                    </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>
@@ -1950,8 +1960,8 @@
                         </li>--%>
                     </ul>
                     <div class="company-address">
-                        <p class="name">Online Chip World Co. N.V</p>
-                        <p class="address">Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao</p>
+                       <%-- <p class="name">Online Chip World Co. N.V</p>--%>
+                        <p class="address">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</p>
                     </div>
                     <div class="footer-copyright">
                         <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
@@ -2058,7 +2068,7 @@
             --%>
             <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>              
         </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>

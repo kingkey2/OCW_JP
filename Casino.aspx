@@ -202,19 +202,19 @@
                                     //     slidesPerGroup: 4,
                                     // },
                                     936: {
-                                        slidesPerGroup: 5, //index:992px
+                                        slidesPerGroup: 6, //index:992px
                                     },
                                     1144: {
-                                        slidesPerGroup: 6, //index:1200px
+                                        slidesPerGroup: 7, //index:1200px
                                     },
                                     1384: {
-                                        slidesPerGroup: 6, //index:1440px
+                                        slidesPerGroup: 8, //index:1440px
                                     },
                                     1544: {
-                                        slidesPerGroup: 7, //index:1600px
+                                        slidesPerGroup: 9, //index:1600px
                                     },
                                     1864: {
-                                        slidesPerGroup: 8, //index:1920px
+                                        slidesPerGroup: 10, //index:1920px
                                     },
                                     1920: {
                                         slidesPerGroup: 10, //index:1920px
