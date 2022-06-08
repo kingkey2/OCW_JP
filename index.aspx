@@ -1,8 +1,7 @@
 <%@ Page Language="C#" %>
 
 <%
-    if (EWinWeb.IsInMaintain())
-    {
+    if (EWinWeb.IsInMaintain()) {
         Response.Redirect("/Maintain.aspx");
     }
 
@@ -16,8 +15,7 @@
     int RegisterParentPersonCode;
     string Version = EWinWeb.Version;
 
-    if (string.IsNullOrEmpty(Request["SID"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["SID"]) == false) {
         SID = Request["SID"];
     }
 
@@ -33,78 +31,43 @@
 
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
-    if (string.IsNullOrEmpty(Request["Lang"]))
-    {
+    if (string.IsNullOrEmpty(Request["Lang"])) {
         string userLang = CodingControl.GetDefaultLanguage();
 
-        if (userLang.ToUpper() == "zh-TW".ToUpper())
-        {
+        if (userLang.ToUpper() == "zh-TW".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-HK".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-HK".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-MO".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-MO".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHT".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHT".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHS".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHS".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-SG".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-SG".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CN".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CN".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "en-US".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-US".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en-CA".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-CA".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en-PH".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-PH".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KR".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KR".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KP".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KP".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ja".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ja".ToUpper()) {
             Lang = "JPN";
-        }
-        else { Lang = "JPN"; }
-    }
-    else
-    {
+        } else { Lang = "JPN"; }
+    } else {
         Lang = Request["Lang"];
     }
 
@@ -128,7 +91,7 @@
     <%--<meta property="og:site_name" content="Maharaja" />--%>
 
     <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
-   <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
+    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
     <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
     <%--<meta property="og:title" content="The most popular online casino amusement." />
     <meta property="og:Keyword" content="Casino、Slot、Amusement、Game" />
@@ -149,9 +112,55 @@
 
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
+
+    <style>
+        .Line-AddFriend img {
+            width: 100%;
+        }
+
+        .Line-AddFriend .addFriend {
+            width: 100%;
+            max-width: 66px;
+            margin: 0 auto;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            background-color: #00b900;
+            color: #fff;
+            border-radius: 50%;
+            padding: 10px;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+
+            .Line-AddFriend .addFriend .logo {
+                height: 100%;
+                width: auto;
+            }
+
+            .Line-AddFriend .addFriend .text {
+                font-size: 0.9375rem;
+                width: 90%;
+                text-align: center;
+            }
+
+        .float_SideBar {
+            position: fixed;
+            right: 3vw;
+            bottom: 5vh;
+            width: 10%;
+            min-width: 43px;
+            max-width: 60px;
+            z-index: 2;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<% if (EWinWeb.IsTestSite == false)
-    { %>
+<% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRNSR38PQ7"></script>
 <script>
@@ -258,7 +267,7 @@
         if (type == 0) {
             Ret = data;
         } else if (type == 1) {//return gamecode
- 
+
             Ret = GCB.GetGameText(lang, data);
 
             if (!Ret) {
@@ -358,7 +367,7 @@
     }
 
     function API_LoadPage(title, url, checkLogined) {
-      
+
         if (EWinWebInfo.IsOpenGame) {
             EWinWebInfo.IsOpenGame = false;
             var IFramePage = document.getElementById("GameIFramePage");
@@ -372,8 +381,8 @@
             $('.header_menu').toggleClass('show');
             $('#navbarMenu').collapse('hide');
             //$('.navbar-toggler').attr("aria-expanded", "false");
-        } 
- 
+        }
+
         if (checkLogined) {
             if (!EWinWebInfo.UserLogined) {
                 showMessageOK(mlp.getLanguageKey("尚未登入"), mlp.getLanguageKey("請先登入"), function () {
@@ -388,7 +397,7 @@
         var IFramePage = document.getElementById("IFramePage");
 
         if (IFramePage != null) {
-         
+
             // if (IFramePage.children.length > 0) {
             //var ifrm = IFramePage.children[0];
 
@@ -497,7 +506,7 @@
     }
 
     function API_ComingSoonAlert() {
-        window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" +  mlp.getLanguageKey("近期開放") + "</p>");
+        window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" + mlp.getLanguageKey("近期開放") + "</p>");
     }
     //#endregion
 
@@ -601,7 +610,7 @@
         }
     }
 
-        function nonCloseShowMessageOK(title, message, cbOK) {
+    function nonCloseShowMessageOK(title, message, cbOK) {
         var nonCloseDom = $("#nonClose_alertContact");
         if (nonCloseDom.attr("aria-hidden") == 'true') {
             var divMessageBox = document.getElementById("nonClose_alertContact");
@@ -628,7 +637,7 @@
                             cbOK();
                     }
                 }
-                
+
                 divMessageBoxContent.innerHTML = message;
             }
         }
@@ -738,7 +747,7 @@
     //#region Game
     function GameLoadPage(url, gameBrand, gameName) {
         var IFramePage = document.getElementById("GameIFramePage");
-        
+
         if (IFramePage != null) {
             //$('#IFramePage').css('display','none');
             $('#closeGameBtn').show();
@@ -754,11 +763,11 @@
                 if (showCloseGameTooltipCount == 0) {
                     setCookie("showCloseGameTooltip", 1, 365);
                 } else {
-                    setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount)+1, 365);
+                    setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount) + 1, 365);
                 }
             }
-            
-            
+
+
 
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 API_LoadingStart();
@@ -829,10 +838,10 @@
         }
     }
 
-    function favBtnEvent(gameID,doc) {
+    function favBtnEvent(gameID, doc) {
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
-        
+
         if (type == 0) {
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').addClass("added");
             setFavoriteGame(gameID);
@@ -1275,7 +1284,7 @@
             }
         });
         $('.header_area .mask_overlay').click(function () {
-            $('.vertical-menu').removeClass('navbar-show');   
+            $('.vertical-menu').removeClass('navbar-show');
             $('.header_menu, .navbarMenu').removeClass('show');
             if ($('.navbar-toggler').attr("aria-expanded") == "true") {
                 $('.navbar-toggler').attr("aria-expanded", "false");
@@ -1284,7 +1293,7 @@
     }
 
     function init() {
-   
+
         if (navigator.webdriver == true) {
             return;
         }
@@ -1485,7 +1494,7 @@
         var gameList = [];
         var lang = EWinWebInfo.Lang;
         if (gameBrand != "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);  
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);
         } else if (gameBrand == "-1" && keyWord != '') {
             gameList = GCB.SearchGameCodeByLang(lang, keyWord);
         } else if (gameBrand != "-1" && keyWord == '') {
@@ -1495,8 +1504,8 @@
             return false;
         }
         $('#alertSearchContent').empty();
-        if (gameList.length>0) {
-           
+        if (gameList.length > 0) {
+
             for (var i = 0; i < gameList.length; i++) {
                 var gameItem = gameList[i];
                 var RTP = "";
@@ -1629,11 +1638,11 @@
 
                         <div class="search-bar mobile" data-toggle="modal" data-target="#alertSearch">
                             <span class="text">ゲーム検索</span>
-                            <span class="btn btn-search" >
+                            <span class="btn btn-search">
                                 <i class="icon icon-mask icon-search"></i>
                             </span>
                         </div>
-                       
+
                         <ul class="nav navbar-nav menu_nav no-gutters">
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
@@ -1738,7 +1747,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item navbarMenu__catagory">
+                           <%-- <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown"
                                         onclick="window.open('https://lin.ee/KD05l9X')">
@@ -1747,7 +1756,7 @@
                                             <span class="title language_replace">Line</span></a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>--%>
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -1855,8 +1864,8 @@
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
                                     </li>
-                                     <!-- Search -->
-                                    <li id="closeGameBtn" class="navbar-search nav-item" data-toggle="tooltip" data-placement="bottom" style="display:none;">
+                                    <!-- Search -->
+                                    <li id="closeGameBtn" class="navbar-search nav-item" data-toggle="tooltip" data-placement="bottom" style="display: none;">
                                         <button type="button" onclick="CloseGameFrame()" class="btn btn-search">
                                             <i class="icon">X</i>
                                         </button>
@@ -1873,19 +1882,15 @@
     <!-- main_area = iframe高度 + Footer高度-->
     <%--    <div class="main_area" style="height: auto;">--%>
     <div class="main_area">
-        <div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></span></div>
+        <div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></div>
         <!-- iframe高度 自動計算高度-->
         <%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
-          <iframe id="GameIFramePage" style="z-index:2;display:none;" class="mainIframe" name="mainiframe">
-           
-        </iframe>
-        <iframe id="IFramePage" style="z-index:1" class="mainIframe" name="mainiframe"></iframe>
-  
-      
+        <iframe id="GameIFramePage" style="z-index: 2; display: none;" class="mainIframe" name="mainiframe"></iframe>
+        <iframe id="IFramePage" style="z-index: 1" class="mainIframe" name="mainiframe"></iframe>
     </div>
     <!-- footer -->
     <div id="footer" style="display: none">
-        <footer class="footer-container">            
+        <footer class="footer-container">
             <div class="footer-inner">
                 <div class="container">
                     <div class="partner">
@@ -1953,20 +1958,20 @@
                                 <span class="language_replace">隱私權政策</span>
                             </a>
                         </li>
-                       <%-- <li class="info-item col" id="li_HotArticle">
+                        <%-- <li class="info-item col" id="li_HotArticle">
                             <a onclick="openHotArticle()">
                                 <span class="language_replace">熱門文章</span>
                             </a>
                         </li>--%>
                     </ul>
                     <div class="company-address">
-                       <%-- <p class="name">Online Chip World Co. N.V</p>--%>
+                        <%-- <p class="name">Online Chip World Co. N.V</p>--%>
                         <p class="address">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</p>
                     </div>
                     <div class="footer-copyright">
                         <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
                     </div>
-                </div>                
+                </div>
             </div>
         </footer>
     </div>
@@ -1974,6 +1979,16 @@
     <!-- mask_overlay 黑色半透明遮罩-->
     <div id="mask_overlay_popup" class="mask_overlay_popup"></div>
 
+    <div class="float_SideBar">
+        <div class="Line-AddFriend">
+            <a onclick="window.open('https://lin.ee/KD05l9X')">
+                <span class="addFriend">
+                    <span class="logo">
+                        <img src="../images/assets/LINE/Line_W.png" alt=""></span>
+                </span>
+            </a>
+        </div>
+    </div>
 
     <!-- Modal Language -->
     <div class="modal fade footer-center" id="ModalLanguage" tabindex="-1" aria-hidden="true">
@@ -2028,71 +2043,69 @@
         </div>
     </div>
     <!-- Modal Search -->
-<div class="modal fade no-footer" id="alertSearch" tabindex="-1" aria-hidden="true">
-<div class="modal-dialog modal-xl modal-dialog-scrollable">
-    <div class="modal-content">
-    <div class="modal-header">
-        <!-- <h5 class="modal-title"></h5> -->
-        <div class="searchFilter-wrapper">                  
-            <div class="searchFilter-item input-group keyword">
-                    <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード">
-                    <label for="" class="form-label"><span class="language_replace">キーワード</span></label>                   
-            </div>
-            <div class="searchFilter-item input-group game-brand">                   
-                <select class="custom-select" id="alertSearchBrand">
-                    <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                    <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
-                    <option class="searchFilter-option" value="BNG"><span class="language_replace">ブーンゴー</span></option>
-                    <option class="searchFilter-option" value="CG"><span class="language_replace">クレティクゲーミング</span></option>
-                    <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9ゲーミング</span></option>
-                    <option class="searchFilter-option" value="EVO"><span class="language_replace">エボリューションゲーミング</span></option>
-                    <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
+    <div class="modal fade no-footer" id="alertSearch" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title"></h5> -->
+                    <div class="searchFilter-wrapper">
+                        <div class="searchFilter-item input-group keyword">
+                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード">
+                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                        </div>
+                        <div class="searchFilter-item input-group game-brand">
+                            <select class="custom-select" id="alertSearchBrand">
+                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
+                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
+                                <option class="searchFilter-option" value="BNG"><span class="language_replace">ブーンゴー</span></option>
+                                <option class="searchFilter-option" value="CG"><span class="language_replace">クレティクゲーミング</span></option>
+                                <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9ゲーミング</span></option>
+                                <option class="searchFilter-option" value="EVO"><span class="language_replace">エボリューションゲーミング</span></option>
+                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
                     <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
-                    <option class="searchFilter-option" value="KGS"><span class="language_replace">キングゲーム</span></option>
-                    <option class="searchFilter-option" value="KX"><span class="language_replace">KXゲーミング</span></option>
-                    <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
-                    <option class="searchFilter-option" value="PG"><span class="language_replace">ポケットゲームソフト</span></option>
-                    <option class="searchFilter-option" value="PNG"><span class="language_replace">プレインゴー</span></option>
-                    <option class="searchFilter-option" value="PP"><span class="language_replace">プラグマティックプレイ</span></option>
-                    <option class="searchFilter-option" value="VA"><span class="language_replace">ビクトリーアークゲーミング</span></option>
-                    <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
-                </select>
-            </div>
-            <%--
+                                <option class="searchFilter-option" value="KGS"><span class="language_replace">キングゲーム</span></option>
+                                <option class="searchFilter-option" value="KX"><span class="language_replace">KXゲーミング</span></option>
+                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
+                                <option class="searchFilter-option" value="PG"><span class="language_replace">ポケットゲームソフト</span></option>
+                                <option class="searchFilter-option" value="PNG"><span class="language_replace">プレインゴー</span></option>
+                                <option class="searchFilter-option" value="PP"><span class="language_replace">プラグマティックプレイ</span></option>
+                                <option class="searchFilter-option" value="VA"><span class="language_replace">ビクトリーアークゲーミング</span></option>
+                                <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
+                            </select>
+                        </div>
+                        <%--
             <div class="searchFilter-item input-group game-type">                   
                 <select class="custom-select">
                     <option class="title" selected><span class="language_replace">遊戲類型</span></option>
                     <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
                 </select>
             </div>
-            --%>
-            <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>              
-        </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="game-search-wrapper">
-            <div class="search-result-wrapper">
-                <div class="search-result-inner">
-                    <div class="search-result-list">
-                        <div class="game-item-group list-row row" id="alertSearchContent">
-                       
+                        --%>
+                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertSearchContent">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
-    </div>
-    </div>
-</div>
-</div>
-
 
     <!-- 遊戲介紹 Modal-->
     <div class="modal fade modal-game" tabindex="-1" role="dialog" aria-labelledby="alertGameIntro" aria-hidden="true" id="alertGameIntro">
@@ -2455,7 +2468,7 @@
                                     </button>
                                     <button type="button" class="btn-like btn btn-round">
                                         <i class="icon icon-m-favorite"></i>
-                                    </button>                           
+                                    </button>
                                 </div>
                                 <button type="button" class="btn btn-play">
                                     <span class="language_replace title">プレイ</span><i class="triangle"></i>
