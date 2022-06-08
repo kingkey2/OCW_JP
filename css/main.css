@@ -5261,14 +5261,14 @@ i {
 
 .swiper-button-next {
   right: 0;
-  background: -webkit-gradient(linear, right top, left top, from(#008ccc), color-stop(75%, rgba(0, 140, 204, 0.8)), to(rgba(0, 140, 204, 0)));
-  background: linear-gradient(270deg, #008ccc 0%, rgba(0, 140, 204, 0.8) 75%, rgba(0, 140, 204, 0) 100%);
+  background: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.7)), color-stop(75%, rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0) 100%);
 }
 
 .swiper-button-prev {
   left: 0;
-  background: -webkit-gradient(linear, left top, right top, from(#008ccc), color-stop(75%, rgba(0, 140, 204, 0.8)), to(rgba(0, 140, 204, 0)));
-  background: linear-gradient(-270deg, #008ccc 0%, rgba(0, 140, 204, 0.8) 75%, rgba(0, 140, 204, 0) 100%);
+  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.7)), color-stop(75%, rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(-270deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.6) 75%, rgba(0, 0, 0, 0) 100%);
 }
 
 .game_slider::before, .game_slider::after {
@@ -5969,7 +5969,6 @@ i {
   .swiper-button-next, .swiper-button-next.swiper-button-disabled, .swiper-button-prev, .swiper-button-prev.swiper-button-disabled {
     display: inline-block;
     color: #fff;
-    opacity: 0;
   }
 
   .game_wrapper:hover .swiper-button-next:not(.swiper-button-disabled),
