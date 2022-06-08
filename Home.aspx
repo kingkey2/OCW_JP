@@ -189,6 +189,8 @@
 
                             GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                         } else {
+                            var GI_gameitemlink = GI.querySelector(".game-item-link");
+                            GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                             GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                         }
 
@@ -202,9 +204,9 @@
 
                         var GI_img = GI.querySelector(".gameimg");
                         var GI_gameitem = GI.querySelector(".game-item");
-
-
+               
                         if (GI_img != null) {
+                           
                             GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
                             var el = GI_img;
                             var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
@@ -294,6 +296,9 @@
 
                                 GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                             } else {
+
+                                var GI_gameitemlink = GI.querySelector(".game-item-link");
+                                GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                                 GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                             }
 
@@ -418,6 +423,9 @@
 
                         GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                     } else {
+
+                        var GI_gameitemlink = GI.querySelector(".game-item-link");
+                        GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                         GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                     }
 

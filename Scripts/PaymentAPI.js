@@ -21,6 +21,28 @@
         });
     };
 
+    this.GetUserAccountJKCValue = function (WebSID, GUID, cb) {
+        var url = APIUrl + "/GetUserAccountJKCValue";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetClosePayment = function (WebSID, GUID, startDate, endDate, cb) {
         var url = APIUrl + "/GetClosePayment";
         var postData;

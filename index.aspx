@@ -167,6 +167,7 @@
     integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
+<script type="text/javascript" src="/Scripts/popper.min.js"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
 <script src="Scripts/jquery-3.3.1.min.js"></script>
 <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
@@ -360,14 +361,18 @@
       
         if (EWinWebInfo.IsOpenGame) {
             EWinWebInfo.IsOpenGame = false;
-            //SwitchGameHeader(0)
+            var IFramePage = document.getElementById("GameIFramePage");
+            IFramePage.src = "";
+            $('#closeGameBtn').hide();
+            $('#GameIFramePage').hide();
         }
 
         if ($('.header_menu').hasClass("show")) {
             $('.vertical-menu').toggleClass('navbar-show');
             $('.header_menu').toggleClass('show');
-            $('.navbar-toggler').attr("aria-expanded", "false");
-        }
+            $('#navbarMenu').collapse('hide');
+            //$('.navbar-toggler').attr("aria-expanded", "false");
+        } 
  
         if (checkLogined) {
             if (!EWinWebInfo.UserLogined) {
@@ -638,9 +643,10 @@
         $('#popupMoblieGameInfo .GameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
         $('#popupMoblieGameInfo .GameID').text(GameID);
 
+        var gameitemlink = document.getElementById('popupMoblieGameInfo').querySelector(".game-item-link");
         var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
         playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         var btnmore = document.getElementById('popupMoblieGameInfo').querySelector(".btn-more");
         btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
 
@@ -722,16 +728,43 @@
         API_SendSerivceMail(subjectText, "ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>" + bodyText, emailText);
     }
 
+    function CloseGameFrame() {
+        var IFramePage = document.getElementById("GameIFramePage");
+        IFramePage.src = "";
+        $('#closeGameBtn').hide();
+        $('#GameIFramePage').hide();
+        //$('#IFramePage').css('display', 'block');
+    }
     //#region Game
     function GameLoadPage(url, gameBrand, gameName) {
-        var IFramePage = document.getElementById("IFramePage");
-
+        var IFramePage = document.getElementById("GameIFramePage");
+        
         if (IFramePage != null) {
+            //$('#IFramePage').css('display','none');
+            $('#closeGameBtn').show();
+            $('#GameIFramePage').show();
+            var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
+            if (showCloseGameTooltipCount == '') {
+                showCloseGameTooltipCount = 0;
+            } else {
+                showCloseGameTooltipCount = parseInt(showCloseGameTooltipCount);
+            }
+            if (showCloseGameTooltipCount < 3) {
+                $('#closeGameBtn').tooltip('show');
+                if (showCloseGameTooltipCount == 0) {
+                    setCookie("showCloseGameTooltip", 1, 365);
+                } else {
+                    setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount)+1, 365);
+                }
+            }
+            
+            
+
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 API_LoadingStart();
                 IFramePage.src = url;
                 IFramePage.onload = function () {
-                    API_LoadingEnd();
+                    API_LoadingEnd(1);
                 }
             }
         }
@@ -867,7 +900,6 @@
 
         return favoriteGames;
     }
-
 
     function checkInFavoriteGame(gameBrand, gameName) {
         var FavoGames = getFavoriteGames();
@@ -1252,6 +1284,7 @@
     }
 
     function init() {
+   
         if (navigator.webdriver == true) {
             return;
         }
@@ -1276,6 +1309,9 @@
             var dstPage = c.getParameter("DstPage");
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
             paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
+
+            $('#closeGameBtn').attr('title', mlp.getLanguageKey("關閉遊戲"));
+            $('#closeGameBtn').tooltip();
 
             if (dstPage) {
                 var loadPage;
@@ -1818,6 +1854,13 @@
                                             <i class="icon icon-mask icon-flag-EN"></i>
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
+                                    </li>
+                                     <!-- Search -->
+                                    <li id="closeGameBtn" class="navbar-search nav-item" data-toggle="tooltip" data-placement="bottom" style="display:none;">
+                                        <button type="button" onclick="CloseGameFrame()" class="btn btn-search">
+                                            <i class="icon">X</i>
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -1833,7 +1876,12 @@
         <div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></span></div>
         <!-- iframe高度 自動計算高度-->
         <%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
-        <iframe id="IFramePage" class="mainIframe" name="mainiframe"></iframe>
+          <iframe id="GameIFramePage" style="z-index:2;display:none;" class="mainIframe" name="mainiframe">
+           
+        </iframe>
+        <iframe id="IFramePage" style="z-index:1" class="mainIframe" name="mainiframe"></iframe>
+  
+      
     </div>
     <!-- footer -->
     <div id="footer" style="display: none">
