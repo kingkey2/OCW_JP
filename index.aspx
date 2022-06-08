@@ -113,52 +113,6 @@
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
 
-    <style>
-        .Line-AddFriend img {
-            width: 100%;
-        }
-
-        .Line-AddFriend .addFriend {
-            width: 100%;
-            max-width: 66px;
-            margin: 0 auto;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            background-color: #00b900;
-            color: #fff;
-            border-radius: 50%;
-            padding: 10px;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-        }
-
-            .Line-AddFriend .addFriend .logo {
-                height: 100%;
-                width: auto;
-            }
-
-            .Line-AddFriend .addFriend .text {
-                font-size: 0.9375rem;
-                width: 90%;
-                text-align: center;
-            }
-
-        .float_SideBar {
-            position: fixed;
-            right: 3vw;
-            bottom: 5vh;
-            width: 10%;
-            min-width: 43px;
-            max-width: 60px;
-            z-index: 2;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -1978,17 +1932,6 @@
 
     <!-- mask_overlay 黑色半透明遮罩-->
     <div id="mask_overlay_popup" class="mask_overlay_popup"></div>
-
-    <div class="float_SideBar">
-        <div class="Line-AddFriend">
-            <a onclick="window.open('https://lin.ee/KD05l9X')">
-                <span class="addFriend">
-                    <span class="logo">
-                        <img src="../images/assets/LINE/Line_W.png" alt=""></span>
-                </span>
-            </a>
-        </div>
-    </div>
 
     <!-- Modal Language -->
     <div class="modal fade footer-center" id="ModalLanguage" tabindex="-1" aria-hidden="true">
