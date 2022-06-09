@@ -798,6 +798,10 @@ input.month, input.day {
   }
 }
 @media screen and (max-width: 639px) {
+  .data-item-group .wrapper_center {
+    margin-bottom: 2.5rem;
+  }
+
   .coming-soon:after {
     background-size: 65%;
   }
