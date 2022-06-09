@@ -770,7 +770,7 @@
     </div>
 
     <div id="temCategArea" class="is-hide">
-        <section class="section-wrap section-levelUp new">
+        <section class="section-wrap section-levelUp">
             <div class="game_wrapper">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">
