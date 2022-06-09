@@ -1535,10 +1535,10 @@
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
-
+                
                 GI = c.getTemplate("tmpSearchGameItem");
                 var GI_a = GI.querySelector(".btn-play");
-                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
                     GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
