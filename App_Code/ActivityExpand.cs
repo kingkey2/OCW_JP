@@ -10,10 +10,8 @@ using System.Web;
 /// </summary>
 public static class ActivityExpand
 {
-    public static class Deposit
-    {
-        public static ActivityCore.ActResult<ActivityCore.DepositActivity> OpenBonusDeposit(string DetailPath, decimal Amount, string PaymentCode, string LoginAccount)
-        {
+    public static class Deposit {
+        public static ActivityCore.ActResult<ActivityCore.DepositActivity> OpenBonusDeposit(string DetailPath, decimal Amount, string PaymentCode, string LoginAccount) {
             ActivityCore.ActResult<ActivityCore.DepositActivity> R = new ActivityCore.ActResult<ActivityCore.DepositActivity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.DepositActivity() };
             JObject ActivityDetail;
             System.Data.DataTable UserAccountTotalValueDT;
@@ -23,17 +21,13 @@ public static class ActivityExpand
 
             UserAccountTotalValueDT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityDetail["Name"].ToString());
 
-            if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0)
-            {
+            if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0) {
                 DepositCount = (int)UserAccountTotalValueDT.Rows[0]["JoinCount"];
-            }
-            else
-            {
+            } else {
                 DepositCount = 0;
             }
 
-            if (ActivityDetail != null)
-            {
+            if (ActivityDetail != null) {
                 DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
                 DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
                 bool IsPaymentCodeSupport = false;
@@ -41,16 +35,11 @@ public static class ActivityExpand
                 decimal ThresholdRate = 0;
                 decimal ReceiveValueMaxLimit = 0;
 
-                if ((int)ActivityDetail["State"] == 0)
-                {
-                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate)
-                    {
-                        if (DepositCount == 0)
-                        {
-                            foreach (var item in ActivityDetail["Rate1"])
-                            {
-                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper())
-                                {
+                if ((int)ActivityDetail["State"] == 0) {
+                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+                        if (DepositCount == 0) {
+                            foreach (var item in ActivityDetail["Rate1"]) {
+                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
                                     IsPaymentCodeSupport = true;
                                     BonusRate = (decimal)item["BonusRate"];
                                     ThresholdRate = (decimal)item["ThresholdRate"];
@@ -60,16 +49,14 @@ public static class ActivityExpand
                                 }
                             }
 
-                            if (IsPaymentCodeSupport)
-                            {
+                            if (IsPaymentCodeSupport) {
                                 R.Result = ActivityCore.enumActResult.OK;
                                 R.Data.Amount = Amount;
                                 R.Data.PaymentCode = PaymentCode;
                                 R.Data.BonusRate = BonusRate;
                                 R.Data.BonusValue = Amount * BonusRate;
 
-                                if (R.Data.BonusValue > ReceiveValueMaxLimit)
-                                {
+                                if (R.Data.BonusValue > ReceiveValueMaxLimit) {
                                     R.Data.BonusValue = ReceiveValueMaxLimit;
                                 }
 
@@ -78,18 +65,12 @@ public static class ActivityExpand
                                 R.Data.Title = ActivityDetail["Title"].ToString();
                                 R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
                                 R.Data.JoinCount = 1;
-                            }
-                            else
-                            {
+                            } else {
                                 SetResultException(R, "PaymentCodeNotSupport");
                             }
-                        }
-                        else if (DepositCount == 1)
-                        {
-                            foreach (var item in ActivityDetail["Rate2"])
-                            {
-                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper())
-                                {
+                        } else if (DepositCount == 1) {
+                            foreach (var item in ActivityDetail["Rate2"]) {
+                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
                                     IsPaymentCodeSupport = true;
                                     BonusRate = (decimal)item["BonusRate"];
                                     ThresholdRate = (decimal)item["ThresholdRate"];
@@ -99,16 +80,14 @@ public static class ActivityExpand
                                 }
                             }
 
-                            if (IsPaymentCodeSupport)
-                            {
+                            if (IsPaymentCodeSupport) {
                                 R.Result = ActivityCore.enumActResult.OK;
                                 R.Data.Amount = Amount;
                                 R.Data.PaymentCode = PaymentCode;
                                 R.Data.BonusRate = BonusRate;
                                 R.Data.BonusValue = Amount * BonusRate;
 
-                                if (R.Data.BonusValue > ReceiveValueMaxLimit)
-                                {
+                                if (R.Data.BonusValue > ReceiveValueMaxLimit) {
                                     R.Data.BonusValue = ReceiveValueMaxLimit;
                                 }
 
@@ -117,18 +96,12 @@ public static class ActivityExpand
                                 R.Data.Title = ActivityDetail["Title"].ToString();
                                 R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
                                 R.Data.JoinCount = 2;
-                            }
-                            else
-                            {
+                            } else {
                                 SetResultException(R, "PaymentCodeNotSupport");
                             }
-                        }
-                        else
-                        {
-                            foreach (var item in ActivityDetail["Rate3"])
-                            {
-                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper())
-                                {
+                        } else {
+                            foreach (var item in ActivityDetail["Rate3"]) {
+                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
                                     IsPaymentCodeSupport = true;
                                     BonusRate = (decimal)item["BonusRate"];
                                     ThresholdRate = (decimal)item["ThresholdRate"];
@@ -138,16 +111,14 @@ public static class ActivityExpand
                                 }
                             }
 
-                            if (IsPaymentCodeSupport)
-                            {
+                            if (IsPaymentCodeSupport) {
                                 R.Result = ActivityCore.enumActResult.OK;
                                 R.Data.Amount = Amount;
                                 R.Data.PaymentCode = PaymentCode;
                                 R.Data.BonusRate = BonusRate;
                                 R.Data.BonusValue = Amount * BonusRate;
 
-                                if (R.Data.BonusValue > ReceiveValueMaxLimit)
-                                {
+                                if (R.Data.BonusValue > ReceiveValueMaxLimit) {
                                     R.Data.BonusValue = ReceiveValueMaxLimit;
                                 }
 
@@ -156,33 +127,24 @@ public static class ActivityExpand
                                 R.Data.Title = ActivityDetail["Title"].ToString();
                                 R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
                                 R.Data.JoinCount = 3;
-                            }
-                            else
-                            {
+                            } else {
                                 SetResultException(R, "PaymentCodeNotSupport");
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         SetResultException(R, "ActivityIsExpired");
                     }
-                }
-                else
-                {
+                } else {
                     SetResultException(R, "ActivityIsExpired");
                 }
-            }
-            else
-            {
+            } else {
                 SetResultException(R, "ActivityIsExpired");
             }
 
             return R;
         }
 
-        public static ActivityCore.ActResult<ActivityCore.DepositActivity> OpenIntroBonus(string DetailPath, decimal Amount, string PaymentCode, string LoginAccount)
-        {
+        public static ActivityCore.ActResult<ActivityCore.DepositActivity> OpenIntroBonus(string DetailPath, decimal Amount, string PaymentCode, string LoginAccount) {
             ActivityCore.ActResult<ActivityCore.DepositActivity> R = new ActivityCore.ActResult<ActivityCore.DepositActivity> { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.DepositActivity() };
             JObject ActivityDetail;
             System.Data.DataTable UserAccountTotalValueDT;
@@ -192,26 +154,19 @@ public static class ActivityExpand
 
             UserAccountTotalValueDT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityDetail["Name"].ToString());
 
-            if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0)
-            {
+            if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0) {
                 DepositCount = (int)UserAccountTotalValueDT.Rows[0]["JoinCount"];
-            }
-            else
-            {
+            } else {
                 DepositCount = 0;
             }
 
-            if (ActivityDetail != null)
-            {
+            if (ActivityDetail != null) {
                 DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
                 DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
 
-                if ((int)ActivityDetail["State"] == 0)
-                {
-                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate)
-                    {
-                        if (DepositCount == 0)
-                        {
+                if ((int)ActivityDetail["State"] == 0) {
+                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+                        if (DepositCount == 0) {
                             R.Data.Amount = Amount;
                             R.Data.PaymentCode = PaymentCode;
                             R.Data.BonusRate = 1;
@@ -223,24 +178,76 @@ public static class ActivityExpand
                             R.Data.JoinCount = 1;
 
                             R.Result = ActivityCore.enumActResult.OK;
-                        }
-                        else
-                        {
+                        } else {
                             SetResultException(R, "ActivityIsExpired");
                         }
-                    }
-                    else
-                    {
+                    } else {
                         SetResultException(R, "ActivityIsExpired");
                     }
-                }
-                else
-                {
+                } else {
                     SetResultException(R, "ActivityIsExpired");
                 }
+            } else {
+                SetResultException(R, "ActivityIsExpired");
             }
-            else
-            {
+
+            return R;
+        }
+
+        public static ActivityCore.ActResult<ActivityCore.DepositActivity> OpenBonusSevenDaysDeposit(string DetailPath, decimal Amount, string PaymentCode, string LoginAccount) {
+            ActivityCore.ActResult<ActivityCore.DepositActivity> R = new ActivityCore.ActResult<ActivityCore.DepositActivity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.DepositActivity() };
+            JObject ActivityDetail;
+            int DepositCount = 0;
+
+            ActivityDetail = GetActivityDetail(DetailPath);
+
+            if (ActivityDetail != null) {
+                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+                bool IsPaymentCodeSupport = false;
+                decimal BonusRate = 0;
+                decimal ThresholdRate = 0;
+                decimal ReceiveValueMaxLimit = 0;
+
+                if ((int)ActivityDetail["State"] == 0) {
+                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+                        foreach (var item in ActivityDetail["Rate1"]) {
+                            if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
+                                IsPaymentCodeSupport = true;
+                                BonusRate = (decimal)item["BonusRate"];
+                                ThresholdRate = (decimal)item["ThresholdRate"];
+                                ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+
+                                break;
+                            }
+                        }
+
+                        if (IsPaymentCodeSupport) {
+                            R.Result = ActivityCore.enumActResult.OK;
+                            R.Data.Amount = Amount;
+                            R.Data.PaymentCode = PaymentCode;
+                            R.Data.BonusRate = BonusRate;
+                            R.Data.BonusValue = Amount * BonusRate;
+
+                            if (R.Data.BonusValue > ReceiveValueMaxLimit) {
+                                R.Data.BonusValue = ReceiveValueMaxLimit;
+                            }
+
+                            R.Data.ThresholdRate = ThresholdRate;
+                            R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
+                            R.Data.Title = ActivityDetail["Title"].ToString();
+                            R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                            R.Data.JoinCount = 1;
+                        } else {
+                            SetResultException(R, "PaymentCodeNotSupport");
+                        }
+                    } else {
+                        SetResultException(R, "ActivityIsExpired");
+                    }
+                } else {
+                    SetResultException(R, "ActivityIsExpired");
+                }
+            } else {
                 SetResultException(R, "ActivityIsExpired");
             }
 

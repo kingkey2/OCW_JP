@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
-        <link rel="stylesheet" href="css/basic.min.css">
-    <%--<link rel="stylesheet" href="css/main.css" />--%>
     <link href="css/footer-new.css" rel="stylesheet" />
 </head>
 <script src="Scripts/jquery-3.3.1.min.js"></script>
@@ -57,7 +55,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();

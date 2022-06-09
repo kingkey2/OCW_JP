@@ -27,8 +27,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maharaja</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/basic.min.css" rel="stylesheet" />
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="css/basic.min.css" rel="stylesheet" />    
     <link rel="stylesheet" href="css/main.css?a=1">
     <link rel="stylesheet" href="css/index.css?a=1">
 
@@ -170,7 +170,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         GCB = window.parent.API_GetGCB();
@@ -770,7 +770,7 @@
     </div>
 
     <div id="temCategArea" class="is-hide">
-        <section class="section-wrap section-levelUp new">
+        <section class="section-wrap section-levelUp">
             <div class="game_wrapper">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">

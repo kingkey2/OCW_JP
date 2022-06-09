@@ -109,7 +109,6 @@
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
     <link rel="shortcut icon" href="images/share_pic1.png">
-
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <style>
@@ -774,6 +773,10 @@
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
+        }
+
+        if ($("#alertSearch").css("display") == "block") {
+            $("#alertSearchCloseButton").click();
         }
 
         if (!EWinWebInfo.UserLogined) {
@@ -1531,10 +1534,10 @@
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
-
+                
                 GI = c.getTemplate("tmpSearchGameItem");
                 var GI_a = GI.querySelector(".btn-play");
-                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
                     GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";

@@ -12,8 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maharaja</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="js/vendor/swiper/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/basic.min.css">    
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/record.css">
 
@@ -655,7 +655,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();

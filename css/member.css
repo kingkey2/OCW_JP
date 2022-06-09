@@ -53,11 +53,22 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 input.year {
-  width: 3rem !important;
+  width: 43% !important;
 }
 input.month, input.day {
-  width: 2rem !important;
+  width: 25% !important;
   text-align: center;
+}
+
+.sec-col-2 .btn {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 37px;
+          flex: 0 0 37px;
+}
+.sec-col-2 .sec-title-wrapper {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(100% - 37px);
+          flex: 0 0 calc(100% - 37px);
 }
 
 .data-item-group {
@@ -787,6 +798,10 @@ input.month, input.day {
   }
 }
 @media screen and (max-width: 639px) {
+  .data-item-group .wrapper_center {
+    margin-bottom: 2.5rem;
+  }
+
   .coming-soon:after {
     background-size: 65%;
   }

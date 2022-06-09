@@ -10,8 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maharaja3</title>
-    <link href="css/basic.min.css" rel="stylesheet" />
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/lobby.css" rel="stylesheet" />
     <!--===========JS========-->
@@ -315,7 +315,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         GCB = window.parent.API_GetGCB();
@@ -362,7 +362,7 @@
                 }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                    window.parent.location.href = "index.aspx";
+                    window.parent.location.href = "index.aspx
                 });
             }
 
@@ -485,8 +485,8 @@
                 </div>
             </div>
         </section>
-
     </div>
+    <!-- 若是 JS套入 class "game-item-focus"=>  請套入 default/sideLeft/sideRight 三個class -->
 
     <div id="temGameItem" class="is-hide">
         <div class="swiper-slide">

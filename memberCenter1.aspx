@@ -15,8 +15,7 @@
 
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-    <link rel="stylesheet" href="css/member.css" type="text/css" />
-    <%--<link rel="stylesheet" href="css/main.css" />--%>
+    <link rel="stylesheet" href="css/member.css" type="text/css" />  
     <link href="css/footer-new.css" rel="stylesheet" />
 
 </head>
@@ -201,7 +200,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();
