@@ -1463,7 +1463,7 @@
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
             return false;
         }
-        console.log("dd", gameList);
+       
         $('#alertSearchContent').empty();
 
         if (gameList.length > 0) {
