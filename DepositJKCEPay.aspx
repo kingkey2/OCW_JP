@@ -154,7 +154,9 @@
         PaymentClient.GetUserAccountJKCValue(WebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    userAccountJKCValue = o.Message;
+                    userAccountJKCValue = new BigNumber(parseInt(o.Message)).toFormat();
+                    window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("JKC 餘額" + userAccountJKCValue));
+                 
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("JKC餘額不足"), function () {
                         window.parent.location.href = "index.aspx";
