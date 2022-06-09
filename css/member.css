@@ -53,10 +53,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 input.year {
-  width: 3rem !important;
+  width: 30% !important;
 }
 input.month, input.day {
-  width: 2rem !important;
+  width: 20% !important;
   text-align: center;
 }
 
