@@ -401,17 +401,26 @@
                                 //     slidesPerGroup: 3,
                                 // },
                                 // 640: {
-                                //     slidesPerGroup: 4,
+                                    // slidesPerGroup: 4,
                                 // },
                                 936: {
-                                    slidesPerGroup: 5,
+                                     slidesPerGroup: 6, //index:992px
+                                },
+                                1144: {
+                                    slidesPerGroup: 7, //index:1200px
                                 },
                                 1384: {
-                                    slidesPerGroup: 5,
+                                    slidesPerGroup: 7, //index:1440px
+                                },
+                                1544: {
+                                    slidesPerGroup: 7, //index:1600px
                                 },
                                 1864: {
-                                    slidesPerGroup: 6,
-                                }
+                                    slidesPerGroup: 8, //index:1920px
+                                },
+                                1920: {
+                                    slidesPerGroup: 8, //index:1920px up
+                                },
                             }
                         });
                     }

@@ -234,7 +234,7 @@
                                         slidesPerGroup: 10, //index:1920px
                                     },
                                     1920: {
-                                        slidesPerGroup: 10, //index:1920px
+                                        slidesPerGroup: 10, //index:1920px up
                                     },
                                 }
                             });
