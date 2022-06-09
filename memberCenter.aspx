@@ -20,7 +20,8 @@
 
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
-    <link href="css/main.css" rel="stylesheet" />
+    <%--<link rel="stylesheet" href="css/main.css" />--%>
+    <link href="css/footer-new.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet" />
 
 </head>
