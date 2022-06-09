@@ -170,7 +170,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         GCB = window.parent.API_GetGCB();

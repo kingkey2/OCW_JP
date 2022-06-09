@@ -315,7 +315,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         GCB = window.parent.API_GetGCB();
@@ -362,7 +362,7 @@
                 }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                    window.parent.location.href = "index.aspx";
+                    window.parent.location.href = "index.aspx
                 });
             }
 
