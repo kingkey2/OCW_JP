@@ -29,6 +29,7 @@
   "OnlyDepositCanCancel": "只有儲值訂單可以取消",
   "NotFoundData": "找不到資料",
   "LockFailure": "鎖定失敗",
-  "InvalidStatus": "訂單狀態有誤"
+  "InvalidStatus": "訂單狀態有誤",
+  "JKCAmountInsufficient": "JKC餘額不足"
 
 }

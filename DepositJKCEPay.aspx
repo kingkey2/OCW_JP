@@ -45,10 +45,10 @@
     var ActivityNames = [];
     var OrderNumber = "";
     var ExpireSecond = 0;
-
+    var userAccountJKCValue;
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";;
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -151,20 +151,20 @@
         });
     }
 
-    function GetUserAccountJKCValue(cb) {
+    function GetUserAccountJKCValue() {
         PaymentClient.GetUserAccountJKCValue(WebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    cb(o.Message);
+                    userAccountJKCValue = o.Message;
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("JKC貨幣餘額不足"), function () {
-                        window.location.href = "index.aspx"
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("JKC餘額不足"), function () {
+                        window.parent.location.href = "index.aspx";
                     });
                 }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.location.href = "index.aspx"
+                    window.parent.location.href = "index.aspx";
                 });
             }
 
@@ -184,18 +184,18 @@
                         }
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                            window.location.href = "index.aspx"
+                            window.parent.location.href = "index.aspx";
                         });
                     }
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                        window.location.href = "index.aspx"
+                        window.parent.location.href = "index.aspx";
                     });
                 }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.location.href = "index.aspx"
+                    window.parent.location.href = "index.aspx";
                 });
             }
 
@@ -216,7 +216,7 @@
                 depositName = $("#idToDepositName").val().trim().replace(/ /g, "");
 
 
-                PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
+                PaymentClient.CreateEPayJKCDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
                     if (success) {
                         let data = o.Data;
                         if (o.Result == 0) {
@@ -229,11 +229,14 @@
                             ExpireSecond = data.ExpireSecond;
 
                             var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                            var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                            c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
-                            c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
-                            depositdetail.appendChild(CollectionitemDom);
-
+                      
+                            for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
+                                var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                                c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i].TokenCurrencyType);
+                                c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.Amount * data.PaymentCryptoDetailList[i].PartialRate).toFormat());
+                                depositdetail.appendChild(CollectionitemDom);
+                            }
+                        
                             OrderNumber = data.OrderNumber;
                             GetDepositActivityInfoByOrderNumber(OrderNumber);
                         } else {
@@ -362,7 +365,7 @@
                              var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
                   
-                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}`, "_blank");
+                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}&Type=${"EPayJKC"}&ContactPhoneNumber=${WebInfo.UserInfo.ContactPhoneNumber}`, "_blank");
 
                     });
 

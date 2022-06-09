@@ -339,11 +339,9 @@
             window.parent.API_LoadingEnd(1);
              if (success) {
                  if (o.Result == 0) {
-                             var data = o.Data;
+                    var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
-                  
-                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}`, "_blank");
-
+                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}&Type=${"EPay"}&ContactPhoneNumber=${WebInfo.UserInfo.ContactPhoneNumber}`, "_blank");
                     });
 
                     setExpireSecond();
