@@ -776,6 +776,10 @@
             gameWindow.close();
         }
 
+        if ($("#alertSearch").css("display") == "block") {
+            $("#alertSearchCloseButton").click();
+        }
+
         if (!EWinWebInfo.UserLogined) {
 
             if ($("#alertSearch").css("display") == "block") {
