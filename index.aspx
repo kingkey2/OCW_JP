@@ -775,6 +775,10 @@
             gameWindow.close();
         }
 
+        if ($("#alertSearch").css("display") == "block") {
+            $("#alertSearchCloseButton").click();
+        }
+
         if (!EWinWebInfo.UserLogined) {
 
             if ($("#alertSearch").css("display") == "block") {
@@ -824,7 +828,7 @@
     }
 
     function favBtnEvent(gameID, doc, isSearchGame) {
-        debugger;
+  
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
@@ -1851,11 +1855,12 @@
                         <div id="headerGameDetailContent" style="display:none;">
                             <!-- Search -->
                             <ul class="nav header_setting_content">
-                                <li class="headerGameDetail navbar-search nav-item">               
-                                <span class="headerGameName"></span>
+                                <li class="headerGameDetail navbar-search nav-item">      
                                 <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
                                     <i class="icon">X</i>
                                 </button>
+                                <span class="headerGameName"></span>
+                             
                             </li>
                             </ul>
                         </div>
@@ -1957,12 +1962,7 @@
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
                                     </li>
-                                     <!-- Search -->
-                                    <li id="closeGameBtn" class="navbar-search nav-item" data-toggle="tooltip" data-placement="bottom" style="display:none;">
-                                        <button type="button" onclick="CloseGameFrame()" class="btn btn-search">
-                                            <i class="icon">X</i>
-                                        </button>
-                                    </li>
+                                  
                                 </ul>
                             </div>
                         </div>
