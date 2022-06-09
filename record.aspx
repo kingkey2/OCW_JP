@@ -1143,7 +1143,7 @@
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
-                        <span class="label-status language_replace">入金</span>
+                        <span class="label-status language_replace">出金</span>
                     </div>
                 </div>
 

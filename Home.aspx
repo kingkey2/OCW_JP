@@ -401,17 +401,26 @@
                                 //     slidesPerGroup: 3,
                                 // },
                                 // 640: {
-                                //     slidesPerGroup: 4,
+                                    // slidesPerGroup: 4,
                                 // },
                                 936: {
-                                    slidesPerGroup: 5,
+                                     slidesPerGroup: 6, //index:992px
+                                },
+                                1144: {
+                                    slidesPerGroup: 7, //index:1200px
                                 },
                                 1384: {
-                                    slidesPerGroup: 5,
+                                    slidesPerGroup: 7, //index:1440px
+                                },
+                                1544: {
+                                    slidesPerGroup: 7, //index:1600px
                                 },
                                 1864: {
-                                    slidesPerGroup: 6,
-                                }
+                                    slidesPerGroup: 8, //index:1920px
+                                },
+                                1920: {
+                                    slidesPerGroup: 8, //index:1920px up
+                                },
                             }
                         });
                     }
@@ -628,7 +637,7 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')"></a>
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -641,7 +650,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')"></a>
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
                             </div>

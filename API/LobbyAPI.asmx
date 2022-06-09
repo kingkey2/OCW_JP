@@ -1970,40 +1970,30 @@ public class LobbyAPI : System.Web.Services.WebService
             var now = DateTime.Now.ToString("yyyy-MM") + "-01";
             var next = DateTime.Now.AddMonths(1).ToString("yyyy-MM") + "-01";
 
-            for (int i = 0; i < 2; i++)
-            {
+            for (int i = 0; i < 2; i++) {
                 PaymentDT = null;
                 GameRet = new EWin.Lobby.OrderSummaryResult();
-                if (i == 0)
-                {
+                if (i == 0) {
                     PaymentDT = EWinWebDB.UserAccountSummary.GetUserAccountPaymentSummaryData(SI.LoginAccount, pre, now);
                     GameRet = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, GUID, pre, now);
-                }
-                else
-                {
+                } else {
                     PaymentDT = EWinWebDB.UserAccountSummary.GetUserAccountPaymentSummaryData(SI.LoginAccount, now, next);
                     GameRet = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, GUID, now, next);
                 }
 
-                if (PaymentDT != null)
-                {
-                    if (PaymentDT.Rows.Count > 0)
-                    {
+                if (PaymentDT != null) {
+                    if (PaymentDT.Rows.Count > 0) {
                         P = new UserTwoMonthSummaryResult.Payment();
                         P.SortIndex = i;
                         P.DepositAmount = (decimal)PaymentDT.Rows[0]["DepositAmount"];
                         P.WithdrawalAmount = (decimal)PaymentDT.Rows[0]["WithdrawalAmount"];
-                    }
-                    else
-                    {
+                    } else {
                         P = new UserTwoMonthSummaryResult.Payment();
                         P.SortIndex = i;
                         P.DepositAmount = 0;
                         P.WithdrawalAmount = 0;
                     }
-                }
-                else
-                {
+                } else {
                     P = new UserTwoMonthSummaryResult.Payment();
                     P.SortIndex = i;
                     P.DepositAmount = 0;
@@ -2012,36 +2002,28 @@ public class LobbyAPI : System.Web.Services.WebService
 
                 PaymentResult.Add(P);
 
-                if (GameRet.Result == EWin.Lobby.enumResult.OK)
-                {
-                    if (GameRet.SummaryList.Length > 0)
-                    {
-                        G = GameRet.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new UserTwoMonthSummaryResult.Game
-                        {
+                if (GameRet.Result == EWin.Lobby.enumResult.OK) {
+                    if (GameRet.SummaryList.Length > 0) {
+                        G = GameRet.SummaryList.GroupBy(x => new { x.CurrencyType }, x => x, (key, sum) => new UserTwoMonthSummaryResult.Game {
                             ValidBetValue = sum.Sum(y => y.ValidBetValue),
                             RewardValue = sum.Sum(y => y.RewardValue),
                             OrderValue = sum.Sum(y => y.OrderValue),
                             SortIndex = i
                         }).ToList().FirstOrDefault();
-                    }
-                    else
-                    {
+                    } else {
                         G = new UserTwoMonthSummaryResult.Game();
                         G.SortIndex = i;
                         G.OrderValue = 0;
                         G.ValidBetValue = 0;
                         G.RewardValue = 0;
                     }
-                }
-                else
-                {
+                } else {
                     G = new UserTwoMonthSummaryResult.Game();
                     G.SortIndex = i;
                     G.OrderValue = 0;
                     G.ValidBetValue = 0;
                     G.RewardValue = 0;
                 }
-
                 GameResult.Add(G);
             }
 
