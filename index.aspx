@@ -112,7 +112,33 @@
 
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
-
+    <style>
+         .headerGameName {
+            display: inherit;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-weight: 500;
+            padding-top: 10px;
+        }
+        
+        .headerGameDetail{
+            margin: 0 auto;
+            vertical-align: middle;
+        }
+         /*   .box {
+            aspect-ratio: 16 / 9;
+            border: 0px!important;
+            height: 95%;
+            margin: 0 auto;
+            display: inherit;
+            overflow: hidden!important;
+            vertical-align: middle;
+        }*/
+    </style>
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -195,6 +221,10 @@
 
     function API_GetLobbyAPI() {
         return lobbyClient;
+    }
+
+    function API_SearchGameByBrand(gameBrand) {
+        return searchGameByBrand(gameBrand);
     }
 
     function API_GetPaymentAPI() {
@@ -326,7 +356,7 @@
             EWinWebInfo.IsOpenGame = false;
             var IFramePage = document.getElementById("GameIFramePage");
             IFramePage.src = "";
-            $('#closeGameBtn').hide();
+            $('#headerGameDetailContent').hide();
             $('#GameIFramePage').hide();
         }
 
@@ -605,7 +635,7 @@
         $('#popupMoblieGameInfo .valueRTP').text(RTP);
         $('#popupMoblieGameInfo .GameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
         $('#popupMoblieGameInfo .GameID').text(GameID);
-
+        $('.headerGameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
         var gameitemlink = document.getElementById('popupMoblieGameInfo').querySelector(".game-item-link");
         var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
         playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
@@ -694,7 +724,7 @@
     function CloseGameFrame() {
         var IFramePage = document.getElementById("GameIFramePage");
         IFramePage.src = "";
-        $('#closeGameBtn').hide();
+        $('#headerGameDetailContent').hide();
         $('#GameIFramePage').hide();
         //$('#IFramePage').css('display', 'block');
     }
@@ -704,7 +734,7 @@
 
         if (IFramePage != null) {
             //$('#IFramePage').css('display','none');
-            $('#closeGameBtn').show();
+            $('#headerGameDetailContent').show();
             $('#GameIFramePage').show();
             var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
             if (showCloseGameTooltipCount == '') {
@@ -739,7 +769,7 @@
         img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + EWinWebInfo.Lang + "/" + name + ".png";
     }
 
-    function openGame(gameBrand, gameName) {
+    function openGame(gameBrand, gameName,gameLangName) {
 
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
@@ -758,6 +788,8 @@
         } else {
             EWinWebInfo.IsOpenGame = true;
             setGameCodeToMyGames(gameBrand, gameName);
+
+            $('.headerGameName').text(gameLangName);
 
             if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
                 if (EWinWebInfo.DeviceType == 1) {
@@ -792,17 +824,24 @@
         }
     }
 
-    function favBtnEvent(gameID, doc) {
+    function favBtnEvent(gameID, doc, isSearchGame) {
+        debugger;
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
         if (type == 0) {
+            if (isSearchGame) {
+                $(doc).addClass("added");
+            }
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').addClass("added");
             setFavoriteGame(gameID);
             if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
                 document.getElementById('IFramePage').contentWindow.refreshFavoGame();
             }
         } else {
+            if (isSearchGame) {
+                $(doc).removeClass("added");
+            }
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').removeClass("added");
             setFavoriteGame(gameID);
             if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
@@ -1209,9 +1248,10 @@
 
     function resize() {
         if (IFramePage.contentWindow.document.body) {
+
             let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
             let iframeheight = $("#IFramePage").height();
-
+      
             if (iframeheight != iframebodyheight) {
                 $("#IFramePage").height(iframebodyheight);
             }
@@ -1430,6 +1470,7 @@
                 }
             }, 1000);
 
+            window.onresize = reportWindowSize;
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
@@ -1439,6 +1480,22 @@
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
         //resize();
+    }
+
+    function reportWindowSize() {
+        let iframewidth = $('#IFramePage').width();
+   
+         notifyWindowEvent("resize",iframewidth);
+     
+    }
+
+    function searchGameByBrand(gameBrand) {
+      
+        $('#alertSearchBrand').val(gameBrand);
+        $('#alertSearchKeyWord').val('');
+        $("#seleGameCategory").val('');
+        $('#alertSearch').modal('show');
+        searchGameList();
     }
 
     //#region 搜尋彈出
@@ -1467,7 +1524,7 @@
         $('#alertSearchContent').empty();
 
         if (gameList.length > 0) {
-
+            var FavoGames = getFavoriteGames();
             for (var i = 0; i < gameList.length; i++) {
                 var gameItem = gameList[i];
                 var RTP = "";
@@ -1485,6 +1542,15 @@
                     var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                     observer.observe();
                 }
+
+                var likebtn = GI.querySelector(".btn-like");
+                if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                    $(likebtn).addClass("added");
+                } else {
+                    $(likebtn).removeClass("added");
+                }
+
+                likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
 
                 $(GI).find(".gameName").text(gameItem.GameText[lang]);
                 $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
@@ -1783,6 +1849,17 @@
                                 <div class="logo"><a></a></div>
                             </div>
                         </div>
+                        <div id="headerGameDetailContent" style="display:none;">
+                            <!-- Search -->
+                            <ul class="nav header_setting_content">
+                                <li class="headerGameDetail navbar-search nav-item">               
+                                <span class="headerGameName"></span>
+                                <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
+                                    <i class="icon">X</i>
+                                </button>
+                            </li>
+                            </ul>
+                        </div>
                         <!-- 右上角 -->
                         <div class="header_rightWrapper">
 
@@ -1881,8 +1958,8 @@
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
                                     </li>
-                                    <!-- Search -->
-                                    <li id="closeGameBtn" class="navbar-search nav-item" data-toggle="tooltip" data-placement="bottom" style="display: none;">
+                                     <!-- Search -->
+                                    <li id="closeGameBtn" class="navbar-search nav-item" data-toggle="tooltip" data-placement="bottom" style="display:none;">
                                         <button type="button" onclick="CloseGameFrame()" class="btn btn-search">
                                             <i class="icon">X</i>
                                         </button>

@@ -103,7 +103,7 @@
     if (self != top) {
         window.parent.API_LoadingStart();
     }
-
+    var iframeWidth;
     var c = new common();
     var ui = new uiControl();
     var mlp;
@@ -196,10 +196,12 @@
         initSwiper();
 
         setBulletinBoard();
+
+        //iframeWidth = $(window.parent.document).find('#IFramePage').width();
     }
 
     function refreshFavoGame() {
-
+  
         FavoGames = window.parent.API_GetFavoGames();
         var idFavoGameItemGroup = document.getElementById('idFavoGameItemGroup');
         if (idFavoGameItemGroup) {
@@ -225,7 +227,7 @@
                             $(GI_Favor).addClass("added");
                         }
 
-                        if (WebInfo.DeviceType == 1) {
+                        if (iframeWidth < 936) {
 
                             var RTP = "";
                             if (gameItem.RTPInfo) {
@@ -234,9 +236,10 @@
 
                             GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                         } else {
+                           
                             var GI_gameitemlink = GI.querySelector(".game-item-link");
-                            GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
-                            GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                            GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                            GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
                         }
 
                         $(GI).find('.btn-more').click(function () {
@@ -288,6 +291,7 @@
     }
 
     function updateGameList() {
+        iframeWidth = $(window.parent.document).find('#IFramePage').width();
         var LobbyGameList = GCB.GetCategory("Home");
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
@@ -332,7 +336,7 @@
 
                             GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
 
-                            if (WebInfo.DeviceType == 1) {
+                            if (iframeWidth < 936) {
 
                                 var RTP = "";
                                 if (gameItem.RTPInfo) {
@@ -343,8 +347,8 @@
                             } else {
 
                                 var GI_gameitemlink = GI.querySelector(".game-item-link");
-                                GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
-                                GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                                GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                                GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
                             }
 
                             $(GI).find('.btn-more').click(function () {
@@ -459,7 +463,7 @@
                         $(GI_Favor).addClass("added");
                     }
 
-                    if (WebInfo.DeviceType == 1) {
+                    if (iframeWidth < 936) {
 
                         var RTP = "";
                         if (gameItem.RTPInfo) {
@@ -470,8 +474,8 @@
                     } else {
 
                         var GI_gameitemlink = GI.querySelector(".game-item-link");
-                        GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
-                        GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                        GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                        GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
                     }
 
                     $(GI).find('.btn-more').click(function () {
@@ -573,6 +577,13 @@
                     window.parent.API_LoadingEnd(1);
                 });
 
+                break;
+            case "resize":
+                if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
+                    updateGameList();
+                    refreshFavoGame();
+                } 
+                
                 break;
             case "IndexFirstLoad":
                 //window.parent.API_LoadingEnd();
