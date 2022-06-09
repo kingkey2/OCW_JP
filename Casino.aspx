@@ -485,8 +485,8 @@
                 </div>
             </div>
         </section>
-
     </div>
+    <!-- 若是 JS套入 class "game-item-focus"=>  請套入 default/sideLeft/sideRight 三個class -->
 
     <div id="temGameItem" class="is-hide">
         <div class="swiper-slide">
