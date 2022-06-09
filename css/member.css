@@ -53,11 +53,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 input.year {
-  width: 30% !important;
+  width: 43% !important;
 }
 input.month, input.day {
-  width: 20% !important;
+  width: 25% !important;
   text-align: center;
+}
+
+.sec-col-2 .btn {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
 
 .data-item-group {

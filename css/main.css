@@ -1005,6 +1005,9 @@ hr.line {
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
+  .sec-title-container.sec-col-2 .btn {
+    margin: 0;
+  }
   .sec-title-wrapper {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 100%;
