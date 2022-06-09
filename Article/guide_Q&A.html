@@ -1150,7 +1150,7 @@
 
         function init() {
             if (window.parent != window.top) {
-                window.location.href = "index.aspx";
+                window.parent.location.href = "index.aspx";
             }
             window.parent.API_LoadingEnd();
         }
