@@ -202,51 +202,68 @@ public static class ActivityExpand
             ActivityDetail = GetActivityDetail(DetailPath);
 
             if (ActivityDetail != null) {
-                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
-                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
-                bool IsPaymentCodeSupport = false;
-                decimal BonusRate = 0;
-                decimal ThresholdRate = 0;
-                decimal ReceiveValueMaxLimit = 0;
 
-                if ((int)ActivityDetail["State"] == 0) {
-                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
-                        foreach (var item in ActivityDetail["Rate1"]) {
-                            if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
-                                IsPaymentCodeSupport = true;
-                                BonusRate = (decimal)item["BonusRate"];
-                                ThresholdRate = (decimal)item["ThresholdRate"];
-                                ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+                DateTime currentTime = DateTime.Now;
+                int week = Convert.ToInt32(currentTime.DayOfWeek);
+                week = week == 0 ? 7 : week;
+                DateTime start;
+                DateTime end;
 
-                                break;
-                            }
-                        }
-
-                        if (IsPaymentCodeSupport) {
-                            R.Result = ActivityCore.enumActResult.OK;
-                            R.Data.Amount = Amount;
-                            R.Data.PaymentCode = PaymentCode;
-                            R.Data.BonusRate = BonusRate;
-                            R.Data.BonusValue = Amount * BonusRate;
-
-                            if (R.Data.BonusValue > ReceiveValueMaxLimit) {
-                                R.Data.BonusValue = ReceiveValueMaxLimit;
-                            }
-
-                            R.Data.ThresholdRate = ThresholdRate;
-                            R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
-                            R.Data.Title = ActivityDetail["Title"].ToString();
-                            R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
-                            R.Data.JoinCount = 1;
-                        } else {
-                            SetResultException(R, "PaymentCodeNotSupport");
-                        }
-                    } else {
-                        SetResultException(R, "ActivityIsExpired");
-                    }
+                if (week < 4) {
+                    start = currentTime.AddDays(5 - week - 7); //上禮拜5
+                    end = currentTime.AddDays(7 - week - 7);  //這禮拜4
                 } else {
-                    SetResultException(R, "ActivityIsExpired");
+                    start = currentTime.AddDays(5 - week - 14); //上上禮拜5
+                    end = currentTime.AddDays(4 - week - 7);     //上禮拜4
                 }
+
+                //取資料 GetGameOrderHistoryBySummaryDateAndGameCode
+
+                //DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+                //DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+                //bool IsPaymentCodeSupport = false;
+                //decimal BonusRate = 0;
+                //decimal ThresholdRate = 0;
+                //decimal ReceiveValueMaxLimit = 0;
+
+                //if ((int)ActivityDetail["State"] == 0) {
+                //    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+                //        foreach (var item in ActivityDetail["Rate1"]) {
+                //            if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
+                //                IsPaymentCodeSupport = true;
+                //                BonusRate = (decimal)item["BonusRate"];
+                //                ThresholdRate = (decimal)item["ThresholdRate"];
+                //                ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+
+                //                break;
+                //            }
+                //        }
+
+                //        if (IsPaymentCodeSupport) {
+                //            R.Result = ActivityCore.enumActResult.OK;
+                //            R.Data.Amount = Amount;
+                //            R.Data.PaymentCode = PaymentCode;
+                //            R.Data.BonusRate = BonusRate;
+                //            R.Data.BonusValue = Amount * BonusRate;
+
+                //            if (R.Data.BonusValue > ReceiveValueMaxLimit) {
+                //                R.Data.BonusValue = ReceiveValueMaxLimit;
+                //            }
+
+                //            R.Data.ThresholdRate = ThresholdRate;
+                //            R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
+                //            R.Data.Title = ActivityDetail["Title"].ToString();
+                //            R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                //            R.Data.JoinCount = 1;
+                //        } else {
+                //            SetResultException(R, "PaymentCodeNotSupport");
+                //        }
+                //    } else {
+                //        SetResultException(R, "ActivityIsExpired");
+                //    }
+                //} else {
+                //    SetResultException(R, "ActivityIsExpired");
+                //}
             } else {
                 SetResultException(R, "ActivityIsExpired");
             }

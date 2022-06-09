@@ -6852,10 +6852,6 @@ i {
 .custom-radioValue-lang .custom-control-label {
   color: rgba(255, 255, 255, 0.6);
 }
-.custom-radioValue-lang .custom-input {
-  padding-left: calc( 1.75rem + 10px);
-  padding-right: 10px;
-}
 .custom-radioValue-lang .custom-input::before, .custom-radioValue-lang .custom-input::after {
   content: none;
 }
