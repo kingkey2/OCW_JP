@@ -857,6 +857,7 @@
                                     <!-- <i class="icon-logo-eth-o"></i> -->
                                     <i class="icon-logo-eth"></i>
                                     <i class="icon-logo-btc"></i>
+                                    <!-- <i class="icon-logo-nissan"></i> -->
                                     <!-- <i class="icon-logo-doge"></i> -->
                                     <!-- <i class="icon-logo-tron"></i> -->
                                 </div>

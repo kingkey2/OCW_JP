@@ -1818,6 +1818,14 @@ select.custom-style:focus {
 i.icon-logo-btc {
   background-color: #FFC700 !important;
 }
+i.icon-logo-nissin {
+  background-color: #be6aa6 !important;
+  background:#be6aa6 url(../images/icon/ico-nissin-pay.png) center center no-repeat;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-size: 60%;
+}
 i.icon-logo-doge {
   background-color: #DCBA2D !important;
 }
