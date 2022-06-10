@@ -209,8 +209,8 @@ public static class EWinWebDB {
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
             DBCmd.Parameters.Add("@ContactPhoneNumber", System.Data.SqlDbType.VarChar).Value = ContactPhoneNumber;
-            DBCmd.Parameters.Add("@JKCCoin", System.Data.SqlDbType.Decimal).Value = Amount;
-      
+            DBCmd.Parameters.Add("@Amount", System.Data.SqlDbType.Decimal).Value = Amount;
+            DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
             DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
             ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
 
