@@ -121,9 +121,13 @@
 
                         category.Datas.forEach(gameItem => {
                             var GI;
-
                             var showAllbtn = categArea.querySelector('.title-showAll');
                             showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
+
+                            if (category.SortIndex == 99) {
+                                var categNamebtn = categArea.querySelector('.CategName');
+                                categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
+                            }
 
                             if (category.ShowType == 0) {
                                 GI = c.getTemplate("temGameItem");
@@ -138,6 +142,7 @@
                                 GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
 
                                 if (iframeWidth<936) {
+                                   $(categArea).find('.text-link').css('display', 'none');
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {
