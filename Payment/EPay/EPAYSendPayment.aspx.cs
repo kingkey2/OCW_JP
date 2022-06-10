@@ -43,7 +43,6 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
         RedisCache.SessionContext.SIDInfo SI;
 
         var amount = decimal.Parse(Request.Params["amount"]);
-        var paymentCode = Request.Params["paymentCode"];
         var orderNumber = Request.Params["orderNumber"];
         var WebSID = Request.Params["webSID"];
         var UserName = Request.Params["UserName"];
@@ -52,11 +51,11 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            SendPayment(amount, paymentCode, orderNumber, UserName,Type, ContactPhoneNumber);
+            SendPayment(amount, orderNumber, UserName,Type, ContactPhoneNumber);
         }       
     }
 
-    public void SendPayment(decimal amount, string paymentCode, string orderNumber, string UserName,string Type,string ContactPhoneNumber)
+    public void SendPayment(decimal amount, string orderNumber, string UserName,string Type,string ContactPhoneNumber)
     {
         dynamic EPAYSetting = LoadSetting();
         var CompanyCode = (string)EPAYSetting.CompanyCode;

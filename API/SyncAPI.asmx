@@ -20,6 +20,45 @@ public class SyncAPI : System.Web.Services.WebService
 {
 
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult CreateJKCUserAccount()
+    {
+        string Filename;
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
+        if (EWinWeb.IsTestSite)
+        {
+            Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Test_" + "UserJKCData.json");
+        }
+        else
+        {
+            Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Formal_" + "UserJKCData.json");
+        }
+
+        Newtonsoft.Json.Linq.JArray jArray = null;
+
+        if (System.IO.File.Exists(Filename))
+        {
+            string SettingContent;
+
+            SettingContent = System.IO.File.ReadAllText(Filename);
+
+            if (string.IsNullOrEmpty(SettingContent) == false)
+            {
+                try { jArray = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(SettingContent); } catch (Exception ex) { }
+                if (jArray != null && jArray.Count > 0)
+                {
+                    foreach (Newtonsoft.Json.Linq.JObject parsedObject in jArray.Children<Newtonsoft.Json.Linq.JObject>())
+                    {
+                        EWinWebDB.JKCDeposit.InsertJKCDepositByContactPhoneNumber((string)parsedObject["Name"],(decimal)parsedObject["Value"]);
+                    }
+                }
+
+            }
+        }
+
+        return R;
+    }
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

@@ -540,7 +540,7 @@
                             </form>
                              <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※存款金額為2,000ocoin至100,000ocoin。</p>
+                                <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
                             </div>
                         </div>
                     </div>

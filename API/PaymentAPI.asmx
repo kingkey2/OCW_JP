@@ -36,11 +36,8 @@ public class PaymentAPI : System.Web.Services.WebService
         EWin.Lobby.UserInfoResult userInfoResult;
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        string Filename;
         APIResult R = new APIResult() { GUID = GUID, Result = enumResult.ERR};
         System.Data.DataTable DT = new System.Data.DataTable();
-        Newtonsoft.Json.Linq.JObject jo;
-        Newtonsoft.Json.Linq.JArray UserJKCData;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
@@ -48,29 +45,11 @@ public class PaymentAPI : System.Web.Services.WebService
             userInfoResult= lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
             if (userInfoResult != null && userInfoResult.Result == EWin.Lobby.enumResult.OK)
             {
-                if (EWinWeb.IsTestSite)
+                DT = RedisCache.JKCDeposit.GetJKCDepositByContactPhoneNumber(userInfoResult.ContactPhoneNumber);
+                if (DT != null && DT.Rows.Count > 0)
                 {
-                    Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Test_" + "UserJKCData.json");
-                }
-                else
-                {
-                    Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Formal_" + "UserJKCData.json");
-                }
-
-                UserJKCData = LoadSetting(Filename);
-
-                if (UserJKCData != null && UserJKCData.Count > 0)
-                {
-                    jo = UserJKCData.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["Name"] != null && o["Name"].ToString() == userInfoResult.ContactPhoneNumber);
-                    if (jo != null)
-                    {
-                        R.Message = jo["Value"].ToString();
-                        R.Result = enumResult.OK;
-                    }
-                    else
-                    {
-                        SetResultException(R, "NoData");
-                    }
+                    R.Message = DT.Rows[0]["JKCCoin"].ToString();
+                    R.Result = enumResult.OK;
                 }
                 else
                 {
@@ -1305,8 +1284,11 @@ public class PaymentAPI : System.Web.Services.WebService
         decimal JKCDepositAmount=0;
         decimal ThresholdRate;
         decimal HandingFeeRate;
+        decimal JKCRate;
         int ExpireSecond;
         int DecimalPlaces;
+        APIResult ExchangeRateFromNomics;
+        Newtonsoft.Json.Linq.JArray jsonExchangeRateFromNomics;
         System.Data.DataTable PaymentMethodDT;
 
 
@@ -1360,23 +1342,49 @@ public class PaymentAPI : System.Web.Services.WebService
 
                                             PartialRate = (decimal)item["Rate"];
 
-                                            if (TokenCurrency=="JKC")
+                                            if (TokenCurrency == "JKC")
                                             {
-                                                JKCDepositAmount = PartialRate * Amount;
-                                                var getUserAccountJKCValue=GetUserAccountJKCValue(WebSID,GUID);
-                                                if (getUserAccountJKCValue.Result == enumResult.OK)
+                                                ExchangeRateFromNomics = GetExchangeRateFromNomics(WebSID, GUID);
+
+                                                if (ExchangeRateFromNomics.Result == enumResult.OK)
                                                 {
-                                                    decimal userAccountJKCValue =decimal.Parse(getUserAccountJKCValue.Message);
-                                                    if (userAccountJKCValue < JKCDepositAmount)
+                                                    jsonExchangeRateFromNomics=Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(ExchangeRateFromNomics.Message);
+                                                    Newtonsoft.Json.Linq.JObject jo = jsonExchangeRateFromNomics.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["currency"] != null && o["currency"].ToString() == "ETH");
+                                                    Newtonsoft.Json.Linq.JToken JToken;
+                                                    if (jo.TryGetValue("price", out JToken))
                                                     {
-                                                        SetResultException(R, "JKCAmountInsufficient");
+                                                        JKCRate = 1 / (decimal.Parse(JToken.ToString()) / 3000);
+
+                                                        JKCDepositAmount =decimal.Round(PartialRate * Amount *JKCRate,2);
+                                                        var getUserAccountJKCValue = GetUserAccountJKCValue(WebSID, GUID);
+                                                        if (getUserAccountJKCValue.Result == enumResult.OK)
+                                                        {
+                                                            decimal userAccountJKCValue = decimal.Parse(getUserAccountJKCValue.Message);
+                                                            if (userAccountJKCValue < JKCDepositAmount)
+                                                            {
+                                                                SetResultException(R, "JKCAmountInsufficient");
+                                                                return R;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            SetResultException(R, "JKCAmountInsufficient");
+                                                            return R;
+                                                        }
+                                                    }
+                                                    else {
+                                                        SetResultException(R, "InvalidCryptoExchangeRate");
                                                         return R;
                                                     }
+
+
                                                 }
-                                                else {
-                                                    SetResultException(R, "JKCAmountInsufficient");
+                                                else
+                                                {
+                                                    SetResultException(R, "InvalidCryptoExchangeRate");
                                                     return R;
                                                 }
+
                                             }
 
                                             CryptoDetail Dcd = new CryptoDetail()
@@ -1388,11 +1396,17 @@ public class PaymentAPI : System.Web.Services.WebService
                                                 ReceiveAmount = 0
                                             };
 
+                                            if (Dcd.TokenCurrencyType == "JKC")
+                                            {
+                                                Dcd.ReceiveAmount = JKCDepositAmount;
+                                            }
+                                            else {
+                                                Dcd.ReceiveAmount = PartialRate * Amount;
+                                            }
+
                                             paymentCommonData.PaymentCryptoDetailList.Add(Dcd);
 
                                         }
-
-                                      
 
                                         if (string.IsNullOrEmpty(ExtraData))
                                         {
