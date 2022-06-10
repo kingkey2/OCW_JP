@@ -968,7 +968,7 @@
                                         <span class="language_replace">ベッティング金額</span>
                                     </div>
                                     <div class="record-table-cell td-validBet">
-                                        <span class="language_replace">有効なベッティング</span>
+                                        <span class="language_replace">出金有効ベッティング</span>
                                     </div>
                                     <div class="record-table-cell td-rewardValue">
                                         <span class="language_replace">勝ち負け</span>
@@ -1224,7 +1224,7 @@
                     </div>
                     <!-- 有效投注 -->
                     <div class="record-table-cell td-validBet">
-                        <span class="title language_replace">有効なベッティング</span>
+                        <span class="title language_replace">出金有効ベッティング</span>
                         <span class="data number validBet">50090</span>
                     </div>
                     <!-- 勝/負 -->
@@ -1249,7 +1249,7 @@
                         <span class="language_replace">ベッティング金額</span>
                     </div>
                     <div class="record-table-cell cell-validBet">
-                        <span class="language_replace">有効なベッティング</span>
+                        <span class="language_replace">出金有効ベッティング</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
                         <span class="language_replace">勝ち負け</span>
@@ -1287,7 +1287,7 @@
                     </div>
                     <!-- 有效投注 -->
                     <div class="record-table-cell td-validBet">
-                        <span class="title language_replace">有効なベッティング</span>
+                        <span class="title language_replace">出金有効ベッティング</span>
                         <span class="data number validBet">50090</span>
                     </div>
                     <!-- 勝/負 -->
@@ -1312,7 +1312,7 @@
                         <span class="language_replace orderValue">ベッティング金額</span>
                     </div>
                     <div class="record-table-cell cell-validBet">
-                        <span class="language_replace validBet">有効なベッティング</span>
+                        <span class="language_replace validBet">出金有効ベッティング</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
                         <span class="language_replace rewardValue">勝ち負け</span>
@@ -1345,7 +1345,7 @@
                         <span class="data number orderValue">9999</span>
                     </div>
                     <div class="record-drop-item-validBet record-item">
-                        <span class="title language_replace">有効なベッティング</span>
+                        <span class="title language_replace">出金有効ベッティング</span>
                         <span class="data number  validBet">9,99999</span>
                     </div>
                 </div>
@@ -1374,7 +1374,7 @@
                         <span class="data number orderValue">999</span>
                     </div>
                     <div class="record-drop-item-validBet record-item">
-                        <span class="title language_replace">有効なベッティング</span>
+                        <span class="title language_replace">出金有効ベッティング</span>
                         <span class="data number validBet">9,99999</span>
                     </div>
                 </div>

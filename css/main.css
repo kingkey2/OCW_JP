@@ -868,6 +868,51 @@ hr.line {
   margin-bottom: 0.5rem;
 }
 
+.Line-AddFriend img {
+  width: 100%;
+}
+
+.Line-AddFriend .addFriend {
+  width: 100%;
+  max-width: 66px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #00b900;
+  color: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.Line-AddFriend .addFriend .logo {
+  height: 100%;
+  width: auto;
+}
+
+.Line-AddFriend .addFriend .text {
+  font-size: 0.9375rem;
+  width: 90%;
+  text-align: center;
+}
+
+.float_SideBar {
+  position: fixed;
+  right: 3vw;
+  bottom: 5vh;
+  width: 10%;
+  min-width: 55px;
+  max-width: 80px;
+  z-index: 99;
+  cursor: pointer;
+}
+
 .hidden {
   display: none !important;
 }

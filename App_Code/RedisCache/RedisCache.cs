@@ -292,7 +292,7 @@ public static class RedisCache {
             return iList.ToArray();
         }
 
-        public static string[] GetSIDByLoginAccount(int LoginAccount) {
+        public static string[] GetSIDByLoginAccount(string LoginAccount) {
             string Key2;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient();
             StackExchange.Redis.HashEntry[] HEList;
