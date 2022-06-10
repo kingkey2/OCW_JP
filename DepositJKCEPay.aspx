@@ -201,12 +201,10 @@
             if (success) {
                 if (o.Result == 0) {
                     userAccountJKCValue = new BigNumber(parseInt(o.Message)).toFormat();
-                    window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("JKC 餘額" + userAccountJKCValue));
+                    //window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("JKC 餘額" + userAccountJKCValue));
                  
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("JKC餘額不足"), function () {
-                        window.parent.location.href = "index.aspx";
-                    });
+                    userAccountJKCValue = 0;
                 }
             }
             else {
@@ -370,6 +368,7 @@
                             $("#depositdetail .OrderNumber").text(data.OrderNumber);
                             $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
                             $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
+                            $("#depositdetail .JKCValue").text(userAccountJKCValue);
                             ExpireSecond = data.ExpireSecond;
 
                             var depositdetail = document.getElementsByClassName("Collectionitem")[0];
@@ -388,6 +387,7 @@
                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                             });
+                            
                         }
 
                     }
@@ -796,7 +796,10 @@
                                         <h6 class="title language_replace">出金條件</h6>
                                         <span class="data ThresholdValue"></span>
                                     </li>
-
+                                     <li class="item">
+                                        <h6 class="title language_replace">JKC 餘額</h6>
+                                        <span class="data JKCValue"></span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

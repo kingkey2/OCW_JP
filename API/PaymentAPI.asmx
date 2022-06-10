@@ -1013,6 +1013,26 @@ public class PaymentAPI : System.Web.Services.WebService
                 tagInfoData.ThresholdValue = TempCommonData.ThresholdValue;
                 PointValue = TempCommonData.Amount;
                 ReceiveCurrencyType = TempCommonData.ReceiveCurrencyType;
+                if (TempCommonData.PaymentCryptoDetailList != null && TempCommonData.PaymentCryptoDetailList.Count > 0)
+                {
+                    var getUserAccountJKCValue = GetUserAccountJKCValue(WebSID, GUID);
+                    1if (getUserAccountJKCValue.Result == enumResult.OK)
+                    {
+                        var JKCDepositAmount= TempCommonData.PaymentCryptoDetailList.Where(w => w.TokenCurrencyType == "JKC").First().ReceiveAmount;
+                        decimal userAccountJKCValue = decimal.Parse(getUserAccountJKCValue.Message);
+                        if (userAccountJKCValue < JKCDepositAmount)
+                        {
+                            SetResultException(R, "JKCAmountInsufficient");
+                            return R;
+                        }
+                    }
+                    else
+                    {
+                        SetResultException(R, "JKCAmountInsufficient");
+                        return R;
+                    }
+                }
+
 
                 if (ActivityNames.Length > 0)
                 {
@@ -1031,7 +1051,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
-                                ThresholdValue = activityDepositResult.Data.ThresholdValue,
+                                ThresholdValue = activityDepositResult.Data.ThresholdValue
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1356,21 +1376,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                                         JKCRate = 1 / (decimal.Parse(JToken.ToString()) / 3000);
 
                                                         JKCDepositAmount =decimal.Round(PartialRate * Amount *JKCRate,2);
-                                                        var getUserAccountJKCValue = GetUserAccountJKCValue(WebSID, GUID);
-                                                        if (getUserAccountJKCValue.Result == enumResult.OK)
-                                                        {
-                                                            decimal userAccountJKCValue = decimal.Parse(getUserAccountJKCValue.Message);
-                                                            if (userAccountJKCValue < JKCDepositAmount)
-                                                            {
-                                                                SetResultException(R, "JKCAmountInsufficient");
-                                                                return R;
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            SetResultException(R, "JKCAmountInsufficient");
-                                                            return R;
-                                                        }
+
                                                     }
                                                     else {
                                                         SetResultException(R, "InvalidCryptoExchangeRate");
