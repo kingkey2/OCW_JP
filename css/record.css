@@ -632,8 +632,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet {
     -webkit-box-flex: 0;
-        -ms-flex: 0 0 160px;
-            flex: 0 0 160px;
+        -ms-flex: 0 0 140px;
+            flex: 0 0 140px;
   }
 }
 @media (min-width: 712px) {
