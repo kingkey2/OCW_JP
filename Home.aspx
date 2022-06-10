@@ -580,9 +580,8 @@
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="hero-item">                            
+                        <div class="hero-item">
                             <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
-                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b4-m.jpg" alt="">
                             </div>
