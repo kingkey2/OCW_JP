@@ -121,10 +121,14 @@
 
                         category.Datas.forEach(gameItem => {
                             var GI;
-                            var categNamebtn= categArea.querySelector('.CategName');
                             var showAllbtn = categArea.querySelector('.title-showAll');
                             showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
-                            categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
+
+                            if (category.SortIndex == 99) {
+                                var categNamebtn = categArea.querySelector('.CategName');
+                                categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
+                            }
+
                             if (category.ShowType == 0) {
                                 GI = c.getTemplate("temGameItem");
                                 $(GI).addClass('gameid_' + gameItem.GameID);
