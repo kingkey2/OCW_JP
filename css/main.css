@@ -907,8 +907,8 @@ hr.line {
   right: 3vw;
   bottom: 5vh;
   width: 10%;
-  min-width: 43px;
-  max-width: 60px;
+  min-width: 55px;
+  max-width: 70px;
   z-index: 99;
   cursor: pointer;
 }
