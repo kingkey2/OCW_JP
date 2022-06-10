@@ -663,7 +663,7 @@
                         <div class="publicize-wrap bulletin-login">
                             <div class="item bulletin">
                                 <div class="bulletin_inner">
-                                    <h2 class="title">重要な新しい情報</h1>
+                                    <h2 class="title">新しい情報</h2>
                                         <ul class="bulletin_list" id="idBulletinBoardContent">
                                         </ul>
                                 </div>
