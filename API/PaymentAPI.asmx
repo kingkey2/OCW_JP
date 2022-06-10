@@ -1016,7 +1016,7 @@ public class PaymentAPI : System.Web.Services.WebService
                 if (TempCommonData.PaymentCryptoDetailList != null && TempCommonData.PaymentCryptoDetailList.Count > 0)
                 {
                     var getUserAccountJKCValue = GetUserAccountJKCValue(WebSID, GUID);
-                    1if (getUserAccountJKCValue.Result == enumResult.OK)
+                    if (getUserAccountJKCValue.Result == enumResult.OK)
                     {
                         var JKCDepositAmount= TempCommonData.PaymentCryptoDetailList.Where(w => w.TokenCurrencyType == "JKC").First().ReceiveAmount;
                         decimal userAccountJKCValue = decimal.Parse(getUserAccountJKCValue.Message);
