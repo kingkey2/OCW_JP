@@ -41,63 +41,7 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script src="Scripts/lozad.min.js"></script>
-    <style>
-        .hero-item-href {
-            position: absolute;
-            margin: auto;
-            height: 60%;
-            width: 50%;
-            top: 5%;
-            left: 25%;
-            cursor: pointer;
-            z-index: 99999;
-        }
-
-        .Line-AddFriend img {
-            width: 100%;
-        }
-
-        .Line-AddFriend .addFriend {
-            width: 100%;
-            max-width: 66px;
-            margin: 0 auto;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            background-color: #00b900;
-            color: #fff;
-            border-radius: 50%;
-            padding: 10px;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-        }
-
-            .Line-AddFriend .addFriend .logo {
-                height: 100%;
-                width: auto;
-            }
-
-            .Line-AddFriend .addFriend .text {
-                font-size: 0.9375rem;
-                width: 90%;
-                text-align: center;
-            }
-
-        .float_SideBar {
-            position: fixed;
-            right: 3vw;
-            bottom: 5vh;
-            width: 10%;
-            min-width: 43px;
-            max-width: 60px;
-            z-index: 2;
-            cursor: pointer;
-        }
-    </style>
+    
 </head>
 <script type="text/javascript">
     if (self != top) {
@@ -920,11 +864,11 @@
     <div class="float_SideBar" id="float_SideBar">
         <div class="guide-QA" onclick="window.parent.API_LoadPage('guide_QnA', '/Article/guide_Q&amp;A_jp.html', false)">
             <a>
-                <div class="text">
+                <!-- <div class="text">
                     <h3 class="title language_replace" langkey="Q&amp;A">Q&amp;A</h3>
-                </div>
+                </div> -->
                 <div class="img-wrap">
-                    <img src="images/games/a-chi-QA.svg">
+                    <img src="images/Q_A.svg">
                 </div>
             </a>
         </div>
