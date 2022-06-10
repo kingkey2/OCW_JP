@@ -121,10 +121,10 @@
 
                         category.Datas.forEach(gameItem => {
                             var GI;
-
+                            var categNamebtn= categArea.querySelector('.CategName');
                             var showAllbtn = categArea.querySelector('.title-showAll');
                             showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
-
+                            categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
                             if (category.ShowType == 0) {
                                 GI = c.getTemplate("temGameItem");
                                 $(GI).addClass('gameid_' + gameItem.GameID);
@@ -138,6 +138,7 @@
                                 GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
 
                                 if (iframeWidth<936) {
+                                   $(categArea).find('.text-link').css('display', 'none');
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {

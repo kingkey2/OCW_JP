@@ -194,82 +194,114 @@ public static class ActivityExpand
             return R;
         }
 
-        public static ActivityCore.ActResult<ActivityCore.DepositActivity> OpenBonusSevenDaysDeposit(string DetailPath, decimal Amount, string PaymentCode, string LoginAccount) {
-            ActivityCore.ActResult<ActivityCore.DepositActivity> R = new ActivityCore.ActResult<ActivityCore.DepositActivity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.DepositActivity() };
-            JObject ActivityDetail;
-            int DepositCount = 0;
+        //public static ActivityCore.ActResult<ActivityCore.DepositActivity> OpenBonusSevenDaysDeposit(string DetailPath, decimal Amount, string PaymentCode, string LoginAccount) {
+        //    ActivityCore.ActResult<ActivityCore.DepositActivity> R = new ActivityCore.ActResult<ActivityCore.DepositActivity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.DepositActivity() };
+        //    EWin.Lobby.OrderSummaryResult callResult = new EWin.Lobby.OrderSummaryResult();
+        //    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        //    RedisCache.SessionContext.SIDInfo SI;
+        //    JObject ActivityDetail;
+        //    string SID = string.Empty;
+        //    var SIDs = RedisCache.SessionContext.GetSIDByLoginAccount(LoginAccount);
 
-            ActivityDetail = GetActivityDetail(DetailPath);
+        //    if (SIDs.Length >0) {
+        //        SID = SIDs[0];
 
-            if (ActivityDetail != null) {
+        //        SI = RedisCache.SessionContext.GetSIDInfo(SID);
 
-                DateTime currentTime = DateTime.Now;
-                int week = Convert.ToInt32(currentTime.DayOfWeek);
-                week = week == 0 ? 7 : week;
-                DateTime start;
-                DateTime end;
+        //        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
 
-                if (week < 4) {
-                    start = currentTime.AddDays(5 - week - 7); //上禮拜5
-                    end = currentTime.AddDays(7 - week - 7);  //這禮拜4
-                } else {
-                    start = currentTime.AddDays(5 - week - 14); //上上禮拜5
-                    end = currentTime.AddDays(4 - week - 7);     //上禮拜4
-                }
+        //            ActivityDetail = GetActivityDetail(DetailPath);
 
-                //取資料 GetGameOrderHistoryBySummaryDateAndGameCode
+        //            if (ActivityDetail != null) {
+        //                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+        //                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+        //                decimal OneDayBonus = 0;
+        //                decimal FullAttendance = 0;
+        //                decimal ThresholdRate = 0;
+        //                decimal OrderValue = 0;
+        //                decimal BonusRate = 0;
+        //                decimal BonusValue = 0;
 
-                //DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
-                //DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
-                //bool IsPaymentCodeSupport = false;
-                //decimal BonusRate = 0;
-                //decimal ThresholdRate = 0;
-                //decimal ReceiveValueMaxLimit = 0;
+        //                if ((int)ActivityDetail["State"] == 0) {
+        //                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+        //                        OneDayBonus = (decimal)ActivityDetail["OneDayBonus"];
+        //                        FullAttendance = (decimal)ActivityDetail["FullAttendance"];
+        //                        ThresholdRate = (decimal)ActivityDetail["ThresholdRate"];
+        //                        OrderValue = (decimal)ActivityDetail["OrderValue"];
+        //                        BonusRate = (decimal)ActivityDetail["BonusRate"];
 
-                //if ((int)ActivityDetail["State"] == 0) {
-                //    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
-                //        foreach (var item in ActivityDetail["Rate1"]) {
-                //            if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
-                //                IsPaymentCodeSupport = true;
-                //                BonusRate = (decimal)item["BonusRate"];
-                //                ThresholdRate = (decimal)item["ThresholdRate"];
-                //                ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+        //                        DateTime currentTime = DateTime.Now;
+        //                        int week = Convert.ToInt32(currentTime.DayOfWeek);
+        //                        week = week == 0 ? 7 : week;
+        //                        DateTime start;
+        //                        DateTime end;
 
-                //                break;
-                //            }
-                //        }
+        //                        if (week < 4) {
+        //                            start = currentTime.AddDays(5 - week - 7); //上禮拜5
+        //                            end = currentTime.AddDays(7 - week - 7);  //這禮拜4
+        //                        } else {
+        //                            start = currentTime.AddDays(5 - week - 14); //上上禮拜5
+        //                            end = currentTime.AddDays(4 - week - 7);     //上禮拜4
+        //                        }
 
-                //        if (IsPaymentCodeSupport) {
-                //            R.Result = ActivityCore.enumActResult.OK;
-                //            R.Data.Amount = Amount;
-                //            R.Data.PaymentCode = PaymentCode;
-                //            R.Data.BonusRate = BonusRate;
-                //            R.Data.BonusValue = Amount * BonusRate;
+        //                        callResult = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, System.Guid.NewGuid().ToString(), start.ToString("yyyy-MM-dd 00:00:00"), end.ToString("yyyy-MM-dd 00:00:00"));
+        //                        if (callResult.Result == EWin.Lobby.enumResult.OK) {
 
-                //            if (R.Data.BonusValue > ReceiveValueMaxLimit) {
-                //                R.Data.BonusValue = ReceiveValueMaxLimit;
-                //            }
+        //                            var GameOrderList = callResult.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+        //                                TotalOrderValue = sum.Sum(y => y.TotalOrderValue),
+        //                                CurrencyType = key.CurrencyType,
+        //                                SummaryDate = key.SummaryDate
+        //                            }).ToArray();
 
-                //            R.Data.ThresholdRate = ThresholdRate;
-                //            R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
-                //            R.Data.Title = ActivityDetail["Title"].ToString();
-                //            R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
-                //            R.Data.JoinCount = 1;
-                //        } else {
-                //            SetResultException(R, "PaymentCodeNotSupport");
-                //        }
-                //    } else {
-                //        SetResultException(R, "ActivityIsExpired");
-                //    }
-                //} else {
-                //    SetResultException(R, "ActivityIsExpired");
-                //}
-            } else {
-                SetResultException(R, "ActivityIsExpired");
-            }
+        //                            foreach (var item in GameOrderList) {
+        //                                if (item.TotalOrderValue > OrderValue) {
+        //                                    BonusValue += OneDayBonus;
+        //                                }
+        //                            }
+        //                            //全勤可得全勤獎金
+        //                            if (BonusValue == OneDayBonus * 7) {
+        //                                BonusValue += FullAttendance;
+        //                            }
+        //                            //入金金額超過獎勵3倍才可領取該獎勵
+        //                            if (Amount * 3 <= BonusValue) {
+        //                                BonusValue = 0;
+        //                            }
 
-            return R;
-        }
+        //                            if (BonusValue > 0) {
+        //                                R.Result = ActivityCore.enumActResult.OK;
+        //                                R.Data.Amount = Amount;
+        //                                R.Data.PaymentCode = PaymentCode;
+        //                                R.Data.BonusRate = BonusRate;
+        //                                R.Data.BonusValue = BonusValue * BonusRate;
+        //                                R.Data.ThresholdRate = ThresholdRate;
+        //                                R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
+        //                                R.Data.Title = ActivityDetail["Title"].ToString();
+        //                                R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+        //                                R.Data.JoinCount = 1;
+        //                            } else {
+        //                                SetResultException(R, "NotEligible");
+        //                            }
+        //                        } else {
+        //                            SetResultException(R, "NotEligible");
+        //                        }
+        //                    } else {
+        //                        SetResultException(R, "ActivityIsExpired");
+        //                    }
+        //                } else {
+        //                    SetResultException(R, "ActivityIsExpired");
+        //                }
+        //            } else {
+        //                SetResultException(R, "ActivityIsExpired");
+        //            }
+        //        } else {
+        //            SetResultException(R, "InvalidWebSID");
+        //        }
+        //    } else {
+        //        SetResultException(R, "InvalidWebSID");
+        //    }
+
+        //    return R;
+        //}
     }
 
     public static class DepositJoinCheck
@@ -567,5 +599,15 @@ public static class ActivityExpand
             R.Result = ActivityCore.enumActResult.ERR;
             R.Message = Msg;
         }
+    }
+
+    private static string GetToken() {
+        string Token;
+        int RValue;
+        Random R = new Random();
+        RValue = R.Next(100000, 9999999);
+        Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+
+        return Token;
     }
 }
