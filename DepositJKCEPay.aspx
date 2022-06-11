@@ -610,18 +610,18 @@
                     <div class="aside-panel" data-deposite="step2">
                         <!-- PayPal -->
                         <div class="card-item sd-03">
-                            <div class="card-item-link" style="background-image: url(../images/assets/card-surface/card_jkc.png)">
+                            <div class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
                                 <div class="card-item-inner">
                                     <div class="title">
-                                        <%--<span class="language_replace">Maharaja</span>--%>
+                                        <span class="language_replace">マハラジャ</span>
                                         <!-- <span>Electronic Wallet</span>  -->
                                     </div>                                   
                                     <div class="logo vertical-center text-center">
                                         <!-- <span class="text language_replace">銀行振込</span>   -->
-                                        <%--<img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">--%>                                     
+                                        <img src="images/assets/card-surface/jkc-font.svg">                                     
                                     </div>
                                 </div>
-                                <%--<img src="images/assets/card-surface/card_jkc.png" class="card-item-bg" />--%>
+                                <%--<img src="images/assets/card-surface/card-jkc.svg" class="card-item-bg" />--%>
                             </div>
                         </div>
                         <div class="text-wrap payment-change" style="display: none">

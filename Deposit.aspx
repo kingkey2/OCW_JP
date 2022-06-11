@@ -187,18 +187,17 @@
 
                     <!-- EPay -->
 
-                    <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">
+                    <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">                   
                         <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span>マハラジャ</span> 
                                 </div>
-                                <div class="logo vertical-center text-center">
-                                    <!-- <span class="text language_replace">JKC專用</span> -->
-                                    <img src="images/assets/card-surface/jkc-font.svg">
-                                    <!-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg"> -->
+                                <div class="logo vertical-center">                                   
+                                    <img src="images/assets/card-surface/jkc-font.svg">                                   
                                 </div>
-                            </div>
+                            </div>                           
+                            <img src="images/assets/card-surface/card-jkc.svg"  class="card-item-bg">
                         </a>
                         <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
