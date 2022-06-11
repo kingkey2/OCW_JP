@@ -186,7 +186,6 @@
                     </div>
 
                     <!-- EPay -->
-
                     <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">                   
                         <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
                             <div class="card-item-inner">

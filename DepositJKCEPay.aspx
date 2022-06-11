@@ -609,7 +609,7 @@
                 <div class="split-layout-container">
                     <div class="aside-panel" data-deposite="step2">
                         <!-- PayPal -->
-                        <div class="card-item sd-03">
+                        <div class="card-item tempCard">
                             <div class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
                                 <div class="card-item-inner">
                                     <div class="title">
