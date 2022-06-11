@@ -36,11 +36,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin: 20px 0;
 }
 .footer-inner .partner .logo-item {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  width: 14.2857142857%;
-  padding: 0 4px;
+  width: 25%;
   padding: 0 15px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -50,10 +46,19 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           justify-content: center;
 }
 .footer-inner .partner .logo-item .img-crop {
-  max-width: 50px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .footer-inner .partner .logo-item img {
   width: 100%;
+}
+.footer-inner .partner .logo-item:hover img {
+  -webkit-filter: unset;
+          filter: unset;
 }
 .footer-inner .company-info {
   display: -webkit-box;
@@ -85,10 +90,28 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .footer-inner .company-info .info-item:hover {
   color: rgba(0, 0, 0, 0.8);
 }
-.footer-inner .company-address {
+.footer-inner .company-detail {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+.footer-inner .company-license {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 1rem;
+}
+.footer-inner .company-address {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
@@ -115,4 +138,37 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin: 0;
   text-align: center;
   font-size: 0.8125em;
+}
+@media (min-width: 375px) {
+  .footer-inner .partner .logo-item {
+    width: 20%;
+  }
+}
+@media (min-width: 640px) {
+  .footer-inner .partner .logo-item {
+    width: 12.5%;
+  }
+  .footer-inner .company-license {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 120px;
+            flex: 0 0 120px;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .footer-inner .company-address {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
+}
+@media (min-width: 1144px) {
+  .footer-inner .partner .logo-item {
+    width: 10%;
+  }
+  .footer-inner .company-license {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 200px;
+            flex: 0 0 200px;
+  }
 }

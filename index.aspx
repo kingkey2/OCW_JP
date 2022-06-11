@@ -1986,52 +1986,6 @@
         <footer class="footer-container">
             <div class="footer-inner">
                 <div class="container">
-                    <div class="partner">
-                        <div class="logo">
-                            <div class="row">
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-PG.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-CG.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-PP.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-BG.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-VA.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-BNG.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-pagcor.png" alt="">
-                                    </div>
-                                </div>
-                                <%--<div class="logo-item">
-                                    <div class="img-crop">
-                                        <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=seal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
-                                    </div>
-                                </div>--%>
-                            </div>
-                        </div>
-                    </div>
                     <ul class="company-info row">
                         <li class="info-item col">
                             <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
@@ -2057,10 +2011,124 @@
                             </a>
                         </li>--%>
                     </ul>
-                    <div class="company-address">
-                        <%-- <p class="name">Online Chip World Co. N.V</p>--%>
-                        <p class="address">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</p>
+                    <div class="partner">
+                        <div class="logo">
+                            <div class="row">
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-microgaming.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-bbin.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-gmw.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-cq9.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-red-tiger.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-evo.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-bco.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-cg.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-playngo.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-pg.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-netent.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-kx.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-evops.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-bti.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-zeus.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-biggaming.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-play.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-h.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-va.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-pagcor.png" alt="">
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="company-detail">
+                        <div class="company-license">
+                            <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=seal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
+                        </div>
+                        <div class="company-address">
+                            <%-- <p class="name">Online Chip World Co. N.V</p>--%>
+                            <p class="address">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</p>
+                        </div>
+                    </div>
+                   
+                    
                     <div class="footer-copyright">
                         <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
                     </div>
