@@ -6,11 +6,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 0px 0 0;
   background: #fff;
   background: url(../images/bg_Footer.jpg) center bottom no-repeat;
+  background-size: cover;
 }
 .footer-inner {
   margin: 0 auto;
   width: 100%;
-  max-width: 1000px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -27,7 +27,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   color: rgba(0, 0, 0, 0.6);
 }
 .footer-inner .footer-wrapper {
-  max-width: 1000px;
   padding: 0 10px;
   margin: 0 auto;
 }
@@ -46,6 +45,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           justify-content: center;
 }
 .footer-inner .partner .logo-item .img-crop {
+  max-width: 70px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
