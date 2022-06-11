@@ -42,7 +42,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -365,7 +365,10 @@
                     </a>
                     <div class="sec-title-wrapper">
                         <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
-                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="aa()"><i class="icon icon-mask icon-question"></i></span>
+                        <%-- <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="aa()">--%>
+                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', true)">
+                            <i class="icon icon-mask icon-question"></i>
+                        </span>
                         <!-- 獎金/禮金 TAB -->
                         <div class="tab-prize tab-scroller tab-2">
                             <div class="tab-scroller__area">

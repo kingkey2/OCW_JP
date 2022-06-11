@@ -27,8 +27,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maharaja</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/basic.min.css" rel="stylesheet" />
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="css/basic.min.css" rel="stylesheet" />    
     <link rel="stylesheet" href="css/main.css?a=1">
     <link rel="stylesheet" href="css/index.css?a=1">
 
@@ -41,63 +41,7 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script src="Scripts/lozad.min.js"></script>
-    <style>
-        .hero-item-href {
-            position: absolute;
-            margin: auto;
-            height: 60%;
-            width: 50%;
-            top: 5%;
-            left: 25%;
-            cursor: pointer;
-            z-index: 99999;
-        }
-
-        .Line-AddFriend img {
-            width: 100%;
-        }
-
-        .Line-AddFriend .addFriend {
-            width: 100%;
-            max-width: 66px;
-            margin: 0 auto;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            background-color: #00b900;
-            color: #fff;
-            border-radius: 50%;
-            padding: 10px;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-        }
-
-            .Line-AddFriend .addFriend .logo {
-                height: 100%;
-                width: auto;
-            }
-
-            .Line-AddFriend .addFriend .text {
-                font-size: 0.9375rem;
-                width: 90%;
-                text-align: center;
-            }
-
-        .float_SideBar {
-            position: fixed;
-            right: 3vw;
-            bottom: 5vh;
-            width: 10%;
-            min-width: 43px;
-            max-width: 60px;
-            z-index: 2;
-            cursor: pointer;
-        }
-    </style>
+    
 </head>
 <script type="text/javascript">
     if (self != top) {
@@ -170,7 +114,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         GCB = window.parent.API_GetGCB();
@@ -401,17 +345,26 @@
                                 //     slidesPerGroup: 3,
                                 // },
                                 // 640: {
-                                //     slidesPerGroup: 4,
+                                    // slidesPerGroup: 4,
                                 // },
                                 936: {
-                                    slidesPerGroup: 5,
+                                     slidesPerGroup: 6, //index:992px
+                                },
+                                1144: {
+                                    slidesPerGroup: 7, //index:1200px
                                 },
                                 1384: {
-                                    slidesPerGroup: 5,
+                                    slidesPerGroup: 7, //index:1440px
+                                },
+                                1544: {
+                                    slidesPerGroup: 7, //index:1600px
                                 },
                                 1864: {
-                                    slidesPerGroup: 6,
-                                }
+                                    slidesPerGroup: 8, //index:1920px
+                                },
+                                1920: {
+                                    slidesPerGroup: 8, //index:1920px up
+                                },
                             }
                         });
                     }
@@ -627,8 +580,22 @@
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')"></a>
+                        <div class="hero-item" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)">                            
+                            <a class="hero-item-link hero-item-href"></a>
+                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
+                            <div class="hero-item-box mobile">
+                                <img src="images/banner/b4-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/banner/b4.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')">
+                            <a class="hero-item-link hero-item-href"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -640,8 +607,8 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')"></a>
+                        <div class="hero-item" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')">
+                            <a class="hero-item-link hero-item-href"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
                             </div>
@@ -653,8 +620,8 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.top.API_ComingSoonAlert()"></a>
+                        <div class="hero-item" onclick="window.top.API_ComingSoonAlert()">
+                            <a class="hero-item-link hero-item-href"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
@@ -696,7 +663,7 @@
                         <div class="publicize-wrap bulletin-login">
                             <div class="item bulletin">
                                 <div class="bulletin_inner">
-                                    <h2 class="title">重要な新しい情報</h1>
+                                    <h2 class="title">新しい情報</h2>
                                         <ul class="bulletin_list" id="idBulletinBoardContent">
                                         </ul>
                                 </div>
@@ -761,7 +728,7 @@
     </div>
 
     <div id="temCategArea" class="is-hide">
-        <section class="section-wrap section-levelUp new">
+        <section class="section-wrap section-levelUp">
             <div class="game_wrapper">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">
@@ -897,11 +864,11 @@
     <div class="float_SideBar" id="float_SideBar">
         <div class="guide-QA" onclick="window.parent.API_LoadPage('guide_QnA', '/Article/guide_Q&amp;A_jp.html', false)">
             <a>
-                <div class="text">
+                <!-- <div class="text">
                     <h3 class="title language_replace" langkey="Q&amp;A">Q&amp;A</h3>
-                </div>
+                </div> -->
                 <div class="img-wrap">
-                    <img src="images/games/a-chi-QA.svg">
+                    <img src="images/Q_A.svg">
                 </div>
             </a>
         </div>

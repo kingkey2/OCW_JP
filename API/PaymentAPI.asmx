@@ -36,11 +36,8 @@ public class PaymentAPI : System.Web.Services.WebService
         EWin.Lobby.UserInfoResult userInfoResult;
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         RedisCache.SessionContext.SIDInfo SI;
-        string Filename;
         APIResult R = new APIResult() { GUID = GUID, Result = enumResult.ERR};
         System.Data.DataTable DT = new System.Data.DataTable();
-        Newtonsoft.Json.Linq.JObject jo;
-        Newtonsoft.Json.Linq.JArray UserJKCData;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
@@ -48,29 +45,11 @@ public class PaymentAPI : System.Web.Services.WebService
             userInfoResult= lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
             if (userInfoResult != null && userInfoResult.Result == EWin.Lobby.enumResult.OK)
             {
-                if (EWinWeb.IsTestSite)
+                DT = RedisCache.JKCDeposit.GetJKCDepositByContactPhoneNumber(userInfoResult.ContactPhoneNumber);
+                if (DT != null && DT.Rows.Count > 0)
                 {
-                    Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Test_" + "UserJKCData.json");
-                }
-                else
-                {
-                    Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Formal_" + "UserJKCData.json");
-                }
-
-                UserJKCData = LoadSetting(Filename);
-
-                if (UserJKCData != null && UserJKCData.Count > 0)
-                {
-                    jo = UserJKCData.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["Name"] != null && o["Name"].ToString() == userInfoResult.ContactPhoneNumber);
-                    if (jo != null)
-                    {
-                        R.Message = jo["Value"].ToString();
-                        R.Result = enumResult.OK;
-                    }
-                    else
-                    {
-                        SetResultException(R, "NoData");
-                    }
+                    R.Message = DT.Rows[0]["JKCCoin"].ToString();
+                    R.Result = enumResult.OK;
                 }
                 else
                 {
@@ -1034,6 +1013,26 @@ public class PaymentAPI : System.Web.Services.WebService
                 tagInfoData.ThresholdValue = TempCommonData.ThresholdValue;
                 PointValue = TempCommonData.Amount;
                 ReceiveCurrencyType = TempCommonData.ReceiveCurrencyType;
+                if (TempCommonData.PaymentCryptoDetailList != null && TempCommonData.PaymentCryptoDetailList.Count > 0)
+                {
+                    var getUserAccountJKCValue = GetUserAccountJKCValue(WebSID, GUID);
+                    if (getUserAccountJKCValue.Result == enumResult.OK)
+                    {
+                        var JKCDepositAmount= TempCommonData.PaymentCryptoDetailList.Where(w => w.TokenCurrencyType == "JKC").First().ReceiveAmount;
+                        decimal userAccountJKCValue = decimal.Parse(getUserAccountJKCValue.Message);
+                        if (userAccountJKCValue < JKCDepositAmount)
+                        {
+                            SetResultException(R, "JKCAmountInsufficient");
+                            return R;
+                        }
+                    }
+                    else
+                    {
+                        SetResultException(R, "JKCAmountInsufficient");
+                        return R;
+                    }
+                }
+
 
                 if (ActivityNames.Length > 0)
                 {
@@ -1052,7 +1051,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
-                                ThresholdValue = activityDepositResult.Data.ThresholdValue,
+                                ThresholdValue = activityDepositResult.Data.ThresholdValue
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1276,6 +1275,252 @@ public class PaymentAPI : System.Web.Services.WebService
             else
             {
                 SetResultException(R, "OrderNotExist");
+            }
+        }
+        else
+        {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public PaymentCommonResult CreateEPayJKCDeposit(string WebSID, string GUID, decimal Amount, int PaymentMethodID, string DepositName)
+    {
+        PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
+        PaymentCommonData paymentCommonData = new PaymentCommonData() { };
+
+        RedisCache.SessionContext.SIDInfo SI;
+        string PaymentMethodName;
+        string PaymentCode;
+        string ReceiveCurrencyType;
+        string ExtraData;
+        string MultiCurrencyInfo;
+        int MinLimit;
+        int MaxLimit;
+        decimal ReceiveTotalAmount;
+        decimal JKCDepositAmount=0;
+        decimal ThresholdRate;
+        decimal HandingFeeRate;
+        decimal JKCRate;
+        int ExpireSecond;
+        int DecimalPlaces;
+        APIResult ExchangeRateFromNomics;
+        Newtonsoft.Json.Linq.JArray jsonExchangeRateFromNomics;
+        System.Data.DataTable PaymentMethodDT;
+
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
+
+            if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
+            {
+                if ((int)PaymentMethodDT.Rows[0]["State"] == 0)
+                {
+                    if ((int)PaymentMethodDT.Rows[0]["PaymentType"] == 0)
+                    {
+                        MinLimit = (int)PaymentMethodDT.Rows[0]["MinLimit"];
+                        MaxLimit = (int)PaymentMethodDT.Rows[0]["MaxLimit"];
+
+                        if (Amount >= MinLimit)
+                        {
+                            if (Amount <= MaxLimit || MaxLimit == 0)
+                            {
+                                if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 1)
+                                {
+                                    string OrderNumber = System.Guid.NewGuid().ToString();
+                                    int InsertRet;
+
+                                    PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
+                                    PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
+                                    ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
+                                    MultiCurrencyInfo = (string)PaymentMethodDT.Rows[0]["MultiCurrencyInfo"];
+                                    ThresholdRate = (decimal)PaymentMethodDT.Rows[0]["ThresholdRate"];
+                                    ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
+                                    ExtraData = (string)PaymentMethodDT.Rows[0]["ExtraData"];
+
+                                    if (!string.IsNullOrEmpty(MultiCurrencyInfo))
+                                    {
+                                        Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
+                                        paymentCommonData.PaymentCryptoDetailList = new List<CryptoDetail>();
+                                        foreach (var item in MultiCurrency)
+                                        {
+                                            string TokenCurrency;
+                                            decimal ExchangeRate;
+                                            decimal PartialRate;
+                                            if (!int.TryParse(item["DecimalPlaces"].ToString(), out DecimalPlaces))
+                                            {
+                                                DecimalPlaces = 2;
+                                            }
+                                            TokenCurrency = item["Currency"].ToString();
+                                            ExchangeRate = 0;
+
+                                            PartialRate = (decimal)item["Rate"];
+
+                                            if (TokenCurrency == "JKC")
+                                            {
+                                                ExchangeRateFromNomics = GetExchangeRateFromNomics(WebSID, GUID);
+
+                                                if (ExchangeRateFromNomics.Result == enumResult.OK)
+                                                {
+                                                    jsonExchangeRateFromNomics=Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(ExchangeRateFromNomics.Message);
+                                                    Newtonsoft.Json.Linq.JObject jo = jsonExchangeRateFromNomics.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["currency"] != null && o["currency"].ToString() == "ETH");
+                                                    Newtonsoft.Json.Linq.JToken JToken;
+                                                    if (jo.TryGetValue("price", out JToken))
+                                                    {
+                                                        JKCRate = 1 / (decimal.Parse(JToken.ToString()) / 3000);
+
+                                                        JKCDepositAmount =decimal.Round(PartialRate * Amount *JKCRate,2);
+
+                                                    }
+                                                    else {
+                                                        SetResultException(R, "InvalidCryptoExchangeRate");
+                                                        return R;
+                                                    }
+
+
+                                                }
+                                                else
+                                                {
+                                                    SetResultException(R, "InvalidCryptoExchangeRate");
+                                                    return R;
+                                                }
+
+                                            }
+
+                                            CryptoDetail Dcd = new CryptoDetail()
+                                            {
+                                                TokenCurrencyType = TokenCurrency,
+                                                TokenContractAddress = item["TokenContractAddress"].ToString(),
+                                                ExchangeRate = CodingControl.FormatDecimal(ExchangeRate, DecimalPlaces),
+                                                PartialRate = PartialRate,
+                                                ReceiveAmount = 0
+                                            };
+
+                                            if (Dcd.TokenCurrencyType == "JKC")
+                                            {
+                                                Dcd.ReceiveAmount = JKCDepositAmount;
+                                            }
+                                            else {
+                                                Dcd.ReceiveAmount = PartialRate * Amount;
+                                            }
+
+                                            paymentCommonData.PaymentCryptoDetailList.Add(Dcd);
+
+                                        }
+
+                                        if (string.IsNullOrEmpty(ExtraData))
+                                        {
+                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                        }
+                                        else
+                                        {
+                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                            try
+                                            {
+                                                Newtonsoft.Json.Linq.JArray rangeRates = Newtonsoft.Json.Linq.JArray.Parse(ExtraData);
+                                                foreach (var rangeRate in rangeRates)
+                                                {
+                                                    decimal RangeMinValuie = (decimal)rangeRate["RangeMinValuie"];
+                                                    decimal RangeMaxValuie = (decimal)rangeRate["RangeMaxValuie"];
+
+                                                    if (RangeMaxValuie != 0)
+                                                    {
+                                                        if (RangeMinValuie <= Amount && Amount < RangeMaxValuie)
+                                                        {
+                                                            HandingFeeRate = (decimal)rangeRate["RangeRate"];
+                                                            break;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (RangeMinValuie <= Amount)
+                                                        {
+                                                            HandingFeeRate = (decimal)rangeRate["RangeRate"];
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            catch (Exception)
+                                            {
+                                                HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                            }
+                                        }
+
+                                        ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
+
+                                        paymentCommonData.PaymentType = 0;
+                                        paymentCommonData.BasicType = 0;
+                                        paymentCommonData.OrderNumber = OrderNumber;
+                                        paymentCommonData.LoginAccount = SI.LoginAccount;
+                                        paymentCommonData.Amount = Amount;
+                                        paymentCommonData.HandingFeeRate = HandingFeeRate;
+                                        paymentCommonData.HandingFeeAmount = 0;
+                                        paymentCommonData.ReceiveCurrencyType = ReceiveCurrencyType;
+                                        paymentCommonData.ReceiveTotalAmount = ReceiveTotalAmount;
+                                        paymentCommonData.ExpireSecond = ExpireSecond;
+                                        paymentCommonData.PaymentMethodID = PaymentMethodID;
+                                        paymentCommonData.PaymentMethodName = PaymentMethodName;
+                                        paymentCommonData.PaymentCode = PaymentCode;
+                                        paymentCommonData.ThresholdRate = ThresholdRate;
+                                        paymentCommonData.ThresholdValue = Amount * ThresholdRate;
+                                        paymentCommonData.ToInfo = DepositName;
+                                        paymentCommonData.FromInfo = "";
+                                        paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
+
+
+                                        InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, paymentCommonData.PaymentType, 0, paymentCommonData.LoginAccount, paymentCommonData.Amount, paymentCommonData.HandingFeeRate, paymentCommonData.HandingFeeAmount, paymentCommonData.ThresholdRate, paymentCommonData.ThresholdValue, paymentCommonData.PaymentMethodID, paymentCommonData.FromInfo, paymentCommonData.ToInfo,Newtonsoft.Json.JsonConvert.SerializeObject(paymentCommonData.PaymentCryptoDetailList), paymentCommonData.ExpireSecond);
+
+                                        if (InsertRet == 1)
+                                        {
+                                            R.Result = enumResult.OK;
+                                            R.Data = paymentCommonData;
+                                            RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(paymentCommonData), paymentCommonData.OrderNumber);
+                                        }
+                                        else
+                                        {
+                                            SetResultException(R, "InsertFailure");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        SetResultException(R, "GetExchangeFailed");
+                                    }
+                                }
+                                else
+                                {
+                                    SetResultException(R, "PaymentMethodNotCrypto");
+                                }
+                            }
+                            else
+                            {
+                                SetResultException(R, "AmountGreaterThanMaxlimit");
+                            }
+                        }
+                        else
+                        {
+                            SetResultException(R, "AmountLessThanMinLimit");
+                        }
+                    }
+                    else
+                    {
+                        SetResultException(R, "PaymentMethodNotSupportDeposit");
+                    }
+                }
+                else
+                {
+                    SetResultException(R, "PaymentMethodDisable");
+                }
+            }
+            else
+            {
+                SetResultException(R, "PaymentMethodNotExist");
             }
         }
         else

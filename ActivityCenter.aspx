@@ -2,6 +2,7 @@
 
 <%
     string Version = EWinWeb.Version;
+    string type = Request["type"];
 %>
 
 <!doctype html>
@@ -34,12 +35,12 @@
     var WebInfo;
     var LobbyClient;
     var v = "<%:Version%>";
+    var t = "<%:type%>";
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
-
 
         WebInfo = window.parent.API_GetWebInfo();
         LobbyClient = window.parent.API_GetLobbyAPI();
@@ -57,6 +58,18 @@
                 //        $(".register-list").hide();
                 //    }
                 //})
+
+                if (t) {
+                    switch (t) {
+                        case "1":
+                            GoActivityDetail(1, '/Activity/Act001/CenterPage/index.html');
+                            break;
+                        case "2":
+                            GoActivityDetail(2, '/Activity/Act002/CenterPage/index.html');
+                            break;
+                    }
+                }
+
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";

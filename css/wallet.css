@@ -2606,6 +2606,21 @@ i.icon-logo {
   right: 0;
 }
 
+.card-item.tempCard:after {
+  background-color: #523b13;
+}
+.tempCard {
+cursor:pointer;
+}
+/* .comingSoon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 99999;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
+} */
+
 @media only screen and (min-width: 721px) {
   .deposit-award-list .item {
     width: 50%;

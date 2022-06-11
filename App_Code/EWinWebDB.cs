@@ -196,6 +196,65 @@ public static class EWinWebDB {
         }
     }
 
+    public static class JKCDeposit
+    {
+        public static int UpdateJKCDepositByContactPhoneNumber(string ContactPhoneNumber, decimal Amount)
+        {
+            //Type: 0=Collect/1=Join
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int ReturnValue = -1;
+            SS = "spUpdateJKCDepositByContactPhoneNumber";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            DBCmd.Parameters.Add("@ContactPhoneNumber", System.Data.SqlDbType.VarChar).Value = ContactPhoneNumber;
+            DBCmd.Parameters.Add("@Amount", System.Data.SqlDbType.Decimal).Value = Amount;
+            DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
+            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+
+            if (ReturnValue == 0)
+            {
+                RedisCache.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(ContactPhoneNumber);
+            }
+
+            return ReturnValue;
+        }
+
+        public static int InsertJKCDepositByContactPhoneNumber(string ContactPhoneNumber, decimal Amount)
+        {
+            //Type: 0=Collect/1=Join
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int ReturnValue = -1;
+            SS = " INSERT INTO JKCDeposit (ContactPhoneNumber, JKCCoin, DepositCount, DepositTotalAmount) " +
+                 " VALUES (@ContactPhoneNumber, @JKCCoin, 0, 0)";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@ContactPhoneNumber", System.Data.SqlDbType.VarChar).Value = ContactPhoneNumber;
+            DBCmd.Parameters.Add("@JKCCoin", System.Data.SqlDbType.Decimal).Value = Amount;
+            try
+            {
+                ReturnValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            }
+            catch (Exception)
+            {
+
+           
+            }
+        
+            if (ReturnValue == 1)
+            {
+                RedisCache.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(ContactPhoneNumber);
+            }
+
+            return ReturnValue;
+        }
+
+    }
+
     public static class UserAccountEventSummary
     {
         public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, int Type, decimal ThresholdValue, decimal BonusValue)

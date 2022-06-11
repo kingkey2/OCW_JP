@@ -10,8 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maharaja3</title>
-    <link href="css/basic.min.css" rel="stylesheet" />
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/lobby.css" rel="stylesheet" />
     <!--===========JS========-->
@@ -121,9 +121,13 @@
 
                         category.Datas.forEach(gameItem => {
                             var GI;
-
                             var showAllbtn = categArea.querySelector('.title-showAll');
                             showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
+
+                            if (category.SortIndex == 99) {
+                                var categNamebtn = categArea.querySelector('.CategName');
+                                categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
+                            }
 
                             if (category.ShowType == 0) {
                                 GI = c.getTemplate("temGameItem");
@@ -138,6 +142,7 @@
                                 GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
 
                                 if (iframeWidth<936) {
+                                   $(categArea).find('.text-link').css('display', 'none');
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {
@@ -234,7 +239,7 @@
                                         slidesPerGroup: 10, //index:1920px
                                     },
                                     1920: {
-                                        slidesPerGroup: 10, //index:1920px
+                                        slidesPerGroup: 10, //index:1920px up
                                     },
                                 }
                             });
@@ -315,7 +320,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         GCB = window.parent.API_GetGCB();
@@ -485,8 +490,8 @@
                 </div>
             </div>
         </section>
-
     </div>
+    <!-- 若是 JS套入 class "game-item-focus"=>  請套入 default/sideLeft/sideRight 三個class -->
 
     <div id="temGameItem" class="is-hide">
         <div class="swiper-slide">

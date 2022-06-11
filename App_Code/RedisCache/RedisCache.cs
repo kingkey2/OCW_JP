@@ -292,7 +292,7 @@ public static class RedisCache {
             return iList.ToArray();
         }
 
-        public static string[] GetSIDByLoginAccount(int LoginAccount) {
+        public static string[] GetSIDByLoginAccount(string LoginAccount) {
             string Key2;
             StackExchange.Redis.IDatabase Client = EWinWeb.GetRedisClient();
             StackExchange.Redis.HashEntry[] HEList;
@@ -773,6 +773,65 @@ public static class RedisCache {
             return NowDatas;
         }
     }
+
+    public static class JKCDeposit
+    {
+        private static string XMLPath = "JKCDeposit";
+        private static int DBIndex = 0;
+
+        public static System.Data.DataTable GetJKCDepositByContactPhoneNumber(string ContactPhoneNumber)
+        {
+            string Key;
+            System.Data.DataTable DT;
+
+            Key = XMLPath+ ":ContactPhoneNumber:"+ ContactPhoneNumber;
+            if (KeyExists(DBIndex, Key) == true)
+            {
+                DT = DTReadFromRedis(DBIndex, Key);
+            }
+            else
+            {
+                DT = UpdateJKCDepositByContactPhoneNumber(ContactPhoneNumber);
+            }
+
+            return DT;
+        }
+
+        public static System.Data.DataTable UpdateJKCDepositByContactPhoneNumber(string ContactPhoneNumber)
+        {
+            string Key;
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT = null;
+
+            SS = "SELECT * FROM JKCDeposit WITH (NOLOCK) WHERE ContactPhoneNumber=@ContactPhoneNumber";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@ContactPhoneNumber", System.Data.SqlDbType.VarChar).Value = ContactPhoneNumber;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+            if (DT.Rows.Count > 0)
+            {
+                Key = XMLPath + ":ContactPhoneNumber:" + ContactPhoneNumber;
+
+                for (int I = 0; I <= 3; I++)
+                {
+                    try
+                    {
+                        DTWriteToRedis(DBIndex, DT, Key);
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+
+            return DT;
+        }
+    }
+
+    
 
     public static class AppLogin {
         private static string XMLPath = "AppLogin";

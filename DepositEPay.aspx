@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link href="css/footer-new.css" rel="stylesheet" />
 </head>
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -47,7 +47,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -338,11 +338,9 @@
             window.parent.API_LoadingEnd(1);
              if (success) {
                  if (o.Result == 0) {
-                             var data = o.Data;
+                    var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
-                  
-                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}`, "_blank");
-
+                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}&Type=${"EPay"}&ContactPhoneNumber=${WebInfo.UserInfo.ContactPhoneNumber}`, "_blank");
                     });
 
                     setExpireSecond();
@@ -542,7 +540,7 @@
                             </form>
                              <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※存款金額為2,000ocoin至100,000ocoin。</p>
+                                <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
                             </div>
                         </div>
                     </div>

@@ -43,19 +43,19 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
         RedisCache.SessionContext.SIDInfo SI;
 
         var amount = decimal.Parse(Request.Params["amount"]);
-        var paymentCode = Request.Params["paymentCode"];
         var orderNumber = Request.Params["orderNumber"];
         var WebSID = Request.Params["webSID"];
         var UserName = Request.Params["UserName"];
-
+        var Type = Request.Params["Type"];
+        var ContactPhoneNumber = Request.Params["ContactPhoneNumber"];
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            SendPayment(amount, paymentCode, orderNumber, UserName);
+            SendPayment(amount, orderNumber, UserName,Type, ContactPhoneNumber);
         }       
     }
 
-    public void SendPayment(decimal amount, string paymentCode, string orderNumber, string UserName)
+    public void SendPayment(decimal amount, string orderNumber, string UserName,string Type,string ContactPhoneNumber)
     {
         dynamic EPAYSetting = LoadSetting();
         var CompanyCode = (string)EPAYSetting.CompanyCode;
@@ -66,12 +66,30 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
         var OrderDate = DateTime.Now;
         var OrderAmount = amount;
         var ReturnURL = "";
+        string Sign;
+        decimal JPYRate = 0;
         var URL = (string)EPAYSetting.ApiUrl+ "RequirePaying";
-     
-        ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/PaymentCallback.aspx";
-     
-        var Sign = GetGPaySign(OrderID, OrderAmount, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
-        
+        System.Data.DataTable DT = new System.Data.DataTable();
+       
+
+        if (Type == "EPayJKC")
+        {
+            DT = RedisCache.PaymentMethod.GetPaymentMethodByCategory("EPAYJKC");
+            var MultiCurrencyInfo = (string)DT.Select("PaymentCategoryCode='" + "EPAYJKC" + "'")[0]["MultiCurrencyInfo"];
+            Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
+            for (int i = 0; i < MultiCurrency.Count; i++)
+            {
+                if ((string)MultiCurrency[i]["Currency"]=="JPY")
+                {
+                    JPYRate = (decimal)MultiCurrency[i]["Rate"];
+                }
+            }
+            ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/JKCPaymentCallback.aspx";
+        }
+        else {
+            ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/PaymentCallback.aspx";
+        }
+  
         System.Collections.Specialized.NameValueCollection data = new System.Collections.Specialized.NameValueCollection();
         data.Add("ManageCode", CompanyCode);
         data.Add("Currency", CurrencyType);
@@ -79,9 +97,19 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
         data.Add("CustomerIP", CodingControl.GetUserIP());
         data.Add("OrderID", OrderID);
         data.Add("OrderDate", OrderDate.ToString("yyyy-MM-dd HH:mm:ss"));
-        data.Add("OrderAmount", OrderAmount.ToString("#.##"));
+        if (Type == "EPayJKC")
+        {
+            Sign = GetGPaySign(OrderID, OrderAmount * JPYRate, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
+            data.Add("OrderAmount", (OrderAmount * JPYRate).ToString("#.##"));
+        }
+        else {
+            Sign = GetGPaySign(OrderID, OrderAmount, OrderDate, ServiceType, CurrencyType, CompanyCode, CompanyKey);
+            data.Add("OrderAmount", OrderAmount.ToString("#.##"));
+        }
+       
         data.Add("RevolveURL", ReturnURL);
         data.Add("UserName", UserName);
+        data.Add("State", ContactPhoneNumber);
         data.Add("Sign", Sign);
       
         RedirectAndPOST(this.Page, URL, data);

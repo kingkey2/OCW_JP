@@ -16,22 +16,9 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link href="css/footer-new.css" rel="stylesheet" />
     <style>
-        .card-item.tempCard:after {
-            background-color: #523b13;
-        }
-        .tempCard {
-        cursor:pointer;
-        }
-        .comingSoon {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 99999;
-            height: calc(100% - 20px);
-            width: calc(100% - 20px);
-        }
+        
     </style>
 </head>
 
@@ -55,7 +42,7 @@
     function init() {
 
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -166,8 +153,10 @@
                                 <div class="logo">
                                     <i class="icon-logo-usdt"></i>
                                     <!-- <i class="icon-logo-eth-o"></i> -->
+                                    <!-- <i class="icon-logo-nissin"></i> -->
                                     <i class="icon-logo-eth"></i>
                                     <i class="icon-logo-btc"></i>
+                                    
                                     <!-- <i class="icon-logo-doge"></i> -->
                                     <!-- <i class="icon-logo-tron"></i> -->
                                 </div>
@@ -198,20 +187,20 @@
 
                     <!-- EPay -->
 
-                    <div class="card-item tempCard" id="idDepositJKC" onclick="TempAlert()" <%--onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')"--%>>
-                        <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card_jkc.png)">
+                    <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">
+                        <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
                             <div class="card-item-inner">
                                 <div class="title">
-
-                                    <!-- <span>Electronic Wallet</span>  -->
+                                    <span>マハラジャ</span> 
                                 </div>
                                 <div class="logo vertical-center text-center">
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <%-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">--%>
+                                    <!-- <span class="text language_replace">JKC專用</span> -->
+                                    <img src="images/assets/card-surface/jkc-font.svg">
+                                    <!-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg"> -->
                                 </div>
                             </div>
                         </a>
-                        <img class="comingSoon" src="../images/assets/card-surface/cs.png">
+                        <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
                 </div>
                 <!-- 存款紀錄 -->

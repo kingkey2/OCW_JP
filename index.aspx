@@ -109,7 +109,6 @@
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
     <link rel="shortcut icon" href="images/share_pic1.png">
-
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <style>
@@ -776,6 +775,10 @@
             gameWindow.close();
         }
 
+        if ($("#alertSearch").css("display") == "block") {
+            $("#alertSearchCloseButton").click();
+        }
+
         if (!EWinWebInfo.UserLogined) {
 
             if ($("#alertSearch").css("display") == "block") {
@@ -825,7 +828,7 @@
     }
 
     function favBtnEvent(gameID, doc, isSearchGame) {
-        debugger;
+  
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
@@ -1531,10 +1534,10 @@
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
-
+                
                 GI = c.getTemplate("tmpSearchGameItem");
                 var GI_a = GI.querySelector(".btn-play");
-                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
                     GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1852,11 +1855,12 @@
                         <div id="headerGameDetailContent" style="display:none;">
                             <!-- Search -->
                             <ul class="nav header_setting_content">
-                                <li class="headerGameDetail navbar-search nav-item">               
-                                <span class="headerGameName"></span>
+                                <li class="headerGameDetail navbar-search nav-item">      
                                 <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
                                     <i class="icon">X</i>
                                 </button>
+                                <span class="headerGameName"></span>
+                             
                             </li>
                             </ul>
                         </div>
@@ -1958,12 +1962,7 @@
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
                                     </li>
-                                     <!-- Search -->
-                                    <li id="closeGameBtn" class="navbar-search nav-item" data-toggle="tooltip" data-placement="bottom" style="display:none;">
-                                        <button type="button" onclick="CloseGameFrame()" class="btn btn-search">
-                                            <i class="icon">X</i>
-                                        </button>
-                                    </li>
+                                  
                                 </ul>
                             </div>
                         </div>
