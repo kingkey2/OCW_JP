@@ -584,11 +584,11 @@
                             <a class="hero-item-link hero-item-href"></a>
                             <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
                             <div class="hero-item-box mobile">
-                                <img src="images/banner/b4-m.jpg" alt="">
+                                <img src="images/banner/b5-m.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/banner/b4.jpg" class="bg">
+                                    <img src="images/banner/b5.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
