@@ -735,7 +735,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1920px) {
   .hero_slider .img-wrap {
-    padding-bottom: 62.5vh;
+    padding-bottom: 64.5161290323vh;
   }
   .hero_slider .swiper-pagination {
     bottom: 15px;
