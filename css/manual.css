@@ -85,17 +85,18 @@
     opacity: 1;
   }
 }
-ul, li {
+.manual-container ul, .manual-container li {
   list-style: none;
 }
 
-ul {
+.manual-container ul {
   margin: 1rem 0;
 }
 
-li {
+.manual-container li {
   margin: 0.5rem 0;
 }
+
 
 .manual-container h2 {
   font-size: 3.125rem;
