@@ -90,6 +90,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding-right: 10px;
   width: 31.25%;
 }
+.game_slider .swiper-button-next {
+  right: -25px;
+}
+.game_slider .swiper-button-prev {
+  left: -15px;
+}
 
 @media (min-width: 375px) {
   .hero_slider_lobby .img-wrap {
@@ -207,9 +213,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 936px) and (max-width: 1143px) {
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 6 - 1.1vw);
-  }
   .game_slider .swiper-slide {
     width: 16.6666666667%;
   }
@@ -241,9 +244,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 1144px) and (max-width: 1383px) {
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 7 - 1.2vw);
-  }
   .game_slider .swiper-slide {
     width: 14.2857142857%;
   }
@@ -273,18 +273,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .hero_slider_lobby .swiper-slide {
     max-width: 66%;
   }
-
-  .swiper-button-next,
-.swiper-button-prev {
-    height: calc(100% - 65px);
-    top: 65px;
-  }
 }
 @media (min-width: 1384px) and (max-width: 1543px) {
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 8 - 1.2vw);
-  }
-
   .game_slider .swiper-slide {
     width: 12.5%;
   }
@@ -316,10 +306,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 1544px) and (max-width: 1863px) {
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 9 - 1.2vw);
-  }
-
   .game_slider .swiper-slide {
     width: 11.1111111111%;
   }
@@ -343,10 +329,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 1864px) and (max-width: 1919px) {
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 10 - 1.2vw);
-  }
-
   .game_slider .swiper-slide {
     width: 10%;
   }
@@ -381,11 +363,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .tab-game .icon-mask {
     width: 3.75rem;
     height: 3.75rem;
-  }
-
-  .game_slider::before, .game_slider::after {
-    height: calc((100vw - 56px) / 10 - 1.2vw);
-    max-height: 240px;
   }
 
   .game_slider .swiper-slide {
