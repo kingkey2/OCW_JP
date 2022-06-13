@@ -69,26 +69,9 @@
 
     function CoinBtn_Click() {
         var seleAmount = parseInt($(event.currentTarget).data("val"));
-        let RangeRate = 0;
         $("#amount").val(seleAmount);
 
-        for (var i = 0; i < PaymentMethod[0].ExtraData.length; i++) {
-            let RangeMinValuie = PaymentMethod[0].ExtraData[i].RangeMinValuie;
-            let RangeMaxValuie = PaymentMethod[0].ExtraData[i].RangeMaxValuie;
-            if (RangeMaxValuie != 0) {
-                if (RangeMinValuie <= seleAmount && seleAmount < RangeMaxValuie) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            } else {
-                if (RangeMinValuie <= seleAmount) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            }
-        }
-
-        $("#ExchangeVal").text(new BigNumber(seleAmount * (1 + RangeRate)).toFormat());
+        $("#ExchangeVal").text(new BigNumber(seleAmount).toFormat());
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -114,23 +97,8 @@
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
         $("#amount").val(amount);
 
-        for (var i = 0; i < PaymentMethod[0].ExtraData.length; i++) {
-            let RangeMinValuie = PaymentMethod[0].ExtraData[i].RangeMinValuie;
-            let RangeMaxValuie = PaymentMethod[0].ExtraData[i].RangeMaxValuie;
-            if (RangeMaxValuie != 0) {
-                if (RangeMinValuie <= amount && amount < RangeMaxValuie) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            } else {
-                if (RangeMinValuie <= amount) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            }
-        }
 
-        $("#ExchangeVal").text(Math.ceil(amount * (1 + RangeRate)));
+        $("#ExchangeVal").text(Math.ceil(amount));
     }
 
     function btn_NextStep() {
