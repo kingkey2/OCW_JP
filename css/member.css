@@ -53,13 +53,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 input.year {
-  width: 33% !important;
+  width: 35% !important;
 }
 input.year:-moz-read-only {
   width: 31.5% !important;
 }
 input.year:read-only {
-  width: 31.5% !important;
+  width: 33.5% !important;
 }
 input.month, input.day {
   width: 22% !important;
