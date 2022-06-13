@@ -33,13 +33,12 @@
 
         if (LoginType == "0")
         {
-            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.MainAccount, LoginAccount, LoginPassword, string.Empty, CodingControl.GetUserIP());
+            ASS = agentAPI.AgentLoginByPhoneNumber(LoginGUID, System.Guid.NewGuid().ToString(), telPhoneNormalize.PhonePrefix, telPhoneNormalize.PhoneNumber, LoginPassword, String.Empty, CodingControl.GetUserIP());
         }
         else if (LoginType == "1")
         {
             string MainAccount = Request["MainAccount"];
-
-            ASS = agentAPI.AgentLoginByPhoneNumber(LoginGUID, System.Guid.NewGuid().ToString(), telPhoneNormalize.PhonePrefix, telPhoneNormalize.PhoneNumber, LoginPassword, MainAccount, CodingControl.GetUserIP());
+            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.AgentLogin, LoginAccount, LoginPassword, MainAccount, CodingControl.GetUserIP());            
         }
 
         if (ASS != null)
