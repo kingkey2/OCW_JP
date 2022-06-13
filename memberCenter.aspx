@@ -376,8 +376,8 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="text" class="custom-input-edit year" id="idBornYear" value="" readonly> / 
-                                            <input type="text"  class="custom-input-edit month" id="idBornMonth" value="" readonly> / 
+                                            <input type="text" class="custom-input-edit year" id="idBornYear" value="" readonly> /
+                                            <input type="text"  class="custom-input-edit month" id="idBornMonth" value="" readonly> /
                                             <input type="text"  class="custom-input-edit day" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>
