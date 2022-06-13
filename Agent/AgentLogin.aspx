@@ -39,7 +39,7 @@
         {
             string MainAccount = Request["MainAccount"];
 
-            ASS = agentAPI.AgentLogin(LoginGUID, System.Guid.NewGuid().ToString(), EWin.Agent.enumLoginType.AgentLogin, LoginAccount, LoginPassword, MainAccount, CodingControl.GetUserIP());
+            ASS = agentAPI.AgentLoginByPhoneNumber(LoginGUID, System.Guid.NewGuid().ToString(), telPhoneNormalize.PhonePrefix, telPhoneNormalize.PhoneNumber, LoginPassword, MainAccount, CodingControl.GetUserIP());
         }
 
         if (ASS != null)
