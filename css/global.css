@@ -3878,11 +3878,28 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   .depositCryptoPage .sm-sticky {
     top: -105px;
   }
-  .depositCryptoPage .page-content {
+
+  .depositJKCEPAY .sm-sticky {
+     /* top: -10px; */
+     /* background-color: #fafbfd; */
+     z-index: 11;
+    
+     padding: 0 15px;
+     box-sizing: content-box;
+     margin: 0 -15px;
+     padding-bottom: 1px;
+  }
+
+  .depositJKCEPAY .sm-sticky .form-group{
+    margin-bottom: 8px;
+  }
+
+
+  .mobile-scroll-sticky .page-content {
     padding-left: 0;
     padding-right: 0;
   }
-  .depositCryptoPage .page-content .main-panel {
+  .mobile-scroll-sticky .page-content .main-panel {
     padding-left: 20px;
     padding-right: 20px;
   }
