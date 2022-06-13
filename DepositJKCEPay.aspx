@@ -200,7 +200,7 @@
         PaymentClient.GetUserAccountJKCValue(WebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    userAccountJKCValue = new BigNumber(parseInt(o.Message)).toFormat();
+                    userAccountJKCValue = new BigNumber(o.Message).toFormat();
                     //window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("JKC 餘額" + userAccountJKCValue));
                  
                 } else {
@@ -716,7 +716,7 @@
                             </form>
                              <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※存款金額為3,000ocoin至700,000ocoin。</p>
+                                <p class="text-s language_replace">※入金額は3,000ocoinから700,000ocoinまでとなります。</p>
                                 <p class="text-s language_replace">※Ocoinの反映は着金後になりますが、1銀行営業日経っても反映しない場合はカスタマサポート迄ご連絡下さい。</p>
                             </div>
                         </div>
