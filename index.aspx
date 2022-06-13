@@ -2226,6 +2226,8 @@
                                 <option class="searchFilter-option" value="PP"><span class="language_replace">プラグマティックプレイ</span></option>
                                 <option class="searchFilter-option" value="VA"><span class="language_replace">ビクトリーアークゲーミング</span></option>
                                 <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
+                                            <option class="searchFilter-option" value="BTI"><span class="language_replace">ビットスポーツ</span></option>
+                                <option class="searchFilter-option" value="BG"><span class="language_replace">ビッグゲーミング</span></option>
                             </select>
                         </div>
                         <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display:none">                   
