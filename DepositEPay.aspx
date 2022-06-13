@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link href="css/footer-new.css" rel="stylesheet" />
 </head>
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -47,7 +47,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -69,26 +69,9 @@
 
     function CoinBtn_Click() {
         var seleAmount = parseInt($(event.currentTarget).data("val"));
-        let RangeRate = 0;
         $("#amount").val(seleAmount);
 
-        for (var i = 0; i < PaymentMethod[0].ExtraData.length; i++) {
-            let RangeMinValuie = PaymentMethod[0].ExtraData[i].RangeMinValuie;
-            let RangeMaxValuie = PaymentMethod[0].ExtraData[i].RangeMaxValuie;
-            if (RangeMaxValuie != 0) {
-                if (RangeMinValuie <= seleAmount && seleAmount < RangeMaxValuie) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            } else {
-                if (RangeMinValuie <= seleAmount) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            }
-        }
-
-        $("#ExchangeVal").text(new BigNumber(seleAmount * (1 + RangeRate)).toFormat());
+        $("#ExchangeVal").text(new BigNumber(seleAmount).toFormat());
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -114,23 +97,8 @@
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
         $("#amount").val(amount);
 
-        for (var i = 0; i < PaymentMethod[0].ExtraData.length; i++) {
-            let RangeMinValuie = PaymentMethod[0].ExtraData[i].RangeMinValuie;
-            let RangeMaxValuie = PaymentMethod[0].ExtraData[i].RangeMaxValuie;
-            if (RangeMaxValuie != 0) {
-                if (RangeMinValuie <= amount && amount < RangeMaxValuie) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            } else {
-                if (RangeMinValuie <= amount) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            }
-        }
 
-        $("#ExchangeVal").text(Math.ceil(amount * (1 + RangeRate)));
+        $("#ExchangeVal").text(Math.ceil(amount));
     }
 
     function btn_NextStep() {
@@ -338,11 +306,9 @@
             window.parent.API_LoadingEnd(1);
              if (success) {
                  if (o.Result == 0) {
-                             var data = o.Data;
+                    var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
-                  
-                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}`, "_blank");
-
+                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}&Type=${"EPay"}&ContactPhoneNumber=${WebInfo.UserInfo.ContactPhoneNumber}`, "_blank");
                     });
 
                     setExpireSecond();
@@ -542,7 +508,8 @@
                             </form>
                              <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※存款金額為2,000ocoin至100,000ocoin。</p>
+                                <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
+                                <p class="text-s language_replace">※Ocoinの反映は着金後になりますが、1銀行営業日経っても反映しない場合はカスタマサポート迄ご連絡下さい。</p>
                             </div>
                         </div>
                     </div>

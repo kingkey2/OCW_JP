@@ -16,10 +16,11 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/member.css" type="text/css" />
-    <link rel="stylesheet" href="css/main.css" />--%>
+    --%>
 
-    <link href="css/basic.min.css" rel="stylesheet" />
+    
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet" />
 
@@ -269,7 +270,7 @@
 
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -375,8 +376,8 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="text" class="custom-input-edit year" id="idBornYear" value="" readonly>
-                                            <input type="text"  class="custom-input-edit month" id="idBornMonth" value="" readonly>
+                                            <input type="text" class="custom-input-edit year" id="idBornYear" value="" readonly> / 
+                                            <input type="text"  class="custom-input-edit month" id="idBornMonth" value="" readonly> / 
                                             <input type="text"  class="custom-input-edit day" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>

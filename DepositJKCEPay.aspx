@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link href="css/footer-new.css" rel="stylesheet" />
 </head>
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -44,10 +44,10 @@
     var ActivityNames = [];
     var OrderNumber = "";
     var ExpireSecond = 0;
-
+    var userAccountJKCValue;
     function init() {
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -65,6 +65,33 @@
         //}
         GetUserAccountJKCValue();
         GetPaymentMethod();
+    }
+
+    function startCountDown() {
+        let secondsRemaining = 30;
+
+        CountInterval = setInterval(function () {
+            let idRecClock = document.getElementById("idRecClock");
+
+            //min = parseInt(secondsRemaining / 60);
+            //sec = parseInt(secondsRemaining % 60);
+            idRecClock.innerText = secondsRemaining;
+
+            secondsRemaining = secondsRemaining - 1;
+            if (secondsRemaining < 0) {
+                secondsRemaining = 30;
+                GetExchangeRateFromNomics(function () {
+                    let amountText = document.getElementById("amount").value;
+
+                    if (amountText) {
+                        ReSetPaymentAmount(true, Number(amountText));
+                    } else {
+                        ReSetPaymentAmount(true);
+                    }
+                });
+            };
+
+        }, 1000);
     }
 
     function CoinBtn_Click() {
@@ -88,7 +115,41 @@
             }
         }
 
+        ReSetPaymentAmount(false, seleAmount);
         $("#ExchangeVal").text(new BigNumber(seleAmount * (1 + RangeRate)).toFormat());
+    }
+
+    function GetExchangeRateFromNomics(cb) {
+
+        PaymentClient.GetExchangeRateFromNomics(WebInfo.SID, Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.Message != "") {
+                        NomicsExchangeRate = JSON.parse(o.Message);
+                        if (cb) {
+                            cb();
+                        }
+                    } else {
+                        window.parent.API_LoadingEnd(1);
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                        });
+                    }
+                } else {
+                    window.parent.API_LoadingEnd(1);
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                    });
+                }
+            }
+            else {
+                window.parent.API_LoadingEnd(1);
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                });
+            }
+        })
+
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -114,23 +175,8 @@
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
         $("#amount").val(amount);
 
-        for (var i = 0; i < PaymentMethod[0].ExtraData.length; i++) {
-            let RangeMinValuie = PaymentMethod[0].ExtraData[i].RangeMinValuie;
-            let RangeMaxValuie = PaymentMethod[0].ExtraData[i].RangeMaxValuie;
-            if (RangeMaxValuie != 0) {
-                if (RangeMinValuie <= amount && amount < RangeMaxValuie) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            } else {
-                if (RangeMinValuie <= amount) {
-                    RangeRate = PaymentMethod[0].ExtraData[i].RangeRate;
-                    break;
-                }
-            }
-        }
-
-        $("#ExchangeVal").text(Math.ceil(amount * (1 + RangeRate)));
+        $("#ExchangeVal").text(Math.ceil(amount));
+        ReSetPaymentAmount(false, amount);
     }
 
     function btn_NextStep() {
@@ -150,24 +196,116 @@
         });
     }
 
-    function GetUserAccountJKCValue(cb) {
+    function GetUserAccountJKCValue() {
         PaymentClient.GetUserAccountJKCValue(WebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    cb(o.Message);
+                    userAccountJKCValue = new BigNumber(o.Message).toFormat();
+                    //window.parent.showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("JKC 餘額" + userAccountJKCValue));
+                 
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("JKC貨幣餘額不足"), function () {
-                        window.location.href = "index.aspx"
-                    });
+                    userAccountJKCValue = 0;
                 }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.location.href = "index.aspx"
+                    window.parent.location.href = "index.aspx";
                 });
             }
 
         })
+    }
+
+    function SetPaymentMethodDom() {
+        let idPaymentMethod = document.getElementById('idPaymentMethods');
+        idPaymentMethod.innerHTML = "";
+        let strCryptoWalletType;
+
+        for (var i = 0; i < PaymentMethod.length; i++) {
+
+            if (PaymentMethod[i]["MultiCurrencyInfo"]) {
+                if (!PaymentMethod[i]["MultiCurrencys"]) {
+                    PaymentMethod[i]["MultiCurrencys"] = JSON.parse(PaymentMethod[i]["MultiCurrencyInfo"]);
+                }
+            }
+
+            let PaymentMethodDom = c.getTemplate("templatePaymentMethod");
+            let ItemsDom = PaymentMethodDom.querySelector(".amount");
+            let EWinCryptoWalletType = parseInt(PaymentMethod[i]["EWinCryptoWalletType"]);
+
+            strCryptoWalletType = "JKC";
+
+            //PaymentMethodDom.classList.add("box_" + PaymentMethod[i]["PaymentCode"] + "_" + PaymentMethod[i]["EWinCryptoWalletType"]);
+            //PaymentMethodDom.querySelector(".PaymentCode").value = PaymentMethod[i]["PaymentMethodID"];
+            //PaymentMethodDom.querySelector(".PaymentCode").id = "payment-" + PaymentMethod[i]["PaymentCode"] + "_" + PaymentMethod[i]["EWinCryptoWalletType"];
+            //PaymentMethodDom.querySelector(".tab").setAttribute("for", "payment-" + PaymentMethod[i]["PaymentCode"] + "_" + PaymentMethod[i]["EWinCryptoWalletType"]);
+            PaymentMethodDom.querySelector(".icon-logo").classList.add("icon-logo-jkc");
+            c.setClassText(PaymentMethodDom, "coinType", null, PaymentMethod[i]["PaymentName"] + " (" + strCryptoWalletType + ")");
+
+            if (PaymentMethod[i]["MultiCurrencys"]) {
+                PaymentMethod[i]["MultiCurrencys"].forEach(function (mc) {
+                    let item = document.createElement("div");
+                    item.classList.add("item");
+                    item.innerHTML = '<span class="count needReset" data-rate="' + mc["Rate"] + '" data-feerate="' + PaymentMethod[i]["HandingFeeRate"] + '" data-currency="' + mc["ShowCurrency"] + '">0</span><sup class="unit">' + mc["ShowCurrency"] + '</sup>';
+
+                    ItemsDom.appendChild(item);
+                });
+            } else {
+                let item = document.createElement("div");
+                item.classList.add("item");
+                item.innerHTML = '<span class="count needReset" data-rate="1" data-feerate="' + PaymentMethod[i]["HandingFeeRate"] + '"  data-currency="' + PaymentMethod[i]["CurrencyType"] + '">0</span><sup class="unit">' + PaymentMethod[i]["CurrencyType"] + '</sup>';
+
+                ItemsDom.appendChild(item);
+            }
+
+            if (PaymentMethod[i]["HintText"]) {
+                PaymentMethodDom.querySelector('.hintText').innerText = PaymentMethod[i]["HintText"];
+            } else {
+                PaymentMethodDom.querySelector('.box-item-sub').classList.add("is-hide");
+            }
+
+            idPaymentMethod.appendChild(PaymentMethodDom);
+        }
+
+        startCountDown();
+    }
+
+    function GetRealExchange(currency) {
+        var R = 0;
+        var price;
+
+        if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
+            if (currency == "JKC") {
+                price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
+                R = 1 / (price / 3000);
+            } else if(currency == "JPY"){
+                R = 1;
+            }
+        }
+        return R;
+    }
+
+    function ReSetPaymentAmount(isResetRealRate, Amount) {
+        let needResetDom = document.querySelectorAll(".needReset");
+        needResetDom.forEach(function (dom) {
+            let realRate = 0;
+            if (isResetRealRate) {
+                let Rate = Number(dom.dataset.rate);
+                let Currency = dom.dataset.currency;
+                let HandingFeeRate = Number(dom.dataset.feerate);
+                let RealExChange = GetRealExchange(Currency);
+                realRate = 1 * Rate * (1 + HandingFeeRate) * RealExChange;
+                dom.dataset.realrate = realRate.toString();
+            } else {
+                realRate = Number(dom.dataset.realrate);
+            }
+
+            if (Amount) {
+                dom.innerText = new BigNumber((realRate * Amount).toFixed(6)).toFormat();
+            } else {
+                dom.innerText = 0;
+            }
+        });
     }
 
     function GetPaymentMethod() {
@@ -176,6 +314,12 @@
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
                         PaymentMethod = o.PaymentMethodResults;
+
+                        GetExchangeRateFromNomics(function () {
+                            SetPaymentMethodDom();
+                            ReSetPaymentAmount(true);
+                        });
+
                         for (var i = 0; i < PaymentMethod.length; i++) {
                             if (PaymentMethod[i]["ExtraData"]) {
                                 PaymentMethod[i]["ExtraData"] = JSON.parse(PaymentMethod[i]["ExtraData"]);
@@ -183,24 +327,23 @@
                         }
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                            window.location.href = "index.aspx"
+                            window.parent.location.href = "index.aspx";
                         });
                     }
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                        window.location.href = "index.aspx"
+                        window.parent.location.href = "index.aspx";
                     });
                 }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.location.href = "index.aspx"
+                    window.parent.location.href = "index.aspx";
                 });
             }
 
         })
     }
-
     //建立訂單
     function CreatePayPalDeposit() {
         if ($("#amount").val() != '') {
@@ -215,7 +358,7 @@
                 depositName = $("#idToDepositName").val().trim().replace(/ /g, "");
 
 
-                PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
+                PaymentClient.CreateEPayJKCDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
                     if (success) {
                         let data = o.Data;
                         if (o.Result == 0) {
@@ -225,14 +368,18 @@
                             $("#depositdetail .OrderNumber").text(data.OrderNumber);
                             $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
                             $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
+                            $("#depositdetail .JKCValue").text(userAccountJKCValue);
                             ExpireSecond = data.ExpireSecond;
 
                             var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                            var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                            c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
-                            c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
-                            depositdetail.appendChild(CollectionitemDom);
-
+                      
+                            for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
+                                var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                                c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i].TokenCurrencyType);
+                                c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.PaymentCryptoDetailList[i].ReceiveAmount).toFormat());
+                                depositdetail.appendChild(CollectionitemDom);
+                            }
+                        
                             OrderNumber = data.OrderNumber;
                             GetDepositActivityInfoByOrderNumber(OrderNumber);
                         } else {
@@ -240,6 +387,7 @@
                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                             });
+                            
                         }
 
                     }
@@ -263,7 +411,6 @@
             });
         }
     }
-
     //根據訂單編號取得可參加活動
     function GetDepositActivityInfoByOrderNumber(OrderNum) {
         PaymentClient.GetDepositActivityInfoByOrderNumber(WebInfo.SID, Math.uuid(), OrderNum, function (success, o) {
@@ -361,7 +508,7 @@
                              var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
                   
-                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}`, "_blank");
+                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}&Type=${"EPayJKC"}&ContactPhoneNumber=${WebInfo.UserInfo.ContactPhoneNumber}`, "_blank");
 
                     });
 
@@ -462,19 +609,19 @@
                 <div class="split-layout-container">
                     <div class="aside-panel" data-deposite="step2">
                         <!-- PayPal -->
-                        <div class="card-item sd-03">
-                            <div class="card-item-link">
+                        <div class="card-item tempCard">
+                            <div class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
                                 <div class="card-item-inner">
                                     <div class="title">
-                                        <span class="language_replace">Maharaja</span>
+                                        <span class="language_replace">マハラジャ</span>
                                         <!-- <span>Electronic Wallet</span>  -->
                                     </div>                                   
                                     <div class="logo vertical-center text-center">
                                         <!-- <span class="text language_replace">銀行振込</span>   -->
-                                        <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">                                     
+                                        <img src="images/assets/card-surface/jkc-font.svg">                                     
                                     </div>
                                 </div>
-                                <img src="images/assets/card-surface/card-03.svg" class="card-item-bg" />
+                                <%--<img src="images/assets/card-surface/card-jkc.svg" class="card-item-bg" />--%>
                             </div>
                         </div>
                         <div class="text-wrap payment-change" style="display: none">
@@ -484,6 +631,26 @@
                             </a>
                         </div>
                         <div class="form-content">
+                        <div>
+                            <span id="idRecClock">30</span><span class="language_replace">秒後，重新取得匯率</span>
+                        </div>
+                        <div class="box-item-container crypto-list">
+                            <div id="idPaymentMethods">
+                            </div>
+
+                            <!-- 溫馨提醒 -->
+                            <div class="notice-container mt-3 mb-3">
+                                <div class="notice-item">
+                                    <i class="icon-info_circle_outline"></i>
+                                    <div class="text-wrap">
+                                        <p class="title language_replace">溫馨提醒</p>
+                                        <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
+                                        <p class="language_replace">ガス代は入金のお客様負担となります。</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                             <!-- 存款提示 -->
                             <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
@@ -545,24 +712,12 @@
                                     </div>                                   
                                 </div>
 
-                                <!-- 換算金額(日元) -->
-                                <div class="form-group ">
-                                    <div class="input-group inputlike-box-group">
-                                        <span class="inputlike-box-prepend">≒</span>
-                                        <!-- 換算金額(日元)-->
-                                        <!-- 兌換後加入 class =>exchanged-->
-                                        <%--<span class="inputlike-box "><span ></span></span>--%>
-                                        <span class="inputlike-box-append">
-                                            <span class="inputlike-box-append-title" id="ExchangeVal"></span>
-                                            <span class="inputlike-box-append-unit">JPY</span>
-                                        </span>
-                                    </div>
-                                </div>
-
+                            
                             </form>
                              <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※存款金額為2,000ocoin至100,000ocoin。</p>
+                                <p class="text-s language_replace">※入金額は3,000ocoinから700,000ocoinまでとなります。</p>
+                                <p class="text-s language_replace">※Ocoinの反映は着金後になりますが、1銀行営業日経っても反映しない場合はカスタマサポート迄ご連絡下さい。</p>
                             </div>
                         </div>
                     </div>
@@ -642,7 +797,10 @@
                                         <h6 class="title language_replace">出金條件</h6>
                                         <span class="data ThresholdValue"></span>
                                     </li>
-
+                                     <li class="item">
+                                        <h6 class="title language_replace">JKC 餘額</h6>
+                                        <span class="data JKCValue"></span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -746,6 +904,40 @@
                 </label>
             </div>
         </li>
+    </div>
+
+      <div id="templatePaymentMethod" style="display: none">
+        <div class="box-item">
+            <input class="PaymentCode" type="radio" name="payment-crypto" checked />
+            <label class="box-item-inner tab">
+                <div class="box-item-info">
+                    <i class="icon-logo"></i>
+                    <div class="box-item-detail">
+                        <div class="box-item-title">
+                            <div class="coinUnit">
+                                <span class="coinType">BTC</span>
+                            </div>
+                            <div class="amount">
+                                <%--                                <div class="item">
+                                    <span class="count BTCval">0</span><sup class="unit"></sup>
+                                </div>
+                                <div class="item">
+                                    <span class="count ETHval">0</span><sup class="unit"></sup>
+                                </div>--%>
+                            </div>
+                            <%--<span class="box-item-status">1 TRON = 1234567 USD</span>--%>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-item-sub">
+                    <div class="coinPush">
+                        <i class="icon icon-coin"></i>
+                        <p class="text hintText">業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%</p>
+                    </div>
+                </div>
+
+            </label>
+        </div>
     </div>
 </body>
 </html>

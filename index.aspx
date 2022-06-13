@@ -109,10 +109,35 @@
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
     <link rel="shortcut icon" href="images/share_pic1.png">
-
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
-
+    <style>
+         .headerGameName {
+            display: inherit;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-weight: 500;
+            padding-top: 10px;
+        }
+        
+        .headerGameDetail{
+            margin: 0 auto;
+            vertical-align: middle;
+        }
+         /*   .box {
+            aspect-ratio: 16 / 9;
+            border: 0px!important;
+            height: 95%;
+            margin: 0 auto;
+            display: inherit;
+            overflow: hidden!important;
+            vertical-align: middle;
+        }*/
+    </style>
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -195,6 +220,10 @@
 
     function API_GetLobbyAPI() {
         return lobbyClient;
+    }
+
+    function API_SearchGameByBrand(gameBrand) {
+        return searchGameByBrand(gameBrand);
     }
 
     function API_GetPaymentAPI() {
@@ -326,7 +355,7 @@
             EWinWebInfo.IsOpenGame = false;
             var IFramePage = document.getElementById("GameIFramePage");
             IFramePage.src = "";
-            $('#closeGameBtn').hide();
+            $('#headerGameDetailContent').hide();
             $('#GameIFramePage').hide();
         }
 
@@ -605,7 +634,7 @@
         $('#popupMoblieGameInfo .valueRTP').text(RTP);
         $('#popupMoblieGameInfo .GameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
         $('#popupMoblieGameInfo .GameID').text(GameID);
-
+        $('.headerGameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
         var gameitemlink = document.getElementById('popupMoblieGameInfo').querySelector(".game-item-link");
         var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
         playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
@@ -694,7 +723,7 @@
     function CloseGameFrame() {
         var IFramePage = document.getElementById("GameIFramePage");
         IFramePage.src = "";
-        $('#closeGameBtn').hide();
+        $('#headerGameDetailContent').hide();
         $('#GameIFramePage').hide();
         //$('#IFramePage').css('display', 'block');
     }
@@ -704,7 +733,7 @@
 
         if (IFramePage != null) {
             //$('#IFramePage').css('display','none');
-            $('#closeGameBtn').show();
+            $('#headerGameDetailContent').show();
             $('#GameIFramePage').show();
             var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
             if (showCloseGameTooltipCount == '') {
@@ -739,11 +768,15 @@
         img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + EWinWebInfo.Lang + "/" + name + ".png";
     }
 
-    function openGame(gameBrand, gameName) {
+    function openGame(gameBrand, gameName,gameLangName) {
 
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
+        }
+
+        if ($("#alertSearch").css("display") == "block") {
+            $("#alertSearchCloseButton").click();
         }
 
         if (!EWinWebInfo.UserLogined) {
@@ -758,6 +791,8 @@
         } else {
             EWinWebInfo.IsOpenGame = true;
             setGameCodeToMyGames(gameBrand, gameName);
+
+            $('.headerGameName').text(gameLangName);
 
             if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
                 if (EWinWebInfo.DeviceType == 1) {
@@ -792,17 +827,24 @@
         }
     }
 
-    function favBtnEvent(gameID, doc) {
+    function favBtnEvent(gameID, doc, isSearchGame) {
+  
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
         if (type == 0) {
+            if (isSearchGame) {
+                $(doc).addClass("added");
+            }
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').addClass("added");
             setFavoriteGame(gameID);
             if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
                 document.getElementById('IFramePage').contentWindow.refreshFavoGame();
             }
         } else {
+            if (isSearchGame) {
+                $(doc).removeClass("added");
+            }
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').removeClass("added");
             setFavoriteGame(gameID);
             if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
@@ -1209,9 +1251,10 @@
 
     function resize() {
         if (IFramePage.contentWindow.document.body) {
+
             let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
             let iframeheight = $("#IFramePage").height();
-
+      
             if (iframeheight != iframebodyheight) {
                 $("#IFramePage").height(iframebodyheight);
             }
@@ -1430,6 +1473,7 @@
                 }
             }, 1000);
 
+            window.onresize = reportWindowSize;
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
@@ -1441,36 +1485,59 @@
         //resize();
     }
 
-    function searchGameList() {
+    function reportWindowSize() {
+        let iframewidth = $('#IFramePage').width();
+   
+         notifyWindowEvent("resize",iframewidth);
+     
+    }
 
+    function searchGameByBrand(gameBrand) {
+      
+        $('#alertSearchBrand').val(gameBrand);
+        $('#alertSearchKeyWord').val('');
+        $("#seleGameCategory").val('');
+        $('#alertSearch').modal('show');
+        searchGameList();
+    }
+
+    //#region 搜尋彈出
+    function searchGameList() {
         var gameBrand = $('#alertSearchBrand').val();
         var keyWord = $('#alertSearchKeyWord').val().trim();
+        var gamecategory = $("#seleGameCategory").val() == "All" ? "" : $("#seleGameCategory").val();
         var gameList = [];
         var lang = EWinWebInfo.Lang;
+        
         if (gameBrand != "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand);
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
         } else if (gameBrand == "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord);
-        } else if (gameBrand != "-1" && keyWord == '') {
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
+        } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
             gameList = GCB.SearchGameCodeByBrand(gameBrand);
-        } else {
+        } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
+            gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
+        } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
+            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+        }else {
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
             return false;
         }
+       
         $('#alertSearchContent').empty();
-        if (gameList.length > 0) {
 
+        if (gameList.length > 0) {
+            var FavoGames = getFavoriteGames();
             for (var i = 0; i < gameList.length; i++) {
                 var gameItem = gameList[i];
                 var RTP = "";
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
-
-
+                
                 GI = c.getTemplate("tmpSearchGameItem");
                 var GI_a = GI.querySelector(".btn-play");
-                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
                     GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1478,6 +1545,15 @@
                     var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                     observer.observe();
                 }
+
+                var likebtn = GI.querySelector(".btn-like");
+                if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                    $(likebtn).addClass("added");
+                } else {
+                    $(likebtn).removeClass("added");
+                }
+
+                likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
 
                 $(GI).find(".gameName").text(gameItem.GameText[lang]);
                 $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
@@ -1488,6 +1564,55 @@
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
         }
     };
+
+    function SearchGameCodeChange() {
+        var gameBrand = $('#alertSearchBrand').val();
+        var keyWord = $('#alertSearchKeyWord').val().trim();
+
+        if (gameBrand == "-1" && keyWord == "") {
+            $("#div_SearchGameCategory").hide();
+        } else {
+            $("#div_SearchGameCategory").show();
+        }
+
+        let allGameCategory = [
+            "Electron",
+            "Fish",
+            "Live",
+            "Slot",
+            "Sports"
+        ]
+
+        let o;
+        $("#seleGameCategory").empty();
+        o = new Option(mlp.getLanguageKey("全部"), "All");
+        $("#seleGameCategory").append(o);
+
+        if (gameBrand != "-1") {
+
+            let gameCategory = GCB.SearchGameCtByBrand($("#alertSearchBrand").val());
+
+            if (gameCategory.length > 0) {
+                for (var i = 0; i < gameCategory.length; i++) {
+                    o = new Option(mlp.getLanguageKey(gameCategory[i]), gameCategory[i]);
+                    $("#seleGameCategory").append(o);
+                }
+            }
+
+        }
+    }
+
+    function SearchKeyWordKeyup() {
+        var gameBrand = $('#alertSearchBrand').val();
+        var keyWord = $('#alertSearchKeyWord').val().trim();
+
+        if (gameBrand == "-1" && keyWord == "") {
+            $("#div_SearchGameCategory").hide();
+        } else {
+            $("#div_SearchGameCategory").show();
+        }
+    }
+    //#endregion
 
     function getCompanyGameCodeTwo() {
         var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
@@ -1727,6 +1852,18 @@
                                 <div class="logo"><a></a></div>
                             </div>
                         </div>
+                        <div id="headerGameDetailContent" style="display:none;">
+                            <!-- Search -->
+                            <ul class="nav header_setting_content">
+                                <li class="headerGameDetail navbar-search nav-item">      
+                                <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
+                                    <i class="icon">X</i>
+                                </button>
+                                <span class="headerGameName"></span>
+                             
+                            </li>
+                            </ul>
+                        </div>
                         <!-- 右上角 -->
                         <div class="header_rightWrapper">
 
@@ -1734,9 +1871,16 @@
                                 <ul class="nav header_setting_content">
                                     <!-- Search -->
                                     <li class="navbar-search nav-item">
-                                        <button type="button" class="btn btn-search" data-toggle="modal" data-target="#alertSearch">
+
+                                        <span class="search-bar desktop" data-toggle="modal" data-target="#alertSearch">
+                                            <span class="btn btn-search">
+                                                <i class="icon icon-mask icon-search"></i>
+                                            </span>
+                                            <span class="text">ゲーム検索</span>
+                                        </span>
+                                        <!-- <button type="button" class="btn btn-search" data-toggle="modal" data-target="#alertSearch">
                                             <i class="icon icon-mask icon-search"></i>
-                                        </button>
+                                        </button> -->
                                     </li>
                                     <!-- ==== 登入前 ====-->
                                     <li class="nav-item unLogIn_wrapper " id="idLoginBtn">
@@ -1818,12 +1962,7 @@
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
                                     </li>
-                                    <!-- Search -->
-                                    <li id="closeGameBtn" class="navbar-search nav-item" data-toggle="tooltip" data-placement="bottom" style="display: none;">
-                                        <button type="button" onclick="CloseGameFrame()" class="btn btn-search">
-                                            <i class="icon">X</i>
-                                        </button>
-                                    </li>
+                                  
                                 </ul>
                             </div>
                         </div>
@@ -1847,52 +1986,6 @@
         <footer class="footer-container">
             <div class="footer-inner">
                 <div class="container">
-                    <div class="partner">
-                        <div class="logo">
-                            <div class="row">
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-PG.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-CG.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-PP.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-BG.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-VA.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-BNG.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="images/logo/logo-pagcor.png" alt="">
-                                    </div>
-                                </div>
-                                <%--<div class="logo-item">
-                                    <div class="img-crop">
-                                        <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=seal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
-                                    </div>
-                                </div>--%>
-                            </div>
-                        </div>
-                    </div>
                     <ul class="company-info row">
                         <li class="info-item col">
                             <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
@@ -1918,10 +2011,129 @@
                             </a>
                         </li>--%>
                     </ul>
-                    <div class="company-address">
-                        <%-- <p class="name">Online Chip World Co. N.V</p>--%>
-                        <p class="address">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</p>
+                    <div class="partner">
+                        <div class="logo">
+                            <div class="row">
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-microgaming.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-bbin.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-gmw.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-cq9.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-red-tiger.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-evo.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-bco.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-cg.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-playngo.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-pg.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-netent.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-kx.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-evops.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-bti.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-zeus.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-biggaming.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-play.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-h.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-va.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-pagcor.png" alt="">
+                                    </div>
+                                </div> 
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-mishuha.png" alt="">
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="company-detail">
+                        <div class="company-license">
+                            <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=seal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
+                        </div>
+                        <div class="company-address">
+                            <%-- <p class="name">Online Chip World Co. N.V</p>--%>
+                            <p class="address">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</p>
+                        </div>
+                    </div>
+                   
+                    
                     <div class="footer-copyright">
                         <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
                     </div>
@@ -1993,11 +2205,11 @@
                     <!-- <h5 class="modal-title"></h5> -->
                     <div class="searchFilter-wrapper">
                         <div class="searchFilter-item input-group keyword">
-                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード">
+                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
                             <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                         </div>
-                        <div class="searchFilter-item input-group game-brand">
-                            <select class="custom-select" id="alertSearchBrand">
+                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
+                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
                                 <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
                                 <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
                                 <option class="searchFilter-option" value="BNG"><span class="language_replace">ブーンゴー</span></option>
@@ -2014,16 +2226,20 @@
                                 <option class="searchFilter-option" value="PP"><span class="language_replace">プラグマティックプレイ</span></option>
                                 <option class="searchFilter-option" value="VA"><span class="language_replace">ビクトリーアークゲーミング</span></option>
                                 <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
+                                            <option class="searchFilter-option" value="BTI"><span class="language_replace">ビットスポーツ</span></option>
+                                <option class="searchFilter-option" value="BG"><span class="language_replace">ビッグゲーミング</span></option>
                             </select>
                         </div>
-                        <%--
-            <div class="searchFilter-item input-group game-type">                   
-                <select class="custom-select">
-                    <option class="title" selected><span class="language_replace">遊戲類型</span></option>
-                    <option class="searchFilter-option" value="" ><span class="language_replace">真人</span></option>
-                </select>
-            </div>
-                        --%>
+                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display:none">                   
+                            <select class="custom-select" id="seleGameCategory">
+                                <option class="title" value="All" selected><span class="language_replace">全部</span></option>
+                                <option class="searchFilter-option" value="Electron" ><span class="language_replace">電子</span></option>
+                                <option class="searchFilter-option" value="Fish" ><span class="language_replace">捕魚機</span></option>
+                                <option class="searchFilter-option" value="Live" ><span class="language_replace">真人</span></option>
+                                <option class="searchFilter-option" value="Slot" ><span class="language_replace">老虎機</span></option>
+                                <option class="searchFilter-option" value="Sports" ><span class="language_replace">體育</span></option>
+                            </select>
+                        </div>
                         <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">

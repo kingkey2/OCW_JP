@@ -38,8 +38,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .hero_slider .img-wrap {
   position: relative;
-  padding-bottom: 66.6666666667vh;
-  min-height: 480px;
+  padding-bottom: 36.4583333333%;
   overflow: hidden;
 }
 .hero_slider .img-wrap img.bg {
@@ -84,7 +83,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   bottom: 20%;
 }
 .hero_slider .swiper-mask {
-  background: url(../../images/index/hero-mask.svg) center bottom no-repeat;
+  background: url(../../images/index/hero-mask-2.svg) center bottom no-repeat;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -100,7 +99,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .hero_slider .swiper-slide-active .img-wrap:before {
   content: "";
-  background: url(../../images/index/hero-mask.svg) center bottom no-repeat;
+  background: url(../../images/index/hero-mask-2.svg) center bottom no-repeat;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -120,7 +119,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .hero_slider .swiper-pagination {
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   right: 0;
   display: none;
 }
@@ -138,26 +137,37 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   overflow: hidden;
   position: relative;
 }
-.hero_slider .swiper-pagination-bullet:nth-child(1) {
-  bottom: 5px;
+.hero_slider .swiper-pagination-bullet:nth-last-child(5) {
+  bottom: 10px;
 }
-.hero_slider .swiper-pagination-bullet:nth-child(2) {
+.hero_slider .swiper-pagination-bullet:nth-last-child(4) {
+  bottom: 3px;
+}
+.hero_slider .swiper-pagination-bullet:nth-last-child(3) {
   bottom: -10px;
 }
-.hero_slider .swiper-pagination-bullet:nth-child(3) {
-  bottom: -10px;
-}
-.hero_slider .swiper-pagination-bullet:nth-child(4) {
+.hero_slider .swiper-pagination-bullet:nth-last-child(2) {
   bottom: -9px;
 }
-.hero_slider .swiper-pagination-bullet:nth-child(5) {
-  bottom: -8px;
+.hero_slider .swiper-pagination-bullet:nth-last-child(1) {
+  bottom: 10px;
 }
 .hero_slider .swiper-pagination-bullet-active {
   -webkit-transform: scale(1.35);
           transform: scale(1.35);
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.hero-item-href {
+  position: absolute;
+  margin: auto;
+  height: 60%;
+  width: 50%;
+  top: 5%;
+  left: 25%;
+  cursor: pointer;
+  z-index: 99999;
 }
 
 .section_publicize img {
@@ -494,8 +504,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: inherit !important;
   }
   .hero_slider .img-wrap {
-    padding-bottom: 400px;
-    min-height: auto;
+    padding-bottom: 46.875%;
   }
   .hero_slider .swiper-mask {
     display: inherit;
@@ -515,7 +524,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .hero_slider .img-wrap {
-    padding-bottom: 66.6666666667vh;
+    padding-bottom: 36.4583333333%;
   }
   .hero_slider .swiper-pagination {
     display: initial;
@@ -566,57 +575,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 936px) and (max-width: 1383px) {
   .game_slider .swiper-slide {
-    width: 20%;
-  }
-  .game_slider .swiper-slide:nth-child(5n+1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(5n+1) .game-item-focus:hover .game-item-img {
-    left: auto;
-    -webkit-transform: translateX(38%);
-            transform: translateX(38%);
-  }
-  .game_slider .swiper-slide:nth-child(5n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    left: auto;
-    right: auto;
-    -webkit-transform: translateX(-38%);
-            transform: translateX(-38%);
-  }
-}
-@media (min-width: 1384px) and (max-width: 1863px) {
-  .game_slider .swiper-slide {
     width: 16.6666666667%;
-  }
-  .game_slider .swiper-slide:nth-child(5n+1) .game-item-info-detail {
-    left: 0;
-  }
-  .game_slider .swiper-slide:nth-child(5n+1) .game-item-focus:hover .game-item-img {
-    left: auto;
-    -webkit-transform: translateX(38%);
-            transform: translateX(38%);
-  }
-  .game_slider .swiper-slide:nth-child(5n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
-    left: auto;
-    right: 0;
-  }
-  .game_slider .swiper-slide:nth-child(5n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
-    left: auto;
-    right: auto;
-    -webkit-transform: translateX(-38%);
-            transform: translateX(-38%);
-  }
-}
-@media (min-width: 1864px) {
-  .hero_slider .img-wrap {
-    padding-bottom: 76.9230769231vh;
-  }
-
-  .game_slider .swiper-slide {
-    width: 12.5%;
   }
   .game_slider .swiper-slide:nth-child(6n+1) .game-item-info-detail {
     left: 0;
@@ -635,5 +594,158 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     right: auto;
     -webkit-transform: translateX(-38%);
             transform: translateX(-38%);
+  }
+}
+@media (min-width: 1144px) and (max-width: 1383px) {
+  .game_slider .swiper-slide {
+    width: 14.2857142857%;
+  }
+  .game_slider .swiper-slide:nth-child(7n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(7n+1) .game-item-focus:hover .game-item-img {
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
+  }
+  .game_slider .swiper-slide:nth-child(7n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
+    left: auto;
+    right: 0px;
+  }
+  .game_slider .swiper-slide:nth-child(7n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
+  }
+}
+@media (min-width: 1384px) {
+  .hero_slider .swiper-pagination-bullet:nth-last-child(3) {
+    bottom: -5px;
+  }
+  .hero_slider .swiper-pagination-bullet:nth-last-child(2) {
+    bottom: 15px;
+  }
+  .hero_slider .swiper-pagination-bullet:nth-last-child(1) {
+    bottom: 35px;
+  }
+
+  .game_slider .swiper-slide {
+    padding-right: 15px;
+  }
+}
+@media (min-width: 1384px) and (max-width: 1543px) {
+  .game_slider .swiper-slide {
+    width: 14.2857142857%;
+  }
+  .game_slider .swiper-slide:nth-child(7n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(7n+1) .game-item-focus:hover .game-item-img {
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
+  }
+  .game_slider .swiper-slide:nth-child(7n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:nth-child(7n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
+  }
+}
+@media (min-width: 1544px) and (max-width: 1863px) {
+  .game_slider .swiper-slide {
+    width: 14.2857142857%;
+  }
+  .game_slider .swiper-slide:nth-child(7n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(7n+1) .game-item-focus:hover .game-item-img {
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
+  }
+  .game_slider .swiper-slide:nth-child(7n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:nth-child(7n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
+  }
+}
+@media (min-width: 1864px) and (max-width: 1919px) {
+  .game_slider .swiper-slide {
+    width: 12.5%;
+  }
+  .game_slider .swiper-slide:nth-child(8n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(8n+1) .game-item-focus:hover .game-item-img {
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
+  }
+  .game_slider .swiper-slide:nth-child(8n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:nth-child(8n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
+  }
+}
+@media (min-width: 1864px) {
+  .game_slider .swiper-slide {
+    width: 12.5%;
+  }
+  .game_slider .swiper-slide:nth-child(8n+1) .game-item-info-detail {
+    left: 0;
+  }
+  .game_slider .swiper-slide:nth-child(8n+1) .game-item-focus:hover .game-item-img {
+    left: auto;
+    -webkit-transform: translateX(38%);
+            transform: translateX(38%);
+  }
+  .game_slider .swiper-slide:nth-child(8n) .game-item-info-detail, .game_slider .swiper-slide:last-child .game-item-info-detail {
+    left: auto;
+    right: 0;
+  }
+  .game_slider .swiper-slide:nth-child(8n) .game-item-focus:hover .game-item-img, .game_slider .swiper-slide:last-child .game-item-focus:hover .game-item-img {
+    left: auto;
+    right: auto;
+    -webkit-transform: translateX(-38%);
+            transform: translateX(-38%);
+  }
+}
+@media (min-width: 1920px) {
+  .hero_slider .img-wrap {
+    padding-bottom: 64.5161290323vh;
+  }
+  .hero_slider .swiper-pagination {
+    bottom: 15px;
+  }
+  .hero_slider .swiper-pagination .swiper-pagination-bullet:nth-last-child(5) {
+    bottom: 25px;
+  }
+  .hero_slider .swiper-pagination .swiper-pagination-bullet:nth-last-child(4) {
+    bottom: 10px;
+  }
+  .hero_slider .swiper-pagination .swiper-pagination-bullet:nth-last-child(3) {
+    bottom: 5px;
+  }
+  .hero_slider .swiper-pagination .swiper-pagination-bullet:nth-last-child(2) {
+    bottom: 10px;
+  }
+  .hero_slider .swiper-pagination .swiper-pagination-bullet:nth-last-child(1) {
+    bottom: 15px;
   }
 }

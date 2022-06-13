@@ -234,6 +234,31 @@
         });
     };
 
+    this.CreateEPayJKCDeposit = function (WebSID, GUID, Amount, PaymentMethodID, DepositName, cb) {
+        var url = APIUrl + "/CreateEPayJKCDeposit";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Amount: Amount,
+            PaymentMethodID: PaymentMethodID,
+            DepositName: DepositName
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.CreateEPayDeposit = function (WebSID, GUID, Amount, PaymentMethodID, DepositName, cb) {
         var url = APIUrl + "/CreateEPayDeposit";
         var postData;

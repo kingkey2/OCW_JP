@@ -16,22 +16,9 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link href="css/footer-new.css" rel="stylesheet" />
     <style>
-        .card-item.tempCard:after {
-            background-color: #523b13;
-        }
-        .tempCard {
-        cursor:pointer;
-        }
-        .comingSoon {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 99999;
-            height: calc(100% - 20px);
-            width: calc(100% - 20px);
-        }
+        
     </style>
 </head>
 
@@ -55,7 +42,7 @@
     function init() {
 
         if (self == top) {
-            window.location.href = "index.aspx";
+            window.parent.location.href = "index.aspx";
         }
 
         WebInfo = window.parent.API_GetWebInfo();
@@ -166,8 +153,10 @@
                                 <div class="logo">
                                     <i class="icon-logo-usdt"></i>
                                     <!-- <i class="icon-logo-eth-o"></i> -->
+                                    <!-- <i class="icon-logo-nissin"></i> -->
                                     <i class="icon-logo-eth"></i>
                                     <i class="icon-logo-btc"></i>
+                                    
                                     <!-- <i class="icon-logo-doge"></i> -->
                                     <!-- <i class="icon-logo-tron"></i> -->
                                 </div>
@@ -197,21 +186,19 @@
                     </div>
 
                     <!-- EPay -->
-
-                    <div class="card-item tempCard" id="idDepositJKC" onclick="TempAlert()" <%--onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')"--%>>
-                        <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card_jkc.png)">
+                    <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">                   
+                        <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
                             <div class="card-item-inner">
                                 <div class="title">
-
-                                    <!-- <span>Electronic Wallet</span>  -->
+                                    <span>マハラジャ</span> 
                                 </div>
-                                <div class="logo vertical-center text-center">
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <%-- <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">--%>
+                                <div class="logo vertical-center">                                   
+                                    <img src="images/assets/card-surface/jkc-font.svg">                                   
                                 </div>
-                            </div>
+                            </div>                           
+                            <img src="images/assets/card-surface/card-jkc.svg"  class="card-item-bg">
                         </a>
-                        <img class="comingSoon" src="../images/assets/card-surface/cs.png">
+                        <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
                 </div>
                 <!-- 存款紀錄 -->
@@ -220,6 +207,14 @@
                         <i class="icon-wallet"></i>
                         <div class="text-wrap">
                             <p class="title language_replace text-link" onclick="window.parent.API_LoadPage('record','record.aspx', true)">檢視存款紀錄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="notice-container mt-5">
+                    <div class="notice-item">
+                        <i class="icon-info_circle_outline"></i>
+                        <div class="text-wrap">
+                            <p class="title language_replace" style="cursor:pointer" onclick="window.parent.API_LoadPage('record','Guide/EPayJKC/index.html', true)">JKC専用入金の流れ</p>
                         </div>
                     </div>
                 </div>
@@ -238,7 +233,8 @@
                             <p class="language_replace">PayPal　10,000+ボーナス10,000の場合​</p>
                             <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
                             <p class="language_replace">ローリングについての詳しい説明は<span class="link" style="cursor: pointer" onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)">こちら</span></p>
-
+                            <p class="language_replace">4.既存の出金制限ローリングを解除するには、所有のOcoinが100以下になった時に</p>
+                            <p class="language_replace">入金をするか受取箱のOcoin受取るかで解除できます。</p>
                         </div>
                     </div>
                 </div>

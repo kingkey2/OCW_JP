@@ -433,6 +433,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -ms-flexbox;
   display: flex;
 }
+.record-table.games-record .record-table-wrapper .td-orderValue .title,
+.record-table.games-record .record-table-wrapper .td-validBet .title {
+  padding-right: 0.6em;
+  color: rgba(0, 0, 0, 0.6);
+}
 .record-table.games-record .record-table-wrapper .td-rewardValue {
   font-size: 1.5rem;
   text-align: right;
@@ -524,7 +529,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-ordinal-group: -1;
       -ms-flex-order: -2;
           order: -2;
-  width: 50px;
+  width: 70px;
   margin-right: 0.5rem;
 }
 .record-table.games-record .record-table-drop-panel .record-drop-item-img .img-wrap {
@@ -587,7 +592,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     margin-right: 0.8rem;
   }
   .record-table.games-record .record-table-drop-panel .record-drop-item .record-item {
-    padding: 0.5em 0.3em;
+    padding: 0.5em 1em 0.5em 0.3em;
     text-align: center;
   }
   .record-table.games-record .record-table-drop-panel .record-drop-item-inner {
@@ -624,6 +629,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue .title,
 .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet .title {
     display: none;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 140px;
+            flex: 0 0 140px;
   }
 }
 @media (min-width: 712px) {
@@ -665,6 +675,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-flex: 0;
         -ms-flex: 0 0 150px;
             flex: 0 0 150px;
+  }
+  .record-table.games-record .record-table-item.header .td-rewardValue {
+    text-align: right;
   }
   .record-table.games-record .record-table-wrapper {
     border-bottom: solid 1px rgba(0, 0, 0, 0.2);
@@ -743,6 +756,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
+  .record-table.games-record .record-table-drop-panel .record-drop-item {
+    position: relative;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-rewardValue {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
   .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper > * {
     width: 100%;
   }
@@ -761,5 +782,49 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue .title,
+.record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet .title {
+    padding-right: 0.5em;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue .data,
+.record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-validBet .data {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 60px;
+            flex: 0 0 60px;
+    text-align: right;
+  }
+}
+@media screen and (max-width: 576px) {
+  .record-table.games-record .record-table-drop-panel .record-drop-item {
+    margin-bottom: 0.8rem;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-img {
+    width: 66px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .record-table.games-record .record-table-drop-panel .record-drop-item {
+    min-height: 70px;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-img {
+    width: 50px;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper {
+    position: absolute;
+    width: calc(100% - 2em - 30px);
+    right: 0;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-rewardValue {
+    padding-right: 0;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    text-align: right;
+    font-size: 1rem;
+  }
+  .record-table.games-record .record-table-drop-panel .record-drop-item-gameName .data {
+    max-width: 60%;
   }
 }

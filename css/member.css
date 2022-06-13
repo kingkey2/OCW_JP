@@ -53,11 +53,34 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 input.year {
-  width: 3rem !important;
+  width: 35% !important;
+}
+input.year:-moz-read-only {
+  width: 31.5% !important;
+}
+input.year:read-only {
+  width: 33.5% !important;
 }
 input.month, input.day {
-  width: 2rem !important;
+  width: 22% !important;
   text-align: center;
+}
+input.month:-moz-read-only, input.day:-moz-read-only {
+  width: 20% !important;
+}
+input.month:read-only, input.day:read-only {
+  width: 20% !important;
+}
+
+.sec-col-2 .btn {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 37px;
+          flex: 0 0 37px;
+}
+.sec-col-2 .sec-title-wrapper {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(100% - 37px);
+          flex: 0 0 calc(100% - 37px);
 }
 
 .data-item-group {
@@ -787,6 +810,10 @@ input.month, input.day {
   }
 }
 @media screen and (max-width: 639px) {
+  .data-item-group .wrapper_center {
+    margin-bottom: 2.5rem;
+  }
+
   .coming-soon:after {
     background-size: 65%;
   }

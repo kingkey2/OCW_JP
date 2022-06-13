@@ -97,7 +97,7 @@
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "JKC",
@@ -111,63 +111,63 @@
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "ETH",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "Paypal",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "USDT",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "USDC",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "BTC",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "USDC_TRC",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "USDT_TRC",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "JOOB01",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     }
   ],
   "Rate3": [
@@ -176,7 +176,7 @@
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "JKC",
@@ -190,63 +190,63 @@
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "ETH",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "Paypal",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "USDT",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "USDC",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "BTC",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "USDC_TRC",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "USDT_TRC",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     },
     {
       "PaymentCode": "JOOB01",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.3
+      "BonusRate": 0.5
     }
   ]
 }
