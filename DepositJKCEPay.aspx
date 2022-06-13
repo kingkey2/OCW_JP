@@ -241,7 +241,7 @@
             //PaymentMethodDom.querySelector(".tab").setAttribute("for", "payment-" + PaymentMethod[i]["PaymentCode"] + "_" + PaymentMethod[i]["EWinCryptoWalletType"]);
             PaymentMethodDom.querySelector(".icon-logo").classList.add("icon-logo-jkc");
             c.setClassText(PaymentMethodDom, "coinType", null, PaymentMethod[i]["PaymentName"] + " (" + strCryptoWalletType + ")");
-            debugger;
+
             if (PaymentMethod[i]["MultiCurrencys"]) {
                 PaymentMethod[i]["MultiCurrencys"].forEach(function (mc) {
                     let item = document.createElement("div");
@@ -716,7 +716,8 @@
                             </form>
                              <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
+                                <p class="text-s language_replace">※存款金額為3,000ocoin至700,000ocoin。</p>
+                                <p class="text-s language_replace">※Ocoinの反映は着金後になりますが、1銀行営業日経っても反映しない場合はカスタマサポート迄ご連絡下さい。</p>
                             </div>
                         </div>
                     </div>

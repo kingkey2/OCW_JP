@@ -443,7 +443,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     //準備送出至EWin
 
                     EWin.OCW.OCW ocwAPI = new EWin.OCW.OCW();
-                    EWin.OCW.CompanyWalletResult walletDepositResult = ocwAPI.GetAvailableWalletDeposit(SI.EWinCT, (EWin.OCW.enumWalletType)TempCryptoData.WalletType);
+                    EWin.OCW.CompanyWalletResult walletDepositResult = ocwAPI.GetAvailableWalletDeposit(SI.EWinCT, (EWin.OCW.enumWalletType)TempCryptoData.WalletType,TempCryptoData.ExpireSecond);
 
                     if (walletDepositResult.ResultState == EWin.OCW.enumResultState.OK)
                     {

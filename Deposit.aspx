@@ -225,7 +225,8 @@
                             <p class="language_replace">PayPal　10,000+ボーナス10,000の場合​</p>
                             <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
                             <p class="language_replace">ローリングについての詳しい説明は<span class="link" style="cursor: pointer" onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)">こちら</span></p>
-
+                            <p class="language_replace">4.既存の出金制限ローリングを解除するには、所有のOcoinが100以下になった時に</p>
+                            <p class="language_replace">入金をするか受取箱のOcoin受取るかで解除できます。</p>
                         </div>
                     </div>
                 </div>

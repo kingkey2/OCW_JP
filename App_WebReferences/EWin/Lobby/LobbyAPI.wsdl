@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="HeartBeat">
@@ -1123,23 +1123,19 @@
           <s:element minOccurs="1" maxOccurs="1" name="MaxWinRate" type="s:decimal" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GetCompanyGameCodeByPage">
+      <s:element name="GetCompanyGameCodeByUpdateTimestamp">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GameBrand" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GameCategoryCode" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GameCategorySubCode" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="PageSize" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateTimestamp" type="s:long" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetCompanyGameCodeByPageResponse">
+      <s:element name="GetCompanyGameCodeByUpdateTimestampResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyGameCodeByPageResult" type="tns:CompanyGameCodeResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetCompanyGameCodeByUpdateTimestampResult" type="tns:CompanyGameCodeResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1147,8 +1143,7 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:APIResult">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="PageSize" type="s:int" />
-              <s:element minOccurs="1" maxOccurs="1" name="TotalPage" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastTimestamp" type="s:long" />
               <s:element minOccurs="0" maxOccurs="1" name="GameCodeList" type="tns:ArrayOfGameCodeItem" />
             </s:sequence>
           </s:extension>
@@ -1163,6 +1158,7 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="BrandCode" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="GameCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GameStatus" type="tns:enumGameCodeStatus" />
           <s:element minOccurs="1" maxOccurs="1" name="GameID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="GameName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="GameCategoryCode" type="s:string" />
@@ -1174,8 +1170,31 @@
           <s:element minOccurs="1" maxOccurs="1" name="IsNew" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="SortIndex" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CompanyCategoryTag" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdateTimestamp" type="s:long" />
           <s:element minOccurs="0" maxOccurs="1" name="Tag" type="tns:ArrayOfPropertySet" />
+          <s:element minOccurs="0" maxOccurs="1" name="Language" type="tns:ArrayOfGameCodeLanguage" />
           <s:element minOccurs="0" maxOccurs="1" name="RTP" type="tns:ArrayOfRTPInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumGameCodeStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotYet" />
+          <s:enumeration value="GameOpen" />
+          <s:enumeration value="GameMaintain" />
+          <s:enumeration value="GameClosed" />
+          <s:enumeration value="OverCount" />
+          <s:enumeration value="Deleted" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfGameCodeLanguage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GameCodeLanguage" nillable="true" type="tns:GameCodeLanguage" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GameCodeLanguage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LanguageCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DisplayText" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfRTPInfo">
@@ -1919,11 +1938,11 @@
   <wsdl:message name="GetGameCodeRTPSoapOut">
     <wsdl:part name="parameters" element="tns:GetGameCodeRTPResponse" />
   </wsdl:message>
-  <wsdl:message name="GetCompanyGameCodeByPageSoapIn">
-    <wsdl:part name="parameters" element="tns:GetCompanyGameCodeByPage" />
+  <wsdl:message name="GetCompanyGameCodeByUpdateTimestampSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCompanyGameCodeByUpdateTimestamp" />
   </wsdl:message>
-  <wsdl:message name="GetCompanyGameCodeByPageSoapOut">
-    <wsdl:part name="parameters" element="tns:GetCompanyGameCodeByPageResponse" />
+  <wsdl:message name="GetCompanyGameCodeByUpdateTimestampSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCompanyGameCodeByUpdateTimestampResponse" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeSoapIn">
     <wsdl:part name="parameters" element="tns:GetCompanyGameCode" />
@@ -2343,16 +2362,12 @@
   <wsdl:message name="GetGameCodeRTPHttpGetOut">
     <wsdl:part name="Body" element="tns:GameCodeRTPResult" />
   </wsdl:message>
-  <wsdl:message name="GetCompanyGameCodeByPageHttpGetIn">
+  <wsdl:message name="GetCompanyGameCodeByUpdateTimestampHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
-    <wsdl:part name="GameBrand" type="s:string" />
-    <wsdl:part name="GameCategoryCode" type="s:string" />
-    <wsdl:part name="GameCategorySubCode" type="s:string" />
-    <wsdl:part name="PageSize" type="s:string" />
-    <wsdl:part name="Page" type="s:string" />
+    <wsdl:part name="UpdateTimestamp" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="GetCompanyGameCodeByPageHttpGetOut">
+  <wsdl:message name="GetCompanyGameCodeByUpdateTimestampHttpGetOut">
     <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeHttpGetIn">
@@ -2824,16 +2839,12 @@
   <wsdl:message name="GetGameCodeRTPHttpPostOut">
     <wsdl:part name="Body" element="tns:GameCodeRTPResult" />
   </wsdl:message>
-  <wsdl:message name="GetCompanyGameCodeByPageHttpPostIn">
+  <wsdl:message name="GetCompanyGameCodeByUpdateTimestampHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
-    <wsdl:part name="GameBrand" type="s:string" />
-    <wsdl:part name="GameCategoryCode" type="s:string" />
-    <wsdl:part name="GameCategorySubCode" type="s:string" />
-    <wsdl:part name="PageSize" type="s:string" />
-    <wsdl:part name="Page" type="s:string" />
+    <wsdl:part name="UpdateTimestamp" type="s:string" />
   </wsdl:message>
-  <wsdl:message name="GetCompanyGameCodeByPageHttpPostOut">
+  <wsdl:message name="GetCompanyGameCodeByUpdateTimestampHttpPostOut">
     <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeHttpPostIn">
@@ -3140,9 +3151,9 @@
       <wsdl:input message="tns:GetGameCodeRTPSoapIn" />
       <wsdl:output message="tns:GetGameCodeRTPSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetCompanyGameCodeByPage">
-      <wsdl:input message="tns:GetCompanyGameCodeByPageSoapIn" />
-      <wsdl:output message="tns:GetCompanyGameCodeByPageSoapOut" />
+    <wsdl:operation name="GetCompanyGameCodeByUpdateTimestamp">
+      <wsdl:input message="tns:GetCompanyGameCodeByUpdateTimestampSoapIn" />
+      <wsdl:output message="tns:GetCompanyGameCodeByUpdateTimestampSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <wsdl:input message="tns:GetCompanyGameCodeSoapIn" />
@@ -3342,9 +3353,9 @@
       <wsdl:input message="tns:GetGameCodeRTPHttpGetIn" />
       <wsdl:output message="tns:GetGameCodeRTPHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetCompanyGameCodeByPage">
-      <wsdl:input message="tns:GetCompanyGameCodeByPageHttpGetIn" />
-      <wsdl:output message="tns:GetCompanyGameCodeByPageHttpGetOut" />
+    <wsdl:operation name="GetCompanyGameCodeByUpdateTimestamp">
+      <wsdl:input message="tns:GetCompanyGameCodeByUpdateTimestampHttpGetIn" />
+      <wsdl:output message="tns:GetCompanyGameCodeByUpdateTimestampHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <wsdl:input message="tns:GetCompanyGameCodeHttpGetIn" />
@@ -3544,9 +3555,9 @@
       <wsdl:input message="tns:GetGameCodeRTPHttpPostIn" />
       <wsdl:output message="tns:GetGameCodeRTPHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetCompanyGameCodeByPage">
-      <wsdl:input message="tns:GetCompanyGameCodeByPageHttpPostIn" />
-      <wsdl:output message="tns:GetCompanyGameCodeByPageHttpPostOut" />
+    <wsdl:operation name="GetCompanyGameCodeByUpdateTimestamp">
+      <wsdl:input message="tns:GetCompanyGameCodeByUpdateTimestampHttpPostIn" />
+      <wsdl:output message="tns:GetCompanyGameCodeByUpdateTimestampHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanyGameCode">
       <wsdl:input message="tns:GetCompanyGameCodeHttpPostIn" />
@@ -3985,8 +3996,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCompanyGameCodeByPage">
-      <soap:operation soapAction="http://tempuri.org/GetCompanyGameCodeByPage" style="document" />
+    <wsdl:operation name="GetCompanyGameCodeByUpdateTimestamp">
+      <soap:operation soapAction="http://tempuri.org/GetCompanyGameCodeByUpdateTimestamp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4501,8 +4512,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCompanyGameCodeByPage">
-      <soap12:operation soapAction="http://tempuri.org/GetCompanyGameCodeByPage" style="document" />
+    <wsdl:operation name="GetCompanyGameCodeByUpdateTimestamp">
+      <soap12:operation soapAction="http://tempuri.org/GetCompanyGameCodeByUpdateTimestamp" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4954,8 +4965,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCompanyGameCodeByPage">
-      <http:operation location="/GetCompanyGameCodeByPage" />
+    <wsdl:operation name="GetCompanyGameCodeByUpdateTimestamp">
+      <http:operation location="/GetCompanyGameCodeByUpdateTimestamp" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -5407,8 +5418,8 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCompanyGameCodeByPage">
-      <http:operation location="/GetCompanyGameCodeByPage" />
+    <wsdl:operation name="GetCompanyGameCodeByUpdateTimestamp">
+      <http:operation location="/GetCompanyGameCodeByUpdateTimestamp" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
