@@ -633,80 +633,79 @@
 
                 <div class="split-layout-container">                    
                     <div class="aside-panel" data-deposite="step2">
-                         <!-- PayPal -->
-                         <div class="card-item tempCard">
-                            <div class="card-item-link"
-                                style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
-                                <div class="card-item-inner">
-                                    <div class="title">
-                                        <span class="language_replace">マハラジャ</span>
-                                        <!-- <span>Electronic Wallet</span>  -->
+                        <div class="form-content">
+                             <!-- PayPal -->
+                            <div class="card-item tempCard">
+                                <div class="card-item-link"
+                                    style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
+                                    <div class="card-item-inner">
+                                        <div class="title">
+                                            <span class="language_replace">マハラジャ</span>
+                                            <!-- <span>Electronic Wallet</span>  -->
+                                        </div>
+                                        <div class="logo vertical-center text-center">
+                                            <!-- <span class="text language_replace">銀行振込</span>   -->
+                                            <img src="images/assets/card-surface/jkc-font.svg">
+                                        </div>
                                     </div>
-                                    <div class="logo vertical-center text-center">
-                                        <!-- <span class="text language_replace">銀行振込</span>   -->
-                                        <img src="images/assets/card-surface/jkc-font.svg">
-                                    </div>
+                                    <%--<img src="images/assets/card-surface/card-jkc.svg" class="card-item-bg" />--%>
                                 </div>
-                                <%--<img src="images/assets/card-surface/card-jkc.svg" class="card-item-bg" />--%>
                             </div>
-                        </div>
-                        <div class="form-group text-wrap desc mt-2 mt-md-4">
-                            <p class="text-s language_replace">請從下方金額選擇您要的金額，或是自行填入想要存款的金額。兩種方式擇一即可。</p>
-                        </div>
-                        <!-- 要固定時：sm-sticky -->
-                        <div class="">
-                            <form>
-                                <div class="form-group">
-                                    <div class="btn-wrap btn-radio-wrap btn-radio-payment">
-                                        <div class="btn-radio btn-radio-coinType">
-                                            <input type="radio" name="amount" id="amount1" />
-                                            <label class="btn btn-outline-primary" for="amount1" data-val="10000"
-                                                onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-title">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">10,000</span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="btn-radio btn-radio-coinType">
-                                            <input type="radio" name="amount" id="amount2" />
-                                            <label class="btn btn-outline-primary" for="amount2" data-val="50000"
-                                                onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <span class="coinType-name">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">50,000</span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="btn-radio btn-radio-coinType">
-                                            <input type="radio" name="amount" id="amount3" />
-                                            <label class="btn btn-outline-primary" for="amount3" data-val="100000"
-                                                onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-name">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">100,000</span>
-                                                </span>
-                                            </label>
+                            <div class="form-group text-wrap desc mt-2 mt-md-4">
+                                <p class="text-s language_replace">請從下方金額選擇您要的金額，或是自行填入想要存款的金額。兩種方式擇一即可。</p>
+                            </div>
+                            <!-- 要固定時：sm-sticky -->
+                            <div class="">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="btn-wrap btn-radio-wrap btn-radio-payment">
+                                            <div class="btn-radio btn-radio-coinType">
+                                                <input type="radio" name="amount" id="amount1" />
+                                                <label class="btn btn-outline-primary" for="amount1" data-val="10000"
+                                                    onclick="CoinBtn_Click()">
+                                                    <span class="coinType gameCoin">
+                                                        <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                        <span class="coinType-title">Ocoin</span>
+                                                        <span class="coinType-amount OcoinAmount">10,000</span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="btn-radio btn-radio-coinType">
+                                                <input type="radio" name="amount" id="amount2" />
+                                                <label class="btn btn-outline-primary" for="amount2" data-val="50000"
+                                                    onclick="CoinBtn_Click()">
+                                                    <span class="coinType gameCoin">
+                                                        <span class="coinType-name">Ocoin</span>
+                                                        <span class="coinType-amount OcoinAmount">50,000</span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="btn-radio btn-radio-coinType">
+                                                <input type="radio" name="amount" id="amount3" />
+                                                <label class="btn btn-outline-primary" for="amount3" data-val="100000"
+                                                    onclick="CoinBtn_Click()">
+                                                    <span class="coinType gameCoin">
+                                                        <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                        <span class="coinType-name">Ocoin</span>
+                                                        <span class="coinType-amount OcoinAmount">100,000</span>
+                                                    </span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- 輸入金額(美元) -->
-                                <div class="form-group language_replace">
-                                    <label class="form-title language_replace">輸入金額</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="amount"
-                                            language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
-                                        <div class="form-notice-aside unit" id="OrderCurrencyType">Ocoin</div>
-                                        <div class="invalid-feedback language_replace">提示</div>
+                                    <!-- 輸入金額(美元) -->
+                                    <div class="form-group language_replace">
+                                        <label class="form-title language_replace">輸入金額</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control custom-style" id="amount"
+                                                language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
+                                            <div class="form-notice-aside unit" id="OrderCurrencyType">Ocoin</div>
+                                            <div class="invalid-feedback language_replace">提示</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="form-content mt-3">
-                            <div>
+                                </form>
+                            </div>                            
+                            <div class="mt-2">
                                 <span id="idRecClock">30</span><span class="language_replace">秒後，重新取得匯率</span>
                             </div>
                             <div class="box-item-container crypto-list mb-2">
