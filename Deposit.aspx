@@ -210,6 +210,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="notice-container mt-5">
+                    <div class="notice-item">
+                        <i class="icon-info_circle_outline"></i>
+                        <div class="text-wrap">
+                            <p class="title language_replace" style="cursor:pointer" onclick="window.parent.API_LoadPage('record','Guide/EPayJKC/index.html', true)">JKC専用入金の流れ</p>
+                        </div>
+                    </div>
+                </div>
                 <!-- 溫馨提醒 -->
                 <div class="notice-container mt-5">
                     <div class="notice-item">
