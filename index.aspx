@@ -2232,12 +2232,12 @@
                         </div>
                         <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display:none">                   
                             <select class="custom-select" id="seleGameCategory">
-                                <option class="title" value="All" selected><span class="language_replace">全部</span></option>
+                                <option class="title" value="All" selected><span class="language_replace">すべて</span></option>
                                 <option class="searchFilter-option" value="Electron" ><span class="language_replace">電子</span></option>
-                                <option class="searchFilter-option" value="Fish" ><span class="language_replace">捕魚機</span></option>
-                                <option class="searchFilter-option" value="Live" ><span class="language_replace">真人</span></option>
-                                <option class="searchFilter-option" value="Slot" ><span class="language_replace">老虎機</span></option>
-                                <option class="searchFilter-option" value="Sports" ><span class="language_replace">體育</span></option>
+                                <option class="searchFilter-option" value="Fish" ><span class="language_replace">釣る</span></option>
+                                <option class="searchFilter-option" value="Live" ><span class="language_replace">ライブ</span></option>
+                                <option class="searchFilter-option" value="Slot" ><span class="language_replace">スロット</span></option>
+                                <option class="searchFilter-option" value="Sports" ><span class="language_replace">スポーツ</span></option>
                             </select>
                         </div>
                         <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>
