@@ -2114,6 +2114,11 @@
                                         <img src="images/logo/footer/logo-pagcor.png" alt="">
                                     </div>
                                 </div> 
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-mishuha.png" alt="">
+                                    </div>
+                                </div> 
                             </div>
                         </div>
                     </div>
