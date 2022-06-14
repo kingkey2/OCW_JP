@@ -230,17 +230,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: bold;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item {
-  display: -ms-flexbox;
-  display: flex;
   margin-bottom: 0.8rem;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   display: -webkit-box;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  display: -ms-flexbox;
+  display: flex;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item:before {
   content: "";
@@ -256,6 +252,20 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: 600;
   margin-left: 0.5rem;
   margin-right: 1rem;
+  width: 5rem;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+.section_publicize .publicize_bottom_inner .bulletin_list .item .info {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .activity-dailylogin-wrapper {
@@ -539,7 +549,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
             flex: 1;
   }
   .section_publicize .publicize_top_inner .item.writer {
-    padding-right: 1.3rem;
+    padding-right: 0.5rem;
+  }
+  .section_publicize .publicize_top_inner .item.vtuber {
+    padding-left: 0.5rem;
   }
   .section_publicize .publicize_bottom_inner .way_payment {
     -webkit-box-flex: 0;

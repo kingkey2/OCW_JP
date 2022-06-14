@@ -718,12 +718,12 @@
 
     <div class="tmpModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
-            <div>
+            <!-- <div> -->
                 <li class="item">
                     <span class="date CreateDate"></span>
                     <span class="info BulletinTitle" style="cursor: pointer"></span>
                 </li>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 
