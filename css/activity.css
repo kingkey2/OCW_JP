@@ -43,7 +43,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex: 0 0 30%;
           flex: 0 0 30%;
   padding-bottom: 63.2%;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

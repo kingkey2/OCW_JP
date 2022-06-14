@@ -344,6 +344,8 @@ button {
   padding: 0.65em 2em 0.6em;
   font-size: 1em;
   background-size: 200% auto;
+  background-color: #009FE8;
+  /*
   background-image: -webkit-gradient(linear, left top, right top, from(#A445B2), color-stop(50%, #FF0066), to(#D41872));
   background-image: linear-gradient(to right, #A445B2 0%, #FF0066 50%, #D41872 100%);
   border: none;
@@ -352,6 +354,7 @@ button {
           box-shadow: 0px 4px 12px -4px rgba(212, 24, 114, 0.5);
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  */
 }
 .btn-primary span {
   font-size: 1em;
@@ -3878,11 +3881,28 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   .depositCryptoPage .sm-sticky {
     top: -105px;
   }
-  .depositCryptoPage .page-content {
+
+  .depositJKCEPAY .sm-sticky {
+     /* top: -10px; */
+     /* background-color: #fafbfd; */
+     z-index: 11;
+    
+     padding: 0 34px;
+     box-sizing: content-box;
+     margin: 0 -34px;
+     padding-bottom: 1px;
+  }
+
+  .depositJKCEPAY .sm-sticky .form-group{
+    margin-bottom: 8px;
+  }
+
+
+  .mobile-scroll-sticky .page-content {
     padding-left: 0;
     padding-right: 0;
   }
-  .depositCryptoPage .page-content .main-panel {
+  .mobile-scroll-sticky .page-content .main-panel {
     padding-left: 20px;
     padding-right: 20px;
   }
