@@ -2225,6 +2225,8 @@ hr.line {
 }
 .footer-inner .partner .logo-item img {
   width: 100%;
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
 }
 .footer-inner .partner .logo-item:hover img {
   -webkit-filter: unset;
