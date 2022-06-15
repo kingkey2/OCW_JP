@@ -114,6 +114,29 @@
             }
         });
     };
+
+    this.GetEPayBankSelect = function (WebSID, GUID, ProviderCode, cb) {
+        var url = APIUrl + "/GetEPayBankSelect";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            ProviderCode: ProviderCode
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
    
     this.GetDepositActivityInfoByOrderNumber = function (WebSID, GUID, OrderNumber, cb) {
         var url = APIUrl + "/GetDepositActivityInfoByOrderNumber";
@@ -344,6 +367,56 @@
             OrderNumber: OrderNumber,
             ActivityNames: ActivityNames,
             Lang: Lang
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.CreateEPayWithdrawal = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
+        var url = APIUrl + "/CreateEPayWithdrawal";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            Amount: Amount,
+            PaymentMethodID: PaymentMethodID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.ConfirmEPayWithdrawal = function (WebSID, GUID, OrderNumber, bankCard, bankCardName, bankName, cb) {
+        var url = APIUrl + "/ConfirmEPayWithdrawal";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            OrderNumber: OrderNumber,
+            BankCard: bankCard,
+            BankCardName: bankCardName,
+            BankName: bankName
         };
 
         callService(url, postData, 10000, function (success, text) {

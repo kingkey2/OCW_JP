@@ -41,7 +41,7 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         RedisCache.SessionContext.SIDInfo SI;
-
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         var amount = decimal.Parse(Request.Params["amount"]);
         var orderNumber = Request.Params["orderNumber"];
         var WebSID = Request.Params["webSID"];
@@ -51,8 +51,30 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            SendPayment(amount, orderNumber, UserName,Type, ContactPhoneNumber);
+
+            if (Type == "EPayJKC")
+            {
+                var userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, System.Guid.NewGuid().ToString());
+                if (userInfoResult.Result == EWin.Lobby.enumResult.OK)
+                {
+                    SendPayment(amount, orderNumber, UserName, Type, userInfoResult.ContactPhoneNumber);
+                }
+            }
+            else {
+                SendPayment(amount, orderNumber, UserName, Type, "");
+            }
         }       
+    }
+
+    private string GetToken()
+    {
+        string Token;
+        int RValue;
+        Random R = new Random();
+        RValue = R.Next(100000, 9999999);
+        Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+
+        return Token;
     }
 
     public void SendPayment(decimal amount, string orderNumber, string UserName,string Type,string ContactPhoneNumber)

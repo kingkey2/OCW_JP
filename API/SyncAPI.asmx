@@ -125,6 +125,15 @@ public class SyncAPI : System.Web.Services.WebService
     //    return Newtonsoft.Json.JsonConvert.SerializeObject(gameCodeRTPResult);
     //}
 
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string GetGameCodeRTP2()
+    //{
+    //    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+    //    var gameCodeRTPResult = lobbyAPI.GetGameCodeRTP(GetToken(), Guid.NewGuid().ToString(), DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"));
+    //    return GetToken()+"-"+Guid.NewGuid().ToString()+"-"+DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd")+"-"+DateTime.Now.ToString("yyyy-MM-dd");
+    //}
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult UpdateCompanyCategory(string Key)
@@ -218,19 +227,19 @@ public class SyncAPI : System.Web.Services.WebService
                 ShowType = 0;
 
                 OCWcompanyStatisticsCategoryResult.CategoryList = new EWin.Lobby.CompanyCategory[] { new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 99
+        CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 98
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxBetCount30Day",CompanyCategoryID = 0,SortIndex = 99
+        CategoryName = "SlotMaxBetCount30Day",CompanyCategoryID = 0,SortIndex = 98
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinValue7Day",CompanyCategoryID = 0,SortIndex =99
+        CategoryName = "SlotMaxWinValue7Day",CompanyCategoryID = 0,SortIndex =98
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinValueYesterday",CompanyCategoryID = 0,SortIndex = 99
+        CategoryName = "SlotMaxWinValueYesterday",CompanyCategoryID = 0,SortIndex = 98
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinRate7Day",CompanyCategoryID = 0,SortIndex = 99
+        CategoryName = "SlotMaxWinRate7Day",CompanyCategoryID = 0,SortIndex = 98
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinRateYesterday",CompanyCategoryID = 0,SortIndex = 99
+        CategoryName = "SlotMaxWinRateYesterday",CompanyCategoryID = 0,SortIndex = 98
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxRTPYesterday",CompanyCategoryID = 0,SortIndex = 99
+        CategoryName = "SlotMaxRTPYesterday",CompanyCategoryID = 0,SortIndex = 98
         }};
 
                 for (int i = 0; i < OCWcompanyStatisticsCategoryResult.CategoryList.Length; i++)
