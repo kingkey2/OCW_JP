@@ -645,10 +645,10 @@
                 <div class="publicize_wrapper publicize_top">
                     <div class="publicize_top_inner">
                         <div class="item writer">
-                            <img src="images/index/writer.png" alt="">
+                            <img src="images/index/writer-comingsoon.png" alt="">
                         </div>
                         <div class="item vtuber">
-                            <img src="images/index/vtuber1.png" alt="">
+                            <img src="images/index/vtuber-comingsoon.png" alt="">
                         </div>
                     </div>
                 </div>

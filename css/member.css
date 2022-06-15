@@ -53,23 +53,23 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 input.year {
-  width: 35% !important;
+  width: 33% !important;
 }
 input.year:-moz-read-only {
-  width: 31.5% !important;
+  width: 32% !important;
 }
 input.year:read-only {
-  width: 33.5% !important;
+  width: 32% !important;
 }
 input.month, input.day {
   width: 22% !important;
   text-align: center;
 }
 input.month:-moz-read-only, input.day:-moz-read-only {
-  width: 20% !important;
+  width: 21% !important;
 }
 input.month:read-only, input.day:read-only {
-  width: 20% !important;
+  width: 21% !important;
 }
 
 .sec-col-2 .btn {

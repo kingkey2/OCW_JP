@@ -65,7 +65,32 @@
         //}
         GetUserAccountJKCValue();
         GetPaymentMethod();
+
+        // window.setInterval(function () {
+        //     watchScroll();
+        // }, 0);
     }
+
+    function detectionAltitude() {
+        let scrollHeight = window.pageYOffset;
+
+        if (scrollHeight > 400) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function watchScroll() {
+        if (detectionAltitude()) {
+            $(".sm-sticky").eq(0).addClass("scroll");
+            return;
+        } else {
+            $(".sm-sticky").eq(0).removeClass("scroll");
+            return;
+        }
+    }
+
 
     function startCountDown() {
         let secondsRemaining = 30;
@@ -570,7 +595,7 @@
     window.onload = init;
 </script>
 <body>
-    <div class="page-container">
+    <div class="page-container mobile-scroll-sticky depositJKCEPAY">
         <!-- Heading-Top -->
         <div id="heading-top"></div>
         <div class="page-content">
@@ -606,122 +631,121 @@
                      <p data-deposite="step4">支付</p> -->
                 </div>
 
-                <div class="split-layout-container">
+                <div class="split-layout-container">                    
                     <div class="aside-panel" data-deposite="step2">
-                        <!-- PayPal -->
-                        <div class="card-item tempCard">
-                            <div class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
-                                <div class="card-item-inner">
-                                    <div class="title">
-                                        <span class="language_replace">マハラジャ</span>
-                                        <!-- <span>Electronic Wallet</span>  -->
-                                    </div>                                   
-                                    <div class="logo vertical-center text-center">
-                                        <!-- <span class="text language_replace">銀行振込</span>   -->
-                                        <img src="images/assets/card-surface/jkc-font.svg">                                     
-                                    </div>
-                                </div>
-                                <%--<img src="images/assets/card-surface/card-jkc.svg" class="card-item-bg" />--%>
-                            </div>
-                        </div>
-                        <div class="text-wrap payment-change" style="display: none">
-                            <a href="deposit.html" class="text-link c-blk">
-                                <i class="icon-transfer"></i>
-                                <span class="language_replace">切換</span>
-                            </a>
-                        </div>
                         <div class="form-content">
-                        <div>
-                            <span id="idRecClock">30</span><span class="language_replace">秒後，重新取得匯率</span>
-                        </div>
-                        <div class="box-item-container crypto-list">
-                            <div id="idPaymentMethods">
-                            </div>
-
-                            <!-- 溫馨提醒 -->
-                            <div class="notice-container mt-3 mb-3">
-                                <div class="notice-item">
-                                    <i class="icon-info_circle_outline"></i>
-                                    <div class="text-wrap">
-                                        <p class="title language_replace">溫馨提醒</p>
-                                        <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
-                                        <p class="language_replace">ガス代は入金のお客様負担となります。</p>
+                             <!-- PayPal -->
+                            <div class="card-item tempCard">
+                                <div class="card-item-link"
+                                    style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
+                                    <div class="card-item-inner">
+                                        <div class="title">
+                                            <span class="language_replace">マハラジャ</span>
+                                            <!-- <span>Electronic Wallet</span>  -->
+                                        </div>
+                                        <div class="logo vertical-center text-center">
+                                            <!-- <span class="text language_replace">銀行振込</span>   -->
+                                            <img src="images/assets/card-surface/jkc-font.svg">
+                                        </div>
                                     </div>
+                                    <%--<img src="images/assets/card-surface/card-jkc.svg" class="card-item-bg" />--%>
                                 </div>
                             </div>
-
-                        </div>
-                            <!-- 存款提示 -->
                             <div class="form-group text-wrap desc mt-2 mt-md-4">
-                                <!-- <h5 class="language_replace">便捷金額存款</h5> -->
                                 <p class="text-s language_replace">請從下方金額選擇您要的金額，或是自行填入想要存款的金額。兩種方式擇一即可。</p>
                             </div>
+                            <!-- 要固定時：sm-sticky -->
+                            <div class="">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="btn-wrap btn-radio-wrap btn-radio-payment">
+                                            <div class="btn-radio btn-radio-coinType">
+                                                <input type="radio" name="amount" id="amount1" />
+                                                <label class="btn btn-outline-primary" for="amount1" data-val="10000"
+                                                    onclick="CoinBtn_Click()">
+                                                    <span class="coinType gameCoin">
+                                                        <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                        <span class="coinType-title">Ocoin</span>
+                                                        <span class="coinType-amount OcoinAmount">10,000</span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="btn-radio btn-radio-coinType">
+                                                <input type="radio" name="amount" id="amount2" />
+                                                <label class="btn btn-outline-primary" for="amount2" data-val="50000"
+                                                    onclick="CoinBtn_Click()">
+                                                    <span class="coinType gameCoin">
+                                                        <span class="coinType-name">Ocoin</span>
+                                                        <span class="coinType-amount OcoinAmount">50,000</span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="btn-radio btn-radio-coinType">
+                                                <input type="radio" name="amount" id="amount3" />
+                                                <label class="btn btn-outline-primary" for="amount3" data-val="100000"
+                                                    onclick="CoinBtn_Click()">
+                                                    <span class="coinType gameCoin">
+                                                        <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
+                                                        <span class="coinType-name">Ocoin</span>
+                                                        <span class="coinType-amount OcoinAmount">100,000</span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 輸入金額(美元) -->
+                                    <div class="form-group language_replace">
+                                        <label class="form-title language_replace">輸入金額</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control custom-style" id="amount"
+                                                language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
+                                            <div class="form-notice-aside unit" id="OrderCurrencyType">Ocoin</div>
+                                            <div class="invalid-feedback language_replace">提示</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>                            
+                            <div class="mt-2">
+                                <span id="idRecClock">30</span><span class="language_replace">秒後，重新取得匯率</span>
+                            </div>
+                            <div class="box-item-container crypto-list mb-2">
+                                <div id="idPaymentMethods">
+                                </div>
+                            </div>
                             <form>
-                                <div class="form-group">
-                                    <div class="btn-wrap btn-radio-wrap btn-radio-payment">
-                                        <div class="btn-radio btn-radio-coinType" >
-                                            <input type="radio" name="amount" id="amount1" />
-                                            <label class="btn btn-outline-primary" for="amount1" data-val="10000" onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-title">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">10,000</span>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="btn-radio btn-radio-coinType" >
-                                            <input type="radio" name="amount" id="amount2" />
-                                            <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <span class="coinType-name">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">50,000</span>
-                                                </span>
-                                            </label>
-                                        </div>
-
-                                        <div class="btn-radio btn-radio-coinType" >
-                                            <input type="radio" name="amount" id="amount3" />
-                                            <label class="btn btn-outline-primary" for="amount3" data-val="100000" onclick="CoinBtn_Click()">
-                                                <span class="coinType gameCoin">
-                                                    <%--<span class="coinType-title language_replace">遊戲幣</span>--%>
-                                                    <span class="coinType-name">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">100,000</span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 輸入金額(美元) -->
-                                <div class="form-group language_replace">
-                                    <label class="form-title language_replace">輸入金額</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="amount" language_replace="placeholder" placeholder="請輸入金額" onkeyup="setAmount()" />
-                                        <div class="form-notice-aside unit" id="OrderCurrencyType">Ocoin</div>
-                                        <div class="invalid-feedback language_replace">提示</div>
-                                    </div>
-                                </div>
                                 <div class="form-group depositName">
-                                    <label class="form-title language_replace" >請正確填寫存款人全名</label>
+                                    <label class="form-title language_replace">請正確填寫存款人全名</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon icon-wallet"></i></span>
                                         </div>
-                                        <input type="text" class="form-control custom-style" id="idToDepositName" language_replace="placeholder" placeholder="請填寫片假名全名">
-                                    </div>                                   
+                                        <input type="text" class="form-control custom-style" id="idToDepositName"
+                                            language_replace="placeholder" placeholder="請填寫片假名全名">
+                                    </div>
                                 </div>
-
-                            
                             </form>
-                             <div class="form-group text-wrap desc mt-2 mt-md-4">
+                            <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
                                 <p class="text-s language_replace">※入金額は3,000ocoinから700,000ocoinまでとなります。</p>
-                                <p class="text-s language_replace">※Ocoinの反映は着金後になりますが、1銀行営業日経っても反映しない場合はカスタマサポート迄ご連絡下さい。</p>
-                                <p class="text-s language_replace">※訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</p>
+                                <p class="text-s language_replace">
+                                    ※Ocoinの反映は着金後になりますが、1銀行営業日経っても反映しない場合はカスタマサポート迄ご連絡下さい。</p>
                             </div>
                         </div>
-                    </div>
+
+                        <!-- 溫馨提醒 -->
+                        <div class="notice-container mt-3 mb-3">
+                            <div class="notice-item">
+                                <i class="icon-info_circle_outline"></i>
+                                <div class="text-wrap">
+                                    <p class="title language_replace">溫馨提醒</p>
+                                    <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
+                                    <p class="language_replace">ガス代は入金のお客様負担となります。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                   
+                  
+                   
                     <!-- 虛擬錢包 step4 -->
                     <div class="main-panel" data-deposite="step4">
 
@@ -834,6 +858,7 @@
                         </div>
                     </div>
                 </div>
+                  
 
                 <div class="btn-container">
                     <button class="btn btn-primary" data-deposite="step2">
