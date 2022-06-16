@@ -137,24 +137,6 @@
             overflow: hidden!important;
             vertical-align: middle;
         }*/
-
-        /*滿版遊戲介面*/
-        .divGameFrameBody {
-            z-index: 5;
-            display: none;
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            align-items: center;
-            justify-content: center;
-            background-color: black
-        }
-
-        .divGameFrame {
-            width: 70vw;
-            height: 39.375vw; /* 70 ÷ 16 × 9 = 39.375 */
-            background-color: #09f;
-        }
     </style>
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
@@ -373,15 +355,8 @@
             EWinWebInfo.IsOpenGame = false;
             var IFramePage = document.getElementById("GameIFramePage");
             IFramePage.src = "";
-            
-            //非滿版遊戲介面
             $('#headerGameDetailContent').hide();
             $('#GameIFramePage').hide();
-            //非滿版遊戲介面 end
-
-            //滿版遊戲介面
-            //$('#divGameFrame').css('display', 'none');
-            //滿版遊戲介面 end
         }
 
         if ($('.header_menu').hasClass("show")) {
@@ -748,29 +723,18 @@
     function CloseGameFrame() {
         var IFramePage = document.getElementById("GameIFramePage");
         IFramePage.src = "";
-         //非滿版遊戲介面
         $('#headerGameDetailContent').hide();
         $('#GameIFramePage').hide();
-        //非滿版遊戲介面 end
-
-        //滿版遊戲介面
-        //$('#divGameFrame').css('display', 'none');
-       //滿版遊戲介面 end
+        //$('#IFramePage').css('display', 'block');
     }
     //#region Game
     function GameLoadPage(url, gameBrand, gameName) {
         var IFramePage = document.getElementById("GameIFramePage");
 
         if (IFramePage != null) {
-            //非滿版遊戲介面
+            //$('#IFramePage').css('display','none');
             $('#headerGameDetailContent').show();
             $('#GameIFramePage').show();
-            //非滿版遊戲介面 end
-
-            //滿版遊戲介面
-            //$('#divGameFrame').css('display', 'flex');
-            //滿版遊戲介面 end
-
             var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
             if (showCloseGameTooltipCount == '') {
                 showCloseGameTooltipCount = 0;
@@ -1936,7 +1900,6 @@
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
                                     </li>
-
                                 </ul>
                             </div>
                         </div>
@@ -1948,23 +1911,11 @@
     </header>
     <!-- main_area = iframe高度 + Footer高度-->
     <%--    <div class="main_area" style="height: auto;">--%>
-
-    <!-- 滿版遊戲介面 -->
-    <%--<div id="divGameFrame" class="divGameFrameBody">
-        <div class="btn btn-game-close"  onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
-        <iframe id="GameIFramePage" class="divGameFrame" name="mainiframe"></iframe>
-    </div>--%>
-    <!-- 滿版遊戲介面 end-->
-
     <div class="main_area">
-
-        <!-- 非滿版遊戲介面 -->
         <div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></div>
-        <iframe id="GameIFramePage" style="z-index: 2; display: none;" class="mainIframe" name="mainiframe"></iframe>
-        <!-- 非滿版遊戲介面 end-->
-
         <!-- iframe高度 自動計算高度-->
         <%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
+        <iframe id="GameIFramePage" style="z-index: 2; display: none;" class="mainIframe" name="mainiframe"></iframe>
         <iframe id="IFramePage" style="z-index: 1" class="mainIframe" name="mainiframe"></iframe>
     </div>
     <!-- footer -->
@@ -2111,7 +2062,7 @@
 
                     <div class="company-detail">
                         <div class="company-license">
-                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
+                            <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
                         </div>
                         <div class="company-address">
                             <%-- <p class="name">Online Chip World Co. N.V</p>--%>
