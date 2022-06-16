@@ -77,6 +77,7 @@
     function GetPromotionCollectHistory(BeginDate, EndDate) {
         var ParentMain = document.getElementById("div_History");
         ParentMain.innerHTML = "";
+        document.getElementById("idSearchDate_P").innerText = new Date(EndDate).toString("yyyy/MM");
         
         LobbyClient.GetPromotionCollectHistory(WebInfo.SID, Math.uuid(), BeginDate, EndDate, function (success, o) {
             if (success) {
@@ -133,6 +134,7 @@
         ParentMain.innerHTML = "";
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_bonus" + collectareatype).addClass("active");
+        let wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
  
         //CollectAreaType
         // 1 (獎金 bonus) => i.   本金歸零時可領 
@@ -156,12 +158,16 @@
                                 let ExpireDate = Date.parse(Collect.ExpireDate);
                                 let PointValue = Collect.PointValue;
 
-                                if (Collect.Status == 0) { //未領 
-                                    RecordDom = c.getTemplate("tmpPrize0");
-                                } else if (Collect.Status == 1) { //已領
-                                    RecordDom = c.getTemplate("tmpPrize1");
+                                if (collectAreaType == 1) {
+                                    if (wallet.PointValue > 100) {
+                                        RecordDom = c.getTemplate("tmpPrize1");
 
-                                    c.setClassText(RecordDom, "pointval", null, PointValue);
+                                        c.setClassText(RecordDom, "pointval", null, PointValue);
+                                    } else {
+                                        RecordDom = c.getTemplate("tmpPrize0");
+                                    }
+                                } else {
+                                        RecordDom = c.getTemplate("tmpPrize0");
                                 }
 
                                 let DomBtn = RecordDom.querySelector(".bouns-get");
@@ -182,7 +188,6 @@
 
                                     window.parent.API_ShowMessage(mlp.getLanguageKey("確認"), val + mlp.getLanguageKey(" 確認領取"), function () {
                                         if (collectAreaType == 1) {
-                                            var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
                                             if (wallet.PointValue > 100) {
                                                 //window.top.MessageModal.toggle();
                                                 //window.top.MessageModal.hide();
@@ -327,30 +332,6 @@
                 break;
         }
     }
-    
-    var MessageModal1;
-    function aa() {
-        if ($("#alertMsg1").attr("aria-hidden") == 'true') {
-            var divMessageBox = document.getElementById("alertMsg1");
-            var divMessageBoxOKButton = divMessageBox.querySelector(".alertMsg_OK");
-
-            if (MessageModal1 == null) {
-                MessageModal1 = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
-            }
-
-            if (divMessageBox != null) {
-                MessageModal1.toggle();
-
-                if (divMessageBoxOKButton != null) {
-
-                    divMessageBoxOKButton.onclick = function () {
-                        MessageModal1.hide();
-                    }
-                }
-               
-            }
-        }
-    }
 
     window.onload = init;
 </script>
@@ -365,7 +346,6 @@
                     </a>
                     <div class="sec-title-wrapper">
                         <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
-                        <%-- <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="aa()">--%>
                         <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', true)">
                             <i class="icon icon-mask icon-question"></i>
                         </span>
@@ -404,11 +384,12 @@
                 <section class="section-wrap section-prize-record">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">受取履歴</span></h1>
+                            <h1 class="sec-title title-deco"><span class="language_replace">領取紀錄</span></h1>
                         </div>
                         <!-- 前/後 月 -->
                         <div class="sec_link">
                             <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">上個月</span></button>
+                            <span id="idSearchDate_P" class="date_text"></span>
                             <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">下個月</span><i class="icon arrow arrow-right ml-1"></i></button>
                         </div>
 
@@ -511,35 +492,6 @@
             </div>
         </figure>
     </div>
-
-        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertMsg" aria-hidden="true" id="alertMsg1" style="z-index: 10000;">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-body-content">
-                        <i class="icon-error_outline primary"></i>
-                        <div class="text-wrap">
-                            <p class="alertMsg_Text language_replace">ボーナスとギフトマネーは何か違いますか？</p>
-                            <p class="alertMsg_Text language_replace">‧ボーナスはOCoinが100以下になって初めて受け取ることができます。そして一回に一筆しか受け取れません。</p>
-                            <p class="alertMsg_Text language_replace">‧ギフトマネーは受け取るに制限がなく、常に受取可能です。</p>
-                            <p class="alertMsg_Text language_replace">詳しい内容は各キャンペーン詳細をご覧ください。</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="btn-container">
-                        <button type="button" class="alertMsg_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 
 </html>

@@ -111,8 +111,24 @@
                     $(paymentInfoDom).find('.inputPaymentSerial').val(PaymentSerial);
                     c.setClassText(paymentInfoDom, "PaymentMethodName", null, retData.PaymentMethodName);
                     //c.setClassText(paymentInfoDom, "PaymentMethodName", null, retData.PaymentMethodName);
-                    c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, GetWalletChain(retData.WalletType));
-                    c.setClassText(paymentInfoDom, "ToWalletAddress", null, retData.ToWalletAddress);
+               
+                    if (retData.BasicType == 1) {
+                        var bankData = JSON.parse(retData.ToWalletAddress)
+
+                        $(paymentInfoDom).find('.BankName').parent().show();
+                        $(paymentInfoDom).find('.BankCard').parent().show();
+                        $(paymentInfoDom).find('.BankCardName').parent().show();
+
+                        c.setClassText(paymentInfoDom, "BankCard", null, bankData.BankCard);
+                        c.setClassText(paymentInfoDom, "BankName", null, bankData.BankName);
+                        c.setClassText(paymentInfoDom, "BankCardName", null, bankData.BankCardName);
+                    } else {
+                        $(paymentInfoDom).find('.ToWalletAddress').parent().show();
+                        $(paymentInfoDom).find('.EWinCryptoWalletType').parent().show();
+                        c.setClassText(paymentInfoDom, "EWinCryptoWalletType", null, GetWalletChain(retData.WalletType));
+                        c.setClassText(paymentInfoDom, "ToWalletAddress", null, retData.ToWalletAddress);
+                    }
+                    
 
                     if (retData.PaymentCryptoDetailList != null) {
                         var depositdetail = document.getElementsByClassName("Collectionitem")[0];
@@ -315,7 +331,7 @@
                                         <h6 class="title language_replace">支付方式</h6>
                                         <span class="data PaymentMethodName"></span>
                                     </li>
-                                    <li class="item">
+                                    <li class="item" style="display:none;">
                                         <h6 class="title language_replace">合約方式</h6>
                                         <span class="data EWinCryptoWalletType">ERC</span>
                                     </li>
@@ -324,9 +340,21 @@
                                         <span class="data text-primary primary">2021/3/1</span>
                                     </li>--%>
 
-                                    <li class="item">
+                                    <li class="item" style="display:none;">
                                         <h6 class="title language_replace">出款錢包地址</h6>
                                         <span class="data ToWalletAddress"></span>
+                                    </li>
+                                     <li class="item" style="display:none;">
+                                        <h6 class="title language_replace">銀行名稱</h6>
+                                        <span class="data BankName"></span>
+                                    </li>
+                                     <li class="item" style="display:none;">
+                                        <h6 class="title language_replace">持卡人卡號</h6>
+                                        <span class="data BankCard"></span>
+                                    </li>
+                                    <li class="item" style="display:none;">
+                                        <h6 class="title language_replace">持卡人姓名</h6>
+                                        <span class="data BankCardName"></span>
                                     </li>
                                 </ul>
                             </div>

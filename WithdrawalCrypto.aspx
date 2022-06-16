@@ -463,7 +463,7 @@
 
                         var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
                         if (wallet.PointValue < amount) {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), "残高不足");
+                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("餘額不足"));
                             return;
                         }
 
@@ -646,7 +646,7 @@
                     </div>
                 </div>
                 <div class="text-wrap progress-title" style="display: none">
-                    <p data-deposite="step2">輸入出款金額及選擇加密貨幣</p>
+                    <p data-deposite="step2" class="language_replace">輸入出款金額及選擇加密貨幣</p>
                     <p data-deposite="step3" class="language_replace">入金確認</p>
                     <p data-deposite="step4" class="language_replace">
                         <span class="language_replace">使用</span>
@@ -824,11 +824,11 @@
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
-                                            <li><span class="language_replace">出金表示金額には燃料費が含まれております(10万OCOIN以下の場合は、燃料費を差引いての着金となります。)</span></li>
-                                            <li><span class="language_replace">10万 OCOIN 以上の出金の場合は燃料費は無料となります。</span></li>
-                                            <li><span class="language_replace">出金は1日３回までとなります。</span></li>
-                                            <li><span class="language_replace">1日出金最大限度額が100万OCOINとなります。</span></li>
-                                            <li><span class="language_replace">出金申請後、弊社が送金完了した時点でお客様からのウォレットアドレスの変更、間違い等の申請には対応を協力致しますが、責任は一切負いかねます。出金の際、よくウォレットアドレス確認して下さい。</span></li>
+                                            <li><span class="language_replace">顯示的取款金額不包含燃料費（若金額為10萬OCoin以下，到帳金額將視扣除燃料費後的金額。）</span></li>
+                                            <li><span class="language_replace">取款10萬OCoin以上不必支付燃料費。</span></li>
+                                            <li><span class="language_replace">取款一日最多三次</span></li>
+                                            <li><span class="language_replace">1天內的取款金額最高為100萬OCoin。</span></li>
+                                            <li><span class="language_replace">申請取款後，弊公司出款完畢起，客戶若欲更改錢包地址，或地址有誤，弊公司會盡力處理，但不負任何責任。取款時請仔細確認錢包地址。</span></li>
                                          </ul>  
                                     </div>
                                 </div>
@@ -1138,7 +1138,7 @@
                 <div class="box-item-sub">
                     <div class="coinPush">
                         <i class="icon icon-coin"></i>
-                        <p class="text hintText">業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%</p>
+                        <p class="text hintText language_replace">業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%</p>
                     </div>
                 </div>
 

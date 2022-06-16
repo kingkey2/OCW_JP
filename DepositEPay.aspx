@@ -616,7 +616,7 @@
                             <ul class="list-style-decimal">
                                 <li><span class="language_replace">點擊 下一步，會顯示收款人信息。</span></li>
                                 <li><span class="language_replace">匯款人的名義請務必與轉賬時用的名義相同（片假名）。</span></li>
-                                <li><span class="language_replace">若有差異的話，可能需要一些時間反應。另外，它也有可能不會被反應出來，請注意。</span></li>
+                                <li><span class="language_replace">若有差異的話，可能需要一些時間反映。也有可能無法反映，請注意。</span></li>
                                 <li><span class="language_replace">根據不同的金融機構，若轉賬於銀行營業時間以外進行的話，將在下一個營業日才能確認匯款。</span></li>
                                 <li><span class="language_replace">訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</span></li>
                             </ul>

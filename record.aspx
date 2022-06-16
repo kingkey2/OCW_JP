@@ -154,7 +154,7 @@
 
                     } else {
                         document.getElementById("idNoGameData").style.display = "block";
-                        window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                         window.parent.API_CloseLoading();
                     }
                 } else {
@@ -211,7 +211,7 @@
                             cb(true);
                         }
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
 
                         if (cb) {
                             cb(false);
@@ -488,7 +488,7 @@
                                 ParentMain_M.appendChild(RecordDom_M);
 
                                 if ($(ParentMain).length == 0) {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                                    //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                                 }
                             }
                         }
@@ -496,12 +496,12 @@
                     
                     if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
                         if (WebInfo.DeviceType == 1) {
-                            $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                            $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                         } else {
-                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                            $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                         }
 
-                        window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                         window.parent.API_CloseLoading();
                     } else {
                         if (WebInfo.DeviceType == 1) {
@@ -514,11 +514,11 @@
                     window.parent.API_CloseLoading();
                 } else {
                     if (WebInfo.DeviceType == 1) {
-                        $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                        $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                     } else {
-                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('データがありません')}</span></div></div>`);
+                        $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                     }
-                    window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                    //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
                     window.parent.API_CloseLoading();
                 }
             } else {
@@ -686,7 +686,7 @@
                 <div class="container">
                     <div class="sec-title-container sec-title-prize">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">履歴一覧</span></h1>
+                            <h1 class="sec-title title-deco"><span class="language_replace">紀錄總覽</span></h1>
                         </div>
                     </div>
                     <div class="record-overview-wrapper">
@@ -694,7 +694,7 @@
                         <div class="record-overview-box payment">
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
-                                    <div class="title">出入金履歴情報</div>
+                                    <div class="title language_replace">出入金紀錄資訊</div>
                                     <%--<div class="btn btn-detail-link">詳細</div>--%>
                                 </div>
                                 <div class="record-overview-content">
@@ -703,11 +703,11 @@
                                         <div class="Thead">
                                             <div class="thead__tr">
                                                 <div class="thead__th">
-                                                    <span class="title language_replace">先月</span>
+                                                    <span class="title language_replace">上個月</span>
                                                     <span class="unit">OCoin</span>
                                                 </div>
                                                 <div class="thead__th">
-                                                    <span class="title language_replace">今月</span>
+                                                    <span class="title language_replace">這個月</span>
                                                     <span class="unit">OCoin</span>
                                                 </div>
                                             </div>
@@ -717,7 +717,7 @@
                                             <div class="tbody__tr">
                                                 <div class="tbody__td">
                                                     <span class="td__title">
-                                                        <span class="title language_replace">入金</span>
+                                                        <span class="title language_replace">存款</span>
                                                     </span>
                                                     <span class="td__content">
                                                         <span class="deposit-amount amount" id="Paymeny_D_0">0</span>
@@ -725,7 +725,7 @@
                                                 </div>
                                                 <div class="tbody__td">
                                                     <span class="td__title">
-                                                        <span class="title language_replace">入金</span>
+                                                        <span class="title language_replace">存款</span>
                                                     </span>
                                                     <span class="td__content">
                                                         <span class="deposit-amount amount" id="Paymeny_D_1">0</span>
@@ -736,7 +736,7 @@
                                             <div class="tbody__tr stress">
                                                 <div class="tbody__td">
                                                     <span class="td__title">
-                                                        <span class="title language_replace">出金</span>
+                                                        <span class="title language_replace">取款</span>
                                                     </span>
                                                     <span class="td__content">
                                                         <span class="withdraw-amount amount" id="Paymeny_W_0">0</span>
@@ -744,7 +744,7 @@
                                                 </div>
                                                 <div class="tbody__td">
                                                     <span class="td__title">
-                                                        <span class="title language_replace">出金</span>
+                                                        <span class="title language_replace">取款</span>
                                                     </span>
                                                     <span class="td__content">
                                                         <span class="withdraw-amount amount" id="Paymeny_W_1">0</span>
@@ -767,7 +767,7 @@
                         <div class="record-overview-box game">
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
-                                    <div class="title">ゲーム履歴情報</div>
+                                    <div class="title language_replace">遊戲紀錄資訊</div>
                                     <%--<div class="btn btn-detail-link">詳細</div>--%>
                                 </div>
                                 <div class="record-overview-content">
@@ -776,11 +776,11 @@
                                         <div class="Thead">
                                             <div class="thead__tr">
                                                 <div class="thead__th">
-                                                    <span class="title language_replace">先月</span>
+                                                    <span class="title language_replace">上個月</span>
                                                     <span class="unit">OCoin</span>
                                                 </div>
                                                 <div class="thead__th">
-                                                    <span class="title language_replace">今月</span>
+                                                    <span class="title language_replace">這個月</span>
                                                     <span class="unit">OCoin</span>
                                                 </div>
                                             </div>
@@ -790,7 +790,7 @@
                                             <div class="tbody__tr">
                                                 <div class="tbody__td">
                                                     <span class="td__title">
-                                                        <span class="title language_replace">ベット</span>
+                                                        <span class="title language_replace">投注</span>
                                                     </span>
                                                     <span class="td__content">
                                                         <span class="deposit-amount amount" id="Game_O_0">0</span>
@@ -798,7 +798,7 @@
                                                 </div>
                                                 <div class="tbody__td">
                                                     <span class="td__title">
-                                                        <span class="title language_replace">ベット</span>
+                                                        <span class="title language_replace">投注</span>
                                                     </span>
                                                     <span class="td__content">
                                                         <span class="deposit-amount amount" id="Game_O_1">0</span>
@@ -853,24 +853,24 @@
                             <div class="sec_link sec-month">
                                 <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth_Payment()">
                                     <i class="icon arrow arrow-left mr-1"></i><span
-                                        class="language_replace">前の月</span></button>
+                                        class="language_replace">上一個月</span></button>
                                 <span id="idSearchDate_P" class="date_text"></span>
                                 <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth_Payment()">
-                                    <span class="language_replace">次の月</span><i
+                                    <span class="language_replace">下一個月</span><i
                                         class="icon arrow arrow-right ml-1"></i></button>
                             </div>
                             <div class="sec-title-wrapper">
-                                <h1 class="sec-title title-deco"><span class="language_replace">出入金履歴詳細</span></h1>
+                                <h1 class="sec-title title-deco"><span class="language_replace">詳細出入金記錄</span></h1>
                                 <!-- 獎金/禮金 TAB -->
                                 <div class="tab-record tab-scroller tab-2">
                                     <div class="tab-scroller__area">
                                         <ul class="tab-scroller__content">
                                             <li class="tab-item active" onclick="showRecord(0)">
-                                                <span class="tab-item-link"><span class="title"><span class="language_replace">出入金履歴</span></span>
+                                                <span class="tab-item-link"><span class="title"><span class="language_replace">出入金記錄</span></span>
                                                 </span>
                                             </li>
                                             <li class="tab-item" onclick="showRecord(1)">
-                                                <span class="tab-item-link"><span class="title"><span class="language_replace">ゲーム履歴</span></span>
+                                                <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲記錄</span></span>
                                                 </span>
                                             </li>
                                         </ul>
@@ -885,13 +885,13 @@
                                 <div class="thead__tr">
                                     <div class="thead__th"><span class="language_replace"></span></div>
                                     <div class="thead__th">
-                                        <span class="language_replace">日付</span>
+                                        <span class="language_replace">日期</span>
                                         <%--<span class="arrow arrow-down"></span>--%>
                                     </div>
                                     <div class="thead__th"><span class="language_replace">OCOIN</span><%--<span class="arrow arrow-up"></span>--%></div>
-                                    <div class="thead__th"><span class="language_replace">決済方法</span><%--<span class="arrow arrow-up"></span>--%></div>
-                                    <div class="thead__th"><span class="language_replace">注文番号</span></div>
-                                    <div class="thead__th"><span class="language_replace">状態</span></div>
+                                    <div class="thead__th"><span class="language_replace">支付方式</span><%--<span class="arrow arrow-up"></span>--%></div>
+                                    <div class="thead__th"><span class="language_replace">編號</span></div>
+                                    <div class="thead__th"><span class="language_replace">狀態</span></div>
                                 </div>
                             </div>
                             <!-- tbody -->
@@ -929,24 +929,24 @@
                             <div class="sec_link sec-month">
                                 <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth_Game()">
                                     <i class="icon arrow arrow-left mr-1"></i><span
-                                        class="language_replace">前の月</span></button>
+                                        class="language_replace">上一個月</span></button>
                                 <span id="idSearchDate_G" class="date_text"></span>
                                 <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth_Game()">
-                                    <span class="language_replace">次の月</span><i
+                                    <span class="language_replace">下一個月</span><i
                                         class="icon arrow arrow-right ml-1"></i></button>
                             </div>
                             <div class="sec-title-wrapper">
-                                <h1 class="sec-title title-deco"><span class="language_replace">ゲーム履歴詳細</span></h1>
+                                <h1 class="sec-title title-deco"><span class="language_replace">詳細遊戲記錄</span></h1>
                                 <!-- 獎金/禮金 TAB -->
                                 <div class="tab-record tab-scroller tab-2">
                                     <div class="tab-scroller__area">
                                         <ul class="tab-scroller__content">
                                             <li class="tab-item " onclick="showRecord(0)">
-                                                <span class="tab-item-link"><span class="title language_replace">出入金履歴</span>
+                                                <span class="tab-item-link"><span class="title language_replace">出入金記錄</span>
                                                 </span>
                                             </li>
                                             <li class="tab-item active" onclick="showRecord(1)">
-                                                <span class="tab-item-link"><span class="title language_replace">ゲーム履歴</span></span>
+                                                <span class="tab-item-link"><span class="title language_replace">遊戲記錄</span></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -959,19 +959,19 @@
 
                                 <div class="record-table-item header">
                                     <div class="record-table-cell td-date">
-                                        <span class="language_replace">日付</span>
+                                        <span class="language_replace">日期</span>
                                     </div>
                                     <div class="record-table-cell td-gameName">
-                                        <span class="language_replace">ゲーム</span>
+                                        <span class="language_replace">遊戲名稱</span>
                                     </div>
                                     <div class="record-table-cell td-orderValue">
-                                        <span class="language_replace">ベッティング金額</span>
+                                        <span class="language_replace">投注金額</span>
                                     </div>
                                     <div class="record-table-cell td-validBet">
-                                        <span class="language_replace">出金有効ベッティング</span>
+                                        <span class="language_replace">出款門檻扣除值</span>
                                     </div>
                                     <div class="record-table-cell td-rewardValue">
-                                        <span class="language_replace">勝ち負け</span>
+                                        <span class="language_replace">勝/負</span>
                                     </div>
                                 </div>
 
@@ -979,7 +979,7 @@
                                 </div>
                                  <div class="no-Data" id="idNoGameData">
                                     <div class="data">
-                                        <span class="text language_replace">データがありません</span>
+                                        <span class="text language_replace">沒有資料</span>
                                     </div>
                                 </div>
                             </div>
@@ -999,7 +999,7 @@
             <div class="tbody__td td-payment">
                 <span class="td__content">
                     <span class="payment-status">
-                        <span class="label-status deposit language_replace">入金</span>
+                        <span class="label-status deposit language_replace">存款</span>
                     </span>
                 </span>
             </div>
@@ -1040,7 +1040,7 @@
             <div class="tbody__td td-payment">
                 <span class="td__content">
                     <span class="payment-status">
-                        <span class="label-status withdraw language_replace">出金</span>
+                        <span class="label-status withdraw language_replace">取款</span>
                     </span>
                 </span>
             </div>
@@ -1070,7 +1070,7 @@
                 </span>
             </div>
             <div class="tbody__td td-transesult">
-                <span class="td__content"><span class="PaymentStatus">成功</span></span>
+                <span class="td__content"><span class="PaymentStatus language_replace">成功</span></span>
             </div>
         </div>
     </div>
@@ -1081,7 +1081,7 @@
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
-                        <span class="label-status language_replace">入金</span>
+                        <span class="label-status language_replace">存款</span>
                     </div>
                 </div>
                 <div class="record-table-cell td-amount">
@@ -1117,7 +1117,7 @@
                 <table class="table">
                     <thead class="thead">
                         <tr class="thead-tr">
-                            <th class="thead-th"><span class="title language_replace ">注文番号</span></th>
+                            <th class="thead-th"><span class="title language_replace ">訂單編號</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1143,7 +1143,7 @@
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
-                        <span class="label-status language_replace">出金</span>
+                        <span class="label-status language_replace">取款</span>
                     </div>
                 </div>
 
@@ -1176,7 +1176,7 @@
                 <table class="table">
                     <thead class="thead">
                         <tr class="thead-tr">
-                            <th class="thead-th"><span class="title language_replace">注文番号</span></th>
+                            <th class="thead-th"><span class="title language_replace">訂單編號</span></th>
 
                         </tr>
                     </thead>
@@ -1204,7 +1204,7 @@
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
-                        <span class="label-status deposit language_replace">勝ち</span>
+                        <span class="label-status deposit language_replace">贏</span>
                     </div>
                 </div>
 
@@ -1219,12 +1219,12 @@
                     </div>
                     <!-- 投注 -->
                     <div class="record-table-cell td-orderValue">
-                        <span class="title language_replace">ベット</span>
+                        <span class="title language_replace">投注</span>
                         <span class="data number orderValue">995</span>
                     </div>
                     <!-- 有效投注 -->
                     <div class="record-table-cell td-validBet">
-                        <span class="title language_replace">出金有効ベッティング</span>
+                        <span class="title language_replace">出款門檻扣除值</span>
                         <span class="data number validBet">50090</span>
                     </div>
                     <!-- 勝/負 -->
@@ -1246,13 +1246,13 @@
                         <span class="language_replace">ゲーム</span>
                     </div>
                     <div class="record-table-cell cell-orderValue">
-                        <span class="language_replace">ベッティング金額</span>
+                        <span class="language_replace">投注金額</span>
                     </div>
                     <div class="record-table-cell cell-validBet">
-                        <span class="language_replace">出金有効ベッティング</span>
+                        <span class="language_replace">出款門檻扣除值</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
-                        <span class="language_replace">勝ち負け</span>
+                        <span class="language_replace">勝/負</span>
                     </div>
                 </div>
                 <div class="GameDetailDropPanel">
@@ -1267,7 +1267,7 @@
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
-                        <span class="label-status deposit language_replace">負け</span>
+                        <span class="label-status deposit language_replace">輸</span>
                     </div>
                 </div>
 
@@ -1282,12 +1282,12 @@
                     </div>
                     <!-- 投注 -->
                     <div class="record-table-cell td-orderValue">
-                        <span class="title language_replace">ベット</span>
+                        <span class="title language_replace">投注</span>
                         <span class="data number orderValue">995</span>
                     </div>
                     <!-- 有效投注 -->
                     <div class="record-table-cell td-validBet">
-                        <span class="title language_replace">出金有効ベッティング</span>
+                        <span class="title language_replace">出款門檻扣除值</span>
                         <span class="data number validBet">50090</span>
                     </div>
                     <!-- 勝/負 -->
@@ -1309,13 +1309,13 @@
                         <span class="language_replace">ゲーム</span>
                     </div>
                     <div class="record-table-cell cell-orderValue">
-                        <span class="language_replace orderValue">ベッティング金額</span>
+                        <span class="language_replace orderValue">投注金額</span>
                     </div>
                     <div class="record-table-cell cell-validBet">
-                        <span class="language_replace validBet">出金有効ベッティング</span>
+                        <span class="language_replace validBet">出款門檻扣除值</span>
                     </div>
                     <div class="record-table-cell cell-rewardValue">
-                        <span class="language_replace rewardValue">勝ち負け</span>
+                        <span class="language_replace rewardValue">勝/負</span>
                     </div>
                 </div>
                 <div class="GameDetailDropPanel">
@@ -1341,11 +1341,11 @@
                         <span class="data language_replace gameName">火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試</span>
                     </div>
                     <div class="record-drop-item-orderValue record-item">
-                        <span class="title language_replace">ベット</span>
+                        <span class="title language_replace">投注</span>
                         <span class="data number orderValue">9999</span>
                     </div>
                     <div class="record-drop-item-validBet record-item">
-                        <span class="title language_replace">出金有効ベッティング</span>
+                        <span class="title language_replace">出款門檻扣除值</span>
                         <span class="data number  validBet">9,99999</span>
                     </div>
                 </div>
@@ -1370,11 +1370,11 @@
                         <span class="data language_replace gameName">火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試</span>
                     </div>
                     <div class="record-drop-item-orderValue record-item">
-                        <span class="title language_replace">ベット</span>
+                        <span class="title language_replace">投注</span>
                         <span class="data number orderValue">999</span>
                     </div>
                     <div class="record-drop-item-validBet record-item">
-                        <span class="title language_replace">出金有効ベッティング</span>
+                        <span class="title language_replace">出款門檻扣除值</span>
                         <span class="data number validBet">9,99999</span>
                     </div>
                 </div>

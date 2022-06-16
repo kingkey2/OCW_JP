@@ -175,8 +175,8 @@
                 if (o.Result == 0) {
                     o.Datas = JSON.parse(o.Datas);
                     if (o.Datas.length > 0) {
-                        
-                        $('#SearchBank').append(`<option class="title" value="-1" selected="">${mlp.getLanguageKey("選擇銀行")}</option>`);
+                        var strSelectBank= mlp.getLanguageKey("選擇銀行");
+                        $('#SearchBank').append(`<option class="title" value="-1" selected="">${strSelectBank}</option>`);
                         for (var i = 0; i < o.Datas.length; i++) {
                             $('#SearchBank').append(`<option class="searchFilter-option" value="${o.Datas[i]}">${o.Datas[i]}</option>`);
                         }
@@ -301,8 +301,8 @@
                 if (success) {
                     let UserAccountPayments = o.UserAccountPayments;
                     if (o.Result == 0) {
-                        if (UserAccountPayments.length == 0) {
-                        //if (UserAccountPayments.length > 0) {
+                        //if (UserAccountPayments.length == 0) {
+                        if (UserAccountPayments.length > 0) {
                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
 
                             });
@@ -682,7 +682,7 @@
                         <div class="aside-panel">
                             <div class="deposit-calc">
                                 <div class="deposit-crypto">
-                                    <h5 class="subject-title language_replace">出款項目</h5>
+                                    <h5 class="subject-title language_replace">收款項目</h5>
                                     <ul class="deposit-crypto-list Collectionitem">
                                     </ul>
                                 </div>

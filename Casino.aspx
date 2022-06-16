@@ -510,7 +510,7 @@
                                 <div class="game-item-info-detail-moreInfo">
                                     <ul class="moreInfo-item-wrapper">
                                         <li class="moreInfo-item brand">
-                                            <span class="title">メーカー</span>
+                                            <span class="title language_replace">品牌/span>
                                             <span class="value GameBrand"></span>
                                         </li>
                                         <li class="moreInfo-item RTP">
@@ -541,7 +541,7 @@
                                                 </button>
                                             </div>
                                             <button type="button" class="btn btn-play">
-                                                <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                                <span class="language_replace">遊玩</span><i class="triangle"></i></button>
                                         </div>
                                     </div>
                                 </div>
