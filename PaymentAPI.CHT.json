@@ -30,6 +30,7 @@
   "NotFoundData": "找不到資料",
   "LockFailure": "鎖定失敗",
   "InvalidStatus": "訂單狀態有誤",
-  "JKCAmountInsufficient": "JKC餘額不足"
+  "JKCAmountInsufficient": "JKC餘額不足",
+  "ClientOrderNumber": "訂單已存在,請重新申請訂單"
 
 }

@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                         </a>
-                           <img class="comingSoon" src="../images/assets/card-surface/cs.png">
+                           <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
                 </div>
                 <!-- 出款紀錄 -->
