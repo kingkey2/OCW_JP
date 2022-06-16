@@ -179,7 +179,7 @@ public class SyncAPI : System.Web.Services.WebService
         List<CompanyCategoryByStatistics> SlotMaxRTPYesterdayResult = new List<CompanyCategoryByStatistics>();
         Dictionary<int, int> CategoryGameCodeCount = new Dictionary<int, int>();
 
-        if (Key != "e3dd4c33-0720-4ae9-ae7b-5b7813a080c3")
+        if (!CheckPassword(Key))
         {
             R.Message = "Key Error";
             return R;
@@ -590,6 +590,42 @@ public class SyncAPI : System.Web.Services.WebService
             //Console.WriteLine("Get CompanyCategoryResult Error");
         }
         return R;
+    }
+
+    private bool CheckPassword(string Hash)
+    {
+        string key = EWinWeb.PrivateKey;
+
+        bool Ret = false;
+        int index = Hash.IndexOf('_');
+        string tempStr1 = Hash.Substring(0, index);
+        string tempStr2 = Hash.Substring(index + 1);
+        string checkHash = "";
+        DateTime CreateTime;
+        DateTime TargetTime;
+        if (index > 0)
+        {
+            if (DateTime.TryParse(tempStr1, out CreateTime))
+            {
+                if (CreateTime.AddMinutes(15) >= DateTime.Now.AddSeconds(1))
+                {
+                    TargetTime = RoundUp(CreateTime, TimeSpan.FromMinutes(15));
+                    checkHash = CodingControl.GetMD5(TargetTime.ToString("yyyy/MM/dd HH:mm:ss") + key, false).ToLower();
+                    if (checkHash.ToLower() == tempStr2)
+                    {
+                        Ret = true;
+                    }
+                }
+            }
+        }
+
+        return Ret;
+
+    }
+
+    private DateTime RoundUp(DateTime dt, TimeSpan d)
+    {
+        return new DateTime((dt.Ticks + d.Ticks - 1) / d.Ticks * d.Ticks, dt.Kind);
     }
 
     private string GetToken()
