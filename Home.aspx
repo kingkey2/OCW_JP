@@ -713,6 +713,20 @@
                 </div>
             </div>
         </section>
+
+        <section class="section_recommand section-wrap">
+            <div class="container">
+                <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName"></span></h3>
+                    </div>
+                    <a class="text-link" href="casino.html">
+                        <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
        
 
         <section class="game-area section-wrap  overflow-hidden">
