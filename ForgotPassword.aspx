@@ -144,7 +144,7 @@
             if (success) {
                 if (o1.Result == 0) {
                     LoginAccount = o1.Message;
-                    p.CheckAccountExist(Math.uuid(), LoginAccount, function (success, o) {
+                    p.CheckAccountExistByContactPhoneNumber(Math.uuid(), idPhonePrefix.value, idPhoneNumber.value, function (success, o) {
                         if (success) {
                             if (o.Result == 0) {
 

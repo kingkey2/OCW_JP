@@ -184,11 +184,12 @@
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
+<script type="text/javascript" src="/Scripts/NoSleep.min.js"></script>
 <script src="Scripts/lozad.min.js"></script>
 <script type="text/javascript">
-    if (self != top) {
-        window.parent.API_LoadingStart();
-    }
+    //if (self != top) {
+    //    window.parent.API_LoadingStart();
+    //}
     var c = new common();
     var mlp;
     var mlpByGameCode;
@@ -214,6 +215,7 @@
         IsOpenGame: false
     };
 
+    var noSleep;
     var selectedWallet = null;
     var v = "<%=Version%>";
     var GCB;
@@ -1333,7 +1335,7 @@
 
         GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 3000000, function () {
             notifyWindowEvent("GameLoadEnd", null);
-            API_LoadingEnd(1);
+            //API_LoadingEnd(1);
         });
 
 
@@ -1348,6 +1350,12 @@
         switchLang(EWinWebInfo.Lang, false);
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
+
+            if (EWinWebInfo.DeviceType == 1) {
+                noSleep = new NoSleep();
+                noSleep.enable();
+            }
+           
             var dstPage = c.getParameter("DstPage");
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
             paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
