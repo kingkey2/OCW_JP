@@ -438,7 +438,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-mail"></i>
-                                                <span class="title-name language_replace">メールアドレス</span>
+                                                <span class="title-name language_replace">E-mail</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -482,7 +482,7 @@
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-qrocde"></i>
-                                                    <span class="title-name language_replace">推薦碼</span>
+                                                    <span class="title-name language_replace">推廣碼</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
@@ -617,7 +617,7 @@
                             <div class="member-wallet-wrapper">
                                 <div class="member-wallet-inner">
                                     <div class="member-wallet-contnet">
-                                        <h3 class="member-wallet-title">ウォレット</h3>
+                                        <h3 class="member-wallet-title language_replace">錢包</h3>
                                         <div class="member-wallet-amount">
                                             <span class="unit">Ocoin</span>
                                             <div class="member-deposit">

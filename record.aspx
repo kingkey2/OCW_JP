@@ -776,7 +776,7 @@
                                         <div class="Thead">
                                             <div class="thead__tr">
                                                 <div class="thead__th">
-                                                    <span class="title language_replace">先月</span>
+                                                    <span class="title language_replace">上個月</span>
                                                     <span class="unit">OCoin</span>
                                                 </div>
                                                 <div class="thead__th">
