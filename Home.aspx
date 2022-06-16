@@ -336,6 +336,7 @@
                             slidesPerView: "auto",
                             // slidesPerView: 2,
                             // slidesPerGroup: 2,
+                            freeMode: true,
                             navigation: {
                                 nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                 prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
@@ -348,6 +349,7 @@
                                     // slidesPerGroup: 4,
                                 // },
                                 936: {
+                                     freeMode: false,
                                      slidesPerGroup: 6, //index:992px
                                 },
                                 1144: {
@@ -718,12 +720,12 @@
 
     <div class="tmpModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
-            <div>
+            <!-- <div> -->
                 <li class="item">
                     <span class="date CreateDate"></span>
                     <span class="info BulletinTitle" style="cursor: pointer"></span>
                 </li>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 

@@ -27,6 +27,7 @@ public static class EWinWeb {
     public static string CasinoWorldUrl = System.Configuration.ConfigurationManager.AppSettings["CasinoWorldUrl"];
     public static string WebRedisConnStr = System.Configuration.ConfigurationManager.AppSettings["WebRedisConnStr"];
     public static string SharedFolder = System.Configuration.ConfigurationManager.AppSettings["SharedFolder"];
+    public static string EPayToken = System.Configuration.ConfigurationManager.AppSettings["EPayToken"];
     public static string Key3DES = "onoeTs39aHfAATKGxYmyJ3Nf";
     public static string DirSplit = "\\";
 

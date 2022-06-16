@@ -84,7 +84,14 @@
       "BonusRate": 1
     },
     {
-      "PaymentCode": "JOOB01",
+      "PaymentCode": "NISSIN",
+      "ReceiveValueMaxLimit": 50000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "JKCCASH",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
@@ -163,7 +170,14 @@
       "BonusRate": 0.5
     },
     {
-      "PaymentCode": "JOOB01",
+      "PaymentCode": "NISSIN",
+      "ReceiveValueMaxLimit": 50000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JKCCASH",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
@@ -242,7 +256,14 @@
       "BonusRate": 0.5
     },
     {
-      "PaymentCode": "JOOB01",
+      "PaymentCode": "NISSIN",
+      "ReceiveValueMaxLimit": 50000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "JKCCASH",
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,

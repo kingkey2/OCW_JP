@@ -219,14 +219,12 @@
                         }
                     } else {
                         window.parent.API_LoadingEnd(1);
-                        console.log("GetExchangeRateFromNomics", o.Message);
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                         });
                     }
                 } else {
                     window.parent.API_LoadingEnd(1);
-                        console.log("GetExchangeRateFromNomics", o.Message);
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                     });
@@ -234,7 +232,6 @@
             }
             else {
                 window.parent.API_LoadingEnd(1);
-                        console.log("GetExchangeRateFromNomics", o.Message);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                 });
