@@ -8350,6 +8350,11 @@ select:-webkit-autofill:focus {
       -ms-flex-pack: center;
           justify-content: center;
 }
+.modal .modal-header .close {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 48px;
+          flex: 0 0 48px;
+}
 .modal .modal-body {
   /* scroll 樣式 -- IE，Edge不適用   */
   scrollbar-face-color: rgba(173, 181, 189, 0.8);
@@ -8622,6 +8627,59 @@ select:-webkit-autofill:focus {
   margin-right: 8px;
 }
 
+.alertSearch .modal-header {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+.alertSearch .modal-title {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.alertSearch .brand {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.alertSearch .moreInfo-item-wrapper {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+.alertSearch .action {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.alertSearch .action .btn-round {
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+}
+.alertSearch .btn-s-wrapper {
+  margin-right: 0 !important;
+}
+.alertSearch .game-item {
+  padding: 8px 8px;
+  margin-bottom: 0 !important;
+}
+.alertSearch .game-item-inner {
+  border: 1px solid #B9B9B9;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 10px;
+}
+.alertSearch .game-item-inner:hover {
+  border-color: #009FE8;
+  -webkit-box-shadow: 0px 4px 10px rgba(0, 159, 232, 0.45);
+          box-shadow: 0px 4px 10px rgba(0, 159, 232, 0.45);
+  cursor: pointer;
+}
+
 .searchFilter-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8630,9 +8688,9 @@ select:-webkit-autofill:focus {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
 }
 .searchFilter-wrapper.sticky {
   position: sticky;
@@ -8659,13 +8717,18 @@ select:-webkit-autofill:focus {
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
-    margin-right: 1rem;
+    margin-left: 1rem;
   }
-  .searchFilter-wrapper .searchFilter-item:last-of-type {
-    margin-right: 0;
+  .searchFilter-wrapper .searchFilter-item:first-of-type {
+    margin-left: 0;
   }
 }
 
+@media (min-width: 1440px) {
+  .game-item {
+    width: 33.33% !important;
+  }
+}
 .lang-popup-list {
   display: -webkit-box;
   display: -ms-flexbox;
