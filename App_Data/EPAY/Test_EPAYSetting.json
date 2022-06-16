@@ -4,5 +4,5 @@
   "ApiKey": "5a39646a56114a9d9279e099431f36da",
   "ServiceType": "JOOB01",
   "CyrrencyType": "JPY",
-  "ProviderIP": []
+  "ProviderIP": [ "172.16.16.34", "172.16.16.1" ]
 }

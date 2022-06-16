@@ -23,105 +23,112 @@
     {
         dynamic RequestData = Common.ParseData(PostBody);
 
-        //InIP= CodingControl.GetUserIP();
+        InIP = CodingControl.GetUserIP();
         if (RequestData != null)
         {
-            //if (Common.CheckInIP(InIP))
-            //{
-            if (Common.CheckSign(RequestData))
+            if (Common.CheckInIP(InIP))
             {
-                PaymentOrderDT = EWinWebDB.UserAccountPayment.GetPaymentByPaymentSerial((string)RequestData.OrderID);
-
-                R.ResultState = APIResult.enumResultCode.ERR;
-                R.Message = (string)RequestData.OrderID;
-                PhoneNumber = (string)RequestData.State;
-                if (PaymentOrderDT != null && PaymentOrderDT.Rows.Count > 0)
+                if (Common.CheckSign(RequestData))
                 {
-                    if ((string)RequestData.PayingStatus == "0")
-                    {
-                        if ((int)PaymentOrderDT.Rows[0]["FlowStatus"] == 1)
-                        {
-                            DetailData = (string)PaymentOrderDT.Rows[0]["DetailData"];
-                            if (!string.IsNullOrEmpty(DetailData))
-                            {
-                                var jsonDetailData = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(DetailData);
-                                Newtonsoft.Json.Linq.JObject jo = jsonDetailData.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["TokenCurrencyType"] != null && o["TokenCurrencyType"].ToString() == "JKC");
-                                DelAmount = (decimal)jo["ReceiveAmount"];
-                                EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
-                                dbReturn = EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(PhoneNumber, DelAmount);
-                                if (dbReturn == 0)
-                                {
-                                    var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+                    PaymentOrderDT = EWinWebDB.UserAccountPayment.GetPaymentByPaymentSerial((string)RequestData.OrderID);
 
-                                    if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
+                    R.ResultState = APIResult.enumResultCode.ERR;
+                    R.Message = (string)RequestData.OrderID;
+                    PhoneNumber = (string)RequestData.State;
+                    if (PaymentOrderDT != null && PaymentOrderDT.Rows.Count > 0)
+                    {
+                        if ((string)RequestData.PayingStatus == "0")
+                        {
+                            if ((int)PaymentOrderDT.Rows[0]["FlowStatus"] == 1)
+                            {
+                                DetailData = (string)PaymentOrderDT.Rows[0]["DetailData"];
+                                if (!string.IsNullOrEmpty(DetailData))
+                                {
+                                    var jsonDetailData = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(DetailData);
+                                    Newtonsoft.Json.Linq.JObject jo = jsonDetailData.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["TokenCurrencyType"] != null && o["TokenCurrencyType"].ToString() == "JKC");
+                                    DelAmount = (decimal)jo["ReceiveAmount"];
+                                    EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
+                                    dbReturn = EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(PhoneNumber, DelAmount);
+                                    if (dbReturn == 0)
                                     {
-                                        R.ResultState = APIResult.enumResultCode.OK;
-                                        R.Message = "SUCCESS";
+                                        var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+
+                                        if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
+                                        {
+                                            R.ResultState = APIResult.enumResultCode.OK;
+                                            R.Message = "SUCCESS";
+                                        }
+                                        else
+                                        {
+                                            R.ResultState = APIResult.enumResultCode.ERR;
+                                            R.Message = "Finished Fail";
+                                        }
                                     }
                                     else
                                     {
-                                        R.ResultState = APIResult.enumResultCode.ERR;
-                                        R.Message = "Finished Fail";
+                                        switch (dbReturn)
+                                        {
+                                            case -1:
+                                                R.ResultState = APIResult.enumResultCode.ERR;
+                                                R.Message = "UpdateDB LOCK Fail";
+                                                break;
+                                            case -2:
+                                                R.ResultState = APIResult.enumResultCode.ERR;
+                                                R.Message = "UpdateDB Amount Fail";
+                                                break;
+                                            case -3:
+                                                R.ResultState = APIResult.enumResultCode.ERR;
+                                                R.Message = "UpdateDB Amount Not Enough Fail";
+                                                break;
+                                            case -4:
+                                                R.ResultState = APIResult.enumResultCode.ERR;
+                                                R.Message = "UpdateDB PhoneNumber Fail";
+                                                break;
+                                            default:
+                                                R.ResultState = APIResult.enumResultCode.ERR;
+                                                R.Message = "UpdateDB OTHER Fail";
+                                                break;
+                                        }
                                     }
+
                                 }
                                 else
                                 {
-                                    switch (dbReturn)
-                                    {
-                                        case -1:
-                                            R.ResultState = APIResult.enumResultCode.ERR;
-                                            R.Message = "UpdateDB LOCK Fail";
-                                            break;
-                                        case -2:
-                                            R.ResultState = APIResult.enumResultCode.ERR;
-                                            R.Message = "UpdateDB Amount Fail";
-                                            break;
-                                        case -3:
-                                            R.ResultState = APIResult.enumResultCode.ERR;
-                                            R.Message = "UpdateDB Amount Not Enough Fail";
-                                            break;
-                                        case -4:
-                                            R.ResultState = APIResult.enumResultCode.ERR;
-                                            R.Message = "UpdateDB PhoneNumber Fail";
-                                            break;
-                                        default:
-                                            R.ResultState = APIResult.enumResultCode.ERR;
-                                            R.Message = "UpdateDB OTHER Fail";
-                                            break;
-                                    }
+                                    R.ResultState = APIResult.enumResultCode.ERR;
+                                    R.Message = "Get JKC Rate Fail";
                                 }
-
                             }
                             else
                             {
                                 R.ResultState = APIResult.enumResultCode.ERR;
-                                R.Message = "Get JKC Rate Fail";
+                                R.Message = "FlowStatus Error";
                             }
                         }
                         else
                         {
                             R.ResultState = APIResult.enumResultCode.ERR;
-                            R.Message = "FlowStatus Error";
+                            R.Message = "Status Fail";
                         }
                     }
                     else
                     {
                         R.ResultState = APIResult.enumResultCode.ERR;
-                        R.Message = "Status Fail";
+                        R.Message = "OtherOrderNumberNotFound";
                     }
                 }
                 else
                 {
                     R.ResultState = APIResult.enumResultCode.ERR;
-                    R.Message = "OtherOrderNumberNotFound";
+                    R.Message = "Sign Fail";
                 }
             }
             else
             {
                 R.ResultState = APIResult.enumResultCode.ERR;
-                R.Message = "Sign Fail";
+                R.Message = "IP Fail:" + InIP;
             }
-          
+
+
         }
         else
         {

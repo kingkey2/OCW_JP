@@ -31,10 +31,15 @@ public partial class Common : System.Web.UI.Page
         bool checkbool = false;
         EPaySetting = LoadSetting();
         var ProviderIP = (Newtonsoft.Json.Linq.JArray)EPaySetting.ProviderIP;
-        if (ProviderIP.Contains(CheckIP))
+        for (int i = 0; i < ProviderIP.Count; i++)
         {
-            checkbool = true;
+            if (ProviderIP[i].ToString() == CheckIP)
+            {
+                checkbool = true;
+            }
+            
         }
+       
         return checkbool;
     }
 
@@ -134,9 +139,9 @@ public partial class Common : System.Web.UI.Page
         string Filename;
 
         if (EWinWeb.IsTestSite) {
-            Filename = HttpContext.Current.Server.MapPath("Test_" + SettingFile);
+            Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Test_" + SettingFile);
         } else {
-            Filename = HttpContext.Current.Server.MapPath("Formal_" + SettingFile);
+            Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Formal_" + SettingFile);
         }
 
         if (System.IO.File.Exists(Filename)) {

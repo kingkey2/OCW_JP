@@ -74,10 +74,11 @@
                     });
                 }
             }
+            GetPaymentMethod();
+            GetEPayBankSelect();
         },"PaymentAPI");
 
-        GetPaymentMethod();
-        GetEPayBankSelect();
+    
         btn_NextStep();
 
         var walletList = WebInfo.UserInfo.WalletList;
@@ -327,7 +328,7 @@
                                             for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
 
                                                 var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                                                CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
+                                                //CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
                                                 c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i]["TokenCurrencyType"]);
                                                 c.setClassText(CollectionitemDom, "val", null, BigNumber(data.PaymentCryptoDetailList[i]["ReceiveAmount"]).toFormat());
                                                 depositdetail.appendChild(CollectionitemDom);
@@ -913,7 +914,7 @@
     <div id="templateCollectionitem" style="display: none">
         <li class="item">
             <div class="title">
-                <i class="icon-logo icon-logo-btc currencyicon"></i>
+                <%--<i class="icon-logo icon-logo-btc currencyicon"></i>--%>
                 <h6 class="name currency"></h6>
             </div>
             <span class="data val"></span>

@@ -16,11 +16,11 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
 
         if (EWinWeb.IsTestSite)
         {
-            Filename = HttpContext.Current.Server.MapPath("Test_" + SettingFile);
+            Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Test_" + SettingFile);
         }
         else
         {
-            Filename = HttpContext.Current.Server.MapPath("Formal_" + SettingFile);
+            Filename = HttpContext.Current.Server.MapPath("/App_Data/EPay/Formal_" + SettingFile);
         }
 
         if (System.IO.File.Exists(Filename))
