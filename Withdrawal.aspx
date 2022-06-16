@@ -220,7 +220,7 @@
                         </a>
                     </div>
                     <!-- EPay -->
-                    <div class="card-item sd-04 tempCard" onclick="TempAlert()">
+                    <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                         </a>
-                           <img class="comingSoon" src="../images/assets/card-surface/cs.png">
+                           <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
                 </div>
                 <!-- 出款紀錄 -->
@@ -253,8 +253,9 @@
                             <p class="title language_replace">溫馨提醒</p>
                             <p class="language_replace">1.OCOIN是客人在マハラジャ遊玩的幣別總稱</p>
                             <p class="language_replace">2.因為選擇的送金方法有所不同，在帳戶上反映的時間是出金之後最多一個營業日為範圍。</p>
-                            <p class="language_replace">3. 1日出金最高限度額及び回数:1アカウントにつき1日出最高限度額100万OCoin、最高回数三回。</p>
-                            <p class="language_replace">4.何れかが制限に達した際は翌日以降の出金申請をお願いします。​</p>
+                            <p class="language_replace">3.1天出金最高額度與次數：1個帳號1天出金最高限額為100萬OCoin，最多次數3次。​</p>
+                            <p class="language_replace">4.若達到上述任何限制，請隔天以後再申請出金。​​</p>
+                            <p class="language_replace">5.出金時間為365天日本時間早上10點到下午18點為止。</p>
                         </div>
                     </div>
                 </div>

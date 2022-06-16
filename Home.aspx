@@ -336,6 +336,7 @@
                             slidesPerView: "auto",
                             // slidesPerView: 2,
                             // slidesPerGroup: 2,
+                            freeMode: true,
                             navigation: {
                                 nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                 prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
@@ -348,6 +349,7 @@
                                     // slidesPerGroup: 4,
                                 // },
                                 936: {
+                                     freeMode: false,
                                      slidesPerGroup: 6, //index:992px
                                 },
                                 1144: {
@@ -640,6 +642,7 @@
             </div>
         </section>
         <!--  -->
+        <%--
         <section class="section_publicize section-wrap">
             <div class="container">
                 <div class="publicize_wrapper publicize_top">
@@ -663,7 +666,7 @@
                         <div class="publicize-wrap bulletin-login">
                             <div class="item bulletin">
                                 <div class="bulletin_inner">
-                                    <h2 class="title">新しい情報</h2>
+                                    <h2 class="title language_replace">最新公告</h2>
                                         <ul class="bulletin_list" id="idBulletinBoardContent">
                                         </ul>
                                 </div>
@@ -675,26 +678,26 @@
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
                                                 <h3 class="title">
-                                                    <span class="name">ログイン毎日の賞</span></h3>
+                                                    <span class="name language_replace">金曜日的禮物</span></h3>
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item got">
-                                                        <span class="day"><span class="language_replace">金</span></span></li>
+                                                        <span class="day"><span class="language_replace">五</span></span></li>
                                                     <li class="bouns-item saturday">
-                                                        <span class="day"><span class="language_replace">土</span></span>
+                                                        <span class="day"><span class="language_replace">六</span></span>
                                                     </li>
                                                     <li class="bouns-item sunday">
                                                         <span class="day"><span class="language_replace">日</span></span></li>
                                                     <li class="bouns-item">
-                                                        <span class="day"><span class="language_replace">月</span></span>
+                                                        <span class="day"><span class="language_replace">一</span></span>
                                                     </li>
                                                     <li class="bouns-item">
-                                                        <span class="day"><span class="language_replace">火</span></span></li>
+                                                        <span class="day"><span class="language_replace">二</span></span></li>
                                                     <li class="bouns-item">
-                                                        <span class="day"><span class="language_replace">水</span></span>
+                                                        <span class="day"><span class="language_replace">三</span></span>
                                                     </li>
                                                     <li class="bouns-item">
-                                                        <span class="day"><span class="language_replace">木</span></span>
+                                                        <span class="day"><span class="language_replace">四</span></span>
                                                     </li>
                                                 </ul>
 
@@ -708,6 +711,7 @@
                 </div>
             </div>
         </section>
+        --%>
 
         <section class="game-area section-wrap  overflow-hidden">
             <div class="container" id="gameAreas"></div>
@@ -718,12 +722,12 @@
 
     <div class="tmpModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
-            <div>
+            <!-- <div> -->
                 <li class="item">
                     <span class="date CreateDate"></span>
                     <span class="info BulletinTitle" style="cursor: pointer"></span>
                 </li>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 
@@ -765,7 +769,7 @@
                                 <div class="game-item-info-detail-moreInfo">
                                     <ul class="moreInfo-item-wrapper">
                                         <li class="moreInfo-item brand">
-                                            <span class="title">メーカー</span>
+                                            <span class="title language_replace">廠牌</span>
                                             <span class="value GameBrand">PG</span>
                                         </li>
                                         <li class="moreInfo-item RTP">

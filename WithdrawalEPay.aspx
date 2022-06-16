@@ -40,7 +40,6 @@
     var WebInfo;
     var mlp;
     var lang;
-    var seleCurrency;
     var NomicsExchangeRate;
     var PaymentMethod;
     var c = new common();
@@ -49,7 +48,6 @@
     var PaymentClient;
     var lobbyClient;
     var v = "<%:Version%>";
-    var CountInterval;
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
 
@@ -76,57 +74,15 @@
                     });
                 }
             }
-        }, "PaymentAPI");
+        },"PaymentAPI");
 
         GetPaymentMethod();
-        startCountDown();
+        GetEPayBankSelect();
         btn_NextStep();
 
-        var EthWalletAddress = WebInfo.UserInfo.EthWalletAddress;
         var walletList = WebInfo.UserInfo.WalletList;
         var selectedLang = $('.header-tool-item').eq(2).find('a>span').text();
-        var HasBitCoin = false;
-        for (var i = 0; i < walletList.length; i++) {
-            if (walletList[i].ValueType == 2) {
-                HasBitCoin = true;
-            }
-        }
 
-        seleCurrency = $(".crypto-list").children().find("input[type=radio]:checked").data("val");
-        //RefreshExchange();
-
-        window.setInterval(function () {
-
-
-        }, 30000);
-    }
-
-
-    function startCountDown() {
-        let secondsRemaining = 30;
-
-        CountInterval = setInterval(function () {
-            let idRecClock = document.getElementById("idRecClock");
-
-            //min = parseInt(secondsRemaining / 60);
-            //sec = parseInt(secondsRemaining % 60);
-            idRecClock.innerText = secondsRemaining;
-
-            secondsRemaining = secondsRemaining - 1;
-            if (secondsRemaining < 0) {
-                secondsRemaining = 30;
-                GetExchangeRateFromNomics(function () {
-                    let amountText = document.getElementById("amount").value;
-
-                    if (amountText) {
-                        ReSetPaymentAmount(true, Number(amountText));
-                    } else {
-                        ReSetPaymentAmount(true);
-                    }
-                });
-            };
-
-        }, 1000);
     }
 
     function btn_NextStep() {
@@ -140,11 +96,11 @@
 
         $('button[data-deposite="step2"]').click(function () {
             //建立訂單/活動
-            CreateCryptoWithdrawal();
+            CreateEPayWithdrawal();
         });
         $('button[data-deposite="step3"]').click(function () {
             //加入參加的活動
-            ConfirmCryptoWithdrawal();
+            ConfirmEPayWithdrawal();
         });
     }
 
@@ -158,8 +114,8 @@
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
     }
 
-    function copyTextPaymentSerial(tag) {
-
+        function copyTextPaymentSerial(tag) {
+      
         var copyText = $(tag).parent().find('.inputPaymentSerial')[0];
 
         copyText.select();
@@ -187,182 +143,57 @@
         }
     }
 
-    function CurrencyChange(e) {
-        seleCurrency = $(e).data("val");
-        $(".RateOutCurrency .unit").text(seleCurrency);
-    }
-
-    function GetExchangeRateFromNomics(cb) {
-
-        PaymentClient.GetExchangeRateFromNomics(WebInfo.SID, Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    if (o.Message != "") {
-                        NomicsExchangeRate = JSON.parse(o.Message);
-                        if (cb) {
-                            cb();
-                        }
-                    } else {
-                        window.parent.API_LoadingEnd();
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-
-                        });
-                    }
-                } else {
-                    window.parent.API_LoadingEnd();
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-
-                    });
-                }
-            }
-            else {
-                window.parent.API_LoadingEnd();
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o.Message, function () {
-
-                });
-            }
-        })
-
-    }
-
-    function GetRealExchange(currency) {
-        var R = 0;
-        var price;
-
-        if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
-            if (currency == "JKC") {
-                price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
-                R = 1 / (price / 3000);
-            } else {
-                price = NomicsExchangeRate.find(x => x["currency"] == currency).price;
-                R = 1 / price;
-            }
-        }
-        return R;
-    }
-
-    function ReSetPaymentAmount(isResetRealRate, Amount) {
-        let needResetDom = document.querySelectorAll(".needReset");
-        needResetDom.forEach(function (dom) {
-            let realRate = 0;
-            let HandingFeeAmount = 0;
-            let HandingFeeRate = 0
-            if (isResetRealRate) {
-                let Rate = Number(dom.dataset.rate);
-                let Currency = dom.dataset.currency;
-                HandingFeeRate = Number(dom.dataset.feerate);
-                HandingFeeAmount = Number(dom.dataset.feeamount)
-                let RealExChange = GetRealExchange(Currency);
-                realRate = 1 * Rate * RealExChange;
-                dom.dataset.realrate = realRate.toString();
-            } else {
-                realRate = Number(dom.dataset.realrate);
-                HandingFeeRate = Number(dom.dataset.feerate);
-                HandingFeeAmount = Number(dom.dataset.feeamount);
-            }
-
-            if (Amount) {
-                var calcAmount = ((Amount * (1 - HandingFeeRate)) - HandingFeeAmount) * realRate;
-                dom.innerText = new BigNumber(calcAmount.toFixed(6)).toFormat();
-            } else {
-                dom.innerText = 0;
-            }
-        });
-    }
-
-    function SetPaymentMethodDom() {
-        let idPaymentMethod = document.getElementById('idPaymentMethods');
-        idPaymentMethod.innerHTML = "";
-
-        for (var i = 0; i < PaymentMethod.length; i++) {
-
-            if (PaymentMethod[i]["MultiCurrencyInfo"]) {
-                if (!PaymentMethod[i]["MultiCurrencys"]) {
-                    PaymentMethod[i]["MultiCurrencys"] = JSON.parse(PaymentMethod[i]["MultiCurrencyInfo"]);
-                }
-            }
-
-            let EWinCryptoWalletType = parseInt(PaymentMethod[i]["EWinCryptoWalletType"]);
-
-            switch (EWinCryptoWalletType) {
-                case 0:
-                    strCryptoWalletType = "ERC";
-                    break;
-                case 1:
-                    strCryptoWalletType = "XRP";
-                    break;
-                case 2:
-                    strCryptoWalletType = "BTC";
-                    break;
-                case 3:
-                    strCryptoWalletType = "TRC";
-                    break;
-                default:
-                    strCryptoWalletType = "ERC";
-                    break;
-            }
-
-            let PaymentMethodDom = c.getTemplate("templatePaymentMethod");
-            let ItemsDom = PaymentMethodDom.querySelector(".amount");
-            PaymentMethodDom.classList.add("box_" + i);
-            PaymentMethodDom.querySelector(".PaymentCode").dataset.wallettype = PaymentMethod[i]["EWinCryptoWalletType"];
-            PaymentMethodDom.querySelector(".PaymentCode").value = PaymentMethod[i]["PaymentMethodID"];
-            PaymentMethodDom.querySelector(".PaymentCode").id = "payment-" + i;
-            PaymentMethodDom.querySelector(".tab").setAttribute("for", "payment-" + i);
-            PaymentMethodDom.querySelector(".icon-logo").classList.add("icon-logo-" + PaymentMethod[i]["CurrencyType"].toLowerCase());
-            c.setClassText(PaymentMethodDom, "coinType", null, PaymentMethod[i]["PaymentName"] + " (" + strCryptoWalletType + ")");
-
-            if (PaymentMethod[i]["MultiCurrencys"]) {
-                PaymentMethod[i]["MultiCurrencys"].forEach(function (mc) {
-                    let item = document.createElement("div");
-                    item.classList.add("item");
-                    item.innerHTML = '<span class="count needReset" data-rate="' + mc["Rate"] + '" data-feerate="' + PaymentMethod[i]["HandingFeeRate"] + '" data-feeamount="' + PaymentMethod[i]["HandingFeeAmount"] + '" data-currency="' + mc["ShowCurrency"] + '">0</span><sup class="unit">' + mc["ShowCurrency"] + '</sup>';
-
-                    ItemsDom.appendChild(item);
-                });
-            } else {
-                let item = document.createElement("div");
-                item.classList.add("item");
-                item.innerHTML = '<span class="count needReset" data-rate="1" data-feerate="' + PaymentMethod[i]["HandingFeeRate"] + '" data-feeamount="' + PaymentMethod[i]["HandingFeeAmount"] + '"  data-currency="' + PaymentMethod[i]["CurrencyType"] + '">0</span><sup class="unit">' + PaymentMethod[i]["CurrencyType"] + '</sup>';
-
-                ItemsDom.appendChild(item);
-            }
-
-            if (PaymentMethod[i]["HintText"]) {
-                PaymentMethodDom.querySelector('.hintText').innerText = PaymentMethod[i]["HintText"];
-            } else {
-                PaymentMethodDom.querySelector('.box-item-sub').classList.add("is-hide");
-            }
-
-            idPaymentMethod.appendChild(PaymentMethodDom);
-        }
-    }
-
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByCategory(WebInfo.SID, Math.uuid(), "Crypto", 1, function (success, o) {
+        PaymentClient.GetPaymentMethodByCategory(WebInfo.SID, Math.uuid(), "EPay", 1, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
-                        PaymentMethod = o.PaymentMethodResults;
-
-                        GetExchangeRateFromNomics(function () {
-                            SetPaymentMethodDom();
-                            ReSetPaymentAmount(true);
-                        });
+                        PaymentMethod = o.PaymentMethodResults;   
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                            windwo.parent.API_Home();
+                            window.parent.API_Home();
                         });
                     }
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                        windwo.parent.API_Home();
+                        window.parent.API_Home();
                     });
                 }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    windwo.parent.API_Home();
+                    window.parent.API_Home();
+                });
+            }
+
+        })
+    }
+
+    function GetEPayBankSelect() {
+        PaymentClient.GetEPayBankSelect(WebInfo.SID, Math.uuid(), "Nissin", function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    o.Datas = JSON.parse(o.Datas);
+                    if (o.Datas.length > 0) {
+                        var strSelectBank= mlp.getLanguageKey("選擇銀行");
+                        $('#SearchBank').append(`<option class="title" value="-1" selected="">${strSelectBank}</option>`);
+                        for (var i = 0; i < o.Datas.length; i++) {
+                            $('#SearchBank').append(`<option class="searchFilter-option" value="${o.Datas[i]}">${o.Datas[i]}</option>`);
+                        }
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
+                            window.parent.API_Home();
+                        });
+                    }
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
+                        window.parent.API_Home();
+                    });
+                }
+            }
+            else {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
+                    window.parent.API_Home();
                 });
             }
 
@@ -393,16 +224,19 @@
     function CoinBtn_Click() {
         let amount = parseInt($(event.currentTarget).data("val"))
         $("#amount").val(amount);
-        //$("#ExchangeVal").text(parseInt($(event.target).parent('.btn-radio').find('.OcoinAmount').text()));
-        ReSetPaymentAmount(false, amount);
+
     }
 
     function setAmount() {
-        $("input[name=amount]").prop("checked", false);
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '')
         $("#amount").val(amount);
-        //$("#ExchangeVal").text(amount);
-        ReSetPaymentAmount(false, amount);
+
+    }
+
+    function bankcardCheck() {
+        var baankCard = $("#bankCard").val().replace(/[^\-?\d.]/g, '')
+        $("#bankCard").val(baankCard);
+
     }
 
     function setPaymentAmount() {
@@ -430,143 +264,107 @@
         }
     }
 
-    function GetWalletChain(walletType) {
-        if (walletType == 0) {
-            return "ETH";
-        } else if (walletType == 1) {
-            return "XRP";
-        } else if (walletType == 2) {
-            return "BTC";
-        } else if (walletType == 3) {
-            return "TRX";
-        } else {
-            return "ETH";
-        }
-    }
-
-
-
     //建立訂單
-    function CreateCryptoWithdrawal() {
-        if ($("#amount").val() != '') {
-            var amount = parseFloat($("#amount").val());
-            var selPaymentMethod = $("input[name=payment-crypto]:checked.PaymentCode");
+    function CreateEPayWithdrawal() {
+        var bankCard = $("#bankCard").val().trim();
+        var bankCardName = $("#bankCardName").val().trim();
+        var bankName = $("#SearchBank").val();
+        if ($("#amount").val().trim() == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () {});
+            return false;
+        }
 
-            //var paymentID = PaymentMethod.find(x => x["PaymentName"].trim() == selePaymentName).PaymentMethodID;
-            if (selPaymentMethod.length > 0) {
-                var selPaymentMethodID = selPaymentMethod.val();
-                var selWalletType = Number(selPaymentMethod[0].dataset.wallettype);
-                var ToWalletAddress = $("#idToWalletAddress").val();
-                if (ToWalletAddress != "") {
+        if (bankCard == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入卡號"), function () { });
+            return false;
+        }
 
-                    if (WAValidator.validate(ToWalletAddress, GetWalletChain(selWalletType))) {
+        if (bankCardName == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入姓名"), function () { });
+            return false;
+        }
 
-                        var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
-                        if (wallet.PointValue < amount) {
-                            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("餘額不足"));
-                            return;
-                        }
+        if (bankName== '-1') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇銀行"), function () { });
+            return false;
+        }
 
-                        PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
-                            if (success) {
-                                let UserAccountPayments = o.UserAccountPayments;
-                                if (o.Result == 0) {
-                                    if (UserAccountPayments.length > 0) {
-                                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
+        var amount = parseFloat($("#amount").val().trim());
+    
+        var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
+        if (wallet.PointValue < amount) {
+            window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("餘額不足"));
+            return;
+        }
+
+            PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
+                if (success) {
+                    let UserAccountPayments = o.UserAccountPayments;
+                    if (o.Result == 0) {
+                        //if (UserAccountPayments.length == 0) {
+                        if (UserAccountPayments.length > 0) {
+                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
+
+                            });
+                        } else {
+                            var selPaymentMethodID = PaymentMethod[0].PaymentMethodID;
+
+                            PaymentClient.CreateEPayWithdrawal(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, function (success, o) {
+                                if (success) {
+                                    let data = o.Data;
+
+                                    if (o.Result == 0) {
+                                        $("#depositdetail .Amount").text(BigNumber(data.Amount).toFormat());
+                                        //$("#depositdetail .OrderNumber").text(data.OrderNumber);
+                                        $("#depositdetail .PaymentMethodName").text(mlp.getLanguageKey(data.PaymentMethodName));
+                                        $("#depositdetail .EWinCryptoWalletType").text("JPY");
+                                        $("#depositdetail .bankCardName").text(bankCardName);
+                                        $("#depositdetail .bankCard").text(bankCard);
+                                        $("#depositdetail .bankName").text(bankName);
+                                   
+                                        if (data.PaymentCryptoDetailList != null) {
+                                            var depositdetail = document.getElementsByClassName("Collectionitem")[0];
+                                            for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
+
+                                                var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                                                CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
+                                                c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i]["TokenCurrencyType"]);
+                                                c.setClassText(CollectionitemDom, "val", null, BigNumber(data.PaymentCryptoDetailList[i]["ReceiveAmount"]).toFormat());
+                                                depositdetail.appendChild(CollectionitemDom);
+                                            }
+                                        }
+                                        OrderNumber = data.OrderNumber;
+                                        GetDepositActivityInfoByOrderNumber(OrderNumber);
+                                    } else {
+                                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                                         });
-                                    } else {
-                                        PaymentClient.CreateCryptoWithdrawal(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, ToWalletAddress, function (success, o) {
-                                            if (success) {
-                                                let data = o.Data;
-
-                                                if (o.Result == 0) {
-                                                    let strCryptoWalletType;
-
-                                                    switch (data.WalletType) {
-                                                        case 0:
-                                                            strCryptoWalletType = "ERC";
-                                                            break;
-                                                        case 1:
-                                                            strCryptoWalletType = "XRP";
-                                                            break;
-                                                        case 2:
-                                                            strCryptoWalletType = "BTC";
-                                                            break;
-                                                        case 3:
-                                                            strCryptoWalletType = "TRC";
-                                                            break;
-                                                        default:
-                                                            strCryptoWalletType = "ERC";
-                                                            break;
-                                                    }
-                                                    $("#depositdetail .Amount").text(BigNumber(data.Amount).toFormat());
-                                                    //$("#depositdetail .OrderNumber").text(data.OrderNumber);
-                                                    $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
-                                                    $("#depositdetail .ToWalletAddress").text(data.ToWalletAddress);
-                                                    $("#depositdetail .EWinCryptoWalletType").text(strCryptoWalletType);
-
-                                                    if (data.PaymentCryptoDetailList != null) {
-                                                        var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                                                        for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
-
-                                                            var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                                                            CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
-                                                            c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i]["TokenCurrencyType"]);
-                                                            c.setClassText(CollectionitemDom, "val", null, BigNumber(data.PaymentCryptoDetailList[i]["ReceiveAmount"]).toFormat());
-                                                            depositdetail.appendChild(CollectionitemDom);
-                                                        }
-                                                    }
-                                                    OrderNumber = data.OrderNumber;
-                                                    GetDepositActivityInfoByOrderNumber(OrderNumber);
-                                                } else {
-                                                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
-
-                                                    });
-                                                }
-
-                                            }
-                                            else {
-                                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
-
-                                                });
-                                            }
-                                        })
                                     }
-                                } else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                                }
+                                else {
+                                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                                     });
                                 }
-
-                            }
-                            else {
-                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
-
-                                });
-                            }
-                        })
+                            })
+                        }
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("錢包地址與選擇的加密貨幣格式不符"));
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                        });
                     }
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入錢包地址"));
+
                 }
-            } else {
+                else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請選擇加密貨幣"));
-            }
-
-
-        } else {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {
-
-            });
-        }
+                    });
+                }
+            })
     }
     //根據訂單編號取得可參加活動
     function GetDepositActivityInfoByOrderNumber(OrderNum) {
-        clearInterval(CountInterval);
         var Step2 = $('[data-deposite="step2"]');
         var Step3 = $('[data-deposite="step3"]');
         Step2.hide();
@@ -574,8 +372,12 @@
         $('.progress-step:nth-child(3)').addClass('cur');
     }
     //完成訂單
-    function ConfirmCryptoWithdrawal() {
-        PaymentClient.ConfirmCryptoWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, function (success, o) {
+    function ConfirmEPayWithdrawal() {
+        var bankCard = $("#bankCard").val().trim();
+        var bankCardName = $("#bankCardName").val().trim();
+        var bankName = $("#SearchBank").val();
+
+        PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, bankCard, bankCardName, bankName, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     //setEthWalletAddress(o.Message)
@@ -585,7 +387,7 @@
                     Step4.fadeIn();
                     $('.progress-step:nth-child(4)').addClass('cur');
                     $("#depositdetail .OrderNumber").text(o.Message);
-                    $("#depositdetail .inputPaymentSerial").val(o.Message);
+                     $("#depositdetail .inputPaymentSerial").val(o.Message);
                     $("#depositdetail .OrderNumber").parent().show();
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
@@ -600,8 +402,6 @@
             }
         })
     }
-
-
 
     function setEthWalletAddress(EthAddress) {
         $('#idEthAddr').text(EthAddress);
@@ -646,7 +446,7 @@
                     </div>
                 </div>
                 <div class="text-wrap progress-title" style="display: none">
-                    <p data-deposite="step2" class="language_replace">輸入出款金額及選擇加密貨幣</p>
+                    <p data-deposite="step2">輸入出款金額及選擇加密貨幣</p>
                     <p data-deposite="step3" class="language_replace">入金確認</p>
                     <p data-deposite="step4" class="language_replace">
                         <span class="language_replace">使用</span>
@@ -782,16 +582,32 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                <div class="form-group cryptoWallet-address">
-                                    <label class="form-title language_replace">輸入出款地址</label>
+                                 <div class="form-group">
+                                    <label class="form-title language_replace">輸入卡號</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="icon icon-wallet"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control custom-style" id="idToWalletAddress" language_replace="placeholder" placeholder="輸入出款地址" />
+                                        <input type="text" class="form-control custom-style" id="bankCard" language_replace="placeholder" placeholder="請輸入卡號" onkeyup="bankcardCheck()" />
+                                        <div class="invalid-feedback language_replace">提示</div>
                                     </div>
-                                    <div class="invalid-feedback language_replace">提示</div>
                                 </div>
+                           
+                                  <div class="form-group">
+                                    <label class="form-title language_replace">輸入持卡人姓名</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control custom-style" id="bankCardName" language_replace="placeholder" placeholder="請輸入持卡人姓名" />
+                                   
+                                    </div>
+                                </div>
+                                <div class="form-group language_replace">
+                                    <label class="form-title language_replace">選擇銀行</label>
+                                     <div class="input-group">
+
+                                     </div>
+                                 </div>
+                                <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
+                            <select class="custom-select" id="SearchBank">
+                            </select>
+                        </div>
+
                                 <!-- 換算金額(日元) -->
                                 <%--<div class="form-group ">
                                     <div class="input-group inputlike-box-group">
@@ -809,14 +625,9 @@
                         </div>
                     </div>
                     <div class="main-panel cryptopanel" data-deposite="step2">
-                        <h5 class="language_replace">選擇加密貨幣</h5>
-                        <div>
-                            <span id="idRecClock">30</span><span class="language_replace">秒後，重新取得匯率</span>
-                        </div>
+                       
                         <div class="box-item-container crypto-list">
-                            <div id="idPaymentMethods">
-                            </div>
-
+                       
                             <!-- 溫馨提醒 -->
                             <div class="notice-container mt-3 mb-3">
                                 <div class="notice-item">
@@ -824,11 +635,11 @@
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
-                                            <li><span class="language_replace">顯示的取款金額不包含燃料費（若金額為10萬OCoin以下，到帳金額將視扣除燃料費後的金額。）</span></li>
-                                            <li><span class="language_replace">取款10萬OCoin以上不必支付燃料費。</span></li>
-                                            <li><span class="language_replace">取款一日最多三次</span></li>
-                                            <li><span class="language_replace">1天內的取款金額最高為100萬OCoin。</span></li>
-                                            <li><span class="language_replace">申請取款後，弊公司出款完畢起，客戶若欲更改錢包地址，或地址有誤，弊公司會盡力處理，但不負任何責任。取款時請仔細確認錢包地址。</span></li>
+                                            <li><span class="language_replace">出金表示金額には燃料費が含まれております(10万OCOIN以下の場合は、燃料費を差引いての着金となります。)</span></li>
+                                            <li><span class="language_replace">10万 OCOIN 以上の出金の場合は燃料費は無料となります。</span></li>
+                                            <li><span class="language_replace">出金は1日３回までとなります。</span></li>
+                                            <li><span class="language_replace">1日出金最大限度額が100万OCOINとなります。</span></li>
+                                            <li><span class="language_replace">出金申請後、弊社が送金完了した時点でお客様からのウォレットアドレスの変更、間違い等の申請には対応を協力致しますが、責任は一切負いかねます。出金の際、よくウォレットアドレス確認して下さい。</span></li>
                                          </ul>  
                                     </div>
                                 </div>
@@ -903,20 +714,17 @@
                                         <span class="data PaymentMethodName"></span>
                                     </li>
                                     <li class="item">
-                                        <h6 class="title language_replace ">合約類型</h6>
-                                        <span class="data EWinCryptoWalletType">ERC</span>
-                                    </li>
-                                    <%-- <li class="item">
-                                        <h6 class="title language_replace">合約方式</h6><span class="data">ERC</span>
+                                        <h6 class="title language_replace">持卡人姓名</h6>
+                                        <span class="data bankCardName"></span>
                                     </li>
                                     <li class="item">
-                                        <h6 class="title language_replace">交易限制時間</h6><span class="data primary">2021/3/1</span>
-                                    </li>--%>
-
-                                    <li class="item">
-                                        <h6 class="title language_replace">收款錢包地址</h6>
-                                        <span class="data ToWalletAddress"></span>
+                                        <h6 class="title language_replace">卡號</h6>
+                                        <span class="data bankCard"></span>
                                     </li>
+                                     <li class="item">
+                                        <h6 class="title language_replace">銀行</h6>
+                                        <span class="data bankName"></span>
+                                    </li>           
                                 </ul>
                             </div>
                         </div>
@@ -1138,7 +946,7 @@
                 <div class="box-item-sub">
                     <div class="coinPush">
                         <i class="icon icon-coin"></i>
-                        <p class="text hintText language_replace">業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%</p>
+                        <p class="text hintText">業界最高! Play Open Bouns! 最大100% &10萬送給您!首次 USDT 入金回饋100%</p>
                     </div>
                 </div>
 

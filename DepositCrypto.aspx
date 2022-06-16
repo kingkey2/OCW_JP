@@ -219,14 +219,12 @@
                         }
                     } else {
                         window.parent.API_LoadingEnd(1);
-                        console.log("GetExchangeRateFromNomics", o.Message);
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                         });
                     }
                 } else {
                     window.parent.API_LoadingEnd(1);
-                        console.log("GetExchangeRateFromNomics", o.Message);
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                     });
@@ -234,7 +232,6 @@
             }
             else {
                 window.parent.API_LoadingEnd(1);
-                        console.log("GetExchangeRateFromNomics", o.Message);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                 });
@@ -631,7 +628,7 @@
                     $(".activity-container").hide();
                     Step4.fadeIn();
                     $('.progress-step:nth-child(4)').addClass('cur');
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("次へ進めて頂くと送金用QRコード（ウォレットアドレス）が生成されます、QRコードはこの取引のみの使用となります。QRコードの有効時間は1時間となりますが、送金の際は常に新しいQRコードの生成をお勧めします。"), function () {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("進到下一步便會出現付款用的QR Code（錢包地址）。該QR Code僅用於本次交易。QR Code的有效時間為1小時，但建議您每次付款時皆使用新生成的QR Code。"), function () {
 
                     });
                 } else {
@@ -994,7 +991,7 @@
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                         <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
-                                        <p class="language_replace">ガス代は入金のお客様負担となります。</p>
+                                        <p class="language_replace">燃料費由存款者負擔。</p>
                                     </div>
                                 </div>
                             </div>
@@ -1216,7 +1213,7 @@
                         <div class="text-wrap">
                             <p class="title language_replace">溫馨提醒</p>
                             <ul class="list-style-decimal">
-                                <li><span class="language_replace">OCoin為平台使用的專屬遊戲幣。</span></li>
+                                <li><span class="language_replace">OCoin是客人在マハラジャ遊玩的幣別總稱。</span></li>
                                 <li><span class="language_replace">請正確使用對應的錢包入款，否則可能造成您入款失敗。</span></li>
                                 <li><span class="language_replace">虛擬貨幣入款需經過區塊認證確認，可能需要數分鐘或者更久，完成時間並非由本網站決定，敬請知悉。</span></li>
                                 <li><span class="language_replace">實際入款遊戲幣為入款金額-手續費後之餘額進行換算。</span></li>

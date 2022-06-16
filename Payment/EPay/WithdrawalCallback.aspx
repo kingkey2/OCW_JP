@@ -18,7 +18,7 @@
         {
             //if (Common.CheckInIP(InIP))
             //{
-            if (Common.CheckSign(RequestData))
+            if (Common.CheckWithdrawalSign(RequestData))
             {
                 PaymentOrderDT = EWinWebDB.UserAccountPayment.GetPaymentByPaymentSerial((string)RequestData.OrderID);
 
@@ -27,21 +27,42 @@
 
                 if (PaymentOrderDT != null && PaymentOrderDT.Rows.Count > 0)
                 {
-                    if ((string)RequestData.PayingStatus == "0")
+                     EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
+                    if ((string)RequestData.WithdrawStatus == "0")
                     {
-                        EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
                         var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
 
                         if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                         {
-                            R.ResultState = APIResult.enumResultCode.OK;
-                            R.Message = "SUCCESS";
+                            int FinishPaymentRet;
+
+                            FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus((string)PaymentOrderDT.Rows[0]["OrderNumber"], EWinWebDB.UserAccountPayment.FlowStatus.Success, (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+
+                            if (FinishPaymentRet == 0)
+                            {
+                                R.ResultState = APIResult.enumResultCode.OK;
+                                R.Message = "SUCCESS";
+                            }
+                            else
+                            {
+                                R.ResultState = APIResult.enumResultCode.ERR;
+                                R.Message = "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString();
+                            }
                         }
                         else
                         {
                             R.ResultState = APIResult.enumResultCode.ERR;
                             R.Message = "Finished Fail";
                         }
+                    } else if ((string)RequestData.WithdrawStatus == "1") { 
+                    
+                            string Token;
+                            int RValue;
+                            Random random = new Random();
+                            RValue = random.Next(100000, 9999999);
+                            Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+
+                            paymentAPI.CancelPayment(Token, Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
                     }
                     else {
                         R.ResultState = APIResult.enumResultCode.ERR;
@@ -56,15 +77,9 @@
             }
             else
             {
-                R.ResultState = APIResult.enumResultCode.ERR; 
+                R.ResultState = APIResult.enumResultCode.ERR;
                 R.Message = "Sign Fail";
             }
-            //}
-            //else
-            //{
-            //    R.ResultState = APIResult.enumResultCode.ERR;
-            //    R.Message = "IP Fail:" + InIP;
-            //}
         }
         else
         {

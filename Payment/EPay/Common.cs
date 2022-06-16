@@ -51,6 +51,33 @@ public partial class Common : System.Web.UI.Page
         return checkbool;
     }
 
+    public static bool CheckWithdrawalSign(dynamic Data)
+    {
+        bool checkbool = false;
+        EPaySetting = LoadSetting();
+        string Sign = GetEPayWithdrawSign((string)Data.OrderID, decimal.Parse((string)Data.OrderAmount), (DateTime)Data.OrderDate, (string)Data.Currency, (string)EPaySetting.CompanyCode, (string)EPaySetting.ApiKey);
+
+        if (Sign == (string)Data.Sign)
+        {
+            checkbool = true;
+        }
+        return checkbool;
+    }
+
+    private static string GetEPayWithdrawSign(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string CurrencyType, string CompanyCode, string CompanyKey)
+    {
+        string sign;
+        string signStr = "ManageCode=" + CompanyCode;
+        signStr += "&Currency=" + CurrencyType;
+        signStr += "&OrderID=" + OrderID;
+        signStr += "&OrderAmount=" + OrderAmount.ToString("#.##");
+        signStr += "&OrderDate=" + OrderDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        signStr += "&CompanyKey=" + CompanyKey;
+
+        sign = CodingControl.GetSHA256(signStr, false);
+        return sign.ToUpper();
+    }
+
     public static string GetSHA256(string DataString, bool Base64Encoding = true)
     {
         return GetSHA256(System.Text.Encoding.UTF8.GetBytes(DataString), Base64Encoding);
