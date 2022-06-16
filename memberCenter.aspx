@@ -106,7 +106,7 @@
         $("#idAmount").text(new BigNumber(parseInt(wallet.PointValue)).toFormat());
         $("#PersonCode").text(WebInfo.UserInfo.PersonCode);
         $("#idCopyPersonCode").text(WebInfo.UserInfo.PersonCode);
-        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"/**************************/"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
+        $('#QRCodeimg').attr("src", `/GetQRCode.aspx?QRCode=${"<%=EWinWeb.CasinoWorldUrl %>"}/registerForQrCode.aspx?P=${WebInfo.UserInfo.PersonCode}&Download=2`);
 
         var ThresholdInfos = WebInfo.UserInfo.ThresholdInfo;
         if (ThresholdInfos && ThresholdInfos.length > 0) {
@@ -142,11 +142,24 @@
         $('#idBornYear').removeAttr("readonly");
         $('#idBornMonth').removeAttr("readonly");
         $('#idBornDay').removeAttr("readonly");
+        $('#Address').removeAttr("readonly");
         $('#Email').removeAttr("readonly");
         $('.data-item.password').show();
         $('#updateUserAccountRemoveReadOnlyBtn').addClass('is-hide');
+        $('#updateUserAccountCancelBtn').removeClass('is-hide');
         $('#updateUserAccountBtn').removeClass('is-hide');
+    }
 
+    function updateUserAccountReadOnly() {
+        $('#idBornYear').attr("readonly", "readonly");
+        $('#idBornMonth').attr("readonly", "readonly");
+        $('#idBornDay').attr("readonly", "readonly");
+        $('#Address').attr("readonly", "readonly");
+        $('#Email').attr("readonly", "readonly");
+        $('.data-item.password').hide();
+        $('#updateUserAccountRemoveReadOnlyBtn').removeClass('is-hide');
+        $('#updateUserAccountCancelBtn').addClass('is-hide');
+        $('#updateUserAccountBtn').addClass('is-hide');
     }
 
     function updateUserAccount() {
@@ -154,10 +167,27 @@
         let ExtraData = WebInfo.UserInfo.ExtraData ? JSON.parse(WebInfo.UserInfo.ExtraData) : [];
         let strExtraData = "";
         let strEmail = "";
+        let strContactAddress = "";
         let strOldPassword = "";
         let strNewPassword = "";
 
         if ($("#idBornYear").val() != "" && $("#idBornMonth").val() != "" && $("#idBornDay").val() != "") {
+
+            if (parseInt($("#idBornYear").val()) <1000 || parseInt($("#idBornYear").val()) > 9999) {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入正確年份"));
+                return false;
+            }
+
+            if (parseInt($("#idBornMonth").val()) < 1 || parseInt($("#idBornMonth").val()) > 12) {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入正確月份"));
+                return false;
+            }
+
+            if (parseInt($("#idBornDay").val()) < 1 || parseInt($("#idBornDay").val()) > 31) {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入正確日期"));
+                return false;
+            }
+
             if (ExtraData.length != 0 && ExtraData.filter(x => x.Name == "Birthday").length > 0) {
 
                 let findBirthday = ExtraData.filter(x => x.Name == "Birthday").length;
@@ -206,31 +236,27 @@
             strEmail = $("#Email").val();
         }
 
-        if ($("#idOldPassword").val() != "") {
+        if ($("#idOldPassword").val() != "" && $("#idNewPassword").val() != "") {
             strOldPassword = $("#idOldPassword").val().trim();
+            strNewPassword = $("#idNewPassword").val().trim();
         }
 
-        if ($("#idNewPassword").val() != "") {
-            strNewPassword = $("#idNewPassword").val().trim();
+        if ($("#Address").val() != "" ) {
+            strContactAddress = $("#Address").val().trim();
         }
 
         var updateinfo = {
             "EMail": strEmail,
             "ExtraData": strExtraData,
             "OldPassword": strOldPassword,
-            "NewPassword": strNewPassword
+            "NewPassword": strNewPassword,
+            "ContactAddress": strContactAddress
         }
 
         p.UpdateUserAccount(WebInfo.SID, Math.uuid(), updateinfo, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    $('#idBornYear').attr("readonly", "readonly");
-                    $('#idBornMonth').attr("readonly", "readonly");
-                    $('#idBornDay').attr("readonly", "readonly");
-                    $('#Email').attr("readonly", "readonly");
-                    $('.data-item.password').hide();
-                    $('#updateUserAccountRemoveReadOnlyBtn').removeClass('is-hide');
-                    $('#updateUserAccountBtn').addClass('is-hide');
+                    updateUserAccountReadOnly();
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("成功"), function () {
 
                         window.top.API_RefreshUserInfo(function () {
@@ -338,7 +364,7 @@
                             <fieldset class="dataFieldset">
                                 <legend class="sec-title-container sec-col-2 sec-title-member ">
                                     <div class="sec-title-wrapper">
-                                        <h1 class="sec-title title-deco"><span class="language_replace">メンバーページ</span></h1>
+                                        <h1 class="sec-title title-deco"><span class="language_replace">會員中心</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
                                     <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
@@ -350,7 +376,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-people"></i>
-                                                <span class="title-name language_replace">名前</span>
+                                                <span class="title-name language_replace">姓名</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -361,7 +387,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">現在のパスワード</span>
+                                                <span class="title-name language_replace">舊密碼</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -376,16 +402,16 @@
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="text" class="custom-input-edit year" id="idBornYear" value="" readonly> / 
-                                            <input type="text"  class="custom-input-edit month" id="idBornMonth" value="" readonly> / 
-                                            <input type="text"  class="custom-input-edit day" id="idBornDay" value="" readonly>
+                                            <input type="number" min="1920" max="2300" class="custom-input-edit year" id="idBornYear" value="" readonly> / 
+                                            <input type="number" min="1" max="12" class="custom-input-edit month" id="idBornMonth" value="" readonly> / 
+                                            <input type="number" min="1" max="31"  class="custom-input-edit day" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>
                                     <div class="data-item password" style="width: 50%; display: none;">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">新しいパスワード</span>
+                                                <span class="title-name language_replace">新密碼</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -396,7 +422,7 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-mobile"></i>
-                                                <span class="title-name language_replace">携帯電話番号</span>
+                                                <span class="title-name language_replace">手機號碼</span>
                                             </label>
                                             <%--<div class="labels labels-status">
                                                 <span class="label language_replace update">更新</span>
@@ -424,7 +450,7 @@
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-location"></i>
-                                                    <span class="title-name language_replace">住所</span>
+                                                    <span class="title-name language_replace">地址</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
@@ -435,27 +461,28 @@
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-flag"></i>
-                                                    <span class="title-name language_replace">メッセージ通知</span>
+                                                    <span class="title-name language_replace">訊息通知</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
                                                 <div class="custom-control custom-checkboxValue custom-control-inline">
                                                     <label class="custom-label">
                                                         <input type="checkbox" class="custom-control-input-hidden" checked="checked" id="check_UserGetMail">
-                                                        <div class="custom-input checkbox"><span class="language_replace">最新情報を受信できるようにする</span></div>
+                                                        <div class="custom-input checkbox"><span class="language_replace">接收最新資訊</span></div>
                                                     </label>
                                                 </div>
 
                                             </div>
                                         </div>
                                         <div class="wrapper_center">
+                                            <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-full-stress-2 is-hide"><span class="language_replace">取消</span></button>
                                             <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-stress-2 is-hide"><span class="language_replace">確認</span></button>
                                         </div>
                                         <div class="data-item qrcode">
                                             <div class="data-item-title">
                                                 <label class="title">
                                                     <i class="icon icon-mask icon-qrocde"></i>
-                                                    <span class="title-name language_replace">招待コード</span>
+                                                    <span class="title-name language_replace">推薦碼</span>
                                                 </label>
                                             </div>
                                             <div class="data-item-content">
@@ -499,7 +526,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div class="promo-content">
-                                                                    <h6 class="title">お客様活用、紹介ランディングページその②（パチンコ好き）</h6>
+                                                                    <h6 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h6>
                                                                     <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
                                                                         <span class="language_replace">複製活動連結</span>
                                                                     </button>
@@ -518,7 +545,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div class="promo-content">
-                                                                    <h6 class="title">お客様活用、紹介ランディングページその①（主婦）</h6>
+                                                                    <h6 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h6>
                                                                     <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()">
                                                                         <span class="language_replace">複製活動連結</span>
                                                                     </button>
@@ -549,22 +576,22 @@
                                         <ul class="dailylogin-bouns-list">
                                             <!-- 已領取 bouns => got-->
                                             <li class="bouns-item got">
-                                                <span class="day"><span class="language_replace">金</span></span></li>
+                                                <span class="day"><span class="language_replace">五</span></span></li>
                                             <li class="bouns-item saturday">
-                                                <span class="day"><span class="language_replace">土</span></span>
+                                                <span class="day"><span class="language_replace">六</span></span>
                                             </li>
                                             <li class="bouns-item sunday">
                                                 <span class="day"><span class="language_replace">日</span></span></li>
                                             <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">月</span></span>
+                                                <span class="day"><span class="language_replace">一</span></span>
                                             </li>
                                             <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">火</span></span></li>
+                                                <span class="day"><span class="language_replace">二</span></span></li>
                                             <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">水</span></span>
+                                                <span class="day"><span class="language_replace">三</span></span>
                                             </li>
                                             <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">木</span></span>
+                                                <span class="day"><span class="language_replace">四</span></span>
                                             </li>
                                         </ul>
 
@@ -576,7 +603,7 @@
                         <!-- 活動中心 -->
                         <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
                             <div class="activity-center-inner">
-                                <div class="title">キャンペーン</div>
+                                <div class="title language_replace">活動中心</div>
                             </div>
                         </div>
 
@@ -605,7 +632,7 @@
                                         <div class="btn" onclick="window.top.API_LoadPage('record','record.aspx', true)">
                                             <div class="member-record-title">
                                                 <i class="icon icon-mask icon-list-time"></i>
-                                                <h3 class="title language_replace">履歷一覧</h3>
+                                                <h3 class="title language_replace">履歷紀錄</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -620,9 +647,9 @@
                                     <i class="icon icon-mask icon-lock"></i>
                                     <span class="member-withdraw-limit-content">
                                         <!-- 出金門檻 不足-->
-                                        <span class="title lacking">出金不可</span>
+                                        <span class="title lacking language_replace">不可出金</span>
                                         <!-- 出金門檻 足夠-->
-                                        <span class="title enough">出金可</span>
+                                        <span class="title enough language_replace">可出金</span>
                                         <!-- 出入金說明 -->
                                         <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
                                         <!-- 出金門檻 -->
@@ -667,7 +694,7 @@
                                             <div class="game-item-info-detail-moreInfo">
                                                 <ul class="moreInfo-item-wrapper">
                                                     <li class="moreInfo-item brand">
-                                                        <span class="title">メーカー</span>
+                                                        <span class="title language_replace">廠牌</span>
                                                         <span class="value">PG</span>
                                                     </li>
                                                     <li class="moreInfo-item RTP">
@@ -683,7 +710,7 @@
                                             <div class="game-item-info-detail-indicator">
                                                 <div class="game-item-info-detail-indicator-inner">
                                                     <div class="info">
-                                                        <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                        <h3 class="game-item-name language_replace">蝶戀花</h3>
                                                     </div>
                                                     <div class="action">
                                                         <div class="btn-s-wrapper">

@@ -509,7 +509,7 @@
                              <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
                                 <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
-                                <p class="text-s language_replace">※Ocoinの反映は着金後になりますが、1銀行営業日経っても反映しない場合はカスタマサポート迄ご連絡下さい。</p>
+                                <p class="text-s language_replace">※OCoin必須在款項到帳後才會反映，如果過了1個銀行營業日也沒反映請聯絡客服。</p>
                             </div>
                         </div>
                     </div>
@@ -615,7 +615,7 @@
                             <ul class="list-style-decimal">
                                 <li><span class="language_replace">點擊 下一步，會顯示收款人信息。</span></li>
                                 <li><span class="language_replace">匯款人的名義請務必與轉賬時用的名義相同（片假名）。</span></li>
-                                <li><span class="language_replace">若有差異的話，可能需要一些時間反應。另外，它也有可能不會被反應出來，請注意。</span></li>
+                                <li><span class="language_replace">若有差異的話，可能需要一些時間反映。也有可能無法反映，請注意。</span></li>
                                 <li><span class="language_replace">根據不同的金融機構，若轉賬於銀行營業時間以外進行的話，將在下一個營業日才能確認匯款。</span></li>
                                 <li><span class="language_replace">通常匯款完成後，大約20分鐘內就會反應出來(確認匯款)。</span></li>
                             </ul>

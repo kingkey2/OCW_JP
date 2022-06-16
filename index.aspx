@@ -112,7 +112,7 @@
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <style>
-         .headerGameName {
+        .headerGameName {
             display: inherit;
             display: -webkit-box;
             -webkit-line-clamp: 1;
@@ -123,12 +123,12 @@
             font-weight: 500;
             padding-top: 10px;
         }
-        
-        .headerGameDetail{
+
+        .headerGameDetail {
             margin: 0 auto;
             vertical-align: middle;
         }
-         /*   .box {
+        /*   .box {
             aspect-ratio: 16 / 9;
             border: 0px!important;
             height: 95%;
@@ -768,7 +768,7 @@
         img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + EWinWebInfo.Lang + "/" + name + ".png";
     }
 
-    function openGame(gameBrand, gameName,gameLangName) {
+    function openGame(gameBrand, gameName, gameLangName) {
 
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
@@ -828,7 +828,7 @@
     }
 
     function favBtnEvent(gameID, doc, isSearchGame) {
-  
+
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
@@ -1254,7 +1254,7 @@
 
             let iframebodyheight = IFramePage.contentWindow.document.body.offsetHeight;
             let iframeheight = $("#IFramePage").height();
-      
+
             if (iframeheight != iframebodyheight) {
                 $("#IFramePage").height(iframebodyheight);
             }
@@ -1487,13 +1487,13 @@
 
     function reportWindowSize() {
         let iframewidth = $('#IFramePage').width();
-   
-         notifyWindowEvent("resize",iframewidth);
-     
+
+        notifyWindowEvent("resize", iframewidth);
+
     }
 
     function searchGameByBrand(gameBrand) {
-      
+
         $('#alertSearchBrand').val(gameBrand);
         $('#alertSearchKeyWord').val('');
         $("#seleGameCategory").val('');
@@ -1508,7 +1508,7 @@
         var gamecategory = $("#seleGameCategory").val() == "All" ? "" : $("#seleGameCategory").val();
         var gameList = [];
         var lang = EWinWebInfo.Lang;
-        
+
         if (gameBrand != "-1" && keyWord != '') {
             gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
         } else if (gameBrand == "-1" && keyWord != '') {
@@ -1519,11 +1519,11 @@
             gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
         } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
             gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
-        }else {
+        } else {
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
             return false;
         }
-       
+
         $('#alertSearchContent').empty();
 
         if (gameList.length > 0) {
@@ -1534,7 +1534,7 @@
                 if (gameItem.RTPInfo) {
                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
                 }
-                
+
                 GI = c.getTemplate("tmpSearchGameItem");
                 var GI_a = GI.querySelector(".btn-play");
                 GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
@@ -1716,7 +1716,7 @@
                     <div class="navbarMenu collapse navbar-menu navbar-collapse offset" id="navbarMenu">
 
                         <div class="search-bar mobile" data-toggle="modal" data-target="#alertSearch">
-                            <span class="text">ゲーム検索</span>
+                            <span class="text language_replace">遊戲搜尋</span>
                             <span class="btn btn-search">
                                 <i class="icon icon-mask icon-search"></i>
                             </span>
@@ -1731,40 +1731,6 @@
                                             <i class="icon icon-mask icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
                                     </li>
-                                    <%--<li class="nav-item submenu dropdown">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-poker"></i>
-                                            <span class="title language_replace">撲克</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-real"></i>
-                                            <span class="title language_replace">真人</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-slot"></i>
-                                            <span class="title language_replace">SLOT</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-mahjong"></i>
-                                            <span class="title language_replace">麻將</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-sport"></i>
-                                            <span class="title language_replace">體育</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-ect"></i>
-                                            <span class="title language_replace">其他</span>
-                                        </a>
-                                    </li>--%>
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory">
@@ -1793,11 +1759,6 @@
                             </li>
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
-                                    <%--<li class="nav-item submenu dropdown" onclick="openHotArticle()">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-hot"></i>
-                                            <span class="title language_replace">熱門文章</span></a>
-                                    </li>--%>
                                     <li class="nav-item submenu dropdown"
                                         onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
                                         <a class="nav-link">
@@ -1826,7 +1787,7 @@
                                     </li>
                                 </ul>
                             </li>
-                           <%-- <li class="nav-item navbarMenu__catagory">
+                            <%-- <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown"
                                         onclick="window.open('https://lin.ee/KD05l9X')">
@@ -1852,16 +1813,16 @@
                                 <div class="logo"><a></a></div>
                             </div>
                         </div>
-                        <div id="headerGameDetailContent" style="display:none;">
+                        <div id="headerGameDetailContent" style="display: none;">
                             <!-- Search -->
                             <ul class="nav header_setting_content">
-                                <li class="headerGameDetail navbar-search nav-item">      
-                                <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
-                                    <i class="icon">X</i>
-                                </button>
-                                <span class="headerGameName"></span>
-                             
-                            </li>
+                                <li class="headerGameDetail navbar-search nav-item">
+                                    <button id="closeGameBtn" type="button" onclick="CloseGameFrame()" data-toggle="tooltip" data-placement="bottom" class="btn btn-search" style="background: white;">
+                                        <i class="icon">X</i>
+                                    </button>
+                                    <span class="headerGameName"></span>
+
+                                </li>
                             </ul>
                         </div>
                         <!-- 右上角 -->
@@ -1876,7 +1837,7 @@
                                             <span class="btn btn-search">
                                                 <i class="icon icon-mask icon-search"></i>
                                             </span>
-                                            <span class="text">ゲーム検索</span>
+                                            <span class="text language_replace">遊戲搜尋</span>
                                         </span>
                                         <!-- <button type="button" class="btn btn-search" data-toggle="modal" data-target="#alertSearch">
                                             <i class="icon icon-mask icon-search"></i>
@@ -1926,29 +1887,6 @@
                                                         <span class="avater-name"></span>
                                                     </span>
                                                 </a>
-                                                <%--
-                                                <a class="btn btn-round nav-link btnDropDown avater_wrapper"
-                                                    data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                    aria-expanded="false" id="dropdown_navbar_Member">
-                                                    <span class="avater">
-                                                        <img src="images/avatar/avater-1.png" alt=""></span>
-                                                </a>
-                                                <!--下拉 dropdown-menu 選單 -->
-                                                <ul class="dropdown-menu" aria-labelledby="dropdown_navbar_Member">
-                                                    <li class="nav-item" onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
-                                                        <a class="nav-link"><i class="icon icon-mask icon-deposit"></i><span class="language_replace">入金</span></a>
-                                                    </li>
-                                                    <li class="nav-item" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
-                                                        <a class="nav-link"><i class="icon icon-mask icon-withdarw"></i><span class="language_replace">出金</span></a>
-                                                    </li>
-                                                    <li class="nav-item" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
-                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">會員設定</span></a>
-                                                    </li>
-                                                    <li class="nav-item" onclick="API_LoadPage('WalletCenter','WalletCenter.aspx', true)">
-                                                        <a class="nav-link"><i class="icon icon-mask icon-user"></i><span class="language_replace">錢包中心</span></a>
-                                                    </li>
-                                                </ul>
-                                                --%>
                                             </li>
                                         </ul>
                                     </li>
@@ -1962,7 +1900,7 @@
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
                                     </li>
-                                  
+
                                 </ul>
                             </div>
                         </div>
@@ -2113,29 +2051,29 @@
                                     <div class="img-crop">
                                         <img src="images/logo/footer/logo-pagcor.png" alt="">
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="images/logo/footer/logo-mishuha.png" alt="">
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="company-detail">
                         <div class="company-license">
-                            <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=seal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
+                            <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
                         </div>
                         <div class="company-address">
                             <%-- <p class="name">Online Chip World Co. N.V</p>--%>
-                            <p class="address">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</p>
+                            <p class="address language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
                         </div>
                     </div>
-                   
-                    
+
+
                     <div class="footer-copyright">
-                        <p>Copyright © 2022 マハラジャ. All Rights Reserved.</p>
+                        <p class="language_replace">Copyright © 2022 マハラジャ. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
@@ -2150,7 +2088,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><span class="language_replace">言語を選択してください</span></h5>
+                    <h5 class="modal-title"><span class="language_replace">請選擇語言</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -2212,32 +2150,32 @@
                             <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
                                 <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
                                 <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
-                                <option class="searchFilter-option" value="BNG"><span class="language_replace">ブーンゴー</span></option>
-                                <option class="searchFilter-option" value="CG"><span class="language_replace">クレティクゲーミング</span></option>
-                                <option class="searchFilter-option" value="CQ9"><span class="language_replace">CQ9ゲーミング</span></option>
-                                <option class="searchFilter-option" value="EVO"><span class="language_replace">エボリューションゲーミング</span></option>
+                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
+                                <option class="searchFilter-option language_replace" value="CG">CG</option>
+                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
+                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
                                 <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                    <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
-                                <option class="searchFilter-option" value="KGS"><span class="language_replace">キングゲーム</span></option>
-                                <option class="searchFilter-option" value="KX"><span class="language_replace">KXゲーミング</span></option>
+                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
+                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
+                                <option class="searchFilter-option language_replace" value="KX">KX</option>
                                 <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
-                                <option class="searchFilter-option" value="PG"><span class="language_replace">ポケットゲームソフト</span></option>
-                                <option class="searchFilter-option" value="PNG"><span class="language_replace">プレインゴー</span></option>
-                                <option class="searchFilter-option" value="PP"><span class="language_replace">プラグマティックプレイ</span></option>
-                                <option class="searchFilter-option" value="VA"><span class="language_replace">ビクトリーアークゲーミング</span></option>
-                                <option class="searchFilter-option" value="ZEUS"><span class="language_replace">ゼウス</span></option>
-                                            <option class="searchFilter-option" value="BTI"><span class="language_replace">ビットスポーツ</span></option>
-                                <option class="searchFilter-option" value="BG"><span class="language_replace">ビッグゲーミング</span></option>
+                                <option class="searchFilter-option language_replace" value="PG">PG</option>
+                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
+                                <option class="searchFilter-option language_replace" value="PP">PP</option>
+                                <option class="searchFilter-option language_replace" value="VA">VA</option>
+                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
+                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
+                                <option class="searchFilter-option language_replace" value="BG">BG</option>
                             </select>
                         </div>
-                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display:none">                   
+                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
                             <select class="custom-select" id="seleGameCategory">
-                                <option class="title" value="All" selected><span class="language_replace">すべて</span></option>
-                                <option class="searchFilter-option" value="Electron" ><span class="language_replace">電子</span></option>
-                                <option class="searchFilter-option" value="Fish" ><span class="language_replace">釣る</span></option>
-                                <option class="searchFilter-option" value="Live" ><span class="language_replace">ライブ</span></option>
-                                <option class="searchFilter-option" value="Slot" ><span class="language_replace">スロット</span></option>
-                                <option class="searchFilter-option" value="Sports" ><span class="language_replace">スポーツ</span></option>
+                                <option class="title language_replace" value="All" selected>全部</option>
+                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
+                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
+                                <option class="searchFilter-option language_replace" value="Live">Live</option>
+                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
+                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
                             </select>
                         </div>
                         <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>
@@ -2543,7 +2481,7 @@
                                             <div class="game-item-info-detail-moreInfo">
                                                 <ul class="moreInfo-item-wrapper">
                                                     <li class="moreInfo-item brand">
-                                                        <span class="title language_replace">メーカー</span>
+                                                        <span class="title language_replace">廠牌</span>
                                                         <span class="value BrandName"></span>
                                                     </li>
                                                     <li class="moreInfo-item RTP">

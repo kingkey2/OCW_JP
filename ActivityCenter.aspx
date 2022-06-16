@@ -168,10 +168,10 @@
                 <div class="sec-title-container sec-title-activity">
                     <!-- 領獎中心 link-->
                     <a class="btn btn-link btn-prize" onclick="window.parent.API_LoadPage('','Prize.aspx', true)">
-                        <span class="title language_replace">受取箱へ</span><i class="icon icon-mask icon-arrow-right-dot"></i>
+                        <span class="title language_replace">前往領獎中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
-                        <h1 class="sec-title title-deco"><span class="language_replace">キャンペーン</span></h1>
+                        <h1 class="sec-title title-deco"><span class="language_replace">活動</span></h1>
                     </div>
                 </div>
                 <section class="section-wrap section-activity">
@@ -185,14 +185,11 @@
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <!-- <figcaption class="title language_replace">ゴールドヒット！</figcaption> -->
-                                            <div class="desc language_replace">
-                                                デイリーミッションキャンペーン機能実装！女神様のご命令で、この狛犬大吉が勤勉なマハラジャ全会員に豊かなデイリーギフトマネーをプレゼントするぞ！
-                       
-                                            </div>
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">簽到功能全新上市，神犬大吉奉女神之命給所有勤勞的MAHARAJA的會員帶來豐厚的簽到禮金！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -206,15 +203,11 @@
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <!-- <figcaption class="title language_replace">ゴールドヒット！</figcaption> -->
-                                            <div class="desc language_replace">
-                                                リニューアルしたマハラジャのグランドオープンを祝うため、四葉が女神様の祝福をささげます。キャンペーン期間中任意金額を入金された方に、相応のボーナス（上限5万Ocoinまで）をプレゼントいたします！！
-
-                       
-                                            </div>
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">慶祝Maharaja改版新上市，四葉為此帶來女神的祝福，活動期間入金任意金額都能享有對應比值的回饋獎金(上限五萬)！！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -228,14 +221,11 @@
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <!-- <figcaption class="title language_replace">ゴールドヒット！</figcaption> -->
-                                            <div class="desc language_replace">
-                                                新しい友達大歓迎！新規登録の方にも、友達を招待した方にも、この狛犬大吉が歓迎ギフトマネーをプレゼントするぞ！
-                       
-                                            </div>
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">神犬大吉歡迎所有新朋友，無論是註冊新會員還是推廌朋友一起玩，都可以領到大吉送的見面禮金！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button onclick="GoActivityDetail(2,'/Activity/Act002/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(2,'/Activity/Act002/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -249,11 +239,11 @@
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <!-- <figcaption class="title language_replace">ゴールドヒット！</figcaption> -->
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
                                             <div class="desc language_replace"></div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button onclick="GoActivityDetail(4,'/Activity/Act004/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">今すぐチェック</span></button>
+                                        <button onclick="GoActivityDetail(4,'/Activity/Act004/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -287,7 +277,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">参加する</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -303,7 +293,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">金曜日のプレゼント</h5>
+                    <h5 class="modal-title">金曜日的禮物</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -315,7 +305,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_ComingSoonAlert()">参加する</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_ComingSoonAlert()">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -331,7 +321,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">グランドオープン15日間限定</h5>
+                    <h5 class="modal-title">盛大開幕15日限定</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -343,7 +333,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">参加する</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -359,7 +349,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">マハラジャ歓迎キャンペーン</h5>
+                    <h5 class="modal-title">MAHARAJA見面禮</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -371,7 +361,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('','Prize.aspx')">参加する</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -387,7 +377,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">ゴールドヒット！</h5>
+                    <h5 class="modal-title">金熱門！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -399,7 +389,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">参加する</button>
+                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>

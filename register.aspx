@@ -287,7 +287,7 @@
         } else if (form2.NickName.value == "") {
             form2.NickName.setCustomValidity(mlp.getLanguageKey("請輸入暱稱"));
         } else if (form2.eighteenCheck.checked == false) {
-            form2.eighteenCheck.setCustomValidity(mlp.getLanguageKey("請確認已年滿18歲"));
+            form2.eighteenCheck.setCustomValidity(mlp.getLanguageKey("請確認已年滿20歲"));
         } else if (form2.BornYear.value.length != 4) {
             form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
         } else if (parseInt(form2.BornYear.value) < 1900) {
