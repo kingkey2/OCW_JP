@@ -642,6 +642,7 @@
             </div>
         </section>
         <!--  -->
+        <%--
         <section class="section_publicize section-wrap">
             <div class="container">
                 <div class="publicize_wrapper publicize_top">
@@ -710,6 +711,7 @@
                 </div>
             </div>
         </section>
+        --%>
 
         <section class="game-area section-wrap  overflow-hidden">
             <div class="container" id="gameAreas"></div>

@@ -29,5 +29,6 @@
   "OnlyDepositCanCancel": "Only deposit can be cancel",
   "NotFoundData": "Not found any data",
   "LockFailure": "Lock has Failed",
-  "InvalidStatus": "Invalid Status"
+  "InvalidStatus": "Invalid Status",
+  "ClientOrderNumber": "訂單已存在,請重新申請訂單"
 }
