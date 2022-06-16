@@ -166,11 +166,12 @@
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
+<script type="text/javascript" src="/Scripts/NoSleep.min.js"></script>
 <script src="Scripts/lozad.min.js"></script>
 <script type="text/javascript">
-    if (self != top) {
-        window.parent.API_LoadingStart();
-    }
+    //if (self != top) {
+    //    window.parent.API_LoadingStart();
+    //}
     var c = new common();
     var mlp;
     var mlpByGameCode;
@@ -196,6 +197,7 @@
         IsOpenGame: false
     };
 
+    var noSleep;
     var selectedWallet = null;
     var v = "<%=Version%>";
     var GCB;
@@ -1297,7 +1299,7 @@
 
         GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 3000000, function () {
             notifyWindowEvent("GameLoadEnd", null);
-            API_LoadingEnd(1);
+            //API_LoadingEnd(1);
         });
 
 
@@ -1312,6 +1314,12 @@
         switchLang(EWinWebInfo.Lang, false);
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
+
+            if (EWinWebInfo.DeviceType == 1) {
+                noSleep = new NoSleep();
+                noSleep.enable();
+            }
+           
             var dstPage = c.getParameter("DstPage");
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
             paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
@@ -1900,7 +1908,6 @@
                                             <i class="icon icon-mask icon-flag-ZH"></i>--%>
                                         </button>
                                     </li>
-
                                 </ul>
                             </div>
                         </div>
@@ -2136,11 +2143,14 @@
         </div>
     </div>
     <!-- Modal Search -->
-    <div class="modal fade no-footer" id="alertSearch" tabindex="-1" aria-hidden="true">
+    <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!-- <h5 class="modal-title"></h5> -->
+                    <h5 class="modal-title">我是logo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     <div class="searchFilter-wrapper">
                         <div class="searchFilter-item input-group keyword">
                             <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
@@ -2180,9 +2190,7 @@
                         </div>
                         <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    
                 </div>
                 <div class="modal-body">
                     <div class="game-search-wrapper">
@@ -2550,6 +2558,9 @@
                                     <li class="moreInfo-item brand">
                                         <h4 class="value BrandName"></h4>
                                     </li>
+                                    <li class="moreInfo-item category">
+                                        <h4 class="value">SLOT</h4>
+                                    </li>
                                     <li class="moreInfo-item RTP">
                                         <span class="title">RTP</span>
                                         <span class="value number valueRTP"></span>
@@ -2560,14 +2571,17 @@
                         <div class="game-item-info-indicator">
                             <div class="action">
                                 <div class="btn-s-wrapper">
-                                    <button type="button" class="btn-thumbUp btn btn-round">
+                                    <!-- 按讚 按鈕移除 -->
+                                    <button type="button" class="btn-thumbUp btn btn-round" style="display: none;">
                                         <i class="icon icon-m-thumup"></i>
                                     </button>
+                                    
                                     <button type="button" class="btn-like btn btn-round">
                                         <i class="icon icon-m-favorite"></i>
                                     </button>
                                 </div>
-                                <button type="button" class="btn btn-play">
+                                <!-- play 按鈕移除 -->
+                                <button type="button" class="btn btn-play" style="display: none;">
                                     <span class="language_replace title">プレイ</span><i class="triangle"></i>
                                 </button>
                             </div>

@@ -409,6 +409,29 @@
         });
     };
 
+    this.CheckAccountExistByContactPhoneNumber = function (GUID, PhonePrefix, PhoneNumber, cb) {
+        var url = APIUrl + "/CheckAccountExistByContactPhoneNumber";
+        var postData;
+
+        postData = {
+            PhonePrefix: PhonePrefix,
+            PhoneNumber: PhoneNumber,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.RequireRegister = function (GUID, ParentPersonCode, PS, UBC, cb) {
         var url = APIUrl + "/RequireRegister";
         var postData;
