@@ -8725,7 +8725,7 @@ select:-webkit-autofill:focus {
 }
 
 @media (min-width: 1440px) {
-  .game-item {
+  .alertSearch .game-item {
     width: 33.33% !important;
   }
 }

@@ -2136,7 +2136,7 @@
         </div>
     </div>
     <!-- Modal Search -->
-    <div class="modal fade no-footer alertSearch show" id="alertSearch" tabindex="-1" aria-hidden="true" style="display: block;">
+    <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true" style="display: ;">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
