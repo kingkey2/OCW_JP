@@ -907,7 +907,7 @@
         </div>
     </div>
 
-    <div id="temRecommendGameItem">
+    <div id="temRecommendGameItem" class="is-hide">
         <div class="box-item">
             <div class="box-item-link">
                 <div class="box-item-inner">
