@@ -627,6 +627,44 @@
             }
         }
     }
+
+    function WithCheckBoxShowMessageOK(title, message, cbOK) {
+        var alertDom = $("#alertContactWithCheckBox")
+        if (alertDom.attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertContactWithCheckBox");
+            var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
+            //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
+            var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
+            var checkBoxmessageModal;
+            if (checkBoxmessageModal == null) {
+                checkBoxmessageModal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+            }
+
+            if (divMessageBox != null) {
+                checkBoxmessageModal.show();
+                alertDom.attr("aria-hidden", 'false');
+
+                if (divMessageBoxCloseButton != null) {
+                    divMessageBoxCloseButton.classList.add("is-hide");
+                }
+
+                if (divMessageBoxOKButton != null) {
+                    //divMessageBoxOKButton.style.display = "inline";
+
+                    divMessageBoxOKButton.onclick = function () {
+                        checkBoxmessageModal.hide();
+                        alertDom.attr("aria-hidden", 'true');
+                        if (cbOK != null)
+                            cbOK();
+                    }
+                }
+
+                //divMessageBoxTitle.innerHTML = title;
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
     //#endregion
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
@@ -1229,6 +1267,39 @@
         });
     }
 
+    function showLoginMessage() {
+        if (LoginMessage) {
+            if (!localStorage.getItem("LoginMessage")) {
+                if (!sessionStorage.getItem("LoginMessage")) {
+                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                        if (document.getElementById("cboxLoginMessage").checked) {
+                            localStorage.setItem("LoginMessage", LoginMessageVersion);
+                        }
+                    });
+                } else {
+                    if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
+                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                            if (document.getElementById("cboxLoginMessage").checked) {
+                                localStorage.setItem("LoginMessage", LoginMessageVersion);
+                            }
+                        });
+                    }
+                }
+            } else {
+                if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
+                        if (document.getElementById("cboxLoginMessage").checked) {
+                            localStorage.setItem("LoginMessage", LoginMessageVersion);
+                        }
+                    });
+                }
+            }
+        }
+    }
+
     function openHotArticle() {
         var orgin = "guides";
 
@@ -1363,45 +1434,7 @@
                                 API_SetLogin(EWinWebInfo.SID, function (logined) {
                                     //顯示登入資訊 
                                     //getLoginMessage(function () {
-                                    //    if (LoginMessage) {
-                                    //        if (!localStorage.getItem("LoginMessage")) {
-                                    //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                    //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                    //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                    //                    if (document.getElementById("cboxLoginMessage").checked) {
-                                    //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                    //                    }
-                                    //                });
-                                    //            } else {
-                                    //                if (!sessionStorage.getItem("LoginMessage")) {
-                                    //                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                    //                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                    //                        if (document.getElementById("cboxLoginMessage").checked) {
-                                    //                            localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                    //                        }
-                                    //                    });
-                                    //                } else {
-                                    //                    if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
-                                    //                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                    //                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                    //                            if (document.getElementById("cboxLoginMessage").checked) {
-                                    //                                localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                    //                            }
-                                    //                        });
-                                    //                    }
-                                    //                }
-                                    //            }
-                                    //        } else {
-                                    //            if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                                    //                WithCheckBoxShowMessageOK('', LoginMessage, function () {
-                                    //                    sessionStorage.setItem("LoginMessage", LoginMessageVersion);
-                                    //                    if (document.getElementById("cboxLoginMessage").checked) {
-                                    //                        localStorage.setItem("LoginMessage", LoginMessageVersion);
-                                    //                    }
-                                    //                });
-                                    //            }
-                                    //        }
-                                    //    }
+                                    //    showLoginMessage();
                                     //});
 
                                     if (logined == false) {
@@ -2437,6 +2470,37 @@
                         <i class="icon-error_outline primary"></i>
                         <div class="text-wrap">
                             <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container">
+                        <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--alert-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContactWithCheckBox"  aria-hidden="true" id="alertContactWithCheckBox">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:500px !important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <i class="icon-error_outline primary"></i>
+                        <div class="text-wrap">
+                            <div class="alertContact_Text"></div>
+                            <div>
+                                <input style="width:16px;height:16px;cursor:pointer" type="checkbox" id="cboxLoginMessage">
+                                <label style="font-size:18px" for="cboxLoginMessage language_replace">今後不顯示</label>
+                            </div>
                         </div>
                     </div>
                 </div>
