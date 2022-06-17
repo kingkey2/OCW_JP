@@ -2180,7 +2180,7 @@
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">我是logo</h5>
+                    <!-- <h5 class="modal-title">我是logo</h5> -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
                         <span aria-hidden="true">&times;</span>
                     </button>
