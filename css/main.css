@@ -2178,6 +2178,10 @@ hr.line {
   background: url(../images/bg_Footer.jpg) center bottom no-repeat;
   background-size: cover;
 }
+.footer-container .container {
+  border-top: 1px solid #E4E4E4;
+  padding-top: 1.2rem;
+}
 .footer-inner {
   margin: 0 auto;
   width: 100%;
