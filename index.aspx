@@ -1315,10 +1315,10 @@
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
 
-            if (EWinWebInfo.DeviceType == 1) {
-                noSleep = new NoSleep();
-                noSleep.enable();
-            }
+            //if (EWinWebInfo.DeviceType == 1) {
+            //    noSleep = new NoSleep();
+            //    noSleep.enable();
+            //}
            
             var dstPage = c.getParameter("DstPage");
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
