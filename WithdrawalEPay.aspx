@@ -636,11 +636,10 @@
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
-                                            <li><span class="language_replace">出金表示金額には燃料費が含まれております(10万OCOIN以下の場合は、燃料費を差引いての着金となります。)</span></li>
-                                            <li><span class="language_replace">10万 OCOIN 以上の出金の場合は燃料費は無料となります。</span></li>
-                                            <li><span class="language_replace">出金は1日３回までとなります。</span></li>
-                                            <li><span class="language_replace">1日出金最大限度額が100万OCOINとなります。</span></li>
-                                            <li><span class="language_replace">出金申請後、弊社が送金完了した時点でお客様からのウォレットアドレスの変更、間違い等の申請には対応を協力致しますが、責任は一切負いかねます。出金の際、よくウォレットアドレス確認して下さい。</span></li>
+                                            <li><span class="language_replace">您所希望的取款金額會扣除3％手續費與匯款手續費175 OCoin，即3％+175JPY後到帳。</span></li>
+                                            <li><span class="language_replace">取款1次最少5000，最多50萬OCoin，1天次數最多3次。</span></li>
+                                            <li><span class="language_replace">1天取款上限額度為100萬OCoin。</span></li>
+                                            <li><span class="language_replace">申請出款後，依據您所選擇的金融機關不同，有可能下一個營業日才能到帳。</span></li>
                                          </ul>  
                                     </div>
                                 </div>

@@ -232,7 +232,7 @@
                             <p class="language_replace">（計算範例）</p>
                             <p class="language_replace">PayPal　10,000+獎金10,000的情況</p>
                             <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
-                            <p class="language_replace">關於出金門檻的詳細說明於<span class="link language_replace" style="cursor: pointer" onclick="window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)">此處</span></p>
+                            <p class="language_replace">關於出金門檻的詳細說明於</p>
                             <p class="language_replace">4.持有的OCoin在100以下時入金，或是領取領獎中心的OCoin即可解除原有的出金門檻。</p>
                             <p class="language_replace">入金をするか受取箱のOcoin受取るかで解除できます。</p>
                         </div>
