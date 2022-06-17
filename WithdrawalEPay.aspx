@@ -315,8 +315,8 @@
                 if (success) {
                     let UserAccountPayments = o.UserAccountPayments;
                     if (o.Result == 0) {
-                        if (UserAccountPayments.length == 0) {
-                        //if (UserAccountPayments.length > 0) {
+                        //if (UserAccountPayments.length == 0) {
+                        if (UserAccountPayments.length > 0) {
                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
 
                             });
@@ -663,7 +663,7 @@
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
                                             <li><span class="language_replace">您所希望的取款金額會扣除3％手續費與匯款手續費175 OCoin，即3％+175JPY後到帳。</span></li>
-                                            <li><span class="language_replace">取款1次最少5000，最多50萬OCoin，1天次數最多3次。</span></li>
+                                            <li><span class="language_replace">取款1次最少5500，最多50萬OCoin，1天次數最多3次。</span></li>
                                             <li><span class="language_replace">1天取款上限額度為100萬OCoin。</span></li>
                                             <li><span class="language_replace">申請出款後，依據您所選擇的金融機關不同，有可能下一個營業日才能到帳。</span></li>
                                          </ul>  
