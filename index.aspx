@@ -2190,7 +2190,7 @@
                             <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                         </div>
                         
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: none;">
+                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: ;">
                             <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
                                 <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
                                 <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
@@ -2212,13 +2212,12 @@
                                 <option class="searchFilter-option language_replace" value="BG">BG</option>
                             </select>
                         </div>
-                        <div class="searchFilter-item input-group game-brand">
+                        <!-- <div class="searchFilter-item input-group game-brand">
                             <div class="gameNameSetting btn_gameNameSetting">
                                 <div class="gameName"><span class="language_replace">遊戲品牌</span></div>
                                 <div class="has-arrow"><i class="arrow"></i></div>
                             </div>
-
-                        </div>
+                        </div> -->
 
 
                         <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
@@ -2233,7 +2232,7 @@
                         </div>
                         <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
                     </div>
-                    <div class="brand-wrapper">
+                    <div class="brand-wrapper" style="display: none;">
                         <ul class="lang-popup-list">
                             <li class="lang-item custom-control custom-radioValue-lang">
                                 <label class="custom-label">
@@ -2637,6 +2636,7 @@
             </div>
         </div>
     </div>
+    
     <div id="tmpSearchGameItem" class="is-hide">
         <div class="game-item col-auto">
             <div class="game-item-inner">
@@ -2657,7 +2657,7 @@
                                     <li class="moreInfo-item brand">
                                         <h4 class="value BrandName"></h4>
                                     </li>
-                                    <li class="moreInfo-item category">
+                                    <li class="moreInfo-item category" style="display: none;">
                                         <h4 class="value">SLOT</h4>
                                     </li>
                                     <li class="moreInfo-item RTP">
@@ -2680,7 +2680,7 @@
                                     </button>
                                 </div>
                                 <!-- play 按鈕移除 -->
-                                <button type="button" class="btn btn-play" style="display: none;">
+                                <button type="button" class="btn btn-play">
                                     <span class="language_replace title">プレイ</span><i class="triangle"></i>
                                 </button>
                             </div>
