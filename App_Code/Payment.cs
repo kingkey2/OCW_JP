@@ -20,7 +20,7 @@ public class Payment {
     public static class EPay
     {
         public static string SettingFile = "EPaySetting.json";
-        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName)
+        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode)
         {
             APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -77,7 +77,7 @@ public class Payment {
             sendData.Add("BankCard", BankCard);
             sendData.Add("BankCardName", BankCardName);
             sendData.Add("BankName", BankName);
-            sendData.Add("BankComponentName", "BankComponentName");
+            sendData.Add("BankComponentName", BankBranchCode);
             sendData.Add("OwnProvince", "OwnProvince");
             sendData.Add("OwnCity", "OwnCity");
             sendData.Add("OrderID", OrderID);

@@ -212,98 +212,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="SetUserAccountTag">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="PS" type="tns:ArrayOfPropertySet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetUserAccountTagResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountTagResult" type="tns:APIResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetUserAccountTagByLoginAccount">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="PS" type="tns:ArrayOfPropertySet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetUserAccountTagByLoginAccountResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountTagByLoginAccountResult" type="tns:APIResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetUserAccountTagByPersonCode">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="PS" type="tns:ArrayOfPropertySet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetUserAccountTagByPersonCodeResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountTagByPersonCodeResult" type="tns:APIResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetUserAccountTagByPersonCode">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetUserAccountTagByPersonCodeResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountTagByPersonCodeResult" type="tns:PropertySetResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="PropertySetResult">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:APIResult">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="PropertyList" type="tns:ArrayOfPropertySet" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:element name="GetUserAccountTagByLoginAccount">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetUserAccountTagByLoginAccountResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountTagByLoginAccountResult" type="tns:PropertySetResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetRequireWithdrawalHistoryByUserAccountID">
         <s:complexType>
           <s:sequence>
@@ -481,25 +389,46 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserType" type="tns:enumUserTypeParam" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserTypeParam" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:simpleType name="enumUserTypeParam">
+        <s:restriction base="s:string">
+          <s:enumeration value="BySID" />
+          <s:enumeration value="ByLoginAccount" />
+          <s:enumeration value="ByPersonCode" />
+          <s:enumeration value="BySIDParent" />
+        </s:restriction>
+      </s:simpleType>
       <s:element name="GetUserAccountPropertyResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountPropertyResult" type="tns:APIResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAccountPropertyResult" type="tns:UserAccountPropertyResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="UserAccountPropertyResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PropertyValue" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="SetUserAccountProperty">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserType" type="tns:enumUserTypeParam" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserTypeParam" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="PropertyValue" type="s:string" />
           </s:sequence>
@@ -509,6 +438,24 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="SetUserAccountPropertyResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveUserAccountProperty">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserType" type="tns:enumUserTypeParam" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserTypeParam" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PropertyName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveUserAccountPropertyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemoveUserAccountPropertyResult" type="tns:APIResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -801,6 +748,25 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CheckAccountExistEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhonePrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAccountExistExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckAccountExistExResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CheckAccountExist">
         <s:complexType>
           <s:sequence>
@@ -831,6 +797,22 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="CheckAccountExistByContactPhoneNumberResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAccountExistByEMail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAccountExistByEMailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckAccountExistByEMailResult" type="tns:APIResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1004,7 +986,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="Birthday" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="EMail" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="HasServiceChatMessage" type="s:boolean" />
-              <s:element minOccurs="0" maxOccurs="1" name="Tag" type="tns:ArrayOfPropertySet" />
+              <s:element minOccurs="0" maxOccurs="1" name="Property" type="tns:ArrayOfPropertySet" />
               <s:element minOccurs="0" maxOccurs="1" name="Company" type="tns:CompanyInfo" />
               <s:element minOccurs="0" maxOccurs="1" name="AllBinding" type="tns:ArrayOfBindingInfo" />
               <s:element minOccurs="0" maxOccurs="1" name="WalletList" type="tns:ArrayOfWalletInfo" />
@@ -1129,6 +1111,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="UpdateTimestamp" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="GameID" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1144,6 +1127,7 @@
           <s:extension base="tns:APIResult">
             <s:sequence>
               <s:element minOccurs="1" maxOccurs="1" name="LastTimestamp" type="s:long" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastGameID" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="GameCodeList" type="tns:ArrayOfGameCodeItem" />
             </s:sequence>
           </s:extension>
@@ -1666,10 +1650,10 @@
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="PromotionCollectResult" nillable="true" type="tns:PromotionCollectResult" />
       <s:element name="PromotionCollectHistoryResult" nillable="true" type="tns:PromotionCollectHistoryResult" />
-      <s:element name="PropertySetResult" nillable="true" type="tns:PropertySetResult" />
       <s:element name="RequireWithdrawalHistoryResult" nillable="true" type="tns:RequireWithdrawalHistoryResult" />
       <s:element name="DocumentListResult" nillable="true" type="tns:DocumentListResult" />
       <s:element name="DocumentResult" nillable="true" type="tns:DocumentResult" />
+      <s:element name="UserAccountPropertyResult" nillable="true" type="tns:UserAccountPropertyResult" />
       <s:element name="TransferHistoryResult" nillable="true" type="tns:TransferHistoryResult" />
       <s:element name="UserBankCardListResult" nillable="true" type="tns:UserBankCardListResult" />
       <s:element name="CompanySiteResult" nillable="true" type="tns:CompanySiteResult" />
@@ -1734,36 +1718,6 @@
   <wsdl:message name="SetCompanyGameCodeTagSoapOut">
     <wsdl:part name="parameters" element="tns:SetCompanyGameCodeTagResponse" />
   </wsdl:message>
-  <wsdl:message name="SetUserAccountTagSoapIn">
-    <wsdl:part name="parameters" element="tns:SetUserAccountTag" />
-  </wsdl:message>
-  <wsdl:message name="SetUserAccountTagSoapOut">
-    <wsdl:part name="parameters" element="tns:SetUserAccountTagResponse" />
-  </wsdl:message>
-  <wsdl:message name="SetUserAccountTagByLoginAccountSoapIn">
-    <wsdl:part name="parameters" element="tns:SetUserAccountTagByLoginAccount" />
-  </wsdl:message>
-  <wsdl:message name="SetUserAccountTagByLoginAccountSoapOut">
-    <wsdl:part name="parameters" element="tns:SetUserAccountTagByLoginAccountResponse" />
-  </wsdl:message>
-  <wsdl:message name="SetUserAccountTagByPersonCodeSoapIn">
-    <wsdl:part name="parameters" element="tns:SetUserAccountTagByPersonCode" />
-  </wsdl:message>
-  <wsdl:message name="SetUserAccountTagByPersonCodeSoapOut">
-    <wsdl:part name="parameters" element="tns:SetUserAccountTagByPersonCodeResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByPersonCodeSoapIn">
-    <wsdl:part name="parameters" element="tns:GetUserAccountTagByPersonCode" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByPersonCodeSoapOut">
-    <wsdl:part name="parameters" element="tns:GetUserAccountTagByPersonCodeResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByLoginAccountSoapIn">
-    <wsdl:part name="parameters" element="tns:GetUserAccountTagByLoginAccount" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByLoginAccountSoapOut">
-    <wsdl:part name="parameters" element="tns:GetUserAccountTagByLoginAccountResponse" />
-  </wsdl:message>
   <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDSoapIn">
     <wsdl:part name="parameters" element="tns:GetRequireWithdrawalHistoryByUserAccountID" />
   </wsdl:message>
@@ -1811,6 +1765,12 @@
   </wsdl:message>
   <wsdl:message name="SetUserAccountPropertySoapOut">
     <wsdl:part name="parameters" element="tns:SetUserAccountPropertyResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountPropertySoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveUserAccountProperty" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountPropertySoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveUserAccountPropertyResponse" />
   </wsdl:message>
   <wsdl:message name="AddThresholdSoapIn">
     <wsdl:part name="parameters" element="tns:AddThreshold" />
@@ -1884,6 +1844,12 @@
   <wsdl:message name="KeepSIDSoapOut">
     <wsdl:part name="parameters" element="tns:KeepSIDResponse" />
   </wsdl:message>
+  <wsdl:message name="CheckAccountExistExSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistEx" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistExSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistExResponse" />
+  </wsdl:message>
   <wsdl:message name="CheckAccountExistSoapIn">
     <wsdl:part name="parameters" element="tns:CheckAccountExist" />
   </wsdl:message>
@@ -1895,6 +1861,12 @@
   </wsdl:message>
   <wsdl:message name="CheckAccountExistByContactPhoneNumberSoapOut">
     <wsdl:part name="parameters" element="tns:CheckAccountExistByContactPhoneNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByEMailSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistByEMail" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByEMailSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckAccountExistByEMailResponse" />
   </wsdl:message>
   <wsdl:message name="RequireRegisterSoapIn">
     <wsdl:part name="parameters" element="tns:RequireRegister" />
@@ -2081,22 +2053,6 @@
   <wsdl:message name="GetPromotionCollectHistoryHttpGetOut">
     <wsdl:part name="Body" element="tns:PromotionCollectHistoryResult" />
   </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByPersonCodeHttpGetIn">
-    <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="GUID" type="s:string" />
-    <wsdl:part name="PersonCode" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByPersonCodeHttpGetOut">
-    <wsdl:part name="Body" element="tns:PropertySetResult" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByLoginAccountHttpGetIn">
-    <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="GUID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByLoginAccountHttpGetOut">
-    <wsdl:part name="Body" element="tns:PropertySetResult" />
-  </wsdl:message>
   <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -2155,21 +2111,33 @@
   </wsdl:message>
   <wsdl:message name="GetUserAccountPropertyHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="SID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="UserType" type="s:string" />
+    <wsdl:part name="UserTypeParam" type="s:string" />
     <wsdl:part name="PropertyName" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserAccountPropertyHttpGetOut">
-    <wsdl:part name="Body" element="tns:APIResult" />
+    <wsdl:part name="Body" element="tns:UserAccountPropertyResult" />
   </wsdl:message>
   <wsdl:message name="SetUserAccountPropertyHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="SID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="UserType" type="s:string" />
+    <wsdl:part name="UserTypeParam" type="s:string" />
     <wsdl:part name="PropertyName" type="s:string" />
     <wsdl:part name="PropertyValue" type="s:string" />
   </wsdl:message>
   <wsdl:message name="SetUserAccountPropertyHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountPropertyHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="UserType" type="s:string" />
+    <wsdl:part name="UserTypeParam" type="s:string" />
+    <wsdl:part name="PropertyName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountPropertyHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="AddThresholdHttpGetIn">
@@ -2303,6 +2271,17 @@
   <wsdl:message name="KeepSIDHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="CheckAccountExistExHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="PhonePrefix" type="s:string" />
+    <wsdl:part name="PhoneNumber" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistExHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="CheckAccountExistHttpGetIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
@@ -2318,6 +2297,14 @@
     <wsdl:part name="PhoneNumber" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByEMailHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByEMailHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanySiteHttpGetIn">
@@ -2366,6 +2353,7 @@
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
     <wsdl:part name="UpdateTimestamp" type="s:string" />
+    <wsdl:part name="GameID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeByUpdateTimestampHttpGetOut">
     <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
@@ -2558,22 +2546,6 @@
   <wsdl:message name="GetPromotionCollectHistoryHttpPostOut">
     <wsdl:part name="Body" element="tns:PromotionCollectHistoryResult" />
   </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByPersonCodeHttpPostIn">
-    <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="GUID" type="s:string" />
-    <wsdl:part name="PersonCode" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByPersonCodeHttpPostOut">
-    <wsdl:part name="Body" element="tns:PropertySetResult" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByLoginAccountHttpPostIn">
-    <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="GUID" type="s:string" />
-    <wsdl:part name="LoginAccount" type="s:string" />
-  </wsdl:message>
-  <wsdl:message name="GetUserAccountTagByLoginAccountHttpPostOut">
-    <wsdl:part name="Body" element="tns:PropertySetResult" />
-  </wsdl:message>
   <wsdl:message name="GetRequireWithdrawalHistoryByUserAccountIDHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -2632,21 +2604,33 @@
   </wsdl:message>
   <wsdl:message name="GetUserAccountPropertyHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="SID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="UserType" type="s:string" />
+    <wsdl:part name="UserTypeParam" type="s:string" />
     <wsdl:part name="PropertyName" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetUserAccountPropertyHttpPostOut">
-    <wsdl:part name="Body" element="tns:APIResult" />
+    <wsdl:part name="Body" element="tns:UserAccountPropertyResult" />
   </wsdl:message>
   <wsdl:message name="SetUserAccountPropertyHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
-    <wsdl:part name="SID" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="UserType" type="s:string" />
+    <wsdl:part name="UserTypeParam" type="s:string" />
     <wsdl:part name="PropertyName" type="s:string" />
     <wsdl:part name="PropertyValue" type="s:string" />
   </wsdl:message>
   <wsdl:message name="SetUserAccountPropertyHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountPropertyHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="UserType" type="s:string" />
+    <wsdl:part name="UserTypeParam" type="s:string" />
+    <wsdl:part name="PropertyName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RemoveUserAccountPropertyHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="AddThresholdHttpPostIn">
@@ -2780,6 +2764,17 @@
   <wsdl:message name="KeepSIDHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="CheckAccountExistExHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="PhonePrefix" type="s:string" />
+    <wsdl:part name="PhoneNumber" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistExHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="CheckAccountExistHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
@@ -2795,6 +2790,14 @@
     <wsdl:part name="PhoneNumber" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CheckAccountExistByContactPhoneNumberHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByEMailHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="EMail" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckAccountExistByEMailHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="GetCompanySiteHttpPostIn">
@@ -2843,6 +2846,7 @@
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="GUID" type="s:string" />
     <wsdl:part name="UpdateTimestamp" type="s:string" />
+    <wsdl:part name="GameID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetCompanyGameCodeByUpdateTimestampHttpPostOut">
     <wsdl:part name="Body" element="tns:CompanyGameCodeResult" />
@@ -3015,26 +3019,6 @@
       <wsdl:input message="tns:SetCompanyGameCodeTagSoapIn" />
       <wsdl:output message="tns:SetCompanyGameCodeTagSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTag">
-      <wsdl:input message="tns:SetUserAccountTagSoapIn" />
-      <wsdl:output message="tns:SetUserAccountTagSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTagByLoginAccount">
-      <wsdl:input message="tns:SetUserAccountTagByLoginAccountSoapIn" />
-      <wsdl:output message="tns:SetUserAccountTagByLoginAccountSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTagByPersonCode">
-      <wsdl:input message="tns:SetUserAccountTagByPersonCodeSoapIn" />
-      <wsdl:output message="tns:SetUserAccountTagByPersonCodeSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByPersonCode">
-      <wsdl:input message="tns:GetUserAccountTagByPersonCodeSoapIn" />
-      <wsdl:output message="tns:GetUserAccountTagByPersonCodeSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByLoginAccount">
-      <wsdl:input message="tns:GetUserAccountTagByLoginAccountSoapIn" />
-      <wsdl:output message="tns:GetUserAccountTagByLoginAccountSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDSoapIn" />
       <wsdl:output message="tns:GetRequireWithdrawalHistoryByUserAccountIDSoapOut" />
@@ -3066,6 +3050,10 @@
     <wsdl:operation name="SetUserAccountProperty">
       <wsdl:input message="tns:SetUserAccountPropertySoapIn" />
       <wsdl:output message="tns:SetUserAccountPropertySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountProperty">
+      <wsdl:input message="tns:RemoveUserAccountPropertySoapIn" />
+      <wsdl:output message="tns:RemoveUserAccountPropertySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <wsdl:input message="tns:AddThresholdSoapIn" />
@@ -3115,6 +3103,10 @@
       <wsdl:input message="tns:KeepSIDSoapIn" />
       <wsdl:output message="tns:KeepSIDSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistEx">
+      <wsdl:input message="tns:CheckAccountExistExSoapIn" />
+      <wsdl:output message="tns:CheckAccountExistExSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <wsdl:input message="tns:CheckAccountExistSoapIn" />
       <wsdl:output message="tns:CheckAccountExistSoapOut" />
@@ -3122,6 +3114,10 @@
     <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
       <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberSoapIn" />
       <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByEMail">
+      <wsdl:input message="tns:CheckAccountExistByEMailSoapIn" />
+      <wsdl:output message="tns:CheckAccountExistByEMailSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RequireRegister">
       <wsdl:input message="tns:RequireRegisterSoapIn" />
@@ -3237,14 +3233,6 @@
       <wsdl:input message="tns:GetPromotionCollectHistoryHttpGetIn" />
       <wsdl:output message="tns:GetPromotionCollectHistoryHttpGetOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByPersonCode">
-      <wsdl:input message="tns:GetUserAccountTagByPersonCodeHttpGetIn" />
-      <wsdl:output message="tns:GetUserAccountTagByPersonCodeHttpGetOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByLoginAccount">
-      <wsdl:input message="tns:GetUserAccountTagByLoginAccountHttpGetIn" />
-      <wsdl:output message="tns:GetUserAccountTagByLoginAccountHttpGetOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpGetIn" />
       <wsdl:output message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpGetOut" />
@@ -3276,6 +3264,10 @@
     <wsdl:operation name="SetUserAccountProperty">
       <wsdl:input message="tns:SetUserAccountPropertyHttpGetIn" />
       <wsdl:output message="tns:SetUserAccountPropertyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountProperty">
+      <wsdl:input message="tns:RemoveUserAccountPropertyHttpGetIn" />
+      <wsdl:output message="tns:RemoveUserAccountPropertyHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <wsdl:input message="tns:AddThresholdHttpGetIn" />
@@ -3325,6 +3317,10 @@
       <wsdl:input message="tns:KeepSIDHttpGetIn" />
       <wsdl:output message="tns:KeepSIDHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistEx">
+      <wsdl:input message="tns:CheckAccountExistExHttpGetIn" />
+      <wsdl:output message="tns:CheckAccountExistExHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <wsdl:input message="tns:CheckAccountExistHttpGetIn" />
       <wsdl:output message="tns:CheckAccountExistHttpGetOut" />
@@ -3332,6 +3328,10 @@
     <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
       <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberHttpGetIn" />
       <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByEMail">
+      <wsdl:input message="tns:CheckAccountExistByEMailHttpGetIn" />
+      <wsdl:output message="tns:CheckAccountExistByEMailHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <wsdl:input message="tns:GetCompanySiteHttpGetIn" />
@@ -3439,14 +3439,6 @@
       <wsdl:input message="tns:GetPromotionCollectHistoryHttpPostIn" />
       <wsdl:output message="tns:GetPromotionCollectHistoryHttpPostOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByPersonCode">
-      <wsdl:input message="tns:GetUserAccountTagByPersonCodeHttpPostIn" />
-      <wsdl:output message="tns:GetUserAccountTagByPersonCodeHttpPostOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByLoginAccount">
-      <wsdl:input message="tns:GetUserAccountTagByLoginAccountHttpPostIn" />
-      <wsdl:output message="tns:GetUserAccountTagByLoginAccountHttpPostOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <wsdl:input message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpPostIn" />
       <wsdl:output message="tns:GetRequireWithdrawalHistoryByUserAccountIDHttpPostOut" />
@@ -3478,6 +3470,10 @@
     <wsdl:operation name="SetUserAccountProperty">
       <wsdl:input message="tns:SetUserAccountPropertyHttpPostIn" />
       <wsdl:output message="tns:SetUserAccountPropertyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountProperty">
+      <wsdl:input message="tns:RemoveUserAccountPropertyHttpPostIn" />
+      <wsdl:output message="tns:RemoveUserAccountPropertyHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="AddThreshold">
       <wsdl:input message="tns:AddThresholdHttpPostIn" />
@@ -3527,6 +3523,10 @@
       <wsdl:input message="tns:KeepSIDHttpPostIn" />
       <wsdl:output message="tns:KeepSIDHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistEx">
+      <wsdl:input message="tns:CheckAccountExistExHttpPostIn" />
+      <wsdl:output message="tns:CheckAccountExistExHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <wsdl:input message="tns:CheckAccountExistHttpPostIn" />
       <wsdl:output message="tns:CheckAccountExistHttpPostOut" />
@@ -3534,6 +3534,10 @@
     <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
       <wsdl:input message="tns:CheckAccountExistByContactPhoneNumberHttpPostIn" />
       <wsdl:output message="tns:CheckAccountExistByContactPhoneNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByEMail">
+      <wsdl:input message="tns:CheckAccountExistByEMailHttpPostIn" />
+      <wsdl:output message="tns:CheckAccountExistByEMailHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCompanySite">
       <wsdl:input message="tns:GetCompanySiteHttpPostIn" />
@@ -3690,51 +3694,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTag">
-      <soap:operation soapAction="http://tempuri.org/SetUserAccountTag" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTagByLoginAccount">
-      <soap:operation soapAction="http://tempuri.org/SetUserAccountTagByLoginAccount" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTagByPersonCode">
-      <soap:operation soapAction="http://tempuri.org/SetUserAccountTagByPersonCode" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByPersonCode">
-      <soap:operation soapAction="http://tempuri.org/GetUserAccountTagByPersonCode" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByLoginAccount">
-      <soap:operation soapAction="http://tempuri.org/GetUserAccountTagByLoginAccount" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <soap:operation soapAction="http://tempuri.org/GetRequireWithdrawalHistoryByUserAccountID" style="document" />
       <wsdl:input>
@@ -3800,6 +3759,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetUserAccountProperty">
       <soap:operation soapAction="http://tempuri.org/SetUserAccountProperty" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountProperty">
+      <soap:operation soapAction="http://tempuri.org/RemoveUserAccountProperty" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3915,6 +3883,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistEx">
+      <soap:operation soapAction="http://tempuri.org/CheckAccountExistEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <soap:operation soapAction="http://tempuri.org/CheckAccountExist" style="document" />
       <wsdl:input>
@@ -3926,6 +3903,15 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
       <soap:operation soapAction="http://tempuri.org/CheckAccountExistByContactPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByEMail">
+      <soap:operation soapAction="http://tempuri.org/CheckAccountExistByEMail" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4206,51 +4192,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTag">
-      <soap12:operation soapAction="http://tempuri.org/SetUserAccountTag" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTagByLoginAccount">
-      <soap12:operation soapAction="http://tempuri.org/SetUserAccountTagByLoginAccount" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetUserAccountTagByPersonCode">
-      <soap12:operation soapAction="http://tempuri.org/SetUserAccountTagByPersonCode" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByPersonCode">
-      <soap12:operation soapAction="http://tempuri.org/GetUserAccountTagByPersonCode" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByLoginAccount">
-      <soap12:operation soapAction="http://tempuri.org/GetUserAccountTagByLoginAccount" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <soap12:operation soapAction="http://tempuri.org/GetRequireWithdrawalHistoryByUserAccountID" style="document" />
       <wsdl:input>
@@ -4316,6 +4257,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetUserAccountProperty">
       <soap12:operation soapAction="http://tempuri.org/SetUserAccountProperty" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountProperty">
+      <soap12:operation soapAction="http://tempuri.org/RemoveUserAccountProperty" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4431,6 +4381,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistEx">
+      <soap12:operation soapAction="http://tempuri.org/CheckAccountExistEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <soap12:operation soapAction="http://tempuri.org/CheckAccountExist" style="document" />
       <wsdl:input>
@@ -4442,6 +4401,15 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
       <soap12:operation soapAction="http://tempuri.org/CheckAccountExistByContactPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByEMail">
+      <soap12:operation soapAction="http://tempuri.org/CheckAccountExistByEMail" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4704,24 +4672,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByPersonCode">
-      <http:operation location="/GetUserAccountTagByPersonCode" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByLoginAccount">
-      <http:operation location="/GetUserAccountTagByLoginAccount" />
-      <wsdl:input>
-        <http:urlEncoded />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <http:operation location="/GetRequireWithdrawalHistoryByUserAccountID" />
       <wsdl:input>
@@ -4787,6 +4737,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetUserAccountProperty">
       <http:operation location="/SetUserAccountProperty" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountProperty">
+      <http:operation location="/RemoveUserAccountProperty" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -4902,6 +4861,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistEx">
+      <http:operation location="/CheckAccountExistEx" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <http:operation location="/CheckAccountExist" />
       <wsdl:input>
@@ -4913,6 +4881,15 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
       <http:operation location="/CheckAccountExistByContactPhoneNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByEMail">
+      <http:operation location="/CheckAccountExistByEMail" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -5157,24 +5134,6 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByPersonCode">
-      <http:operation location="/GetUserAccountTagByPersonCode" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUserAccountTagByLoginAccount">
-      <http:operation location="/GetUserAccountTagByLoginAccount" />
-      <wsdl:input>
-        <mime:content type="application/x-www-form-urlencoded" />
-      </wsdl:input>
-      <wsdl:output>
-        <mime:mimeXml part="Body" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetRequireWithdrawalHistoryByUserAccountID">
       <http:operation location="/GetRequireWithdrawalHistoryByUserAccountID" />
       <wsdl:input>
@@ -5240,6 +5199,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetUserAccountProperty">
       <http:operation location="/SetUserAccountProperty" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveUserAccountProperty">
+      <http:operation location="/RemoveUserAccountProperty" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
@@ -5355,6 +5323,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistEx">
+      <http:operation location="/CheckAccountExistEx" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CheckAccountExist">
       <http:operation location="/CheckAccountExist" />
       <wsdl:input>
@@ -5366,6 +5343,15 @@
     </wsdl:operation>
     <wsdl:operation name="CheckAccountExistByContactPhoneNumber">
       <http:operation location="/CheckAccountExistByContactPhoneNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckAccountExistByEMail">
+      <http:operation location="/CheckAccountExistByEMail" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

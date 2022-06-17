@@ -240,6 +240,12 @@
 
     }
 
+    function bankBranchCodeCheck() {
+        var bankBranchCode = $("#bankBranchCode").val().replace(/[^\-?\d.]/g, '')
+        $("#bankBranchCode").val(bankBranchCode);
+
+    }
+
     function setPaymentAmount() {
         for (var i = 0; i < PaymentMethod.length; i++) {
             let PaymentName = PaymentMethod[i]["PaymentName"];
@@ -270,6 +276,7 @@
         var bankCard = $("#bankCard").val().trim();
         var bankCardName = $("#bankCardName").val().trim();
         var bankName = $("#SearchBank").val();
+        var bankBranchCode = $("#bankBranchCode").val().trim();
         if ($("#amount").val().trim() == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () {});
             return false;
@@ -290,6 +297,12 @@
             return false;
         }
 
+        if (bankBranchCode == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入分行代碼"), function () { });
+            return false;
+        }
+
+
         var amount = parseFloat($("#amount").val().trim());
     
         var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
@@ -302,8 +315,8 @@
                 if (success) {
                     let UserAccountPayments = o.UserAccountPayments;
                     if (o.Result == 0) {
-                        //if (UserAccountPayments.length == 0) {
-                        if (UserAccountPayments.length > 0) {
+                        if (UserAccountPayments.length == 0) {
+                        //if (UserAccountPayments.length > 0) {
                             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
 
                             });
@@ -322,7 +335,8 @@
                                         $("#depositdetail .bankCardName").text(bankCardName);
                                         $("#depositdetail .bankCard").text(bankCard);
                                         $("#depositdetail .bankName").text(bankName);
-                                   
+                                        $("#depositdetail .bankBranchCode").text(bankBranchCode);
+                                        
                                         if (data.PaymentCryptoDetailList != null) {
                                             var depositdetail = document.getElementsByClassName("Collectionitem")[0];
                                             for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
@@ -377,8 +391,9 @@
         var bankCard = $("#bankCard").val().trim();
         var bankCardName = $("#bankCardName").val().trim();
         var bankName = $("#SearchBank").val();
+        var bankBranchCode = $("#bankBranchCode").val().trim();
 
-        PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, bankCard, bankCardName, bankName, function (success, o) {
+        PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, bankCard, bankCardName, bankName, bankBranchCode, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     //setEthWalletAddress(o.Message)
@@ -603,11 +618,22 @@
                                      <div class="input-group">
 
                                      </div>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
+                         
+                                           </div>
                                  </div>
-                                <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
-                            <select class="custom-select" id="SearchBank">
+                                   <select class="custom-select" id="SearchBank" style="margin-bottom: 20px;">
                             </select>
-                        </div>
+                                
+                                  
+                     
+                                    <div class="form-group">
+                                    <label class="form-title language_replace">輸入分行代碼</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control custom-style" id="bankBranchCode" language_replace="placeholder" placeholder="請輸入分行代碼" onkeyup="bankBranchCodeCheck()" />
+                                   
+                                    </div>
+                                </div>
 
                                 <!-- 換算金額(日元) -->
                                 <%--<div class="form-group ">
@@ -724,7 +750,11 @@
                                      <li class="item">
                                         <h6 class="title language_replace">銀行</h6>
                                         <span class="data bankName"></span>
-                                    </li>           
+                                    </li>  
+                                     <li class="item">
+                                        <h6 class="title language_replace">分行代碼</h6>
+                                        <span class="data bankBranchCode"></span>
+                                    </li>   
                                 </ul>
                             </div>
                         </div>

@@ -222,6 +222,30 @@ public static class EWinWebDB {
             return ReturnValue;
         }
 
+        public static int UpdateJKCDepositByContactPhoneNumber2(string ContactPhoneNumber, decimal Amount)
+        {
+            //Type: 0=Collect/1=Join
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int ReturnValue = -1;
+            SS = "spUpdateJKCDepositByContactPhoneNumber2";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
+            DBCmd.Parameters.Add("@ContactPhoneNumber", System.Data.SqlDbType.VarChar).Value = ContactPhoneNumber;
+            DBCmd.Parameters.Add("@Amount", System.Data.SqlDbType.Decimal).Value = Amount;
+            DBCmd.Parameters.Add("@RETURN", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.ReturnValue;
+            DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
+
+            if (ReturnValue == 0)
+            {
+                RedisCache.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(ContactPhoneNumber);
+            }
+
+            return ReturnValue;
+        }
+
         public static int InsertJKCDepositByContactPhoneNumber(string ContactPhoneNumber, decimal Amount)
         {
             //Type: 0=Collect/1=Join

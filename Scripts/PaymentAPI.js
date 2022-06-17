@@ -406,7 +406,7 @@
         });
     };
 
-    this.ConfirmEPayWithdrawal = function (WebSID, GUID, OrderNumber, bankCard, bankCardName, bankName, cb) {
+    this.ConfirmEPayWithdrawal = function (WebSID, GUID, OrderNumber, bankCard, bankCardName, bankName, bankBranchCode, cb) {
         var url = APIUrl + "/ConfirmEPayWithdrawal";
         var postData;
 
@@ -416,7 +416,8 @@
             OrderNumber: OrderNumber,
             BankCard: bankCard,
             BankCardName: bankCardName,
-            BankName: bankName
+            BankName: bankName,
+            BankBranchCode: bankBranchCode
         };
 
         callService(url, postData, 10000, function (success, text) {
