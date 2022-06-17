@@ -793,6 +793,40 @@
                             </div>
                         </div>
                     </div>
+                    <div class="box-item">
+                        <div class="box-item-link">
+                            <div class="box-item-inner">
+                                <div class="box-item-img">
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                                    </div>
+                                </div>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">Texas Ｈold'em</div>
+                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                                </div>
+                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="box-item-link">
+                            <div class="box-item-inner">
+                                <div class="box-item-img">
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                                    </div>
+                                </div>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">Texas Ｈold'em</div>
+                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                                </div>
+                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                

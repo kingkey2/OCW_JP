@@ -658,6 +658,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     bottom: 35px;
   }
 
+  .recommend-list .box-item {
+    width: 33.33%;
+  }
+
   .game_slider .swiper-slide {
     padding-right: 15px;
   }
