@@ -193,13 +193,11 @@
                     updateGameList();
                 }
 
-                if (FourGames) {
-                    //var ParentMain = document.getElementById("ParentRecommendGameItem");
-                    //ParentMain.innerHTML = "";
-                    for (var i = 0; i < FourGames.length; i++) {
-                        setFourGame(i);
-                    }
-                }
+                //if (FourGames) {
+                //    for (var i = 0; i < FourGames.length; i++) {
+                //        setFourGame(i);
+                //    }
+                //}
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -784,7 +782,7 @@
             </div>
         </section>
         <!-- 推薦遊戲 -->
-        <section class="section_recommand section-wrap">
+        <section class="section_recommand section-wrap" style="display:none">
             <div class="container">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">
