@@ -18,6 +18,6 @@
   "PayPal　10,000+獎金10,000的情況": "PayPal　10,000+ボーナス10,000の場合",
   "10,000×1.5倍+10,000×20倍=215,000​": "10,000×1.5倍+10,000×20倍=215,000​",
   "此處": "こちら",
-  "關於出金門檻的詳細說明於": "ローリングについての詳しい説明は<span class='link' style='cursor: pointer' onclick='window.parent.API_LoadPage('guide_Rolling', 'guide_Rolling.html', false)'>こちら</span>",
+  "關於出金門檻的詳細說明於": "ローリングについての詳しい説明は<span class=\"link\" style=\"cursor: pointer\" onclick=\"window.parent.API_LoadPage('guide_Rolling', 'Article/guide_Rolling.html', false)\">こちら</span>",
   "4.持有的OCoin在100以下時入金，或是領取領獎中心的OCoin即可解除原有的出金門檻。": "4.既存の出金制限ローリングを解除するには、所有のOCoinが100以下になった時に入金をするか受取箱のOCoin受取るかで解除できます。"
 }
