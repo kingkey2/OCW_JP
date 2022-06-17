@@ -2,12 +2,12 @@
   "Name": "Act005",
   "State": 0,
   "StartDate": "2022/06/01 00:00:00",
-  "EndDate": "2022/07/01 00:00:00",
-  "Self": {
+  "EndDate": "2099/07/01 00:00:00",
+  "Self": { 
     "BonusValue": 500,
     "ThresholdValue": 10000
   },
-  "Parent": {
+  "Parent": { 
     "BonusValue": 500,
     "ThresholdValue": 500
   },

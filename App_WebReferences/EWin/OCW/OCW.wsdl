@@ -294,6 +294,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="ExtraData" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="OldPassword" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactAddress" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="UpdateUserAccountResponse">
