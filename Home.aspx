@@ -713,18 +713,124 @@
                 </div>
             </div>
         </section>
-
+        <!-- 推薦遊戲 -->
         <section class="section_recommand section-wrap">
             <div class="container">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">
-                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName"></span></h3>
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
                     </div>
                     <a class="text-link" href="casino.html">
                         <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                     </a>
                 </div>
+                <div class="box-item-container recommend-list">
+                    <div class="box-item">
+                        <div class="box-item-link">
+                            <div class="box-item-inner">
+                                <div class="box-item-img">
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                                    </div>
+                                </div>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">Texas Ｈold'em</div>
+                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                                </div>
+                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="box-item-link">
+                            <div class="box-item-inner">
+                                <div class="box-item-img">
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                                    </div>
+                                </div>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">Texas Ｈold'em</div>
+                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                                </div>
+                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="box-item-link">
+                            <div class="box-item-inner">
+                                <div class="box-item-img">
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                                    </div>
+                                </div>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">Texas Ｈold'em</div>
+                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                                </div>
+                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="box-item-link">
+                            <div class="box-item-inner">
+                                <div class="box-item-img">
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                                    </div>
+                                </div>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">Texas Ｈold'em</div>
+                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                                </div>
+                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="box-item-link">
+                            <div class="box-item-inner">
+                                <div class="box-item-img">
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                                    </div>
+                                </div>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">Texas Ｈold'em</div>
+                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                                </div>
+                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="box-item-link">
+                            <div class="box-item-inner">
+                                <div class="box-item-img">
+                                    <div class="img-wrap">
+                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                                    </div>
+                                </div>
+                                <div class="box-item-detail">
+                                    <div class="box-item-title">Texas Ｈold'em</div>
+                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                                </div>
+                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+               
+                          
             </div>
         </section>
        
