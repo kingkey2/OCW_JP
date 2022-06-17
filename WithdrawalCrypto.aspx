@@ -826,7 +826,7 @@
                                           <ul class="list-style-decimal">
                                             <li><span class="language_replace">顯示的取款金額不包含燃料費（若金額為10萬OCoin以下，到帳金額將視扣除燃料費後的金額。）</span></li>
                                             <li><span class="language_replace">取款10萬OCoin以上不必支付燃料費。</span></li>
-                                            <li><span class="language_replace">取款一日最多三次</span></li>
+                                            <li><span class="language_replace">取款一日最多三次。</span></li>
                                             <li><span class="language_replace">1天內的取款金額最高為100萬OCoin。</span></li>
                                             <li><span class="language_replace">申請取款後，弊公司出款完畢起，客戶若欲更改錢包地址，或地址有誤，弊公司會盡力處理，但不負任何責任。取款時請仔細確認錢包地址。</span></li>
                                          </ul>  

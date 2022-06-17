@@ -467,6 +467,33 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     //[WebMethod]
+    //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue) {
+
+    //    if (CheckPassword(password)) {
+    //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+    //        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+    //        string description = "Act001";
+    //        string GUID = System.Guid.NewGuid().ToString();
+
+    //        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+    //        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
+
+    //        lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 1, 90, description, PropertySets.ToArray());
+    //        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, decimal.Parse(ThresholdValue), decimal.Parse(BonusValue));
+    //    }
+    //}
+
+    //public string GetToken() {
+    //    string Token;
+    //    int RValue;
+    //    Random R = new Random();
+    //    RValue = R.Next(100000, 9999999);
+    //    Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+
+    //    return Token;
+    //}
+
+    //[WebMethod]
     //public void SendMail() {
     //    string Subject = string.Empty;
     //    string SendBody = string.Empty;
