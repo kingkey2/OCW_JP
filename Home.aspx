@@ -28,7 +28,7 @@
     <title>Maharaja</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
-    <link href="css/basic.min.css" rel="stylesheet" />    
+    <link href="css/basic.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css?a=1">
     <link rel="stylesheet" href="css/index.css?a=1">
 
@@ -41,7 +41,7 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script src="Scripts/lozad.min.js"></script>
-    
+
 </head>
 <script type="text/javascript">
     if (self != top) {
@@ -62,8 +62,47 @@
     //temp
 
     var MyGames;
-
     var FavoGames;
+    var FavoGames;
+
+    var FourGames = [
+        {
+            GameName: "EWinGaming",
+            GameBrand: "EWin",
+            GameLangName:"EWinGaming",
+            Description: "元祖ライブバカラ新しいサービス初めました！"
+        },
+        {
+            GameName: "43",
+            GameBrand: "KGS",
+            GameLangName:"KGS.43",
+            Description: "７枚のトランプが自動的に配られて、当たりかはずれを待つ時がすごくワクワクします。"
+        },
+        {
+            GameName: "126",
+            GameBrand: "PG",
+            GameLangName:"PG.126",
+            Description: "消去型のスロットゲームで、当たり率高く、フリースピンが入ると超大当たりが入り易い。"
+        },
+        {
+            GameName: "228",
+            GameBrand: "BNG",
+            GameLangName:"BNG.228",
+            Description: "ゴールドがたまるとフリースピンに入り、フリースピン中に更にフリースピンが当たります。"
+        },
+        {
+            GameName: "101",
+            GameBrand: "PG",
+            GameLangName:"PG.101",
+            Description: "連鎖すると賞金倍率が上昇ボーナ中で更に上昇でドキドキ感が堪らない！"
+        },
+        {
+            GameName: "89",
+            GameBrand: "PG",
+            GameLangName:"PG.89",
+            Description: "最高32400のマルチウェイ！最高倍率はなんと10万倍だ！熱い！"
+        }
+    ];
 
     function initSwiper() {
         //HERO 
@@ -112,6 +151,29 @@
         });
     }
 
+    function setFourGame(index) {
+        var tempGI;
+        var tempGI_img;
+        var tempGI_a;
+        var temp_gameItem;
+        var ParentMain = document.getElementById("ParentRecommendGameItem");
+
+        temp_gameItem = FourGames[index];
+        tempGI = c.getTemplate("temRecommendGameItem");
+        tempGI_img = tempGI.querySelector("img");
+        tempGI_a = tempGI.querySelector("a");
+
+        if (tempGI_img != null) {
+            tempGI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + temp_gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + temp_gameItem.GameName + ".png";
+            tempGI_img.onerror = new Function("setDefaultIcon('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "')");
+        }
+
+        c.setClassText(tempGI, "gameName", null, window.parent.API_GetGameLang(1, temp_gameItem.GameBrand, temp_gameItem.GameName));
+        c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));
+        tempGI.onclick = new Function("window.parent.openGame('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "','" + temp_gameItem.GameLangName + "')");
+        ParentMain.prepend(tempGI);
+    }
+
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -130,6 +192,14 @@
                 if (GCB.FirstLoaded) {
                     updateGameList();
                 }
+
+                if (FourGames) {
+                    //var ParentMain = document.getElementById("ParentRecommendGameItem");
+                    //ParentMain.innerHTML = "";
+                    for (var i = 0; i < FourGames.length; i++) {
+                        setFourGame(i);
+                    }
+                }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -145,7 +215,7 @@
     }
 
     function refreshFavoGame() {
-  
+
         FavoGames = window.parent.API_GetFavoGames();
         var idFavoGameItemGroup = document.getElementById('idFavoGameItemGroup');
         if (idFavoGameItemGroup) {
@@ -180,7 +250,7 @@
 
                             GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
                         } else {
-                           
+
                             var GI_gameitemlink = GI.querySelector(".game-item-link");
                             GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
                             GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
@@ -346,11 +416,11 @@
                                 //     slidesPerGroup: 3,
                                 // },
                                 // 640: {
-                                    // slidesPerGroup: 4,
+                                // slidesPerGroup: 4,
                                 // },
                                 936: {
-                                     freeMode: false,
-                                     slidesPerGroup: 6, //index:992px
+                                    freeMode: false,
+                                    slidesPerGroup: 6, //index:992px
                                 },
                                 1144: {
                                     slidesPerGroup: 7, //index:1200px
@@ -537,8 +607,8 @@
                 if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
                     updateGameList();
                     refreshFavoGame();
-                } 
-                
+                }
+
                 break;
             case "IndexFirstLoad":
                 //window.parent.API_LoadingEnd();
@@ -582,7 +652,7 @@
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)">                            
+                        <div class="hero-item" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)">
                             <a class="hero-item-link hero-item-href"></a>
                             <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
                             <div class="hero-item-box mobile">
@@ -642,7 +712,7 @@
             </div>
         </section>
         <!--  -->
-       
+
         <section class="section_publicize section-wrap">
             <div class="container">
                 <%--
@@ -669,8 +739,8 @@
                             <div class="item bulletin">
                                 <div class="bulletin_inner">
                                     <h2 class="title language_replace">最新公告</h2>
-                                        <ul class="bulletin_list" id="idBulletinBoardContent">
-                                        </ul>
+                                    <ul class="bulletin_list" id="idBulletinBoardContent">
+                                    </ul>
                                 </div>
                             </div>
                             <div class="item login">
@@ -724,116 +794,14 @@
                         <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                     </a>
                 </div>
-                <div class="box-item-container recommend-list">
-                    <div class="box-item">
-                        <div class="box-item-link">
-                            <div class="box-item-inner">
-                                <div class="box-item-img">
-                                    <div class="img-wrap">
-                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
-                                    </div>
-                                </div>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title">Texas Ｈold'em</div>
-                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
-                                </div>
-                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-item">
-                        <div class="box-item-link">
-                            <div class="box-item-inner">
-                                <div class="box-item-img">
-                                    <div class="img-wrap">
-                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
-                                    </div>
-                                </div>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title">Texas Ｈold'em</div>
-                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
-                                </div>
-                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-item">
-                        <div class="box-item-link">
-                            <div class="box-item-inner">
-                                <div class="box-item-img">
-                                    <div class="img-wrap">
-                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
-                                    </div>
-                                </div>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title">Texas Ｈold'em</div>
-                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
-                                </div>
-                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-item">
-                        <div class="box-item-link">
-                            <div class="box-item-inner">
-                                <div class="box-item-img">
-                                    <div class="img-wrap">
-                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
-                                    </div>
-                                </div>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title">Texas Ｈold'em</div>
-                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
-                                </div>
-                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-item">
-                        <div class="box-item-link">
-                            <div class="box-item-inner">
-                                <div class="box-item-img">
-                                    <div class="img-wrap">
-                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
-                                    </div>
-                                </div>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title">Texas Ｈold'em</div>
-                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
-                                </div>
-                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-item">
-                        <div class="box-item-link">
-                            <div class="box-item-inner">
-                                <div class="box-item-img">
-                                    <div class="img-wrap">
-                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
-                                    </div>
-                                </div>
-                                <div class="box-item-detail">
-                                    <div class="box-item-title">Texas Ｈold'em</div>
-                                    <div class="box-item-desc">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
-                                </div>
-                                <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
-                                
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
+              
                 </div>
-               
-                          
+
+
             </div>
         </section>
-       
+
 
         <section class="game-area section-wrap  overflow-hidden">
             <div class="container" id="gameAreas"></div>
@@ -845,10 +813,10 @@
     <div class="tmpModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
             <!-- <div> -->
-                <li class="item">
-                    <span class="date CreateDate"></span>
-                    <span class="info BulletinTitle" style="cursor: pointer"></span>
-                </li>
+            <li class="item">
+                <span class="date CreateDate"></span>
+                <span class="info BulletinTitle" style="cursor: pointer"></span>
+            </li>
             <!-- </div> -->
         </div>
     </div>
@@ -935,6 +903,26 @@
                             <h3 class="game-item-name">バタフライブロッサム</h3>
                         </div>
                     </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="temRecommendGameItem">
+        <div class="box-item">
+            <div class="box-item-link">
+                <div class="box-item-inner">
+                    <div class="box-item-img">
+                        <div class="img-wrap">
+                            <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                        </div>
+                    </div>
+                    <div class="box-item-detail">
+                        <div class="box-item-title gameName">Texas Ｈold'em</div>
+                        <div class="box-item-desc gameDescription">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                    </div>
+                    <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
 
                 </div>
             </div>
