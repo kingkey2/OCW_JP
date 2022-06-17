@@ -2189,7 +2189,8 @@
                             <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
                             <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                         </div>
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
+                        
+                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: none;">
                             <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
                                 <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
                                 <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
@@ -2211,6 +2212,15 @@
                                 <option class="searchFilter-option language_replace" value="BG">BG</option>
                             </select>
                         </div>
+                        <div class="searchFilter-item input-group game-brand">
+                            <div class="gameNameSetting btn_gameNameSetting">
+                                <div class="gameName"><span class="language_replace">遊戲品牌</span></div>
+                                <div class="has-arrow"><i class="arrow"></i></div>
+                            </div>
+
+                        </div>
+
+
                         <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
                             <select class="custom-select" id="seleGameCategory">
                                 <option class="title language_replace" value="All" selected>全部</option>
@@ -2221,7 +2231,32 @@
                                 <option class="searchFilter-option language_replace" value="Sports">Sports</option>
                             </select>
                         </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>
+                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
+                    </div>
+                    <div class="brand-wrapper">
+                        <ul class="lang-popup-list">
+                            <li class="lang-item custom-control custom-radioValue-lang">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden"
+                                        checked>
+                                    <div class="custom-input radio-button">
+                                        <span class="flag JP"><i class="icon icon-mask icon-flag-JP"></i></span>
+                                        <span class="name">日本語</span>
+                                    </div>
+                                </label>
+                            </li>                           
+                            <li class="lang-item custom-control custom-radioValue-lang">
+                                <label class="custom-label">
+                                    <input type="radio" name="button-langExchange" class="custom-control-input-hidden">
+                                    <div class="custom-input radio-button">
+                                        <span class="flag ZH"><i class="icon icon-mask icon-flag-ZH"></i></span>
+                                        <span class="name">繁體中文</span>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+
+
                     </div>
                     
                 </div>

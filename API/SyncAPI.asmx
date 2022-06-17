@@ -60,37 +60,37 @@ public class SyncAPI : System.Web.Services.WebService
     //    return R;
     //}
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult UpdateJKCUserAccount(string ContactPhoneNumber,decimal Amount)
-    {
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public EWin.Lobby.APIResult UpdateJKCUserAccount(string ContactPhoneNumber,decimal Amount)
+    //{
 
-        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
+    //    EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
 
-        var retVal= EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber2(ContactPhoneNumber, Amount);
-        if (retVal==0)
-        {
-            R.Result = EWin.Lobby.enumResult.OK;
-        }
+    //    var retVal= EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber2(ContactPhoneNumber, Amount);
+    //    if (retVal==0)
+    //    {
+    //        R.Result = EWin.Lobby.enumResult.OK;
+    //    }
 
-        return R;
-    }
+    //    return R;
+    //}
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult InsertJKCUserAccountByContactPhoneNumber(string ContactPhoneNumber,decimal Amount)
-    {
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public EWin.Lobby.APIResult InsertJKCUserAccountByContactPhoneNumber(string ContactPhoneNumber,decimal Amount)
+    //{
 
-        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
+    //    EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
 
-        var retVal= EWinWebDB.JKCDeposit.InsertJKCDepositByContactPhoneNumber(ContactPhoneNumber, Amount);
-        if (retVal>0)
-        {
-            R.Result = EWin.Lobby.enumResult.OK;
-        }
+    //    var retVal= EWinWebDB.JKCDeposit.InsertJKCDepositByContactPhoneNumber(ContactPhoneNumber, Amount);
+    //    if (retVal>0)
+    //    {
+    //        R.Result = EWin.Lobby.enumResult.OK;
+    //    }
 
-        return R;
-    }
+    //    return R;
+    //}
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

@@ -1770,10 +1770,10 @@ public class PaymentAPI : System.Web.Services.WebService
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
-        {   
+        {
             if (EWinWeb.CheckInWithdrawalTime())
             {
-                 if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
+                if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
                 {
                     PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
@@ -1843,14 +1843,14 @@ public class PaymentAPI : System.Web.Services.WebService
                                                             HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
 
                                                             ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
-
+                                                            ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
                                                             CryptoDetail Dcd = new CryptoDetail()
                                                             {
                                                                 TokenCurrencyType = ReceiveCurrencyType,
                                                                 TokenContractAddress = "",
                                                                 ExchangeRate = 1,
                                                                 PartialRate = 1,
-                                                                ReceiveAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, DecimalPlaces),
+                                                                ReceiveAmount = ReceiveTotalAmount,
                                                             };
 
                                                             PaymentCommonData.PaymentCryptoDetailList.Add(Dcd);
@@ -1994,7 +1994,7 @@ public class PaymentAPI : System.Web.Services.WebService
         }
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
-        { 
+        {
             if (EWinWeb.CheckInWithdrawalTime())
             {
                 if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
@@ -2033,19 +2033,19 @@ public class PaymentAPI : System.Web.Services.WebService
                                     string Decription = "ReceiveAmount:"+TempCryptoData.ReceiveTotalAmount+",Card Number:"+BankCard+",Name:"+BankCardName+",BankName:"+BankName;
 
                                     EWin.Payment.PaymentDetailBankCard paymentDetailWallet = new EWin.Payment.PaymentDetailBankCard()
-                                        {
-                                            Status = EWin.Payment.enumBankCardStatus.None,
-                                            BankCardType = EWin.Payment.enumBankCardType.UserAccountBankCard,
-                                            BankCode = "",
-                                            BankName = BankName,
-                                            BranchName = "",
-                                            BankNumber = BankCard,
-                                            AccountName=BankCardName,
-                                            AmountMax=9999999999,
-                                            BankCardGUID=Guid.NewGuid().ToString("N"),
-                                            Description=""
-                                        };
-                                        paymentDetailBankCards.Add(paymentDetailWallet);
+                                    {
+                                        Status = EWin.Payment.enumBankCardStatus.None,
+                                        BankCardType = EWin.Payment.enumBankCardType.UserAccountBankCard,
+                                        BankCode = "",
+                                        BankName = BankName,
+                                        BranchName = "",
+                                        BankNumber = BankCard,
+                                        AccountName=BankCardName,
+                                        AmountMax=9999999999,
+                                        BankCardGUID=Guid.NewGuid().ToString("N"),
+                                        Description=""
+                                    };
+                                    paymentDetailBankCards.Add(paymentDetailWallet);
                                     paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
@@ -2480,7 +2480,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         Decription += ", TokenName=" + paymentCryptoDetail.TokenCurrencyType + " TokenAmount=" + paymentCryptoDetail.ReceiveAmount.ToString("F10");
                                         paymentDetailWallets.Add(paymentDetailWallet);
                                     }
-                                 
+
                                     paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
