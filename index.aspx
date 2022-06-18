@@ -2191,7 +2191,7 @@
                             <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                         </div>
                         
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: ;">
+                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
                             <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
                                 <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
                                 <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
