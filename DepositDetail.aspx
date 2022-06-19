@@ -137,6 +137,10 @@
                         }
                     }
 
+                    if (retData.BasicType == 2){
+                        $('#btnCancelPayment').removeClass('is-hide');
+                    }
+
 
                     OrderNumber = retData.OrderNumber;
                     c.setClassText(paymentInfoDom, "Paymentserial", null, PaymentSerial);
@@ -407,7 +411,7 @@
                   <button class="btn btn-primary" data-deposite="step4" data-toggle="modal" data-target="#depositSucc">
                         <span>確認</span>
                     </button>--%>
-                    <button class="btn btn-outline-primary" onclick="cancelPayment()">
+                    <button id="btnCancelPayment" class="btn btn-outline-primary is-hide" onclick="cancelPayment()">
                         <span class="language_replace">取消</span>
                     </button>
                 </div>
