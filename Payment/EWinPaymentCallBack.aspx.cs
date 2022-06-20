@@ -5,30 +5,24 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
-{
+public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page {
 
-    public PaymentCommonData CovertFromRow(System.Data.DataRow row)
-    {
+    public PaymentCommonData CovertFromRow(System.Data.DataRow row) {
         string DetailDataStr = "";
         string ActivityDataStr = "";
 
-        if (!Convert.IsDBNull(row["DetailData"]))
-        {
+        if (!Convert.IsDBNull(row["DetailData"])) {
             DetailDataStr = row["DetailData"].ToString();
         }
 
-        if (!Convert.IsDBNull(row["ActivityData"]))
-        {
+        if (!Convert.IsDBNull(row["ActivityData"])) {
             ActivityDataStr = row["ActivityData"].ToString();
         }
 
 
 
-        if (string.IsNullOrEmpty(DetailDataStr))
-        {
-            PaymentCommonData result = new PaymentCommonData()
-            {
+        if (string.IsNullOrEmpty(DetailDataStr)) {
+            PaymentCommonData result = new PaymentCommonData() {
                 PaymentType = (int)row["PaymentType"],
                 BasicType = (int)row["BasicType"],
                 LoginAccount = (string)row["LoginAccount"],
@@ -47,11 +41,8 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
             };
 
             return result;
-        }
-        else
-        {
-            PaymentCommonData result = new PaymentCommonData()
-            {
+        } else {
+            PaymentCommonData result = new PaymentCommonData() {
                 PaymentType = (int)row["PaymentType"],
                 BasicType = (int)row["BasicType"],
                 LoginAccount = (string)row["LoginAccount"],
@@ -73,8 +64,7 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
 
             result.PaymentCryptoDetailList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CryptoDetail>>(DetailDataStr);
 
-            if (!string.IsNullOrEmpty(ActivityDataStr))
-            {
+            if (!string.IsNullOrEmpty(ActivityDataStr)) {
                 result.ActivityDatas = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EWinTagInfoActivityData>>(ActivityDataStr);
             }
 
@@ -82,35 +72,30 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
         }
     }
 
-    public bool CheckResetThreshold(string LoginAccount)
-    {
+    public bool CheckResetThreshold(string LoginAccount) {
         bool R = false;
         EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
         var ocwApiResult = ocwApi.GetUserPointValue(GetToken(), System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
 
-        if (ocwApiResult.ResultState == EWin.OCW.enumResultState.OK)
-        {
+        if (ocwApiResult.ResultState == EWin.OCW.enumResultState.OK) {
             decimal PointValue = decimal.Parse(ocwApiResult.Message);
-            Newtonsoft.Json.Linq.JObject settingJObj = EWinWeb.GetSettingJObj();         
+            Newtonsoft.Json.Linq.JObject settingJObj = EWinWeb.GetSettingJObj();
             decimal limitValue;
 
-            if (settingJObj != null)
-            {
+            if (settingJObj != null) {
                 limitValue = (decimal)settingJObj["ThresholdBaseValue"];
 
-                if (limitValue >= PointValue)
-                {
+                if (limitValue >= PointValue) {
                     R = true;
                 }
             }
 
         }
-   
+
         return R;
     }
 
-    public string GetToken()
-    {
+    public string GetToken() {
         string Token;
         int RValue;
         Random R = new Random();
@@ -120,17 +105,14 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
         return Token;
     }
 
-    public void SetResultException(PaymentCallbackResult R, string Msg)
-    {
-        if (R != null)
-        {
+    public void SetResultException(PaymentCallbackResult R, string Msg) {
+        if (R != null) {
             R.Result = 1;
             R.Message = Msg;
         }
     }
 
-    public class PaymentCommonData
-    {
+    public class PaymentCommonData {
         public int PaymentType { get; set; } // 0=入金,1=出金
         public int BasicType { get; set; } // 0=一般/1=銀行卡/2=區塊鏈
         public int PaymentFlowType { get; set; } // 0=建立/1=進行中/2=成功/3=失敗
@@ -159,8 +141,7 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
         public string ActivityData { get; set; }
     }
 
-    public class PaymentCallbackInfo
-    {
+    public class PaymentCallbackInfo {
         public string Action { get; set; }   //Action => Create,Finished,Cancel,Reject,Accept
         public string DirectionType { get; set; }
         public string PaymentSerial { get; set; }
@@ -179,8 +160,7 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
         public string CreateDate { get; set; }
     }
 
-    public class EWinTagInfoData
-    {
+    public class EWinTagInfoData {
         public int PaymentMethodID { get; set; }
         public string PaymentCode { get; set; }
         public decimal ThresholdRate { get; set; }
@@ -189,8 +169,7 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
         public List<EWinTagInfoActivityData> ActivityDatas { get; set; }
     }
 
-    public class EWinTagInfoActivityData
-    {
+    public class EWinTagInfoActivityData {
         public string ActivityName { get; set; }
         public string JoinActivityCycle { get; set; }
         public decimal BonusRate { get; set; }
@@ -199,14 +178,12 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
         public decimal ThresholdValue { get; set; }
     }
 
-    public class PaymentCallbackResult
-    {
+    public class PaymentCallbackResult {
         public int Result { get; set; }
         public string Message { get; set; }
     }
 
-    public class CryptoDetail
-    {
+    public class CryptoDetail {
         public string TokenCurrencyType { get; set; }
         public string TokenContractAddress { get; set; }
         public decimal ReceiveAmount { get; set; }
