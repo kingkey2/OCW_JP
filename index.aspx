@@ -2175,12 +2175,13 @@
             </div>
         </div>
     </div>
-    <!-- Modal Search -->
-    <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true" style="display: ;">
+
+     <!-- Modal Search 品牌-文字版-->
+     <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">我是logo</h5>
+                    <!-- <h5 class="modal-title">我是logo</h5> -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -2189,6 +2190,7 @@
                             <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
                             <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                         </div>
+                        
                         <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
                             <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
                                 <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
@@ -2221,8 +2223,218 @@
                                 <option class="searchFilter-option language_replace" value="Sports">Sports</option>
                             </select>
                         </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>
+                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
+                    </div>                    
+                </div>
+                <div class="modal-body">
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertSearchContent">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+     <!-- Modal Search 新版 - 品牌-LOGO版 -開發中-->
+     <div class="modal fade no-footer alertSearchTemp" id="" tabindex="-1" aria-hidden="true" style="display: ">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title">我是logo</h5> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="searchFilter-wrapper">
+                        <div class="searchFilter-item input-group game-brand">
+                            <div class="input-fake-select">
+                                <div class="gameName"><span class="language_replace">遊戲品牌</span></div>
+                                <div class="has-arrow"><i class="arrow"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: ;">
+                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
+                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
+                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
+                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
+                                <option class="searchFilter-option language_replace" value="CG">CG</option>
+                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
+                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
+                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
+                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
+                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
+                                <option class="searchFilter-option language_replace" value="KX">KX</option>
+                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
+                                <option class="searchFilter-option language_replace" value="PG">PG</option>
+                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
+                                <option class="searchFilter-option language_replace" value="PP">PP</option>
+                                <option class="searchFilter-option language_replace" value="VA">VA</option>
+                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
+                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
+                                <option class="searchFilter-option language_replace" value="BG">BG</option>
+                            </select>
+                        </div>
+                        
+                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
+                            <select class="custom-select" id="seleGameCategory">
+                                <option class="title language_replace" value="All" selected>全部</option>
+                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
+                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
+                                <option class="searchFilter-option language_replace" value="Live">Live</option>
+                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
+                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
+                            </select>
+                        </div>
+                        <div class="searchFilter-item input-group keyword">
+                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
+                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                        </div>
+                        <button onclick="searchGameList()" type="button" class="btn btn-full-main btn-sm btn-search-popup"><span class="language_replace">検索</span></button> 
+                        
+                        <!-- 品牌LOGO版 Collapse -->
+                        <div class="brand-wrapper">
+                            <!-- <span class="select-cancel">取消所選</span> -->
+                            <div class="brand-inner">
+
+                                <ul class="brand-popup-list">
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                checked>
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-BG.png" alt=""></span>
+                                                </span>
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                >
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-CG.png" alt=""></span>
+                                                </span>                                          
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                >
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-BNG.png" alt=""></span>
+                                                </span>                                          
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                >
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-BTI.png" alt=""></span>
+                                                </span>                                          
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                >
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-CQ9.png" alt=""></span>
+                                                </span>                                          
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                >
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-EVO.png" alt=""></span>
+                                                </span>                                          
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                >
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-KX.png" alt=""></span>
+                                                </span>                                          
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                >
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-PG.png" alt=""></span>
+                                                </span>                                          
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                        <label class="custom-label">
+                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                                >
+                                            <div class="custom-input checkbox">
+                                                <span class="logo-wrap">
+                                                    <span class="img-wrap">
+                                                        <img src="images/logo/default/logo-PNG.png" alt=""></span>
+                                                </span>                                          
+                                            </div>
+                                        </label>
+                                    </li>                           
+                                                            
+                                                             
+                                  
+                                </ul>
+
+                            </div>
+                            <div class="wrapper-center">
+                                <button class="btn btn-outline-main btn-brand-cancel" type="button">
+                                    <span class="language_replace">取消所選</span>
+                                </button>
+                                <button class="btn btn-full-main btn-brand-confirm" type="button">
+                                    <span class="language_replace">確認</span>
+                                </button>
+                            </div>                            
+    
+                        </div>
+                    </div>
+                    
                     
                 </div>
                 <div class="modal-body">
@@ -2244,6 +2456,10 @@
             </div>
         </div>
     </div>
+
+   
+
+   
 
     <!-- 遊戲介紹 Modal-->
     <div class="modal fade modal-game" tabindex="-1" role="dialog" aria-labelledby="alertGameIntro" aria-hidden="true" id="alertGameIntro">
@@ -2602,6 +2818,9 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal Search 品牌-文字版-->
     <div id="tmpSearchGameItem" class="is-hide">
         <div class="game-item col-auto">
             <div class="game-item-inner">
@@ -2621,8 +2840,61 @@
                                 <ul class="moreInfo-item-wrapper">
                                     <li class="moreInfo-item brand">
                                         <h4 class="value BrandName"></h4>
+                                    </li>                                   
+                                    <li class="moreInfo-item RTP">
+                                        <span class="title">RTP</span>
+                                        <span class="value number valueRTP"></span>
                                     </li>
-                                    <li class="moreInfo-item category">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="game-item-info-indicator">
+                            <div class="action">
+                                <div class="btn-s-wrapper">
+                                    <!-- 按讚 按鈕移除 -->
+                                    <button type="button" class="btn-thumbUp btn btn-round" style="display: none;">
+                                        <i class="icon icon-m-thumup"></i>
+                                    </button>
+                                    
+                                    <button type="button" class="btn-like btn btn-round">
+                                        <i class="icon icon-m-favorite"></i>
+                                    </button>
+                                </div>
+                                <!-- play 按鈕移除 -->
+                                <button type="button" class="btn btn-play">
+                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Search 新版 - 品牌-LOGO版-->
+    <div id="" class="is-hide">
+        <div class="game-item col-auto">
+            <div class="game-item-inner">
+                <div class="game-item-img">
+                    <span class="game-item-link"></span>
+                    <div class="img-wrap">
+                        <img class="gameimg" src="">
+                    </div>
+                </div>
+                <div class="game-item-info">
+                    <div class="game-item-info-inner">
+                        <div class="game-item-info-brief">
+                            <div class="game-item-info-pre">
+                                <h3 class="gameName"></h3>
+                            </div>
+                            <div class="game-item-info-moreInfo">
+                                <ul class="moreInfo-item-wrapper">
+                                    <li class="moreInfo-item brand">
+                                        <h4 class="value BrandName"></h4>
+                                    </li>
+                                    <li class="moreInfo-item category" style="display: ;">
                                         <h4 class="value">SLOT</h4>
                                     </li>
                                     <li class="moreInfo-item RTP">
@@ -2655,5 +2927,16 @@
             </div>
         </div>
     </div>
+
+    <!-- 品牌LOGO版 Collapse TEST-->
+    <script>
+        $('.brand-wrapper:not(.show)').hide();
+        $('.input-fake-select').click(function(){
+          $(this).toggleClass('show');
+          $(this).parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
+         });
+    </script>
+
+
 </body>
 </html>
