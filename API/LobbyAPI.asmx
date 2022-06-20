@@ -1717,11 +1717,15 @@ public class LobbyAPI : System.Web.Services.WebService
 
                         if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
                             string JoinActivityCycle = "1";
-                            Newtonsoft.Json.Linq.JArray actioncontent = Newtonsoft.Json.Linq.JArray.Parse(Collect.ActionContent);
+                            Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
 
-                            foreach (var item in actioncontent) {
-                                if (item["Field"].ToString() == "JoinActivityCycle") {
-                                    JoinActivityCycle = item["JoinActivityCycle"].ToString();
+                            if (actioncontent["ActionList"] != null) {
+                                Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+
+                                foreach (var item in actionlist) {
+                                    if (item["Field"].ToString() == "JoinActivityCycle") {
+                                        JoinActivityCycle = item["Value"].ToString();
+                                    }
                                 }
                             }
 
@@ -1757,11 +1761,15 @@ public class LobbyAPI : System.Web.Services.WebService
 
                                     if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
                                         string JoinActivityCycle = "1";
-                                        Newtonsoft.Json.Linq.JArray actioncontent = Newtonsoft.Json.Linq.JArray.Parse(Collect.ActionContent);
+                                        Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
 
-                                        foreach (var item in actioncontent) {
-                                            if (item["Field"].ToString() == "JoinActivityCycle") {
-                                                JoinActivityCycle = item["JoinActivityCycle"].ToString();
+                                        if (actioncontent["ActionList"] != null) {
+                                            Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+
+                                            foreach (var item in actionlist) {
+                                                if (item["Field"].ToString() == "JoinActivityCycle") {
+                                                    JoinActivityCycle = item["Value"].ToString();
+                                                }
                                             }
                                         }
 
