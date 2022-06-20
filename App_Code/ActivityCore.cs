@@ -340,6 +340,7 @@ public static class ActivityCore
         public decimal ThresholdValue { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
+        public string JoinActivityCycle { get; set; }
         public int JoinCount { get; set; }
         public int CollectType { get; set; }
     }

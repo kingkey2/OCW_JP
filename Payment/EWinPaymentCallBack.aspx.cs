@@ -192,6 +192,7 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page
     public class EWinTagInfoActivityData
     {
         public string ActivityName { get; set; }
+        public string JoinActivityCycle { get; set; }
         public decimal BonusRate { get; set; }
         public decimal BonusValue { get; set; }
         public decimal ThresholdRate { get; set; }
