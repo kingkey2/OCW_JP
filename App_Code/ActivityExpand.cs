@@ -277,6 +277,7 @@ public static class ActivityExpand
                                         R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
                                         R.Data.Title = ActivityDetail["Title"].ToString();
                                         R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                                        R.Data.JoinActivityCycle = start.ToString("yyyy/MM/dd") + "-" + start.ToString("yyyy/MM/dd");
                                         R.Data.JoinCount = 1;
                                     } else {
                                         SetResultException(R, "NotEligible");

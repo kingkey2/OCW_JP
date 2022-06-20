@@ -407,16 +407,17 @@ public class LobbyAPI : System.Web.Services.WebService
             {
                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
 
-                foreach (var activityData in GetRegisterResult.Data)
-                {
+                foreach (var activityData in GetRegisterResult.Data) {
 
                     string description = activityData.ActivityName;
+                    string JoinActivityCycle = activityData.JoinActivityCycle;
 
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
                     lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
-                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, activityData.ThresholdValue, activityData.BonusValue);
+                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                 }
             }
         }
@@ -1714,13 +1715,23 @@ public class LobbyAPI : System.Web.Services.WebService
                     {
                         CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
-                        if (CollecResult.Result == EWin.Lobby.enumResult.OK)
-                        {
-                            EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, 0, 0, 0);
+                        if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
+                            string JoinActivityCycle = "1";
+                            Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
+
+                            if (actioncontent["ActionList"] != null) {
+                                Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+
+                                foreach (var item in actionlist) {
+                                    if (item["Field"].ToString() == "JoinActivityCycle") {
+                                        JoinActivityCycle = item["Value"].ToString();
+                                    }
+                                }
+                            }
+
+                            EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
                             R.Result = EWin.Lobby.enumResult.OK;
-                        }
-                        else
-                        {
+                        } else {
                             R.Result = EWin.Lobby.enumResult.ERR;
                             R.Message = "Collect Failure";
                         }
@@ -1748,13 +1759,23 @@ public class LobbyAPI : System.Web.Services.WebService
                                 {
                                     CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
-                                    if (CollecResult.Result == EWin.Lobby.enumResult.OK)
-                                    {
-                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, 0, 0, 0);
+                                    if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
+                                        string JoinActivityCycle = "1";
+                                        Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
+
+                                        if (actioncontent["ActionList"] != null) {
+                                            Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+
+                                            foreach (var item in actionlist) {
+                                                if (item["Field"].ToString() == "JoinActivityCycle") {
+                                                    JoinActivityCycle = item["Value"].ToString();
+                                                }
+                                            }
+                                        }
+
+                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
                                         R.Result = EWin.Lobby.enumResult.OK;
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, OldThresholdValue, "Undo ResetCollectPromotion. CollectID=" + CollectID.ToString(), true);
                                         R.Result = EWin.Lobby.enumResult.ERR;
                                         R.Message = "Collect Failure";

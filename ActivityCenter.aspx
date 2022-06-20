@@ -141,6 +141,22 @@
         }
     }
 
+    function activityBtnClick(type) {
+        event.stopPropagation();
+
+        switch (type) {
+            case 1:
+                window.parent.API_ComingSoonAlert();
+                break;
+            case 2:
+                window.parent.API_LoadPage('Deposit', 'Deposit.aspx', true);
+                break;
+            case 3:
+                window.parent.API_LoadPage('', 'Prize.aspx');
+                break;
+        }
+    }
+
     function EWinEventNotify(eventName, isDisplay, param) {
         switch (eventName) {
             case "LoginState":
@@ -175,7 +191,7 @@
                     </div>
                 </div>
                 <section class="section-wrap section-activity">
-                    <div class="activity-item-group">
+                    <div class="activity-item-group" onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
                         <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
@@ -189,13 +205,13 @@
                                             <div class="desc language_replace">簽到功能全新上市，神犬大吉奉女神之命給所有勤勞的MAHARAJA的會員帶來豐厚的簽到禮金！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" onclick="activityBtnClick(1)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -207,13 +223,13 @@
                                             <div class="desc language_replace">慶祝Maharaja改版新上市，四葉為此帶來女神的祝福，活動期間入金任意金額都能享有對應比值的回饋獎金(上限五萬)！！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(2,'/Activity/Act002/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -225,7 +241,7 @@
                                             <div class="desc language_replace">神犬大吉歡迎所有新朋友，無論是註冊新會員還是推廌朋友一起玩，都可以領到大吉送的見面禮金！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button onclick="GoActivityDetail(2,'/Activity/Act002/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" onclick="activityBtnClick(3)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
