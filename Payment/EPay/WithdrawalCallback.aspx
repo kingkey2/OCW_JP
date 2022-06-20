@@ -35,20 +35,8 @@
 
                             if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                             {
-                                int FinishPaymentRet;
-
-                                FinishPaymentRet = EWinWebDB.UserAccountPayment.FinishPaymentFlowStatus((string)PaymentOrderDT.Rows[0]["OrderNumber"], EWinWebDB.UserAccountPayment.FlowStatus.Success, (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
-
-                                if (FinishPaymentRet == 0)
-                                {
                                     R.ResultState = APIResult.enumResultCode.OK;
-                                    R.Message = "SUCCESS";
-                                }
-                                else
-                                {
-                                    R.ResultState = APIResult.enumResultCode.ERR;
-                                    R.Message = "FinishOrderFailure, Msg=" + FinishPaymentRet.ToString();
-                                }
+                                    R.Message = "SUCCESS"; 
                             }
                             else
                             {
