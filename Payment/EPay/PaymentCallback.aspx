@@ -40,7 +40,7 @@
                             else
                             {
                                 R.ResultState = APIResult.enumResultCode.ERR;
-                                R.Message = "Finished Fail";
+                                R.Message = "Finished Fail "+Newtonsoft.Json.JsonConvert.SerializeObject(finishResult);
                             }
                         }
                         else {
