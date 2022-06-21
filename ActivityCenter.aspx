@@ -154,6 +154,22 @@
             case 3:
                 window.parent.API_LoadPage('', 'Prize.aspx');
                 break;
+            case 4:
+                $('#alertSearch', window.parent.document).modal('show');
+                $("#alertSearchBrand", window.parent.document).val("PP");
+                window.parent.SearchGameCodeChange();
+                $("#div_SearchGameCategory", window.parent.document).show();
+                $("#seleGameCategory", window.parent.document).val("Slot");
+                window.parent.searchGameList();
+                break;
+            case 5:
+                $('#alertSearch', window.parent.document).modal('show');
+                $("#alertSearchBrand", window.parent.document).val("PP");
+                window.parent.SearchGameCodeChange();
+                $("#div_SearchGameCategory", window.parent.document).show();
+                $("#seleGameCategory", window.parent.document).val("Live");
+                window.parent.searchGameList();
+                break;
         }
     }
 
@@ -246,24 +262,42 @@
                                 </div>
                             </div>
                         </figure>
-                   <%--     <figure class="activity-item">
-                            <div class="activity-item-inner">
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="images/activity/activity-BNG.jpg">
+                                        <img src="Activity/event/pp-1/img/img-act.jpg" />
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <!-- <figcaption class="title language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！対象スロットゲームをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得！ラッキーなプレイヤーの方々はサプライズ賞ももらえるぞ！</figcaption> -->
                                             <div class="desc language_replace"></div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button onclick="GoActivityDetail(4,'/Activity/Act004/CenterPage/index.html')" type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" onclick="activityBtnClick(4)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
-                        </figure>--%>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-2/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/pp-2/img/img-live-act.jpg" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！対象スロットゲームをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得！ラッキーなプレイヤーの方々はサプライズ賞ももらえるぞ！</figcaption> -->
+                                            <div class="desc language_replace"></div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" onclick="activityBtnClick(5)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
 
                     </div>
                 </section>
