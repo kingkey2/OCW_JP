@@ -67,40 +67,39 @@
 
     var FourGames = [
         {
-            GameName: "EWinGaming",
-            GameBrand: "EWin",
-            GameLangName:"EWinGaming",
-            Description: "元祖ライブバカラ新しいサービス初めました！"
-        },
-        {
             GameName: "43",
             GameBrand: "KGS",
-            GameLangName:"KGS.43",
+            GameLangName: "KGS.43",
             Description: "７枚のトランプが自動的に配られて、当たりかはずれを待つ時がすごくワクワクします。"
         },
         {
             GameName: "126",
             GameBrand: "PG",
-            GameLangName:"PG.126",
+            GameLangName: "PG.126",
             Description: "消去型のスロットゲームで、当たり率高く、フリースピンが入ると超大当たりが入り易い。"
         },
         {
             GameName: "228",
             GameBrand: "BNG",
-            GameLangName:"BNG.228",
+            GameLangName: "BNG.228",
             Description: "ゴールドがたまるとフリースピンに入り、フリースピン中に更にフリースピンが当たります。"
         },
         {
             GameName: "101",
             GameBrand: "PG",
-            GameLangName:"PG.101",
+            GameLangName: "PG.101",
             Description: "連鎖すると賞金倍率が上昇ボーナ中で更に上昇でドキドキ感が堪らない！"
         },
         {
             GameName: "89",
             GameBrand: "PG",
-            GameLangName:"PG.89",
+            GameLangName: "PG.89",
             Description: "最高32400のマルチウェイ！最高倍率はなんと10万倍だ！熱い！"
+        }, {
+            GameName: "EWinGaming",
+            GameBrand: "EWin",
+            GameLangName: "EWinGaming",
+            Description: "元祖ライブバカラ新しいサービス初めました！"
         }
     ];
 
@@ -193,11 +192,11 @@
                     updateGameList();
                 }
 
-                //if (FourGames) {
-                //    for (var i = 0; i < FourGames.length; i++) {
-                //        setFourGame(i);
-                //    }
-                //}
+                if (FourGames) {
+                    for (var i = 0; i < FourGames.length; i++) {
+                        setFourGame(i);
+                    }
+                }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -793,7 +792,6 @@
                     </a>
                 </div>
                 <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
-              
                 </div>
 
 
