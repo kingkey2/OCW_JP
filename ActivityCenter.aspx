@@ -131,8 +131,12 @@
                     $('#ModalDailylogin').modal('show');
                     break;
                 case 4:
-                    $('#ModalBNG .activity-popup-detail-inner').load(url);
-                    $('#ModalBNG').modal('show');
+                    $('#ModalPP1 .activity-popup-detail-inner').load(url);
+                    $('#ModalPP1').modal('show');
+                    break;
+                case 5:
+                    $('#ModalPP2 .activity-popup-detail-inner').load(url);
+                    $('#ModalPP2').modal('show');
                     break;
                 default:
                     break;
@@ -281,7 +285,7 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-2/index-jp.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(5,'/Activity/event/pp-2/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -446,6 +450,50 @@
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade footer-center" id="ModalPP1" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">PP1！</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="activityBtnClick(4)">參加活動</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade footer-center" id="ModalPP2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">PP2！</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="activityBtnClick(5)">參加活動</button>
                 </div>
             </div>
         </div>
