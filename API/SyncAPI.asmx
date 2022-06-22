@@ -18,8 +18,6 @@ using System.Linq;
 [System.Web.Script.Services.ScriptService]
 public class SyncAPI : System.Web.Services.WebService
 {
-
-
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     //public EWin.Lobby.APIResult CreateJKCUserAccount()
@@ -62,13 +60,13 @@ public class SyncAPI : System.Web.Services.WebService
 
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.Lobby.APIResult UpdateJKCUserAccount(string ContactPhoneNumber,decimal Amount)
+    //public EWin.Lobby.APIResult UpdateJKCUserAccount(string ContactPhoneNumber, decimal Amount)
     //{
 
     //    EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
 
-    //    var retVal= EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber2(ContactPhoneNumber, Amount);
-    //    if (retVal==0)
+    //    var retVal = EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber2(ContactPhoneNumber, Amount);
+    //    if (retVal == 0)
     //    {
     //        R.Result = EWin.Lobby.enumResult.OK;
     //    }
@@ -78,13 +76,13 @@ public class SyncAPI : System.Web.Services.WebService
 
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.Lobby.APIResult InsertJKCUserAccountByContactPhoneNumber(string ContactPhoneNumber,decimal Amount)
+    //public EWin.Lobby.APIResult InsertJKCUserAccountByContactPhoneNumber(string ContactPhoneNumber, decimal Amount)
     //{
 
     //    EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
 
-    //    var retVal= EWinWebDB.JKCDeposit.InsertJKCDepositByContactPhoneNumber(ContactPhoneNumber, Amount);
-    //    if (retVal>0)
+    //    var retVal = EWinWebDB.JKCDeposit.InsertJKCDepositByContactPhoneNumber(ContactPhoneNumber, Amount);
+    //    if (retVal > 0)
     //    {
     //        R.Result = EWin.Lobby.enumResult.OK;
     //    }
@@ -205,9 +203,11 @@ public class SyncAPI : System.Web.Services.WebService
         string GameCategorySubCode;
         string Location = "";
         string Tag;
+
         List<OcwCompanyGameCode> AllGameCodeData = new List<OcwCompanyGameCode>();
         int ShowType = 0;
         int CategoryGameCodeCountID = 0;
+        int SortIndex = 0;
         List<CompanyCategoryByStatistics> SlotMaxBetCount3DayResult = new List<CompanyCategoryByStatistics>();
         List<CompanyCategoryByStatistics> SlotMaxBetCount30DayResult = new List<CompanyCategoryByStatistics>();
         List<CompanyCategoryByStatistics> SlotMaxWinValue7DayResult = new List<CompanyCategoryByStatistics>();
@@ -216,7 +216,7 @@ public class SyncAPI : System.Web.Services.WebService
         List<CompanyCategoryByStatistics> SlotMaxWinRateYesterdayResult = new List<CompanyCategoryByStatistics>();
         List<CompanyCategoryByStatistics> SlotMaxRTPYesterdayResult = new List<CompanyCategoryByStatistics>();
         Dictionary<int, int> CategoryGameCodeCount = new Dictionary<int, int>();
-
+        //if (true) {
         if (CheckPassword(Key)) {
             companyCategoryResult = lobbyAPI.GetCompanyCategory(GetToken(), Guid.NewGuid().ToString());
             if (companyCategoryResult.Result == EWin.Lobby.enumResult.OK) {
@@ -361,7 +361,7 @@ public class SyncAPI : System.Web.Services.WebService
                                 GameCode = companyGameCodeResult.GameCodeList[i].GameCode;
                                 GameCategoryCode = companyGameCodeResult.GameCodeList[i].GameCategoryCode;
                                 GameCategorySubCode = companyGameCodeResult.GameCodeList[i].GameCategorySubCode;
-
+                                SortIndex = companyGameCodeResult.GameCodeList[i].SortIndex;
                                 OcwCompanyGameCode ocwGameCode = new OcwCompanyGameCode() {
                                     GameID = companyGameCodeResult.GameCodeList[i].GameID,
                                     GameBrand = GameBrand,
@@ -379,37 +379,37 @@ public class SyncAPI : System.Web.Services.WebService
                                 AllGameCodeData.Add(ocwGameCode);
                                 if (SlotMaxBetCount3DayResult.Where(w => w.GameCode == GameCode).Count() > 0) {
                                     var QTY = SlotMaxBetCount3DayResult.Where(w => w.GameCode == GameCode).First().QTY;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxBetCount3DayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxBetCount3DayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                 }
 
                                 if (SlotMaxBetCount30DayResult.Where(w => w.GameCode == GameCode).Count() > 0) {
                                     var QTY = SlotMaxBetCount30DayResult.Where(w => w.GameCode == GameCode).First().QTY;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxBetCount30DayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxBetCount30DayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                 }
 
                                 if (SlotMaxWinValue7DayResult.Where(w => w.GameCode == GameCode).Count() > 0) {
                                     var QTY = SlotMaxWinValue7DayResult.Where(w => w.GameCode == GameCode).First().QTY;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxWinValue7DayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxWinValue7DayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                 }
 
                                 if (SlotMaxWinValueYesterdayResult.Where(w => w.GameCode == GameCode).Count() > 0) {
                                     var QTY = SlotMaxWinValueYesterdayResult.Where(w => w.GameCode == GameCode).First().QTY;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxWinValueYesterdayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxWinValueYesterdayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                 }
 
                                 if (SlotMaxWinRate7DayResult.Where(w => w.GameCode == GameCode).Count() > 0) {
                                     var QTY = SlotMaxWinRate7DayResult.Where(w => w.GameCode == GameCode).First().QTY;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxWinRate7DayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxWinRate7DayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                 }
 
                                 if (SlotMaxWinRateYesterdayResult.Where(w => w.GameCode == GameCode).Count() > 0) {
                                     var QTY = SlotMaxWinRateYesterdayResult.Where(w => w.GameCode == GameCode).First().QTY;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxWinRateYesterdayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxWinRateYesterdayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                 }
 
                                 if (SlotMaxRTPYesterdayResult.Where(w => w.GameCode == GameCode).Count() > 0) {
                                     var QTY = SlotMaxRTPYesterdayResult.Where(w => w.GameCode == GameCode).First().QTY;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxRTPYesterdayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(SlotMaxRTPYesterdayCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, QTY.ToString(), companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                 }
 
                                 #region 熱門遊戲
@@ -418,7 +418,7 @@ public class SyncAPI : System.Web.Services.WebService
 
                                         if (CategoryGameCodeCount[IsHotCompanyCategoryID] < 20) {
                                             CategoryGameCodeCount[IsHotCompanyCategoryID] = CategoryGameCodeCount[IsHotCompanyCategoryID] + 1;
-                                            InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsHotCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                            InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsHotCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                             if (InsertCompanyGameCodeReturn == 0) {
                                                 R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsHotCompanyCategoryID;
                                                 //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
@@ -433,7 +433,7 @@ public class SyncAPI : System.Web.Services.WebService
 
                                     if (CategoryGameCodeCount[IsNewCompanyCategoryID] < 20) {
                                         CategoryGameCodeCount[IsNewCompanyCategoryID] = CategoryGameCodeCount[IsNewCompanyCategoryID] + 1;
-                                        InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsNewCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                        InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsNewCompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                         if (InsertCompanyGameCodeReturn == 0) {
                                             R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsNewCompanyCategoryID;
                                             //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
@@ -460,7 +460,7 @@ public class SyncAPI : System.Web.Services.WebService
 
                                 if (CategoryGameCodeCount[IsGameBrandCategoryID] < 20) {
                                     CategoryGameCodeCount[IsGameBrandCategoryID] = CategoryGameCodeCount[IsGameBrandCategoryID] + 1;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsGameBrandCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsGameBrandCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                     if (InsertCompanyGameCodeReturn == 0) {
                                         R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsGameBrandCategoryID;
                                         //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
@@ -506,7 +506,7 @@ public class SyncAPI : System.Web.Services.WebService
 
                                 if (CategoryGameCodeCount[IsCategoryCodeCategoryID] < 20) {
                                     CategoryGameCodeCount[IsCategoryCodeCategoryID] = CategoryGameCodeCount[IsCategoryCodeCategoryID] + 1;
-                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsCategoryCodeCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsCategoryCodeCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                     if (InsertCompanyGameCodeReturn == 0) {
                                         R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsCategoryCodeCategoryID;
                                         //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);
@@ -525,7 +525,7 @@ public class SyncAPI : System.Web.Services.WebService
                                                 CompanyCategoryID = (int)CompanyCategoryRow[0]["CompanyCategoryID"];
                                                 if (CategoryGameCodeCount[CompanyCategoryID] < 20) {
                                                     CategoryGameCodeCount[CompanyCategoryID] = CategoryGameCodeCount[CompanyCategoryID] + 1;
-                                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(CompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, 0);
+                                                    InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(CompanyCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                                     if (InsertCompanyGameCodeReturn == 0) {
                                                         R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID;
                                                         //Console.WriteLine("InsertCompanyGameCode Error CompanyCategoryID=" + CompanyCategoryID);

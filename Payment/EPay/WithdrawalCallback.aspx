@@ -78,7 +78,7 @@
             else
             {
                 R.ResultState = APIResult.enumResultCode.ERR;
-                R.Message = "IP Fail:" + InIP+"XFORWORD:"+HttpContext.Current.Request.Headers["X-Forwarded-For"]+",UserHostAddress:"+HttpContext.Current.Request.UserHostAddress;
+                R.Message = "IP Fail:" + InIP;
             }
 
         }
