@@ -347,7 +347,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">金曜日的禮物</h5>
+                    <h5 class="modal-title language_replace">金曜日的禮物</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -359,7 +359,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_ComingSoonAlert()">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_ComingSoonAlert()">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -375,7 +375,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">盛大開幕15日限定</h5>
+                    <h5 class="modal-title language_replace">盛大開幕15日限定</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -387,7 +387,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -403,7 +403,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">MAHARAJA見面禮</h5>
+                    <h5 class="modal-title language_replace">MAHARAJA見面禮</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -415,7 +415,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -431,7 +431,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">金熱門！</h5>
+                    <h5 class="modal-title language_replace">金熱門！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -443,7 +443,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -459,7 +459,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">PP1！</h5>
+                    <h5 class="modal-title language_replace">スロットトーナメントおよび現金配布</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -471,7 +471,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="activityBtnClick(4)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(4)">參加活動</button>
                 </div>
             </div>
         </div>
@@ -481,7 +481,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">PP2！</h5>
+                    <h5 class="modal-title language_replace">夏のウィークリートーナメント-ライブカジノ</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -493,7 +493,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="activityBtnClick(5)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(5)">參加活動</button>
                 </div>
             </div>
         </div>
