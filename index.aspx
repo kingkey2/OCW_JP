@@ -1667,7 +1667,7 @@
             } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
                 gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
             } else {
-                showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
+                $('#alertSearchContent').append(`<div>${mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌")}</div>`)
                 return false;
             }
 
@@ -1709,8 +1709,9 @@
         }
 
 
-        if ($('#alertSearchContent').children().length==0) {
-            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
+        if ($('#alertSearchContent').children().length == 0) {
+            $('#alertSearchContent').append(`<div>${mlp.getLanguageKey("沒有資料")}</div>`);
+            //showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
         }
 
     };
