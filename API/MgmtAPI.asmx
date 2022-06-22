@@ -467,12 +467,12 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     //[WebMethod]
-    //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue) {
+    //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue, string ActivityName) {
 
     //    if (CheckPassword(password)) {
     //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
     //        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
-    //        string description = "Act001";
+    //        string description = ActivityName;
     //        string GUID = System.Guid.NewGuid().ToString();
 
     //        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
