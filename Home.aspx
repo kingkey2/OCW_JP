@@ -781,7 +781,7 @@
             </div>
         </section>
         <!-- 推薦遊戲 -->
-        <section class="section_recommand section-wrap" style="display:none">
+        <section class="section_recommand section-wrap">
             <div class="container">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">

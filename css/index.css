@@ -282,6 +282,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .recommend-list .box-item {
   padding: 10px;
 }
+.recommend-list .box-item-img {
+  width: 120px;
+}
 
 .dailylogin-bouns-wrapper {
   margin-top: 35px;
@@ -518,10 +521,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 712px) {
-  .recommend-list .box-item {
-    width: 50%;
-  }
-
   .hero_slider .hero-item-box.mobile {
     display: none !important;
   }
@@ -540,6 +539,18 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 936px) {
+  .section_recommand .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .recommend-list .box-item {
+    width: 50%;
+  }
+  .recommend-list .box-item-img {
+    width: 150px;
+  }
+
   .mobile {
     display: none !important;
   }
@@ -656,10 +667,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .hero_slider .swiper-pagination-bullet:nth-last-child(1) {
     bottom: 35px;
-  }
-
-  .recommend-list .box-item {
-    width: 33.33%;
   }
 
   .game_slider .swiper-slide {
