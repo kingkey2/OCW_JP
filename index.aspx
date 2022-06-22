@@ -1433,9 +1433,9 @@
                             if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                                 API_SetLogin(EWinWebInfo.SID, function (logined) {
                                     //顯示登入資訊 
-                                    //getLoginMessage(function () {
-                                    //    showLoginMessage();
-                                    //});
+                                    getLoginMessage(function () {
+                                        showLoginMessage();
+                                    });
 
                                     if (logined == false) {
                                         userRecover();

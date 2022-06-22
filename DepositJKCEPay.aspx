@@ -738,7 +738,7 @@
                                 <div class="text-wrap">
                                     <p class="title language_replace">溫馨提醒</p>
                                     <p class="language_replace">匯率波動以交易所為主，匯率可能不定時更新。</p>
-                                    <p class="language_replace">燃料費由存款者負擔。</p>
+                                    <p class="language_replace">手續費由存款者負擔。</p>
                                 </div>
                             </div>
                         </div>
