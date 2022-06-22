@@ -56,22 +56,24 @@
 
         let targetBrand = this.SearchCore.SearchDic.Brands.find(x => x.GameBrand == gameBrand);
 
+        if (targetBrand) {
+            for (var i = 0; i < targetBrand.AllGame.length; i++) {
+                // gameID + 
+                let gameID = targetBrand.AllGame[i];
+                let IndexOne = Math.trunc(gameID / 100);
+                let IndexTwo = gameID % 100;
+                let gameCodeObj = this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
 
-        for (var i = 0; i < targetBrand.AllGame.length; i++) {
-            // gameID + 
-            let gameID = targetBrand.AllGame[i];
-            let IndexOne = Math.trunc(gameID / 100);
-            let IndexTwo = gameID % 100;
-            let gameCodeObj = this.SearchCore.GameList.Slices[IndexOne][IndexTwo];
-
-            if (gameCategoryCode) {
-                if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
+                if (gameCategoryCode) {
+                    if (gameCodeObj.GameCategoryCode == gameCategoryCode) {
+                        Ret.push(gameCodeObj);
+                    }
+                } else {
                     Ret.push(gameCodeObj);
                 }
-            } else {
-                Ret.push(gameCodeObj);
             }
         }
+        
 
         return Ret;
     }
