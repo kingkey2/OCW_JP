@@ -1534,113 +1534,236 @@
     }
 
     function searchGameByBrand(gameBrand) {
+        $("input[name='button-brandExchange']").each(function () {
+            $(this).prop("checked", false);
+        });
 
-        $('#alertSearchBrand').val(gameBrand);
+        if ($('#searchIcon_' + gameBrand).length > 0) {
+            $('#searchIcon_' + gameBrand).prop("checked", true);
+        }
+
         $('#alertSearchKeyWord').val('');
         $("#seleGameCategory").val('');
         $('#alertSearch').modal('show');
-        searchGameList();
+        searchGameList(gameBrand);
+    }
+
+    function searchGameByBrandAndGameCategory(gameBrand, gameCategoryName) {
+        $('#alertSearch').modal('show');
+        $("#div_SearchGameCategory").show();
+        $("input[name='button-brandExchange']").each(function () {
+            $(this).prop("checked", false);
+        });
+
+        if ($('#searchIcon_' + gameBrand).length > 0) {
+            $('#searchIcon_' + gameBrand).prop("checked", true);
+        }
+
+        var o;
+        $("#seleGameCategory").empty();
+        o = new Option(mlp.getLanguageKey("全部"), "All");
+        $("#seleGameCategory").append(o);
+
+        var gameCategory = GCB.SearchGameCtByBrand(gameBrand);
+
+        if (gameCategory.length > 0) {
+            for (var i = 0; i < gameCategory.length; i++) {
+                    o = new Option(mlp.getLanguageKey(gameCategory[i]), gameCategory[i]);
+                    $("#seleGameCategory").append(o);
+            }
+        }
+     
+        $('#alertSearchKeyWord').val('');
+        $("#seleGameCategory").val(gameCategoryName);
+        
+        searchGameList(gameBrand);
     }
 
     //#region 搜尋彈出
-    function searchGameList() {
-        var gameBrand = $('#alertSearchBrand').val();
+    function searchGameList(gameBrand) {
+        var checkSearchFiliter = false;
+        var arrayGameBrand = [];
+        var gameBrand;
         var keyWord = $('#alertSearchKeyWord').val().trim();
         var gamecategory = $("#seleGameCategory").val() == "All" ? "" : $("#seleGameCategory").val();
         var gameList = [];
         var lang = EWinWebInfo.Lang;
-
-        if (gameBrand != "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
-        } else if (gameBrand == "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
-        } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
-            gameList = GCB.SearchGameCodeByBrand(gameBrand);
-        } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
-            gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
-        } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+        $('#alertSearchContent').empty();
+        if (gameBrand) {
+            arrayGameBrand.push(gameBrand);
         } else {
-            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
-            return false;
+            $("input[name='button-brandExchange']").each(function () {
+                if ($(this).prop("checked")) {
+                    arrayGameBrand.push($(this).attr('id').split("_")[1]);
+                }
+            });
         }
 
-        $('#alertSearchContent').empty();
-
-        if (gameList.length > 0) {
-            var FavoGames = getFavoriteGames();
-            for (var i = 0; i < gameList.length; i++) {
-                var gameItem = gameList[i];
-                var RTP = "";
-                if (gameItem.RTPInfo) {
-                    RTP = JSON.parse(gameItem.RTPInfo).RTP;
+        if (arrayGameBrand.length > 0) {
+            for (var k = 0; k < arrayGameBrand.length; k++) {
+                gameBrand = arrayGameBrand[k];
+                gameList = [];
+                if (gameBrand != "-1" && keyWord != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                } else if (gameBrand == "-1" && keyWord != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
+                } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
+                    gameList = GCB.SearchGameCodeByBrand(gameBrand);
+                } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
+                    gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
+                } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
                 }
 
-                GI = c.getTemplate("tmpSearchGameItem");
-                var GI_a = GI.querySelector(".btn-play");
-                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
-                var GI_img = GI.querySelector(".gameimg");
-                if (GI_img != null) {
-                    GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
-                    var el = GI_img;
-                    var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
-                    observer.observe();
+                if (gameList.length > 0) {
+                    var FavoGames = getFavoriteGames();
+                    for (var i = 0; i < gameList.length; i++) {
+                        var gameItem = gameList[i];
+                        var RTP = "";
+                        if (gameItem.RTPInfo) {
+                            RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        }
+
+                        GI = c.getTemplate("tmpSearchGameItem");
+                        var GI_a = GI.querySelector(".btn-play");
+                        GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                        var GI_img = GI.querySelector(".gameimg");
+                        if (GI_img != null) {
+                            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                            var el = GI_img;
+                            var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                            observer.observe();
+                        }
+
+                        var likebtn = GI.querySelector(".btn-like");
+                        if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                            $(likebtn).addClass("added");
+                        } else {
+                            $(likebtn).removeClass("added");
+                        }
+
+                        likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+
+                        $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                        $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                        $(GI).find(".valueRTP").text(RTP);
+                        $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
+                        
+                        $('#alertSearchContent').append(GI);
+                    }
                 }
-
-                var likebtn = GI.querySelector(".btn-like");
-                if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
-                    $(likebtn).addClass("added");
-                } else {
-                    $(likebtn).removeClass("added");
-                }
-
-                likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
-
-                $(GI).find(".gameName").text(gameItem.GameText[lang]);
-                $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
-                $(GI).find(".valueRTP").text(RTP);
-                $('#alertSearchContent').append(GI);
             }
-        } else {
+        }
+        else {
+            gameBrand = "-1";
+            if (gameBrand != "-1" && keyWord != '') {
+                gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+            } else if (gameBrand == "-1" && keyWord != '') {
+                gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
+            } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
+                gameList = GCB.SearchGameCodeByBrand(gameBrand);
+            } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
+                gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
+            } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
+                gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+            } else {
+                showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
+                return false;
+            }
+
+            if (gameList.length > 0) {
+                var FavoGames = getFavoriteGames();
+                for (var i = 0; i < gameList.length; i++) {
+                    var gameItem = gameList[i];
+                    var RTP = "";
+                    if (gameItem.RTPInfo) {
+                        RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                    }
+
+                    GI = c.getTemplate("tmpSearchGameItem");
+                    var GI_a = GI.querySelector(".btn-play");
+                    GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                    var GI_img = GI.querySelector(".gameimg");
+                    if (GI_img != null) {
+                        GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                        var el = GI_img;
+                        var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                        observer.observe();
+                    }
+
+                    var likebtn = GI.querySelector(".btn-like");
+                    if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                        $(likebtn).addClass("added");
+                    } else {
+                        $(likebtn).removeClass("added");
+                    }
+
+                    likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+
+                    $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                    $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                    $(GI).find(".valueRTP").text(RTP);
+                    $('#alertSearchContent').append(GI);
+                }
+            }
+        }
+
+
+        if ($('#alertSearchContent').children().length==0) {
             showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
         }
+
     };
 
-    function SearchGameCodeChange() {
-        var gameBrand = $('#alertSearchBrand').val();
-        var keyWord = $('#alertSearchKeyWord').val().trim();
+    function searchGameChange() {
 
-        if (gameBrand == "-1" && keyWord == "") {
+        var keyWord = $('#alertSearchKeyWord').val().trim();
+        var arrayGameBrand = [];
+        $("input[name='button-brandExchange']").each(function () {
+            if ($(this).prop("checked")) {
+                arrayGameBrand.push($(this).attr('id').split("_")[1]);
+            }
+        });
+
+        if (arrayGameBrand.length == 0 && keyWord == "") {
             $("#div_SearchGameCategory").hide();
         } else {
             $("#div_SearchGameCategory").show();
         }
 
-        let allGameCategory = [
-            "Electron",
-            "Fish",
-            "Live",
-            "Slot",
-            "Sports"
-        ]
-
-        let o;
+        var o;
         $("#seleGameCategory").empty();
         o = new Option(mlp.getLanguageKey("全部"), "All");
         $("#seleGameCategory").append(o);
 
-        if (gameBrand != "-1") {
+        if (arrayGameBrand.length > 0) {
+            for (var k = 0; k < arrayGameBrand.length; k++) {
+                var gameCategory = GCB.SearchGameCtByBrand(arrayGameBrand[k]);
 
-            let gameCategory = GCB.SearchGameCtByBrand($("#alertSearchBrand").val());
-
-            if (gameCategory.length > 0) {
-                for (var i = 0; i < gameCategory.length; i++) {
-                    o = new Option(mlp.getLanguageKey(gameCategory[i]), gameCategory[i]);
-                    $("#seleGameCategory").append(o);
+                if (gameCategory.length > 0) {
+                    for (var i = 0; i < gameCategory.length; i++) {
+                        if ($('#seleGameCategory').find('option[value="' + gameCategory[i] + '"]').length == 0) {
+                            o = new Option(mlp.getLanguageKey(gameCategory[i]), gameCategory[i]);
+                            $("#seleGameCategory").append(o);
+                        }
+                    }
                 }
             }
-
         }
+    }
+
+    function searchGameChangeClear() {
+        $("#div_SearchGameCategory").hide();
+
+        $("input[name='button-brandExchange']").each(function () {
+            $(this).prop("checked", false);
+        });
+    }
+
+    function searchGameChangeConfirm() {
+
+        $('.input-fake-select').toggleClass('hide');
+        $('.input-fake-select').parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
     }
 
     function SearchKeyWordKeyup() {
@@ -2176,8 +2299,79 @@
         </div>
     </div>
 
-    <!-- Modal Search 新版 - 品牌-LOGO版 -開發中-->
-    <div class="modal fade no-footer alertSearchTemp" id="alertSearch" tabindex="-1" aria-hidden="true" style="display: ">
+     <!-- Modal Search 品牌-文字版-->
+   <%--  <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title">我是logo</h5> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="searchFilter-wrapper">
+                        <div class="searchFilter-item input-group keyword">
+                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
+                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                        </div>
+                        
+                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
+                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
+                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
+                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
+                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
+                                <option class="searchFilter-option language_replace" value="CG">CG</option>
+                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
+                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
+                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
+                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
+                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
+                                <option class="searchFilter-option language_replace" value="KX">KX</option>
+                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
+                                <option class="searchFilter-option language_replace" value="PG">PG</option>
+                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
+                                <option class="searchFilter-option language_replace" value="PP">PP</option>
+                                <option class="searchFilter-option language_replace" value="VA">VA</option>
+                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
+                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
+                                <option class="searchFilter-option language_replace" value="BG">BG</option>
+                            </select>
+                        </div>
+                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
+                            <select class="custom-select" id="seleGameCategory">
+                                <option class="title language_replace" value="All" selected>全部</option>
+                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
+                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
+                                <option class="searchFilter-option language_replace" value="Live">Live</option>
+                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
+                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
+                            </select>
+                        </div>
+                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
+                    </div>                    
+                </div>
+                <div class="modal-body">
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertSearchContent">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>--%>
+
+
+     <!-- Modal Search 新版 - 品牌-LOGO版 -開發中-->
+     <div class="modal fade no-footer alertSearchTemp" id="alertSearch" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2192,30 +2386,7 @@
                                 <div class="has-arrow"><i class="arrow"></i></div>
                             </div>
                         </div>
-                        
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: ;">
-                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
-                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
-                                <option class="searchFilter-option language_replace" value="CG">CG</option>
-                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
-                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
-                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
-                                <option class="searchFilter-option language_replace" value="KX">KX</option>
-                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="PG">PG</option>
-                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
-                                <option class="searchFilter-option language_replace" value="PP">PP</option>
-                                <option class="searchFilter-option language_replace" value="VA">VA</option>
-                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
-                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
-                                <option class="searchFilter-option language_replace" value="BG">BG</option>
-                            </select>
-                        </div>
-                        
+                     
                         <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
                             <select class="custom-select" id="seleGameCategory">
                                 <option class="title language_replace" value="All" selected>全部</option>
@@ -2240,8 +2411,7 @@
                                 <ul class="brand-popup-list">
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                checked>
+                                            <input type="checkbox" name="button-brandExchange" id="searchIcon_BG" class="custom-control-input-hidden" onchange="searchGameChange()">
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
                                                     <span class="img-wrap">
@@ -2252,7 +2422,7 @@
                                     </li>                           
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                            <input type="checkbox" name="button-brandExchange" id="searchIcon_CG" class="custom-control-input-hidden"  onchange="searchGameChange()"
                                                 >
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
@@ -2264,7 +2434,7 @@
                                     </li>                           
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                            <input type="checkbox" name="button-brandExchange" id="searchIcon_BNG" class="custom-control-input-hidden"  onchange="searchGameChange()"
                                                 >
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
@@ -2276,7 +2446,7 @@
                                     </li>                           
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                            <input type="checkbox" name="button-brandExchange"  id="searchIcon_BTI" class="custom-control-input-hidden"  onchange="searchGameChange()"
                                                 >
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
@@ -2288,7 +2458,7 @@
                                     </li>                           
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                            <input type="checkbox" name="button-brandExchange"  id="searchIcon_CQ9"  class="custom-control-input-hidden" onchange="searchGameChange()"
                                                 >
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
@@ -2300,7 +2470,7 @@
                                     </li>                           
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                            <input type="checkbox" name="button-brandExchange" id="searchIcon_EVO" class="custom-control-input-hidden" onchange="searchGameChange()"
                                                 >
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
@@ -2312,7 +2482,7 @@
                                     </li>                           
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                            <input type="checkbox" name="button-brandExchange" id="searchIcon_KX" class="custom-control-input-hidden" onchange="searchGameChange()"
                                                 >
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
@@ -2324,7 +2494,7 @@
                                     </li>                           
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                            <input type="checkbox" name="button-brandExchange" id="searchIcon_PG" class="custom-control-input-hidden" onchange="searchGameChange()"
                                                 >
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
@@ -2336,7 +2506,7 @@
                                     </li>                           
                                     <li class="brand-item custom-control custom-checkboxValue-noCheck">
                                         <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
+                                            <input type="checkbox" name="button-brandExchange" id="searchIcon_PNG" class="custom-control-input-hidden" onchange="searchGameChange()"
                                                 >
                                             <div class="custom-input checkbox">
                                                 <span class="logo-wrap">
@@ -2346,24 +2516,23 @@
                                             </div>
                                         </label>
                                     </li>                           
-                                                            
-                                                             
-                                  
                                 </ul>
 
                             </div>
-                            <div class="wrapper_center">
-                                <button class="btn btn-outline-main btn-brand-cancel" type="button">
-                                    <span class="language_replace">取消所選</span>
+                            <div class="wrapper-center">
+                                <button class="btn btn-outline-main btn-brand-cancel" type="button" onclick="searchGameChangeClear()">
+                                    <span class="language_replace">重新設定</span>
                                 </button>
-                                <button class="btn btn-full-main btn-brand-confirm" type="button">
+                                <button class="btn btn-full-main btn-brand-confirm" type="button" onclick="searchGameChangeConfirm()">
                                     <span class="language_replace">確認</span>
                                 </button>
-                            </div>
+                            </div>                            
+    
                         </div>
-                    </div>                                       
+                    </div>
+                    
+                    
                 </div>
-                <div class="mask-header"></div> 
                 <div class="modal-body">
                     <div class="game-search-wrapper">
                         <div class="search-result-wrapper">
@@ -2384,75 +2553,6 @@
         </div>
     </div>
 
-     <!-- Modal Search 品牌-文字版-->
-     <div class="modal fade no-footer alertSearch " id="" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title">我是logo</h5> -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="searchFilter-wrapper">
-                        <div class="searchFilter-item input-group keyword">
-                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
-                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
-                        </div>
-                        
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: none;">
-                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
-                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
-                                <option class="searchFilter-option language_replace" value="CG">CG</option>
-                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
-                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
-                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
-                                <option class="searchFilter-option language_replace" value="KX">KX</option>
-                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="PG">PG</option>
-                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
-                                <option class="searchFilter-option language_replace" value="PP">PP</option>
-                                <option class="searchFilter-option language_replace" value="VA">VA</option>
-                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
-                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
-                                <option class="searchFilter-option language_replace" value="BG">BG</option>
-                            </select>
-                        </div>
-                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
-                            <select class="custom-select" id="seleGameCategory">
-                                <option class="title language_replace" value="All" selected>全部</option>
-                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
-                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
-                                <option class="searchFilter-option language_replace" value="Live">Live</option>
-                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
-                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
-                            </select>
-                        </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
-                    </div>     
-                </div>
-                <div class="modal-body">
-                    <div class="game-search-wrapper">
-                        <div class="search-result-wrapper">
-                            <div class="search-result-inner">
-                                <div class="search-result-list">
-                                    <div class="game-item-group list-row row" id="alertSearchContent">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
    
 
    
@@ -2676,7 +2776,7 @@
                             <div class="alertContact_Text"></div>
                             <div>
                                 <input style="width:16px;height:16px;cursor:pointer" type="checkbox" id="cboxLoginMessage">
-                                <label style="font-size:18px" for="cboxLoginMessage language_replace">今後不顯示</label>
+                                <label style="font-size:18px" for="cboxLoginMessage " class="language_replace">今後不顯示</label>
                             </div>
                         </div>
                     </div>
@@ -2817,7 +2917,7 @@
 
 
     <!-- Modal Search 品牌-文字版-->
-    <div id="" class="is-hide">
+<%--    <div id="tmpSearchGameItem" class="is-hide">
         <div class="game-item col-auto">
             <div class="game-item-inner">
                 <div class="game-item-img">
@@ -2866,7 +2966,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
 
     <!-- Modal Search 新版 - 品牌-LOGO版-->
@@ -2890,8 +2990,8 @@
                                     <li class="moreInfo-item brand">
                                         <h4 class="value BrandName"></h4>
                                     </li>
-                                    <li class="moreInfo-item category" style="display: ;">
-                                        <h4 class="value">SLOT</h4>
+                                    <li class="moreInfo-item category">
+                                        <h4 class="value GameCategoryCode"></h4>
                                     </li>
                                     <li class="moreInfo-item RTP">
                                         <span class="title">RTP</span>
@@ -2924,13 +3024,13 @@
         </div>
     </div>
 
-    <!-- 品牌LOGO版 Collapse TEST-->
+     <!-- 品牌LOGO版 Collapse TEST-->
     <script>
         $('.brand-wrapper:not(.show)').hide();
-        $('.input-fake-select').click(function(){
-          $(this).toggleClass('show');
-          $(this).parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
-         });
+        $('.input-fake-select').click(function () {
+            $(this).toggleClass('show');
+            $(this).parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
+        });
     </script>
 
 

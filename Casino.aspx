@@ -496,7 +496,7 @@
                     </div>
 
 
-                    <div class="swiper-slide">
+                    <div class="swiper-slide" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')">
                         <div class="hero-item">
                             <a class="hero-item-link" href="#"></a>
                             <div class="hero-item-box mobile">
@@ -510,7 +510,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide">
+                    <div class="swiper-slide" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=5')">
                         <div class="hero-item">
                             <a class="hero-item-link" href="#"></a>
                             <div class="hero-item-box mobile">
