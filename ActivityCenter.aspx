@@ -213,6 +213,42 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
                         <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">                           
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/pp-1/img/img-act.jpg" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！対象スロットゲームをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得！ラッキーなプレイヤーの方々はサプライズ賞ももらえるぞ！</div>
+                                        </div>
+                                       <!-- 活動詳情 Popup-->
+                                       <button type="button" onclick="activityBtnClick(4)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>                        
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(5,'/Activity/event/pp-2/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/pp-2/img/img-live-act.jpg" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace"></figcaption> -->
+                                            <div class="desc language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！ライブカジノをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得しよう！。</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" onclick="activityBtnClick(5)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
                             <div class="activity-item-inner">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -266,42 +302,7 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/pp-1/img/img-act.jpg" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！対象スロットゲームをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得！ラッキーなプレイヤーの方々はサプライズ賞ももらえるぞ！</figcaption> -->
-                                            <div class="desc language_replace"></div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(4)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(5,'/Activity/event/pp-2/index-jp.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/pp-2/img/img-live-act.jpg" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！対象スロットゲームをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得！ラッキーなプレイヤーの方々はサプライズ賞ももらえるぞ！</figcaption> -->
-                                            <div class="desc language_replace"></div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(5)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
+                        
 
                     </div>
                 </section>

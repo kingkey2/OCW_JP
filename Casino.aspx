@@ -63,6 +63,7 @@
     var GCB;
     var iframeWidth;
     var selectedCategoryCode;
+ 
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
     }
@@ -75,6 +76,7 @@
     }
 
     function updateGameList(categoryCode) {
+    
         selectedCategoryCode = categoryCode;
         iframeWidth = $(window.parent.document).find('#IFramePage').width();
         var FavoGames = window.parent.API_GetFavoGames();
@@ -82,18 +84,14 @@
         idGameItemGroup.innerHTML = "";
 
         if (LobbyGameList) {
-
+           
             var companyCategoryDatasCount = 0;
             var categName;
 
             var categorys = LobbyGameList.find(e => e.Location == categoryCode);
 
             if (categorys) {
-                categorys.Categories.sort(function (a, b) {
-                    return b.SortIndex - a.SortIndex;
-                });
-
-
+              
                 categorys.Categories.forEach(category => {
                     var count = 0;
                     var categArea;
@@ -118,7 +116,9 @@
 
                         $(categArea).find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
                         $(categArea).find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
-
+                        category.Datas.sort(function (a, b) {
+                            return b.SortIndex - a.SortIndex;
+                        });
                         category.Datas.forEach(gameItem => {
                             var GI;
                             var showAllbtn = categArea.querySelector('.title-showAll');
@@ -284,6 +284,46 @@
         var record;
 
         if (LobbyGameList) {
+            for (var i = 0; i < LobbyGameList.length; i++) {
+                LobbyGameList[i].Categories.sort(function (a, b) {
+                    return a.SortIndex - b.SortIndex;
+                });
+            }
+
+            if (!LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.Datas.length > 0 }).Datas.find(function (e) { return e.GameName == 'EWinGaming' })) {
+               
+                var categoryID = LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories[0].CategoryID;
+                var EwinGame = {
+                    AllowDemoPlay: 1,
+                    BrandText: {
+                        CHT: "EWin",
+                        JPN: "EWin"
+                    },
+                    CategoryID: categoryID,
+                    GameBrand: "EWin",
+                    GameCategoryCode: "Live",
+                    GameCategorySubCode: "Baccarat",
+                    GameCode: null,
+                    GameID: 0,
+                    GameName: "EWinGaming",
+                    GameText: {
+                        CHT: "真人百家樂(eWIN)",
+                        JPN: "EWinゲーミング"
+                    },
+                    Info: "",
+                    IsHot: 0,
+                    IsNew: 0,
+                    RTPInfo: "",
+                    SortIndex: 99,
+                    Tag: null
+                }
+                for (var i = 0; i < length; i++) {
+
+                }
+                LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.Datas.length >0 }).Datas.unshift(EwinGame);
+
+            }
+      
             for (var i = 0; i < LobbyGameList.length; i++) {
                 //="API_LoadPage('Casino', 'Casino.aspx', true)"
 
