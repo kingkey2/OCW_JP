@@ -2176,79 +2176,8 @@
         </div>
     </div>
 
-     <!-- Modal Search 品牌-文字版-->
-     <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title">我是logo</h5> -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="searchFilter-wrapper">
-                        <div class="searchFilter-item input-group keyword">
-                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
-                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
-                        </div>
-                        
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
-                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
-                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
-                                <option class="searchFilter-option language_replace" value="CG">CG</option>
-                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
-                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
-                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
-                                <option class="searchFilter-option language_replace" value="KX">KX</option>
-                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="PG">PG</option>
-                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
-                                <option class="searchFilter-option language_replace" value="PP">PP</option>
-                                <option class="searchFilter-option language_replace" value="VA">VA</option>
-                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
-                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
-                                <option class="searchFilter-option language_replace" value="BG">BG</option>
-                            </select>
-                        </div>
-                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
-                            <select class="custom-select" id="seleGameCategory">
-                                <option class="title language_replace" value="All" selected>全部</option>
-                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
-                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
-                                <option class="searchFilter-option language_replace" value="Live">Live</option>
-                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
-                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
-                            </select>
-                        </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
-                    </div>                    
-                </div>
-                <div class="modal-body">
-                    <div class="game-search-wrapper">
-                        <div class="search-result-wrapper">
-                            <div class="search-result-inner">
-                                <div class="search-result-list">
-                                    <div class="game-item-group list-row row" id="alertSearchContent">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-     <!-- Modal Search 新版 - 品牌-LOGO版 -開發中-->
-     <div class="modal fade no-footer alertSearchTemp" id="" tabindex="-1" aria-hidden="true" style="display: ">
+    <!-- Modal Search 新版 - 品牌-LOGO版 -開發中-->
+    <div class="modal fade no-footer alertSearchTemp" id="alertSearch" tabindex="-1" aria-hidden="true" style="display: ">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2423,20 +2352,18 @@
                                 </ul>
 
                             </div>
-                            <div class="wrapper-center">
+                            <div class="wrapper_center">
                                 <button class="btn btn-outline-main btn-brand-cancel" type="button">
                                     <span class="language_replace">取消所選</span>
                                 </button>
                                 <button class="btn btn-full-main btn-brand-confirm" type="button">
                                     <span class="language_replace">確認</span>
                                 </button>
-                            </div>                            
-    
+                            </div>
                         </div>
-                    </div>
-                    
-                    
+                    </div>                                       
                 </div>
+                <div class="mask-header"></div> 
                 <div class="modal-body">
                     <div class="game-search-wrapper">
                         <div class="search-result-wrapper">
@@ -2457,6 +2384,75 @@
         </div>
     </div>
 
+     <!-- Modal Search 品牌-文字版-->
+     <div class="modal fade no-footer alertSearch " id="" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title">我是logo</h5> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="searchFilter-wrapper">
+                        <div class="searchFilter-item input-group keyword">
+                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
+                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                        </div>
+                        
+                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: none;">
+                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
+                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
+                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
+                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
+                                <option class="searchFilter-option language_replace" value="CG">CG</option>
+                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
+                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
+                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
+                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
+                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
+                                <option class="searchFilter-option language_replace" value="KX">KX</option>
+                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
+                                <option class="searchFilter-option language_replace" value="PG">PG</option>
+                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
+                                <option class="searchFilter-option language_replace" value="PP">PP</option>
+                                <option class="searchFilter-option language_replace" value="VA">VA</option>
+                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
+                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
+                                <option class="searchFilter-option language_replace" value="BG">BG</option>
+                            </select>
+                        </div>
+                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
+                            <select class="custom-select" id="seleGameCategory">
+                                <option class="title language_replace" value="All" selected>全部</option>
+                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
+                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
+                                <option class="searchFilter-option language_replace" value="Live">Live</option>
+                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
+                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
+                            </select>
+                        </div>
+                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
+                    </div>     
+                </div>
+                <div class="modal-body">
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertSearchContent">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
    
 
    
@@ -2821,7 +2817,7 @@
 
 
     <!-- Modal Search 品牌-文字版-->
-    <div id="tmpSearchGameItem" class="is-hide">
+    <div id="" class="is-hide">
         <div class="game-item col-auto">
             <div class="game-item-inner">
                 <div class="game-item-img">
@@ -2874,7 +2870,7 @@
 
 
     <!-- Modal Search 新版 - 品牌-LOGO版-->
-    <div id="" class="is-hide">
+    <div id="tmpSearchGameItem" class="is-hide">
         <div class="game-item col-auto">
             <div class="game-item-inner">
                 <div class="game-item-img">

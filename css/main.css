@@ -786,14 +786,14 @@ hr.line {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .sec-title-container .text-link {
   font-size: 0.8125rem;
 }
 .sec-title-container .text-link .icon {
   font-size: 1.125rem;
-  margin-right: 0.5rem;
+  margin-right: 0.35rem;
 }
 .sec-title-container .btn {
   color: #fff;
@@ -5337,7 +5337,6 @@ i {
   margin-bottom: 0;
 }
 .game_wrapper .sec-title-container .sec-title {
-  font-size: 1.25rem;
   margin-bottom: 0;
 }
 @media (min-width: 1384px) {
@@ -5514,7 +5513,7 @@ i {
 }
 .game-item-name {
   margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1rem;
   display: -webkit-box;
   text-overflow: ellipsis;
@@ -8822,13 +8821,16 @@ select:-webkit-autofill:focus {
 
 .alertSearchTemp .modal-dialog {
   min-height: 450px;
-  height: 80%;
 }
 .alertSearchTemp .modal-header {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
+  position: relative;
+  z-index: 4;
+  background-color: #fff;
+  padding: 0;
 }
 .alertSearchTemp .modal-title {
   -webkit-box-flex: 1;
@@ -8879,6 +8881,18 @@ select:-webkit-autofill:focus {
           box-shadow: 0px 4px 10px rgba(0, 159, 232, 0.45);
   cursor: pointer;
 }
+.alertSearchTemp .mask-header {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  background-color: #000;
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 .brand-wrapper {
   position: absolute;
@@ -8908,11 +8922,6 @@ select:-webkit-autofill:focus {
   max-width: 150px;
   padding: 6px 20px !important;
 }
-.brand-wrapper .brand-inner {
-  height: calc(100% - 30px - 60px);
-  overflow-y: auto;
-}
-
 .brand-popup-list {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9002,10 +9011,11 @@ select:-webkit-autofill:focus {
   }
 }
 
-.brand-popup-list .brand-item {
-  width: 25%;
+@media (min-width: 640px) {
+  .brand-popup-list .brand-item {
+    width: 25%;
+  }
 }
-
 @media (min-width: 712px) {
   .brand-popup-list .brand-item {
     width: 16.6666666667%;
