@@ -2680,7 +2680,7 @@
                             <div class="alertContact_Text"></div>
                             <div>
                                 <input style="width:16px;height:16px;cursor:pointer" type="checkbox" id="cboxLoginMessage">
-                                <label style="font-size:18px" for="cboxLoginMessage language_replace">今後不顯示</label>
+                                <label style="font-size:18px" for="cboxLoginMessage " class="language_replace">今後不顯示</label>
                             </div>
                         </div>
                     </div>

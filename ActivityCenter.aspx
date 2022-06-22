@@ -67,6 +67,12 @@
                         case "2":
                             GoActivityDetail(2, '/Activity/Act002/CenterPage/index.html');
                             break;
+                        case "4":
+                            GoActivityDetail(4, '/Activity/event/pp-1/index-jp.html');
+                            break;
+                        case "5":
+                            GoActivityDetail(5, '/Activity/event/pp-2/index-jp.html');
+                            break;
                     }
                 }
 
