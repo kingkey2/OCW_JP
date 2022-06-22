@@ -419,12 +419,6 @@
         })
     }
 
-    function setEthWalletAddress(EthAddress) {
-        $('#idEthAddr').text(EthAddress);
-        $('#idEthAddrInput').val(EthAddress);
-        $('#cryptoimg').attr("src", `/GetQRCode.aspx?QRCode=${EthAddress}&Download=2`);
-    }
-
     window.onload = init;
 
 </script>
