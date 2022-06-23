@@ -210,7 +210,7 @@
                     </div>
                 </div>
                 <section class="section-wrap section-activity">
-                    <div class="activity-item-group" onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
+                    <div class="activity-item-group">
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">                           
                                 <!-- 活動連結 -->
