@@ -8473,6 +8473,9 @@ select:-webkit-autofill:focus {
   z-index: 4;
 }
 
+.modal .modal-dialog {
+  width: calc(100% - 20px);
+}
 .modal.no-header .modal-header {
   display: none;
 }
@@ -8821,7 +8824,7 @@ select:-webkit-autofill:focus {
 }
 
 .alertSearchTemp .modal-dialog {
-  min-height: 450px;
+  min-height: 80%;
 }
 .alertSearchTemp .modal-header {
   -webkit-box-orient: horizontal;
