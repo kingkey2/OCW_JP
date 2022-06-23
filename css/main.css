@@ -8832,6 +8832,20 @@ select:-webkit-autofill:focus {
   background-color: #fff;
   padding: 0;
 }
+.alertSearchTemp .modal-header-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  position: relative;
+  padding: 5px 1rem;
+}
 .alertSearchTemp .modal-title {
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -8890,8 +8904,12 @@ select:-webkit-autofill:focus {
   left: 0;
   z-index: 3;
   background-color: #000;
-  opacity: 0.5;
+  opacity: 0;
   pointer-events: none;
+}
+.alertSearchTemp .mask-header.show {
+  opacity: 0.5;
+  pointer-events: auto;
 }
 
 .brand-wrapper {
@@ -8899,29 +8917,31 @@ select:-webkit-autofill:focus {
   top: 45px;
   width: 100%;
   z-index: 3;
-  background-color: #fff;
-  border: solid 1px #c2c2c2;
-  padding: 10px 8px;
-  border-radius: 10px;
   text-align: center;
+  background-color: #fff;
+}
+.brand-wrapper .brand-inner {
+  width: 100%;
+  border: solid 1px #c2c2c2;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px 10px;
+  margin-bottom: 20px;
 }
 .brand-wrapper .btn-brand-confirm {
-  width: 80%;
-  margin: 0 auto;
   background-color: #009FE8;
   border-radius: 30px;
   max-width: 150px;
   padding: 6px 20px !important;
 }
 .brand-wrapper .btn-brand-cancel {
-  width: 80%;
-  margin: 0 auto;
   color: #009FE8;
   border: solid 1px #009FE8;
   border-radius: 30px;
   max-width: 150px;
   padding: 6px 20px !important;
 }
+
 .brand-popup-list {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8946,7 +8966,8 @@ select:-webkit-autofill:focus {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  padding: 4px 8px;
+  padding: 8px 8px;
+  height: 45px;
 }
 .brand-popup-list .brand-item .checkbox .logo-wrap {
   height: 100%;
@@ -8958,11 +8979,10 @@ select:-webkit-autofill:focus {
           align-items: center;
 }
 .brand-popup-list .brand-item .img-wrap {
-  max-height: 50px;
+  height: 100%;
 }
 .brand-popup-list .brand-item .img-wrap img {
-  height: 100%;
-  max-height: 40px;
+  max-height: 100%;
 }
 
 .searchFilter-wrapper {
@@ -8977,6 +8997,8 @@ select:-webkit-autofill:focus {
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
   position: relative;
+  -webkit-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.35);
+          box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.35);
 }
 .searchFilter-wrapper.sticky {
   position: sticky;
@@ -8993,7 +9015,7 @@ select:-webkit-autofill:focus {
 .searchFilter-wrapper .btn-search-popup {
   width: 100%;
   height: 40px;
-  margin-top: 10px;
+  margin-bottom: 0.5rem;
 }
 .searchFilter-wrapper .btn {
   padding-top: 0;
