@@ -1763,7 +1763,7 @@
 
     function searchGameChangeConfirm() {
 
-        $('.input-fake-select').toggleClass('hide');
+        $('.input-fake-select').toggleClass('show');
         $('.input-fake-select').parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
         $('.mask-header').toggleClass('show');
     }
@@ -2348,7 +2348,7 @@
                                 <option class="searchFilter-option language_replace" value="Sports">Sports</option>
                             </select>
                         </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
+                        <button onclick="searchGameList()" type="search" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
                     </div>                    
                 </div>
                 <div class="modal-body">

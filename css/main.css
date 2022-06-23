@@ -1093,6 +1093,9 @@ hr.line {
   -webkit-transition: all 0.35s ease-in;
   transition: all 0.35s ease-in;
 }
+.input-fake-select .has-arrow {
+  top: -3px;
+}
 .input-fake-select:hover {
   -webkit-box-shadow: inset 0 0 0 1px rgba(61, 182, 255, 0.7);
           box-shadow: inset 0 0 0 1px rgba(61, 182, 255, 0.7);
@@ -8955,10 +8958,12 @@ select:-webkit-autofill:focus {
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
   margin-bottom: 2rem;
+  max-height: 300px;
+  overflow-y: auto;
 }
 .brand-popup-list .brand-item {
   width: 33.33%;
-  padding: 8px;
+  padding: 5px 6px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
