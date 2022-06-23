@@ -1702,7 +1702,7 @@
             } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
                 gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
             } else {
-                $('#alertSearchContent').append(`<div>${mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌")}</div>`)
+                $('#alertSearchContent').append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌")}</span></div></div>`)
                 return false;
             }
 
@@ -1745,7 +1745,7 @@
 
 
         if ($('#alertSearchContent').children().length == 0) {
-            $('#alertSearchContent').append(`<div>${mlp.getLanguageKey("沒有資料")}</div>`);
+            $('#alertSearchContent').append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("沒有資料")}</span></div></div>`);
             //showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
         }
 
@@ -1798,7 +1798,7 @@
 
     function searchGameChangeConfirm() {
 
-        $('.input-fake-select').toggleClass('hide');
+        $('.input-fake-select').toggleClass('show');
         $('.input-fake-select').parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
         $('.mask-header').toggleClass('show');
     }
@@ -2453,13 +2453,12 @@
                                 </div>
                                 <div class="searchFilter-item input-group keyword">
                                     <input id="alertSearchKeyWord" type="text" class="form-control"
-                                        language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
+                                        language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()" enterkeyhint="">
                                     <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                                 </div>
                                 <button onclick="searchGameList()" type="button"
-                                    class="btn btn-full-main btn-sm btn-search-popup"><span
-                                        class="language_replace">検索</span></button>
-
+                                    class="btn btn-full-main btn-sm btn-search-popup"><span class="language_replace">検索</span>
+                                </button>
                             </div>
 
                            <!-- 品牌LOGO版 Collapse -->
