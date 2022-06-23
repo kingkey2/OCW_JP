@@ -67,6 +67,12 @@
                         case "2":
                             GoActivityDetail(2, '/Activity/Act002/CenterPage/index.html');
                             break;
+                        case "4":
+                            GoActivityDetail(4, '/Activity/event/pp-1/index-jp.html');
+                            break;
+                        case "5":
+                            GoActivityDetail(5, '/Activity/event/pp-2/index-jp.html');
+                            break;
                     }
                 }
 
@@ -137,6 +143,7 @@
                 case 5:
                     $('#ModalPP2 .activity-popup-detail-inner').load(url);
                     $('#ModalPP2').modal('show');
+
                     break;
                 default:
                     break;
@@ -159,20 +166,12 @@
                 window.parent.API_LoadPage('', 'Prize.aspx');
                 break;
             case 4:
-                $('#alertSearch', window.parent.document).modal('show');
-                $("#alertSearchBrand", window.parent.document).val("PP");
-                window.parent.SearchGameCodeChange();
-                $("#div_SearchGameCategory", window.parent.document).show();
-                $("#seleGameCategory", window.parent.document).val("Slot");
-                window.parent.searchGameList();
+                $('#ModalPP1').modal('hide');
+                window.parent.searchGameByBrandAndGameCategory("PP", "Slot");
                 break;
             case 5:
-                $('#alertSearch', window.parent.document).modal('show');
-                $("#alertSearchBrand", window.parent.document).val("PP");
-                window.parent.SearchGameCodeChange();
-                $("#div_SearchGameCategory", window.parent.document).show();
-                $("#seleGameCategory", window.parent.document).val("Live");
-                window.parent.searchGameList();
+                $('#ModalPP2').modal('hide');
+                window.parent.searchGameByBrandAndGameCategory("PP", "Live");
                 break;
         }
     }

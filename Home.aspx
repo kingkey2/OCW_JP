@@ -781,15 +781,17 @@
             </div>
         </section>
         <!-- 推薦遊戲 -->
-        <section class="section_recommand section-wrap" style="display:none">
+        <section class="section_recommand section-wrap">
             <div class="container">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">
                         <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
                     </div>
+                    <%--
                     <a class="text-link" href="casino.html">
                         <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                     </a>
+                    --%>
                 </div>
                 <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
                 </div>
