@@ -2348,7 +2348,7 @@
                                 <option class="searchFilter-option language_replace" value="Sports">Sports</option>
                             </select>
                         </div>
-                        <button onclick="searchGameList()" type="search" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
+                        <button onclick="searchGameList()" type="button" class="btn btn-primary btn-sm btn-search-popup"><span class="language_replace">検索</span></button>                        
                     </div>                    
                 </div>
                 <div class="modal-body">
@@ -2406,13 +2406,12 @@
                                 </div>
                                 <div class="searchFilter-item input-group keyword">
                                     <input id="alertSearchKeyWord" type="text" class="form-control"
-                                        language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
+                                        language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()" enterkeyhint="">
                                     <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                                 </div>
                                 <button onclick="searchGameList()" type="button"
-                                    class="btn btn-full-main btn-sm btn-search-popup"><span
-                                        class="language_replace">検索</span></button>
-
+                                    class="btn btn-full-main btn-sm btn-search-popup"><span class="language_replace">検索</span>
+                                </button>
                             </div>
 
                            <!-- 品牌LOGO版 Collapse -->
