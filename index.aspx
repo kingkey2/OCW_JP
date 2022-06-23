@@ -2371,7 +2371,7 @@
     </div>--%>
 
 
-     <!-- Modal Search 新版 - 品牌-LOGO版 -開發中-->
+     <!-- Modal Search 品牌-LOGO版-->
      <div class="modal fade no-footer alertSearchTemp" id="alertSearch" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
