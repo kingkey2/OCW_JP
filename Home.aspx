@@ -331,6 +331,9 @@
 
                     $(categArea).find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
                     $(categArea).find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
+                    category.Datas.sort(function (a, b) {
+                        return b.SortIndex - a.SortIndex;
+                    });
 
                     category.Datas.forEach(gameItem => {
                         var GI;

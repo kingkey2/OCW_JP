@@ -868,7 +868,7 @@
     }
 
     function favBtnEvent(gameID, doc, isSearchGame) {
-
+        event.stopPropagation();
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
@@ -1625,8 +1625,8 @@
                         }
 
                         GI = c.getTemplate("tmpSearchGameItem");
-                        var GI_a = GI.querySelector(".btn-play");
-                        GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                        //var GI_a = GI.querySelector(".btn-play");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -2370,7 +2370,7 @@
         </div>
     </div>--%>
 
-
+    aaa
      <!-- Modal Search 新版 - 品牌-LOGO版 -開發中-->
      <div class="modal fade no-footer alertSearchTemp" id="alertSearch" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
