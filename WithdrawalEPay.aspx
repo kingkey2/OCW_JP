@@ -96,10 +96,12 @@
         Step4.hide();
 
         $('button[data-deposite="step2"]').click(function () {
+            window.parent.API_LoadingStart();
             //建立訂單/活動
             CreateEPayWithdrawal();
         });
         $('button[data-deposite="step3"]').click(function () {
+            window.parent.API_LoadingStart();
             //加入參加的活動
             ConfirmEPayWithdrawal();
         });
@@ -278,27 +280,32 @@
         var bankName = $("#SearchBank").val();
         var bankBranchCode = $("#bankBranchCode").val().trim();
         if ($("#amount").val().trim() == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () {});
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () { });
+            window.parent.API_LoadingEnd(1);
             return false;
         }
 
         if (bankCard == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入卡號"), function () { });
+            window.parent.API_LoadingEnd(1);
             return false;
         }
 
         if (bankCardName == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入姓名"), function () { });
+            window.parent.API_LoadingEnd(1);
             return false;
         }
 
         if (bankName== '-1') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇銀行"), function () { });
+            window.parent.API_LoadingEnd(1);
             return false;
         }
 
         if (bankBranchCode == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入分行代碼"), function () { });
+            window.parent.API_LoadingEnd(1);
             return false;
         }
 
@@ -308,11 +315,13 @@
         var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
         if (wallet.PointValue < amount) {
             window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("餘額不足"));
+            window.parent.API_LoadingEnd(1);
             return;
         }
 
             PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
                 if (success) {
+                    window.parent.API_LoadingEnd(1);
                     let UserAccountPayments = o.UserAccountPayments;
                     if (o.Result == 0) {
                         //if (UserAccountPayments.length == 0) {
@@ -372,6 +381,7 @@
 
                 }
                 else {
+                    window.parent.API_LoadingEnd(1);
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                     });
@@ -395,6 +405,7 @@
 
         PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, bankCard, bankCardName, bankName, bankBranchCode, function (success, o) {
             if (success) {
+                window.parent.API_LoadingEnd(1);
                 if (o.Result == 0) {
                     //setEthWalletAddress(o.Message)
                     let Step3 = $('button[data-deposite="step3"]');
@@ -412,6 +423,7 @@
                 }
             }
             else {
+                window.parent.API_LoadingEnd(1);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                 });
