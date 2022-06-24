@@ -3213,6 +3213,30 @@ main.innerMain.fixed {
   -webkit-mask-image: url(../images/icon/ico-rocket.svg);
   mask-image: url(../images/icon/ico-rocket.svg);
 }
+.icon-mask.icon-all-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-all-tt.svg);
+  mask-image: url(../images/icon/ico-all-tt.svg);
+}
+.icon-mask.icon-etc-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-etc-tt.svg);
+  mask-image: url(../images/icon/ico-etc-tt.svg);
+}
+.icon-mask.icon-elec-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-elec-tt.svg);
+  mask-image: url(../images/icon/ico-elec-tt.svg);
+}
+.icon-mask.icon-live-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-live-tt.svg);
+  mask-image: url(../images/icon/ico-live-tt.svg);
+}
+.icon-mask.icon-poker-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-poker-tt.svg);
+  mask-image: url(../images/icon/ico-poker-tt.svg);
+}
+.icon-mask.icon-slot-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-slot-tt.svg);
+  mask-image: url(../images/icon/ico-slot-tt.svg);
+}
 .icon-mask.icon-wallet::before {
   -webkit-mask-image: url(../images/icon/ico-wallet.svg);
   mask-image: url(../images/icon/ico-wallet.svg);
@@ -4730,7 +4754,6 @@ i {
   width: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
-  margin-bottom: 8px;
   position: relative;
 }
 .tab-scroller::after {

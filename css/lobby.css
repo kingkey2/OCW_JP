@@ -8,6 +8,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   position: sticky;
   top: 0;
   z-index: 100;
+  padding: 0 10px 0;
 }
 .tab-game .content {
   max-width: 840px;
@@ -19,6 +20,27 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .tab-game .title {
   display: none;
+}
+.tab-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.tab-search {
+  cursor: pointer;
+  position: relative;
+}
+.tab-search .title {
+  left: -30px;
+}
+.tab-search:hover .title {
+  opacity: 1;
+  top: -40px;
 }
 
 .section-wrap.hero {
@@ -132,16 +154,16 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 3rem;
     height: 3rem;
   }
-  .tab-game.tab-scroller {
+  .tab-game .tab-scroller {
     overflow: visible;
   }
-  .tab-game.tab-scroller .tab-scroller__area {
+  .tab-game .tab-scroller .tab-scroller__area {
     overflow-x: visible;
   }
-  .tab-game.tab-scroller .tab-item-link {
+  .tab-game .tab-scroller .tab-item-link {
     position: relative;
   }
-  .tab-game.tab-scroller .tab-item {
+  .tab-game .tab-scroller .tab-item {
     overflow: visible;
   }
   .tab-game .title {
