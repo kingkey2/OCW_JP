@@ -220,6 +220,8 @@ public static class ActivityExpand {
                         decimal OrderValue = 0;
                         decimal BonusRate = 0;
                         decimal BonusValue = 0;
+                        string ActivityName = string.Empty;
+                        bool IsUserJoined = false;
 
                         if ((int)ActivityDetail["State"] == 0) {
                             if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
@@ -228,6 +230,7 @@ public static class ActivityExpand {
                                 ThresholdRate = (decimal)ActivityDetail["ThresholdRate"];
                                 OrderValue = (decimal)ActivityDetail["OrderValue"];
                                 BonusRate = (decimal)ActivityDetail["BonusRate"];
+                                ActivityName = (string)ActivityDetail["Name"];
 
                                 DateTime currentTime = DateTime.Now;
                                 int week = Convert.ToInt32(currentTime.DayOfWeek);
@@ -237,52 +240,81 @@ public static class ActivityExpand {
 
                                 if (week > 4) {
                                     start = currentTime.AddDays(5 - week - 7); //上禮拜5
-                                    end = currentTime.AddDays(7 - week - 7);  //這禮拜4
+                                    end = currentTime.AddDays(4 - week);  //這禮拜4
                                 } else {
                                     start = currentTime.AddDays(5 - week - 14); //上上禮拜5
                                     end = currentTime.AddDays(4 - week - 7);     //上禮拜4
                                 }
 
-                                callResult = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, System.Guid.NewGuid().ToString(), start.ToString("yyyy-MM-dd 00:00:00"), end.ToString("yyyy-MM-dd 00:00:00"));
-                                if (callResult.Result == EWin.Lobby.enumResult.OK) {
+                                System.Data.DataTable DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccount(SI.LoginAccount);
 
-                                    var GameOrderList = callResult.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
-                                        TotalOrderValue = sum.Sum(y => y.TotalOrderValue),
-                                        CurrencyType = key.CurrencyType,
-                                        SummaryDate = key.SummaryDate
-                                    }).ToArray();
-
-                                    foreach (var item in GameOrderList) {
-                                        if (item.TotalOrderValue > OrderValue) {
-                                            BonusValue += OneDayBonus;
+                                if (DT != null && DT.Rows.Count > 0) {
+                                    for (int i = 0; i < DT.Rows.Count; i++) {
+                                        string redisActivityName = (string)DT.Rows[i]["ActivityName"];
+                                        string redisJoinActivityCycle = "1";
+                                        if ((string)DT.Rows[i]["JoinActivityCycle"] != string.Empty) {
+                                            redisJoinActivityCycle = (string)DT.Rows[i]["JoinActivityCycle"];
                                         }
-                                    }
-                                    //全勤可得全勤獎金
-                                    if (BonusValue == OneDayBonus * 7) {
-                                        BonusValue += FullAttendance;
-                                    }
-                                    //入金金額超過獎勵3倍才可領取該獎勵
-                                    if (Amount * 3 <= BonusValue) {
-                                        BonusValue = 0;
-                                    }
 
-                                    if (BonusValue > 0) {
-                                        R.Result = ActivityCore.enumActResult.OK;
-                                        R.Data.Amount = Amount;
-                                        R.Data.PaymentCode = PaymentCode;
-                                        R.Data.BonusRate = BonusRate;
-                                        R.Data.BonusValue = BonusValue * BonusRate;
-                                        R.Data.ThresholdRate = ThresholdRate;
-                                        R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
-                                        R.Data.Title = ActivityDetail["Title"].ToString();
-                                        R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
-                                        R.Data.JoinCount = 1;
+                                        if (redisActivityName == ActivityName && redisJoinActivityCycle == start.ToString("yyyy/MM/dd") + "-" + end.ToString("yyyy/MM/dd")) {
+                                            IsUserJoined = true;
+                                            break;
+                                        }
+
+                                    }
+                                } else {
+                                    IsUserJoined = false;
+                                }
+
+                                if (!IsUserJoined) {
+                                    callResult = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, System.Guid.NewGuid().ToString(), start.ToString("yyyy-MM-dd 00:00:00"), end.ToString("yyyy-MM-dd 00:00:00"));
+                                    if (callResult.Result == EWin.Lobby.enumResult.OK) {
+
+                                        var GameOrderList = callResult.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+                                            TotalOrderValue = sum.Sum(y => y.TotalOrderValue),
+                                            CurrencyType = key.CurrencyType,
+                                            SummaryDate = key.SummaryDate
+                                        }).ToArray();
+
+                                        foreach (var item in GameOrderList) {
+                                            if (item.TotalOrderValue > OrderValue) {
+                                                BonusValue += OneDayBonus;
+                                            }
+                                        }
+                                        //全勤可得全勤獎金
+                                        if (BonusValue == OneDayBonus * 7) {
+                                            BonusValue += FullAttendance;
+                                        }
+                                        //入金金額超過獎勵3倍才可領取該獎勵
+                                        if (Amount >= BonusValue * 3) {
+
+                                        } else {
+                                            BonusValue = 0;
+                                        }
+
+                                        if (BonusValue > 0) {
+                                            R.Result = ActivityCore.enumActResult.OK;
+                                            R.Data.Amount = Amount;
+                                            R.Data.PaymentCode = PaymentCode;
+                                            R.Data.BonusRate = BonusRate;
+                                            R.Data.BonusValue = BonusValue * BonusRate;
+                                            R.Data.ThresholdRate = ThresholdRate;
+                                            R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
+                                            R.Data.Title = ActivityDetail["Title"].ToString();
+                                            R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                                            R.Data.JoinActivityCycle = start.ToString("yyyy/MM/dd") + "-" + end.ToString("yyyy/MM/dd");
+                                            R.Data.JoinCount = 1;
+                                        } else {
+                                            SetResultException(R, "NotEligible");
+                                        }
                                     } else {
                                         SetResultException(R, "NotEligible");
                                     }
                                 } else {
-                                    SetResultException(R, "NotEligible");
+                                    SetResultException(R, "UserIsJoined");
                                 }
+
+
                             } else {
                                 SetResultException(R, "ActivityIsExpired");
                             }

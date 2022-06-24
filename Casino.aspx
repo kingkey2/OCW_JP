@@ -317,9 +317,7 @@
                     SortIndex: 99,
                     Tag: null
                 }
-                for (var i = 0; i < length; i++) {
 
-                }
                 LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.Datas.length >0 }).Datas.unshift(EwinGame);
 
             }
