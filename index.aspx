@@ -404,6 +404,10 @@
         return showMessageOK(title, msg, cbOK);
     }
 
+    function API_ShowSearchGameModel() {
+        $('#alertSearch').modal('show');
+    }
+
     function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
         return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID);
     }
@@ -860,7 +864,9 @@
     }
 
     function favBtnEvent(gameID, doc, isSearchGame) {
-        event.stopPropagation();
+        if (event) {
+            event.stopPropagation();
+        }
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
