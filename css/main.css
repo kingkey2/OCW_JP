@@ -1005,9 +1005,6 @@ hr.line {
   }
 }
 @media screen and (max-width: 640px) {
-  .sec-title {
-    margin-bottom: 0.6em;
-  }
   .sec-title-container {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -3360,6 +3357,10 @@ main.innerMain.fixed {
 .icon-mask.icon-withdarw::before {
   -webkit-mask-image: url(../images/icon/ico-withdarw.svg);
   mask-image: url(../images/icon/ico-withdarw.svg);
+}
+.icon-mask.icon-dialog::before {
+  -webkit-mask-image: url(../images/icon/ico-dialog.svg);
+  mask-image: url(../images/icon/ico-dialog.svg);
 }
 .icon-mask.icon-user::before {
   -webkit-mask-image: url(../images/theme/dark/icon/icon-ewin-user.svg);
