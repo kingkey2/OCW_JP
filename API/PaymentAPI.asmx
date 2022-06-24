@@ -2030,7 +2030,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     List<EWin.Payment.PaymentDetailBankCard> paymentDetailBankCards = new List<EWin.Payment.PaymentDetailBankCard>();
 
                                     //Description待實際測試後調整
-                                    string Decription = "ReceiveAmount:"+TempCryptoData.ReceiveTotalAmount+",Card Number:"+BankCard+",Name:"+BankCardName+",BankName:"+BankName;
+                                    string Decription = "ReceiveAmount:"+TempCryptoData.ReceiveTotalAmount+",Card Number:"+BankCard+",Name:"+BankCardName+",BankName:"+BankName+",BankBranchCode:"+BankBranchCode;
 
                                     EWin.Payment.PaymentDetailBankCard paymentDetailWallet = new EWin.Payment.PaymentDetailBankCard()
                                     {
@@ -2038,7 +2038,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         BankCardType = EWin.Payment.enumBankCardType.UserAccountBankCard,
                                         BankCode = "",
                                         BankName = BankName,
-                                        BranchName = "",
+                                        BranchName = BankBranchCode,
                                         BankNumber = BankCard,
                                         AccountName=BankCardName,
                                         AmountMax=9999999999,
