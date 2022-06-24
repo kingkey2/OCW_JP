@@ -736,9 +736,13 @@
                             </div>
                         </div>
                         <div class="publicize-wrap bulletin-login">
-                            <div class="item bulletin">
+                            <div class="item bulletin">                                
                                 <div class="bulletin_inner">
-                                    <h2 class="title language_replace">最新公告</h2>
+                                    <div class="sec-title-container">
+                                        <div class="sec-title-wrapper">
+                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
+                                        </div>
+                                    </div>
                                     <ul class="bulletin_list" id="idBulletinBoardContent">
                                     </ul>
                                 </div>
@@ -798,8 +802,6 @@
                 </div>
                 <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
                 </div>
-
-
             </div>
         </section>
 

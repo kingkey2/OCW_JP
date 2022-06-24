@@ -63,6 +63,10 @@
     var GCB;
     var iframeWidth;
     var selectedCategoryCode;
+
+    function showSearchGameModel() {
+        $('#alertSearch', window.parent.document).modal('show');
+    }
  
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
@@ -330,19 +334,19 @@
                 $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
                 switch (LobbyGameList[i].Location) {
                     case 'GameList_All':
-                        $(RecordDom).find('.CategIcon').addClass('icon-all');
+                        $(RecordDom).find('.CategIcon').addClass('icon-all-tt');
                         break;
                     case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-real');
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
                         break;
                     case 'GameList_Electron':
-                        $(RecordDom).find('.CategIcon').addClass('icon-rocket');
+                        $(RecordDom).find('.CategIcon').addClass('icon-elec-tt');
                         break;
                     case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
                         break;
                     case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
                         break;
                     default:
                 }
@@ -526,12 +530,17 @@
                 <div class="swiper-pagination"></div>
             </div>
         </section>
-        <div class="tab-game tab-scroller tab-5">
-            <div class="tab-scroller__area">
-                <ul class="tab-scroller__content" id="idGameItemTitle">
-                    <div class="tab-slide"></div>
-                </ul>
-            </div>
+        <div class="tab-game">
+            <div class="tab-inner">
+                <div class="tab-search" onclick="showSearchGameModel()"><img src="images/icon/ico-search-dog.svg" alt=""><span class="title language_replace">找遊戲</span></div>            
+                <div class="tab-scroller tab-5">
+                    <div class="tab-scroller__area">
+                        <ul class="tab-scroller__content" id="idGameItemTitle">
+                            <div class="tab-slide"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>           
         </div>
         <section class="game-area overflow-hidden" id="gameAreas">
         </section>

@@ -179,24 +179,6 @@ button, input {
           box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 }
 
-.btn-game-close {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 50%;
-  right: 90px;
-  top: 90px;
-  border: solid 1px rgba(255, 255, 255, 0.55);
-}
-.btn-game-close .icon {
-  width: 50px;
-  height: 50px;
-}
-.btn-game-close .icon:before {
-  background-color: #fff;
-}
-
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
 }
@@ -1005,9 +987,6 @@ hr.line {
   }
 }
 @media screen and (max-width: 640px) {
-  .sec-title {
-    margin-bottom: 0.6em;
-  }
   .sec-title-container {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -3216,6 +3195,30 @@ main.innerMain.fixed {
   -webkit-mask-image: url(../images/icon/ico-rocket.svg);
   mask-image: url(../images/icon/ico-rocket.svg);
 }
+.icon-mask.icon-all-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-all-tt.svg);
+  mask-image: url(../images/icon/ico-all-tt.svg);
+}
+.icon-mask.icon-etc-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-etc-tt.svg);
+  mask-image: url(../images/icon/ico-etc-tt.svg);
+}
+.icon-mask.icon-elec-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-elec-tt.svg);
+  mask-image: url(../images/icon/ico-elec-tt.svg);
+}
+.icon-mask.icon-live-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-live-tt.svg);
+  mask-image: url(../images/icon/ico-live-tt.svg);
+}
+.icon-mask.icon-poker-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-poker-tt.svg);
+  mask-image: url(../images/icon/ico-poker-tt.svg);
+}
+.icon-mask.icon-slot-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-slot-tt.svg);
+  mask-image: url(../images/icon/ico-slot-tt.svg);
+}
 .icon-mask.icon-wallet::before {
   -webkit-mask-image: url(../images/icon/ico-wallet.svg);
   mask-image: url(../images/icon/ico-wallet.svg);
@@ -3360,6 +3363,10 @@ main.innerMain.fixed {
 .icon-mask.icon-withdarw::before {
   -webkit-mask-image: url(../images/icon/ico-withdarw.svg);
   mask-image: url(../images/icon/ico-withdarw.svg);
+}
+.icon-mask.icon-dialog::before {
+  -webkit-mask-image: url(../images/icon/ico-dialog.svg);
+  mask-image: url(../images/icon/ico-dialog.svg);
 }
 .icon-mask.icon-user::before {
   -webkit-mask-image: url(../images/theme/dark/icon/icon-ewin-user.svg);
@@ -4729,7 +4736,6 @@ i {
   width: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
-  margin-bottom: 8px;
   position: relative;
 }
 .tab-scroller::after {
@@ -5296,6 +5302,88 @@ i {
     opacity: 0;
   }
 }
+.headerGameName {
+  display: inherit;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 500;
+  padding-top: 10px;
+}
+
+.headerGameDetail {
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+/*   .box {
+    aspect-ratio: 16 / 9;
+    border: 0px!important;
+    height: 95%;
+    margin: 0 auto;
+    display: inherit;
+    overflow: hidden!important;
+    vertical-align: middle;
+}*/
+/*滿版遊戲介面*/
+.divGameFrameBody {
+  z-index: 5;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: rgba(0, 0, 0, 0.95);
+  position: relative;
+}
+.divGameFrameBody .btn {
+  background-color: #036EB7;
+}
+.divGameFrameBody .btn, .divGameFrameBody .btn * {
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.divGameFrameBody .btn:hover {
+  background-color: #00497A;
+}
+.divGameFrameBody .btn:hover .icon {
+  -webkit-transform: scale(1.2, 1.2);
+          transform: scale(1.2, 1.2);
+}
+.divGameFrameBody .btn-game-close {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 0 5px 5px 0;
+  right: -50px;
+  top: 0;
+}
+.divGameFrameBody .btn-game-close .icon {
+  width: 50px;
+  height: 50px;
+}
+.divGameFrameBody .btn-game-close .icon:before {
+  background-color: #fff;
+}
+
+.divGameFrameWrapper {
+  position: relative;
+}
+
+.divGameFrame {
+  width: 70vw;
+  height: 39.375vw;
+  background-color: #09f;
+}
+
 .icon-m-favorite:before {
   content: "b";
 }
@@ -6249,6 +6337,7 @@ i {
   font-size: 2rem;
   opacity: 1;
   font-weight: 500;
+  position: absolute;
 }
 .popupGameInfo .modal-content {
   background-color: transparent;
