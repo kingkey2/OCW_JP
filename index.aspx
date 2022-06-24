@@ -404,6 +404,10 @@
         return showMessageOK(title, msg, cbOK);
     }
 
+    function API_ShowSearchGameModel() {
+        $('#alertSearch').modal('show');
+    }
+
     function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
         return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID);
     }
