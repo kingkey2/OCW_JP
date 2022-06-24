@@ -864,7 +864,9 @@
     }
 
     function favBtnEvent(gameID, doc, isSearchGame) {
-        event.stopPropagation();
+        if (event) {
+            event.stopPropagation();
+        }
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
