@@ -65,7 +65,7 @@
     var selectedCategoryCode;
 
     function showSearchGameModel() {
-        $('#alertSearch', window.parent.document).modal('show');
+        window.parent.API_ShowSearchGameModel();
     }
  
     function loginRecover() {

@@ -404,6 +404,10 @@
         return showMessageOK(title, msg, cbOK);
     }
 
+    function API_ShowSearchGameModel() {
+        $('#alertSearch').modal('show');
+    }
+
     function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
         return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID);
     }
@@ -767,20 +771,20 @@
             $('#divGameFrame').css('display', 'flex');
             //滿版遊戲介面 end
 
-            var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
-            if (showCloseGameTooltipCount == '') {
-                showCloseGameTooltipCount = 0;
-            } else {
-                showCloseGameTooltipCount = parseInt(showCloseGameTooltipCount);
-            }
-            if (showCloseGameTooltipCount < 3) {
-                $('#closeGameBtn').tooltip('show');
-                if (showCloseGameTooltipCount == 0) {
-                    setCookie("showCloseGameTooltip", 1, 365);
-                } else {
-                    setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount) + 1, 365);
-                }
-            }
+            //var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
+            //if (showCloseGameTooltipCount == '') {
+            //    showCloseGameTooltipCount = 0;
+            //} else {
+            //    showCloseGameTooltipCount = parseInt(showCloseGameTooltipCount);
+            //}
+            //if (showCloseGameTooltipCount < 3) {
+            //    $('#closeGameBtn').tooltip('show');
+            //    if (showCloseGameTooltipCount == 0) {
+            //        setCookie("showCloseGameTooltip", 1, 365);
+            //    } else {
+            //        setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount) + 1, 365);
+            //    }
+            //}
 
 
 
@@ -1758,6 +1762,7 @@
         $('.input-fake-select').toggleClass('show');
         $('.input-fake-select').parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
         $('.mask-header').toggleClass('show');
+        searchGameList();
     }
 
     function SearchKeyWordKeyup() {
