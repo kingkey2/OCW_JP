@@ -6382,6 +6382,13 @@ i {
   .game-item-group.list-row .game-item {
     width: 50%;
   }
+
+  .game-area.overflow-hidden {
+    padding-bottom: 0px;
+  }
+  .game-area.overflow-hidden .container {
+    padding-bottom: 160px;
+  }
 }
 @media (min-width: 1384px) {
   .game-item-name {

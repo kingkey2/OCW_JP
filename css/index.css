@@ -605,13 +605,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .section_publicize .publicize_bottom_inner .login {
     width: 100%;
   }
-
-  .game-area.overflow-hidden {
-    padding-bottom: 0px;
-  }
-  .game-area.overflow-hidden .container {
-    padding-bottom: 160px;
-  }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
   .game_slider .swiper-slide {
