@@ -50,11 +50,6 @@
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
-
-            if (WebInfo.UserInfo.LoginAccount == 'test002') {
-                document.getElementById('idDepositPaypal').classList.add('is-hide');
-            }
-
             window.parent.API_LoadingEnd();
         }, "PaymentAPI");
     }

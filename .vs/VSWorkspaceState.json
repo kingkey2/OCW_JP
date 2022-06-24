@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\API",
     "\\Payment",
     "\\Payment\\EPay"
   ],

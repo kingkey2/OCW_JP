@@ -331,6 +331,9 @@
 
                     $(categArea).find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
                     $(categArea).find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
+                    category.Datas.sort(function (a, b) {
+                        return b.SortIndex - a.SortIndex;
+                    });
 
                     category.Datas.forEach(gameItem => {
                         var GI;
@@ -649,8 +652,8 @@
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item" >
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
                             <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b5-m.jpg" alt="">
@@ -663,8 +666,8 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -676,8 +679,8 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item" >
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
                             </div>
@@ -689,8 +692,8 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.top.API_ComingSoonAlert()">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href" onclick="window.top.API_ComingSoonAlert()"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
