@@ -1138,7 +1138,7 @@ hr.line {
   height: 100vh;
   overflow: hidden;
   z-index: 9999;
-  background-color: rgba(0, 174, 255, 0.95);
+  background-color: #00aeff;
   text-align: center;
 }
 
