@@ -5320,6 +5320,77 @@ i {
     opacity: 0;
   }
 }
+.headerGameName {
+  display: inherit;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 500;
+  padding-top: 10px;
+}
+
+.headerGameDetail {
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+/*   .box {
+    aspect-ratio: 16 / 9;
+    border: 0px!important;
+    height: 95%;
+    margin: 0 auto;
+    display: inherit;
+    overflow: hidden!important;
+    vertical-align: middle;
+}*/
+/*滿版遊戲介面*/
+.divGameFrameBody {
+  z-index: 5;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: rgba(0, 0, 0, 0.95);
+  position: relative;
+}
+.divGameFrameBody .btn {
+  background-color: #036EB7;
+}
+.divGameFrameBody .btn-game-close {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 0 5px 5px 0;
+  right: -50px;
+  top: 0;
+}
+.divGameFrameBody .btn-game-close .icon {
+  width: 50px;
+  height: 50px;
+}
+.divGameFrameBody .btn-game-close .icon:before {
+  background-color: #fff;
+}
+
+.divGameFrameWrapper {
+  position: relative;
+}
+
+.divGameFrame {
+  width: 70vw;
+  height: 39.375vw;
+  background-color: #09f;
+}
+
 .icon-m-favorite:before {
   content: "b";
 }
@@ -6273,6 +6344,7 @@ i {
   font-size: 2rem;
   opacity: 1;
   font-weight: 500;
+  position: absolute;
 }
 .popupGameInfo .modal-content {
   background-color: transparent;

@@ -111,50 +111,7 @@
     <link rel="shortcut icon" href="images/share_pic1.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <style>
-        .headerGameName {
-            display: inherit;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            font-weight: 500;
-            padding-top: 10px;
-        }
-
-        .headerGameDetail {
-            margin: 0 auto;
-            vertical-align: middle;
-        }
-        /*   .box {
-            aspect-ratio: 16 / 9;
-            border: 0px!important;
-            height: 95%;
-            margin: 0 auto;
-            display: inherit;
-            overflow: hidden!important;
-            vertical-align: middle;
-        }*/
-        /*滿版遊戲介面*/
-        .divGameFrameBody {
-            z-index: 5;
-            display: none;
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            align-items: center;
-            justify-content: center;
-            background-color: black
-        }
-
-        .divGameFrame {
-            width: 70vw;
-            height: 39.375vw; /* 70 ÷ 16 × 9 = 39.375 */
-            background-color: #09f;
-        }
-    </style>
+   
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -376,12 +333,12 @@
             IFramePage.src = "";
 
             //非滿版遊戲介面
-            $('#headerGameDetailContent').hide();
-            $('#GameIFramePage').hide();
+            // $('#headerGameDetailContent').hide();
+            // $('#GameIFramePage').hide();
             //非滿版遊戲介面 end
 
             //滿版遊戲介面
-            //$('#divGameFrame').css('display', 'none');
+            $('#divGameFrame').css('display', 'none');
             //滿版遊戲介面 end
         }
 
@@ -788,12 +745,12 @@
         var IFramePage = document.getElementById("GameIFramePage");
         IFramePage.src = "";
         //非滿版遊戲介面
-        $('#headerGameDetailContent').hide();
-        $('#GameIFramePage').hide();
+        // $('#headerGameDetailContent').hide();
+        // $('#GameIFramePage').hide();
         //非滿版遊戲介面 end
 
         //滿版遊戲介面
-        //$('#divGameFrame').css('display', 'none');
+        $('#divGameFrame').css('display', 'none');
        //滿版遊戲介面 end
     }
     //#region Game
@@ -802,12 +759,12 @@
 
         if (IFramePage != null) {
             //非滿版遊戲介面
-            $('#headerGameDetailContent').show();
-            $('#GameIFramePage').show();
+            // $('#headerGameDetailContent').show();
+            // $('#GameIFramePage').show();
             //非滿版遊戲介面 end
 
             //滿版遊戲介面
-            //$('#divGameFrame').css('display', 'flex');
+            $('#divGameFrame').css('display', 'flex');
             //滿版遊戲介面 end
 
             var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
@@ -2114,17 +2071,21 @@
     <%--    <div class="main_area" style="height: auto;">--%>
 
     <!-- 滿版遊戲介面 -->
-    <%--<div id="divGameFrame" class="divGameFrameBody">
-        <div class="btn btn-game-close"  onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
-        <iframe id="GameIFramePage" class="divGameFrame" name="mainiframe"></iframe>
-    </div>--%>
+    <div id="divGameFrame" class="divGameFrameBody">
+        <div class="divGameFrameWrapper">
+            <div class="btn-wrapper">
+                <div class="btn btn-game-close"  onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
+            </div>            
+            <iframe id="GameIFramePage" class="divGameFrame" name="mainiframe"></iframe>
+        </div>
+    </div>
     <!-- 滿版遊戲介面 end-->
 
     <div class="main_area">
 
         <!-- 非滿版遊戲介面 -->
-        <div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></div>
-        <iframe id="GameIFramePage" style="z-index: 2; display: none;" class="mainIframe" name="mainiframe"></iframe>
+        <%--<div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></div>
+        <iframe id="GameIFramePage" style="z-index: 2; display: none;" class="mainIframe" name="mainiframe"></iframe>--%>
         <!-- 非滿版遊戲介面 end-->
 
         <!-- iframe高度 自動計算高度-->
