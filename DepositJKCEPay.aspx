@@ -728,7 +728,7 @@
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
                                 <p class="text-s language_replace">※入金額は3,000ocoinから700,000ocoinまでとなります。</p>
                                 <p class="text-s language_replace">※OCoin必須在款項到帳後才會反映，如果過了1個銀行營業日也沒反映請聯絡客服。</p>
-                                <p class="text-s language_replace">※この部分の記入は銀行の振込名義と同じで有る事が必須に成ります。ご了承下さい。</p>
+                                <p class="text-s language_replace">※この部分の記入は銀行の振込名義（全角スペースを含む）と同じで有る事が必須に成ります。ご了承下さい。</p>
                             </div>
                         </div>
 

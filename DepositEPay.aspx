@@ -511,7 +511,7 @@
                                 <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
                                 <p class="text-s language_replace">※Ocoinの反映は着金後になりますが、1銀行営業日経っても反映しない場合はカスタマサポート迄ご連絡下さい。</p>
                                 <p class="text-s language_replace">※訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</p>
-                                <p class="text-s language_replace">※この部分の記入は銀行の振込名義と同じで有る事が必須に成ります。ご了承下さい。</p>
+                                <p class="text-s language_replace">※この部分の記入は銀行の振込名義（全角スペースを含む）と同じで有る事が必須に成ります。ご了承下さい。</p>
                             </div>
                         </div>
                     </div>
