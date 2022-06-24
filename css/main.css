@@ -5418,6 +5418,15 @@ i {
   padding-bottom: 20px;
 }
 
+.game-area.overflow-hidden {
+  padding-left: 10px;
+}
+.game-area.overflow-hidden .container {
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .section-levelUp {
   position: relative;
 }

@@ -115,13 +115,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding-right: 10px;
   width: 31.25%;
 }
-.game_slider .swiper-button-next {
-  right: -25px;
-}
-.game_slider .swiper-button-prev {
-  left: -15px;
-}
-
 @media (min-width: 375px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 230px;
@@ -301,7 +294,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1384px) and (max-width: 1543px) {
   .game_slider .swiper-slide {
-    width: 12.5%;
+    width: 14.2857142857%;
   }
   .game_slider .swiper-slide:nth-child(8n+1) .game-item-info-detail {
     left: 0;
@@ -332,7 +325,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1544px) and (max-width: 1863px) {
   .game_slider .swiper-slide {
-    width: 11.1111111111%;
+    width: 14.2857142857%;
   }
   .game_slider .swiper-slide:nth-child(9n+1) .game-item-info-detail {
     left: 0;
@@ -355,7 +348,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1864px) and (max-width: 1919px) {
   .game_slider .swiper-slide {
-    width: 10%;
+    width: 12.5%;
   }
   .game_slider .swiper-slide:nth-child(10n+1) .game-item-info-detail {
     left: 0;

@@ -2,15 +2,6 @@
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
-.game-area.overflow-hidden {
-  padding-left: 10px;
-}
-.game-area.overflow-hidden .container {
-  overflow: hidden;
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .desktop {
   display: none !important;
 }
@@ -250,19 +241,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  width: 0.9375rem;
-  height: 0.9375rem;
-  border-radius: 50%;
+  width: 3px;
+  height: 1rem;
+  border-radius: 1px;
   background-color: #008fd1;
-}
-.section_publicize .publicize_bottom_inner .bulletin_list .item:nth-child(3n+1):before {
-  background-color: #4288C9;
-}
-.section_publicize .publicize_bottom_inner .bulletin_list .item:nth-child(3n+2):before {
-  background-color: #FFB103;
-}
-.section_publicize .publicize_bottom_inner .bulletin_list .item:nth-child(3n):before {
-  background-color: #7ACEA6;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item .date {
   font-weight: 600;
