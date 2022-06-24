@@ -1801,6 +1801,7 @@
         $('.input-fake-select').toggleClass('show');
         $('.input-fake-select').parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
         $('.mask-header').toggleClass('show');
+        searchGameList();
     }
 
     function SearchKeyWordKeyup() {
