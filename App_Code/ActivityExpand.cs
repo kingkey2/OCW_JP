@@ -271,13 +271,13 @@ public static class ActivityExpand {
                                     if (callResult.Result == EWin.Lobby.enumResult.OK) {
 
                                         var GameOrderList = callResult.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
-                                            TotalOrderValue = sum.Sum(y => y.TotalOrderValue),
+                                            TotalValidBetValue = sum.Sum(y => y.TotalValidBetValue),
                                             CurrencyType = key.CurrencyType,
                                             SummaryDate = key.SummaryDate
                                         }).ToArray();
 
                                         foreach (var item in GameOrderList) {
-                                            if (item.TotalOrderValue > OrderValue) {
+                                            if (item.TotalValidBetValue > OrderValue) {
                                                 BonusValue += OneDayBonus;
                                             }
                                         }
