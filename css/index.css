@@ -236,6 +236,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -ms-flexbox;
   display: flex;
 }
+.section_publicize .publicize_bottom_inner .bulletin_list .item:nth-child(5) ~ .item {
+  display: none;
+}
 .section_publicize .publicize_bottom_inner .bulletin_list .item:before {
   content: "";
   display: -webkit-inline-box;
