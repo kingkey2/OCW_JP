@@ -216,6 +216,7 @@
                                 // slidesPerGroup: 2,
                                 // loopedSlides: 8,
                                 lazy: true,
+                                freeMode: true,
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
