@@ -767,20 +767,20 @@
             $('#divGameFrame').css('display', 'flex');
             //滿版遊戲介面 end
 
-            var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
-            if (showCloseGameTooltipCount == '') {
-                showCloseGameTooltipCount = 0;
-            } else {
-                showCloseGameTooltipCount = parseInt(showCloseGameTooltipCount);
-            }
-            if (showCloseGameTooltipCount < 3) {
-                $('#closeGameBtn').tooltip('show');
-                if (showCloseGameTooltipCount == 0) {
-                    setCookie("showCloseGameTooltip", 1, 365);
-                } else {
-                    setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount) + 1, 365);
-                }
-            }
+            //var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
+            //if (showCloseGameTooltipCount == '') {
+            //    showCloseGameTooltipCount = 0;
+            //} else {
+            //    showCloseGameTooltipCount = parseInt(showCloseGameTooltipCount);
+            //}
+            //if (showCloseGameTooltipCount < 3) {
+            //    $('#closeGameBtn').tooltip('show');
+            //    if (showCloseGameTooltipCount == 0) {
+            //        setCookie("showCloseGameTooltip", 1, 365);
+            //    } else {
+            //        setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount) + 1, 365);
+            //    }
+            //}
 
 
 
