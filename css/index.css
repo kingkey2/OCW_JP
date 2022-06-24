@@ -246,7 +246,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: inline-flex;
   width: 3px;
   height: 1rem;
-  border-radius: 1px;
+  border-radius: 0.5px;
   background-color: #008fd1;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item .date {
@@ -267,6 +267,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+.section_publicize .publicize_bottom_inner .bulletin_list .item .info:hover {
+  color: #008fd1;
 }
 
 .activity-dailylogin-wrapper {
