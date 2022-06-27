@@ -291,6 +291,12 @@
             return false;
         }
 
+        if (bankCard.length!=7) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("卡號只能輸入7位數"), function () { });
+            window.parent.API_LoadingEnd(1);
+            return false;
+        }
+
         if (bankCardName == '') {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入姓名"), function () { });
             window.parent.API_LoadingEnd(1);
