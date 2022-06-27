@@ -784,6 +784,96 @@ public class LobbyAPI : System.Web.Services.WebService
 
     }
 
+          [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public OcwCompanyGameCodeResult GetStatisticsCompanyGameCode(string GUID, long RecordTimeStamp)
+    {
+        OcwCompanyGameCodeResult Ret = new OcwCompanyGameCodeResult() { CompanyCategoryDatas = new List<OcwCompanyCategory>() };
+        System.Data.DataTable CompanyCategoryDT;
+        System.Data.DataTable CompanyGameCodeDT;
+        int CompanyCategoryID;
+        CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
+        Dictionary<string, long> SyncData;
+        SyncData = RedisCache.CompanyGameCode.GetSyncData();
+
+        if (SyncData != null)
+        {
+            Ret.MaxGameID = (int)SyncData["MaxGameID"];
+            Ret.TimeStamp = SyncData["TimeStamp"];
+
+            if (Ret.TimeStamp != RecordTimeStamp)
+            {
+                if (CompanyCategoryDT != null && CompanyCategoryDT.Rows.Count > 0)
+                {
+                    for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
+                    {
+                        if ((int)CompanyCategoryDT.Rows[i]["State"] == 0&&(int)CompanyCategoryDT.Rows[i]["CategoryType"] == 1)
+                        {
+                            CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
+                            CompanyGameCodeDT = RedisCache.CompanyGameCode.GetCompanyGameCodeByID(CompanyCategoryID);
+
+                            var companyCategoryData = new OcwCompanyCategory();
+                            companyCategoryData.CompanyCategoryID = CompanyCategoryID;
+                            companyCategoryData.CategoryName = (string)CompanyCategoryDT.Rows[i]["CategoryName"];
+                            companyCategoryData.SortIndex = (int)CompanyCategoryDT.Rows[i]["SortIndex"];
+                            companyCategoryData.State = (int)CompanyCategoryDT.Rows[i]["State"];
+                            companyCategoryData.Location = (string)CompanyCategoryDT.Rows[i]["Location"];
+                            companyCategoryData.ShowType = (int)CompanyCategoryDT.Rows[i]["ShowType"];
+                            companyCategoryData.Datas = new List<OcwCompanyGameCode>();
+
+
+                            if (CompanyGameCodeDT != null && CompanyGameCodeDT.Rows.Count > 0)
+                            {
+                                for (int k = 0; k < CompanyGameCodeDT.Rows.Count; k++)
+                                {
+                                    var data = new OcwCompanyGameCode();
+                                    data.AllowDemoPlay = (int)CompanyGameCodeDT.Rows[k]["AllowDemoPlay"];
+                                    data.forCompanyCategoryID = (int)CompanyGameCodeDT.Rows[k]["forCompanyCategoryID"];
+                                    data.GameBrand = (string)CompanyGameCodeDT.Rows[k]["GameBrand"];
+                                    data.GameCategoryCode = (string)CompanyGameCodeDT.Rows[k]["GameCategoryCode"];
+                                    data.GameCategorySubCode = (string)CompanyGameCodeDT.Rows[k]["GameCategorySubCode"];
+                                    data.GameID = (int)CompanyGameCodeDT.Rows[k]["GameID"];
+                                    data.GameName = (string)CompanyGameCodeDT.Rows[k]["GameName"];
+                                    data.Info = (string)CompanyGameCodeDT.Rows[k]["Info"];
+                                    data.IsHot = (int)CompanyGameCodeDT.Rows[k]["IsHot"];
+                                    data.IsNew = (int)CompanyGameCodeDT.Rows[k]["IsNew"];
+                                    data.RTPInfo = (string)CompanyGameCodeDT.Rows[k]["RTPInfo"];
+                                    data.SortIndex = (int)CompanyGameCodeDT.Rows[k]["SortIndex"];
+
+
+                                    companyCategoryData.Datas.Add(data);
+
+                                }
+                            }
+
+                            Ret.CompanyCategoryDatas.Add(companyCategoryData);
+                        }
+                    }
+
+                    Ret.Result = EWin.Lobby.enumResult.OK;
+                }
+                else
+                {
+                    Ret.Result = EWin.Lobby.enumResult.ERR;
+                }
+            }
+            else
+            {
+                Ret.Result = EWin.Lobby.enumResult.OK;
+            }
+        }
+        else
+        {
+            Ret.Result = EWin.Lobby.enumResult.ERR;
+            Ret.Message = "NoSync";
+            Ret.MaxGameID = 0;
+            Ret.TimeStamp = 0;
+        }
+
+        return Ret;
+
+    }
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public OcwCompanyGameCodeResult GetCompanyCategoryID(string GUID, string Location)

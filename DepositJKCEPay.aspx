@@ -726,9 +726,11 @@
                             </form>
                             <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※入金額は3,000ocoinから700,000ocoinまでとなります。</p>
+                                <p class="text-s language_replace">※存款金額為3,000ocoin至700,000ocoin。</p>
                                 <p class="text-s language_replace">※OCoin必須在款項到帳後才會反映，如果過了1個銀行營業日也沒反映請聯絡客服。</p>
-                                <p class="text-s language_replace">※この部分の記入は銀行の振込名義（全角スペースを含む）と同じで有る事が必須に成ります。ご了承下さい。</p>
+                                <p class="text-s language_replace">※此處填寫的全名必須與銀行的匯款人名稱（含全形空白）完全相同，敬請見諒。</p>
+
+                                <p class="text-s language_replace">※訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</p>
                             </div>
                         </div>
 
@@ -850,7 +852,7 @@
                             <p class="title language_replace">注意事項</p>
                             <ul class="list-style-decimal">
                                 <li><span class="language_replace">點擊 下一步，會顯示收款人信息。</span></li>
-                                <li><span class="language_replace">匯款人的名義請務必與轉賬時用的名義相同（片假名）。</span></li>
+                                <li><span class="language_replace">此處填寫的全名必須與銀行的匯款人名稱（含全形空白）完全相同，敬請見諒。</span></li>
                                 <li><span class="language_replace">若有差異的話，可能需要一些時間反映。也有可能無法反映，請注意。</span></li>
                                 <li><span class="language_replace">根據不同的金融機構，若轉賬於銀行營業時間以外進行的話，將在下一個營業日才能確認匯款。</span></li>
                                 <li><span class="language_replace">訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</span></li>
