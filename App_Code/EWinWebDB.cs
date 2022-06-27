@@ -260,7 +260,8 @@ public static class EWinWebDB {
     }
 
     public static class UserAccountEventSummary {
-        public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, string JoinActivityCycle, int Type, decimal ThresholdValue, decimal BonusValue) {
+        public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, int Type, decimal ThresholdValue, decimal BonusValue) {
+            //public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, string JoinActivityCycle, int Type, decimal ThresholdValue, decimal BonusValue) {
             //Type: 0=Collect/1=Join
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -271,7 +272,7 @@ public static class EWinWebDB {
             DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
             DBCmd.Parameters.Add("@ActivityName", System.Data.SqlDbType.VarChar).Value = ActivityName;
-            DBCmd.Parameters.Add("@JoinActivityCycle", System.Data.SqlDbType.VarChar).Value = JoinActivityCycle;
+            //DBCmd.Parameters.Add("@JoinActivityCycle", System.Data.SqlDbType.VarChar).Value = JoinActivityCycle;
             DBCmd.Parameters.Add("@Type", System.Data.SqlDbType.Int).Value = Type;
             DBCmd.Parameters.Add("@ThresholdValue", System.Data.SqlDbType.Decimal).Value = ThresholdValue;
             DBCmd.Parameters.Add("@BonusValue", System.Data.SqlDbType.Decimal).Value = BonusValue;

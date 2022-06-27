@@ -446,19 +446,23 @@ public class PaymentAPI : System.Web.Services.WebService
                     {
                         ActivityCore.ActResult<ActivityCore.DepositActivity> activityDepositResult = ActivityCore.GetDepositResult(ActivityName, TempCryptoData.Amount, TempCryptoData.PaymentCode, TempCryptoData.LoginAccount);
 
-                        if (activityDepositResult.Result == ActivityCore.enumActResult.OK) {
-                            EWinTagInfoActivityData infoActivityData = new EWinTagInfoActivityData() {
+                        if (activityDepositResult.Result == ActivityCore.enumActResult.OK)
+                        {
+                            EWinTagInfoActivityData infoActivityData = new EWinTagInfoActivityData()
+                            {
                                 ActivityName = ActivityName,
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue,
-                                JoinCount = activityDepositResult.Data.JoinCount,
-                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                JoinCount = activityDepositResult.Data.JoinCount
+                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
-                        } else {
+                        }
+                        else
+                        {
                             JoinActivityFailedMsg += "Join " + ActivityName + " Failed,";
                             break;
                         }
@@ -770,8 +774,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
-                                ThresholdValue = activityDepositResult.Data.ThresholdValue,
-                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ThresholdValue = activityDepositResult.Data.ThresholdValue
+                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1095,8 +1099,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
-                                ThresholdValue = activityDepositResult.Data.ThresholdValue,
-                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ThresholdValue = activityDepositResult.Data.ThresholdValue
+                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1229,8 +1233,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
-                                ThresholdValue = activityDepositResult.Data.ThresholdValue,
-                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ThresholdValue = activityDepositResult.Data.ThresholdValue
+                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -3267,7 +3271,7 @@ public class PaymentAPI : System.Web.Services.WebService
     public class EWinTagInfoActivityData
     {
         public string ActivityName { get; set; }
-        public string JoinActivityCycle { get; set; }
+        //public string JoinActivityCycle { get; set; }
         public decimal BonusRate { get; set; }
         public decimal BonusValue { get; set; }
         public decimal ThresholdRate { get; set; }
