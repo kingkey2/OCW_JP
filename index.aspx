@@ -1,8 +1,10 @@
 <%@ Page Language="C#" %>
 
 <%
+    int IsInMaintain = 0;
     if (EWinWeb.IsInMaintain()) {
         Response.Redirect("/Maintain.aspx");
+        IsInMaintain = 1;
     }
 
     string Token;
@@ -110,7 +112,7 @@
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
     <link rel="shortcut icon" href="images/share_pic1.png">
     <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css?20220627">
    
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
@@ -174,6 +176,7 @@
     var noSleep;
     var selectedWallet = null;
     var v = "<%=Version%>";
+    var IsInMaintain = "<%=IsInMaintain%>";
     var GCB;
     var GameInfoModal;
     var MessageModal;
@@ -1511,6 +1514,14 @@
                     }
                 }
             }, 1000);
+
+            //window.setInterval(function () {
+            //    if (IsInMaintain == 1) {
+            //        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("系統維護中"), function () {
+            //            API_Logout(true);
+            //        });
+            //    }
+            //}, 5000);
 
             window.onresize = reportWindowSize;
             //window.setInterval(function () {

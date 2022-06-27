@@ -79,10 +79,10 @@
             Description: "消去型のスロットゲームで、当たり率高く、フリースピンが入ると超大当たりが入り易い。"
         },
         {
-            GameName: "228",
-            GameBrand: "BNG",
-            GameLangName: "BNG.228",
-            Description: "ゴールドがたまるとフリースピンに入り、フリースピン中に更にフリースピンが当たります。"
+            GameName: "AzurLaneEX",
+            GameBrand: "CG",
+            GameLangName: "CG.AzurLaneEX",
+            Description: "戦艦マニアにはたまらないグラフスロット。ドカンと一発！！"
         },
         {
             GameName: "101",
@@ -167,7 +167,12 @@
             tempGI_img.onerror = new Function("setDefaultIcon('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "')");
         }
 
-        c.setClassText(tempGI, "gameName", null, window.parent.API_GetGameLang(1, temp_gameItem.GameBrand, temp_gameItem.GameName));
+        if (temp_gameItem.GameLangName == "EWinGaming") {
+        c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
+        } else {
+        c.setClassText(tempGI, "gameName", null, GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName));
+        }
+
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));
         tempGI.onclick = new Function("window.parent.openGame('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "','" + temp_gameItem.GameLangName + "')");
         ParentMain.prepend(tempGI);
@@ -193,9 +198,7 @@
                 }
 
                 if (FourGames) {
-                    for (var i = 0; i < FourGames.length; i++) {
-                        setFourGame(i);
-                    }
+                    updateFourGame();
                 }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
@@ -209,6 +212,14 @@
         setBulletinBoard();
 
         //iframeWidth = $(window.parent.document).find('#IFramePage').width();
+    }
+
+    function updateFourGame() {
+        var ParentMain = document.getElementById("ParentRecommendGameItem");
+        ParentMain.innerHTML = "";
+        for (var i = 0; i < FourGames.length; i++) {
+            setFourGame(i);
+        }
     }
 
     function refreshFavoGame() {
@@ -575,8 +586,8 @@
                             c.setClassText(RecordDom, "CreateDate", null, date);
                             c.setClassText(RecordDom, "BulletinTitle", null, record.BulletinTitle);
 
-                            RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinBoardID +"."+ record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
-
+                            //RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinBoardID +"."+ record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
+                            RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
                             ParentMain.appendChild(RecordDom);
 
                         }
@@ -599,6 +610,7 @@
 
                 mlp.loadLanguage(lang, function () {
                     updateGameList();
+                    updateFourGame();
                     window.parent.API_LoadingEnd(1);
                 });
 
