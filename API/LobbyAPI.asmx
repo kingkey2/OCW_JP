@@ -1472,12 +1472,6 @@ public class LobbyAPI : System.Web.Services.WebService
                     int mainTain = (int)o["InMaintenance"];
 
                     if (mainTain == 1) {
-
-                        var allSID = RedisCache.SessionContext.ListAllSID();
-                        foreach (var item in allSID) {
-                            RedisCache.SessionContext.ExpireSID(item);
-                        }
-
                         R.Message = "1";
                     }
                 } catch (Exception ex) { }
