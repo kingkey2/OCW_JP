@@ -1361,6 +1361,42 @@ public class LobbyAPI : System.Web.Services.WebService
         return lobbyAPI.GetCompanyExchange(GetToken(), GUID);
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult GetWebSiteMaintainStatus() {
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult();
+        R.Result = EWin.Lobby.enumResult.OK;
+        R.Message = "0";
+        string Filename;
+
+        Filename = HttpContext.Current.Server.MapPath("/App_Data/Setting.json");
+
+        if (System.IO.File.Exists(Filename)) {
+            string SettingContent;
+
+            SettingContent = System.IO.File.ReadAllText(Filename);
+
+            if (string.IsNullOrEmpty(SettingContent) == false) {
+                try {
+                    Newtonsoft.Json.Linq.JObject o = Newtonsoft.Json.Linq.JObject.Parse(SettingContent);
+                    int mainTain = (int)o["InMaintenance"];
+
+                    if (mainTain == 1) {
+
+                        var allSID = RedisCache.SessionContext.ListAllSID();
+                        foreach (var item in allSID) {
+                            RedisCache.SessionContext.ExpireSID(item);
+                        }
+
+                        R.Message = "1";
+                    }
+                } catch (Exception ex) { }
+            }
+        }
+
+        return R;
+    }
+
     //private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType)
     //{
     //    string Subject = string.Empty;

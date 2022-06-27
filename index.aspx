@@ -1,10 +1,8 @@
 <%@ Page Language="C#" %>
 
 <%
-    int IsInMaintain = 0;
     if (EWinWeb.IsInMaintain()) {
         Response.Redirect("/Maintain.aspx");
-        IsInMaintain = 1;
     }
 
     string Token;
@@ -176,7 +174,6 @@
     var noSleep;
     var selectedWallet = null;
     var v = "<%=Version%>";
-    var IsInMaintain = "<%=IsInMaintain%>";
     var GCB;
     var GameInfoModal;
     var MessageModal;
@@ -1490,6 +1487,14 @@
                                 needCheckLogin = true;
                             } else {
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                                    lobbyClient.GetWebSiteMaintainStatus(function (success, o1) {
+                                        if (o1.Message == "1") { //維護中
+                                            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("系統維護中"), function () {
+                                                window.location.reload();
+                                            });
+                                        }
+                                    })
+
                                     needCheckLogin = true;
                                 }
                             }
@@ -1514,14 +1519,6 @@
                     }
                 }
             }, 1000);
-
-            //window.setInterval(function () {
-            //    if (IsInMaintain == 1) {
-            //        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("系統維護中"), function () {
-            //            API_Logout(true);
-            //        });
-            //    }
-            //}, 5000);
 
             window.onresize = reportWindowSize;
             //window.setInterval(function () {
