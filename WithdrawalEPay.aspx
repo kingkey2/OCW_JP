@@ -694,7 +694,7 @@
                                   
                               </div>
                                <!-- 溫馨提醒 -->
-                            <div class="notice-container mt-3 mb-3">
+                            <div class="notice-container mt-4 mt-md-5 mb-2">
                                 <div class="notice-item">
                                     <i class="icon-info_circle_outline"></i>     
                                     <div class="text-wrap">
