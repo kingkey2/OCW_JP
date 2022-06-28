@@ -527,15 +527,17 @@
                             <!-- 錢包中心 -->
                             <div class="member-wallet-wrapper">
                                 <div class="member-wallet-inner">
-                                    <div class="member-wallet-contnet">
-                                        <h3 class="member-wallet-title language_replace">錢包</h3>
-                                        <div class="member-wallet-amount">
-                                            <span class="unit">Ocoin</span>
-                                            <div class="member-deposit">
-                                                <span class="amount" id="idAmount">999,999,999</span>
-                                                <!-- 入金 Button -->
-                                                <span class="btn btn-deposit btn-full-stress btn-round" onclick="window.top.API_LoadPage('Deposit','Deposit.aspx', true)"><i class="icon icon-add"></i></span>
-                                            </div>
+                                    <div class="member-wallet-contnet" onclick="window.top.API_LoadPage('Deposit','Deposit.aspx', true)">
+                                        <div class="member-wallet-detail">
+                                            <h3 class="member-wallet-title language_replace">錢包</h3>
+                                            <div class="member-wallet-amount">
+                                                <span class="unit">OCoin</span>
+                                                <div class="member-deposit">
+                                                    <span class="amount" id="idAmount">999,999,999</span>
+                                                    <!-- 入金 Button -->
+                                                    <span class="btn btn-deposit btn-full-stress btn-round"><i class="icon icon-add"></i></span>
+                                                </div>
+                                            </div>                                            
                                         </div>
                                     </div>
                                     <!-- 履歷紀錄 -->
@@ -550,9 +552,8 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- 出金門檻: class判斷=> 不足:lacking  足夠:enough-->
-                        <div class="member-withdraw-wrapper lacking" id="divThrehold">
+                        <div class="member-withdraw-wrapper lacking" id="divThrehold" style="display: none;">
                             <div class="member-withdraw-limit-wrapper">
                                 <div class="member-withdraw-limit-inner ">
                                     <i class="icon icon-mask icon-lock"></i>
@@ -566,14 +567,17 @@
                                         <!-- 出金門檻 -->
                                         <span class="limit-amount" id="idThrehold"></span>
                                     </span>
-
                                 </div>
-
-
                             </div>
+                        </div>
 
+                        <div class="member-withdraw-wrapper lacking">
+                            
 
                         </div>
+
+
+
                     </section>
 
                     <!-- 會員簽到進度顯示 + 活動中心 -->
