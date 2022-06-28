@@ -383,17 +383,6 @@
                                             <input type="text" class="custom-input-edit" id="RealName" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item password" style="width: 50%; display: none;">
-                                        <div class="data-item-title">
-                                            <label class="title">
-                                                <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">舊密碼</span>
-                                            </label>
-                                        </div>
-                                        <div class="data-item-content">
-                                            <input type="password" class="custom-input-edit" id="idOldPassword" value="">
-                                        </div>
-                                    </div>
                                     <div class="data-item birth" style="width: 50%">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -411,6 +400,17 @@
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">舊密碼</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <input type="password" class="custom-input-edit" id="idOldPassword" value="">
+                                        </div>
+                                    </div>                                    
+                                    <div class="data-item password" style="width: 50%; display: none;">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
                                                 <span class="title-name language_replace">新密碼</span>
                                             </label>
                                         </div>
@@ -418,6 +418,7 @@
                                             <input type="password" class="custom-input-edit" id="idNewPassword" value="">
                                         </div>
                                     </div>
+                                  
                                     <div class="data-item mobile">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -445,7 +446,9 @@
                                             <input type="text" class="custom-input-edit" id="Email" value="" readonly>
                                         </div>
                                     </div>
+                                   
                                     <div class="data-item-group">
+                                        <%--
                                         <div class="data-item home" id="divAddress">
                                             <div class="data-item-title">
                                                 <label class="title">
@@ -474,9 +477,11 @@
 
                                             </div>
                                         </div>
+                                        --%>
+
                                         <div class="wrapper_center">
-                                            <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-full-stress-2 is-hide"><span class="language_replace">取消</span></button>
-                                            <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-stress-2 is-hide"><span class="language_replace">確認</span></button>
+                                            <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-gray is-hide"><span class="language_replace">取消</span></button>
+                                            <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-main is-hide"><span class="language_replace">確認</span></button>
                                         </div>
                                         <div class="data-item qrcode">
                                             <div class="data-item-title">
@@ -516,55 +521,6 @@
                             </fieldset>
                         </div>
                     </section>
-
-                    <!-- 會員簽到進度顯示 + 活動中心 -->
-                    <section class="section-member-activity">
-
-                        <!-- 會員簽到進度顯示 -->
-                        <div class="activity-dailylogin-wrapper">
-                            <!-- <div class="dailylogin-bouns-wrapper coming-soon"> -->
-                            <div class="dailylogin-bouns-wrapper">
-                                <div class="dailylogin-bouns-inner">
-                                    <div class="dailylogin-bouns-content">
-                                        <h3 class="title">
-                                            <span class="name ">金曜日のプレゼント</span></h3>
-                                        <ul class="dailylogin-bouns-list">
-                                            <!-- 已領取 bouns => got-->
-                                            <li class="bouns-item got">
-                                                <span class="day"><span class="language_replace">五</span></span></li>
-                                            <li class="bouns-item saturday">
-                                                <span class="day"><span class="language_replace">六</span></span>
-                                            </li>
-                                            <li class="bouns-item sunday">
-                                                <span class="day"><span class="language_replace">日</span></span></li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">一</span></span>
-                                            </li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">二</span></span></li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">三</span></span>
-                                            </li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">四</span></span>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 活動中心 -->
-                        <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
-                            <div class="activity-center-inner">
-                                <div class="title language_replace">活動中心</div>
-                            </div>
-                        </div>
-
-                    </section>
-
-
                     <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
                     <section class="section-member-wallet-transaction">
                         <div class="member-wallet-deposit-wrapper">
@@ -618,6 +574,53 @@
 
 
                         </div>
+                    </section>
+
+                    <!-- 會員簽到進度顯示 + 活動中心 -->
+                    <section class="section-member-activity">
+
+                        <!-- 會員簽到進度顯示 -->
+                        <div class="activity-dailylogin-wrapper">
+                            <!-- <div class="dailylogin-bouns-wrapper coming-soon"> -->
+                            <div class="dailylogin-bouns-wrapper">
+                                <div class="dailylogin-bouns-inner">
+                                    <div class="dailylogin-bouns-content">
+                                        <h3 class="title">
+                                            <span class="name ">金曜日のプレゼント</span></h3>
+                                        <ul class="dailylogin-bouns-list">
+                                            <!-- 已領取 bouns => got-->
+                                            <li class="bouns-item got">
+                                                <span class="day"><span class="language_replace">五</span></span></li>
+                                            <li class="bouns-item saturday">
+                                                <span class="day"><span class="language_replace">六</span></span>
+                                            </li>
+                                            <li class="bouns-item sunday">
+                                                <span class="day"><span class="language_replace">日</span></span></li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">一</span></span>
+                                            </li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">二</span></span></li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">三</span></span>
+                                            </li>
+                                            <li class="bouns-item">
+                                                <span class="day"><span class="language_replace">四</span></span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 活動中心 -->
+                        <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                            <div class="activity-center-inner">
+                                <div class="title language_replace">活動中心</div>
+                            </div>
+                        </div>
+
                     </section>
 
                     <div class="activity-container">

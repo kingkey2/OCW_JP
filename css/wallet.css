@@ -1742,7 +1742,7 @@
     font-size: 2.5vw;
   }
   .card-item-inner .title.vertical-center {
-    /* font-size: calc(25vw / 4); */
+    font-size: calc(25vw / 4);
   }
 }
 @media only screen and (min-width: 540px) {
@@ -1788,7 +1788,7 @@
     margin-bottom: 0.65rem;
   }
   .card-item-inner .title.vertical-center {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
   }
 }
 @media only screen and (min-width: 960px) {
