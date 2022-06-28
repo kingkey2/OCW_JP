@@ -891,7 +891,7 @@
                     </div>
                 </div>
 
-                <div class="btn-container mt-2">
+                <div class="btn-container mt-4">
                     <button class="btn btn-primary" data-deposite="step2">
                         <span class="language_replace">下一步</span>
                     </button>
