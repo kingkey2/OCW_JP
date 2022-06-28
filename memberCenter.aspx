@@ -509,53 +509,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="activity-container">
-                                            <div class="activity-inner">
-                                                <h5 class="subject-title language_replace">熱門活動</h5>
-                                                <div class="text-wrap promo-container">
-                                                    <ul class="promo-list row">
-                                                        <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
-                                                            <div class="promo-inner">
-                                                                <div class="promo-img">
-                                                                    <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
-                                                                        target="_blank">
-                                                                        <div class="img-crop">
-                                                                            <img src="images/activity/promo-02.jpg"
-                                                                                alt="パチンコって何？それっておいしいの？">
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="promo-content">
-                                                                    <h6 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h6>
-                                                                    <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
-                                                                        <span class="language_replace">複製活動連結</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
-                                                            <div class="promo-inner">
-                                                                <div class="promo-img">
-                                                                    <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
-                                                                        target="_blank">
-                                                                        <div class="img-crop">
-                                                                            <img src="images/activity/promo-01.jpg"
-                                                                                alt="とりあえず、当社のドメインで紹介用LPをアップしてみました。">
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="promo-content">
-                                                                    <h6 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h6>
-                                                                    <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()">
-                                                                        <span class="language_replace">複製活動連結</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
 
                                     </div>
                                 </div>
@@ -568,7 +522,8 @@
 
                         <!-- 會員簽到進度顯示 -->
                         <div class="activity-dailylogin-wrapper">
-                            <div class="dailylogin-bouns-wrapper coming-soon">
+                            <!-- <div class="dailylogin-bouns-wrapper coming-soon"> -->
+                            <div class="dailylogin-bouns-wrapper">
                                 <div class="dailylogin-bouns-inner">
                                     <div class="dailylogin-bouns-content">
                                         <h3 class="title">
@@ -664,6 +619,54 @@
 
                         </div>
                     </section>
+
+                    <div class="activity-container">
+                        <div class="activity-inner">
+                            <h5 class="subject-title language_replace">熱門活動</h5>
+                            <div class="text-wrap promo-container">
+                                <ul class="promo-list row">
+                                    <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
+                                        <div class="promo-inner">
+                                            <div class="promo-img">
+                                                <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
+                                                    target="_blank">
+                                                    <div class="img-crop">
+                                                        <img src="images/activity/promo-02.jpg"
+                                                            alt="パチンコって何？それっておいしいの？">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="promo-content">
+                                                <h6 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h6>
+                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
+                                                    <span class="language_replace">複製活動連結</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
+                                        <div class="promo-inner">
+                                            <div class="promo-img">
+                                                <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
+                                                    target="_blank">
+                                                    <div class="img-crop">
+                                                        <img src="images/activity/promo-01.jpg"
+                                                            alt="とりあえず、当社のドメインで紹介用LPをアップしてみました。">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="promo-content">
+                                                <h6 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h6>
+                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()">
+                                                    <span class="language_replace">複製活動連結</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </article>
             </div>
         </div>
