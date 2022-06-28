@@ -642,7 +642,7 @@
                                         <input type="text" class="form-control custom-style" id="bankCard" language_replace="placeholder" placeholder="請輸入卡號" onkeyup="bankcardCheck()" />
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
-                                    <label onClick="goBankPage()" class="bankUrl text-s language_replace">郵帳銀行請參考此處</label>
+                                    <label onClick="goBankPage()" class="bankUrl text-s language_replace mt-1">郵帳銀行請參考此處</label>
                                 </div>
                            
                                   <div class="form-group">
