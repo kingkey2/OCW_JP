@@ -920,7 +920,7 @@
 }
 
 .progress-container {
-  margin: 0 0 1em;
+  margin: 0 0 2.5em;
 }
 
 .progress-line {
@@ -973,6 +973,25 @@
 .progress-title {
   text-align: center;
   margin: 0 0 1.5em;
+}
+
+.card-item-intro{
+  text-align: center;
+  margin-bottom: 1rem;
+  width: 90%;  
+  margin:0 auto;
+ 
+}
+
+.card-item-intro .img-crop{
+  
+  max-width:420px;
+  margin:0 auto;
+
+}
+
+.card-item-intro img{
+  width: 100%;
 }
 
 .card-item {
@@ -1723,7 +1742,7 @@
     font-size: 2.5vw;
   }
   .card-item-inner .title.vertical-center {
-    font-size: calc(25vw / 4);
+    /* font-size: calc(25vw / 4); */
   }
 }
 @media only screen and (min-width: 540px) {

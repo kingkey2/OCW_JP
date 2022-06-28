@@ -382,7 +382,7 @@ input.month:read-only, input.day:read-only {
       -ms-flex-pack: center;
           justify-content: center;
   position: relative;
-  width: 25%;
+  width: 14.2857142857%;
 }
 .dailylogin-bouns-list .bouns-item:before {
   content: "";
@@ -416,11 +416,11 @@ input.month:read-only, input.day:read-only {
   background-color: #dbdbdb;
   mix-blend-mode: color;
   -webkit-mask-position: center center;
-          mask-position: center center;
   -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
   -webkit-mask-size: contain;
-          mask-size: contain;
+  mask-position: center center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
   -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
   mask-image: url(.../images/prize/obj-coin-bouns.svg);
   margin: 0 auto;
@@ -863,6 +863,9 @@ input.month:read-only, input.day:read-only {
     top: -70px;
     color: #fff;
     text-shadow: 0px 0px 5px #000000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
   }
   .dailylogin-bouns-content .title .name {
     position: relative;
@@ -880,9 +883,6 @@ input.month:read-only, input.day:read-only {
     position: absolute;
     bottom: 0;
     left: 0;
-  }
-  .dailylogin-bouns-list .bouns-item {
-    margin-bottom: 15px;
   }
   .dailylogin-bouns-list .bouns-item .day {
     background: #FFE9A8;
