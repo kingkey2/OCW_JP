@@ -636,13 +636,13 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                 <div class="form-group mb-3">
                                     <label class="form-title language_replace">輸入卡號</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control custom-style" id="bankCard" language_replace="placeholder" placeholder="請輸入卡號" onkeyup="bankcardCheck()" />
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
-                                    <label onClick="goBankPage()" class="bankUrl language_replace">郵帳銀行請參考此處</label>
+                                    <label onClick="goBankPage()" class="bankUrl text-s language_replace mt-1">郵帳銀行請參考此處</label>
                                 </div>
                            
                                   <div class="form-group">
@@ -652,14 +652,12 @@
                                    
                                     </div>
                                 </div>
-                                <div class="form-group language_replace">
-                                    <label class="form-title language_replace">選擇銀行</label>
-                                  
-                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
-                         
-                                           </div>
+                                <div class="language_replace mt-4 mb-1">
+                                    <label class="form-title language_replace" style="font-size: 1rem;">選擇銀行</label>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
                                  </div>
-                                   <select class="custom-select" id="SearchBank" style="margin-bottom: 20px;">
+                                 <select class="custom-select mb-4" id="SearchBank" style=""></select>
+                                   
                             </select>
                                 
                                   
@@ -690,10 +688,13 @@
                     </div>
                     <div class="main-panel cryptopanel" data-deposite="step2">
                        
-                        <div class="box-item-container crypto-list">
-                       
-                            <!-- 溫馨提醒 -->
-                            <div class="notice-container mt-3 mb-3">
+                        <div class="box-item-container">                           
+                               <div class="card-item-intro">
+                                   <div class="img-crop"><img src="/images/CASHCARD.png"></div>
+                                  
+                              </div>
+                               <!-- 溫馨提醒 -->
+                            <div class="notice-container mt-4 mt-md-5 mb-2">
                                 <div class="notice-item">
                                     <i class="icon-info_circle_outline"></i>     
                                     <div class="text-wrap">
@@ -707,9 +708,6 @@
                                          </ul>  
                                     </div>
                                 </div>
-                            </div>
-                               <div class="card-item">
-                                   <image src="/images/CASHCARD.png"></image>
                             </div>
                         </div>
                     </div>
@@ -893,7 +891,7 @@
                     </div>
                 </div>
 
-                <div class="btn-container mt-2">
+                <div class="btn-container mt-4">
                     <button class="btn btn-primary" data-deposite="step2">
                         <span class="language_replace">下一步</span>
                     </button>

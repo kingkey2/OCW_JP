@@ -1799,6 +1799,10 @@ hr.line {
   }
 }
 
+.avater {
+  cursor: pointer;
+}
+
 .unLogIn_wrapper .btn {
   border-radius: 50px;
   padding: 6px 25px;
@@ -1952,7 +1956,8 @@ hr.line {
     width: 48px;
     height: 48px;
   }
-
+}
+@media (min-width: 992px) {
   .logIned_wrapper .avater-img {
     margin-right: 0.5rem;
   }
