@@ -2,15 +2,6 @@
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
-.game-area.overflow-hidden {
-  padding-left: 10px;
-}
-.game-area.overflow-hidden .container {
-  overflow: hidden;
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .desktop {
   display: none !important;
 }
@@ -216,6 +207,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .section_publicize .publicize_bottom_inner .bulletin {
   margin-bottom: 20px;
 }
+.section_publicize .publicize_bottom_inner .bulletin .sec-title-container {
+  margin-bottom: 1.25rem;
+}
+.section_publicize .publicize_bottom_inner .bulletin .sec-title-container .icon {
+  width: 1.5625rem;
+  height: 1.5625rem;
+  margin-right: 0.5rem;
+}
 .section_publicize .publicize_bottom_inner .bulletin_inner {
   -webkit-box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
@@ -225,7 +224,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 100%;
 }
 .section_publicize .publicize_bottom_inner .bulletin_inner .title {
-  margin-bottom: 15px;
   font-size: 1.25rem;
   font-weight: bold;
 }
@@ -238,6 +236,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -ms-flexbox;
   display: flex;
 }
+.section_publicize .publicize_bottom_inner .bulletin_list .item:nth-child(5) ~ .item {
+  display: none;
+}
 .section_publicize .publicize_bottom_inner .bulletin_list .item:before {
   content: "";
   display: -webkit-inline-box;
@@ -245,7 +246,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: inline-flex;
   width: 3px;
   height: 1rem;
-  border-radius: 1px;
+  border-radius: 0.5px;
   background-color: #008fd1;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item .date {
@@ -267,14 +268,19 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.section_publicize .publicize_bottom_inner .bulletin_list .item .info:hover {
+  color: #008fd1;
+}
 
 .activity-dailylogin-wrapper {
-  margin-bottom: 1rem;
   text-align: center;
   overflow: hidden;
   position: relative;
 }
 
+.section_recommand {
+  margin-bottom: 2rem;
+}
 .recommend-list {
   margin-left: -10px;
   margin-right: -10px;
@@ -604,13 +610,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .section_publicize .publicize_bottom_inner .login {
     width: 100%;
-  }
-
-  .game-area.overflow-hidden {
-    padding-bottom: 0px;
-  }
-  .game-area.overflow-hidden .container {
-    padding-bottom: 160px;
   }
 }
 @media (min-width: 936px) and (max-width: 1383px) {

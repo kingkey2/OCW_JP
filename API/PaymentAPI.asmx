@@ -456,6 +456,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue,
                                 JoinCount = activityDepositResult.Data.JoinCount
+                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -773,7 +774,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
-                                ThresholdValue = activityDepositResult.Data.ThresholdValue,
+                                ThresholdValue = activityDepositResult.Data.ThresholdValue
+                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1098,6 +1100,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue
+                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1230,7 +1233,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
-                                ThresholdValue = activityDepositResult.Data.ThresholdValue,
+                                ThresholdValue = activityDepositResult.Data.ThresholdValue
+                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -2030,7 +2034,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     List<EWin.Payment.PaymentDetailBankCard> paymentDetailBankCards = new List<EWin.Payment.PaymentDetailBankCard>();
 
                                     //Description待實際測試後調整
-                                    string Decription = "ReceiveAmount:"+TempCryptoData.ReceiveTotalAmount+",Card Number:"+BankCard+",Name:"+BankCardName+",BankName:"+BankName;
+                                    string Decription = "ReceiveAmount:"+TempCryptoData.ReceiveTotalAmount+",Card Number:"+BankCard+",Name:"+BankCardName+",BankName:"+BankName+",BankBranchCode:"+BankBranchCode;
 
                                     EWin.Payment.PaymentDetailBankCard paymentDetailWallet = new EWin.Payment.PaymentDetailBankCard()
                                     {
@@ -2038,7 +2042,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         BankCardType = EWin.Payment.enumBankCardType.UserAccountBankCard,
                                         BankCode = "",
                                         BankName = BankName,
-                                        BranchName = "",
+                                        BranchName = BankBranchCode,
                                         BankNumber = BankCard,
                                         AccountName=BankCardName,
                                         AmountMax=9999999999,
@@ -3267,6 +3271,7 @@ public class PaymentAPI : System.Web.Services.WebService
     public class EWinTagInfoActivityData
     {
         public string ActivityName { get; set; }
+        //public string JoinActivityCycle { get; set; }
         public decimal BonusRate { get; set; }
         public decimal BonusValue { get; set; }
         public decimal ThresholdRate { get; set; }

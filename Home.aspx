@@ -79,10 +79,10 @@
             Description: "消去型のスロットゲームで、当たり率高く、フリースピンが入ると超大当たりが入り易い。"
         },
         {
-            GameName: "228",
-            GameBrand: "BNG",
-            GameLangName: "BNG.228",
-            Description: "ゴールドがたまるとフリースピンに入り、フリースピン中に更にフリースピンが当たります。"
+            GameName: "AzurLaneEX",
+            GameBrand: "CG",
+            GameLangName: "CG.AzurLaneEX",
+            Description: "戦艦マニアにはたまらないグラフスロット。ドカンと一発！！"
         },
         {
             GameName: "101",
@@ -167,7 +167,12 @@
             tempGI_img.onerror = new Function("setDefaultIcon('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "')");
         }
 
-        c.setClassText(tempGI, "gameName", null, window.parent.API_GetGameLang(1, temp_gameItem.GameBrand, temp_gameItem.GameName));
+        if (temp_gameItem.GameLangName == "EWinGaming") {
+        c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
+        } else {
+        c.setClassText(tempGI, "gameName", null, GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName));
+        }
+
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));
         tempGI.onclick = new Function("window.parent.openGame('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "','" + temp_gameItem.GameLangName + "')");
         ParentMain.prepend(tempGI);
@@ -193,9 +198,7 @@
                 }
 
                 if (FourGames) {
-                    for (var i = 0; i < FourGames.length; i++) {
-                        setFourGame(i);
-                    }
+                    updateFourGame();
                 }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
@@ -209,6 +212,14 @@
         setBulletinBoard();
 
         //iframeWidth = $(window.parent.document).find('#IFramePage').width();
+    }
+
+    function updateFourGame() {
+        var ParentMain = document.getElementById("ParentRecommendGameItem");
+        ParentMain.innerHTML = "";
+        for (var i = 0; i < FourGames.length; i++) {
+            setFourGame(i);
+        }
     }
 
     function refreshFavoGame() {
@@ -331,6 +342,9 @@
 
                     $(categArea).find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
                     $(categArea).find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
+                    category.Datas.sort(function (a, b) {
+                        return b.SortIndex - a.SortIndex;
+                    });
 
                     category.Datas.forEach(gameItem => {
                         var GI;
@@ -572,8 +586,8 @@
                             c.setClassText(RecordDom, "CreateDate", null, date);
                             c.setClassText(RecordDom, "BulletinTitle", null, record.BulletinTitle);
 
+                            //RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinBoardID +"."+ record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
                             RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
-
                             ParentMain.appendChild(RecordDom);
 
                         }
@@ -596,6 +610,7 @@
 
                 mlp.loadLanguage(lang, function () {
                     updateGameList();
+                    updateFourGame();
                     window.parent.API_LoadingEnd(1);
                 });
 
@@ -649,8 +664,8 @@
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item" >
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
                             <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b5-m.jpg" alt="">
@@ -663,8 +678,8 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -676,8 +691,8 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item" >
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
                             </div>
@@ -689,8 +704,8 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.top.API_ComingSoonAlert()">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href" onclick="window.top.API_ComingSoonAlert()"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
@@ -733,9 +748,13 @@
                             </div>
                         </div>
                         <div class="publicize-wrap bulletin-login">
-                            <div class="item bulletin">
+                            <div class="item bulletin">                                
                                 <div class="bulletin_inner">
-                                    <h2 class="title language_replace">最新公告</h2>
+                                    <div class="sec-title-container">
+                                        <div class="sec-title-wrapper">
+                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
+                                        </div>
+                                    </div>
                                     <ul class="bulletin_list" id="idBulletinBoardContent">
                                     </ul>
                                 </div>
@@ -795,8 +814,6 @@
                 </div>
                 <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
                 </div>
-
-
             </div>
         </section>
 

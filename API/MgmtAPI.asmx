@@ -170,6 +170,12 @@ public class MgmtAPI : System.Web.Services.WebService {
                         }
 
                         System.IO.File.WriteAllText(Filename, Newtonsoft.Json.JsonConvert.SerializeObject(o));
+
+                        var allSID = RedisCache.SessionContext.ListAllSID();
+                        foreach (var item in allSID) {
+                            RedisCache.SessionContext.ExpireSID(item);
+                        }
+
                         R.Result = enumResult.OK;
                     } catch (Exception ex) { }
                 }

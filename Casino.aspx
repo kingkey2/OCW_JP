@@ -63,6 +63,10 @@
     var GCB;
     var iframeWidth;
     var selectedCategoryCode;
+
+    function showSearchGameModel() {
+        window.parent.API_ShowSearchGameModel();
+    }
  
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
@@ -212,36 +216,64 @@
                                 // slidesPerGroup: 2,
                                 // loopedSlides: 8,
                                 lazy: true,
+                                freeMode: true,
                                 navigation: {
                                     nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
                                     prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
                                 },
+                                //滿版時的斷點 slidesPerGroup
+                                // breakpoints: {
+                                //     // 576: {
+                                //     //  slidesPerGroup: 3,
+                                //     // },
+                                //     // 640: {
+                                //     //     slidesPerGroup: 4,
+                                //     // },
+                                //     936: {
+                                //         slidesPerGroup: 6, //index:992px
+                                //     },
+                                //     1144: {
+                                //         slidesPerGroup: 7, //index:1200px
+                                //     },
+                                //     1384: {
+                                //         slidesPerGroup: 8, //index:1440px
+                                //     },
+                                //     1544: {
+                                //         slidesPerGroup: 9, //index:1600px
+                                //     },
+                                //     1864: {
+                                //         slidesPerGroup: 10, //index:1920px
+                                //     },
+                                //     1920: {
+                                //         slidesPerGroup: 10, //index:1920px up
+                                //     },
+                                // },
+
+                                //非滿版時的斷點 slidesPerGroup
                                 breakpoints: {
-                                    // 576: {
-                                    //  slidesPerGroup: 3,
-                                    // },
-                                    // 640: {
-                                    //     slidesPerGroup: 4,
-                                    // },
+                                
                                     936: {
+                                        freeMode: false,
                                         slidesPerGroup: 6, //index:992px
                                     },
                                     1144: {
                                         slidesPerGroup: 7, //index:1200px
                                     },
                                     1384: {
-                                        slidesPerGroup: 8, //index:1440px
+                                        slidesPerGroup: 7, //index:1440px
                                     },
                                     1544: {
-                                        slidesPerGroup: 9, //index:1600px
+                                        slidesPerGroup: 7, //index:1600px
                                     },
                                     1864: {
-                                        slidesPerGroup: 10, //index:1920px
+                                        slidesPerGroup: 8, //index:1920px
                                     },
                                     1920: {
-                                        slidesPerGroup: 10, //index:1920px up
+                                        slidesPerGroup: 8, //index:1920px up
                                     },
-                                }
+                              }
+
+
                             });
                         }
                         else {
@@ -317,9 +349,7 @@
                     SortIndex: 99,
                     Tag: null
                 }
-                for (var i = 0; i < length; i++) {
 
-                }
                 LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.Datas.length >0 }).Datas.unshift(EwinGame);
 
             }
@@ -332,19 +362,19 @@
                 $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
                 switch (LobbyGameList[i].Location) {
                     case 'GameList_All':
-                        $(RecordDom).find('.CategIcon').addClass('icon-all');
+                        $(RecordDom).find('.CategIcon').addClass('icon-all-tt');
                         break;
                     case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-real');
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
                         break;
                     case 'GameList_Electron':
-                        $(RecordDom).find('.CategIcon').addClass('icon-rocket');
+                        $(RecordDom).find('.CategIcon').addClass('icon-elec-tt');
                         break;
                     case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc');
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
                         break;
                     case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot');
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
                         break;
                     default:
                 }
@@ -457,7 +487,33 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/pp-slot-s.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/pp-slot.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=5')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/pp-live-s.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/pp-live.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/newopen-m.jpg" alt="">
                             </div>
@@ -470,7 +526,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
+                            <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/evo-m.jpg" alt="">
                             </div>
@@ -483,7 +539,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
+                            <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/PNG-m.jpg" alt="">
                             </div>
@@ -494,70 +550,49 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="swiper-slide" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')">
-                        <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/pp-slot-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/pp-slot.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=5')">
-                        <div class="hero-item">
-                            <a class="hero-item-link" href="#"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/pp-live-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/pp-live.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
         </section>
-        <div class="tab-game tab-scroller tab-5">
-            <div class="tab-scroller__area">
-                <ul class="tab-scroller__content" id="idGameItemTitle">
-                    <div class="tab-slide"></div>
-                </ul>
-            </div>
+        <div class="tab-game">
+            <div class="tab-inner">
+                <div class="tab-search" onclick="showSearchGameModel()"><img src="images/icon/ico-search-dog.svg" alt=""><span class="title language_replace">找遊戲</span></div>            
+                <div class="tab-scroller tab-5">
+                    <div class="tab-scroller__area">
+                        <ul class="tab-scroller__content" id="idGameItemTitle">
+                            <div class="tab-slide"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>           
         </div>
-        <section class="game-area overflow-hidden" id="gameAreas">
+        <section class="game-area overflow-hidden">
+            <div class="container" id="gameAreas">
+            </div>
         </section>
     </main>
     <div id="temCategArea" class="is-hide">
         <section class="section-wrap section-levelUp">
-            <div class="container-fluid">
-                <div class="game_wrapper">
-                    <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName"></span></h3>
-                        </div>
-                         <a class="text-link" style="display:none;">
-                           <span class="title-showAll"></span><i class="icon arrow arrow-right"></i>             
-                         </a>
+            <%--<div class="container">--%>
+            <div class="game_wrapper">
+                <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName"></span></h3>
                     </div>
-                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
-                        <div class="swiper-wrapper GameItemGroupContent">
-                        </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
+                     <a class="text-link" style="display:none;">
+                       <span class="title-showAll"></span><i class="icon arrow arrow-right"></i>             
+                     </a>
+                </div>
+                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                    <div class="swiper-wrapper GameItemGroupContent">
                     </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
+            <%--</div>--%>
         </section>
     </div>
     <!-- 若是 JS套入 class "game-item-focus"=>  請套入 default/sideLeft/sideRight 三個class -->

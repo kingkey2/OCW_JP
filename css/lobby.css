@@ -8,6 +8,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   position: sticky;
   top: 0;
   z-index: 100;
+  padding: 0 10px 0;
 }
 .tab-game .content {
   max-width: 840px;
@@ -19,6 +20,30 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .tab-game .title {
   display: none;
+}
+.tab-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.tab-search {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  cursor: pointer;
+}
+.tab-search .title {
+  left: -30px;
+}
+.tab-search:hover .title {
+  opacity: 1;
+  top: -40px;
 }
 
 .section-wrap.hero {
@@ -36,6 +61,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 100%;
   height: 100%;
 }
+.hero_slider_lobby .hero-item {
+  position: relative;
+}
 .hero_slider_lobby .hero-item-box {
   border-radius: 12px;
   overflow: hidden;
@@ -45,6 +73,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .hero_slider_lobby .hero-item-box.desktop {
   display: none !important;
+}
+.hero_slider_lobby .hero-item-link {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+  z-index: 1;
 }
 .hero_slider_lobby .img-wrap {
   position: relative;
@@ -90,13 +125,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding-right: 10px;
   width: 31.25%;
 }
-.game_slider .swiper-button-next {
-  right: -25px;
-}
-.game_slider .swiper-button-prev {
-  left: -15px;
-}
-
 @media (min-width: 375px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 230px;
@@ -132,16 +160,16 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 3rem;
     height: 3rem;
   }
-  .tab-game.tab-scroller {
+  .tab-game .tab-scroller {
     overflow: visible;
   }
-  .tab-game.tab-scroller .tab-scroller__area {
+  .tab-game .tab-scroller .tab-scroller__area {
     overflow-x: visible;
   }
-  .tab-game.tab-scroller .tab-item-link {
+  .tab-game .tab-scroller .tab-item-link {
     position: relative;
   }
-  .tab-game.tab-scroller .tab-item {
+  .tab-game .tab-scroller .tab-item {
     overflow: visible;
   }
   .tab-game .title {
@@ -276,7 +304,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1384px) and (max-width: 1543px) {
   .game_slider .swiper-slide {
-    width: 12.5%;
+    width: 14.2857142857%;
   }
   .game_slider .swiper-slide:nth-child(8n+1) .game-item-info-detail {
     left: 0;
@@ -307,7 +335,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1544px) and (max-width: 1863px) {
   .game_slider .swiper-slide {
-    width: 11.1111111111%;
+    width: 14.2857142857%;
   }
   .game_slider .swiper-slide:nth-child(9n+1) .game-item-info-detail {
     left: 0;
@@ -330,7 +358,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 1864px) and (max-width: 1919px) {
   .game_slider .swiper-slide {
-    width: 10%;
+    width: 12.5%;
   }
   .game_slider .swiper-slide:nth-child(10n+1) .game-item-info-detail {
     left: 0;
