@@ -1134,8 +1134,8 @@ public class LobbyAPI : System.Web.Services.WebService {
                 objBody.Add("fromAddress", "edm@casino-maharaja.com");
                 objBody.Add("content", bodyString);
 
-                objRecipients.Add("name", "edm@casino-maharaja.com");
-                objRecipients.Add("address", "edm@casino-maharaja.com");
+                objRecipients.Add("name", "service@casino-maharaja.com");
+                objRecipients.Add("address", "service@casino-maharaja.com");
                 aryRecipients.Add(objRecipients);
 
                 objBody.Add("recipients", aryRecipients);
