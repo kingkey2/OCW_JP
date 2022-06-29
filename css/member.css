@@ -3,13 +3,6 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .article-member-center {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
   position: relative;
 }
 
@@ -243,9 +236,6 @@ input.month:read-only, input.day:read-only {
 .member-wallet-contnet {
   padding: 10px;
   position: relative;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -254,6 +244,10 @@ input.month:read-only, input.day:read-only {
           align-items: center;
   cursor: pointer;
   border-radius: 10px 10px 0 0;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 70%;
+          flex: 0 0 70%;
+  height: 70%;
   -webkit-transition: all 0.35s ease-in-out;
   transition: all 0.35s ease-in-out;
 }
@@ -321,6 +315,23 @@ input.month:read-only, input.day:read-only {
   padding: 0 10px;
   border-radius: 0 0 10px 10px;
   text-align: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
+  height: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.member-record-wrapper .btn {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .member-record-title {
   display: -webkit-box;
@@ -482,10 +493,6 @@ input.month:read-only, input.day:read-only {
   margin-bottom: 6px;
 }
 
-.member-withdraw-wrapper.lacking .member-withdraw-limit-inner {
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#E69D00), to(#009ED0));
-  background-image: linear-gradient(0deg, #E69D00 0%, #009ED0 100%);
-}
 .member-withdraw-limit-inner {
   min-height: 185px;
   height: 100%;
@@ -505,6 +512,107 @@ input.month:read-only, input.day:read-only {
   background-position: center center;
   opacity: 0.3;
 }
+.member-withdraw-limit-content {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.member-withdraw-limit-hint {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 70%;
+          flex: 0 0 70%;
+  height: 70%;
+}
+.member-withdraw-limit-hint:before {
+  content: "";
+  display: block;
+  position: relative;
+  top: -15px;
+  width: 80%;
+  max-width: 220px;
+  margin: 0 auto;
+  -webkit-transform: translateX(30px);
+          transform: translateX(30px);
+  height: 100%;
+  min-height: 130px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.member-withdraw-limit-detail {
+  position: relative;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
+  height: 30%;
+  max-height: 70px;
+  background-color: #425059;
+  z-index: 1;
+  border-radius: 0 0 10px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+}
+.member-withdraw-wrapper .limit-wrapper {
+  width: 90%;
+  max-width: 300px;
+}
+.member-withdraw-wrapper .limit-status, .member-withdraw-wrapper .limit-amount {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 0.75rem;
+}
+.member-withdraw-wrapper .limit-status {
+  margin-bottom: 0.1rem;
+}
+.member-withdraw-wrapper .limit-status .value {
+  color: #FAC823;
+  display: none;
+}
+.member-withdraw-wrapper .limit-amount .value {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+.member-withdraw-wrapper.lacking .member-withdraw-limit-inner {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#E69D00), to(#009ED0));
+  background-image: linear-gradient(0deg, #E69D00 0%, #009ED0 100%);
+}
+.member-withdraw-wrapper.lacking .limit-status .value.lacking {
+  display: initial;
+}
+.member-withdraw-wrapper.lacking .member-withdraw-limit-hint:before {
+  background-image: url(../images/member/dog-sad.svg);
+}
+.member-withdraw-wrapper.enough .member-withdraw-limit-inner {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#E69D00), to(#E69D00));
+  background-image: linear-gradient(0deg, #E69D00 0%, #E69D00 100%);
+}
+.member-withdraw-wrapper.enough .limit-status .value.enough {
+  display: initial;
+}
+.member-withdraw-wrapper.enough .member-withdraw-limit-hint:before {
+  background-image: url(../images/member/dog-happy.svg);
+}
+
 @media (min-width: 640px) {
   .section-member-wallet-transaction {
     display: -webkit-box;
@@ -660,9 +768,18 @@ input.month:read-only, input.day:read-only {
     right: 0;
   }
 
+  .article-member-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+  }
+
   .section-member-profile,
-.section-member-activity,
-.section-member-wallet-transaction {
+.section-member-setting {
     width: 50%;
   }
 
@@ -672,43 +789,6 @@ input.month:read-only, input.day:read-only {
 
   .section-member-activity {
     min-height: 950px;
-  }
-
-  .section-member-wallet-transaction {
-    position: absolute;
-    right: 0;
-    top: 260px;
-  }
-  .section-member-wallet-transaction .member-wallet-deposit-wrapper,
-.section-member-wallet-transaction .member-withdraw-wrapper {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-    padding: 0;
-  }
-  .section-member-wallet-transaction .member-wallet-deposit-wrapper {
-    margin-bottom: 1rem;
-  }
-
-  .member-wallet-wrapper {
-    background-size: auto 125%;
-    background-position: -30px center;
-    min-height: 300px;
-  }
-  .member-wallet-contnet {
-    width: 50%;
-  }
-
-  .member-wallet-inner {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(89, 181, 135, 0.9)), to(rgba(22, 181, 114, 0.9)));
-    background: linear-gradient(180deg, rgba(89, 181, 135, 0.9) 0%, rgba(22, 181, 114, 0.9) 100%);
-    padding: 10px;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-  }
-
-  .member-record-wrapper {
-    width: 30%;
   }
 
   .section-member-profile {

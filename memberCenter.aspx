@@ -521,125 +521,134 @@
                             </fieldset>
                         </div>
                     </section>
-                    <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
-                    <section class="section-member-wallet-transaction">
-                        <div class="member-wallet-deposit-wrapper">
-                            <!-- 錢包中心 -->
-                            <div class="member-wallet-wrapper">
-                                <div class="member-wallet-inner">
-                                    <div class="member-wallet-contnet" onclick="window.top.API_LoadPage('Deposit','Deposit.aspx', true)">
-                                        <div class="member-wallet-detail">
-                                            <h3 class="member-wallet-title language_replace">錢包</h3>
-                                            <div class="member-wallet-amount">
-                                                <span class="unit">OCoin</span>
-                                                <div class="member-deposit">
-                                                    <span class="amount" id="idAmount">999,999,999</span>
-                                                    <!-- 入金 Button -->
-                                                    <span class="btn btn-deposit btn-full-stress btn-round"><i class="icon icon-add"></i></span>
-                                                </div>
-                                            </div>                                            
+
+                    <section class="section-member-setting">
+                        <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
+                        <section class="section-member-wallet-transaction">
+                            <div class="member-wallet-deposit-wrapper">
+                                <!-- 錢包中心 -->
+                                <div class="member-wallet-wrapper">
+                                    <div class="member-wallet-inner">
+                                        <div class="member-wallet-contnet" onclick="window.top.API_LoadPage('Deposit','Deposit.aspx', true)">
+                                            <div class="member-wallet-detail">
+                                                <h3 class="member-wallet-title language_replace">錢包</h3>
+                                                <div class="member-wallet-amount">
+                                                    <span class="unit">OCoin</span>
+                                                    <div class="member-deposit">
+                                                        <span class="amount" id="idAmount">999,999,999</span>
+                                                        <!-- 入金 Button -->
+                                                        <span class="btn btn-deposit btn-full-stress btn-round"><i class="icon icon-add"></i></span>
+                                                    </div>
+                                                </div>                                            
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- 履歷紀錄 -->
-                                    <div class="member-record-wrapper">
-                                        <div class="btn" onclick="window.top.API_LoadPage('record','record.aspx', true)">
-                                            <div class="member-record-title">
-                                                <i class="icon icon-mask icon-list-time"></i>
-                                                <h3 class="title language_replace">履歷紀錄</h3>
+                                        <!-- 履歷紀錄 -->
+                                        <div class="member-record-wrapper">
+                                            <div class="btn" onclick="window.top.API_LoadPage('record','record.aspx', true)">
+                                                <div class="member-record-title">
+                                                    <i class="icon icon-mask icon-list-time"></i>
+                                                    <h3 class="title language_replace">履歷紀錄</h3>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- 出金門檻--新版: class判斷=> 不足:lacking  足夠:enough-->
-                        <div class="member-withdraw-wrapper lacking" id="divThrehold">
-                            <div class="member-withdraw-limit-inner ">
-                                <div class="member-withdraw-limit-content">
-                                    <div class="member-withdraw-limit-hint"></div>
-                                    <div class="member-withdraw-limit-detail">
-                                        <div class="limit-status">
-                                            <span class="title language_replace">錢包</span>
-                                            <span class="value lacking language_replace">不可出金</span>
-                                            <span class="value enough language_replace">可出金</span>
-                                        </div>        
-                                        <div class="limit-amount">
-                                            <span class="title language_replace">出金限制</span>
-                                            <span class="value" id="idThrehold"></span>
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 出金門檻--舊版: class判斷=> 不足:lacking  足夠:enough-->
-                        <div class="member-withdraw-wrapper lacking" id="divThrehold" style="display: none;">
-                            <div class="member-withdraw-limit-wrapper">
+                            <!-- 出金門檻--新版: class判斷=> 不足:lacking  足夠:enough-->
+                            <div class="member-withdraw-wrapper lacking" id="divThrehold">
                                 <div class="member-withdraw-limit-inner ">
-                                    <i class="icon icon-mask icon-lock"></i>
-                                    <span class="member-withdraw-limit-content">
-                                        <!-- 出金門檻 不足-->
-                                        <span class="title lacking language_replace">不可出金</span>
-                                        <!-- 出金門檻 足夠-->
-                                        <span class="title enough language_replace">可出金</span>
-                                        <!-- 出入金說明 -->
-                                        <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
-                                        <!-- 出金門檻 -->
-                                        <span class="limit-amount" id="idThrehold"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </section>
-
-                    <!-- 會員簽到進度顯示 + 活動中心 -->
-                    <section class="section-member-activity">
-
-                        <!-- 會員簽到進度顯示 -->
-                        <div class="activity-dailylogin-wrapper">
-                            <!-- <div class="dailylogin-bouns-wrapper coming-soon"> -->
-                            <div class="dailylogin-bouns-wrapper">
-                                <div class="dailylogin-bouns-inner">
-                                    <div class="dailylogin-bouns-content">
-                                        <h3 class="title">
-                                            <span class="name ">金曜日のプレゼント</span></h3>
-                                        <ul class="dailylogin-bouns-list">
-                                            <!-- 已領取 bouns => got-->
-                                            <li class="bouns-item got">
-                                                <span class="day"><span class="language_replace">五</span></span></li>
-                                            <li class="bouns-item saturday">
-                                                <span class="day"><span class="language_replace">六</span></span>
-                                            </li>
-                                            <li class="bouns-item sunday">
-                                                <span class="day"><span class="language_replace">日</span></span></li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">一</span></span>
-                                            </li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">二</span></span></li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">三</span></span>
-                                            </li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">四</span></span>
-                                            </li>
-                                        </ul>
-
+                                    <div class="member-withdraw-limit-content">
+                                        <div class="member-withdraw-limit-hint"></div>
+                                        <div class="member-withdraw-limit-detail">
+                                            <div class="limit-wrapper">
+                                                <div class="limit-status">
+                                                    <span class="title language_replace">錢包</span>
+                                                    <div>  
+                                                        <span class="value lacking language_replace">不可出金</span>
+                                                        <span class="value enough language_replace">可出金</span>
+                                                        <!-- 出金說明 -->
+                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick=""><i class="icon icon-mask icon-question"></i></span></div>                                               
+                                                </div>        
+                                                <div class="limit-amount">
+                                                    <span class="title language_replace">出金限制</span>
+                                                    <span class="value" id="idThrehold"></span>
+                                                </div> 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- 活動中心 -->
-                        <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
-                            <div class="activity-center-inner">
-                                <div class="title language_replace">活動中心</div>
+                            <!-- 出金門檻--舊版: class判斷=> 不足:lacking  足夠:enough-->
+                            <div class="member-withdraw-wrapper lacking" id="divThrehold" style="display: none;">
+                                <div class="member-withdraw-limit-wrapper">
+                                    <div class="member-withdraw-limit-inner ">
+                                        <i class="icon icon-mask icon-lock"></i>
+                                        <span class="member-withdraw-limit-content">
+                                            <!-- 出金門檻 不足-->
+                                            <span class="title lacking language_replace">不可出金</span>
+                                            <!-- 出金門檻 足夠-->
+                                            <span class="title enough language_replace">可出金</span>
+                                            <!-- 出入金說明 -->
+                                            <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
+                                            <!-- 出金門檻 -->
+                                            <span class="limit-amount" id="idThrehold"></span>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
+                        </section>
+
+                        <!-- 會員簽到進度顯示 + 活動中心 -->
+                        <section class="section-member-activity">
+
+                            <!-- 會員簽到進度顯示 -->
+                            <div class="activity-dailylogin-wrapper">
+                                <!-- <div class="dailylogin-bouns-wrapper coming-soon"> -->
+                                <div class="dailylogin-bouns-wrapper">
+                                    <div class="dailylogin-bouns-inner">
+                                        <div class="dailylogin-bouns-content">
+                                            <h3 class="title">
+                                                <span class="name ">金曜日のプレゼント</span></h3>
+                                            <ul class="dailylogin-bouns-list">
+                                                <!-- 已領取 bouns => got-->
+                                                <li class="bouns-item got">
+                                                    <span class="day"><span class="language_replace">五</span></span></li>
+                                                <li class="bouns-item saturday">
+                                                    <span class="day"><span class="language_replace">六</span></span>
+                                                </li>
+                                                <li class="bouns-item sunday">
+                                                    <span class="day"><span class="language_replace">日</span></span></li>
+                                                <li class="bouns-item">
+                                                    <span class="day"><span class="language_replace">一</span></span>
+                                                </li>
+                                                <li class="bouns-item">
+                                                    <span class="day"><span class="language_replace">二</span></span></li>
+                                                <li class="bouns-item">
+                                                    <span class="day"><span class="language_replace">三</span></span>
+                                                </li>
+                                                <li class="bouns-item">
+                                                    <span class="day"><span class="language_replace">四</span></span>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 活動中心 -->
+                            <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                <div class="activity-center-inner">
+                                    <div class="title language_replace">活動中心</div>
+                                </div>
+                            </div>
+
+                        </section>
                     </section>
+                   
 
                     <div class="activity-container">
                         <div class="activity-inner">
