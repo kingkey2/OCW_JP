@@ -787,10 +787,6 @@ input.month:read-only, input.day:read-only {
     padding-right: 1rem;
   }
 
-  .section-member-activity {
-    min-height: 950px;
-  }
-
   .section-member-profile {
     display: -webkit-box;
     display: -ms-flexbox;
