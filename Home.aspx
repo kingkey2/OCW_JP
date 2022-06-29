@@ -251,9 +251,13 @@
 
                         if (iframeWidth < 936) {
 
-                            var RTP = "";
+                            var RTP = "--";
                             if (gameItem.RTPInfo) {
                                 RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                            }
+
+                            if (RTP == "0") {
+                                RTP = "--";
                             }
 
                             GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -285,7 +289,7 @@
 
                         $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                         if (gameItem.RTPInfo) {
-                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                         } else {
                             $(GI).find(".valueRTP").text('--');
                         }
@@ -363,9 +367,13 @@
 
                             if (iframeWidth < 936) {
 
-                                var RTP = "";
+                                var RTP = "--";
                                 if (gameItem.RTPInfo) {
                                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                                }
+
+                                if (RTP == "0") {
+                                    RTP = "--";
                                 }
 
                                 GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -397,7 +405,7 @@
 
                         $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                         if (gameItem.RTPInfo) {
-                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                         } else {
                             $(GI).find(".valueRTP").text('--');
                         }
@@ -501,9 +509,13 @@
 
                     if (iframeWidth < 936) {
 
-                        var RTP = "";
+                        var RTP = "--";
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        }
+
+                        if (RTP == "0") {
+                            RTP = "--";
                         }
 
                         GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -535,7 +547,7 @@
 
                     $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                     if (gameItem.RTPInfo) {
-                        $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                        $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                     } else {
                         $(GI).find(".valueRTP").text('--');
                     }

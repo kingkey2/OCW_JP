@@ -1625,9 +1625,13 @@
                     var FavoGames = getFavoriteGames();
                     for (var i = 0; i < gameList.length; i++) {
                         var gameItem = gameList[i];
-                        var RTP = "";
+                        var RTP = "--";
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        }
+
+                        if (RTP == "0") {
+                            RTP = "--";
                         }
 
                         GI = c.getTemplate("tmpSearchGameItem");
@@ -1681,14 +1685,18 @@
                 var FavoGames = getFavoriteGames();
                 for (var i = 0; i < gameList.length; i++) {
                     var gameItem = gameList[i];
-                    var RTP = "";
+                    var RTP = "--";
                     if (gameItem.RTPInfo) {
                         RTP = JSON.parse(gameItem.RTPInfo).RTP;
                     }
 
+                    if (RTP == 0) {
+                        RTP = "--";
+                    }
+
                     GI = c.getTemplate("tmpSearchGameItem");
-                    var GI_a = GI.querySelector(".btn-play");
-                    GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+
                     var GI_img = GI.querySelector(".gameimg");
                     if (GI_img != null) {
                         GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1779,7 +1787,7 @@
         var gameBrand = $('#alertSearchBrand').val();
         var keyWord = $('#alertSearchKeyWord').val().trim();
 
-        if (gameBrand == "-1" && keyWord == "") {
+        if ((gameBrand == "-1" || gameBrand == undefined) && keyWord == "") {
             $("#div_SearchGameCategory").hide();
         } else {
             $("#div_SearchGameCategory").show();
