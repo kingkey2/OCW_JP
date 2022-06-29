@@ -601,7 +601,7 @@
 
                         </section>
 
-                        <!-- 會員簽到進度顯示 + 活動中心 -->
+                        <!-- 會員簽到進度顯示 + 活動中心 + 獎金中心 -->
                         <section class="section-member-activity">
 
                             <!-- 會員簽到進度顯示 -->
@@ -639,12 +639,25 @@
                                 </div>
                             </div>
 
-                            <!-- 活動中心 -->
-                            <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
-                                <div class="activity-center-inner">
-                                    <div class="title language_replace">活動中心</div>
+                             <!-- 活動中心 + 獎金中心 -->
+                            <div class="activity-record-wrapper">
+                                <!-- 活動中心 -->
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                    <div class="activity-center-inner">
+                                        <div class="title language_replace">活動中心</div>
+                                    </div>
                                 </div>
+
+                                <!-- 獎金中心 -->
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                    <div class="activity-center-inner">
+                                        <div class="title language_replace">受取箱の説明</div>
+                                    </div>
+                                </div>
+
                             </div>
+                            
+
 
                         </section>
                     </section>
