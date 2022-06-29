@@ -2750,7 +2750,7 @@
                     <i class="icon-service"></i>
                     <h5 class="modal-title language_replace ml-1">客服信箱</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -2910,7 +2910,7 @@
                 <div class="modal-header">
                     <div class="alert_Title"></div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">

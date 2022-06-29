@@ -200,7 +200,7 @@ input.month:read-only, input.day:read-only {
 }
 
 .member-wallet-wrapper {
-  background-color: #7acea6;
+  background-color: rgba(81, 189, 139, 0.7);
   background-image: url(../images/theme/bg_dog_white.png);
   background-position: center center, center top;
   background-repeat: repeat, no-repeat;
@@ -482,6 +482,29 @@ input.month:read-only, input.day:read-only {
   margin-bottom: 6px;
 }
 
+.member-withdraw-wrapper.lacking .member-withdraw-limit-inner {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#E69D00), to(#009ED0));
+  background-image: linear-gradient(0deg, #E69D00 0%, #009ED0 100%);
+}
+.member-withdraw-limit-inner {
+  min-height: 185px;
+  height: 100%;
+  border-radius: 10px;
+  position: relative;
+  color: #fff;
+  background-position: center top;
+}
+.member-withdraw-limit-inner:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/theme/bg_dog_white.png);
+  background-position: center center;
+  opacity: 0.3;
+}
 @media (min-width: 640px) {
   .section-member-wallet-transaction {
     display: -webkit-box;
