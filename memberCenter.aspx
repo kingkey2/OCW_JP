@@ -552,7 +552,28 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- 出金門檻: class判斷=> 不足:lacking  足夠:enough-->
+
+                        <!-- 出金門檻--新版: class判斷=> 不足:lacking  足夠:enough-->
+                        <div class="member-withdraw-wrapper lacking" id="divThrehold">
+                            <div class="member-withdraw-limit-inner ">
+                                <div class="member-withdraw-limit-content">
+                                    <div class="member-withdraw-limit-hint"></div>
+                                    <div class="member-withdraw-limit-detail">
+                                        <div class="limit-status">
+                                            <span class="title language_replace">錢包</span>
+                                            <span class="value lacking language_replace">不可出金</span>
+                                            <span class="value enough language_replace">可出金</span>
+                                        </div>        
+                                        <div class="limit-amount">
+                                            <span class="title language_replace">出金限制</span>
+                                            <span class="value" id="idThrehold"></span>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 出金門檻--舊版: class判斷=> 不足:lacking  足夠:enough-->
                         <div class="member-withdraw-wrapper lacking" id="divThrehold" style="display: none;">
                             <div class="member-withdraw-limit-wrapper">
                                 <div class="member-withdraw-limit-inner ">
@@ -570,13 +591,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="member-withdraw-wrapper lacking">
-                            
-
-                        </div>
-
-
 
                     </section>
 
