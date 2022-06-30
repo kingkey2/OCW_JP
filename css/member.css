@@ -361,7 +361,16 @@ input.month:read-only, input.day:read-only {
   text-align: center;
   position: relative;
 }
-.activity-center-wrapper {
+
+.activity-center-wrapper .title {
+  font-size: 1.625rem;
+  color: #fff;
+  position: absolute;
+  bottom: 20px;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+}
+.activity-center-inner {
   background-color: #45c5ff;
   background-image: url(../images/theme/bg_dog_white.png), url(../images/member/bg_activity.svg);
   background-position: center center, 100% 120%;
@@ -373,14 +382,32 @@ input.month:read-only, input.day:read-only {
   overflow: hidden;
   position: relative;
   margin-bottom: 1rem;
+  padding: 10px;
 }
-.activity-center-wrapper .title {
+
+.prize-center-wrapper .title {
   font-size: 1.625rem;
   color: #fff;
   position: absolute;
   bottom: 20px;
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   font-weight: bold;
+  max-width: 4.875rem;
+}
+.prize-center-inner {
+  background-color: #e14382;
+  background-image: url(../images/member/gril-doubt-M.svg);
+  background-position: right 40%;
+  background-position: calc(100% + 30px) calc(50% + 10px);
+  background-repeat: no-repeat;
+  background-size: auto 160%;
+  cursor: pointer;
+  min-height: 120px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 10px;
 }
 
 .dailylogin-bouns-inner {
@@ -685,6 +712,26 @@ input.month:read-only, input.day:read-only {
     font-size: 1.5rem;
     padding: 0.5rem;
     max-width: 65px;
+  }
+
+  .activity-record-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .activity-center-wrapper {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    padding-right: 5px;
+  }
+
+  .prize-center-wrapper {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    padding-left: 5px;
   }
 }
 .data-item-group {
