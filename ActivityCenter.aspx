@@ -212,6 +212,24 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
                         <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="Activity/act001/CenterPage/img/deposit-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">Maharaja迎來夏之祭典！四葉親自準備了超優惠的入金活動 ，最高回饋獎金50,000 Ocoin！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">                           
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -266,24 +284,6 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img class="" src="Activity/act001/CenterPage/img/deposit-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">Maharaja迎來夏之祭典！四葉親自準備了超優惠的入金活動 ，最高回饋獎金50,000 Ocoin！</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(2,'/Activity/Act002/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -301,19 +301,12 @@
                                 </div>
                             </div>
                         </figure>
-                        
-
                     </div>
                 </section>
-
             </div>
-
         </div>
-
     </main>
-
-
-
+    
     <!-- Modal -->
     <div class="modal fade footer-center" id="ModalTest" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
