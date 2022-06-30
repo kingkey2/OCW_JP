@@ -239,7 +239,7 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace"></figcaption> -->
-                                            <div class="desc language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！ライブカジノをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得しよう！。</div>
+                                            <div class="desc language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！ライブカジノをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得しよう！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <button type="button" onclick="activityBtnClick(5)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
@@ -270,12 +270,12 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="images/activity/activity-deposit.jpg">
+                                        <img class="" src="Activity/act001/CenterPage/img/deposit-act.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">慶祝Maharaja改版新上市，四葉為此帶來女神的祝福，活動期間入金任意金額都能享有對應比值的回饋獎金(上限五萬)！！</div>
+                                            <div class="desc language_replace">Maharaja迎來夏之祭典！四葉親自準備了超優惠的入金活動 ，最高回饋獎金50,000 Ocoin！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
@@ -375,7 +375,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">盛大開幕15日限定</h5>
+                    <h5 class="modal-title language_replace">感謝フィードバック再開！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
