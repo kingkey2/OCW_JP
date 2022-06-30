@@ -521,7 +521,6 @@
                             </fieldset>
                         </div>
                     </section>
-
                     <section class="section-member-setting">
                         <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
                         <section class="section-member-wallet-transaction">
@@ -603,9 +602,29 @@
 
                         <!-- 會員簽到進度顯示 + 活動中心 + 獎金中心 -->
                         <section class="section-member-activity">
+                             <!-- 活動中心 + 獎金中心 -->
+                            <div class="activity-record-wrapper">
+                                <!-- 活動中心 -->
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                    <div class="activity-center-inner">
+                                        <div class="activity-center-content">
+                                            <div class="title language_replace">活動中心</div>
+                                            <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 獎金中心 -->
+                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','Prize.aspx')">
+                                    <div class="prize-center-inner">
+                                        <div class="title language_replace">禮物盒說明</div>
+                                    </div>
+                                </div>
 
-                            <!-- 會員簽到進度顯示 -->
-                            <div class="activity-dailylogin-wrapper">
+                            </div>
+
+                             <!-- 會員簽到進度顯示 -->
+                             <div class="activity-dailylogin-wrapper">
                                 <!-- <div class="dailylogin-bouns-wrapper coming-soon"> -->
                                 <div class="dailylogin-bouns-wrapper">
                                     <div class="dailylogin-bouns-inner">
@@ -638,31 +657,8 @@
                                     </div>
                                 </div>
                             </div>
-
-                             <!-- 活動中心 + 獎金中心 -->
-                            <div class="activity-record-wrapper">
-                                <!-- 活動中心 -->
-                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
-                                    <div class="activity-center-inner">
-                                        <div class="title language_replace">活動中心</div>
-                                    </div>
-                                </div>
-
-                                <!-- 獎金中心 -->
-                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
-                                    <div class="activity-center-inner">
-                                        <div class="title language_replace">受取箱の説明</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-
-
                         </section>
                     </section>
-                   
-
                     <div class="activity-container">
                         <div class="activity-inner">
                             <h5 class="subject-title language_replace">熱門活動</h5>

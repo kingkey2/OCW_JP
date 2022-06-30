@@ -365,10 +365,20 @@ input.month:read-only, input.day:read-only {
 .activity-center-wrapper .title {
   font-size: 1.625rem;
   color: #fff;
-  position: absolute;
-  bottom: 20px;
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   font-weight: bold;
+}
+.activity-center-wrapper .btn-activity-in {
+  background-color: #0081bb;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: bold;
+  border-radius: 30px;
+  width: 100%;
+}
+.activity-center-content {
+  position: absolute;
+  bottom: 10px;
 }
 .activity-center-inner {
   background-color: #45c5ff;
@@ -386,18 +396,17 @@ input.month:read-only, input.day:read-only {
 }
 
 .prize-center-wrapper .title {
-  font-size: 1.625rem;
+  font-size: 1.375rem;
   color: #fff;
   position: absolute;
   bottom: 20px;
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   font-weight: bold;
-  max-width: 4.875rem;
+  max-width: 4.125rem;
 }
 .prize-center-inner {
   background-color: #e14382;
   background-image: url(../images/member/gril-doubt-M.svg);
-  background-position: right 40%;
   background-position: calc(100% + 30px) calc(50% + 10px);
   background-repeat: no-repeat;
   background-size: auto 160%;
@@ -779,6 +788,18 @@ input.month:read-only, input.day:read-only {
   .data-item.qrcode {
     width: 100%;
     right: 0;
+  }
+
+  .prize-center-wrapper {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 40%;
+            flex: 0 0 40%;
+  }
+  .prize-center-inner {
+    background-image: url(../images/member/gril-doubt-L.svg);
+    background-position: center center;
+    background-position: calc(100% + 30px) calc(50% - 10px);
+    background-size: auto 180%;
   }
 }
 @media (min-width: 1384px) {
