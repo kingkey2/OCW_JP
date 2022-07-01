@@ -139,24 +139,29 @@
     }
 
     function updateUserAccountRemoveReadOnly() {
-        $('#idBornYear').removeAttr("readonly");
-        $('#idBornMonth').removeAttr("readonly");
-        $('#idBornDay').removeAttr("readonly");
-        $('#Address').removeAttr("readonly");
-        $('#Email').removeAttr("readonly");
-        $('.data-item.password').show();
+        $('.password-fake').addClass('is-hide');
+        $('#idOldPasswordGroup').removeClass('is-hide');
+        $('#idNewPasswordGroup').removeClass('is-hide');
         $('#updateUserAccountRemoveReadOnlyBtn').addClass('is-hide');
         $('#updateUserAccountCancelBtn').removeClass('is-hide');
         $('#updateUserAccountBtn').removeClass('is-hide');
+
+        $('#idNewPasswordSuccessIcon').addClass('is-hide');
+        $('#NewPasswordErrorMessage').addClass('is-hide');
+        $('#idNewPasswordErrorIcon').addClass('is-hide');
+        $('#NewPasswordErrorMessage').text('');
+
+        $('#OldPasswordErrorMessage').addClass('is-hide');
+        $('#idOldPasswordSuccessIcon').addClass('is-hide');
+        $('#idOldPasswordErrorIcon').addClass('is-hide');
+        $('#OldPasswordErrorMessage').text('');
+
     }
 
     function updateUserAccountReadOnly() {
-        $('#idBornYear').attr("readonly", "readonly");
-        $('#idBornMonth').attr("readonly", "readonly");
-        $('#idBornDay').attr("readonly", "readonly");
-        $('#Address').attr("readonly", "readonly");
-        $('#Email').attr("readonly", "readonly");
-        $('.data-item.password').hide();
+        $('#idOldPasswordGroup').addClass('is-hide');
+        $('#idNewPasswordGroup').addClass('is-hide');
+        $('.password-fake').removeClass('is-hide');
         $('#updateUserAccountRemoveReadOnlyBtn').removeClass('is-hide');
         $('#updateUserAccountCancelBtn').addClass('is-hide');
         $('#updateUserAccountBtn').addClass('is-hide');
@@ -164,96 +169,49 @@
 
     function updateUserAccount() {
 
-        let ExtraData = WebInfo.UserInfo.ExtraData ? JSON.parse(WebInfo.UserInfo.ExtraData) : [];
-        let strExtraData = "";
-        let strEmail = "";
-        let strContactAddress = "";
-        let strOldPassword = "";
-        let strNewPassword = "";
+        var idNewPassword = $("#idNewPassword").val().trim();
+        var idOldPassword = $("#idOldPassword").val().trim();
+        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')
 
-        if ($("#idBornYear").val() != "" && $("#idBornMonth").val() != "" && $("#idBornDay").val() != "") {
-
-            if (parseInt($("#idBornYear").val()) <1000 || parseInt($("#idBornYear").val()) > 9999) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入正確年份"));
-                return false;
-            }
-
-            if (parseInt($("#idBornMonth").val()) < 1 || parseInt($("#idBornMonth").val()) > 12) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入正確月份"));
-                return false;
-            }
-
-            if (parseInt($("#idBornDay").val()) < 1 || parseInt($("#idBornDay").val()) > 31) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入正確日期"));
-                return false;
-            }
-
-            if (ExtraData.length != 0 && ExtraData.filter(x => x.Name == "Birthday").length > 0) {
-
-                let findBirthday = ExtraData.filter(x => x.Name == "Birthday").length;
-                if (findBirthday == 0) {
-                    var data_Birthday = {
-                        "Name": "Birthday",
-                        "Value": $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val()
-                    }
-
-                    ExtraData.push(data_Birthday);
-                }
-                else {
-                    for (var i = 0; i < ExtraData.length; i++) {
-                        if (ExtraData[i].Name == "Birthday") {
-                            ExtraData[i].Value = $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val();
-                        }
-                    }
-                }
-            } else {
-                var data_Birthday = {
-                    "Name": "Birthday",
-                    "Value": $("#idBornYear").val() + "/" + $("#idBornMonth").val() + "/" + $("#idBornDay").val()
-                }
-
-                ExtraData.push(data_Birthday);
-            }
-        }
-        if (ExtraData.length != 0 && ExtraData.filter(x => x.Name == "UserGetMail").length > 0) {
-            for (var i = 0; i < ExtraData.length; i++) {
-                if (ExtraData[i].Name == "UserGetMail") {
-                    ExtraData[i].Value = $("#check_UserGetMail").prop("checked");
-                }
-            }
+        if (idOldPassword == "") {
+            $('#OldPasswordErrorMessage').text(mlp.getLanguageKey("尚未輸入舊密碼"));
+            $('#OldPasswordErrorMessage').removeClass('is-hide');
+            $('#idOldPasswordSuccessIcon').addClass('is-hide');
+            $('#idOldPasswordErrorIcon').removeClass('is-hide');
+            return false;
         } else {
-            var data_UserGetMail = {
-                "Name": "UserGetMail",
-                "Value": $("#check_UserGetMail").prop("checked")
-            }
-
-            ExtraData.push(data_UserGetMail);
+            $('#OldPasswordErrorMessage').text('');
+            $('#OldPasswordErrorMessage').addClass('is-hide');
+            $('#idOldPasswordSuccessIcon').removeClass('is-hide');
+            $('#idOldPasswordErrorIcon').addClass('is-hide');
         }
 
-        strExtraData = JSON.stringify(ExtraData);
-
-        if ($("#Email").val() != "") {
-            strEmail = $("#Email").val();
+        if (idNewPassword == "") {
+            $('#NewPasswordErrorMessage').text(mlp.getLanguageKey("尚未輸入新密碼"));
+            $('#NewPasswordErrorMessage').removeClass('is-hide');
+            $('#idNewPasswordSuccessIcon').addClass('is-hide');
+            $('#idNewPasswordErrorIcon').removeClass('is-hide');
+            return false;
+        } else if (idNewPassword.length < 6) {
+            $('#NewPasswordErrorMessage').text(mlp.getLanguageKey("新密碼需大於6位"));
+            $('#NewPasswordErrorMessage').removeClass('is-hide');
+            $('#idNewPasswordSuccessIcon').addClass('is-hide');
+            $('#idNewPasswordErrorIcon').removeClass('is-hide');
+            return false;
+        } else if (!rules.test(idNewPassword)) {
+            $('#NewPasswordErrorMessage').text(mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
+            $('#NewPasswordErrorMessage').removeClass('is-hide');
+            $('#idNewPasswordSuccessIcon').addClass('is-hide');
+            $('#idNewPasswordErrorIcon').removeClass('is-hide');
+            return false;
+        } else {
+            $('#NewPasswordErrorMessage').text('');
+            $('#NewPasswordErrorMessage').addClass('is-hide');
+            $('#idNewPasswordSuccessIcon').removeClass('is-hide');
+            $('#idNewPasswordErrorIcon').addClass('is-hide');
         }
 
-        if ($("#idOldPassword").val() != "" && $("#idNewPassword").val() != "") {
-            strOldPassword = $("#idOldPassword").val().trim();
-            strNewPassword = $("#idNewPassword").val().trim();
-        }
-
-        if ($("#Address").val() != "" ) {
-            strContactAddress = $("#Address").val().trim();
-        }
-
-        var updateinfo = {
-            "EMail": strEmail,
-            "ExtraData": strExtraData,
-            "OldPassword": strOldPassword,
-            "NewPassword": strNewPassword,
-            "ContactAddress": strContactAddress
-        }
-
-        p.UpdateUserAccount(WebInfo.SID, Math.uuid(), updateinfo, function (success, o) {
+        p.SetUserPassword(WebInfo.SID, Math.uuid(), idOldPassword, idNewPassword, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     updateUserAccountReadOnly();
@@ -420,17 +378,19 @@
                                                 <p class="password">**************</p>
                                             </div>
                                             <div class="password-real">
-                                                <div class="data-item-form-group">
-                                                    <input type="password" class="form-control" id="idNewPassword" value="" language_replace="placeholder" placeholder="請輸入新密碼" >
-                                                    <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
-                                                    <span class="label success"><i class="icon icon-mask icon-check"></i></span>
-                                                    <p class="notice">我是錯誤提示</p>
+                                                <div id="idOldPasswordGroup" class="data-item-form-group is-hide">
+                                                    <input type="password" class="form-control" id="idOldPassword" value="" language_replace="placeholder" placeholder="請輸入舊密碼" >
+                                                    <label for="" class="form-label"><span class="language_replace">請輸入舊密碼</span></label>
+                                                    <span id="idOldPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
+                                                    <span id="idOldPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
+                                                    <p class="notice is-hide" id="OldPasswordErrorMessage"></p>
                                                 </div>
-                                                <div class="data-item-form-group">
-                                                    <input type="password" class="form-control" id="" value="" language_replace="placeholder" placeholder="再輸入新密碼">
-                                                    <label for="" class="form-label"><span class="language_replace">再輸入新密碼</span></label>
-                                                    <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
-                                                    <p class="notice">我是錯誤提示</p>                                                 
+                                                <div id="idNewPasswordGroup" class="data-item-form-group is-hide">
+                                                    <input type="password" class="form-control" id="idNewPassword" value="" language_replace="placeholder" placeholder="請輸入新密碼">
+                                                    <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
+                                                    <span id="idNewPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
+                                                    <span id="idNewPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
+                                                    <p class="notice is-hide" id="NewPasswordErrorMessage"></p>                                                 
                                                 </div>                                                
                                             </div>
                                         </div>                                        
@@ -584,7 +544,7 @@
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick=""><i class="icon icon-mask icon-question"></i></span></div>                                               
+                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span></div>                                               
                                                 </div>        
                                                 <div class="limit-amount">
                                                     <span class="title language_replace">出金限制</span>
@@ -632,7 +592,7 @@
                                 </div>
                                 
                                 <!-- 獎金中心 -->
-                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','Prize.aspx')">
+                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','/Guide/prize.html')">
                                     <div class="prize-center-inner">
                                         <div class="title language_replace">禮物盒說明</div>
                                     </div>
