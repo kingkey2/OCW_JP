@@ -116,17 +116,28 @@ public class PaymentAPI : System.Web.Services.WebService
         string Path;
 
         Path = HttpContext.Current.Server.MapPath("/App_Data/EPay/" + "BankSetting.json");
+        
+        Newtonsoft.Json.Linq.JObject o = null;
 
-        var jsonDetailData = LoadSetting(Path);
+        if (System.IO.File.Exists(Path))
+        {
+            string SettingContent;
 
-        Newtonsoft.Json.Linq.JObject jo = jsonDetailData.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["ProviderCode"] != null && o["ProviderCode"].ToString() == ProviderCode);
+            SettingContent = System.IO.File.ReadAllText(Path);
+
+            if (string.IsNullOrEmpty(SettingContent) == false)
+            {
+                try { o = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(SettingContent); } catch (Exception ex) { }
+            }
+        }
+    
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            if (jo != null)
+            if (o != null)
             {
-                R.Datas = jo["BankCodeSettings"].ToString();
+                R.Datas = o["BankCodeSettings"].ToString();
                 R.Result = enumResult.OK;
             }
             else

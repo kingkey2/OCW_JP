@@ -380,9 +380,6 @@
 
                 depositName = $("#idToDepositName").val();
 
-                depositName = $("#idToDepositName").val().trim().replace(/ /g, "");
-
-
                 PaymentClient.CreateEPayJKCDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
                     if (success) {
                         let data = o.Data;
