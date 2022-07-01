@@ -632,6 +632,47 @@ input.month:read-only, input.day:read-only {
   background-image: url(../images/member/dog-happy.svg);
 }
 
+.activity-promo-wrapper {
+  margin-top: 2rem;
+}
+.activity-promo-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.activity-promo-list .promo-item {
+  padding: 0 10px;
+  width: 50%;
+}
+.activity-promo-list .promo-inner {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+}
+.activity-promo-list .promo-content {
+  padding: 10px;
+}
+.activity-promo-list .promo-content .title {
+  font-size: 0.9375rem;
+}
+.activity-promo-list .promo-content .btn {
+  background-color: #3DB6FF;
+  color: #fff;
+  width: 100%;
+  margin-top: 1rem;
+}
+.activity-promo-list .promo-content .btn .icon {
+  width: 26px;
+  height: 26px;
+}
+
 @media (min-width: 640px) {
   .section-member-wallet-transaction {
     display: -webkit-box;
@@ -725,6 +766,10 @@ input.month:read-only, input.day:read-only {
             flex: 1;
     padding-left: 5px;
   }
+
+  .activity-promo-list .promo-item {
+    width: 33.3333333333%;
+  }
 }
 .data-item-group {
   min-height: 250px;
@@ -777,6 +822,11 @@ input.month:read-only, input.day:read-only {
     background-position: center center;
     background-position: calc(100% + 30px) calc(50% - 10px);
     background-size: auto 180%;
+  }
+}
+@media (min-width: 936px) {
+  .activity-promo-list .promo-item {
+    width: 25%;
   }
 }
 @media (min-width: 1384px) {
@@ -849,6 +899,13 @@ input.month:read-only, input.day:read-only {
   }
   .member-withdraw-limit-content .limit-amount {
     width: 100%;
+  }
+
+  .activity-promo-wrapper {
+    padding-left: 150px;
+  }
+  .activity-promo-list .promo-item {
+    width: 25%;
   }
 }
 @media screen and (max-width: 639px) {
