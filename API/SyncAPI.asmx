@@ -339,7 +339,7 @@ public class SyncAPI : System.Web.Services.WebService
                                                              select new CompanyCategoryByStatistics { GameCode = g.Key.GameCode, QTY = g.Max(m => m.MaxWinRate) }).OrderByDescending(o => o.QTY).Take(20).ToList();
                             //前天最高RTP
                             SlotMaxRTPYesterdayResult = (from p in yesterday_gameCodeRTP
-                                                         select new CompanyCategoryByStatistics { GameCode = p.GameCode, QTY = (1 + (p.RewardValue / p.OrderValue)) * 100 }).OrderByDescending(o => o.QTY).Take(20).ToList();
+                                                         select new CompanyCategoryByStatistics { GameCode = p.GameCode, QTY =  (p.OrderValue == 0 ? 0 : (1 + (p.RewardValue / p.OrderValue)) * 100) }).OrderByDescending(o => o.QTY).Take(20).ToList();
 
                         }
 
