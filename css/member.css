@@ -93,8 +93,8 @@ input.month:read-only, input.day:read-only {
 }
 
 .member-profile-avater-wrapper {
-  max-width: 145px;
-  margin: 2rem auto 2rem;
+  max-width: 125px;
+  margin: 0rem auto 1rem;
   position: relative;
 }
 .member-profile-avater-wrapper .avater {
@@ -414,7 +414,10 @@ input.month:read-only, input.day:read-only {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  width: 140px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  max-width: 140px;
   height: 72px;
   background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
   background-size: contain;
@@ -632,6 +635,80 @@ input.month:read-only, input.day:read-only {
   background-image: url(../images/member/dog-happy.svg);
 }
 
+.activity-promo-wrapper {
+  margin-top: 2rem;
+}
+.activity-promo-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.activity-promo-list .promo-item {
+  padding: 0 10px;
+  width: 50%;
+}
+.activity-promo-list .promo-inner {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+}
+.activity-promo-list .promo-img {
+  background-color: #333;
+}
+.activity-promo-list .promo-img:hover img {
+  opacity: 0.5;
+}
+.activity-promo-list .promo-content {
+  padding: 10px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.activity-promo-list .promo-content .title {
+  font-size: 0.9375rem;
+}
+.activity-promo-list .promo-content .btn {
+  background-color: #3DB6FF;
+  color: #fff;
+  width: 100%;
+  margin-top: 1rem;
+}
+.activity-promo-list .promo-content .btn:hover {
+  background-color: #0aa3ff;
+}
+.activity-promo-list .promo-content .btn .icon {
+  width: 26px;
+  height: 26px;
+}
+
+.data-item-group {
+  min-height: 250px;
+}
+.data-item-group .wrapper_center {
+  width: 100%;
+}
+.data-item-group .wrapper_center .btn {
+  max-width: 300px;
+  border-radius: 30px;
+}
+
 @media (min-width: 640px) {
   .section-member-wallet-transaction {
     display: -webkit-box;
@@ -671,6 +748,10 @@ input.month:read-only, input.day:read-only {
   .dailylogin-bouns-content .title {
     position: relative;
     bottom: -10px;
+    min-width: 150px;
+  }
+  .dailylogin-bouns-content .title:before {
+    width: 100%;
   }
   .dailylogin-bouns-content .title .name {
     position: absolute;
@@ -684,6 +765,7 @@ input.month:read-only, input.day:read-only {
   .dailylogin-bouns-list {
     position: absolute;
     width: calc(100% - 150px);
+    max-width: 600px;
     right: 0;
     bottom: -10px;
   }
@@ -725,18 +807,11 @@ input.month:read-only, input.day:read-only {
             flex: 1;
     padding-left: 5px;
   }
-}
-.data-item-group {
-  min-height: 250px;
-}
-.data-item-group .wrapper_center {
-  width: 100%;
-}
-.data-item-group .wrapper_center .btn {
-  max-width: 300px;
-  border-radius: 30px;
-}
 
+  .activity-promo-list .promo-item {
+    width: 33.3333333333%;
+  }
+}
 @media (min-width: 712px) {
   .data-item.name {
     width: 27.5%;
@@ -777,6 +852,11 @@ input.month:read-only, input.day:read-only {
     background-position: center center;
     background-position: calc(100% + 30px) calc(50% - 10px);
     background-size: auto 180%;
+  }
+}
+@media (min-width: 936px) {
+  .activity-promo-list .promo-item {
+    width: 25%;
   }
 }
 @media (min-width: 1384px) {
@@ -850,6 +930,13 @@ input.month:read-only, input.day:read-only {
   .member-withdraw-limit-content .limit-amount {
     width: 100%;
   }
+
+  .activity-promo-wrapper {
+    padding-left: 150px;
+  }
+  .activity-promo-list .promo-item {
+    width: 25%;
+  }
 }
 @media screen and (max-width: 639px) {
   .data-item-group .wrapper_center {
@@ -903,7 +990,8 @@ input.month:read-only, input.day:read-only {
   .dailylogin-bouns-content .title .name {
     position: relative;
     z-index: 1;
-    font-size: 1em;
+    font-size: 1.625rem;
+    max-width: f;
   }
   .dailylogin-bouns-content .title:after {
     content: "";

@@ -636,12 +636,18 @@
                             </div>
                         </section>
                     </section>
-                    <div class="activity-container">
-                        <div class="activity-inner">
-                            <h5 class="subject-title language_replace">熱門活動</h5>
-                            <div class="text-wrap promo-container">
-                                <ul class="promo-list row">
-                                    <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
+
+                    <!-- 熱門活動 -->
+                    <div class="activity-promo-wrapper">
+                        <div class="activity-promo-inner">
+                            <div class="sec-title-container sec-title-member ">
+                                <div class="sec-title-wrapper">
+                                    <h3 class="sec-title title-deco"><span class="language_replace">熱門活動</span></h3>
+                                </div>
+                            </div>                           
+                            <div class="activity-promo-content">
+                                <ul class="activity-promo-list">
+                                    <li class="promo-item">
                                         <div class="promo-inner">
                                             <div class="promo-img">
                                                 <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
@@ -653,14 +659,14 @@
                                                 </a>
                                             </div>
                                             <div class="promo-content">
-                                                <h6 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h6>
+                                                <h4 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h4>
                                                 <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
-                                                    <span class="language_replace">複製活動連結</span>
+                                                    <i class="icon icon-mask icon-copy"></i><span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
+                                    <li class="promo-item">
                                         <div class="promo-inner">
                                             <div class="promo-img">
                                                 <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
@@ -672,8 +678,8 @@
                                                 </a>
                                             </div>
                                             <div class="promo-content">
-                                                <h6 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h6>
-                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()">
+                                                <h4 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h4>
+                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
                                                     <span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>
