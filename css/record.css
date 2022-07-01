@@ -174,15 +174,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex-align: center;
           align-items: center;
 }
-.label.order-status.success {
-  background-color: #59B587;
-}
-.label.order-status.fail {
-  background-color: #D33605;
-}
-.label.order-status.processing {
-  background-color: #FFB103;
-}
 .label.order-status .icon {
   width: 20px;
   height: 20px;

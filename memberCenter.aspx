@@ -396,7 +396,8 @@
                                             <input type="number" min="1" max="31"  class="custom-input-edit day" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item password" style="width: 50%; display: none;">
+                                    
+                                    <%--<div class="data-item password" style="display: none;">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
@@ -406,17 +407,33 @@
                                         <div class="data-item-content">
                                             <input type="password" class="custom-input-edit" id="idOldPassword" value="">
                                         </div>
-                                    </div>                                    
-                                    <div class="data-item password" style="width: 50%; display: none;">
+                                    </div>--%>                                   
+                                    <div class="data-item password">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">新密碼</span>
+                                                <span class="title-name language_replace">密碼</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="password" class="custom-input-edit" id="idNewPassword" value="">
-                                        </div>
+                                            <div class="password-fake">
+                                                <p class="password">**************</p>
+                                            </div>
+                                            <div class="password-real">
+                                                <div class="data-item-form-group">
+                                                    <input type="password" class="form-control" id="idNewPassword" value="" language_replace="placeholder" placeholder="請輸入新密碼" >
+                                                    <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
+                                                    <span class="label success"><i class="icon icon-mask icon-check"></i></span>
+                                                    <p class="notice">我是錯誤提示</p>
+                                                </div>
+                                                <div class="data-item-form-group">
+                                                    <input type="password" class="form-control" id="" value="" language_replace="placeholder" placeholder="再輸入新密碼">
+                                                    <label for="" class="form-label"><span class="language_replace">再輸入新密碼</span></label>
+                                                    <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
+                                                    <p class="notice">我是錯誤提示</p>                                                 
+                                                </div>                                                
+                                            </div>
+                                        </div>                                        
                                     </div>
                                   
                                     <div class="data-item mobile">
