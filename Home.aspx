@@ -79,9 +79,9 @@
             Description: "プレインゴーの知名度NO.1スロット。言わずと知れた高級キャバクラ！！"
         },
         {
-            GameName: " 242",
-            GameBrand: " BNG",
-            GameLangName: " BNG.242",
+            GameName: "242",
+            GameBrand: "BNG",
+            GameLangName: "BNG.242",
             Description: "ブーンゴーのタイガーシリーズの不動の人気チャンピオン、マハラジャのイチオシ！！"
         },
         {
