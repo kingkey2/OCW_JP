@@ -251,9 +251,13 @@
 
                         if (iframeWidth < 936) {
 
-                            var RTP = "";
+                            var RTP = "--";
                             if (gameItem.RTPInfo) {
                                 RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                            }
+
+                            if (RTP == "0") {
+                                RTP = "--";
                             }
 
                             GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -285,7 +289,7 @@
 
                         $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                         if (gameItem.RTPInfo) {
-                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                         } else {
                             $(GI).find(".valueRTP").text('--');
                         }
@@ -363,9 +367,13 @@
 
                             if (iframeWidth < 936) {
 
-                                var RTP = "";
+                                var RTP = "--";
                                 if (gameItem.RTPInfo) {
                                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                                }
+
+                                if (RTP == "0") {
+                                    RTP = "--";
                                 }
 
                                 GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -397,7 +405,7 @@
 
                         $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                         if (gameItem.RTPInfo) {
-                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                         } else {
                             $(GI).find(".valueRTP").text('--');
                         }
@@ -501,9 +509,13 @@
 
                     if (iframeWidth < 936) {
 
-                        var RTP = "";
+                        var RTP = "--";
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        }
+
+                        if (RTP == "0") {
+                            RTP = "--";
                         }
 
                         GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -535,7 +547,7 @@
 
                     $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                     if (gameItem.RTPInfo) {
-                        $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                        $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                     } else {
                         $(GI).find(".valueRTP").text('--');
                     }
@@ -665,18 +677,17 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
-                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="images/banner/b5-m.jpg" alt="">
+                                <img src="images/banner/b2-m.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/banner/b5.jpg" class="bg">
+                                    <img src="images/banner/b2.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                   
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
@@ -691,19 +702,6 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/banner/b2-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/banner/b2.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link hero-item-href" onclick="window.top.API_ComingSoonAlert()"></a>
                             <div class="hero-item-box mobile">
@@ -712,6 +710,20 @@
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
                                     <img src="images/banner/b3.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item" >
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
+                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
+                            <div class="hero-item-box mobile">
+                                <img src="images/banner/b5-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/banner/b5.jpg" class="bg">
                                 </div>
                             </div>
                         </div>

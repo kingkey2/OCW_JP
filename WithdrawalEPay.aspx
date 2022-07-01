@@ -18,7 +18,15 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />   
     <link href="css/footer-new.css" rel="stylesheet" />
+    <style>
+        .bankUrl:hover {
+            cursor: pointer !important;
+        }
 
+        .bankUrl {
+            color: #007bff !important;
+        }
+    </style>
 </head>
 
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
@@ -291,10 +299,14 @@
             return false;
         }
 
-        if (bankCard.length!=7) {
+        if (bankCard.length != 7) {
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("卡號只能輸入7位數"), function () { });
+            $("#bankCard").focus();
+            $("#bankCard").css('border-color', 'red');
             window.parent.API_LoadingEnd(1);
             return false;
+        } else {
+            $("#bankCard").css('border-color', '');
         }
 
         if (bankCardName == '') {
@@ -313,6 +325,16 @@
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入分行代碼"), function () { });
             window.parent.API_LoadingEnd(1);
             return false;
+        }
+
+        if (bankBranchCode.length != 3) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("分行碼只能輸入3位數"), function () { });
+            $("#bankBranchCode").focus();
+            $("#bankBranchCode").css('border-color', 'red');
+            window.parent.API_LoadingEnd(1);
+            return false;
+        } else {
+            $("#bankBranchCode").css('border-color', '');
         }
 
 
@@ -401,6 +423,10 @@
         Step2.hide();
         Step3.fadeIn();
         $('.progress-step:nth-child(3)').addClass('cur');
+    }
+
+    function goBankPage() {
+        window.open('https://www.jp-bank.japanpost.jp/kojin/sokin/furikomi/kouza/kj_sk_fm_kz_1.html');
     }
     //完成訂單
     function ConfirmEPayWithdrawal() {
@@ -563,6 +589,7 @@
                             <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額出款</h5> -->
                                 <p class="text-s language_replace">請從下方金額選擇您要的金額，或是自行填入想要出款的金額。兩種方式擇一即可。</p>
+                                 
                             </div>
                             <form>
                                 <div class="form-group">
@@ -577,7 +604,6 @@
                                                 </span>
                                             </label>
                                         </div>
-
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount2" />
                                             <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
@@ -610,12 +636,13 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                 <div class="form-group mb-3">
                                     <label class="form-title language_replace">輸入卡號</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control custom-style" id="bankCard" language_replace="placeholder" placeholder="請輸入卡號" onkeyup="bankcardCheck()" />
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
+                                    <label onClick="goBankPage()" class="bankUrl text-s language_replace mt-1">郵帳銀行請參考此處</label>
                                 </div>
                            
                                   <div class="form-group">
@@ -625,16 +652,12 @@
                                    
                                     </div>
                                 </div>
-                                <div class="form-group language_replace">
-                                    <label class="form-title language_replace">選擇銀行</label>
-                                     <div class="input-group">
-
-                                     </div>
-                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
-                         
-                                           </div>
+                                <div class="language_replace mt-4 mb-1">
+                                    <label class="form-title language_replace" style="font-size: 1rem;">選擇銀行</label>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
                                  </div>
-                                   <select class="custom-select" id="SearchBank" style="margin-bottom: 20px;">
+                                 <select class="custom-select mb-4" id="SearchBank" style=""></select>
+                                   
                             </select>
                                 
                                   
@@ -665,12 +688,15 @@
                     </div>
                     <div class="main-panel cryptopanel" data-deposite="step2">
                        
-                        <div class="box-item-container crypto-list">
-                       
-                            <!-- 溫馨提醒 -->
-                            <div class="notice-container mt-3 mb-3">
+                        <div class="box-item-container">                           
+                               <div class="card-item-intro">
+                                   <div class="img-crop"><img src="/images/CASHCARD.png"></div>
+                                  
+                              </div>
+                               <!-- 溫馨提醒 -->
+                            <div class="notice-container mt-4 mt-md-5 mb-2">
                                 <div class="notice-item">
-                                    <i class="icon-info_circle_outline"></i>
+                                    <i class="icon-info_circle_outline"></i>     
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
@@ -683,7 +709,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -866,7 +891,7 @@
                     </div>
                 </div>
 
-                <div class="btn-container mt-2">
+                <div class="btn-container mt-4">
                     <button class="btn btn-primary" data-deposite="step2">
                         <span class="language_replace">下一步</span>
                     </button>

@@ -383,17 +383,6 @@
                                             <input type="text" class="custom-input-edit" id="RealName" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item password" style="width: 50%; display: none;">
-                                        <div class="data-item-title">
-                                            <label class="title">
-                                                <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">舊密碼</span>
-                                            </label>
-                                        </div>
-                                        <div class="data-item-content">
-                                            <input type="password" class="custom-input-edit" id="idOldPassword" value="">
-                                        </div>
-                                    </div>
                                     <div class="data-item birth" style="width: 50%">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -407,17 +396,46 @@
                                             <input type="number" min="1" max="31"  class="custom-input-edit day" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>
-                                    <div class="data-item password" style="width: 50%; display: none;">
+                                    
+                                    <%--<div class="data-item password" style="display: none;">
                                         <div class="data-item-title">
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
-                                                <span class="title-name language_replace">新密碼</span>
+                                                <span class="title-name language_replace">舊密碼</span>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="password" class="custom-input-edit" id="idNewPassword" value="">
+                                            <input type="password" class="custom-input-edit" id="idOldPassword" value="">
                                         </div>
+                                    </div>--%>                                   
+                                    <div class="data-item password">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-lock-closed"></i>
+                                                <span class="title-name language_replace">密碼</span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <div class="password-fake">
+                                                <p class="password">**************</p>
+                                            </div>
+                                            <div class="password-real">
+                                                <div class="data-item-form-group">
+                                                    <input type="password" class="form-control" id="idNewPassword" value="" language_replace="placeholder" placeholder="請輸入新密碼" >
+                                                    <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
+                                                    <span class="label success"><i class="icon icon-mask icon-check"></i></span>
+                                                    <p class="notice">我是錯誤提示</p>
+                                                </div>
+                                                <div class="data-item-form-group">
+                                                    <input type="password" class="form-control" id="" value="" language_replace="placeholder" placeholder="再輸入新密碼">
+                                                    <label for="" class="form-label"><span class="language_replace">再輸入新密碼</span></label>
+                                                    <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
+                                                    <p class="notice">我是錯誤提示</p>                                                 
+                                                </div>                                                
+                                            </div>
+                                        </div>                                        
                                     </div>
+                                  
                                     <div class="data-item mobile">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -445,7 +463,9 @@
                                             <input type="text" class="custom-input-edit" id="Email" value="" readonly>
                                         </div>
                                     </div>
+                                   
                                     <div class="data-item-group">
+                                        <%--
                                         <div class="data-item home" id="divAddress">
                                             <div class="data-item-title">
                                                 <label class="title">
@@ -474,9 +494,11 @@
 
                                             </div>
                                         </div>
+                                        --%>
+
                                         <div class="wrapper_center">
-                                            <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-full-stress-2 is-hide"><span class="language_replace">取消</span></button>
-                                            <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-stress-2 is-hide"><span class="language_replace">確認</span></button>
+                                            <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-gray is-hide"><span class="language_replace">取消</span></button>
+                                            <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-main is-hide"><span class="language_replace">確認</span></button>
                                         </div>
                                         <div class="data-item qrcode">
                                             <div class="data-item-title">
@@ -509,161 +531,204 @@
                                             </div>
                                         </div>
 
-                                        <div class="activity-container">
-                                            <div class="activity-inner">
-                                                <h5 class="subject-title language_replace">熱門活動</h5>
-                                                <div class="text-wrap promo-container">
-                                                    <ul class="promo-list row">
-                                                        <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
-                                                            <div class="promo-inner">
-                                                                <div class="promo-img">
-                                                                    <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
-                                                                        target="_blank">
-                                                                        <div class="img-crop">
-                                                                            <img src="images/activity/promo-02.jpg"
-                                                                                alt="パチンコって何？それっておいしいの？">
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="promo-content">
-                                                                    <h6 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h6>
-                                                                    <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
-                                                                        <span class="language_replace">複製活動連結</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="item col-12 col-sm-6 col-md-4 col-xl-3">
-                                                            <div class="promo-inner">
-                                                                <div class="promo-img">
-                                                                    <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
-                                                                        target="_blank">
-                                                                        <div class="img-crop">
-                                                                            <img src="images/activity/promo-01.jpg"
-                                                                                alt="とりあえず、当社のドメインで紹介用LPをアップしてみました。">
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="promo-content">
-                                                                    <h6 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h6>
-                                                                    <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()">
-                                                                        <span class="language_replace">複製活動連結</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
 
                                     </div>
                                 </div>
                             </fieldset>
                         </div>
                     </section>
-
-                    <!-- 會員簽到進度顯示 + 活動中心 -->
-                    <section class="section-member-activity">
-
-                        <!-- 會員簽到進度顯示 -->
-                        <div class="activity-dailylogin-wrapper">
-                            <div class="dailylogin-bouns-wrapper coming-soon">
-                                <div class="dailylogin-bouns-inner">
-                                    <div class="dailylogin-bouns-content">
-                                        <h3 class="title">
-                                            <span class="name ">金曜日のプレゼント</span></h3>
-                                        <ul class="dailylogin-bouns-list">
-                                            <!-- 已領取 bouns => got-->
-                                            <li class="bouns-item got">
-                                                <span class="day"><span class="language_replace">五</span></span></li>
-                                            <li class="bouns-item saturday">
-                                                <span class="day"><span class="language_replace">六</span></span>
-                                            </li>
-                                            <li class="bouns-item sunday">
-                                                <span class="day"><span class="language_replace">日</span></span></li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">一</span></span>
-                                            </li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">二</span></span></li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">三</span></span>
-                                            </li>
-                                            <li class="bouns-item">
-                                                <span class="day"><span class="language_replace">四</span></span>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 活動中心 -->
-                        <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
-                            <div class="activity-center-inner">
-                                <div class="title language_replace">活動中心</div>
-                            </div>
-                        </div>
-
-                    </section>
-
-
-                    <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
-                    <section class="section-member-wallet-transaction">
-                        <div class="member-wallet-deposit-wrapper">
-                            <!-- 錢包中心 -->
-                            <div class="member-wallet-wrapper">
-                                <div class="member-wallet-inner">
-                                    <div class="member-wallet-contnet">
-                                        <h3 class="member-wallet-title language_replace">錢包</h3>
-                                        <div class="member-wallet-amount">
-                                            <span class="unit">Ocoin</span>
-                                            <div class="member-deposit">
-                                                <span class="amount" id="idAmount">999,999,999</span>
-                                                <!-- 入金 Button -->
-                                                <span class="btn btn-deposit btn-full-stress btn-round" onclick="window.top.API_LoadPage('Deposit','Deposit.aspx', true)"><i class="icon icon-add"></i></span>
+                    <section class="section-member-setting">
+                        <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
+                        <section class="section-member-wallet-transaction">
+                            <div class="member-wallet-deposit-wrapper">
+                                <!-- 錢包中心 -->
+                                <div class="member-wallet-wrapper">
+                                    <div class="member-wallet-inner">
+                                        <div class="member-wallet-contnet" onclick="window.top.API_LoadPage('Deposit','Deposit.aspx', true)">
+                                            <div class="member-wallet-detail">
+                                                <h3 class="member-wallet-title language_replace">錢包</h3>
+                                                <div class="member-wallet-amount">
+                                                    <span class="unit">OCoin</span>
+                                                    <div class="member-deposit">
+                                                        <span class="amount" id="idAmount">999,999,999</span>
+                                                        <!-- 入金 Button -->
+                                                        <span class="btn btn-deposit btn-full-stress btn-round"><i class="icon icon-add"></i></span>
+                                                    </div>
+                                                </div>                                            
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- 履歷紀錄 -->
-                                    <div class="member-record-wrapper">
-                                        <div class="btn" onclick="window.top.API_LoadPage('record','record.aspx', true)">
-                                            <div class="member-record-title">
-                                                <i class="icon icon-mask icon-list-time"></i>
-                                                <h3 class="title language_replace">履歷紀錄</h3>
+                                        <!-- 履歷紀錄 -->
+                                        <div class="member-record-wrapper">
+                                            <div class="btn" onclick="window.top.API_LoadPage('record','record.aspx', true)">
+                                                <div class="member-record-title">
+                                                    <i class="icon icon-mask icon-list-time"></i>
+                                                    <h3 class="title language_replace">履歷紀錄</h3>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- 出金門檻: class判斷=> 不足:lacking  足夠:enough-->
-                        <div class="member-withdraw-wrapper lacking" id="divThrehold">
-                            <div class="member-withdraw-limit-wrapper">
+                            <!-- 出金門檻--新版: class判斷=> 不足:lacking  足夠:enough-->
+                            <div class="member-withdraw-wrapper lacking" id="divThrehold">
                                 <div class="member-withdraw-limit-inner ">
-                                    <i class="icon icon-mask icon-lock"></i>
-                                    <span class="member-withdraw-limit-content">
-                                        <!-- 出金門檻 不足-->
-                                        <span class="title lacking language_replace">不可出金</span>
-                                        <!-- 出金門檻 足夠-->
-                                        <span class="title enough language_replace">可出金</span>
-                                        <!-- 出入金說明 -->
-                                        <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
-                                        <!-- 出金門檻 -->
-                                        <span class="limit-amount" id="idThrehold"></span>
-                                    </span>
-
+                                    <div class="member-withdraw-limit-content">
+                                        <div class="member-withdraw-limit-hint"></div>
+                                        <div class="member-withdraw-limit-detail">
+                                            <div class="limit-wrapper">
+                                                <div class="limit-status">
+                                                    <span class="title language_replace">錢包</span>
+                                                    <div>  
+                                                        <span class="value lacking language_replace">不可出金</span>
+                                                        <span class="value enough language_replace">可出金</span>
+                                                        <!-- 出金說明 -->
+                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick=""><i class="icon icon-mask icon-question"></i></span></div>                                               
+                                                </div>        
+                                                <div class="limit-amount">
+                                                    <span class="title language_replace">出金限制</span>
+                                                    <span class="value" id="idThrehold"></span>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
 
+                            <!-- 出金門檻--舊版: class判斷=> 不足:lacking  足夠:enough-->
+                            <div class="member-withdraw-wrapper lacking" id="divThrehold" style="display: none;">
+                                <div class="member-withdraw-limit-wrapper">
+                                    <div class="member-withdraw-limit-inner ">
+                                        <i class="icon icon-mask icon-lock"></i>
+                                        <span class="member-withdraw-limit-content">
+                                            <!-- 出金門檻 不足-->
+                                            <span class="title lacking language_replace">不可出金</span>
+                                            <!-- 出金門檻 足夠-->
+                                            <span class="title enough language_replace">可出金</span>
+                                            <!-- 出入金說明 -->
+                                            <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
+                                            <!-- 出金門檻 -->
+                                            <span class="limit-amount" id="idThrehold"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <!-- 會員簽到進度顯示 + 活動中心 + 獎金中心 -->
+                        <section class="section-member-activity">
+                             <!-- 活動中心 + 獎金中心 -->
+                            <div class="activity-record-wrapper">
+                                <!-- 活動中心 -->
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                    <div class="activity-center-inner">
+                                        <div class="activity-center-content">
+                                            <div class="title language_replace">活動中心</div>
+                                            <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 獎金中心 -->
+                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','Prize.aspx')">
+                                    <div class="prize-center-inner">
+                                        <div class="title language_replace">禮物盒說明</div>
+                                    </div>
+                                </div>
 
                             </div>
 
+                             <!-- 會員簽到進度顯示 -->
+                             <div class="activity-dailylogin-wrapper">
+                                <!-- <div class="dailylogin-bouns-wrapper coming-soon"> -->
+                                <div class="dailylogin-bouns-wrapper">
+                                    <div class="dailylogin-bouns-inner">
+                                        <div class="dailylogin-bouns-content">
+                                            <h3 class="title">
+                                                <span class="name ">金曜日のプレゼント</span></h3>
+                                            <ul class="dailylogin-bouns-list">
+                                                <!-- 已領取 bouns => got-->
+                                                <li class="bouns-item got">
+                                                    <span class="day"><span class="language_replace">五</span></span></li>
+                                                <li class="bouns-item saturday">
+                                                    <span class="day"><span class="language_replace">六</span></span>
+                                                </li>
+                                                <li class="bouns-item sunday">
+                                                    <span class="day"><span class="language_replace">日</span></span></li>
+                                                <li class="bouns-item">
+                                                    <span class="day"><span class="language_replace">一</span></span>
+                                                </li>
+                                                <li class="bouns-item">
+                                                    <span class="day"><span class="language_replace">二</span></span></li>
+                                                <li class="bouns-item">
+                                                    <span class="day"><span class="language_replace">三</span></span>
+                                                </li>
+                                                <li class="bouns-item">
+                                                    <span class="day"><span class="language_replace">四</span></span>
+                                                </li>
+                                            </ul>
 
-                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </section>
+
+                    <!-- 熱門活動 -->
+                    <div class="activity-promo-wrapper">
+                        <div class="activity-promo-inner">
+                            <div class="sec-title-container sec-title-member ">
+                                <div class="sec-title-wrapper">
+                                    <h3 class="sec-title title-deco"><span class="language_replace">熱門活動</span></h3>
+                                </div>
+                            </div>                           
+                            <div class="activity-promo-content">
+                                <ul class="activity-promo-list">
+                                    <li class="promo-item">
+                                        <div class="promo-inner">
+                                            <div class="promo-img">
+                                                <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
+                                                    target="_blank">
+                                                    <div class="img-crop">
+                                                        <img src="images/activity/promo-02.jpg"
+                                                            alt="パチンコって何？それっておいしいの？">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="promo-content">
+                                                <h4 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h4>
+                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
+                                                    <i class="icon icon-mask icon-copy"></i><span class="language_replace">複製活動連結</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="promo-item">
+                                        <div class="promo-inner">
+                                            <div class="promo-img">
+                                                <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
+                                                    target="_blank">
+                                                    <div class="img-crop">
+                                                        <img src="images/activity/promo-01.jpg"
+                                                            alt="とりあえず、当社のドメインで紹介用LPをアップしてみました。">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="promo-content">
+                                                <h4 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h4>
+                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
+                                                    <span class="language_replace">複製活動連結</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </article>
             </div>
         </div>

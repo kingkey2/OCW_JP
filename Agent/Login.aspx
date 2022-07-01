@@ -53,6 +53,7 @@
 <script src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="js/AppBridge.js"></script>
+<script src="../Scripts/libphonenumber.js"></script>
 <script>
     var AppBridge = new AppBridge("JsBridge", "iosJsBridge", "");
     var c = new common();
@@ -63,6 +64,7 @@
     var clickCount = 0;
     var companyCodeTimer;
     var companyCodeclickCount = 0;
+    var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var v ="<%:Version%>";
     function setLanguage(v) {
         var form = document.forms[0];
@@ -89,6 +91,25 @@
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入密碼"));
         } else {
             var allowCompany = true;
+
+            var phoneValue = form.PhonePrefix.value + form.PhoneNumber.value;
+            var phoneObj;
+
+            try {
+                phoneObj = PhoneNumberUtil.parse(phoneValue);
+
+                var type = PhoneNumberUtil.getNumberType(phoneObj);
+
+                if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
+                    allowCompany = false;
+                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話格式有誤"));
+                    return;
+                }
+            } catch (e) {
+                allowCompany = false;
+                showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話格式有誤"));
+                return;
+            }
 
             if ((defaultCompany == null) || (defaultCompany == "")) {
                 if (form.CompanyCode.value == "") {

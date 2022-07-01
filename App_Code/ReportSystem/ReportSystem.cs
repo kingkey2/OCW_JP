@@ -213,6 +213,26 @@ public static class ReportSystem
         }
     }
 
+    public class UserAccountPromotionCollect {
+        public static void CreateUserAccountPromotionCollect(string Token,string LoginAccount,string CurrencyType, string Description) {
+            string Folder;
+            string Filename;
+
+            dynamic o = new System.Dynamic.ExpandoObject();
+            string Content;
+            o.Token = Token;
+            o.LoginAccount = LoginAccount;
+            o.CurrencyType = CurrencyType;
+            o.Description = Description;
+
+            Content = Newtonsoft.Json.JsonConvert.SerializeObject(o) + "\r\n";
+
+            Folder = PrepareReportFolder("/UserAccountPromotionCollect/ByLoginAccount");
+            Filename = Folder + "\\" + LoginAccount + ".json";
+            AppendAllText(Filename, Content);
+        }
+    }
+
     private static string[] CheckAndGetJSONRecordByIDRange(string AllContent, string KeyField, long LimitValueBegin = -1, long LimitValueEnd = -1)
     {
         List<Newtonsoft.Json.Linq.JObject> ObjList = new List<Newtonsoft.Json.Linq.JObject>();

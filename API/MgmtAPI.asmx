@@ -255,7 +255,7 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public APIResult UpdateAnnouncement(string Password, string Announcement) {
+    public APIResult UpdateAnnouncement(string Password, string Title, string Announcement) {
         APIResult R = new APIResult() { Result = enumResult.ERR };
 
         dynamic o = null;
@@ -272,6 +272,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                 if (string.IsNullOrEmpty(SettingContent) == false) {
                     try {
                         o = Newtonsoft.Json.JsonConvert.DeserializeObject(SettingContent);
+                        o.LoginMessage["Title"] = Title;
                         o.LoginMessage["Message"] = Announcement;
                         o.LoginMessage["Version"] = (decimal)o.LoginMessage["Version"] + 1;
 

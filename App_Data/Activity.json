@@ -12,6 +12,12 @@
       "Path": "2022_6/Act001.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "Act006",
+      "Path": "2022_6/Act006.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
     }
     //,
     //{
@@ -53,6 +59,12 @@
     {
       "Name": "Act001",
       "Path": "2022_6/Act001.json",
+      "MethodName": "OpenBonusDeposit",
+      "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "Act006",
+      "Path": "2022_6/Act006.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
     }
