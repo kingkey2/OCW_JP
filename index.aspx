@@ -110,34 +110,7 @@
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
     <link rel="shortcut icon" href="images/share_pic1.png">
     <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <style>
-        .headerGameName {
-            display: inherit;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            font-weight: 500;
-            padding-top: 10px;
-        }
-
-        .headerGameDetail {
-            margin: 0 auto;
-            vertical-align: middle;
-        }
-        /*   .box {
-            aspect-ratio: 16 / 9;
-            border: 0px!important;
-            height: 95%;
-            margin: 0 auto;
-            display: inherit;
-            overflow: hidden!important;
-            vertical-align: middle;
-        }*/
-    </style>
+    <link rel="stylesheet" href="css/main.css?20220627">
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -357,8 +330,15 @@
             EWinWebInfo.IsOpenGame = false;
             var IFramePage = document.getElementById("GameIFramePage");
             IFramePage.src = "";
-            $('#headerGameDetailContent').hide();
-            $('#GameIFramePage').hide();
+
+            //非滿版遊戲介面
+            // $('#headerGameDetailContent').hide();
+            // $('#GameIFramePage').hide();
+            //非滿版遊戲介面 end
+
+            //滿版遊戲介面
+            $('#divGameFrame').css('display', 'none');
+            //滿版遊戲介面 end
         }
 
         if ($('.header_menu').hasClass("show")) {
@@ -421,6 +401,10 @@
 
     function API_ShowMessageOK(title, msg, cbOK) {
         return showMessageOK(title, msg, cbOK);
+    }
+
+    function API_ShowSearchGameModel() {
+        $('#alertSearch').modal('show');
     }
 
     function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
@@ -634,7 +618,7 @@
             var divMessageBox = document.getElementById("alertContactWithCheckBox");
             var divMessageBoxCloseButton = divMessageBox.querySelector(".alertContact_Close");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alertContact_OK");
-            //var divMessageBoxTitle = divMessageBox.querySelector(".alertContact_Text");
+            var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
             var divMessageBoxContent = divMessageBox.querySelector(".alertContact_Text");
             var checkBoxmessageModal;
             if (checkBoxmessageModal == null) {
@@ -660,7 +644,7 @@
                     }
                 }
 
-                //divMessageBoxTitle.innerHTML = title;
+                divMessageBoxTitle.innerHTML = title;
                 divMessageBoxContent.innerHTML = message;
             }
         }
@@ -763,32 +747,43 @@
     function CloseGameFrame() {
         var IFramePage = document.getElementById("GameIFramePage");
         IFramePage.src = "";
-        $('#headerGameDetailContent').hide();
-        $('#GameIFramePage').hide();
-        //$('#IFramePage').css('display', 'block');
+        //非滿版遊戲介面
+        // $('#headerGameDetailContent').hide();
+        // $('#GameIFramePage').hide();
+        //非滿版遊戲介面 end
+
+        //滿版遊戲介面
+        $('#divGameFrame').css('display', 'none');
+        //滿版遊戲介面 end
     }
     //#region Game
     function GameLoadPage(url, gameBrand, gameName) {
         var IFramePage = document.getElementById("GameIFramePage");
 
         if (IFramePage != null) {
-            //$('#IFramePage').css('display','none');
-            $('#headerGameDetailContent').show();
-            $('#GameIFramePage').show();
-            var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
-            if (showCloseGameTooltipCount == '') {
-                showCloseGameTooltipCount = 0;
-            } else {
-                showCloseGameTooltipCount = parseInt(showCloseGameTooltipCount);
-            }
-            if (showCloseGameTooltipCount < 3) {
-                $('#closeGameBtn').tooltip('show');
-                if (showCloseGameTooltipCount == 0) {
-                    setCookie("showCloseGameTooltip", 1, 365);
-                } else {
-                    setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount) + 1, 365);
-                }
-            }
+            //非滿版遊戲介面
+            // $('#headerGameDetailContent').show();
+            // $('#GameIFramePage').show();
+            //非滿版遊戲介面 end
+
+            //滿版遊戲介面
+            $('#divGameFrame').css('display', 'flex');
+            //滿版遊戲介面 end
+
+            //var showCloseGameTooltipCount = getCookie("showCloseGameTooltip");
+            //if (showCloseGameTooltipCount == '') {
+            //    showCloseGameTooltipCount = 0;
+            //} else {
+            //    showCloseGameTooltipCount = parseInt(showCloseGameTooltipCount);
+            //}
+            //if (showCloseGameTooltipCount < 3) {
+            //    $('#closeGameBtn').tooltip('show');
+            //    if (showCloseGameTooltipCount == 0) {
+            //        setCookie("showCloseGameTooltip", 1, 365);
+            //    } else {
+            //        setCookie("showCloseGameTooltip", parseInt(showCloseGameTooltipCount) + 1, 365);
+            //    }
+            //}
 
 
 
@@ -868,7 +863,9 @@
     }
 
     function favBtnEvent(gameID, doc, isSearchGame) {
-
+        if (event) {
+            event.stopPropagation();
+        }
         //var target = event.currentTarget;
         var type = $(doc).hasClass("added") ? 1 : 0;
 
@@ -1257,6 +1254,7 @@
         lobbyClient.GetLoginMessage(EWinWebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
+                    LoginMessageTitle = o.Title;
                     LoginMessage = o.Message;
                     LoginMessageVersion = o.Version;
                     if (cb != null) {
@@ -1271,7 +1269,7 @@
         if (LoginMessage) {
             if (!localStorage.getItem("LoginMessage")) {
                 if (!sessionStorage.getItem("LoginMessage")) {
-                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                    WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
                         sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                         if (document.getElementById("cboxLoginMessage").checked) {
                             localStorage.setItem("LoginMessage", LoginMessageVersion);
@@ -1279,7 +1277,7 @@
                     });
                 } else {
                     if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
-                        WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                        WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
                             sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                             if (document.getElementById("cboxLoginMessage").checked) {
                                 localStorage.setItem("LoginMessage", LoginMessageVersion);
@@ -1289,7 +1287,7 @@
                 }
             } else {
                 if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
-                    WithCheckBoxShowMessageOK('', LoginMessage, function () {
+                    WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
                         sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                         if (document.getElementById("cboxLoginMessage").checked) {
                             localStorage.setItem("LoginMessage", LoginMessageVersion);
@@ -1390,7 +1388,7 @@
             //    noSleep = new NoSleep();
             //    noSleep.enable();
             //}
-           
+
             var dstPage = c.getParameter("DstPage");
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
             paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
@@ -1433,9 +1431,9 @@
                             if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                                 API_SetLogin(EWinWebInfo.SID, function (logined) {
                                     //顯示登入資訊 
-                                    //getLoginMessage(function () {
-                                    //    showLoginMessage();
-                                    //});
+                                    getLoginMessage(function () {
+                                        showLoginMessage();
+                                    });
 
                                     if (logined == false) {
                                         userRecover();
@@ -1489,6 +1487,14 @@
                                 needCheckLogin = true;
                             } else {
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                                    lobbyClient.GetWebSiteMaintainStatus(function (success, o1) {
+                                        if (o1.Message == "1") { //維護中
+                                            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("系統維護中"), function () {
+                                                window.location.reload();
+                                            });
+                                        }
+                                    })
+
                                     needCheckLogin = true;
                                 }
                             }
@@ -1534,120 +1540,324 @@
     }
 
     function searchGameByBrand(gameBrand) {
+        $("input[name='button-brandExchange']").each(function () {
+            $(this).prop("checked", false);
+        });
 
-        $('#alertSearchBrand').val(gameBrand);
+        if ($('#searchIcon_' + gameBrand).length > 0) {
+            $('#searchIcon_' + gameBrand).prop("checked", true);
+        }
+
         $('#alertSearchKeyWord').val('');
         $("#seleGameCategory").val('');
         $('#alertSearch').modal('show');
-        searchGameList();
+        searchGameList(gameBrand);
+    }
+
+    function searchGameByBrandAndGameCategory(gameBrand, gameCategoryName) {
+        $('#alertSearch').modal('show');
+        $("#div_SearchGameCategory").show();
+        $("input[name='button-brandExchange']").each(function () {
+            $(this).prop("checked", false);
+        });
+
+        if ($('#searchIcon_' + gameBrand).length > 0) {
+            $('#searchIcon_' + gameBrand).prop("checked", true);
+        }
+
+        var o;
+        $("#seleGameCategory").empty();
+        o = new Option(mlp.getLanguageKey("全部"), "All");
+        $("#seleGameCategory").append(o);
+
+        var gameCategory = GCB.SearchGameCtByBrand(gameBrand);
+
+        if (gameCategory.length > 0) {
+            for (var i = 0; i < gameCategory.length; i++) {
+                o = new Option(mlp.getLanguageKey(gameCategory[i]), gameCategory[i]);
+                $("#seleGameCategory").append(o);
+            }
+        }
+
+        $('#alertSearchKeyWord').val('');
+        $("#seleGameCategory").val(gameCategoryName);
+
+        searchGameList(gameBrand);
     }
 
     //#region 搜尋彈出
-    function searchGameList() {
-        var gameBrand = $('#alertSearchBrand').val();
+    function searchGameList(gameBrand) {
+        var checkSearchFiliter = false;
+        var arrayGameBrand = [];
+        var gameBrand;
         var keyWord = $('#alertSearchKeyWord').val().trim();
         var gamecategory = $("#seleGameCategory").val() == "All" ? "" : $("#seleGameCategory").val();
         var gameList = [];
         var lang = EWinWebInfo.Lang;
-
-        if (gameBrand != "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
-        } else if (gameBrand == "-1" && keyWord != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
-        } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
-            gameList = GCB.SearchGameCodeByBrand(gameBrand);
-        } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
-            gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
-        } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
-            gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
-        } else {
-            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌"));
-            return false;
-        }
-
         $('#alertSearchContent').empty();
-
-        if (gameList.length > 0) {
-            var FavoGames = getFavoriteGames();
-            for (var i = 0; i < gameList.length; i++) {
-                var gameItem = gameList[i];
-                var RTP = "";
-                if (gameItem.RTPInfo) {
-                    RTP = JSON.parse(gameItem.RTPInfo).RTP;
-                }
-
-                GI = c.getTemplate("tmpSearchGameItem");
-                var GI_a = GI.querySelector(".btn-play");
-                GI_a.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
-                var GI_img = GI.querySelector(".gameimg");
-                if (GI_img != null) {
-                    GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
-                    var el = GI_img;
-                    var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
-                    observer.observe();
-                }
-
-                var likebtn = GI.querySelector(".btn-like");
-                if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
-                    $(likebtn).addClass("added");
-                } else {
-                    $(likebtn).removeClass("added");
-                }
-
-                likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
-
-                $(GI).find(".gameName").text(gameItem.GameText[lang]);
-                $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
-                $(GI).find(".valueRTP").text(RTP);
-                $('#alertSearchContent').append(GI);
+        if (gameBrand == "EWin") {
+            EwinGame = {
+                AllowDemoPlay: 1,
+                "BrandText": {
+                    CHT: "真人百家樂(eWIN)",
+                    JPN: "EWinゲーミング"
+                },
+                "GameBrand": "EWin",
+                "GameCategoryCode": "Live",
+                "GameCategorySubCode": "Baccarat",
+                "GameCode": null,
+                "GameID": 0,
+                "GameName": "EWinGaming",
+                "GameText": {
+                    CHT: "真人百家樂(eWIN)",
+                    JPN: "EWinゲーミング"
+                },
+                "Info": null,
+                "IsHot": 0,
+                "IsNew": 0,
+                "RTPInfo": "",
+                "SortIndex": 0,
+                "Tag": null
             }
-        } else {
-            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
+
+            gameList.push(EwinGame);
+
+            if (gameList.length > 0) {
+                var FavoGames = getFavoriteGames();
+                for (var i = 0; i < gameList.length; i++) {
+                    var gameItem = gameList[i];
+                    var RTP = "--";
+                    if (gameItem.RTPInfo) {
+                        RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                    }
+
+                    if (RTP == "0") {
+                        RTP = "--";
+                    }
+
+                    GI = c.getTemplate("tmpSearchGameItem");
+                    //var GI_a = GI.querySelector(".btn-play");
+                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                    var GI_img = GI.querySelector(".gameimg");
+                    if (GI_img != null) {
+                        GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                        var el = GI_img;
+                        var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                        observer.observe();
+                    }
+
+                    var likebtn = GI.querySelector(".btn-like");
+                    if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                        $(likebtn).addClass("added");
+                    } else {
+                        $(likebtn).removeClass("added");
+                    }
+
+                    likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+
+                    $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                    $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                    $(GI).find(".valueRTP").text(RTP);
+                    $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
+
+                    $('#alertSearchContent').append(GI);
+                }
+            }
         }
+        else {
+            if (gameBrand) {
+                arrayGameBrand.push(gameBrand);
+            } else {
+                $("input[name='button-brandExchange']").each(function () {
+                    if ($(this).prop("checked")) {
+                        arrayGameBrand.push($(this).attr('id').split("_")[1]);
+                    }
+                });
+            }
+
+            if (arrayGameBrand.length > 0) {
+                for (var k = 0; k < arrayGameBrand.length; k++) {
+                    gameBrand = arrayGameBrand[k];
+                    gameList = [];
+                    if (gameBrand != "-1" && keyWord != '') {
+                        gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                    } else if (gameBrand == "-1" && keyWord != '') {
+                        gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
+                    } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
+                        gameList = GCB.SearchGameCodeByBrand(gameBrand);
+                    } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
+                        gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
+                    } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
+                        gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                    }
+
+                    if (gameList.length > 0) {
+                        var FavoGames = getFavoriteGames();
+                        for (var i = 0; i < gameList.length; i++) {
+                            var gameItem = gameList[i];
+                            var RTP = "--";
+                            if (gameItem.RTPInfo) {
+                                RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                            }
+
+                            if (RTP == "0") {
+                                RTP = "--";
+                            }
+
+                            GI = c.getTemplate("tmpSearchGameItem");
+                            //var GI_a = GI.querySelector(".btn-play");
+                            GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                            var GI_img = GI.querySelector(".gameimg");
+                            if (GI_img != null) {
+                                GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                                var el = GI_img;
+                                var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                                observer.observe();
+                            }
+
+                            var likebtn = GI.querySelector(".btn-like");
+                            if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                                $(likebtn).addClass("added");
+                            } else {
+                                $(likebtn).removeClass("added");
+                            }
+
+                            likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+
+                            $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                            $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                            $(GI).find(".valueRTP").text(RTP);
+                            $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
+
+                            $('#alertSearchContent').append(GI);
+                        }
+                    }
+                }
+            }
+            else {
+                gameBrand = "-1";
+                if (gameBrand != "-1" && keyWord != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                } else if (gameBrand == "-1" && keyWord != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
+                } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
+                    gameList = GCB.SearchGameCodeByBrand(gameBrand);
+                } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
+                    gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
+                } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                } else {
+                    $('#alertSearchContent').append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌")}</span></div></div>`)
+                    return false;
+                }
+
+                if (gameList.length > 0) {
+                    var FavoGames = getFavoriteGames();
+                    for (var i = 0; i < gameList.length; i++) {
+                        var gameItem = gameList[i];
+                        var RTP = "--";
+                        if (gameItem.RTPInfo) {
+                            RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        }
+
+                        if (RTP == 0) {
+                            RTP = "--";
+                        }
+
+                        GI = c.getTemplate("tmpSearchGameItem");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+
+                        var GI_img = GI.querySelector(".gameimg");
+                        if (GI_img != null) {
+                            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                            var el = GI_img;
+                            var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                            observer.observe();
+                        }
+
+                        var likebtn = GI.querySelector(".btn-like");
+                        if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                            $(likebtn).addClass("added");
+                        } else {
+                            $(likebtn).removeClass("added");
+                        }
+
+                        likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+
+                        $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                        $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                        $(GI).find(".valueRTP").text(RTP);
+                        $('#alertSearchContent').append(GI);
+                    }
+                }
+            }
+        }
+   
+        if ($('#alertSearchContent').children().length == 0) {
+            $('#alertSearchContent').append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("沒有資料")}</span></div></div>`);
+            //showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));
+        }
+
     };
 
-    function SearchGameCodeChange() {
-        var gameBrand = $('#alertSearchBrand').val();
-        var keyWord = $('#alertSearchKeyWord').val().trim();
+    function searchGameChange() {
 
-        if (gameBrand == "-1" && keyWord == "") {
+        var keyWord = $('#alertSearchKeyWord').val().trim();
+        var arrayGameBrand = [];
+        $("input[name='button-brandExchange']").each(function () {
+            if ($(this).prop("checked")) {
+                arrayGameBrand.push($(this).attr('id').split("_")[1]);
+            }
+        });
+
+        if (arrayGameBrand.length == 0 && keyWord == "") {
             $("#div_SearchGameCategory").hide();
         } else {
             $("#div_SearchGameCategory").show();
         }
 
-        let allGameCategory = [
-            "Electron",
-            "Fish",
-            "Live",
-            "Slot",
-            "Sports"
-        ]
-
-        let o;
+        var o;
         $("#seleGameCategory").empty();
         o = new Option(mlp.getLanguageKey("全部"), "All");
         $("#seleGameCategory").append(o);
 
-        if (gameBrand != "-1") {
+        if (arrayGameBrand.length > 0) {
+            for (var k = 0; k < arrayGameBrand.length; k++) {
+                var gameCategory = GCB.SearchGameCtByBrand(arrayGameBrand[k]);
 
-            let gameCategory = GCB.SearchGameCtByBrand($("#alertSearchBrand").val());
-
-            if (gameCategory.length > 0) {
-                for (var i = 0; i < gameCategory.length; i++) {
-                    o = new Option(mlp.getLanguageKey(gameCategory[i]), gameCategory[i]);
-                    $("#seleGameCategory").append(o);
+                if (gameCategory.length > 0) {
+                    for (var i = 0; i < gameCategory.length; i++) {
+                        if ($('#seleGameCategory').find('option[value="' + gameCategory[i] + '"]').length == 0) {
+                            o = new Option(mlp.getLanguageKey(gameCategory[i]), gameCategory[i]);
+                            $("#seleGameCategory").append(o);
+                        }
+                    }
                 }
             }
-
         }
+    }
+
+    function searchGameChangeClear() {
+        $("#div_SearchGameCategory").hide();
+
+        $("input[name='button-brandExchange']").each(function () {
+            $(this).prop("checked", false);
+        });
+    }
+
+    function searchGameChangeConfirm() {
+
+        $('.input-fake-select').toggleClass('show');
+        $('.input-fake-select').parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
+        $('.mask-header').toggleClass('show');
+        searchGameList();
     }
 
     function SearchKeyWordKeyup() {
         var gameBrand = $('#alertSearchBrand').val();
         var keyWord = $('#alertSearchKeyWord').val().trim();
 
-        if (gameBrand == "-1" && keyWord == "") {
+        if ((gameBrand == "-1" || gameBrand == undefined) && keyWord == "") {
             $("#div_SearchGameCategory").hide();
         } else {
             $("#div_SearchGameCategory").show();
@@ -1952,11 +2162,27 @@
     </header>
     <!-- main_area = iframe高度 + Footer高度-->
     <%--    <div class="main_area" style="height: auto;">--%>
+
+    <!-- 滿版遊戲介面 -->
+    <div id="divGameFrame" class="divGameFrameBody">
+        <div class="divGameFrameWrapper">
+            <div class="btn-wrapper">
+                <div class="btn btn-game-close" onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
+            </div>
+            <iframe id="GameIFramePage" class="divGameFrame" name="mainiframe"></iframe>
+        </div>
+    </div>
+    <!-- 滿版遊戲介面 end-->
+
     <div class="main_area">
-        <div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></div>
+
+        <!-- 非滿版遊戲介面 -->
+        <%--<div class="btn btn-game-close is-hide"><i class="icon icon-mask icon-error"></i></div>
+        <iframe id="GameIFramePage" style="z-index: 2; display: none;" class="mainIframe" name="mainiframe"></iframe>--%>
+        <!-- 非滿版遊戲介面 end-->
+
         <!-- iframe高度 自動計算高度-->
         <%--        <iframe id="IFramePage" class="mainIframe" name="mainiframe" style="height: 100%; min-height: calc(100vh - 60px)"></iframe>--%>
-        <iframe id="GameIFramePage" style="z-index: 2; display: none;" class="mainIframe" name="mainiframe"></iframe>
         <iframe id="IFramePage" style="z-index: 1" class="mainIframe" name="mainiframe"></iframe>
     </div>
     <!-- footer -->
@@ -2103,7 +2329,7 @@
 
                     <div class="company-detail">
                         <div class="company-license">
-                            <IFRAME SRC="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" WIDTH=150 HEIGHT=50 STYLE="border:none;"></IFRAME> 
+                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
                         </div>
                         <div class="company-address">
                             <%-- <p class="name">Online Chip World Co. N.V</p>--%>
@@ -2176,8 +2402,8 @@
         </div>
     </div>
 
-     <!-- Modal Search 品牌-文字版-->
-     <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true">
+    <!-- Modal Search 品牌-文字版-->
+    <%--  <div class="modal fade no-footer alertSearch " id="alertSearch" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2194,16 +2420,16 @@
                         <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
                             <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
                                 <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
+                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>
                                 <option class="searchFilter-option language_replace" value="BNG">BNG</option>
                                 <option class="searchFilter-option language_replace" value="CG">CG</option>
                                 <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
                                 <option class="searchFilter-option language_replace" value="EVO">EVO</option>
                                 <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
+                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>
                                 <option class="searchFilter-option language_replace" value="KGS">KGS</option>
                                 <option class="searchFilter-option language_replace" value="KX">KX</option>
-                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
+                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>
                                 <option class="searchFilter-option language_replace" value="PG">PG</option>
                                 <option class="searchFilter-option language_replace" value="PNG">PNG</option>
                                 <option class="searchFilter-option language_replace" value="PP">PP</option>
@@ -2244,199 +2470,245 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
 
-     <!-- Modal Search 新版 - 品牌-LOGO版 -開發中-->
-     <div class="modal fade no-footer alertSearchTemp" id="" tabindex="-1" aria-hidden="true" style="display: ">
+    <!-- Modal Search 品牌-LOGO版-->
+    <div class="modal fade no-footer alertSearchTemp" id="alertSearch" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!-- <h5 class="modal-title">我是logo</h5> -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="alertSearchCloseButton">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="modal-header-container">
+                        <!-- <h5 class="modal-title">我是logo</h5> -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            id="alertSearchCloseButton">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     <div class="searchFilter-wrapper">
-                        <div class="searchFilter-item input-group game-brand">
-                            <div class="input-fake-select">
-                                <div class="gameName"><span class="language_replace">遊戲品牌</span></div>
-                                <div class="has-arrow"><i class="arrow"></i></div>
+                        <div class="modal-header-container">
+                            <div class="searchFilter-item input-group game-brand">
+                                <div class="input-fake-select">
+                                    <div class="gameName"><span class="language_replace">遊戲品牌</span></div>
+                                    <div class="has-arrow"><i class="arrow"></i></div>
+                                </div>
                             </div>
+                            <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory"
+                                style="display: none">
+                                <select class="custom-select" id="seleGameCategory">
+                                    <option class="title language_replace" value="All" selected>全部</option>
+                                    <option class="searchFilter-option language_replace" value="Electron">Electron
+                                    </option>
+                                    <option class="searchFilter-option language_replace" value="Fish">Fish</option>
+                                    <option class="searchFilter-option language_replace" value="Live">Live</option>
+                                    <option class="searchFilter-option language_replace" value="Slot">Slot</option>
+                                    <option class="searchFilter-option language_replace" value="Sports">Sports</option>
+                                </select>
+                            </div>
+                            <div class="searchFilter-item input-group keyword">
+                                <input id="alertSearchKeyWord" type="text" class="form-control"
+                                    language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()" enterkeyhint="">
+                                <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                            </div>
+                            <button onclick="searchGameList()" type="button"
+                                class="btn btn-full-main btn-sm btn-search-popup">
+                                <span class="language_replace">検索</span>
+                            </button>
                         </div>
-                        
-                        <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode" style="display: ;">
-                            <select class="custom-select" id="alertSearchBrand" onchange="SearchGameCodeChange()">
-                                <option class="title" value="-1" selected><span class="language_replace">プロバイダー（すべて）</span></option>
-                                <%--<option class="searchFilter-option" value="BBIN"><span class="language_replace">BBIN</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="BNG">BNG</option>
-                                <option class="searchFilter-option language_replace" value="CG">CG</option>
-                                <option class="searchFilter-option language_replace" value="CQ9">CQ9</option>
-                                <option class="searchFilter-option language_replace" value="EVO">EVO</option>
-                                <%--<option class="searchFilter-option" value="GMW"><span class="language_replace">GMW</span></option>
-                                 <option class="searchFilter-option" value="HB"><span class="language_replace">HB</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="KGS">KGS</option>
-                                <option class="searchFilter-option language_replace" value="KX">KX</option>
-                                <%--<option class="searchFilter-option" value="NE"><span class="language_replace">NE</span></option>--%>
-                                <option class="searchFilter-option language_replace" value="PG">PG</option>
-                                <option class="searchFilter-option language_replace" value="PNG">PNG</option>
-                                <option class="searchFilter-option language_replace" value="PP">PP</option>
-                                <option class="searchFilter-option language_replace" value="VA">VA</option>
-                                <option class="searchFilter-option language_replace" value="ZEUS">ZEUS</option>
-                                <option class="searchFilter-option language_replace" value="BTI">BTI</option>
-                                <option class="searchFilter-option language_replace" value="BG">BG</option>
-                            </select>
-                        </div>
-                        
-                        <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory" style="display: none">
-                            <select class="custom-select" id="seleGameCategory">
-                                <option class="title language_replace" value="All" selected>全部</option>
-                                <option class="searchFilter-option language_replace" value="Electron">Electron</option>
-                                <option class="searchFilter-option language_replace" value="Fish">Fish</option>
-                                <option class="searchFilter-option language_replace" value="Live">Live</option>
-                                <option class="searchFilter-option language_replace" value="Slot">Slot</option>
-                                <option class="searchFilter-option language_replace" value="Sports">Sports</option>
-                            </select>
-                        </div>
-                        <div class="searchFilter-item input-group keyword">
-                            <input id="alertSearchKeyWord" type="text" class="form-control" language_replace="placeholder" placeholder="キーワード" onkeyup="SearchKeyWordKeyup()">
-                            <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
-                        </div>
-                        <button onclick="searchGameList()" type="button" class="btn btn-full-main btn-sm btn-search-popup"><span class="language_replace">検索</span></button> 
-                        
+
                         <!-- 品牌LOGO版 Collapse -->
                         <div class="brand-wrapper">
-                            <!-- <span class="select-cancel">取消所選</span> -->
-                            <div class="brand-inner">
+                            <div class="modal-header-container">
+                                <div class="brand-inner">
+                                    <ul class="brand-popup-list">
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id=""
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-eWIN.svg" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_BG"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-BG.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_CG"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-CG.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_BNG"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-BNG.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_BTI"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-BTI.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_CQ9"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-CQ9.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_EVO"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-EVO.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_KX"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-KX.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_PG"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-PG.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_PNG"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-PNG.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_PP"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-PP.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_VA"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-VA.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_ZEUS"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-ZEUS.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_KGS"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-KGS.svg" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <div class="wrapper_center">
+                                        <button class="btn btn-outline-main btn-brand-cancel" type="button"
+                                            onclick="searchGameChangeClear()">
+                                            <span class="language_replace">重新設定</span>
+                                        </button>
+                                        <button class="btn btn-full-main btn-brand-confirm" type="button"
+                                            onclick="searchGameChangeConfirm()">
+                                            <span class="language_replace">確認</span>
+                                        </button>
+                                    </div>
 
-                                <ul class="brand-popup-list">
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                checked>
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-BG.png" alt=""></span>
-                                                </span>
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                >
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-CG.png" alt=""></span>
-                                                </span>                                          
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                >
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-BNG.png" alt=""></span>
-                                                </span>                                          
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                >
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-BTI.png" alt=""></span>
-                                                </span>                                          
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                >
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-CQ9.png" alt=""></span>
-                                                </span>                                          
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                >
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-EVO.png" alt=""></span>
-                                                </span>                                          
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                >
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-KX.png" alt=""></span>
-                                                </span>                                          
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                >
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-PG.png" alt=""></span>
-                                                </span>                                          
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                    <li class="brand-item custom-control custom-checkboxValue-noCheck">
-                                        <label class="custom-label">
-                                            <input type="checkbox" name="button-brandExchange" class="custom-control-input-hidden"
-                                                >
-                                            <div class="custom-input checkbox">
-                                                <span class="logo-wrap">
-                                                    <span class="img-wrap">
-                                                        <img src="images/logo/default/logo-PNG.png" alt=""></span>
-                                                </span>                                          
-                                            </div>
-                                        </label>
-                                    </li>                           
-                                                            
-                                                             
-                                  
-                                </ul>
+                                </div>
+
 
                             </div>
-                            <div class="wrapper-center">
-                                <button class="btn btn-outline-main btn-brand-cancel" type="button">
-                                    <span class="language_replace">取消所選</span>
-                                </button>
-                                <button class="btn btn-full-main btn-brand-confirm" type="button">
-                                    <span class="language_replace">確認</span>
-                                </button>
-                            </div>                            
-    
                         </div>
                     </div>
-                    
-                    
                 </div>
+                <div class="mask-header"></div>
                 <div class="modal-body">
                     <div class="game-search-wrapper">
                         <div class="search-result-wrapper">
@@ -2456,10 +2728,6 @@
             </div>
         </div>
     </div>
-
-   
-
-   
 
     <!-- 遊戲介紹 Modal-->
     <div class="modal fade modal-game" tabindex="-1" role="dialog" aria-labelledby="alertGameIntro" aria-hidden="true" id="alertGameIntro">
@@ -2552,7 +2820,7 @@
                     <i class="icon-service"></i>
                     <h5 class="modal-title language_replace ml-1">客服信箱</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="icon-close-small"></i></span>
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -2665,30 +2933,40 @@
     </div>
 
     <!--alert-->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertContactWithCheckBox"  aria-hidden="true" id="alertContactWithCheckBox">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:500px !important">
+
+
+    <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertContactWithCheckBox" aria-hidden="true" id="alertContactWithCheckBox">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
+                    <div class="alert_Title">xxxx</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="modal-body-content">
-                        <i class="icon-error_outline primary"></i>
-                        <div class="text-wrap">
-                            <div class="alertContact_Text"></div>
-                            <div>
-                                <input style="width:16px;height:16px;cursor:pointer" type="checkbox" id="cboxLoginMessage">
-                                <label style="font-size:18px" for="cboxLoginMessage language_replace">今後不顯示</label>
+                        <article class="popup-detail-wrapper">
+                            <div class="popup-detail-inner">
+                                <div class="popup-detail-content">
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告詳情</span></h6>
+                                        <div class="section-content">
+                                            <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                                        </div>
+                                    </section>
+                                </div>
                             </div>
-                        </div>
+                        </article>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="btn-container">
+                <div style="padding: 1rem;border-top: 1px solid #e9ecef;">
+                    <div style="display: inline-block;">
+                        <input style="width: 12px; height: 12px; cursor: pointer" type="checkbox" id="cboxLoginMessage">
+                        <label style="font-size: 14px" for="cboxLoginMessage " class="language_replace">今後不顯示</label>
+                    </div>
+                    <div class="btn-container"  style="float: right;display: inline-block;">
                         <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
-                        <button type="button" class="alertContact_Close btn btn-outline-primary btn-sm" data-dismiss="modal"><span class="language_replace">取消</span></button>
                     </div>
                 </div>
             </div>
@@ -2702,7 +2980,7 @@
                 <div class="modal-header">
                     <div class="alert_Title"></div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -2821,7 +3099,7 @@
 
 
     <!-- Modal Search 品牌-文字版-->
-    <div id="tmpSearchGameItem" class="is-hide">
+    <%--    <div id="tmpSearchGameItem" class="is-hide">
         <div class="game-item col-auto">
             <div class="game-item-inner">
                 <div class="game-item-img">
@@ -2870,11 +3148,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
 
     <!-- Modal Search 新版 - 品牌-LOGO版-->
-    <div id="" class="is-hide">
+    <div id="tmpSearchGameItem" class="is-hide">
         <div class="game-item col-auto">
             <div class="game-item-inner">
                 <div class="game-item-img">
@@ -2894,8 +3172,8 @@
                                     <li class="moreInfo-item brand">
                                         <h4 class="value BrandName"></h4>
                                     </li>
-                                    <li class="moreInfo-item category" style="display: ;">
-                                        <h4 class="value">SLOT</h4>
+                                    <li class="moreInfo-item category">
+                                        <h4 class="value GameCategoryCode"></h4>
                                     </li>
                                     <li class="moreInfo-item RTP">
                                         <span class="title">RTP</span>
@@ -2911,7 +3189,7 @@
                                     <button type="button" class="btn-thumbUp btn btn-round" style="display: none;">
                                         <i class="icon icon-m-thumup"></i>
                                     </button>
-                                    
+
                                     <button type="button" class="btn-like btn btn-round">
                                         <i class="icon icon-m-favorite"></i>
                                     </button>
@@ -2931,10 +3209,11 @@
     <!-- 品牌LOGO版 Collapse TEST-->
     <script>
         $('.brand-wrapper:not(.show)').hide();
-        $('.input-fake-select').click(function(){
-          $(this).toggleClass('show');
-          $(this).parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
-         });
+        $('.input-fake-select').click(function () {
+            $(this).toggleClass('show');
+            $(this).parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
+            $('.mask-header').toggleClass('show');
+        });
     </script>
 
 

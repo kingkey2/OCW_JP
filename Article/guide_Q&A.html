@@ -78,7 +78,6 @@
              * Initiate script
              */
             function init() {
-
                 elems['buttons'] = document.getElementsByClassName("showmore");
 
                 // No buttons found
@@ -100,7 +99,6 @@
              * Show more elements
              */
             function showMore() {
-                debugger;
                 // Hidden elements within target container
                 var target = event.target.getAttribute('data-target');
                 var hidden = document.getElementById(target).getElementsByClassName('hidden');
@@ -977,7 +975,7 @@
                     </div>
                     <i class="fas fa-chevron-right txt-grey"></i>
                 </a>
-                <a href="guide_Rolling.html"
+                <a id="withdrawQA" href="guide_Rolling.html"
                    class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100" rel="noopener">
                     <div class="px-2 pr-3 flex-fill overflow-hidden">
                         <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">ローリングについての説明</h3>

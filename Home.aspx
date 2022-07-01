@@ -67,40 +67,39 @@
 
     var FourGames = [
         {
-            GameName: "EWinGaming",
-            GameBrand: "EWin",
-            GameLangName:"EWinGaming",
-            Description: "元祖ライブバカラ新しいサービス初めました！"
-        },
-        {
             GameName: "43",
             GameBrand: "KGS",
-            GameLangName:"KGS.43",
+            GameLangName: "KGS.43",
             Description: "７枚のトランプが自動的に配られて、当たりかはずれを待つ時がすごくワクワクします。"
         },
         {
-            GameName: "126",
-            GameBrand: "PG",
-            GameLangName:"PG.126",
-            Description: "消去型のスロットゲームで、当たり率高く、フリースピンが入ると超大当たりが入り易い。"
+            GameName: "moonprincess",
+            GameBrand: "PNG",
+            GameLangName: "PNG.moonprincess",
+            Description: "プレインゴーの知名度NO.1スロット。言わずと知れた高級キャバクラ！！"
         },
         {
-            GameName: "228",
+            GameName: "242",
             GameBrand: "BNG",
-            GameLangName:"BNG.228",
-            Description: "ゴールドがたまるとフリースピンに入り、フリースピン中に更にフリースピンが当たります。"
+            GameLangName: "BNG.242",
+            Description: "ブーンゴーのタイガーシリーズの不動の人気チャンピオン、マハラジャのイチオシ！！"
         },
         {
-            GameName: "101",
-            GameBrand: "PG",
-            GameLangName:"PG.101",
-            Description: "連鎖すると賞金倍率が上昇ボーナ中で更に上昇でドキドキ感が堪らない！"
+            GameName: "LightningTable01",
+            GameBrand: "EVO",
+            GameLangName: "EVO.LightningTable01",
+            Description: "0から36まで37スポットのヨーロピアンタイプルーレットだが、毎回ランダムに発生する演出で配当が 50倍〜500倍GETできる！"
         },
         {
             GameName: "89",
             GameBrand: "PG",
-            GameLangName:"PG.89",
+            GameLangName: "PG.89",
             Description: "最高32400のマルチウェイ！最高倍率はなんと10万倍だ！熱い！"
+        }, {
+            GameName: "EWinGaming",
+            GameBrand: "EWin",
+            GameLangName: "EWinGaming",
+            Description: "元祖ライブバカラ新しいサービス初めました！"
         }
     ];
 
@@ -168,7 +167,12 @@
             tempGI_img.onerror = new Function("setDefaultIcon('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "')");
         }
 
-        c.setClassText(tempGI, "gameName", null, window.parent.API_GetGameLang(1, temp_gameItem.GameBrand, temp_gameItem.GameName));
+        if (temp_gameItem.GameLangName == "EWinGaming") {
+        c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
+        } else {
+        c.setClassText(tempGI, "gameName", null, GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName));
+        }
+
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));
         tempGI.onclick = new Function("window.parent.openGame('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "','" + temp_gameItem.GameLangName + "')");
         ParentMain.prepend(tempGI);
@@ -193,11 +197,9 @@
                     updateGameList();
                 }
 
-                //if (FourGames) {
-                //    for (var i = 0; i < FourGames.length; i++) {
-                //        setFourGame(i);
-                //    }
-                //}
+                if (FourGames) {
+                    updateFourGame();
+                }
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -210,6 +212,14 @@
         setBulletinBoard();
 
         //iframeWidth = $(window.parent.document).find('#IFramePage').width();
+    }
+
+    function updateFourGame() {
+        var ParentMain = document.getElementById("ParentRecommendGameItem");
+        ParentMain.innerHTML = "";
+        for (var i = 0; i < FourGames.length; i++) {
+            setFourGame(i);
+        }
     }
 
     function refreshFavoGame() {
@@ -226,7 +236,34 @@
                 }
 
                 for (var i = 0; i < FavoGames.length; i++) {
-                    gameItem = GCB.GetGameCode(FavoGames[i].GameID);
+                    if (FavoGames[i].GameID == 0) {
+                        gameItem = {
+                            AllowDemoPlay: 1,
+                            "BrandText": {
+                                CHT: "真人百家樂(eWIN)",
+                                JPN: "EWinゲーミング"
+                            },
+                            "GameBrand": "EWin",
+                            "GameCategoryCode": "Live",
+                            "GameCategorySubCode": "Baccarat",
+                            "GameCode": null,
+                            "GameID": 0,
+                            "GameName": "EWinGaming",
+                            "GameText": {
+                                CHT: "真人百家樂(eWIN)",
+                                JPN: "EWinゲーミング"
+                            },
+                            "Info": null,
+                            "IsHot": 0,
+                            "IsNew": 0,
+                            "RTPInfo": "",
+                            "SortIndex": 0,
+                            "Tag": null
+                        };
+                    } else {
+                        gameItem = GCB.GetGameCode(FavoGames[i].GameID);
+                    }
+                
                     if (gameItem) {
                         var GI;
                         GI = c.getTemplate("temGameItem");
@@ -241,9 +278,13 @@
 
                         if (iframeWidth < 936) {
 
-                            var RTP = "";
+                            var RTP = "--";
                             if (gameItem.RTPInfo) {
                                 RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                            }
+
+                            if (RTP == "0") {
+                                RTP = "--";
                             }
 
                             GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -275,7 +316,7 @@
 
                         $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                         if (gameItem.RTPInfo) {
-                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                         } else {
                             $(GI).find(".valueRTP").text('--');
                         }
@@ -332,6 +373,9 @@
 
                     $(categArea).find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
                     $(categArea).find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
+                    category.Datas.sort(function (a, b) {
+                        return b.SortIndex - a.SortIndex;
+                    });
 
                     category.Datas.forEach(gameItem => {
                         var GI;
@@ -350,9 +394,13 @@
 
                             if (iframeWidth < 936) {
 
-                                var RTP = "";
+                                var RTP = "--";
                                 if (gameItem.RTPInfo) {
                                     RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                                }
+
+                                if (RTP == "0") {
+                                    RTP = "--";
                                 }
 
                                 GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -384,7 +432,7 @@
 
                         $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                         if (gameItem.RTPInfo) {
-                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                         } else {
                             $(GI).find(".valueRTP").text('--');
                         }
@@ -473,7 +521,34 @@
         $(categArea).find('.GameItemGroup').attr('id', 'idFavoGameItemGroup');
         if (FavoGames && FavoGames.length > 0) {
             for (var i = 0; i < FavoGames.length; i++) {
-                gameItem = GCB.GetGameCode(FavoGames[i].GameID);
+                if (FavoGames[i].GameID == 0) {
+                    gameItem = {
+                        AllowDemoPlay: 1,
+                        "BrandText": {
+                            CHT: "真人百家樂(eWIN)",
+                            JPN: "EWinゲーミング"
+                        },
+                        "GameBrand": "EWin",
+                        "GameCategoryCode": "Live",
+                        "GameCategorySubCode": "Baccarat",
+                        "GameCode": null,
+                        "GameID": 0,
+                        "GameName": "EWinGaming",
+                        "GameText": {
+                            CHT: "真人百家樂(eWIN)",
+                            JPN: "EWinゲーミング"
+                        },
+                        "Info": null,
+                        "IsHot": 0,
+                        "IsNew": 0,
+                        "RTPInfo": "",
+                        "SortIndex": 0,
+                        "Tag": null
+                    };
+                } else {
+                    gameItem = GCB.GetGameCode(FavoGames[i].GameID);
+                }
+                
                 if (gameItem) {
                     var GI;
                     GI = c.getTemplate("temGameItem");
@@ -488,9 +563,13 @@
 
                     if (iframeWidth < 936) {
 
-                        var RTP = "";
+                        var RTP = "--";
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        }
+
+                        if (RTP == "0") {
+                            RTP = "--";
                         }
 
                         GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
@@ -522,7 +601,7 @@
 
                     $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
                     if (gameItem.RTPInfo) {
-                        $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP);
+                        $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
                     } else {
                         $(GI).find(".valueRTP").text('--');
                     }
@@ -573,8 +652,8 @@
                             c.setClassText(RecordDom, "CreateDate", null, date);
                             c.setClassText(RecordDom, "BulletinTitle", null, record.BulletinTitle);
 
+                            //RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinBoardID +"."+ record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
                             RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
-
                             ParentMain.appendChild(RecordDom);
 
                         }
@@ -597,6 +676,7 @@
 
                 mlp.loadLanguage(lang, function () {
                     updateGameList();
+                    updateFourGame();
                     window.parent.API_LoadingEnd(1);
                 });
 
@@ -650,22 +730,21 @@
             <div class="hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)">
-                            <a class="hero-item-link hero-item-href"></a>
-                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
+                        <div class="hero-item" >
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="images/banner/b5-m.jpg" alt="">
+                                <img src="images/banner/b2-m.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/banner/b5.jpg" class="bg">
+                                    <img src="images/banner/b2.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                   
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -677,27 +756,28 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')">
-                            <a class="hero-item-link hero-item-href"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/banner/b2-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/banner/b2.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item" onclick="window.top.API_ComingSoonAlert()">
-                            <a class="hero-item-link hero-item-href"></a>
+                        <div class="hero-item">
+                            <a class="hero-item-link hero-item-href" onclick="window.top.API_ComingSoonAlert()"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
                                     <img src="images/banner/b3.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item" >
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
+                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
+                            <div class="hero-item-box mobile">
+                                <img src="images/banner/b5-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/banner/b5.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
@@ -725,23 +805,43 @@
                     </div>
                 </div>
                 --%>
+                
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
-                        <div class="publicize-wrap way_payment">
-                            <div class="item payment" style="cursor: pointer" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
+                        <!-- 入出金說明 -->
+                        <div class="publicize-wrap way-payment-wrapper">
+                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
                                 <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
                                 <img src="images/index/way-payment.png" class="desktop" alt="">
+                                <%--
+                                <div class="way-payment-img">
+                                    <div class="img-crop">
+                                        <img src="images/theme/girl-half.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="way-payment-content">
+                                    <div class="way-payment-detail">
+                                        <h2 class="title language_replace">入出金の手順</h2>
+                                        <p class="desc language_replace">Deposit and Withdrawal Instructions</p>
+                                    </div>
+                                </div>
+                                --%>
                             </div>
                         </div>
+                        <!-- 最新公告 + 會員簽到進度顯示-->
                         <div class="publicize-wrap bulletin-login">
-                            <div class="item bulletin">
+                            <div class="item bulletin">                                
                                 <div class="bulletin_inner">
-                                    <h2 class="title language_replace">最新公告</h2>
+                                    <div class="sec-title-container">
+                                        <div class="sec-title-wrapper">
+                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
+                                        </div>
+                                    </div>
                                     <ul class="bulletin_list" id="idBulletinBoardContent">
                                     </ul>
                                 </div>
                             </div>
-                            <div class="item login">
+                            <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
                                 <div class="activity-dailylogin-wrapper coming-soon">
                                     <div class="dailylogin-bouns-wrapper">
@@ -782,21 +882,20 @@
             </div>
         </section>
         <!-- 推薦遊戲 -->
-        <section class="section_recommand section-wrap" style="display:none">
+        <section class="section_recommand section-wrap">
             <div class="container">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">
                         <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
                     </div>
+                    <%--
                     <a class="text-link" href="casino.html">
                         <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
                     </a>
+                    --%>
                 </div>
                 <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
-              
                 </div>
-
-
             </div>
         </section>
 

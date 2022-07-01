@@ -11,10 +11,8 @@ using System.Web.UI.WebControls;
 /// EWin 的摘要描述
 /// </summary>
 public static class EWinWebDB {
-    public static class CompanyCategory
-    {
-        public static int DeleteCompanyCategory(int CategoryType)
-        {
+    public static class CompanyCategory {
+        public static int DeleteCompanyCategory(int CategoryType) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int CategoryCount = 0;
@@ -32,8 +30,7 @@ public static class EWinWebDB {
             return CategoryCount;
         }
 
-        public static int InsertCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType)
-        {
+        public static int InsertCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int CompanyCategoryID = 0;
@@ -54,20 +51,20 @@ public static class EWinWebDB {
 
             //if (CategoryCount == 0)
             //{
-                SS = "INSERT INTO CompanyCategory (EwinCompanyCategoryID, CategoryType, CategoryName,SortIndex,State,Location,ShowType) " +
-               "                VALUES (@EwinCompanyCategoryID, @CategoryType, @CategoryName,@SortIndex,@State,@Location,@ShowType) " +
-               " SELECT @@IDENTITY";
-                DBCmd = new System.Data.SqlClient.SqlCommand();
-                DBCmd.CommandText = SS;
-                DBCmd.CommandType = System.Data.CommandType.Text;
-                DBCmd.Parameters.Add("@EwinCompanyCategoryID", System.Data.SqlDbType.Int).Value = EwinCompanyCategoryID;
-                DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
-                DBCmd.Parameters.Add("@CategoryName", System.Data.SqlDbType.NVarChar).Value = CategoryName;
-                DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
-                DBCmd.Parameters.Add("@State", System.Data.SqlDbType.Int).Value = State;
-                DBCmd.Parameters.Add("@Location", System.Data.SqlDbType.VarChar).Value = Location;
-                DBCmd.Parameters.Add("@ShowType", System.Data.SqlDbType.Int).Value = ShowType;
-                CompanyCategoryID = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+            SS = "INSERT INTO CompanyCategory (EwinCompanyCategoryID, CategoryType, CategoryName,SortIndex,State,Location,ShowType) " +
+           "                VALUES (@EwinCompanyCategoryID, @CategoryType, @CategoryName,@SortIndex,@State,@Location,@ShowType) " +
+           " SELECT @@IDENTITY";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@EwinCompanyCategoryID", System.Data.SqlDbType.Int).Value = EwinCompanyCategoryID;
+            DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
+            DBCmd.Parameters.Add("@CategoryName", System.Data.SqlDbType.NVarChar).Value = CategoryName;
+            DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
+            DBCmd.Parameters.Add("@State", System.Data.SqlDbType.Int).Value = State;
+            DBCmd.Parameters.Add("@Location", System.Data.SqlDbType.VarChar).Value = Location;
+            DBCmd.Parameters.Add("@ShowType", System.Data.SqlDbType.Int).Value = ShowType;
+            CompanyCategoryID = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
             //}
             //else
             //{
@@ -89,12 +86,11 @@ public static class EWinWebDB {
             return CompanyCategoryID;
         }
 
-        public static int InsertOcwCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType)
-        {
+        public static int InsertOcwCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int CompanyCategoryID = 0;
-      
+
             SS = "INSERT INTO CompanyCategory (EwinCompanyCategoryID, CategoryType, CategoryName,SortIndex,State,Location,ShowType) " +
             "                VALUES (@EwinCompanyCategoryID, @CategoryType, @CategoryName,@SortIndex,@State,@Location,@ShowType) " +
             " SELECT @@IDENTITY";
@@ -109,15 +105,14 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@Location", System.Data.SqlDbType.VarChar).Value = Location;
             DBCmd.Parameters.Add("@ShowType", System.Data.SqlDbType.Int).Value = ShowType;
             CompanyCategoryID = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
-     
+
             RedisCache.CompanyCategory.UpdateCompanyCategory();
 
             return CompanyCategoryID;
         }
 
 
-        public static System.Data.DataTable GetCompanyCategory()
-        {
+        public static System.Data.DataTable GetCompanyCategory() {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -132,10 +127,8 @@ public static class EWinWebDB {
         }
     }
 
-    public static class CompanyGameCode
-    {
-        public static int InsertCompanyGameCode(int forCompanyCategoryID, string GameBrand, string GameName, string Info,int GameID,string GameCategoryCode,string GameCategorySubCode,int AllowDemoPlay,string RTPInfo,int IsHot,int IsNew,string Tag,int SortIndex)
-        {
+    public static class CompanyGameCode {
+        public static int InsertCompanyGameCode(int forCompanyCategoryID, string GameBrand, string GameName, string Info, int GameID, string GameCategoryCode, string GameCategorySubCode, int AllowDemoPlay, string RTPInfo, int IsHot, int IsNew, string Tag, int SortIndex) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int insertCount = 0;
@@ -164,8 +157,7 @@ public static class EWinWebDB {
             return insertCount;
         }
 
-        public static int DeleteCompanyGameCode()
-        {
+        public static int DeleteCompanyGameCode() {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int DeleteCount = 0;
@@ -176,10 +168,8 @@ public static class EWinWebDB {
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-            if (DT.Rows.Count > 0)
-            {
-                for (int i = 0; i < DT.Rows.Count; i++)
-                { 
+            if (DT.Rows.Count > 0) {
+                for (int i = 0; i < DT.Rows.Count; i++) {
                     RedisCache.CompanyGameCode.DeleteCompanyGameCode((int)DT.Rows[i]["CompanyCategoryID"]);
                 }
             }
@@ -190,16 +180,14 @@ public static class EWinWebDB {
             DBCmd.CommandType = System.Data.CommandType.Text;
             DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
 
-            
+
 
             return DeleteCount;
         }
     }
 
-    public static class JKCDeposit
-    {
-        public static int UpdateJKCDepositByContactPhoneNumber(string ContactPhoneNumber, decimal Amount)
-        {
+    public static class JKCDeposit {
+        public static int UpdateJKCDepositByContactPhoneNumber(string ContactPhoneNumber, decimal Amount) {
             //Type: 0=Collect/1=Join
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -214,16 +202,14 @@ public static class EWinWebDB {
             DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
             ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
 
-            if (ReturnValue == 0)
-            {
+            if (ReturnValue == 0) {
                 RedisCache.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(ContactPhoneNumber);
             }
 
             return ReturnValue;
         }
 
-        public static int UpdateJKCDepositByContactPhoneNumber2(string ContactPhoneNumber, decimal Amount)
-        {
+        public static int UpdateJKCDepositByContactPhoneNumber2(string ContactPhoneNumber, decimal Amount) {
             //Type: 0=Collect/1=Join
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -238,16 +224,14 @@ public static class EWinWebDB {
             DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
             ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
 
-            if (ReturnValue == 0)
-            {
+            if (ReturnValue == 0) {
                 RedisCache.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(ContactPhoneNumber);
             }
 
             return ReturnValue;
         }
 
-        public static int InsertJKCDepositByContactPhoneNumber(string ContactPhoneNumber, decimal Amount)
-        {
+        public static int InsertJKCDepositByContactPhoneNumber(string ContactPhoneNumber, decimal Amount) {
             //Type: 0=Collect/1=Join
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -259,18 +243,14 @@ public static class EWinWebDB {
             DBCmd.CommandType = System.Data.CommandType.Text;
             DBCmd.Parameters.Add("@ContactPhoneNumber", System.Data.SqlDbType.VarChar).Value = ContactPhoneNumber;
             DBCmd.Parameters.Add("@JKCCoin", System.Data.SqlDbType.Decimal).Value = Amount;
-            try
-            {
+            try {
                 ReturnValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
 
-           
+
             }
-        
-            if (ReturnValue == 1)
-            {
+
+            if (ReturnValue == 1) {
                 RedisCache.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(ContactPhoneNumber);
             }
 
@@ -279,10 +259,9 @@ public static class EWinWebDB {
 
     }
 
-    public static class UserAccountEventSummary
-    {
-        public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, int Type, decimal ThresholdValue, decimal BonusValue)
-        {
+    public static class UserAccountEventSummary {
+        public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, int Type, decimal ThresholdValue, decimal BonusValue) {
+            //public static int UpdateUserAccountEventSummary(string LoginAccount, string ActivityName, string JoinActivityCycle, int Type, decimal ThresholdValue, decimal BonusValue) {
             //Type: 0=Collect/1=Join
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -293,6 +272,7 @@ public static class EWinWebDB {
             DBCmd.CommandType = System.Data.CommandType.StoredProcedure;
             DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
             DBCmd.Parameters.Add("@ActivityName", System.Data.SqlDbType.VarChar).Value = ActivityName;
+            //DBCmd.Parameters.Add("@JoinActivityCycle", System.Data.SqlDbType.VarChar).Value = JoinActivityCycle;
             DBCmd.Parameters.Add("@Type", System.Data.SqlDbType.Int).Value = Type;
             DBCmd.Parameters.Add("@ThresholdValue", System.Data.SqlDbType.Decimal).Value = ThresholdValue;
             DBCmd.Parameters.Add("@BonusValue", System.Data.SqlDbType.Decimal).Value = BonusValue;
@@ -300,21 +280,18 @@ public static class EWinWebDB {
             DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
             ReturnValue = Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
 
-            if (ReturnValue==0)
-            {
+            if (ReturnValue == 0) {
                 RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccount(LoginAccount);
                 RedisCache.UserAccountEventSummary.UpdateUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityName);
             }
-            
+
             return ReturnValue;
         }
 
     }
 
-    public static class UserAccountPayment
-    {
-        public enum FlowStatus
-        {
+    public static class UserAccountPayment {
+        public enum FlowStatus {
             Create = 0,
             InProgress = 1,
             Success = 2,
@@ -323,8 +300,7 @@ public static class EWinWebDB {
             Accept = 5
         }
 
-        public static int InsertPayment(string OrderNumber, int PaymentType, int BasicType, string LoginAccount, decimal Amount, decimal HandingFeeRate, int HandingFeeAmount, decimal ThresholdRate, decimal ThresholdValue, int forPaymentMethodID, string FromInfo, string ToInfo, string DetailData, int ExpireSecond)
-        {
+        public static int InsertPayment(string OrderNumber, int PaymentType, int BasicType, string LoginAccount, decimal Amount, decimal HandingFeeRate, int HandingFeeAmount, decimal ThresholdRate, decimal ThresholdValue, int forPaymentMethodID, string FromInfo, string ToInfo, string DetailData, int ExpireSecond) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
@@ -352,8 +328,7 @@ public static class EWinWebDB {
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
 
-        public static System.Data.DataTable GetPaymentByOtherOrderNumber(string OtherOrderNumber)
-        {
+        public static System.Data.DataTable GetPaymentByOtherOrderNumber(string OtherOrderNumber) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -372,8 +347,7 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static System.Data.DataTable UpdateOtherOrderNumberByOrderNumber(string OrderNumber, string OtherOrderNumber)
-        {
+        public static System.Data.DataTable UpdateOtherOrderNumberByOrderNumber(string OrderNumber, string OtherOrderNumber) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -390,8 +364,7 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static System.Data.DataTable GetPaymentByPaymentSerial(string PaymentSerial)
-        {
+        public static System.Data.DataTable GetPaymentByPaymentSerial(string PaymentSerial) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -410,8 +383,7 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static System.Data.DataTable GetPaymentByOrderNumber(string OrderNumber)
-        {
+        public static System.Data.DataTable GetPaymentByOrderNumber(string OrderNumber) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -431,8 +403,7 @@ public static class EWinWebDB {
         }
 
 
-        public static System.Data.DataTable GetPaymentByNonFinishedByLoginAccount(string LoginAccount)
-        {
+        public static System.Data.DataTable GetPaymentByNonFinishedByLoginAccount(string LoginAccount) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -452,8 +423,7 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static int ConfirmPayment(string OrderNumber, string ToInfo)
-        {
+        public static int ConfirmPayment(string OrderNumber, string ToInfo) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
@@ -469,8 +439,7 @@ public static class EWinWebDB {
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
 
-        public static int ConfirmPayment(string OrderNumber, string ToInfo, string PaymentSerial, decimal PointValue, string ActivityData)
-        {
+        public static int ConfirmPayment(string OrderNumber, string ToInfo, string PaymentSerial, decimal PointValue, string ActivityData) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
@@ -490,13 +459,12 @@ public static class EWinWebDB {
             } else {
                 DBCmd.Parameters.Add("@ActivityData", System.Data.SqlDbType.VarChar).Value = ActivityData;
             }
-           
+
 
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
 
-        public static int ConfirmPayment(string OrderNumber, string ToInfo, string PaymentSerial, string OtherOrderNumber, decimal PointValue, string ActivityData)
-        {
+        public static int ConfirmPayment(string OrderNumber, string ToInfo, string PaymentSerial, string OtherOrderNumber, decimal PointValue, string ActivityData) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
@@ -516,8 +484,7 @@ public static class EWinWebDB {
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
 
-        public static int FinishPaymentFlowStatus(string OrderNumber, FlowStatus FlowStatus, string PaymentSerial)
-        {
+        public static int FinishPaymentFlowStatus(string OrderNumber, FlowStatus FlowStatus, string PaymentSerial) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
@@ -534,8 +501,7 @@ public static class EWinWebDB {
             return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
         }
 
-        public static int ResumePaymentFlowStatus(string OrderNumber, string PaymentSerial)
-        {
+        public static int ResumePaymentFlowStatus(string OrderNumber, string PaymentSerial) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
@@ -623,9 +589,8 @@ public static class EWinWebDB {
         }
     }
 
-    public static class UserAccountTotalSummary{
-        public static int UpdateFingerPrint(string FingerPrints, string LoginAccount)
-        {
+    public static class UserAccountTotalSummary {
+        public static int UpdateFingerPrint(string FingerPrints, string LoginAccount) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;
@@ -642,8 +607,7 @@ public static class EWinWebDB {
             return RetValue;
         }
 
-        public static int InsertUserAccountTotalSummary(string FingerPrints, string LoginAccount)
-        {
+        public static int InsertUserAccountTotalSummary(string FingerPrints, string LoginAccount) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;
@@ -662,10 +626,8 @@ public static class EWinWebDB {
 
     }
 
-    public static class BulletinBoard
-    {
-        public static System.Data.DataTable GetBulletinBoard()
-        {
+    public static class BulletinBoard {
+        public static System.Data.DataTable GetBulletinBoard() {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -677,7 +639,7 @@ public static class EWinWebDB {
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-     
+
             return DT;
         }
     }
@@ -705,10 +667,10 @@ public static class EWinWebDB {
         public enum EventType {
             Deposit = 0,
             Login = 1,
-            Register = 2 
+            Register = 2
         }
 
-        public static int InsertEventBonusHistory( string LoginAccount, string ActivityName, string RelationID, decimal BonusRate, decimal BonusValue, decimal ThresholdRate, decimal ThresholdValue, EventType EventType) {
+        public static int InsertEventBonusHistory(string LoginAccount, string ActivityName, string RelationID, decimal BonusRate, decimal BonusValue, decimal ThresholdRate, decimal ThresholdValue, EventType EventType) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int EventBonusHistoryID = 0;
@@ -771,7 +733,7 @@ public static class EWinWebDB {
             return DT;
         }
 
-        public static System.Data.DataTable GetUserAccountFingerprintByLoginAccountFingerprintID(string LoginAccount,string FingerprintID) {
+        public static System.Data.DataTable GetUserAccountFingerprintByLoginAccountFingerprintID(string LoginAccount, string FingerprintID) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -850,7 +812,7 @@ public static class EWinWebDB {
             return RetValue;
         }
 
-        public static int UpdateUserAccountNotifyMsgStatus(int forNotifyMsgID, string LoginAccount,int MessageReadStatus) {
+        public static int UpdateUserAccountNotifyMsgStatus(int forNotifyMsgID, string LoginAccount, int MessageReadStatus) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int RetValue = 0;

@@ -409,8 +409,12 @@
                                         $(RecordDom_M).find('.success').show();
                                         break;
                                     case 3:
+                                        if (record.BasicType == 1) {
+                                            paymentRecordText = mlp.getLanguageKey('審核拒絕');
+                                        } else {
+                                            paymentRecordText = mlp.getLanguageKey('主動取消');
+                                        }
                                         paymentRecordStatus = 3;
-                                        paymentRecordText = mlp.getLanguageKey('主動取消');
                                         $(RecordDom_M).find('.fail').show();
                                         break;
                                     case 4:

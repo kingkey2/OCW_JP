@@ -2,15 +2,6 @@
 @import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
-.game-area.overflow-hidden {
-  padding-left: 10px;
-}
-.game-area.overflow-hidden .container {
-  overflow: hidden;
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .desktop {
   display: none !important;
 }
@@ -216,6 +207,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .section_publicize .publicize_bottom_inner .bulletin {
   margin-bottom: 20px;
 }
+.section_publicize .publicize_bottom_inner .bulletin .sec-title-container {
+  margin-bottom: 1.25rem;
+}
+.section_publicize .publicize_bottom_inner .bulletin .sec-title-container .icon {
+  width: 1.5625rem;
+  height: 1.5625rem;
+  margin-right: 0.5rem;
+}
 .section_publicize .publicize_bottom_inner .bulletin_inner {
   -webkit-box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
@@ -225,7 +224,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 100%;
 }
 .section_publicize .publicize_bottom_inner .bulletin_inner .title {
-  margin-bottom: 15px;
   font-size: 1.25rem;
   font-weight: bold;
 }
@@ -238,6 +236,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -ms-flexbox;
   display: flex;
 }
+.section_publicize .publicize_bottom_inner .bulletin_list .item:nth-child(5) ~ .item {
+  display: none;
+}
 .section_publicize .publicize_bottom_inner .bulletin_list .item:before {
   content: "";
   display: -webkit-inline-box;
@@ -245,7 +246,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: inline-flex;
   width: 3px;
   height: 1rem;
-  border-radius: 1px;
+  border-radius: 0.5px;
   background-color: #008fd1;
 }
 .section_publicize .publicize_bottom_inner .bulletin_list .item .date {
@@ -267,20 +268,74 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.section_publicize .publicize_bottom_inner .bulletin_list .item .info:hover {
+  color: #008fd1;
+}
 
 .activity-dailylogin-wrapper {
-  margin-bottom: 1rem;
   text-align: center;
   overflow: hidden;
   position: relative;
 }
 
+.way-payment-wrapper {
+  cursor: pointer;
+}
+.way-payment-img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+  height: 177.8014184397px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+.way-payment-img img {
+  width: auto;
+}
+.way-payment-content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background-color: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  max-height: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 90%;
+}
+.way-payment-detail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+}
+.section_recommand {
+  margin-bottom: 2rem;
+}
 .recommend-list {
   margin-left: -10px;
   margin-right: -10px;
 }
 .recommend-list .box-item {
-  padding: 10px;
+  padding: 0 10px;
+}
+.recommend-list .box-item-img {
+  width: 120px;
 }
 
 .dailylogin-bouns-wrapper {
@@ -518,10 +573,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 712px) {
-  .recommend-list .box-item {
-    width: 50%;
-  }
-
   .hero_slider .hero-item-box.mobile {
     display: none !important;
   }
@@ -540,6 +591,19 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 936px) {
+  .section_recommand .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .recommend-list .box-item {
+    width: 50%;
+    padding: 5px 10px;
+  }
+  .recommend-list .box-item-img {
+    width: 150px;
+  }
+
   .mobile {
     display: none !important;
   }
@@ -555,6 +619,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: initial;
   }
 
+  .section_publicize {
+    position: relative;
+    z-index: 1;
+  }
   .section_publicize .publicize_top_inner .item {
     -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -565,12 +633,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .section_publicize .publicize_top_inner .item.vtuber {
     padding-left: 0.5rem;
-  }
-  .section_publicize .publicize_bottom_inner .way_payment {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
-    padding-right: 1.3rem;
   }
   .section_publicize .publicize_bottom_inner .bulletin-login {
     -webkit-box-flex: 1;
@@ -590,15 +652,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: inherit;
     width: 100%;
   }
-  .section_publicize .publicize_bottom_inner .login {
+  .section_publicize .publicize_bottom_inner .daily-login {
     width: 100%;
   }
-
-  .game-area.overflow-hidden {
-    padding-bottom: 0px;
-  }
-  .game-area.overflow-hidden .container {
-    padding-bottom: 160px;
+  .section_publicize .way-payment-wrapper {
+    -webkit-box-flex: 0 !important;
+        -ms-flex: 0 0 auto !important;
+            flex: 0 0 auto !important;
+    padding-right: 1.3rem;
   }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
@@ -656,10 +717,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .hero_slider .swiper-pagination-bullet:nth-last-child(1) {
     bottom: 35px;
-  }
-
-  .recommend-list .box-item {
-    width: 33.33%;
   }
 
   .game_slider .swiper-slide {

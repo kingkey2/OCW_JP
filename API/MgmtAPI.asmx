@@ -170,6 +170,12 @@ public class MgmtAPI : System.Web.Services.WebService {
                         }
 
                         System.IO.File.WriteAllText(Filename, Newtonsoft.Json.JsonConvert.SerializeObject(o));
+
+                        var allSID = RedisCache.SessionContext.ListAllSID();
+                        foreach (var item in allSID) {
+                            RedisCache.SessionContext.ExpireSID(item);
+                        }
+
                         R.Result = enumResult.OK;
                     } catch (Exception ex) { }
                 }
@@ -249,7 +255,7 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public APIResult UpdateAnnouncement(string Password, string Announcement) {
+    public APIResult UpdateAnnouncement(string Password, string Title, string Announcement) {
         APIResult R = new APIResult() { Result = enumResult.ERR };
 
         dynamic o = null;
@@ -266,6 +272,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                 if (string.IsNullOrEmpty(SettingContent) == false) {
                     try {
                         o = Newtonsoft.Json.JsonConvert.DeserializeObject(SettingContent);
+                        o.LoginMessage["Title"] = Title;
                         o.LoginMessage["Message"] = Announcement;
                         o.LoginMessage["Version"] = (decimal)o.LoginMessage["Version"] + 1;
 
@@ -467,12 +474,12 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     //[WebMethod]
-    //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue) {
+    //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue, string ActivityName) {
 
     //    if (CheckPassword(password)) {
     //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
     //        List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
-    //        string description = "Act001";
+    //        string description = ActivityName;
     //        string GUID = System.Guid.NewGuid().ToString();
 
     //        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
