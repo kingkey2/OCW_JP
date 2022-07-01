@@ -751,14 +751,30 @@
                     </div>
                 </div>
                 --%>
+                
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
-                        <div class="publicize-wrap way_payment">
-                            <div class="item payment" style="cursor: pointer" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
+                        <!-- 入出金說明 -->
+                        <div class="publicize-wrap way-payment-wrapper">
+                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
                                 <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
                                 <img src="images/index/way-payment.png" class="desktop" alt="">
+                                <%--
+                                <div class="way-payment-img">
+                                    <div class="img-crop">
+                                        <img src="images/theme/girl-half.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="way-payment-content">
+                                    <div class="way-payment-detail">
+                                        <h2 class="title language_replace">入出金の手順</h2>
+                                        <p class="desc language_replace">Deposit and Withdrawal Instructions</p>
+                                    </div>
+                                </div>
+                                --%>
                             </div>
                         </div>
+                        <!-- 最新公告 + 會員簽到進度顯示-->
                         <div class="publicize-wrap bulletin-login">
                             <div class="item bulletin">                                
                                 <div class="bulletin_inner">
@@ -771,7 +787,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="item login">
+                            <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
                                 <div class="activity-dailylogin-wrapper coming-soon">
                                     <div class="dailylogin-bouns-wrapper">

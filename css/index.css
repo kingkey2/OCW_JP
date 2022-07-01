@@ -278,6 +278,52 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   position: relative;
 }
 
+.way-payment-wrapper {
+  cursor: pointer;
+}
+.way-payment-img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+  height: 177.8014184397px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+.way-payment-img img {
+  width: auto;
+}
+.way-payment-content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background-color: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  max-height: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 90%;
+}
+.way-payment-detail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+}
 .section_recommand {
   margin-bottom: 2rem;
 }
@@ -573,6 +619,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: initial;
   }
 
+  .section_publicize {
+    position: relative;
+    z-index: 1;
+  }
   .section_publicize .publicize_top_inner .item {
     -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -583,12 +633,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .section_publicize .publicize_top_inner .item.vtuber {
     padding-left: 0.5rem;
-  }
-  .section_publicize .publicize_bottom_inner .way_payment {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
-    padding-right: 1.3rem;
   }
   .section_publicize .publicize_bottom_inner .bulletin-login {
     -webkit-box-flex: 1;
@@ -608,8 +652,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: inherit;
     width: 100%;
   }
-  .section_publicize .publicize_bottom_inner .login {
+  .section_publicize .publicize_bottom_inner .daily-login {
     width: 100%;
+  }
+  .section_publicize .way-payment-wrapper {
+    -webkit-box-flex: 0 !important;
+        -ms-flex: 0 0 auto !important;
+            flex: 0 0 auto !important;
+    padding-right: 1.3rem;
   }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
