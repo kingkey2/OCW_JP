@@ -656,6 +656,12 @@ input.month:read-only, input.day:read-only {
       -ms-flex-flow: column wrap;
           flex-flow: column wrap;
 }
+.activity-promo-list .promo-img {
+  background-color: #333;
+}
+.activity-promo-list .promo-img:hover img {
+  opacity: 0.5;
+}
 .activity-promo-list .promo-content {
   padding: 10px;
   -webkit-box-flex: 1;
@@ -680,6 +686,9 @@ input.month:read-only, input.day:read-only {
   color: #fff;
   width: 100%;
   margin-top: 1rem;
+}
+.activity-promo-list .promo-content .btn:hover {
+  background-color: #0aa3ff;
 }
 .activity-promo-list .promo-content .btn .icon {
   width: 26px;
