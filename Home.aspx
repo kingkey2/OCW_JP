@@ -73,22 +73,22 @@
             Description: "７枚のトランプが自動的に配られて、当たりかはずれを待つ時がすごくワクワクします。"
         },
         {
-            GameName: "126",
-            GameBrand: "PG",
-            GameLangName: "PG.126",
-            Description: "消去型のスロットゲームで、当たり率高く、フリースピンが入ると超大当たりが入り易い。"
+            GameName: "moonprincess",
+            GameBrand: "PNG",
+            GameLangName: "PNG.moonprincess",
+            Description: "プレインゴーの知名度NO.1スロット。言わずと知れた高級キャバクラ！！"
         },
         {
-            GameName: "AzurLaneEX",
-            GameBrand: "CG",
-            GameLangName: "CG.AzurLaneEX",
-            Description: "戦艦マニアにはたまらないグラフスロット。ドカンと一発！！"
+            GameName: "242",
+            GameBrand: "BNG",
+            GameLangName: "BNG.242",
+            Description: "ブーンゴーのタイガーシリーズの不動の人気チャンピオン、マハラジャのイチオシ！！"
         },
         {
-            GameName: "101",
-            GameBrand: "PG",
-            GameLangName: "PG.101",
-            Description: "連鎖すると賞金倍率が上昇ボーナ中で更に上昇でドキドキ感が堪らない！"
+            GameName: "LightningTable01",
+            GameBrand: "EVO",
+            GameLangName: "EVO.LightningTable01",
+            Description: "0から36まで37スポットのヨーロピアンタイプルーレットだが、毎回ランダムに発生する演出で配当が 50倍〜500倍GETできる！"
         },
         {
             GameName: "89",
