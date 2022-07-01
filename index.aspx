@@ -1595,91 +1595,32 @@
         var gameList = [];
         var lang = EWinWebInfo.Lang;
         $('#alertSearchContent').empty();
-        if (gameBrand) {
-            arrayGameBrand.push(gameBrand);
-        } else {
-            $("input[name='button-brandExchange']").each(function () {
-                if ($(this).prop("checked")) {
-                    arrayGameBrand.push($(this).attr('id').split("_")[1]);
-                }
-            });
-        }
-
-        if (arrayGameBrand.length > 0) {
-            for (var k = 0; k < arrayGameBrand.length; k++) {
-                gameBrand = arrayGameBrand[k];
-                gameList = [];
-                if (gameBrand != "-1" && keyWord != '') {
-                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
-                } else if (gameBrand == "-1" && keyWord != '') {
-                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
-                } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
-                    gameList = GCB.SearchGameCodeByBrand(gameBrand);
-                } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
-                    gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
-                } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
-                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
-                }
-
-                if (gameList.length > 0) {
-                    var FavoGames = getFavoriteGames();
-                    for (var i = 0; i < gameList.length; i++) {
-                        var gameItem = gameList[i];
-                        var RTP = "--";
-                        if (gameItem.RTPInfo) {
-                            RTP = JSON.parse(gameItem.RTPInfo).RTP;
-                        }
-
-                        if (RTP == "0") {
-                            RTP = "--";
-                        }
-
-                        GI = c.getTemplate("tmpSearchGameItem");
-                        //var GI_a = GI.querySelector(".btn-play");
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
-                        var GI_img = GI.querySelector(".gameimg");
-                        if (GI_img != null) {
-                            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
-                            var el = GI_img;
-                            var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
-                            observer.observe();
-                        }
-
-                        var likebtn = GI.querySelector(".btn-like");
-                        if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
-                            $(likebtn).addClass("added");
-                        } else {
-                            $(likebtn).removeClass("added");
-                        }
-
-                        likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
-
-                        $(GI).find(".gameName").text(gameItem.GameText[lang]);
-                        $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
-                        $(GI).find(".valueRTP").text(RTP);
-                        $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
-
-                        $('#alertSearchContent').append(GI);
-                    }
-                }
+        if (gameBrand == "EWin") {
+            EwinGame = {
+                AllowDemoPlay: 1,
+                "BrandText": {
+                    CHT: "真人百家樂(eWIN)",
+                    JPN: "EWinゲーミング"
+                },
+                "GameBrand": "EWin",
+                "GameCategoryCode": "Live",
+                "GameCategorySubCode": "Baccarat",
+                "GameCode": null,
+                "GameID": 0,
+                "GameName": "EWinGaming",
+                "GameText": {
+                    CHT: "真人百家樂(eWIN)",
+                    JPN: "EWinゲーミング"
+                },
+                "Info": null,
+                "IsHot": 0,
+                "IsNew": 0,
+                "RTPInfo": "",
+                "SortIndex": 0,
+                "Tag": null
             }
-        }
-        else {
-            gameBrand = "-1";
-            if (gameBrand != "-1" && keyWord != '') {
-                gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
-            } else if (gameBrand == "-1" && keyWord != '') {
-                gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
-            } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
-                gameList = GCB.SearchGameCodeByBrand(gameBrand);
-            } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
-                gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
-            } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
-                gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
-            } else {
-                $('#alertSearchContent').append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌")}</span></div></div>`)
-                return false;
-            }
+
+            gameList.push(EwinGame);
 
             if (gameList.length > 0) {
                 var FavoGames = getFavoriteGames();
@@ -1690,13 +1631,13 @@
                         RTP = JSON.parse(gameItem.RTPInfo).RTP;
                     }
 
-                    if (RTP == 0) {
+                    if (RTP == "0") {
                         RTP = "--";
                     }
 
                     GI = c.getTemplate("tmpSearchGameItem");
+                    //var GI_a = GI.querySelector(".btn-play");
                     GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
-
                     var GI_img = GI.querySelector(".gameimg");
                     if (GI_img != null) {
                         GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1717,12 +1658,141 @@
                     $(GI).find(".gameName").text(gameItem.GameText[lang]);
                     $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
                     $(GI).find(".valueRTP").text(RTP);
+                    $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
+
                     $('#alertSearchContent').append(GI);
                 }
             }
         }
+        else {
+            if (gameBrand) {
+                arrayGameBrand.push(gameBrand);
+            } else {
+                $("input[name='button-brandExchange']").each(function () {
+                    if ($(this).prop("checked")) {
+                        arrayGameBrand.push($(this).attr('id').split("_")[1]);
+                    }
+                });
+            }
 
+            if (arrayGameBrand.length > 0) {
+                for (var k = 0; k < arrayGameBrand.length; k++) {
+                    gameBrand = arrayGameBrand[k];
+                    gameList = [];
+                    if (gameBrand != "-1" && keyWord != '') {
+                        gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                    } else if (gameBrand == "-1" && keyWord != '') {
+                        gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
+                    } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
+                        gameList = GCB.SearchGameCodeByBrand(gameBrand);
+                    } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
+                        gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
+                    } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
+                        gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                    }
 
+                    if (gameList.length > 0) {
+                        var FavoGames = getFavoriteGames();
+                        for (var i = 0; i < gameList.length; i++) {
+                            var gameItem = gameList[i];
+                            var RTP = "--";
+                            if (gameItem.RTPInfo) {
+                                RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                            }
+
+                            if (RTP == "0") {
+                                RTP = "--";
+                            }
+
+                            GI = c.getTemplate("tmpSearchGameItem");
+                            //var GI_a = GI.querySelector(".btn-play");
+                            GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                            var GI_img = GI.querySelector(".gameimg");
+                            if (GI_img != null) {
+                                GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                                var el = GI_img;
+                                var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                                observer.observe();
+                            }
+
+                            var likebtn = GI.querySelector(".btn-like");
+                            if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                                $(likebtn).addClass("added");
+                            } else {
+                                $(likebtn).removeClass("added");
+                            }
+
+                            likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+
+                            $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                            $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                            $(GI).find(".valueRTP").text(RTP);
+                            $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
+
+                            $('#alertSearchContent').append(GI);
+                        }
+                    }
+                }
+            }
+            else {
+                gameBrand = "-1";
+                if (gameBrand != "-1" && keyWord != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                } else if (gameBrand == "-1" && keyWord != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, "", gamecategory);
+                } else if (gameBrand != "-1" && keyWord == '' && gamecategory == '') {
+                    gameList = GCB.SearchGameCodeByBrand(gameBrand);
+                } else if (gameBrand != "-1" && keyWord == '' && gamecategory != '') {
+                    gameList = GCB.SearchGameCodeByBrand(gameBrand, gamecategory);
+                } else if (gameBrand != "-1" && keyWord != '' && gamecategory != '') {
+                    gameList = GCB.SearchGameCodeByLang(lang, keyWord, gameBrand, gamecategory);
+                } else {
+                    $('#alertSearchContent').append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("尚未輸入關鍵字或遊戲品牌")}</span></div></div>`)
+                    return false;
+                }
+
+                if (gameList.length > 0) {
+                    var FavoGames = getFavoriteGames();
+                    for (var i = 0; i < gameList.length; i++) {
+                        var gameItem = gameList[i];
+                        var RTP = "--";
+                        if (gameItem.RTPInfo) {
+                            RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        }
+
+                        if (RTP == 0) {
+                            RTP = "--";
+                        }
+
+                        GI = c.getTemplate("tmpSearchGameItem");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+
+                        var GI_img = GI.querySelector(".gameimg");
+                        if (GI_img != null) {
+                            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                            var el = GI_img;
+                            var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                            observer.observe();
+                        }
+
+                        var likebtn = GI.querySelector(".btn-like");
+                        if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                            $(likebtn).addClass("added");
+                        } else {
+                            $(likebtn).removeClass("added");
+                        }
+
+                        likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+
+                        $(GI).find(".gameName").text(gameItem.GameText[lang]);
+                        $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                        $(GI).find(".valueRTP").text(RTP);
+                        $('#alertSearchContent').append(GI);
+                    }
+                }
+            }
+        }
+   
         if ($('#alertSearchContent').children().length == 0) {
             $('#alertSearchContent').append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("沒有資料")}</span></div></div>`);
             //showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("沒有資料"));

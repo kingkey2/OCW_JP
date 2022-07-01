@@ -322,36 +322,47 @@
                 });
             }
 
-            if (!LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.Datas.length > 0 }).Datas.find(function (e) { return e.GameName == 'EWinGaming' })) {
-               
-                var categoryID = LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories[0].CategoryID;
+            if (!LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.CategoryName == "EWin" })) {
+         
                 var EwinGame = {
-                    AllowDemoPlay: 1,
-                    BrandText: {
-                        CHT: "EWin",
-                        JPN: "EWin"
-                    },
-                    CategoryID: categoryID,
-                    GameBrand: "EWin",
-                    GameCategoryCode: "Live",
-                    GameCategorySubCode: "Baccarat",
-                    GameCode: null,
-                    GameID: 0,
-                    GameName: "EWinGaming",
-                    GameText: {
-                        CHT: "真人百家樂(eWIN)",
-                        JPN: "EWinゲーミング"
-                    },
-                    Info: "",
-                    IsHot: 0,
-                    IsNew: 0,
-                    RTPInfo: "",
+                    CategoryID: 0,
+                    CategoryName: "EWin",
+                    Datas: [{
+                        AllowDemoPlay: 1,
+                        BrandText: {
+                            CHT: "真人百家樂(eWIN)",
+                            JPN: "EWinゲーミング"
+                        },
+                        CategoryID: 0,
+                        GameBrand: "EWin",
+                        GameCategoryCode: "Live",
+                        GameCategorySubCode: "Baccarat",
+                        GameCode: null,
+                        GameID: 0,
+                        GameName: "EWinGaming",
+                        GameText: {
+                            CHT: "真人百家樂(eWIN)",
+                            JPN: "EWinゲーミング"
+                        },
+                        Info: "",
+                        IsHot: 0,
+                        IsNew: 0,
+                        RTPInfo: "",
+                        SortIndex: 99,
+                        Tag: null
+                    }],
+                    Location: "GameList_All",
+                    ShowType: 0,
                     SortIndex: 99,
-                    Tag: null
+                    State: 0
                 }
 
-                LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.Datas.length >0 }).Datas.unshift(EwinGame);
-
+                var BGindex= LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.findIndex(function (e) { return e.CategoryName == "BTI" });
+                if (BGindex != -1) {
+                    LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.splice(BGindex, 0, EwinGame);
+                } else {
+                    LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.unshift(EwinGame);
+                }
             }
       
             for (var i = 0; i < LobbyGameList.length; i++) {

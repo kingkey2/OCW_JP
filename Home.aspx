@@ -236,7 +236,34 @@
                 }
 
                 for (var i = 0; i < FavoGames.length; i++) {
-                    gameItem = GCB.GetGameCode(FavoGames[i].GameID);
+                    if (FavoGames[i].GameID == 0) {
+                        gameItem = {
+                            AllowDemoPlay: 1,
+                            "BrandText": {
+                                CHT: "真人百家樂(eWIN)",
+                                JPN: "EWinゲーミング"
+                            },
+                            "GameBrand": "EWin",
+                            "GameCategoryCode": "Live",
+                            "GameCategorySubCode": "Baccarat",
+                            "GameCode": null,
+                            "GameID": 0,
+                            "GameName": "EWinGaming",
+                            "GameText": {
+                                CHT: "真人百家樂(eWIN)",
+                                JPN: "EWinゲーミング"
+                            },
+                            "Info": null,
+                            "IsHot": 0,
+                            "IsNew": 0,
+                            "RTPInfo": "",
+                            "SortIndex": 0,
+                            "Tag": null
+                        };
+                    } else {
+                        gameItem = GCB.GetGameCode(FavoGames[i].GameID);
+                    }
+                
                     if (gameItem) {
                         var GI;
                         GI = c.getTemplate("temGameItem");
@@ -494,7 +521,34 @@
         $(categArea).find('.GameItemGroup').attr('id', 'idFavoGameItemGroup');
         if (FavoGames && FavoGames.length > 0) {
             for (var i = 0; i < FavoGames.length; i++) {
-                gameItem = GCB.GetGameCode(FavoGames[i].GameID);
+                if (FavoGames[i].GameID == 0) {
+                    gameItem = {
+                        AllowDemoPlay: 1,
+                        "BrandText": {
+                            CHT: "真人百家樂(eWIN)",
+                            JPN: "EWinゲーミング"
+                        },
+                        "GameBrand": "EWin",
+                        "GameCategoryCode": "Live",
+                        "GameCategorySubCode": "Baccarat",
+                        "GameCode": null,
+                        "GameID": 0,
+                        "GameName": "EWinGaming",
+                        "GameText": {
+                            CHT: "真人百家樂(eWIN)",
+                            JPN: "EWinゲーミング"
+                        },
+                        "Info": null,
+                        "IsHot": 0,
+                        "IsNew": 0,
+                        "RTPInfo": "",
+                        "SortIndex": 0,
+                        "Tag": null
+                    };
+                } else {
+                    gameItem = GCB.GetGameCode(FavoGames[i].GameID);
+                }
+                
                 if (gameItem) {
                     var GI;
                     GI = c.getTemplate("temGameItem");

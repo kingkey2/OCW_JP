@@ -189,7 +189,7 @@
                         var strSelectBank= mlp.getLanguageKey("選擇銀行");
                         $('#SearchBank').append(`<option class="title" value="-1" selected="">${strSelectBank}</option>`);
                         for (var i = 0; i < o.Datas.length; i++) {
-                            $('#SearchBank').append(`<option class="searchFilter-option" value="${o.Datas[i]}">${o.Datas[i]}</option>`);
+                            $('#SearchBank').append(`<option class="searchFilter-option" value="${o.Datas[i].BankName}">${o.Datas[i].BankName}</option>`);
                         }
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {

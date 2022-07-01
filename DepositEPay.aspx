@@ -158,10 +158,7 @@
             
             if ($("#idToDepositName").val() != '') {
 
-                depositName = $("#idToDepositName").val();
-
-                depositName = $("#idToDepositName").val().trim().replace(/ /g, "");
-
+                depositName = $("#idToDepositName").val().trim();
 
                 PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
                     if (success) {
