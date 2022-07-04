@@ -2689,6 +2689,78 @@
                                                 </div>
                                             </label>
                                         </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_BBIN"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-BBIN.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_MG"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-MG.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_GMW"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-GMW.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_HB"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-HB.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_NE"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-NE.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_RT"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-RT.png" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
                                     </ul>
                                     <div class="wrapper_center">
                                         <button class="btn btn-outline-main btn-brand-cancel" type="button"
