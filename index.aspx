@@ -1445,7 +1445,6 @@
                 API_Home();
             }
 
-            API_GetUserThisWeekTotalValidBetValue();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
             //登入Check
@@ -1471,7 +1470,7 @@
                                             API_LoadPage("SrcPage", srcPage, true);
                                         }
                                     }
-
+                                    API_GetUserThisWeekTotalValidBetValue();
                                     notifyWindowEvent("IndexFirstLoad", logined);
                                     EWinWebInfo.FirstLoaded = true;
                                 });

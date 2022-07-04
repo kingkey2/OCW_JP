@@ -200,6 +200,8 @@
                 if (FourGames) {
                     updateFourGame();
                 }
+
+                setUserThisWeekLogined();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
