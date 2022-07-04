@@ -857,7 +857,7 @@
                             </div>
                             <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
-                                <div class="activity-dailylogin-wrapper coming-soon">
+                                <div class="activity-dailylogin-wrapper coming-soon coming-soon-date">
                                     <div class="dailylogin-bouns-wrapper">
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">

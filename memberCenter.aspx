@@ -616,8 +616,7 @@
 
                              <!-- 會員簽到進度顯示 -->
                              <div class="activity-dailylogin-wrapper">
-                                <!-- <div class="dailylogin-bouns-wrapper coming-soon"> -->
-                                <div class="dailylogin-bouns-wrapper coming-soon">
+                                <div class="dailylogin-bouns-wrapper coming-soon coming-soon-date">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
                                             <h3 class="title">
