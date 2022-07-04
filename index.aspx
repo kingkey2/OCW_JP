@@ -178,6 +178,7 @@
     var MessageModal;
     var gameWindow;
     var LobbyGameList = {};
+    var UserThisWeekTotalValidBetValueData = [];
     //#region TOP API
 
     function API_GetGCB() {
@@ -476,6 +477,31 @@
 
     function API_ComingSoonAlert() {
         window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" + mlp.getLanguageKey("近期開放") + "</p>");
+    }
+
+    //取得當週期7日活動所需資訊
+    function API_GetUserThisWeekTotalValidBetValue() {
+
+        if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+            lobbyClient.GetUserAccountThisWeekTotalValidBetValueResult(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+                        UserThisWeekTotalValidBetValueData = o.Datas;
+                        notifyWindowEvent("UserThisWeekTotalValidBetValueDataGet");
+                    } else {
+                        UserThisWeekTotalValidBetValueData = [];
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                }
+            });
+        } else {
+            UserThisWeekTotalValidBetValueData = [];
+        }
     }
     //#endregion
 
@@ -1318,8 +1344,7 @@
 
         API_LoadPage("Article", orgin);
     }
-
-
+    
     function resize() {
         if (IFramePage.contentWindow.document.body) {
 
@@ -1420,6 +1445,7 @@
                 API_Home();
             }
 
+            API_GetUserThisWeekTotalValidBetValue();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
             //登入Check

@@ -252,6 +252,16 @@
         }
     }
 
+    function setUserThisWeekLogined() {
+        if (window.top.UserThisWeekTotalValidBetValueData) {
+            for (var i = 0; i < window.top.UserThisWeekTotalValidBetValueData.length; i++) {
+                if (window.top.UserThisWeekTotalValidBetValueData[i].Status == 1) {
+                    $(".bouns-item").eq(i).addClass("got");
+                }
+            }
+        }
+    }
+
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -264,12 +274,16 @@
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
 
-            if (p != null)
+            if (p != null) {
                 updateBaseInfo();
-            else
+                //顯示簽到完成與否
+                setUserThisWeekLogined();
+            }
+            else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
                 });
+            }
         });
 
         memberInit();
@@ -610,7 +624,7 @@
                                                 <span class="name ">金曜日のプレゼント</span></h3>
                                             <ul class="dailylogin-bouns-list">
                                                 <!-- 已領取 bouns => got-->
-                                                <li class="bouns-item got">
+                                                <li class="bouns-item ">
                                                     <span class="day"><span class="language_replace">五</span></span></li>
                                                 <li class="bouns-item saturday">
                                                     <span class="day"><span class="language_replace">六</span></span>
