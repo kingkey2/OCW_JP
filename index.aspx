@@ -2696,7 +2696,7 @@
                                                 <div class="custom-input checkbox">
                                                     <span class="logo-wrap">
                                                         <span class="img-wrap">
-                                                            <img src="images/logo/default/logo-BBIN.png" alt=""></span>
+                                                            <img src="images/logo/default/logo-BBIN.png?0704" alt=""></span>
                                                     </span>
                                                 </div>
                                             </label>
@@ -2708,7 +2708,7 @@
                                                 <div class="custom-input checkbox">
                                                     <span class="logo-wrap">
                                                         <span class="img-wrap">
-                                                            <img src="images/logo/default/logo-MG.png" alt=""></span>
+                                                            <img src="images/logo/default/logo-MG.png?0704" alt=""></span>
                                                     </span>
                                                 </div>
                                             </label>
@@ -2720,7 +2720,7 @@
                                                 <div class="custom-input checkbox">
                                                     <span class="logo-wrap">
                                                         <span class="img-wrap">
-                                                            <img src="images/logo/default/logo-GMW.png" alt=""></span>
+                                                            <img src="images/logo/default/logo-GMW.png?0704" alt=""></span>
                                                     </span>
                                                 </div>
                                             </label>
@@ -2732,7 +2732,7 @@
                                                 <div class="custom-input checkbox">
                                                     <span class="logo-wrap">
                                                         <span class="img-wrap">
-                                                            <img src="images/logo/default/logo-HB.png" alt=""></span>
+                                                            <img src="images/logo/default/logo-HB.png?0704" alt=""></span>
                                                     </span>
                                                 </div>
                                             </label>
@@ -2744,7 +2744,7 @@
                                                 <div class="custom-input checkbox">
                                                     <span class="logo-wrap">
                                                         <span class="img-wrap">
-                                                            <img src="images/logo/default/logo-NE.png" alt=""></span>
+                                                            <img src="images/logo/default/logo-NE.png?0704" alt=""></span>
                                                     </span>
                                                 </div>
                                             </label>
@@ -2756,7 +2756,7 @@
                                                 <div class="custom-input checkbox">
                                                     <span class="logo-wrap">
                                                         <span class="img-wrap">
-                                                            <img src="images/logo/default/logo-RT.png" alt=""></span>
+                                                            <img src="images/logo/default/logo-RT.png?0704" alt=""></span>
                                                     </span>
                                                 </div>
                                             </label>
