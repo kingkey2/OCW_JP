@@ -1,6 +1,6 @@
 {
   "Name": "Act003",
-  "State": 1,
+  "State": 0,
   "StartDate": "2022/06/01 00:00:00",
   "EndDate": "2099/07/01 00:00:00",
   "OneDayBonus": 1000,
@@ -8,6 +8,7 @@
   "ThresholdRate": 20,
   "OrderValue": 5000,
   "BonusRate": 1,
+  "CollectAreaType": "2",
   "Title": "7日登入",
   "SubTitle": "7日登入"
 }
