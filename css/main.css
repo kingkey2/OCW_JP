@@ -270,6 +270,9 @@ ul {
   right: 0;
   top: 0;
 }
+.coming-soon.coming-soon-date:after {
+  background-image: url(../images/coming-soon-date.svg);
+}
 
 @media (max-width: 639.98px) {
   .container,
