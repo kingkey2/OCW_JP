@@ -105,6 +105,14 @@
 
     function initSwiper() {
         //HERO 
+        var swiper = new Swiper(".thumbSwiper", {
+           
+            slidesPerView: "auto",
+            freeMode: true,
+            // enabled: false,
+            watchSlidesProgress: false,
+        });
+
         var heroIndex = new Swiper("#hero-slider", {
             loop: true,
             slidesPerView: 1,
@@ -115,16 +123,21 @@
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true
             },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-                renderBullet: function (index, className) {
-                    //   return '<span class="' + className + '">' + (index + 1) + "</span>";
-                    return '<span class="' + className + '">' + '<img src="images/banner/thumb-' + (index + 1) + '.png"></span>';
-                },
+            // pagination: {
+            //     el: ".swiper-pagination",
+            //     clickable: true,
+            //     renderBullet: function (index, className) {
+            //         //   return '<span class="' + className + '">' + (index + 1) + "</span>";
+            //         return '<span class="' + className + '">' + '<img src="images/banner/thumb-' + (index + 1) + '.png"></span>';
+            //     },
+            // },
+            thumbs: {
+             swiper: swiper,
             },
 
         });
+       
+        
 
         // 推薦遊戲
         var gameRecommend = new Swiper("#game-recommend", {
@@ -145,7 +158,6 @@
             //         freeMode: false                
             //     }
             // }
-
 
         });
     }
@@ -743,7 +755,7 @@
 <body class="innerBody">
     <main class="innerMain">
         <section class="section-wrap hero">
-            <div class="hero_slider swiper_container round-arrow" id="hero-slider">
+            <div class="swiper hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item" >
@@ -814,10 +826,35 @@
                     </div>
                     <div class="swiper-mask"></div>
                 </div>
+                <%--
                 <div class="container">
                     <div class="swiper-pagination"></div>
-                </div>
+                </div> --%>
             </div>
+            <!-- 縮圖 ====================-->
+            <div class="thumb-wrapper">
+                <div class="container">
+                    <div thumbsSlider="" class="thumbSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-1.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-2.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-3.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-7.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-4.png" alt="">
+                            </div>                        
+                         </div>
+                    </div>                
+               </div>
+           </div>
         </section>
         <!--  -->
 
@@ -933,14 +970,10 @@
                 </div>
             </div>
         </section>
-
-
         <section class="game-area section-wrap  overflow-hidden">
             <div class="container" id="gameAreas"></div>
         </section>
-
     </main>
-
 
     <div class="tmpModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
@@ -1120,5 +1153,4 @@
         </div>
     </div>
 </body>
-
 </html>

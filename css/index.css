@@ -8,6 +8,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .hero {
   margin-bottom: 0.625rem;
+  position: relative;
 }
 
 .hero_slider {
@@ -159,6 +160,62 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   left: 25%;
   cursor: pointer;
   z-index: 99999;
+}
+
+.thumb-wrapper {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.thumb-wrapper .container {
+  height: 100%;
+  position: relative;
+}
+.thumb-wrapper .thumbSwiper {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+}
+.thumb-wrapper .swiper-slide {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  margin-right: 24px;
+  opacity: 1;
+  background-color: #fff;
+  border: solid 3px #008fd0;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  overflow: hidden;
+  position: relative;
+  border-radius: 50%;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(5) {
+  bottom: 10px;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(4) {
+  bottom: 3px;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(3) {
+  bottom: -10px;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(2) {
+  bottom: -9px;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(1) {
+  bottom: 10px;
+}
+.thumb-wrapper .swiper-slide-thumb-active {
+  -webkit-transform: scale(1.35);
+          transform: scale(1.35);
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .section_publicize img {
@@ -692,10 +749,18 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: inherit !important;
   }
 
+  .hero {
+    margin-bottom: 30px;
+  }
+
   .hero_slider .img-wrap {
     padding-bottom: 36.4583333333%;
   }
   .hero_slider .swiper-pagination {
+    display: initial;
+  }
+
+  .thumb-wrapper {
     display: initial;
   }
 
@@ -849,6 +914,16 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     bottom: 35px;
   }
 
+  .thumb-wrapper .swiper-slide:nth-last-child(3) {
+    bottom: -5px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(2) {
+    bottom: 15px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(1) {
+    bottom: 35px;
+  }
+
   .game_slider .swiper-slide {
     padding-right: 15px;
   }
@@ -971,6 +1046,22 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     bottom: 10px;
   }
   .hero_slider .swiper-pagination .swiper-pagination-bullet:nth-last-child(1) {
+    bottom: 15px;
+  }
+
+  .thumb-wrapper .swiper-slide:nth-last-child(5) {
+    bottom: 25px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(4) {
+    bottom: 10px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(3) {
+    bottom: 5px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(2) {
+    bottom: 10px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(1) {
     bottom: 15px;
   }
 }
