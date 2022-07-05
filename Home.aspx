@@ -783,7 +783,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                     <div class="swiper-slide">
                         <div class="hero-item" >
                             <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
@@ -827,14 +827,14 @@
                         <!-- 入出金說明 -->
                         <div class="publicize-wrap way-payment-wrapper">
                             <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
-                                
+                                <%--
                                 <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
                                 <img src="images/index/way-payment.png" class="desktop" alt="">
+                                --%>
                                 
-                                <%--
                                 <div class="way-payment-img">
                                     <div class="img-crop">
-                                        <img src="images/theme/girl-half.png" alt="">
+                                        <img src="images/theme/girl-half.png" class="mobile" alt="">
                                     </div>
                                 </div>
                                 <div class="way-payment-content">
@@ -843,7 +843,7 @@
                                         <p class="desc language_replace">Deposit and Withdrawal Instructions</p>
                                     </div>
                                 </div>
-                                --%>
+                                
                             </div>
                         </div>
                         <!-- 最新公告 + 會員簽到進度顯示-->
@@ -872,7 +872,7 @@
                                                     <span class="name language_replace">金曜日的禮物</span></h3>
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
-                                                    <li class="bouns-item ">
+                                                    <li class="bouns-item got">
                                                         <span class="day"><span class="language_replace">五</span></span></li>
                                                     <li class="bouns-item saturday">
                                                         <span class="day"><span class="language_replace">六</span></span>
