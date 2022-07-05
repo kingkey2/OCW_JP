@@ -266,7 +266,7 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner">
+                            <div class="activity-item-inner"  onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
