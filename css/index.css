@@ -280,25 +280,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .way-payment-wrapper {
   cursor: pointer;
-  padding-top: 50px;
-}
-.way-payment-inner {
-  position: relative;
-  background-color: #4288C9;
-  background-image: url(../images/theme/bg_dog.svg);
-  background-position: center center;
-  border-radius: 10px;
-  height: 115px;
-  height: 20vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
 }
 .way-payment-img {
   position: relative;
