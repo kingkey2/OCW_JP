@@ -282,23 +282,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   cursor: pointer;
 }
 .way-payment-img {
-  position: absolute;
+  position: relative;
   left: 0;
-  bottom: 0;
   width: 50%;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50%;
           flex: 0 0 50%;
-  height: 177.8014184397px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-}
-.way-payment-img img {
-  width: auto;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 .way-payment-content {
   -webkit-box-flex: 1;
