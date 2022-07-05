@@ -230,6 +230,26 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
+                            <a href="Activity/event/bng/bng2207-2/index.html" target="_blank">
+                            <div class="activity-item-inner">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="images/activity/BNG-actionList-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">Maharaja也為此思考能盡什麼力，於是抱著虧損的覺悟提出這次的活動。活動期間，「Booongo」的供應費與Maharaja收自Booongo的收益將捐給烏克蘭政府，希望能用於幫助受烏克蘭戰事摧殘的人民。</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" onclick="activityBtnClick(3)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </figure>
+                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">                           
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -301,6 +321,7 @@
                                 </div>
                             </div>
                         </figure>
+                        
                     </div>
                 </section>
             </div>
