@@ -345,15 +345,15 @@ public class LobbyAPI : System.Web.Services.WebService {
                 foreach (var activityData in GetRegisterResult.Data) {
 
                     string description = activityData.ActivityName;
-                    //string JoinActivityCycle = activityData.JoinActivityCycle;
+                    string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
 
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
-                    //PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
                     lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
-                    //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
-                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, activityData.ThresholdValue, activityData.BonusValue);
+                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+                    //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, activityData.ThresholdValue, activityData.BonusValue);
 
                 }
             }
@@ -1017,6 +1017,88 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public UserAccountThisWeekTotalValidBetValueResult GetUserAccountThisWeekTotalValidBetValueResult(string WebSID, string GUID) {
+        UserAccountThisWeekTotalValidBetValueResult R;
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.OrderSummaryResult callResult = new EWin.Lobby.OrderSummaryResult();
+        List<UserAccountThisWeekTotalValidBetValue> k = new List<UserAccountThisWeekTotalValidBetValue>();
+        RedisCache.SessionContext.SIDInfo SI;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            DateTime currentTime = DateTime.Now;
+            int week = Convert.ToInt32(currentTime.DayOfWeek);
+            week = week == 0 ? 7 : week;
+            DateTime start;
+            DateTime end;
+
+            if (week > 4) {
+                start = currentTime.AddDays(5 - week);        //這禮拜5
+                end = currentTime;
+            } else {
+                start = currentTime.AddDays(5 - week - 7); //上禮拜5
+                end = currentTime.AddDays(4 - week);  //這禮拜4
+            }
+
+            TimeSpan ts = end.Subtract(start); //兩時間天數相減
+
+            int dayCount = ts.Days + 1; //相距天數
+
+            for (int i = 0; i < dayCount; i++) {
+                UserAccountThisWeekTotalValidBetValue d = new UserAccountThisWeekTotalValidBetValue();
+                d.Date = start.AddDays(i).ToString("yyyy-MM-dd");
+                d.TotalValidBetValue = 0;
+                d.Status = 0;
+                k.Add(d);
+            }
+
+            callResult = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, System.Guid.NewGuid().ToString(), start.ToString("yyyy-MM-dd 00:00:00"), end.ToString("yyyy-MM-dd 00:00:00"));
+
+            if (callResult.Result == EWin.Lobby.enumResult.OK) {
+
+                var GameOrderList = callResult.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+                    TotalValidBetValue = sum.Sum(y => y.TotalValidBetValue),
+                    CurrencyType = key.CurrencyType,
+                    SummaryDate = key.SummaryDate
+                }).ToList();
+
+                for (int i = 0; i < k.Count; i++) {
+                    for (int j = 0; j < GameOrderList.Count; j++) {
+                        if (k[i].Date == GameOrderList[j].SummaryDate) {
+                            k[i].TotalValidBetValue = GameOrderList[j].TotalValidBetValue;
+                            if (GameOrderList[j].TotalValidBetValue > 5000 || GameOrderList[j].TotalValidBetValue == 5000) {
+                                k[i].Status = 1;
+                            }
+                        }
+                    }
+                }
+
+                R = new UserAccountThisWeekTotalValidBetValueResult() {
+                    Result = EWin.Lobby.enumResult.OK,
+                    Datas = k,
+                    GUID = GUID
+                };
+            } else {
+                R = new UserAccountThisWeekTotalValidBetValueResult() {
+                    Result = EWin.Lobby.enumResult.ERR,
+                    Message = "NotEligible",
+                    GUID = GUID
+                };
+            }
+        } else {
+            R = new UserAccountThisWeekTotalValidBetValueResult() {
+                Result = EWin.Lobby.enumResult.ERR,
+                Message = "EMailNotFind",
+                GUID = GUID
+            };
+        }
+
+        return R;
+    }
+
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     //public EWin.Lobby.APIResult SendCSMail(string WebSID, string GUID, string EMail, string Topic, string SendBody)
@@ -1575,22 +1657,22 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                         if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
 
-                            //string JoinActivityCycle = "1";
-                            //Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
+                            string JoinActivityCycle = "1";
+                            Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
 
-                            //if (actioncontent["ActionList"] != null) {
-                            //    Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+                            if (actioncontent["ActionList"] != null) {
+                                Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
 
-                            //    foreach (var item in actionlist) {
-                            //        if (item["Field"].ToString() == "JoinActivityCycle") {
-                            //            JoinActivityCycle = item["Value"].ToString();
-                            //        }
-                            //    }
-                            //}
+                                foreach (var item in actionlist) {
+                                    if (item["Field"].ToString() == "JoinActivityCycle") {
+                                        JoinActivityCycle = item["Value"].ToString();
+                                    }
+                                }
+                            }
 
-                            //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
+                            EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
 
-                            EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, 0, 0, 0);
+                            //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, 0, 0, 0);
                             R.Result = EWin.Lobby.enumResult.OK;
                         } else {
                             R.Result = EWin.Lobby.enumResult.ERR;
@@ -1616,22 +1698,22 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                                     if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
 
-                                        //string JoinActivityCycle = "1";
-                                        //Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
+                                        string JoinActivityCycle = "1";
+                                        Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
 
-                                        //if (actioncontent["ActionList"] != null) {
-                                        //    Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+                                        if (actioncontent["ActionList"] != null) {
+                                            Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
 
-                                        //    foreach (var item in actionlist) {
-                                        //        if (item["Field"].ToString() == "JoinActivityCycle") {
-                                        //            JoinActivityCycle = item["Value"].ToString();
-                                        //        }
-                                        //    }
-                                        //}
+                                            foreach (var item in actionlist) {
+                                                if (item["Field"].ToString() == "JoinActivityCycle") {
+                                                    JoinActivityCycle = item["Value"].ToString();
+                                                }
+                                            }
+                                        }
 
-                                        //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
+                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
 
-                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, 0, 0, 0);
+                                        //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, 0, 0, 0);
                                         R.Result = EWin.Lobby.enumResult.OK;
                                     } else {
                                         lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, OldThresholdValue, "Undo ResetCollectPromotion. CollectID=" + CollectID.ToString(), true);
@@ -2035,5 +2117,15 @@ public class LobbyAPI : System.Web.Services.WebService {
         public int JoinCount { get; set; }
         public decimal ThresholdValue { get; set; }
         public decimal BonusValue { get; set; }
+    }
+
+    public class UserAccountThisWeekTotalValidBetValueResult : EWin.Lobby.APIResult {
+        public List<UserAccountThisWeekTotalValidBetValue> Datas { get; set; }
+    }
+
+    public class UserAccountThisWeekTotalValidBetValue {
+        public string Date { get; set; }
+        public decimal TotalValidBetValue { get; set; }
+        public int Status { get; set; }
     }
 }

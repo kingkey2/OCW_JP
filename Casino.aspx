@@ -109,7 +109,7 @@
                             $(categArea).find('.CategName').text(mlp.getLanguageKey(categName));
                             $(categArea).find('.CategName').attr('langkey', categName);
 
-                            if (category.SortIndex==99) {
+                            if (category.SortIndex>=90) {
                                 $(categArea).find('.text-link').css('display', 'block');
                                 $(categArea).find('.title-showAll').text(mlp.getLanguageKey('全部顯示'));
                                
@@ -128,7 +128,7 @@
                             var showAllbtn = categArea.querySelector('.title-showAll');
                             showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
 
-                            if (category.SortIndex == 99) {
+                            if (category.SortIndex >= 90) {
                                 var categNamebtn = categArea.querySelector('.CategName');
                                 categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
                             }

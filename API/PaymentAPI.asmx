@@ -116,7 +116,7 @@ public class PaymentAPI : System.Web.Services.WebService
         string Path;
 
         Path = HttpContext.Current.Server.MapPath("/App_Data/EPay/" + "BankSetting.json");
-        
+
         Newtonsoft.Json.Linq.JObject o = null;
 
         if (System.IO.File.Exists(Path))
@@ -130,7 +130,7 @@ public class PaymentAPI : System.Web.Services.WebService
                 try { o = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(SettingContent); } catch (Exception ex) { }
             }
         }
-    
+
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
@@ -467,7 +467,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue,
                                 JoinCount = activityDepositResult.Data.JoinCount
-                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ,
+                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
+                                CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -786,7 +788,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue
-                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ,
+                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
+                                CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1111,7 +1115,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue
-                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ,
+                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
+                                CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1245,7 +1251,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue
-                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ,
+                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
+                                CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -3282,12 +3290,13 @@ public class PaymentAPI : System.Web.Services.WebService
     public class EWinTagInfoActivityData
     {
         public string ActivityName { get; set; }
-        //public string JoinActivityCycle { get; set; }
+        public string JoinActivityCycle { get; set; }
         public decimal BonusRate { get; set; }
         public decimal BonusValue { get; set; }
         public decimal ThresholdRate { get; set; }
         public decimal ThresholdValue { get; set; }
         public int JoinCount { get; set; }
+        public string CollectAreaType { get; set; }
     }
 
 

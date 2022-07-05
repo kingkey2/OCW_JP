@@ -178,6 +178,7 @@
     var MessageModal;
     var gameWindow;
     var LobbyGameList = {};
+    var UserThisWeekTotalValidBetValueData = [];
     //#region TOP API
 
     function API_GetGCB() {
@@ -476,6 +477,31 @@
 
     function API_ComingSoonAlert() {
         window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" + mlp.getLanguageKey("近期開放") + "</p>");
+    }
+
+    //取得當週期7日活動所需資訊
+    function API_GetUserThisWeekTotalValidBetValue() {
+
+        if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+            lobbyClient.GetUserAccountThisWeekTotalValidBetValueResult(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+                        UserThisWeekTotalValidBetValueData = o.Datas;
+                        notifyWindowEvent("UserThisWeekTotalValidBetValueDataGet");
+                    } else {
+                        UserThisWeekTotalValidBetValueData = [];
+                    }
+                } else {
+                    if (o == "Timeout") {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                    } else {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+                    }
+                }
+            });
+        } else {
+            UserThisWeekTotalValidBetValueData = [];
+        }
     }
     //#endregion
 
@@ -1318,8 +1344,7 @@
 
         API_LoadPage("Article", orgin);
     }
-
-
+    
     function resize() {
         if (IFramePage.contentWindow.document.body) {
 
@@ -1445,7 +1470,7 @@
                                             API_LoadPage("SrcPage", srcPage, true);
                                         }
                                     }
-
+                                    API_GetUserThisWeekTotalValidBetValue();
                                     notifyWindowEvent("IndexFirstLoad", logined);
                                     EWinWebInfo.FirstLoaded = true;
                                 });
@@ -2685,6 +2710,78 @@
                                                     <span class="logo-wrap">
                                                         <span class="img-wrap">
                                                             <img src="images/logo/default/logo-KGS.svg" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_BBIN"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-BBIN.png?0704" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_MG"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-MG.png?0704" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_GMW"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-GMW.png?0704" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_HB"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-HB.png?0704" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_NE"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-NE.png?0704" alt=""></span>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                                            <label class="custom-label">
+                                                <input type="checkbox" name="button-brandExchange" id="searchIcon_RT"
+                                                    class="custom-control-input-hidden" onchange="searchGameChange()">
+                                                <div class="custom-input checkbox">
+                                                    <span class="logo-wrap">
+                                                        <span class="img-wrap">
+                                                            <img src="images/logo/default/logo-RT.png?0704" alt=""></span>
                                                     </span>
                                                 </div>
                                             </label>

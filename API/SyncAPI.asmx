@@ -224,19 +224,19 @@ public class SyncAPI : System.Web.Services.WebService
             ShowType = 0;
 
             OCWcompanyStatisticsCategoryResult.CategoryList = new EWin.Lobby.CompanyCategory[] { new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxBetCount30Day",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxBetCount30Day",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinValue7Day",CompanyCategoryID = 0,SortIndex =98
+        CategoryName = "SlotMaxWinValue7Day",CompanyCategoryID = 0,SortIndex =89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinValueYesterday",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxWinValueYesterday",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinRate7Day",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxWinRate7Day",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinRateYesterday",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxWinRateYesterday",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxRTPYesterday",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxRTPYesterday",CompanyCategoryID = 0,SortIndex = 89
         }};
 
             for (int i = 0; i < OCWcompanyStatisticsCategoryResult.CategoryList.Length; i++)
@@ -296,7 +296,7 @@ public class SyncAPI : System.Web.Services.WebService
                                                  select new CompanyCategoryByStatistics { GameCode = g.Key.GameCode, QTY = g.Max(m => m.MaxWinRate) }).OrderByDescending(o => o.QTY).Take(20).ToList();
                 //前天最高RTP
                 SlotMaxRTPYesterdayResult = (from p in yesterday_gameCodeRTP
-                                             select new CompanyCategoryByStatistics { GameCode = p.GameCode, QTY = (1 + (p.RewardValue / p.OrderValue)) * 100 }).OrderByDescending(o => o.QTY).Take(20).ToList();
+                                             select new CompanyCategoryByStatistics { GameCode = p.GameCode, QTY =  (p.OrderValue == 0 ? 0 : (1 + (p.RewardValue / p.OrderValue)) * 100) }).OrderByDescending(o => o.QTY).Take(20).ToList();
 
             }
 
@@ -489,19 +489,19 @@ public class SyncAPI : System.Web.Services.WebService
                     ShowType = 0;
 
                     OCWcompanyStatisticsCategoryResult.CategoryList = new EWin.Lobby.CompanyCategory[] { new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxBetCount30Day",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxBetCount30Day",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinValue7Day",CompanyCategoryID = 0,SortIndex =98
+        CategoryName = "SlotMaxWinValue7Day",CompanyCategoryID = 0,SortIndex =89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinValueYesterday",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxWinValueYesterday",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinRate7Day",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxWinRate7Day",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinRateYesterday",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxWinRateYesterday",CompanyCategoryID = 0,SortIndex = 89
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxRTPYesterday",CompanyCategoryID = 0,SortIndex = 98
+        CategoryName = "SlotMaxRTPYesterday",CompanyCategoryID = 0,SortIndex = 89
         }};
 
                     for (int i = 0; i < OCWcompanyStatisticsCategoryResult.CategoryList.Length; i++) {
@@ -582,7 +582,7 @@ public class SyncAPI : System.Web.Services.WebService
                                                              select new CompanyCategoryByStatistics { GameCode = g.Key.GameCode, QTY = g.Max(m => m.MaxWinRate) }).OrderByDescending(o => o.QTY).Take(20).ToList();
                             //前天最高RTP
                             SlotMaxRTPYesterdayResult = (from p in yesterday_gameCodeRTP
-                                                         select new CompanyCategoryByStatistics { GameCode = p.GameCode, QTY = (1 + (p.RewardValue / p.OrderValue)) * 100 }).OrderByDescending(o => o.QTY).Take(20).ToList();
+                                                         select new CompanyCategoryByStatistics { GameCode = p.GameCode, QTY =  (p.OrderValue == 0 ? 0 : (1 + (p.RewardValue / p.OrderValue)) * 100) }).OrderByDescending(o => o.QTY).Take(20).ToList();
 
                         }
 
@@ -703,6 +703,29 @@ public class SyncAPI : System.Web.Services.WebService
 
                                 if (CategoryGameCodeCount[IsGameBrandCategoryID] < 20) {
                                     CategoryGameCodeCount[IsGameBrandCategoryID] = CategoryGameCodeCount[IsGameBrandCategoryID] + 1;
+                                    switch (GameBrand)
+                                    {
+                                        case "MG":
+                                            SortIndex = 90;
+                                            break;
+                                        case "BBIN":
+                                            SortIndex = 91;
+                                            break;
+                                        case "GMW":
+                                            SortIndex = 92;
+                                            break;
+                                        case "HB":
+                                            SortIndex = 93;
+                                            break;
+                                        case "NE":
+                                            SortIndex = 94;
+                                            break;
+                                        case "RT":
+                                            SortIndex = 95;
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                     InsertCompanyGameCodeReturn = EWinWebDB.CompanyGameCode.InsertCompanyGameCode(IsGameBrandCategoryID, GameBrand, companyGameCodeResult.GameCodeList[i].GameName, "", companyGameCodeResult.GameCodeList[i].GameID, companyGameCodeResult.GameCodeList[i].GameCategoryCode, companyGameCodeResult.GameCodeList[i].GameCategorySubCode, companyGameCodeResult.GameCodeList[i].AllowDemoPlay, companyGameCodeResult.GameCodeList[i].RTPInfo, companyGameCodeResult.GameCodeList[i].IsHot, companyGameCodeResult.GameCodeList[i].IsNew, Tag, SortIndex);
                                     if (InsertCompanyGameCodeReturn == 0) {
                                         R.Message = "InsertCompanyGameCode Error CompanyCategoryID=" + IsGameBrandCategoryID;

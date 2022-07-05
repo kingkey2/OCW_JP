@@ -490,15 +490,15 @@ public class MgmtAPI : System.Web.Services.WebService {
     //    }
     //}
 
-    //public string GetToken() {
-    //    string Token;
-    //    int RValue;
-    //    Random R = new Random();
-    //    RValue = R.Next(100000, 9999999);
-    //    Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
+    public string GetToken() {
+        string Token;
+        int RValue;
+        Random R = new Random();
+        RValue = R.Next(100000, 9999999);
+        Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
 
-    //    return Token;
-    //}
+        return Token;
+    }
 
     //[WebMethod]
     //public void SendMail() {
@@ -545,6 +545,81 @@ public class MgmtAPI : System.Web.Services.WebService {
     //        var response = await client.SendEmailAsync(msg);
     //    }
     //}
+
+    [WebMethod]
+    public APIResult kevintest(string SID) {
+        APIResult R = new APIResult();
+        RedisCache.SessionContext.SIDInfo SI;
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.OrderSummaryResult callResult = new EWin.Lobby.OrderSummaryResult();
+        List<a> k = new List<a>();
+
+        SI = RedisCache.SessionContext.GetSIDInfo(SID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            DateTime currentTime = DateTime.Now;
+            int week = Convert.ToInt32(currentTime.DayOfWeek);
+            week = week == 0 ? 7 : week;
+            DateTime start;
+            DateTime end;
+
+            if (week > 4) {
+                start = currentTime.AddDays(5 - week);        //這禮拜5
+                end = currentTime;
+            } else {
+                start = currentTime.AddDays(5 - week - 7); //上禮拜5
+                end = currentTime.AddDays(4 - week);  //這禮拜4
+            }
+
+            TimeSpan ts = end.Subtract(start); //兩時間天數相減
+
+            int dayCount = ts.Days+1; //相距天數
+
+            for (int i = 0; i < dayCount; i++) {
+                a aa = new a();
+                aa.Date = start.AddDays(i).ToString("yyyy-MM-dd");
+                aa.Value = 0;
+                k.Add(aa);
+            }
+
+            callResult = lobbyAPI.GetGameOrderSummaryHistory(GetToken(), SI.EWinSID, System.Guid.NewGuid().ToString(), start.ToString("yyyy-MM-dd 00:00:00"), end.ToString("yyyy-MM-dd 00:00:00"));
+
+
+            if (callResult.Result == EWin.Lobby.enumResult.OK) {
+
+                var GameOrderList = callResult.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+                    TotalValidBetValue = sum.Sum(y => y.TotalValidBetValue),
+                    CurrencyType = key.CurrencyType,
+                    SummaryDate = key.SummaryDate
+                }).ToList();
+
+                for (int i = 0; i < k.Count; i++) {
+                    for (int j = 0; j < GameOrderList.Count; j++) {
+                        if (k[i].Date == GameOrderList[j].SummaryDate) {
+                            k[i].Value = GameOrderList[j].TotalValidBetValue;
+                        }
+                    }
+                }
+
+                R.Result = enumResult.OK;
+                //R.Message = Newtonsoft.Json.JsonConvert.SerializeObject(GameOrderList);
+                R.Message = Newtonsoft.Json.JsonConvert.SerializeObject(k);
+
+            } else {
+                SetResultException(R, "NotEligible");
+            }
+
+        } else {
+            SetResultException(R, "InvalidWebSID");
+        }
+
+        return R;
+    }
+
+    public class a {
+        public string Date { get; set; }
+        public decimal Value { get; set; }
+    }
 
     private bool CheckPassword(string Hash) {
         string key = EWinWeb.PrivateKey;
