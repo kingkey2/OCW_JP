@@ -3261,6 +3261,10 @@ main.innerMain.fixed {
   -webkit-mask-image: url(../images/icon/ico-all-tt.svg);
   mask-image: url(../images/icon/ico-all-tt.svg);
 }
+.icon-mask.icon-hot-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-hot-tt.svg);
+  mask-image: url(../images/icon/ico-hot-tt.svg);
+}
 .icon-mask.icon-etc-tt::before {
   -webkit-mask-image: url(../images/icon/ico-etc-tt.svg);
   mask-image: url(../images/icon/ico-etc-tt.svg);
