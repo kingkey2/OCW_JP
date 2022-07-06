@@ -32,7 +32,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #6DBCE1;
+  background-color: rgba(109, 188, 225, 0.75);
   color: #fff;
   text-shadow: 0px 0px 4px #004565;
 }
@@ -59,7 +59,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           transform: translate3d(0, -50%, 0);
 }
 .tab-game .tab-scroller .tab-item.active .title {
-  background-color: #33a2d6;
+  background-color: #50baeb;
 }
 .tab-inner {
   display: -webkit-box;
