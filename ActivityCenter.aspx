@@ -261,7 +261,7 @@
                             </a>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(6,'/Activity/bng/bng2207/index.html')">                           
+                            <div class="activity-item-inner" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')">                           
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -537,6 +537,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(5)">參加活動</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade footer-center" id="Modalbng2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace">BNG周年祝い勝利レースプレゼント</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(6)">參加活動</button>
                 </div>
             </div>
         </div>
