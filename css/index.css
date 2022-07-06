@@ -8,6 +8,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .hero {
   margin-bottom: 0.625rem;
+  position: relative;
 }
 
 .hero_slider {
@@ -161,6 +162,62 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   z-index: 99999;
 }
 
+.thumb-wrapper {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.thumb-wrapper .container {
+  height: 100%;
+  position: relative;
+}
+.thumb-wrapper .thumbSwiper {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+}
+.thumb-wrapper .swiper-slide {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  margin-right: 24px;
+  opacity: 1;
+  background-color: #fff;
+  border: solid 3px #008fd0;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  overflow: hidden;
+  position: relative;
+  border-radius: 50%;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(5) {
+  bottom: 10px;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(4) {
+  bottom: 3px;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(3) {
+  bottom: -10px;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(2) {
+  bottom: -9px;
+}
+.thumb-wrapper .swiper-slide:nth-last-child(1) {
+  bottom: 10px;
+}
+.thumb-wrapper .swiper-slide-thumb-active {
+  -webkit-transform: scale(1.35);
+          transform: scale(1.35);
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .section_publicize img {
   width: 100%;
 }
@@ -198,11 +255,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-}
-.section_publicize .publicize_bottom_inner .publicize-wrap {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 100%;
-          flex: 0 0 100%;
 }
 .section_publicize .publicize_bottom_inner .bulletin {
   margin-bottom: 20px;
@@ -271,31 +323,65 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .section_publicize .publicize_bottom_inner .bulletin_list .item .info:hover {
   color: #008fd1;
 }
-
-.activity-dailylogin-wrapper {
-  text-align: center;
-  overflow: hidden;
-  position: relative;
+.section_publicize .bulletin-login {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
 }
 
 .way-payment-wrapper {
   cursor: pointer;
+  padding-top: 50px;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.way-payment-inner {
+  position: relative;
+  background-color: #4288C9;
+  background-position: center center;
+  border-radius: 20px;
+  height: 115px;
+  height: calc(0.2857142857 * (100vw - 20px));
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.way-payment-inner:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/theme/bg_dog.svg);
+  background-position: center center;
+  opacity: 0.4;
 }
 .way-payment-img {
   position: relative;
   left: 0;
-  width: 50%;
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 50%;
-          flex: 0 0 50%;
+      -ms-flex: 0 0 54.2857142857%;
+          flex: 0 0 54.2857142857%;
   -ms-flex-item-align: end;
       align-self: flex-end;
   z-index: 1;
 }
+.way-payment-img .img-crop {
+  border-radius: 0 0 0 20px;
+  overflow: hidden;
+}
 .way-payment-content {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  position: absolute;
+  right: 0;
+  width: 78.1428571429%;
   background-color: rgba(0, 0, 0, 0.72);
   color: #fff;
   display: -webkit-box;
@@ -313,9 +399,16 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
           flex-flow: column wrap;
+  padding-left: 36.1904761905%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.way-payment-detail .title {
+  font-size: calc(0.0642857143 * (100vw - 20px));
 }
 .way-payment-detail .desc {
   margin: 0;
+  font-size: calc(0.02 * (100vw - 20px));
 }
 
 .section_recommand {
@@ -332,6 +425,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 120px;
 }
 
+.activity-dailylogin-wrapper {
+  position: relative;
+}
+
 .dailylogin-bouns-wrapper {
   margin-top: 35px;
 }
@@ -339,45 +436,27 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background: -webkit-gradient(linear, left top, left bottom, from(#FFFAC3), to(#FFDFD2));
   background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
   border-radius: 20px 20px 0 0;
-  height: 80px;
 }
 .dailylogin-bouns-content {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 100%;
-  bottom: 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 .dailylogin-bouns-content .title {
   position: relative;
-  bottom: 10px;
 }
 .dailylogin-bouns-content .title:before {
   content: "";
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  width: 160px;
-  height: 100px;
-  background: url(../images/prize/obj-dailylogin-dialog.svg) left bottom no-repeat;
-  background-size: contain;
   position: relative;
   z-index: 1;
-  left: 0;
-}
-.dailylogin-bouns-content .title .name {
-  position: absolute;
-  width: 90%;
-  right: 0;
-  left: 0;
-  margin: 0 auto;
-  top: 30px;
-  font-size: 0.5em;
-  width: 4em;
-  font-weight: 900;
-  z-index: 1;
-  margin-left: 45%;
 }
 .dailylogin-bouns-list {
   position: relative;
@@ -392,23 +471,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  position: absolute;
-  width: calc(100% - 150px);
-  right: 0;
-}
-.dailylogin-bouns-list:after {
-  content: "";
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  width: calc(100% + 10px);
-  height: 10px;
-  background: #4288C9;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 0;
-  border-radius: 5px 0 0 5px;
+  padding: 0 10px;
 }
 .dailylogin-bouns-list .bouns-item {
   display: -webkit-box;
@@ -446,7 +509,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .dailylogin-bouns-list .bouns-item:after {
   content: "";
   position: absolute;
-  bottom: 0;
   left: 0;
   right: 0;
   display: -webkit-inline-box;
@@ -457,11 +519,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-color: #dbdbdb;
   mix-blend-mode: color;
   -webkit-mask-position: center bottom;
-          mask-position: center bottom;
   -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
   -webkit-mask-size: contain;
-          mask-size: contain;
+  mask-position: center bottom;
+  mask-repeat: no-repeat;
+  mask-size: contain;
   -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
   mask-image: url(.../images/prize/obj-coin-bouns.svg);
   margin: 0 auto;
@@ -535,9 +597,19 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 0.5rem;
   max-width: 65px;
   right: -10px;
+  right: 0;
   position: absolute;
   top: 0;
   z-index: 1;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .dailylogin-bouns-list .bouns-item.saturday {
   color: #009FE8;
@@ -555,10 +627,81 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .game_slider .swiper-slide {
     width: 28.5714285714%;
   }
+
+  .way-payment-inner {
+    height: calc(0.2285714286 * (100vw - 20px));
+  }
+  .way-payment-img {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 45.4285714286%;
+            flex: 0 0 45.4285714286%;
+  }
+  .way-payment-detail {
+    padding-left: 25.2380952381%;
+  }
 }
 @media (min-width: 576px) {
   .game_slider .swiper-slide {
     width: 22.2222222222%;
+  }
+
+  .dailylogin-bouns-content {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .dailylogin-bouns-content .title {
+    position: relative;
+    bottom: 10px;
+    width: 30%;
+    height: 100px;
+    width: 146.9387755102px;
+  }
+  .dailylogin-bouns-content .title:before {
+    content: "";
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    background: url(../images/prize/obj-dailylogin-dialog.svg) left bottom no-repeat;
+    background-size: contain;
+    z-index: 1;
+    left: 0;
+  }
+  .dailylogin-bouns-content .title .name {
+    position: absolute;
+    width: 90%;
+    left: 0;
+    width: 4em;
+    z-index: 2;
+    font-size: 0.5em;
+    margin: 0 auto;
+    top: 30px;
+    font-weight: 900;
+    z-index: 1;
+    margin-left: 45%;
+  }
+  .dailylogin-bouns-list {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    max-width: 700px;
+    right: 0;
+  }
+  .dailylogin-bouns-list:after {
+    content: "";
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: calc(100% + 10px);
+    height: 10px;
+    background: #4288C9;
+    z-index: 0;
+    border-radius: 5px 0 0 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 }
 @media (min-width: 640px) {
@@ -606,10 +749,18 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: inherit !important;
   }
 
+  .hero {
+    margin-bottom: 30px;
+  }
+
   .hero_slider .img-wrap {
     padding-bottom: 36.4583333333%;
   }
   .hero_slider .swiper-pagination {
+    display: initial;
+  }
+
+  .thumb-wrapper {
     display: initial;
   }
 
@@ -649,11 +800,61 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .section_publicize .publicize_bottom_inner .daily-login {
     width: 100%;
   }
-  .section_publicize .way-payment-wrapper {
-    -webkit-box-flex: 0 !important;
-        -ms-flex: 0 0 auto !important;
-            flex: 0 0 auto !important;
+
+  .way-payment-wrapper {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
     padding-right: 1.3rem;
+  }
+
+  .way-payment-wrapper {
+    padding-top: 0;
+  }
+  .way-payment-inner {
+    height: 100%;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+  }
+  .way-payment-img {
+    width: 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+    position: absolute;
+    top: -20px;
+    height: calc(100% + 20px);
+  }
+  .way-payment-img img {
+    display: none;
+  }
+  .way-payment-img .img-crop {
+    width: 100%;
+    height: 100%;
+    background: url(../images/theme/girl-crypto.png) left top no-repeat;
+  }
+  .way-payment-content {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    bottom: 10%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .way-payment-detail {
+    padding: 10px;
+  }
+  .way-payment-detail .title {
+    font-size: 2.5rem;
+  }
+  .way-payment-detail .desc {
+    font-size: 1.25rem;
+  }
+
+  .section_publicize .publicize_bottom_inner .bulletin_inner {
+    margin-top: 0;
   }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
@@ -713,8 +914,24 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     bottom: 35px;
   }
 
+  .thumb-wrapper .swiper-slide:nth-last-child(3) {
+    bottom: -5px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(2) {
+    bottom: 15px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(1) {
+    bottom: 35px;
+  }
+
   .game_slider .swiper-slide {
     padding-right: 15px;
+  }
+
+  .way-payment-wrapper {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 38%;
+            flex: 0 0 38%;
   }
 }
 @media (min-width: 1384px) and (max-width: 1543px) {
@@ -831,9 +1048,76 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .hero_slider .swiper-pagination .swiper-pagination-bullet:nth-last-child(1) {
     bottom: 15px;
   }
+
+  .thumb-wrapper .swiper-slide:nth-last-child(5) {
+    bottom: 25px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(4) {
+    bottom: 10px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(3) {
+    bottom: 5px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(2) {
+    bottom: 10px;
+  }
+  .thumb-wrapper .swiper-slide:nth-last-child(1) {
+    bottom: 15px;
+  }
 }
 @media (max-width: 1144px) {
   .section_publicize .publicize_top_inner .item {
     margin-bottom: 1rem;
+  }
+}
+@media (max-width: 575px) {
+  .dailylogin-bouns-inner {
+    padding: 50px 10px 10px;
+    border-radius: 20px;
+  }
+  .dailylogin-bouns-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding-top: 10px;
+  }
+  .dailylogin-bouns-content .title {
+    position: absolute;
+    width: 100%;
+    top: -60px;
+    color: #fff;
+    text-shadow: 0px 0px 5px #000000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+  }
+  .dailylogin-bouns-content .title:before {
+    height: 60px;
+    width: 115.8904109589px;
+    background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
+    background-size: contain;
+  }
+  .dailylogin-bouns-content .title:after {
+    content: "";
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+    height: 15px;
+    background: #4288C9;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .dailylogin-bouns-content .title .name {
+    position: relative;
+    z-index: 1;
+    padding-left: 10px;
+    font-size: 1.5rem;
+  }
+  .dailylogin-bouns-list {
+    width: 100%;
   }
 }

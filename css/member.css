@@ -991,7 +991,6 @@ input.month:read-only, input.day:read-only {
     position: relative;
     z-index: 1;
     font-size: 1.625rem;
-    max-width: f;
   }
   .dailylogin-bouns-content .title:after {
     content: "";

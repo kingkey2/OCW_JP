@@ -91,10 +91,15 @@
         ParentMain.innerHTML = "";
         document.getElementById("idNoGameData").style.display = "none";
         document.getElementById("idSearchDate_G").innerText = new Date(endDate).toString("yyyy/MM");
+
         LobbyClient.GetGameOrderSummaryHistoryGroupGameCode(WebInfo.SID, Math.uuid(), startDate, endDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.SummaryList.length > 0) {
+
+                        let totalOrderValue = 0;
+                        let totalRewardValue = 0;
+
                         for (var i = 0; i < o.SummaryList.length; i++) {
                             var daySummary = o.SummaryList[i];
                             var RecordDom;
@@ -111,6 +116,8 @@
                             c.setClassText(RecordDom, "validBet", null, new BigNumber(daySummary.TotalValidBetValue).toFormat());
                             c.setClassText(RecordDom, "rewardValue", null, new BigNumber(daySummary.TotalRewardValue).toFormat());
 
+                            totalOrderValue = totalOrderValue + daySummary.TotalOrderValue;
+                            totalRewardValue = totalRewardValue + daySummary.TotalRewardValue;
 
                             RecordDom.dataset.queryDate = daySummary.SummaryDate;
                             var toggle = RecordDom.querySelector(".btn-toggle")
@@ -150,6 +157,12 @@
                             ParentMain.prepend(RecordDom);
 
                         }
+
+                        if (startDate.substring(0, startDate.length - 3) == Date.today().moveToFirstDayOfMonth().toString("yyyy/MM")) {
+                            $("#Game_O_1").text(new BigNumber(totalOrderValue).toFormat());
+                            $("#Game_R_1").text(new BigNumber(totalRewardValue).toFormat());
+                        }
+
                         window.parent.API_CloseLoading();
 
                     } else {
