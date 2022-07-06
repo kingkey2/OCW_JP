@@ -623,6 +623,7 @@
 
     <div id="temGameItem" class="is-hide">
         <div class="swiper-slide">
+            <!-- 設定 遊戲 NEW/HOT Label ： class=> "label-new"/"label-hot" -->
             <div class="game-item">
                 <div class="game-item-inner">
                     <span class="game-item-mobile-popup" data-toggle="modal"></span>
@@ -658,6 +659,8 @@
                                         </div>
                                         <div class="action">
                                             <div class="btn-s-wrapper">
+                                                <!-- 遊戲 NEW/HOT Label -->
+                                                <%--<span class="label-push-status"></span>--%>
                                                 <button type="button" class="btn-thumbUp btn btn-round">
                                                     <i class="icon icon-m-thumup"></i>
                                                 </button>
