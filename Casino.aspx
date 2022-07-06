@@ -373,7 +373,7 @@
                 $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
                 switch (LobbyGameList[i].Location) {
                     case 'GameList_All':
-                        $(RecordDom).find('.CategIcon').addClass('icon-all-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
                         break;
                     case 'GameList_Live':
                         $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
