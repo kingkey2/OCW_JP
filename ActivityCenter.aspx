@@ -150,7 +150,8 @@
                 case 6:
                     $('#Modalbng2 .activity-popup-detail-inner').load(url);
                     $('#Modalbng2').modal('show');
-
+                case 7:
+                    window.open(url);
                     break;
                 default:
                     break;
@@ -241,8 +242,7 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <a href="Activity/event/bng/bng2207-2/index.html" target="_blank">
-                            <div class="activity-item-inner">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(7,'/Activity/event/bng/bng2207-2/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -258,7 +258,6 @@
                                     </div>
                                 </div>
                             </div>
-                            </a>
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')">                           
