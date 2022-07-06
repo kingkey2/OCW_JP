@@ -182,7 +182,7 @@
                 break;
             case 6:
                 $('#Modalbng2').modal('hide');
-                window.parent.searchGameByBrandAndGameCategory("BNG", "act");
+                window.parent.searchGameByBrandAndGameCategory("BNG", "Slot");
                 break;
         }
     }
