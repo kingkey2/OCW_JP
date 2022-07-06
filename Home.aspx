@@ -849,12 +849,11 @@
                             <div class="swiper-slide">
                                 <img src="images/banner/thumb-3.png" alt="">
                             </div>
-                            
                             <div class="swiper-slide">
                                 <img src="images/banner/thumb-4.png" alt="">
-                            </div>                        
+                            </div>
                          </div>
-                    </div>                
+                    </div>
                </div>
            </div>
         </section>
