@@ -3202,14 +3202,14 @@ h6 {
 
     .whole-wrap-area {
         position: relative;
-        top: -130px!important;
+        top: 0px!important;
     }
 }
 @media (max-width: 390px){
 
     .whole-wrap-area {
         position: relative;
-        top: -130px!important;
+        top: 0px!important;
     }
 }
 @media (max-width: 375px){
