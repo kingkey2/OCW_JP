@@ -5628,9 +5628,6 @@ i {
 .game-item .btn:hover .arrow {
   border-color: white;
 }
-.game-item .btn-more {
-  display: none;
-}
 .game-item .label-push-status {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
