@@ -105,6 +105,14 @@
 
     function initSwiper() {
         //HERO 
+        var swiper = new Swiper(".thumbSwiper", {
+           
+            slidesPerView: "auto",
+            freeMode: true,
+            // enabled: false,
+            watchSlidesProgress: false,
+        });
+
         var heroIndex = new Swiper("#hero-slider", {
             loop: true,
             slidesPerView: 1,
@@ -115,16 +123,21 @@
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true
             },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-                renderBullet: function (index, className) {
-                    //   return '<span class="' + className + '">' + (index + 1) + "</span>";
-                    return '<span class="' + className + '">' + '<img src="images/banner/thumb-' + (index + 1) + '.png"></span>';
-                },
+            // pagination: {
+            //     el: ".swiper-pagination",
+            //     clickable: true,
+            //     renderBullet: function (index, className) {
+            //         //   return '<span class="' + className + '">' + (index + 1) + "</span>";
+            //         return '<span class="' + className + '">' + '<img src="images/banner/thumb-' + (index + 1) + '.png"></span>';
+            //     },
+            // },
+            thumbs: {
+             swiper: swiper,
             },
 
         });
+       
+        
 
         // 推薦遊戲
         var gameRecommend = new Swiper("#game-recommend", {
@@ -145,7 +158,6 @@
             //         freeMode: false                
             //     }
             // }
-
 
         });
     }
@@ -743,7 +755,7 @@
 <body class="innerBody">
     <main class="innerMain">
         <section class="section-wrap hero">
-            <div class="hero_slider swiper_container round-arrow" id="hero-slider">
+            <div class="swiper hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item" >
@@ -783,7 +795,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                     <div class="swiper-slide">
                         <div class="hero-item" >
                             <a class="hero-item-link hero-item-href" href="/Activity/event/bng/bng2207-2/index.html" target="_blank"></a>
@@ -814,10 +826,35 @@
                     </div>
                     <div class="swiper-mask"></div>
                 </div>
+                <%--
                 <div class="container">
                     <div class="swiper-pagination"></div>
-                </div>
+                </div> --%>
             </div>
+            <!-- 縮圖 ====================-->
+            <div class="thumb-wrapper">
+                <div class="container">
+                    <div thumbsSlider="" class="thumbSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-1.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-2.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-3.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-7.png" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-4.png" alt="">
+                            </div>                        
+                         </div>
+                    </div>                
+               </div>
+           </div>
         </section>
         <!--  -->
 
@@ -841,14 +878,14 @@
                         <!-- 入出金說明 -->
                         <div class="publicize-wrap way-payment-wrapper">
                             <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
-                                
+                                <%--
                                 <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
                                 <img src="images/index/way-payment.png" class="desktop" alt="">
+                                --%>
                                 
-                                <%--
                                 <div class="way-payment-img">
                                     <div class="img-crop">
-                                        <img src="images/theme/girl-half.png" alt="">
+                                        <img src="images/theme/girl-half.png" class="mobile" alt="">
                                     </div>
                                 </div>
                                 <div class="way-payment-content">
@@ -857,7 +894,7 @@
                                         <p class="desc language_replace">Deposit and Withdrawal Instructions</p>
                                     </div>
                                 </div>
-                                --%>
+                                
                             </div>
                         </div>
                         <!-- 最新公告 + 會員簽到進度顯示-->
@@ -886,7 +923,7 @@
                                                     <span class="name language_replace">金曜日的禮物</span></h3>
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
-                                                    <li class="bouns-item ">
+                                                    <li class="bouns-item got">
                                                         <span class="day"><span class="language_replace">五</span></span></li>
                                                     <li class="bouns-item saturday">
                                                         <span class="day"><span class="language_replace">六</span></span>
@@ -933,14 +970,10 @@
                 </div>
             </div>
         </section>
-
-
         <section class="game-area section-wrap  overflow-hidden">
             <div class="container" id="gameAreas"></div>
         </section>
-
     </main>
-
 
     <div class="tmpModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
@@ -1120,5 +1153,4 @@
         </div>
     </div>
 </body>
-
 </html>

@@ -3173,11 +3173,11 @@ h6 {
 }
 @media (max-width: 530px){
     .banner-area-jp {
-    background: url(../img/header-bg-jp2.jpg) center;
+    background: url(../img/header-bg-768.jpg) center;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
-    height: 350px!important;
+    height: 225px!important;
     }
 
 
@@ -3202,28 +3202,28 @@ h6 {
 
     .whole-wrap-area {
         position: relative;
-        top: -130px!important;
+        top: 0px!important;
     }
 }
 @media (max-width: 390px){
 
     .whole-wrap-area {
         position: relative;
-        top: -130px!important;
+        top: 0px!important;
     }
 }
 @media (max-width: 375px){
 
     .whole-wrap-area {
         position: relative;
-        top: -150px!important;
+        top: 0px!important;
     }
 }
 @media (max-width: 320px){
 
     .whole-wrap-area {
         position: relative;
-        top: -150px!important;
+        top: 0px!important;
     }
 }
 @media (max-width: 991.98px) {
