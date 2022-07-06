@@ -645,6 +645,7 @@
                                         </div>
                                         <div class="action">
                                             <div class="btn-s-wrapper">
+                                                <span class="label-push-status"></span>
                                                 <button type="button" class="btn-thumbUp btn btn-round">
                                                     <i class="icon icon-m-thumup"></i>
                                                 </button>
