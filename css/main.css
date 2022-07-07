@@ -4387,6 +4387,11 @@ i {
 .MT__table:not(.table-RWD) .Tbody .tbody__td.nonTitle .td__content .icon {
   display: none;
 }
+.MT__table:not(.table-RWD) .Tbody .tbody__tr:hover {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
 .MT__table .Thead .thead__th {
   background-color: #3db6ff;
 }
@@ -4830,7 +4835,6 @@ i {
           align-items: flex-end;
   max-width: 768px;
   margin: 0 auto;
-  padding-left: 10px;
 }
 .tab-scroller .tab-scroller__area::-webkit-scrollbar {
   display: none;
@@ -4878,7 +4882,6 @@ i {
   left: 50%;
 }
 .tab-scroller .tab-slide {
-  background: #009FE8;
   height: 6px;
   position: absolute;
   bottom: 0;

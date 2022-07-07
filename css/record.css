@@ -61,7 +61,33 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .tab-record {
-  width: 250px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: #858585;
+  border-radius: 30px;
+  margin-bottom: 1.5rem;
+}
+.tab-record.tab-scroller .tab-item {
+  color: white;
+  z-index: 1;
+  position: relative;
+}
+.tab-record.tab-scroller .tab-item.active {
+  color: #fff;
+}
+.tab-record.tab-scroller .tab-item.payment.active {
+  background-color: #7acea6;
+}
+.tab-record.tab-scroller .tab-item.game.active {
+  background-color: #f3b20c;
+}
+.tab-record .tab-slide {
+  height: 100%;
+  z-index: 0;
+  border-radius: 30px;
+  -webkit-box-shadow: 0 4px 12px -4px rgba(137, 153, 167, 0.5019607843);
+          box-shadow: 0 4px 12px -4px rgba(137, 153, 167, 0.5019607843);
 }
 
 .sec-record-payment .tab-record .tab-item:hover, .sec-record-payment .tab-record .tab-item.active {
@@ -628,6 +654,16 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 712px) {
+  .record-overview-box.payment.active {
+    border: solid 4px #59B587;
+  }
+  .record-overview-box.game.active {
+    border: solid 4px #DD8800;
+  }
+  .record-overview-box.active .btn-detail-link {
+    display: none;
+  }
+
   .record-overview-box {
     width: 49%;
   }
@@ -636,6 +672,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-flex: 0;
         -ms-flex: 0 0 120px;
             flex: 0 0 120px;
+  }
+
+  .tab-record {
+    display: none;
   }
 }
 @media (min-width: 936px) {
@@ -722,6 +762,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .record-overview-box {
     margin-bottom: 1rem;
   }
+  .record-overview-box:not(.active) {
+    display: none;
+  }
 
   .record-table.games-record .record-table-drop-panel .record-drop-item.header {
     display: none;
@@ -785,6 +828,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
         -ms-flex: 0 0 60px;
             flex: 0 0 60px;
     text-align: right;
+  }
+
+  .sec-month {
+    margin: 0.8rem 0;
   }
 }
 @media screen and (max-width: 576px) {

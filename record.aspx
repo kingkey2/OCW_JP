@@ -576,6 +576,11 @@
             $("#div_Payment").hide();
             $("#div_Game").show();
 
+            $("#tabRecordPayment").removeClass("active"); //TEST
+            $("#tabRecordGame").addClass("active"); //TEST
+            $("#divOverviewPayment").removeClass("active"); //TEST
+            $("#divOverviewGame").addClass("active"); //TEST
+
             searchDate = new Date(search_Year_G + "/" + search_Month_G + "/01");
 
             beginDate = searchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
@@ -585,6 +590,11 @@
         } else {
             $("#div_Payment").show();
             $("#div_Game").hide();
+
+            $("#tabRecordGame").removeClass("active"); //TEST
+            $("#tabRecordPayment").addClass("active"); //TEST
+            $("#divOverviewGame").removeClass("active"); //TEST
+            $("#divOverviewPayment").addClass("active"); //TEST
 
             searchDate = new Date(search_Year_P + "/" + search_Month_P + "/01");
 
@@ -701,18 +711,36 @@
             <!-- 總覽 -->
             <section class="section-record-overview section-wrap">
                 <div class="container">
+                    <%--
                     <div class="sec-title-container sec-title-prize">
                         <div class="sec-title-wrapper">
                             <h1 class="sec-title title-deco"><span class="language_replace">紀錄總覽</span></h1>
                         </div>
                     </div>
+                    --%>
+                     <!-- 獎金/禮金 TAB -->
+                     <div class="tab-record tab-scroller tab-2">
+                        <div class="tab-scroller__area">
+                            <ul class="tab-scroller__content">
+                                <li class="tab-item payment active" onclick="showRecord(0)" id="tabRecordPayment">
+                                    <span class="tab-item-link"><span class="title"><span class="language_replace">出入金記錄</span></span>
+                                    </span>
+                                </li>
+                                <li class="tab-item game" onclick="showRecord(1)" id="tabRecordGame">
+                                    <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲記錄</span></span>
+                                    </span>
+                                </li>
+                                <div class="tab-slide"></div>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="record-overview-wrapper">
                         <!-- 出入金總覽 -->
-                        <div class="record-overview-box payment">
+                        <div class="record-overview-box payment active" onclick="showRecord(0)" id="divOverviewPayment">
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
                                     <div class="title language_replace">出入金紀錄資訊</div>
-                                    <%--<div class="btn btn-detail-link">詳細</div>--%>
+                                    <div class="btn btn-detail-link">詳細</div>
                                 </div>
                                 <div class="record-overview-content">
                                     <div class="MT__table">
@@ -781,11 +809,11 @@
                             </div>
                         </div>
                         <!-- 遊戲總覽-->
-                        <div class="record-overview-box game">
+                        <div class="record-overview-box game" onclick="showRecord(1)" id="divOverviewGame">
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
                                     <div class="title language_replace">遊戲紀錄資訊</div>
-                                    <%--<div class="btn btn-detail-link">詳細</div>--%>
+                                    <div class="btn btn-detail-link">詳細</div>
                                 </div>
                                 <div class="record-overview-content">
                                     <div class="MT__table">
@@ -848,7 +876,7 @@
                                                     <span class="text language_replace">データがありません</span>
                                                 </div>
                                             </div>--%>
-                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -878,6 +906,7 @@
                             </div>
                             <div class="sec-title-wrapper">
                                 <h1 class="sec-title title-deco"><span class="language_replace">詳細出入金記錄</span></h1>
+                                <%--
                                 <!-- 獎金/禮金 TAB -->
                                 <div class="tab-record tab-scroller tab-2">
                                     <div class="tab-scroller__area">
@@ -893,6 +922,7 @@
                                         </ul>
                                     </div>
                                 </div>
+                                --%>
                             </div>
                         </div>
                         <!-- TABLE for Desktop -->
@@ -954,6 +984,7 @@
                             </div>
                             <div class="sec-title-wrapper">
                                 <h1 class="sec-title title-deco"><span class="language_replace">詳細遊戲記錄</span></h1>
+                                <%--
                                 <!-- 獎金/禮金 TAB -->
                                 <div class="tab-record tab-scroller tab-2">
                                     <div class="tab-scroller__area">
@@ -968,6 +999,7 @@
                                         </ul>
                                     </div>
                                 </div>
+                                --%>
                             </div>
                         </div>
                         <!-- TABLE -->
