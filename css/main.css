@@ -2506,6 +2506,11 @@ main.innerMain.fixed {
   overflow: hidden;
 }
 
+@media (min-width: 768px) {
+  .innerBody {
+    padding-left: 56px;
+  }
+}
 /* Sidebar Menu為垂直側邊選單時 */
 .vertical-menu .search-bar.mobile {
   background-color: #fff;
@@ -2757,9 +2762,6 @@ main.innerMain.fixed {
   }
   .vertical-menu .navbar-toggler span {
     background: #fff;
-  }
-  .vertical-menu .main_area {
-    padding-left: 56px;
   }
   .vertical-menu .header_menu {
     width: 100%;
