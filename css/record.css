@@ -139,6 +139,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   border-radius: 15px;
   padding: 10px 5px;
 }
+.record-overview-box.active .btn-detail-link {
+  display: none;
+}
 .record-overview-box.payment {
   background-color: #7ACEA6;
 }
@@ -659,9 +662,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .record-overview-box.game.active {
     border: solid 4px #DD8800;
-  }
-  .record-overview-box.active .btn-detail-link {
-    display: none;
   }
 
   .record-overview-box {
