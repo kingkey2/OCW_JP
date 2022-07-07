@@ -3,12 +3,14 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .tab-game {
-  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#D6D6D6));
-  background: linear-gradient(180deg, white 0%, #D6D6D6 100%);
+  background-color: #D9D9D9;
   position: sticky;
   top: 0;
   z-index: 100;
   padding: 0 10px 0;
+}
+.tab-game .icon-mask::before {
+  color: #454545;
 }
 .tab-game .content {
   max-width: 840px;
@@ -32,7 +34,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: rgba(109, 188, 225, 0.75);
+  background-color: #00afff;
   color: #fff;
   text-shadow: 0px 0px 4px #004565;
 }
@@ -59,7 +61,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           transform: translate3d(0, -50%, 0);
 }
 .tab-game .tab-scroller .tab-item.active .title {
-  background-color: #50baeb;
+  background-color: #48c5ff;
 }
 .tab-inner {
   display: -webkit-box;
@@ -379,11 +381,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 1920px) {
-  .tab-game .icon-mask {
-    width: 3.75rem;
-    height: 3.75rem;
-  }
-
   .game_slider .swiper-slide {
     width: 200px;
   }
