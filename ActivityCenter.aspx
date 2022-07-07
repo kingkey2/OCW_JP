@@ -147,9 +147,11 @@
                 case 5:
                     $('#ModalPP2 .activity-popup-detail-inner').load(url);
                     $('#ModalPP2').modal('show');
+                    break;
                 case 6:
                     $('#Modalbng2 .activity-popup-detail-inner').load(url);
                     $('#Modalbng2').modal('show');
+                    break;
                 case 7:
                     window.open(url);
                     break;
