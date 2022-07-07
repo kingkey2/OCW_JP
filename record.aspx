@@ -736,7 +736,8 @@
                     </div>
                     <div class="record-overview-wrapper">
                         <!-- 出入金總覽 -->
-                        <div class="record-overview-box payment active" onclick="showRecord(0)" id="divOverviewPayment">
+                        <div class="record-overview-box payment active" id="divOverviewPayment">
+                            <div class="record-overview-link" onclick="showRecord(0)"></div>
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
                                     <div class="title language_replace">出入金紀錄資訊</div>
@@ -809,7 +810,8 @@
                             </div>
                         </div>
                         <!-- 遊戲總覽-->
-                        <div class="record-overview-box game" onclick="showRecord(1)" id="divOverviewGame">
+                        <div class="record-overview-box game" id="divOverviewGame">
+                            <div class="record-overview-link" onclick="showRecord(1)"></div>
                             <div class="record-overview-inner">
                                 <div class="record-overview-title-wrapper">
                                     <div class="title language_replace">遊戲紀錄資訊</div>
@@ -964,78 +966,77 @@
                                 </div>--%>
                             </div>
                         </div>
-                    </section>
+             </section>
 
-                    <!-- 遊戲紀錄細詳  -->
-                    <section class="section-record-game" id="div_Game" style="display: none">
+                <!-- 遊戲紀錄細詳  -->
+                <section class="section-record-game" id="div_Game" style="display: none">
 
-                        <!-- TABLE TITLE -->
-                        <div class="sec-title-container sec-title-record sec-record-games">
-                            <!-- 活動中心 link-->
-                            <!-- 前/後 月 -->
-                            <div class="sec_link sec-month">
-                                <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth_Game()">
-                                    <i class="icon arrow arrow-left mr-1"></i><span
-                                        class="language_replace">上一個月</span></button>
-                                <span id="idSearchDate_G" class="date_text"></span>
-                                <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth_Game()">
-                                    <span class="language_replace">下一個月</span><i
-                                        class="icon arrow arrow-right ml-1"></i></button>
-                            </div>
-                            <div class="sec-title-wrapper">
-                                <h1 class="sec-title title-deco"><span class="language_replace">詳細遊戲記錄</span></h1>
-                                <%--
-                                <!-- 獎金/禮金 TAB -->
-                                <div class="tab-record tab-scroller tab-2">
-                                    <div class="tab-scroller__area">
-                                        <ul class="tab-scroller__content">
-                                            <li class="tab-item " onclick="showRecord(0)">
-                                                <span class="tab-item-link"><span class="title language_replace">出入金記錄</span>
-                                                </span>
-                                            </li>
-                                            <li class="tab-item active" onclick="showRecord(1)">
-                                                <span class="tab-item-link"><span class="title language_replace">遊戲記錄</span></span>
-                                            </li>
-                                        </ul>
-                                    </div>
+                    <!-- TABLE TITLE -->
+                    <div class="sec-title-container sec-title-record sec-record-games">
+                        <!-- 活動中心 link-->
+                        <!-- 前/後 月 -->
+                        <div class="sec_link sec-month">
+                            <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth_Game()">
+                                <i class="icon arrow arrow-left mr-1"></i><span
+                                    class="language_replace">上一個月</span></button>
+                            <span id="idSearchDate_G" class="date_text"></span>
+                            <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth_Game()">
+                                <span class="language_replace">下一個月</span><i
+                                    class="icon arrow arrow-right ml-1"></i></button>
+                        </div>
+                        <div class="sec-title-wrapper">
+                            <h1 class="sec-title title-deco"><span class="language_replace">詳細遊戲記錄</span></h1>
+                            <%--
+                            <!-- 獎金/禮金 TAB -->
+                            <div class="tab-record tab-scroller tab-2">
+                                <div class="tab-scroller__area">
+                                    <ul class="tab-scroller__content">
+                                        <li class="tab-item " onclick="showRecord(0)">
+                                            <span class="tab-item-link"><span class="title language_replace">出入金記錄</span>
+                                            </span>
+                                        </li>
+                                        <li class="tab-item active" onclick="showRecord(1)">
+                                            <span class="tab-item-link"><span class="title language_replace">遊戲記錄</span></span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                --%>
+                            </div>
+                            --%>
+                        </div>
+                    </div>
+                    <!-- TABLE -->
+                    <div class="record-table-container">
+                        <div class="record-table games-record">
+
+                            <div class="record-table-item header">
+                                <div class="record-table-cell td-date">
+                                    <span class="language_replace">日期</span>
+                                </div>
+                                <div class="record-table-cell td-gameName">
+                                    <span class="language_replace">遊戲名稱</span>
+                                </div>
+                                <div class="record-table-cell td-orderValue">
+                                    <span class="language_replace">投注金額</span>
+                                </div>
+                                <div class="record-table-cell td-validBet">
+                                    <span class="language_replace">出款門檻扣除值</span>
+                                </div>
+                                <div class="record-table-cell td-rewardValue">
+                                    <span class="language_replace">勝/負</span>
+                                </div>
+                            </div>
+
+                            <div id="divGame">
+                            </div>
+                                <div class="no-Data" id="idNoGameData">
+                                <div class="data">
+                                    <span class="text language_replace">沒有資料</span>
+                                </div>
                             </div>
                         </div>
-                        <!-- TABLE -->
-                        <div class="record-table-container">
-                            <div class="record-table games-record">
+                    </div>
 
-                                <div class="record-table-item header">
-                                    <div class="record-table-cell td-date">
-                                        <span class="language_replace">日期</span>
-                                    </div>
-                                    <div class="record-table-cell td-gameName">
-                                        <span class="language_replace">遊戲名稱</span>
-                                    </div>
-                                    <div class="record-table-cell td-orderValue">
-                                        <span class="language_replace">投注金額</span>
-                                    </div>
-                                    <div class="record-table-cell td-validBet">
-                                        <span class="language_replace">出款門檻扣除值</span>
-                                    </div>
-                                    <div class="record-table-cell td-rewardValue">
-                                        <span class="language_replace">勝/負</span>
-                                    </div>
-                                </div>
-
-                                <div id="divGame">
-                                </div>
-                                 <div class="no-Data" id="idNoGameData">
-                                    <div class="data">
-                                        <span class="text language_replace">沒有資料</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </section>
-
+                </section>
                 </div>
             </section>
         </div>
@@ -1135,16 +1136,16 @@
                 </div>
                 <div class="record-table-cell td-amount">
                     <div class="data-amount td-number">
-                        <span class="data count amount">999,999,999</span>
-                        <!-- 出入金訂單狀態 -->
-                        <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
-                        <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
-                        <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
+                        <span class="data count amount">999,999,999</span>                       
                     </div>
                 </div>
                 <div class="record-table-cell td-paymentWay-date">
                     <div class="record-table-cell-wrapper">
                         <div class="td-paymentWay">
+                             <!-- 出入金訂單狀態 -->
+                            <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
+                            <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
+                            <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
                             <span class="data BasicType">paypal</span>
                         </div>
                         <div class="td-date">
@@ -1432,5 +1433,4 @@
     </div>
 
 </body>
-
 </html>
