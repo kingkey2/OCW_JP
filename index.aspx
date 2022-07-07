@@ -1296,26 +1296,26 @@
             if (!localStorage.getItem("LoginMessage")) {
                 if (!sessionStorage.getItem("LoginMessage")) {
                     WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
-                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                         if (document.getElementById("cboxLoginMessage").checked) {
+                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                             localStorage.setItem("LoginMessage", LoginMessageVersion);
                         }
                     });
                 } else {
-                    if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
+                    if (parseFloat(LoginMessageVersion) > parseFloat(sessionStorage.getItem("LoginMessage"))) {
                         WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
-                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                             if (document.getElementById("cboxLoginMessage").checked) {
+                                sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                                 localStorage.setItem("LoginMessage", LoginMessageVersion);
                             }
                         });
                     }
                 }
             } else {
-                if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                if (parseFloat(LoginMessageVersion) > parseFloat(localStorage.getItem("LoginMessage"))) {
                     WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
-                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                         if (document.getElementById("cboxLoginMessage").checked) {
+                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                             localStorage.setItem("LoginMessage", LoginMessageVersion);
                         }
                     });
@@ -3038,7 +3038,7 @@
                 <div class="modal-header">
                     <div class="alert_Title">xxxx</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
