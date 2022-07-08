@@ -274,7 +274,7 @@
                                             <div class="desc language_replace">この狛犬大吉と一緒にBNGの周年記念キャンペーンに参加するぞ！対象ゲームで100ラウンドベットして、ポイントの高い人はボーナスが多くもらえるぞ！</div>
                                         </div>
                                        <!-- 活動詳情 Popup-->
-                                       <button type="button" onclick="activityBtnClick(6)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                       <button type="button" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
