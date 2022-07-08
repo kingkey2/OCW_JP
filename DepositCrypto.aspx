@@ -1170,9 +1170,23 @@
                                         <h6 class="title language_replace">交易限制時間</h6>
                                         <span class="data text-primary ExpireSecond"></span>
                                     </li>
-                                    <li class="item">
+                                    <li class="item no-border mt-4">
                                         <h6 class="title language_replace">出金條件</h6>
-                                        <span class="data ThresholdValue"></span>
+                                        <%--<span class="data ThresholdValue"></span>--%>
+                                        <ul class="deposit-detail-sub">
+                                            <li class="sub-item">
+                                                <span class="title language_replace">入金部份</span>
+                                                <span class="data">123456</span>
+                                            </li>
+                                            <li class="sub-item">
+                                                <span class="title language_replace">獎金部份</span>
+                                                <span class="data">123456</span>
+                                            </li>
+                                            <li class="sub-item">
+                                                <span class="title language_replace">禮金部份</span>
+                                                <span class="data">123456</span>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </div>
