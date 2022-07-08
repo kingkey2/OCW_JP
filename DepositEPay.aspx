@@ -478,16 +478,17 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                <div class="form-group depositName">
-                                    <label class="form-title language_replace" >請正確填寫存款人全名</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="icon icon-wallet"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control custom-style" id="idToDepositName" language_replace="placeholder" placeholder="請填寫片假名全名">
-                                    </div>                                   
+                                <div class="form-group depositLastName mb-2">
+                                    <label class="form-title language_replace" >請正確填寫存款人之姓名</label>
+                                    <div class="input-group">                                       
+                                        <input type="text" class="form-control custom-style" id="idToDepositName" language_replace="placeholder" placeholder="請填寫片假名的姓">
+                                    </div>                            
                                 </div>
-
+                                <div class="form-group depositFirstName">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control custom-style" id="" language_replace="placeholder" placeholder="請填寫片假名的名">
+                                    </div>                            
+                                </div>
                                 <!-- 換算金額(日元) -->
                                 <div class="form-group ">
                                     <div class="input-group inputlike-box-group">
@@ -584,9 +585,23 @@
                                         <span class="data text-primary ExpireSecond"></span>
                                     </li>
 
-                                    <li class="item">
+                                    <li class="item no-border mt-4">
                                         <h6 class="title language_replace">出金條件</h6>
-                                        <span class="data ThresholdValue"></span>
+                                        <%--<span class="data ThresholdValue"></span>--%>
+                                        <ul class="deposit-detail-sub">
+                                            <li class="sub-item">
+                                                <span class="title language_replace">入金部份</span>
+                                                <span class="data">123456</span>
+                                            </li>
+                                            <li class="sub-item">
+                                                <span class="title language_replace">獎金部份</span>
+                                                <span class="data">123456</span>
+                                            </li>
+                                            <li class="sub-item">
+                                                <span class="title language_replace">禮金部份</span>
+                                                <span class="data">123456</span>
+                                            </li>
+                                        </ul>
                                     </li>
 
                                 </ul>

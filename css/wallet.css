@@ -2426,6 +2426,12 @@
   border-bottom: solid 1px rgba(44, 45, 58, 0.1);
   margin-bottom: 1rem;
 }
+
+.deposit-detail .item.no-border {
+  border-bottom: none;
+}
+
+
 .deposit-detail .item:last-child {
   border-bottom: none;
 }
@@ -2455,7 +2461,11 @@
   -ms-flex-pack: justify;
   justify-content: space-between;
   border-bottom: solid 1px rgba(44, 45, 58, 0.1);
-  margin-bottom: 1rem;
+  margin-bottom: 1rem;  
+}
+
+.deposit-detail-sub .sub-item:last-child{
+  border-bottom: none;
   
 }
 
