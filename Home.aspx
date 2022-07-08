@@ -926,7 +926,7 @@
                                                     <span class="name language_replace">金曜日的禮物</span></h3>
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
-                                                    <li class="bouns-item got">
+                                                    <li class="bouns-item">
                                                         <span class="day"><span class="language_replace">五</span></span></li>
                                                     <li class="bouns-item saturday">
                                                         <span class="day"><span class="language_replace">六</span></span>
