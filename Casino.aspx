@@ -623,7 +623,7 @@
 
     <div id="temGameItem" class="is-hide">
         <div class="swiper-slide">
-            <!-- 設定 遊戲 NEW/HOT Label ： class=> "label-new"/"label-hot" -->
+            <!-- 設定 遊戲 NEW/HOT Label ： game-item 加class=> "label-new"/"label-hot" -->
             <div class="game-item">
                 <div class="game-item-inner">
                     <span class="game-item-mobile-popup" data-toggle="modal"></span>
