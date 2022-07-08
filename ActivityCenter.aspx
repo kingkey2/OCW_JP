@@ -559,7 +559,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(6)">參加活動</button>
+                    <!-- <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(6)">參加活動</button> -->
                 </div>
             </div>
         </div>

@@ -104,6 +104,17 @@ html, body {
   font-weight: normal;
 }
 
+
+  @media (min-width: 768px){
+
+      /* 為適應新日本站 sidebar menu default width */     
+      body{
+        padding-left:56px;
+      } 
+  }
+
+
+
 a {
   color: inherit;
   text-decoration: none;

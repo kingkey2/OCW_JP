@@ -1027,9 +1027,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 1920px) {
-  .hero_slider .img-wrap {
-    padding-bottom: 64.5161290323vh;
-  }
   .hero_slider .swiper-pagination {
     bottom: 15px;
   }
@@ -1063,6 +1060,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .thumb-wrapper .swiper-slide:nth-last-child(1) {
     bottom: 15px;
+  }
+}
+@media (min-width: 2560px) {
+  .hero_slider .img-wrap {
+    padding-bottom: 780px;
   }
 }
 @media (max-width: 1144px) {
