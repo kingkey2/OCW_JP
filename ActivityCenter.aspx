@@ -167,7 +167,7 @@
 
         switch (type) {
             case 1:
-                window.parent.API_ComingSoonAlert();
+                window.parent.API_LoadPage('Casino', 'Casino.aspx', false);
                 break;
             case 2:
                 window.parent.API_LoadPage('Deposit', 'Deposit.aspx', true);
