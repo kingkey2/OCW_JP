@@ -30,27 +30,48 @@ public static class EWinWebDB {
             return CategoryCount;
         }
 
+        public static int DeleteCompanyCategoryByCompanyCategoryID(int CompanyCategoryID)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int CategoryCount = 0;
+
+            SS = " DELETE FROM CompanyCategory " +
+                 " WHERE  CompanyCategoryID=@CompanyCategoryID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@CompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
+            CategoryCount = Convert.ToInt32(DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd));
+
+            RedisCache.CompanyCategory.UpdateCompanyCategory();
+            RedisCache.CompanyGameCode.DeleteCompanyGameCode(CompanyCategoryID);
+            return CategoryCount;
+        }
+
+        public static int DeleteCompanyCategoryByCompanyCategoryID2(int CompanyCategoryID)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int CategoryCount = 0;
+
+            SS = " DELETE FROM CompanyCategory " +
+                 " WHERE  CompanyCategoryID=@CompanyCategoryID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@CompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
+            CategoryCount = Convert.ToInt32(DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd));
+
+            RedisCache.CompanyCategory.UpdateCompanyCategory();
+            return CategoryCount;
+        }
+
         public static int InsertCompanyCategory(int EwinCompanyCategoryID, int CategoryType, string CategoryName, int SortIndex, int State, string Location, int ShowType) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int CompanyCategoryID = 0;
-            int CategoryCount = 0;
-
-            //SS = " SELECT COUNT(*) FROM CompanyCategory " +
-            //     " WHERE EwinCompanyCategoryID=@EwinCompanyCategoryID And CategoryType=0";
-            //DBCmd = new System.Data.SqlClient.SqlCommand();
-            //DBCmd.CommandText = SS;
-            //DBCmd.CommandType = System.Data.CommandType.Text;
-            //DBCmd.Parameters.Add("@EwinCompanyCategoryID", System.Data.SqlDbType.Int).Value = EwinCompanyCategoryID;
-            //DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
-            //DBCmd.Parameters.Add("@CategoryName", System.Data.SqlDbType.NVarChar).Value = CategoryName;
-            //DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
-            //DBCmd.Parameters.Add("@State", System.Data.SqlDbType.Int).Value = State;
-            //CategoryCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
-
-
-            //if (CategoryCount == 0)
-            //{
+    
             SS = "INSERT INTO CompanyCategory (EwinCompanyCategoryID, CategoryType, CategoryName,SortIndex,State,Location,ShowType) " +
            "                VALUES (@EwinCompanyCategoryID, @CategoryType, @CategoryName,@SortIndex,@State,@Location,@ShowType) " +
            " SELECT @@IDENTITY";
@@ -65,22 +86,7 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@Location", System.Data.SqlDbType.VarChar).Value = Location;
             DBCmd.Parameters.Add("@ShowType", System.Data.SqlDbType.Int).Value = ShowType;
             CompanyCategoryID = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
-            //}
-            //else
-            //{
-            //    SS = "UPDATE CompanyCategory SET CategoryType=@CategoryType,CategoryName=@CategoryName,SortIndex=@SortIndex,Location=@Location,ShowType=@ShowType " +
-            //   "  WHERE EwinCompanyCategoryID=@EwinCompanyCategoryID";
-            //    DBCmd = new System.Data.SqlClient.SqlCommand();
-            //    DBCmd.CommandText = SS;
-            //    DBCmd.CommandType = System.Data.CommandType.Text;
-            //    DBCmd.Parameters.Add("@EwinCompanyCategoryID", System.Data.SqlDbType.Int).Value = EwinCompanyCategoryID;
-            //    DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
-            //    DBCmd.Parameters.Add("@CategoryName", System.Data.SqlDbType.NVarChar).Value = CategoryName;
-            //    DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
-            //    DBCmd.Parameters.Add("@Location", System.Data.SqlDbType.VarChar).Value = Location;
-            //    DBCmd.Parameters.Add("@ShowType", System.Data.SqlDbType.Int).Value = ShowType;
-            //    CompanyCategoryID = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
-            //}
+
             RedisCache.CompanyCategory.UpdateCompanyCategory();
 
             return CompanyCategoryID;
@@ -180,7 +186,92 @@ public static class EWinWebDB {
             DBCmd.CommandType = System.Data.CommandType.Text;
             DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
 
+            return DeleteCount;
+        }
 
+        public static int DeleteCompanyGameCodeByCategoryID(int CompanyCategoryID)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int DeleteCount = 0;
+            System.Data.DataTable DT = null;
+
+            SS = " DELETE FROM CompanyGameCode WHERE forCompanyCategoryID=@CompanyCategoryID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@CompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
+            DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+
+            return DeleteCount;
+        }
+    }
+
+    public static class CompanyCategoryGameCode
+    {
+
+        public static int InsertCompanyCategoryGameCode(int forCompanyCategoryID, string GameCode)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int insertCount = 0;
+            int searchCount = 0;
+            SS = " SELECT COUNT(*) " +
+               " FROM CompanyCategoryGameCode WITH (NOLOCK) " +
+               " WHERE forCompanyCategoryID=@forCompanyCategoryID And GameCode=@GameCode";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = forCompanyCategoryID;
+            DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+            searchCount = int.Parse(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd).ToString());
+
+            if (searchCount == 0)
+            {
+                SS = "INSERT INTO CompanyCategoryGameCode (forCompanyCategoryID,GameCode) " +
+            "                VALUES (@forCompanyCategoryID,@GameCode) ";
+                DBCmd = new System.Data.SqlClient.SqlCommand();
+                DBCmd.CommandText = SS;
+                DBCmd.CommandType = System.Data.CommandType.Text;
+                DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = forCompanyCategoryID;
+                DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+
+                insertCount = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            }
+
+            return insertCount;
+        }
+
+        public static int DeleteCompanyCategoryGameCodeByCategoryID(int CompanyCategoryID)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int DeleteCount = 0;
+            System.Data.DataTable DT = null;
+
+            SS = " DELETE FROM CompanyCategoryGameCode WHERE forCompanyCategoryID=@CompanyCategoryID";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@CompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
+            DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+
+            return DeleteCount;
+        }
+
+        public static int DeleteCompanyCategoryGameCodeByGameCode(string GameCode)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int DeleteCount = 0;
+            System.Data.DataTable DT = null;
+
+            SS = " DELETE FROM CompanyCategoryGameCode WHERE GameCode=@GameCode";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+            DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
 
             return DeleteCount;
         }

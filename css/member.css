@@ -495,7 +495,7 @@ input.month:read-only, input.day:read-only {
   mask-repeat: no-repeat;
   mask-size: contain;
   -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
-  mask-image: url(.../images/prize/obj-coin-bouns.svg);
+  mask-image: url(../images/prize/obj-coin-bouns.svg);
   margin: 0 auto;
 }
 .dailylogin-bouns-list .bouns-item.got:after {
