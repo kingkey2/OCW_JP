@@ -175,9 +175,16 @@
                                 c.setClassText(RecordDom, "year_c", null, CreateDate.toString("yyyy"));
                                 c.setClassText(RecordDom, "month_c", null, CreateDate.toString("MM"));
                                 c.setClassText(RecordDom, "day_c", null, CreateDate.toString("dd"));
-                                c.setClassText(RecordDom, "year_e", null, ExpireDate.toString("yyyy"));
-                                c.setClassText(RecordDom, "month_e", null, ExpireDate.toString("MM"));
-                                c.setClassText(RecordDom, "day_e", null, ExpireDate.toString("dd"));
+                                if (ExpireDate) {
+                                    c.setClassText(RecordDom, "year_e", null, ExpireDate.toString("yyyy"));
+                                    c.setClassText(RecordDom, "month_e", null, ExpireDate.toString("MM"));
+                                    c.setClassText(RecordDom, "day_e", null, ExpireDate.toString("dd"));
+                                } else {
+                                    let k = CreateDate.getFullYear() + 1;
+                                    c.setClassText(RecordDom, "year_e", null, k);
+                                    c.setClassText(RecordDom, "month_e", null, CreateDate.toString("MM"));
+                                    c.setClassText(RecordDom, "day_e", null, CreateDate.toString("dd"));
+                                }
                                 c.setClassText(RecordDom, "title", null, Collect.PromotionTitle);
                                 $(RecordDom).attr("data-collectid", Collect.CollectID);
                                 $(RecordDom).attr("data-val", PointValue);
@@ -482,7 +489,7 @@
                                 <span class="year year_c">2022</span><span class="month month_c">04</span><span class="day day_c">04</span>
                             </span>
                             <span class="date-period-end">
-                                <span class="year year_e">2022</span><span class="month month_e">06</span><span class="day day_c">06</span>
+                                <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
                             </span>
                         </div>
                     </div>
