@@ -171,7 +171,7 @@
                                     <span class="language_replace">Maharaja</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
-                                <div class="logo vertical-center text-center">
+                                <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
                                     <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
                                 </div>
