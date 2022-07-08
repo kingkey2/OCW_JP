@@ -373,7 +373,7 @@
                 $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
                 switch (LobbyGameList[i].Location) {
                     case 'GameList_All':
-                        $(RecordDom).find('.CategIcon').addClass('icon-all-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
                         break;
                     case 'GameList_Live':
                         $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
@@ -498,6 +498,19 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=6')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/event/bng/bng2207/img/gameroom-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/event/bng/bng2207/img/gameroom-l.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/pp-slot-s.jpg" alt="">
@@ -610,6 +623,7 @@
 
     <div id="temGameItem" class="is-hide">
         <div class="swiper-slide">
+            <!-- 設定 遊戲 NEW/HOT Label ： game-item 加class=> "label-new"/"label-hot" -->
             <div class="game-item">
                 <div class="game-item-inner">
                     <span class="game-item-mobile-popup" data-toggle="modal"></span>
@@ -645,6 +659,8 @@
                                         </div>
                                         <div class="action">
                                             <div class="btn-s-wrapper">
+                                                <!-- 遊戲 NEW/HOT Label -->
+                                                <%--<span class="label-push-status"></span>--%>
                                                 <button type="button" class="btn-thumbUp btn btn-round">
                                                     <i class="icon icon-m-thumup"></i>
                                                 </button>

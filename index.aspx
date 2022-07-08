@@ -1296,26 +1296,26 @@
             if (!localStorage.getItem("LoginMessage")) {
                 if (!sessionStorage.getItem("LoginMessage")) {
                     WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
-                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                         if (document.getElementById("cboxLoginMessage").checked) {
+                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                             localStorage.setItem("LoginMessage", LoginMessageVersion);
                         }
                     });
                 } else {
-                    if (LoginMessageVersion > parseInt(sessionStorage.getItem("LoginMessage"))) {
+                    if (parseFloat(LoginMessageVersion) > parseFloat(sessionStorage.getItem("LoginMessage"))) {
                         WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
-                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                             if (document.getElementById("cboxLoginMessage").checked) {
+                                sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                                 localStorage.setItem("LoginMessage", LoginMessageVersion);
                             }
                         });
                     }
                 }
             } else {
-                if (LoginMessageVersion > parseInt(localStorage.getItem("LoginMessage"))) {
+                if (parseFloat(LoginMessageVersion) > parseFloat(localStorage.getItem("LoginMessage"))) {
                     WithCheckBoxShowMessageOK(LoginMessageTitle, LoginMessage, function () {
-                        sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                         if (document.getElementById("cboxLoginMessage").checked) {
+                            sessionStorage.setItem("LoginMessage", LoginMessageVersion);
                             localStorage.setItem("LoginMessage", LoginMessageVersion);
                         }
                     });
@@ -1445,7 +1445,6 @@
                 API_Home();
             }
 
-            API_GetUserThisWeekTotalValidBetValue();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
             //登入Check
@@ -1471,7 +1470,7 @@
                                             API_LoadPage("SrcPage", srcPage, true);
                                         }
                                     }
-
+                                    API_GetUserThisWeekTotalValidBetValue();
                                     notifyWindowEvent("IndexFirstLoad", logined);
                                     EWinWebInfo.FirstLoaded = true;
                                 });
@@ -3039,7 +3038,7 @@
                 <div class="modal-header">
                     <div class="alert_Title">xxxx</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><%--<i class="icon-close-small is-hide"></i>--%></span>
+                        <span>×</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -3048,7 +3047,7 @@
                             <div class="popup-detail-inner">
                                 <div class="popup-detail-content">
                                     <section class="section-wrap">
-                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告詳情</span></h6>
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情</span></h6>
                                         <div class="section-content">
                                             <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
                                         </div>

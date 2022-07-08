@@ -474,7 +474,7 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     //[WebMethod]
-    //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue, string ActivityName) {
+    //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue, string ActivityName, int CollectAreaType) {
 
     //    if (CheckPassword(password)) {
     //        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
@@ -485,7 +485,7 @@ public class MgmtAPI : System.Web.Services.WebService {
     //        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
     //        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
 
-    //        lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, 1, 90, description, PropertySets.ToArray());
+    //        lobbyAPI.AddPromotionCollect(GetToken(), GUID, LoginAccount, EWinWeb.MainCurrencyType, CollectAreaType, 90, description, PropertySets.ToArray());
     //        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, decimal.Parse(ThresholdValue), decimal.Parse(BonusValue));
     //    }
     //}
