@@ -67,6 +67,9 @@
                         case "2":
                             GoActivityDetail(2, '/Activity/Act002/CenterPage/index.html');
                             break;
+                        case "3":
+                            GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')
+                            break;
                         case "4":
                             GoActivityDetail(4, '/Activity/event/pp-1/index-jp.html');
                             break;
@@ -167,7 +170,7 @@
 
         switch (type) {
             case 1:
-                window.parent.API_ComingSoonAlert();
+                window.parent.API_LoadPage('Casino', 'Casino.aspx', false);
                 break;
             case 2:
                 window.parent.API_LoadPage('Deposit', 'Deposit.aspx', true);
@@ -403,7 +406,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_ComingSoonAlert()">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx', false)">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
