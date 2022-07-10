@@ -655,12 +655,21 @@
                                         <input type="text" class="form-control custom-style" id="" language_replace="placeholder" placeholder="請填寫片假名的名">
                                     </div>                            
                                 </div>
-                                <div class="language_replace mt-4 mb-1">
+                                <div class="form-group mt-4 mb-0">
+                                    <label class="form-title language_replace" >選擇銀行</label>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
+                                    <select class="custom-select mb-4" id="SearchBank" style=""></select> 
+                                </div>
+                                
+                                <!-- 舊的 測試無誤時刪除-->
+                                <%--
+                                <div class="language_replace mt-4 mb-0" >
                                     <label class="language_replace" style="font-size: 1rem;">選擇銀行</label>
                                     <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
                                  </div>
                                  <select class="custom-select mb-4" id="SearchBank" style=""></select>                                   
-                            </select>
+                               </select>
+                               --%>
                                   
                             <div class="form-group">
                                 <label class="form-title language_replace">輸入分行代碼</label>
