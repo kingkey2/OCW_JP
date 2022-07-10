@@ -124,12 +124,35 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .record-overview-wrapper .MT__table .Thead .thead__th {
   background-color: transparent;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 .record-overview-wrapper .MT__table .amount {
-  font-size: 1.875rem;
+  font-size: 1.5625rem;
+}
+.record-overview-wrapper .MT__table .thead__tr {
+  height: auto;
 }
 .record-overview-wrapper .MT__table .tbody__tr.stress .tbody__td {
   padding: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.record-overview-wrapper .MT__table .tbody__tr.stress .tbody__td:first-child .td__content {
+  border-radius: 10px 0 0 10px;
+}
+.record-overview-wrapper .MT__table .tbody__tr.stress .tbody__td:last-child .td__content {
+  border-radius: 0 10px 10px 0;
+}
+.record-overview-wrapper .MT__table .Tbody .tbody__td .td__title {
+  font-weight: 300;
+  font-size: 0.90625rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+.record-overview-wrapper .btn-detail-link {
+  padding-top: 0;
+  padding-bottom: 0;
+  display: none;
 }
 .record-overview-box {
   width: 100%;
@@ -185,8 +208,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: 1.25rem;
+  margin-bottom: 5px;
+  font-size: 1.125rem;
 }
 
 .MT__table {
@@ -686,20 +709,40 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 49%;
   }
   .record-overview-box.payment.active {
-    -webkit-box-shadow: inset 0 0 0 4px #59b587;
-            box-shadow: inset 0 0 0 4px #59b587;
+    -webkit-box-shadow: inset 0 0 0 5px #59b587;
+            box-shadow: inset 0 0 0 5px #59b587;
   }
   .record-overview-box.payment:hover {
-    -webkit-box-shadow: inset 0 0 0 4px #59b587, 0 0 7px 3px #7acea6;
-            box-shadow: inset 0 0 0 4px #59b587, 0 0 7px 3px #7acea6;
+    -webkit-box-shadow: inset 0 0 0 5px #59b587, 0 0 7px 3px #7acea6;
+            box-shadow: inset 0 0 0 5px #59b587, 0 0 7px 3px #7acea6;
   }
   .record-overview-box.game.active {
-    -webkit-box-shadow: inset 0 0 0 4px #DD8800;
-            box-shadow: inset 0 0 0 4px #DD8800;
+    -webkit-box-shadow: inset 0 0 0 5px #DD8800;
+            box-shadow: inset 0 0 0 5px #DD8800;
   }
   .record-overview-box.game:hover {
-    -webkit-box-shadow: inset 0 0 0 4px #DD8800, 0 0 7px 3px rgba(255, 157, 0, 0.55);
-            box-shadow: inset 0 0 0 4px #DD8800, 0 0 7px 3px rgba(255, 157, 0, 0.55);
+    -webkit-box-shadow: inset 0 0 0 5px #DD8800, 0 0 7px 3px rgba(255, 157, 0, 0.55);
+            box-shadow: inset 0 0 0 5px #DD8800, 0 0 7px 3px rgba(255, 157, 0, 0.55);
+  }
+  .record-overview-box.active .record-overview-link:after {
+    opacity: 0;
+  }
+  .record-overview-box:hover .record-overview-link:after {
+    opacity: 0;
+  }
+  .record-overview-link:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    opacity: 1;
   }
 
   .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue {

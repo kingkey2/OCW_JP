@@ -1047,7 +1047,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .thumb-wrapper .swiper-slide:nth-last-child(5) {
-    bottom: 25px;
+    bottom: 15px;
   }
   .thumb-wrapper .swiper-slide:nth-last-child(4) {
     bottom: 10px;
@@ -1065,6 +1065,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 2560px) {
   .hero_slider .img-wrap {
     padding-bottom: 780px;
+  }
+
+  .thumb-wrapper .thumbSwiper {
+    bottom: 25px;
   }
 }
 @media (max-width: 1144px) {
