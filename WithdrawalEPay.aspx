@@ -656,7 +656,7 @@
                                     </div>                            
                                 </div>
                                 <div class="language_replace mt-4 mb-1">
-                                    <label class="form-title language_replace" style="font-size: 1rem;">選擇銀行</label>
+                                    <label class="language_replace" style="font-size: 1rem;">選擇銀行</label>
                                     <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
                                  </div>
                                  <select class="custom-select mb-4" id="SearchBank" style=""></select>                                   
