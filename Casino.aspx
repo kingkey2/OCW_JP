@@ -89,48 +89,14 @@
         FavoGames = window.parent.API_GetFavoGames();
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
-      
+        tmpCategory = "";
         if (LobbyGameList) {
        
             var categorys = LobbyGameList.find(e => e.Location == categoryCode);
 
             if (categorys) {
                 promiseForEach(categorys.Categories, function (category, companyCategoryDatasCount) { createCategory(category, companyCategoryDatasCount) });
-          
-                new Swiper(".GameItemGroup", {
-                    slidesPerView: "auto",
-                    // loop:true,
-                    // slidesPerGroup: 2,
-                    // loopedSlides: 8,
-                    lazy: true,
-                    freeMode: true,
-                    navigation: {
-                        nextEl: ".GameItemGroup .swiper-button-next",
-                        prevEl: ".GameItemGroup .swiper-button-prev",
-                    },
-                    breakpoints: {
-
-                        936: {
-                            freeMode: false,
-                            slidesPerGroup: 6, //index:992px
-                        },
-                        1144: {
-                            slidesPerGroup: 7, //index:1200px
-                        },
-                        1384: {
-                            slidesPerGroup: 7, //index:1440px
-                        },
-                        1544: {
-                            slidesPerGroup: 7, //index:1600px
-                        },
-                        1864: {
-                            slidesPerGroup: 8, //index:1920px
-                        },
-                        1920: {
-                            slidesPerGroup: 8, //index:1920px up
-                        },
-                    }
-                });
+             
             }
         }
     }
@@ -140,7 +106,41 @@
         var nextPromise = function () {
             const promise1 = new Promise((resolve, reject) => {
                 if (i >= arr.length) {
-                    // Processing finished.
+                    $(gameAreas).append(tmpCategory);
+                    new Swiper(".GameItemGroup", {
+                        slidesPerView: "auto",
+                        // loop:true,
+                        // slidesPerGroup: 2,
+                        // loopedSlides: 8,
+                        lazy: true,
+                        freeMode: true,
+                        navigation: {
+                            nextEl: ".GameItemGroup .swiper-button-next",
+                            prevEl: ".GameItemGroup .swiper-button-prev",
+                        },
+                        breakpoints: {
+
+                            936: {
+                                freeMode: false,
+                                slidesPerGroup: 6, //index:992px
+                            },
+                            1144: {
+                                slidesPerGroup: 7, //index:1200px
+                            },
+                            1384: {
+                                slidesPerGroup: 7, //index:1440px
+                            },
+                            1544: {
+                                slidesPerGroup: 7, //index:1600px
+                            },
+                            1864: {
+                                slidesPerGroup: 8, //index:1920px
+                            },
+                            1920: {
+                                slidesPerGroup: 8, //index:1920px up
+                            },
+                        }
+                    });
                     return;
                 }
 
@@ -161,11 +161,11 @@
     };
 
     function createCategory(category, companyCategoryDatasCount) {
-
+     
         if (category.Datas.length > 0) {
             var categArea;
             var textlink;
-            var gameItems;
+            var gameItems="";
 
             category.Datas.sort(function (a, b) {
                 return b.SortIndex - a.SortIndex;
@@ -196,16 +196,11 @@
                 } else {
                     RTP = '--';
                 }
-
-                if (gameItem.GameID == 133) {
-                    debugger;
-                    console.log(gameItems);
-                }
-
+               
                 if (iframeWidth < 936) {
-                    gameitemlink = '<span class="game-item-link"></span>';
+                    GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                     btnplay = '<button type="button" class="btn btn-play">';
-                    GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})">`;
+                    gameitemlink = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})">`;
                 } else {
                     GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                     gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '"></span>';
@@ -224,7 +219,7 @@
                 imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
 
 
-                GI = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">
+                GI = `${GItitle}
                             <div class="game-item">
                                 <div class="game-item-inner">
                                     <span class="game-item-mobile-popup" data-toggle="modal"></span>
@@ -286,9 +281,7 @@
                                 </div>
                             </div>
                         </div>`;
-                if (GI == undefined) {
-                    console.log("undefined");
-                }
+                
                 gameItems += GI;
             });
 
@@ -342,8 +335,7 @@
             }
            
             tmpCategory += categArea;
-        
-            $(gameAreas).append(categArea);
+
         }
         
     }
