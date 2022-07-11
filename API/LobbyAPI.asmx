@@ -1043,6 +1043,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 end = currentTime.AddDays(4 - week);  //這禮拜4
             }
 
+       
             TimeSpan ts = end.Subtract(start); //兩時間天數相減
 
             int dayCount = ts.Days + 1; //相距天數
