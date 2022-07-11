@@ -39,9 +39,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.25);
 }
 .activity-item .img-wrap {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 30%;
-          flex: 0 0 30%;
+  height: 0;
   padding-bottom: 63.2%;
   border-radius: 8px 8px 0 0;
   background-repeat: no-repeat;
@@ -101,15 +99,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .tab-prize {
   margin-bottom: 0;
   width: 250px;
-}
-.tab-prize .tab-scroller__content .tab-item.active {
-  color: #459E74;
-}
-.tab-prize .tab-scroller__content .tab-item.active .tab-item-link {
-  border-bottom: solid 4px #459E74;
-}
-.tab-prize .tab-scroller__content .tab-item {
-  font-weight: bold;
 }
 .prize-item {
   position: relative;
