@@ -250,12 +250,6 @@ public static class ActivityExpand {
                                     end = currentTime.AddDays(4 - week - 7);     //上禮拜4
                                 }
 
-                                if (DateTime.Now< new DateTime(2022, 7, 15))
-                                {
-                                    SetResultException(R, "NotEligible");
-                                    return R;
-                                }
-
                                 System.Data.DataTable DT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccount(SI.LoginAccount);
 
                                 if (DT != null && DT.Rows.Count > 0) {
