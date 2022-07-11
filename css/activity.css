@@ -109,10 +109,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   color: white;
   z-index: 1;
   position: relative;
+  -webkit-transition: all 0.35s linear;
+  transition: all 0.35s linear;
 }
 .tab-prize.tab-scroller .tab-item.active {
   color: #fff;
   background-color: #45c5ff;
+}
+.tab-prize.tab-scroller .tab-item:not(.active):hover {
+  background-color: #369AD6;
 }
 .prize-item {
   position: relative;
@@ -404,6 +409,25 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   top: 0;
 }
 
+.btn-QA-transaction {
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (min-width: 641px) {
+  .sec-title-container .btn-activity {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    display: none;
+  }
+  .sec-title-container .tab-prize {
+    width: auto;
+  }
+  .sec-title-container .tab-prize .tab-item-link {
+    padding: 5px 20px;
+  }
+}
 @media (min-width: 712px) {
   .activity-item {
     width: 50%;
