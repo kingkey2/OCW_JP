@@ -1128,6 +1128,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .sec-title-wrapper .sec-title {
+    font-size: 1.21875rem;
+  }
+}
+@media screen and (max-width: 375px) {
+  .sec-title-wrapper .sec-title {
     font-size: 1.15625rem;
   }
 }

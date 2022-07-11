@@ -6461,6 +6461,11 @@ i {
 }
 @media screen and (max-width: 575px) {
   .section-levelUp .sec-title-wrapper .sec-title {
+    font-size: 1.21875rem;
+  }
+}
+@media screen and (max-width: 375px) {
+  .section-levelUp .sec-title-wrapper .sec-title {
     font-size: 1.15625rem;
   }
 }
