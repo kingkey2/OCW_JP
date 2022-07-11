@@ -98,7 +98,21 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .tab-prize {
   margin-bottom: 0;
-  width: 250px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: rgba(133, 133, 133, 0.85);
+  border-radius: 30px;
+  margin-bottom: 1rem;
+}
+.tab-prize.tab-scroller .tab-item {
+  color: white;
+  z-index: 1;
+  position: relative;
+}
+.tab-prize.tab-scroller .tab-item.active {
+  color: #fff;
+  background-color: #45c5ff;
 }
 .prize-item {
   position: relative;

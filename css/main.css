@@ -5482,16 +5482,6 @@ i {
   margin-bottom: 25px;
 }
 
-.sec-title-container .tab-scroller .tab-item:not(:first-child):before {
-  content: "";
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  width: 1px;
-  height: 14px;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 .game-area.overflow-hidden {
   overflow-x: hidden;
   padding-bottom: 20px;
