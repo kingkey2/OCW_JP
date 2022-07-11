@@ -1126,4 +1126,18 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .dailylogin-bouns-list {
     width: 100%;
   }
+
+  .sec-title-wrapper .sec-title {
+    font-size: 1.21875rem;
+  }
+}
+@media screen and (max-width: 375px) {
+  .sec-title-wrapper .sec-title {
+    font-size: 1.15625rem;
+  }
+}
+@media screen and (max-width: 360px) {
+  .sec-title-wrapper .sec-title {
+    font-size: 1.09375rem;
+  }
 }
