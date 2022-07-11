@@ -1170,7 +1170,7 @@
                                         <h6 class="title language_replace">交易限制時間</h6>
                                         <span class="data text-primary ExpireSecond"></span>
                                     </li>
-                                    <li class="item no-border mt-4">
+                                    <li class="item no-border mt-4" style="display: none">
                                         <h6 class="title language_replace">出金條件</h6>
                                         <%--<span class="data ThresholdValue"></span>--%>
                                         <ul class="deposit-detail-sub">
