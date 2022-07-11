@@ -985,7 +985,7 @@
 
 .card-item-intro .img-crop{
   
-  max-width:420px;
+  max-width:360px;
   margin:0 auto;
 
 }
@@ -2419,12 +2419,19 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-flow: row wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   border-bottom: solid 1px rgba(44, 45, 58, 0.1);
   margin-bottom: 1rem;
 }
+
+.deposit-detail .item.no-border {
+  border-bottom: none;
+}
+
+
 .deposit-detail .item:last-child {
   border-bottom: none;
 }
@@ -2438,6 +2445,36 @@
   word-break: break-all;
   text-align: right;
 }
+
+.deposit-detail-sub {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.deposit-detail-sub .sub-item{
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-flow: row wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-bottom: solid 1px rgba(44, 45, 58, 0.1);
+  margin-bottom: 1rem;  
+}
+
+.deposit-detail-sub .sub-item:last-child{
+  border-bottom: none;
+  
+}
+
+.deposit-detail-sub .sub-item .title{
+  font-size: 0.85rem;
+  color: rgba(44, 45, 58, 0.8);
+
+}
+
 
 i.icon-logo {
   display: -webkit-inline-box;

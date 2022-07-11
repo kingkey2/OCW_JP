@@ -792,6 +792,15 @@
                                     </div>
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
+                                <div class="form-group award-take-check">
+                                    <div class="form-check">
+                                        <label for="CheckAward">
+                                            <input class="form-check-input" type="checkbox" name="CheckAward" checked="true">
+                                            <span class="language_replace">請勾選確認出金注意事項</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <!-- 換算金額(日元) -->
                                 <%--<div class="form-group ">
                                     <div class="input-group inputlike-box-group">

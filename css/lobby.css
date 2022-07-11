@@ -70,6 +70,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
+  width: 96%;
   max-width: 640px;
   margin: 0 auto;
 }
@@ -79,6 +80,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -ms-inline-flexbox;
   display: inline-flex;
   cursor: pointer;
+  margin-right: 2px;
+  width: 46.9565217391px;
 }
 .tab-search .title {
   display: none;
@@ -195,6 +198,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 712px) {
   .tab-game .tab-scroller {
     max-height: 52px;
+  }
+  .tab-game .tab-search {
+    width: 55.1739130435px;
   }
   .tab-game .icon-mask {
     height: 52px;
@@ -379,6 +385,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 1920px) {
   .tab-game .tab-scroller {
     max-height: 64px;
+  }
+  .tab-game .tab-search {
+    width: 69.2608695652px;
   }
   .tab-game .icon-mask {
     height: 64px;
