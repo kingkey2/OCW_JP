@@ -155,52 +155,58 @@
             var amount = parseFloat($("#amount").val());
             var depositName;
             var paymentID = PaymentMethod[0]["PaymentMethodID"];
-            
-            if ($("#idToDepositName").val() != '') {
+            var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
+            var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
 
-                depositName = $("#idToDepositName").val().trim();
+            if (bankCardNameFirst == '') {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
+                window.parent.API_LoadingEnd(1);
+                return false;
+            }
 
-                PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
-                    if (success) {
-                        let data = o.Data;
-                        if (o.Result == 0) {
-                            $("#depositdetail .DepositName").text(data.ToInfo);
-                            $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());                         
-                            $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
-                            $("#depositdetail .OrderNumber").text(data.OrderNumber);
-                            $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
-                            $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
-                            ExpireSecond = data.ExpireSecond;
+            if (bankCardNameSecond == '') {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
+                window.parent.API_LoadingEnd(1);
+                return false;
+            }
 
-                            var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                            var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                            c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
-                            c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
-                            depositdetail.appendChild(CollectionitemDom);
+            depositName = bankCardNameFirst + "　" + bankCardNameSecond;
 
-                            OrderNumber = data.OrderNumber;
-                            GetDepositActivityInfoByOrderNumber(OrderNumber);
-                        } else {
-                            window.parent.API_LoadingEnd(1);
-                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+            PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
+                if (success) {
+                    let data = o.Data;
+                    if (o.Result == 0) {
+                        $("#depositdetail .DepositName").text(data.ToInfo);
+                        $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
+                        $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
+                        $("#depositdetail .OrderNumber").text(data.OrderNumber);
+                        $("#depositdetail .PaymentMethodName").text(data.PaymentMethodName);
+                        $("#depositdetail .ThresholdValue").text(new BigNumber(data.ThresholdValue).toFormat());
+                        ExpireSecond = data.ExpireSecond;
 
-                            });
-                        }
+                        var depositdetail = document.getElementsByClassName("Collectionitem")[0];
+                        var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                        c.setClassText(CollectionitemDom, "currency", null, data.ReceiveCurrencyType);
+                        c.setClassText(CollectionitemDom, "val", null, new BigNumber(data.ReceiveTotalAmount).toFormat());
+                        depositdetail.appendChild(CollectionitemDom);
 
-                    }
-                    else {
+                        OrderNumber = data.OrderNumber;
+                        GetDepositActivityInfoByOrderNumber(OrderNumber);
+                    } else {
                         window.parent.API_LoadingEnd(1);
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                         });
                     }
-                })
-            } else {
-                window.parent.API_LoadingEnd(1);
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入匯款人姓名"), function () {
 
-                });
-            }           
+                }
+                else {
+                    window.parent.API_LoadingEnd(1);
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
+
+                    });
+                }
+            })
         } else {
             window.parent.API_LoadingEnd(1);
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {
@@ -481,12 +487,12 @@
                                 <div class="form-group depositLastName mb-2">
                                     <label class="form-title language_replace" >請正確填寫存款人之姓名</label>
                                     <div class="input-group">                                       
-                                        <input type="text" class="form-control custom-style" id="idToDepositName" language_replace="placeholder" placeholder="請填寫片假名的姓">
+                                        <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="請填寫片假名的姓">
                                     </div>                            
                                 </div>
                                 <div class="form-group depositFirstName">
                                     <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="" language_replace="placeholder" placeholder="請填寫片假名的名">
+                                        <input type="text" class="form-control custom-style" id="bankCardNameSecond" language_replace="placeholder" placeholder="請填寫片假名的名">
                                     </div>                            
                                 </div>
                                 <!-- 換算金額(日元) -->
@@ -587,8 +593,8 @@
 
                                     <li class="item no-border mt-4">
                                         <h6 class="title language_replace">出金條件</h6>
-                                        <%--<span class="data ThresholdValue"></span>--%>
-                                        <ul class="deposit-detail-sub">
+                                        <span class="data ThresholdValue"></span>
+                                 <%--       <ul class="deposit-detail-sub">
                                             <li class="sub-item">
                                                 <span class="title language_replace">入金部份</span>
                                                 <span class="data">123456</span>
@@ -601,7 +607,7 @@
                                                 <span class="title language_replace">禮金部份</span>
                                                 <span class="data">123456</span>
                                             </li>
-                                        </ul>
+                                        </ul>--%>
                                     </li>
 
                                 </ul>
