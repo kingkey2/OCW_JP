@@ -63,7 +63,9 @@
     var GCB;
     var iframeWidth;
     var selectedCategoryCode;
-
+    var categoryDatas=[];
+    var FavoGames;
+    var tmpCategory="";
     function showSearchGameModel() {
         window.parent.API_ShowSearchGameModel();
     }
@@ -80,230 +82,204 @@
     }
 
     function updateGameList(categoryCode) {
-    
+
+        
         selectedCategoryCode = categoryCode;
         iframeWidth = $(window.parent.document).find('#IFramePage').width();
-        var FavoGames = window.parent.API_GetFavoGames();
+        FavoGames = window.parent.API_GetFavoGames();
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
-
+      
         if (LobbyGameList) {
-           
-            var companyCategoryDatasCount = 0;
-            var categName;
-
+       
             var categorys = LobbyGameList.find(e => e.Location == categoryCode);
 
             if (categorys) {
-              
-                categorys.Categories.forEach(category => {
-                    var count = 0;
-                    var categArea;
-                    companyCategoryDatasCount++;
+                promiseForEach(categorys.Categories, function (category, companyCategoryDatasCount) { createCategory(category, companyCategoryDatasCount) });
+                //gameAreas.append(tmpCategory);
+                new Swiper(".GameItemGroup", {
+                    slidesPerView: "auto",
+                    // loop:true,
+                    // slidesPerGroup: 2,
+                    // loopedSlides: 8,
+                    lazy: true,
+                    freeMode: true,
+                    navigation: {
+                        nextEl: ".GameItemGroup .swiper-button-next",
+                        prevEl: ".GameItemGroup .swiper-button-prev",
+                    },
+                    breakpoints: {
 
-                    if (category.Datas.length > 0) {
-
-                        if (category.ShowType == 0) {
-                            categArea = c.getTemplate("temCategArea");
-                            categName = category.CategoryName.replace('@', '').replace('#', '');
-                            $(categArea).find('.CategName').text(mlp.getLanguageKey(categName));
-                            $(categArea).find('.CategName').attr('langkey', categName);
-
-                            if (category.SortIndex>=90) {
-                                $(categArea).find('.text-link').css('display', 'block');
-                                $(categArea).find('.title-showAll').text(mlp.getLanguageKey('全部顯示'));
-                               
-                            }
-                        } else {
-                            categArea = c.getTemplate("temCategArea2");
-                        }
-
-                        $(categArea).find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
-                        $(categArea).find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
-                        category.Datas.sort(function (a, b) {
-                            return b.SortIndex - a.SortIndex;
-                        });
-                        category.Datas.forEach(gameItem => {
-                            var GI;
-                            var showAllbtn = categArea.querySelector('.title-showAll');
-                            showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
-
-                            if (category.SortIndex >= 90) {
-                                var categNamebtn = categArea.querySelector('.CategName');
-                                categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
-                            }
-
-                            if (category.ShowType == 0) {
-                                GI = c.getTemplate("temGameItem");
-                                $(GI).addClass('gameid_' + gameItem.GameID);
-                                var GI_a = GI.querySelector(".btn-play");
-                                var GI_Favor = GI.querySelector(".btn-like");
-
-                                if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
-                                    $(GI_Favor).addClass("added");
-                                }
-
-                                GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
-
-                                if (iframeWidth<936) {
-                                   $(categArea).find('.text-link').css('display', 'none');
-
-                                    var RTP = "";
-                                    if (gameItem.RTPInfo) {
-                                        var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
-
-                                        if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
-                                            RTP = RtpInfoObj.RTP.toString();
-                                        } else {
-                                            RTP = '--';
-                                        }
-                                    } else {
-                                        RTP = '--';
-                                    }
-
-                                    GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
-                                } else {
-                                    var GI_gameitemlink = GI.querySelector(".game-item-link");
-                                    GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
-                                    GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
-                                }
-
-                                $(GI).find('.btn-more').click(function () {
-                                    // $(this).toggleClass('show');
-                                    $(this).closest('.game-item-info-detail').toggleClass('open');
-                                });
-
-                                $(GI).find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
-                            } else {
-                                GI = c.getTemplate("temGameItem2");
-                            }
-
-                            var GI_img = GI.querySelector(".gameimg");
-
-                            if (GI_img != null) {
-                                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
-                                var el = GI_img;
-                                var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
-                                observer.observe();
-                            }
-
-                            $(GI).find(".GameBrand").text(gameItem.GameBrand);
-                            if (gameItem.RTPInfo) {
-                                var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
-
-                                if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
-                                    $(GI).find(".valueRTP").text(RtpInfoObj.RTP);
-                                } else {
-                                    $(GI).find(".valueRTP").text('--');
-                                }
-                            } else {
-                                $(GI).find(".valueRTP").text('--');
-                            }
-
-                            $(GI).find(".GameID").text(gameItem.GameID);
-                            $(GI).find(".game-item-name").text(gameItem.GameText[WebInfo.Lang]);
-
-                            $(categArea).find('.GameItemGroupContent').append(GI);
-
-                        });
-
-                        gameAreas.append(categArea);
-
-                        if (category.ShowType == 0) {
-                            new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
-                                slidesPerView: "auto",
-                                // loop:true,
-                                // slidesPerGroup: 2,
-                                // loopedSlides: 8,
-                                lazy: true,
-                                freeMode: true,
-                                navigation: {
-                                    nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
-                                    prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
-                                },
-                                //滿版時的斷點 slidesPerGroup
-                                // breakpoints: {
-                                //     // 576: {
-                                //     //  slidesPerGroup: 3,
-                                //     // },
-                                //     // 640: {
-                                //     //     slidesPerGroup: 4,
-                                //     // },
-                                //     936: {
-                                //         slidesPerGroup: 6, //index:992px
-                                //     },
-                                //     1144: {
-                                //         slidesPerGroup: 7, //index:1200px
-                                //     },
-                                //     1384: {
-                                //         slidesPerGroup: 8, //index:1440px
-                                //     },
-                                //     1544: {
-                                //         slidesPerGroup: 9, //index:1600px
-                                //     },
-                                //     1864: {
-                                //         slidesPerGroup: 10, //index:1920px
-                                //     },
-                                //     1920: {
-                                //         slidesPerGroup: 10, //index:1920px up
-                                //     },
-                                // },
-
-                                //非滿版時的斷點 slidesPerGroup
-                                breakpoints: {
-                                
-                                    936: {
-                                        freeMode: false,
-                                        slidesPerGroup: 6, //index:992px
-                                    },
-                                    1144: {
-                                        slidesPerGroup: 7, //index:1200px
-                                    },
-                                    1384: {
-                                        slidesPerGroup: 7, //index:1440px
-                                    },
-                                    1544: {
-                                        slidesPerGroup: 7, //index:1600px
-                                    },
-                                    1864: {
-                                        slidesPerGroup: 8, //index:1920px
-                                    },
-                                    1920: {
-                                        slidesPerGroup: 8, //index:1920px up
-                                    },
-                              }
-
-
-                            });
-                        }
-                        else {
-                            new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
-                                effect: "coverflow",
-                                grabCursor: true,
-                                centeredSlides: true,
-                                slidesPerView: "auto",
-                                // slidesPerView: 5,
-                                coverflowEffect: {
-                                    rotate: 20,
-                                    stretch: 0,
-                                    depth: 200,
-                                    modifier: 1,
-                                    slideShadows: true,
-                                },
-                                // pagination: {
-                                //     el: ".swiper-pagination",
-                                // },
-                                loop: true,
-                                autuplay: {
-                                    delay: 100,
-                                    disableOnInteraction: false,
-                                }
-                            });
-                        }
+                        936: {
+                            freeMode: false,
+                            slidesPerGroup: 6, //index:992px
+                        },
+                        1144: {
+                            slidesPerGroup: 7, //index:1200px
+                        },
+                        1384: {
+                            slidesPerGroup: 7, //index:1440px
+                        },
+                        1544: {
+                            slidesPerGroup: 7, //index:1600px
+                        },
+                        1864: {
+                            slidesPerGroup: 8, //index:1920px
+                        },
+                        1920: {
+                            slidesPerGroup: 8, //index:1920px up
+                        },
                     }
                 });
             }
         }
+    }
+
+    function promiseForEach(arr, cb) {
+        var i = 0; 
+        var nextPromise = function () {
+            const promise1 = new Promise((resolve, reject) => {
+                if (i >= arr.length) {
+                    // Processing finished.
+                    return;
+                }
+
+                let category = arr[i];
+                let companyCategoryDatasCount = i;
+                
+                cb(arr[i], i);
+                i++;
+                resolve();
+            });
+
+
+            promise1.then(nextPromise);
+        };
+
+        // Kick off the chain.
+        nextPromise();
+    };
+
+    function createCategory(category, companyCategoryDatasCount) {
+
+        if (category.Datas.length > 0) {
+
+            if (category.ShowType == 0) {
+                categArea = c.getTemplate("temCategArea");
+                categName = category.CategoryName.replace('@', '').replace('#', '');
+                $categArea = $(categArea);
+                $categArea.find('.CategName').text(mlp.getLanguageKey(categName));
+                $categArea.find('.CategName').attr('langkey', categName);
+
+                if (category.SortIndex >= 90) {
+                    $categArea.find('.text-link').css('display', 'block');
+                    $categArea.find('.title-showAll').text(mlp.getLanguageKey('全部顯示'));
+
+                }
+            } else {
+                categArea = c.getTemplate("temCategArea2");
+            }
+
+            $categArea.find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
+            $categArea.find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
+            category.Datas.sort(function (a, b) {
+                return b.SortIndex - a.SortIndex;
+            });
+
+            var categoryData = { "id": 'GameItemGroupContent_' + companyCategoryDatasCount, "data": category.Datas };
+            categoryDatas.push(categoryData);
+
+            category.Datas.forEach(gameItem => {
+                var GI;
+                var showAllbtn = categArea.querySelector('.title-showAll');
+                showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
+
+                if (category.SortIndex >= 90) {
+                    var categNamebtn = categArea.querySelector('.CategName');
+                    categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
+                }
+
+                if (category.ShowType == 0) {
+                    GI = c.getTemplate("temGameItem");
+                    $GI = $(GI);
+                    $GI.addClass('gameid_' + gameItem.GameID);
+                    var GI_a = GI.querySelector(".btn-play");
+                    var GI_Favor = GI.querySelector(".btn-like");
+
+                    if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                        $(GI_Favor).addClass("added");
+                    }
+
+                    GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
+
+                    if (iframeWidth < 936) {
+                        $categArea.find('.text-link').css('display', 'none');
+
+                        var RTP = "";
+                        if (gameItem.RTPInfo) {
+                            var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
+
+                            if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                                RTP = RtpInfoObj.RTP.toString();
+                            } else {
+                                RTP = '--';
+                            }
+                        } else {
+                            RTP = '--';
+                        }
+
+                        GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
+                    } else {
+                        var GI_gameitemlink = GI.querySelector(".game-item-link");
+                        GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                        GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
+                    }
+
+                    $GI.find('.btn-more').click(function () {
+                        // $(this).toggleClass('show');
+                        $(this).closest('.game-item-info-detail').toggleClass('open');
+                    });
+
+                    $GI.find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
+                } else {
+                    GI = c.getTemplate("temGameItem2");
+                    $GI = $(GI);
+                }
+
+                var GI_img = GI.querySelector(".gameimg");
+
+                if (GI_img != null) {
+                    //GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+                    //var el = GI_img;
+                    //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                    //observer.observe();
+                }
+
+                $GI.find(".GameBrand").text(gameItem.GameBrand);
+                if (gameItem.RTPInfo) {
+                    var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
+
+                    if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                        $GI.find(".valueRTP").text(RtpInfoObj.RTP);
+                    } else {
+                        $GI.find(".valueRTP").text('--');
+                    }
+                } else {
+                    $GI.find(".valueRTP").text('--');
+                }
+
+                $GI.find(".GameID").text(gameItem.GameID);
+                $GI.find(".game-item-name").text(gameItem.GameText[WebInfo.Lang]);
+
+                $categArea.find('.GameItemGroupContent').append(GI);
+
+            });
+            console.log(new Date().getTime())
+            tmpCategory += categArea.innerHTML;
+            
+            console.log(new Date().getTime())
+        }
+        
     }
 
     function updateGameCode() {
