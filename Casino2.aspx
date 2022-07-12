@@ -178,6 +178,7 @@
                 var gameitemlink;
                 var btnplay;
                 var imgsrc;
+                var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                 if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
                     btnlike = `<button type="button" class="btn-like btn btn-round added" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
                 } else {
@@ -200,8 +201,11 @@
                 if (iframeWidth < 936) {
                     GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                     btnplay = '<button type="button" class="btn btn-play">';
-                    gameitemlink = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})">`;
+                    gameitemlink = `<span class="game-item-link"></span>`;
+                    gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                    //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                 } else {
+                    gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                     GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                     gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '"></span>';
                     btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '">';
@@ -221,64 +225,64 @@
 
                 GI = `${GItitle}
                             <div class="game-item">
-                                <div class="game-item-inner">
-                                    <span class="game-item-mobile-popup" data-toggle="modal"></span>
-                                    <div class="game-item-focus">
-                                        <div class="game-item-img">
-                                           ${gameitemlink}
-                                            <div class="img-wrap">
-                                                <img class="gameimg lozad" src="${imgsrc}">
-                                            </div>
-                                        </div>
-                                        <div class="game-item-info-detail">
-                                            <div class="game-item-info-detail-wrapper">
-                                                <div class="game-item-info-detail-moreInfo">
-                                                    <ul class="moreInfo-item-wrapper">
-                                                        <li class="moreInfo-item brand">
-                                                            <span class="title language_replace">品牌</span>
-                                                            <span class="value GameBrand">${gameItem.GameBrand}</span>
-                                                        </li>
-                                                        <li class="moreInfo-item RTP">
-                                                            <span class="title">RTP</span>
-                                                            <span class="value number valueRTP">${RTP}</span>
-                                                        </li>
-                                                        <li class="moreInfo-item gamecode">
-                                                            <span class="title">NO.</span>
-                                                            <span class="value number GameID">${gameItem.GameID}</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="game-item-info-detail-indicator">
-                                                    <div class="game-item-info-detail-indicator-inner">
-                                                        <div class="info">
-                                                            <h3 class="game-item-name">${gameItem.GameText[WebInfo.Lang]}</h3>
-                                                        </div>
-                                                        <div class="action">
-                                                            <div class="btn-s-wrapper">
-                                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                                    <i class="icon icon-m-thumup"></i>
-                                                                </button>
-                                                               ${btnlike}
-                                                                    <i class="icon icon-m-favorite"></i>
-                                                                </button>
-                                                                <button type="button" class="btn-more btn btn-round">
-                                                                    <i class="arrow arrow-down"></i>
-                                                                </button>
-                                                            </div>
-                                                            ${btnplay}
-                                                                <span class="language_replace">遊玩</span><i class="triangle"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="game-item-info">
-                                        <div class="game-item-info-inner">
-                                            <h3 class="game-item-name"></h3>
-                                        </div>
-                                    </div>
-                                </div>
+<div class="game-item-inner">
+    ${gameitemmobilepopup}
+    <div class="game-item-focus">
+        <div class="game-item-img">
+           ${gameitemlink}
+            <div class="img-wrap">
+                <img class="gameimg lozad" src="${imgsrc}">
+            </div>
+        </div>
+        <div class="game-item-info-detail">
+            <div class="game-item-info-detail-wrapper">
+                <div class="game-item-info-detail-moreInfo">
+                    <ul class="moreInfo-item-wrapper">
+                        <li class="moreInfo-item brand">
+                            <span class="title language_replace">品牌</span>
+                            <span class="value GameBrand">${gameItem.GameBrand}</span>
+                        </li>
+                        <li class="moreInfo-item RTP">
+                            <span class="title">RTP</span>
+                            <span class="value number valueRTP">${RTP}</span>
+                        </li>
+                        <li class="moreInfo-item gamecode">
+                            <span class="title">NO.</span>
+                            <span class="value number GameID">${gameItem.GameID}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="game-item-info-detail-indicator">
+                    <div class="game-item-info-detail-indicator-inner">
+                        <div class="info">
+                            <h3 class="game-item-name">${gameItem.GameText[WebInfo.Lang]}</h3>
+                        </div>
+                        <div class="action">
+                            <div class="btn-s-wrapper">
+<button type="button" class="btn-thumbUp btn btn-round">
+    <i class="icon icon-m-thumup"></i>
+</button>
+                               ${btnlike}
+    <i class="icon icon-m-favorite"></i>
+</button>
+<button type="button" class="btn-more btn btn-round">
+    <i class="arrow arrow-down"></i>
+</button>
+                            </div>
+                            ${btnplay}
+<span class="language_replace">遊玩</span><i class="triangle"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="game-item-info">
+        <div class="game-item-info-inner">
+            <h3 class="game-item-name"></h3>
+        </div>
+    </div>
+</div>
                             </div>
                         </div>`;
 
@@ -608,7 +612,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
                 </div>
                 <div class="swiper-pagination"></div>
@@ -616,7 +620,8 @@
         </section>
         <div class="tab-game">
             <div class="tab-inner">
-                <div class="tab-search" onclick="showSearchGameModel()"><img src="images/icon/ico-search-dog-tt.svg" alt=""><span class="title language_replace">找遊戲</span></div>            
+                <div class="tab-search" onclick="showSearchGameModel()">
+                    <img src="images/icon/ico-search-dog-tt.svg" alt=""><span class="title language_replace">找遊戲</span></div>
                 <div class="tab-scroller tab-5">
                     <div class="tab-scroller__area">
                         <ul class="tab-scroller__content" id="idGameItemTitle">
@@ -624,10 +629,11 @@
                         </ul>
                     </div>
                 </div>
-            </div>           
+            </div>
         </div>
         <section class="game-area overflow-hidden">
             <div class="container" id="gameAreas">
+            
             </div>
         </section>
     </main>
@@ -639,9 +645,9 @@
                     <div class="sec-title-wrapper">
                         <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName"></span></h3>
                     </div>
-                     <a class="text-link" style="display:none;">
-                       <span class="title-showAll"></span><i class="icon arrow arrow-right"></i>             
-                     </a>
+                    <a class="text-link" style="display: none;">
+                        <span class="title-showAll"></span><i class="icon arrow arrow-right"></i>
+                    </a>
                 </div>
                 <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
                     <div class="swiper-wrapper GameItemGroupContent">
