@@ -18,7 +18,15 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />   
     <link href="css/footer-new.css" rel="stylesheet" />
+    <style>
+        .bankUrl:hover {
+            cursor: pointer !important;
+        }
 
+        .bankUrl {
+            color: #007bff !important;
+        }
+    </style>
 </head>
 
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
@@ -181,7 +189,7 @@
                         var strSelectBank= mlp.getLanguageKey("選擇銀行");
                         $('#SearchBank').append(`<option class="title" value="-1" selected="">${strSelectBank}</option>`);
                         for (var i = 0; i < o.Datas.length; i++) {
-                            $('#SearchBank').append(`<option class="searchFilter-option" value="${o.Datas[i]}">${o.Datas[i]}</option>`);
+                            $('#SearchBank').append(`<option class="searchFilter-option" value="${o.Datas[i].BankName}">${o.Datas[i].BankName}</option>`);
                         }
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
@@ -276,7 +284,8 @@
     //建立訂單
     function CreateEPayWithdrawal() {
         var bankCard = $("#bankCard").val().trim();
-        var bankCardName = $("#bankCardName").val().trim();
+        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
+        var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
         var bankName = $("#SearchBank").val();
         var bankBranchCode = $("#bankBranchCode").val().trim();
         if ($("#amount").val().trim() == '') {
@@ -291,8 +300,24 @@
             return false;
         }
 
-        if (bankCardName == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入姓名"), function () { });
+        if (bankCard.length != 7) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("卡號只能輸入7位數"), function () { });
+            $("#bankCard").focus();
+            $("#bankCard").css('border-color', 'red');
+            window.parent.API_LoadingEnd(1);
+            return false;
+        } else {
+            $("#bankCard").css('border-color', '');
+        }
+
+        if (bankCardNameFirst == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
+            window.parent.API_LoadingEnd(1);
+            return false;
+        }
+
+        if (bankCardNameSecond == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
             window.parent.API_LoadingEnd(1);
             return false;
         }
@@ -309,7 +334,23 @@
             return false;
         }
 
+        if (bankBranchCode.length != 3) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("分行碼只能輸入3位數"), function () { });
+            $("#bankBranchCode").focus();
+            $("#bankBranchCode").css('border-color', 'red');
+            window.parent.API_LoadingEnd(1);
+            return false;
+        } else {
+            $("#bankBranchCode").css('border-color', '');
+        }
 
+        if(!$('#CheckAward').prop("checked")){
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請勾選確認出金注意事項"), function () { });
+            window.parent.API_LoadingEnd(1);
+            return false;
+        }
+
+        var bankCardName=bankCardNameFirst+"　"+bankCardNameSecond;
         var amount = parseFloat($("#amount").val().trim());
     
         var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
@@ -396,10 +437,16 @@
         Step3.fadeIn();
         $('.progress-step:nth-child(3)').addClass('cur');
     }
+
+    function goBankPage() {
+        window.open('https://www.jp-bank.japanpost.jp/kojin/sokin/furikomi/kouza/kj_sk_fm_kz_1.html');
+    }
     //完成訂單
     function ConfirmEPayWithdrawal() {
         var bankCard = $("#bankCard").val().trim();
-        var bankCardName = $("#bankCardName").val().trim();
+        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
+        var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
+        var bankCardName=bankCardNameFirst+"　"+bankCardNameSecond;
         var bankName = $("#SearchBank").val();
         var bankBranchCode = $("#bankBranchCode").val().trim();
 
@@ -557,6 +604,7 @@
                             <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額出款</h5> -->
                                 <p class="text-s language_replace">請從下方金額選擇您要的金額，或是自行填入想要出款的金額。兩種方式擇一即可。</p>
+                                 
                             </div>
                             <form>
                                 <div class="form-group">
@@ -571,7 +619,6 @@
                                                 </span>
                                             </label>
                                         </div>
-
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount2" />
                                             <label class="btn btn-outline-primary" for="amount2" data-val="50000" onclick="CoinBtn_Click()">
@@ -604,42 +651,57 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                 <div class="form-group mb-3">
                                     <label class="form-title language_replace">輸入卡號</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control custom-style" id="bankCard" language_replace="placeholder" placeholder="請輸入卡號" onkeyup="bankcardCheck()" />
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
+                                    <label onClick="goBankPage()" class="bankUrl text-s language_replace mt-1">郵帳銀行請參考此處</label>
                                 </div>
-                           
-                                  <div class="form-group">
+                                <div class="form-group depositLastName mb-2">
                                     <label class="form-title language_replace">輸入持卡人姓名</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCardName" language_replace="placeholder" placeholder="請輸入持卡人姓名" />
-                                   
+                                        <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="請填寫片假名的姓" />
                                     </div>
                                 </div>
-                                <div class="form-group language_replace">
-                                    <label class="form-title language_replace">選擇銀行</label>
-                                     <div class="input-group">
-
-                                     </div>
-                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode">
-                         
-                                           </div>
-                                 </div>
-                                   <select class="custom-select" id="SearchBank" style="margin-bottom: 20px;">
-                            </select>
-                                
-                                  
-                     
-                                    <div class="form-group">
-                                    <label class="form-title language_replace">輸入分行代碼</label>
+                                <div class="form-group depositFirstName">
                                     <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankBranchCode" language_replace="placeholder" placeholder="請輸入分行代碼" onkeyup="bankBranchCodeCheck()" />
-                                   
-                                    </div>
+                                        <input type="text" class="form-control custom-style" id="bankCardNameSecond" language_replace="placeholder" placeholder="請填寫片假名的名">
+                                    </div>                            
                                 </div>
+                                <div class="form-group mt-4 mb-0">
+                                    <label class="form-title language_replace" >選擇銀行</label>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
+                                    <select class="custom-select mb-4" id="SearchBank" style=""></select> 
+                                </div>
+                                
+                                <!-- 舊的 測試無誤時刪除-->
+                                <%--
+                                <div class="language_replace mt-4 mb-0" >
+                                    <label class="language_replace" style="font-size: 1rem;">選擇銀行</label>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
+                                 </div>
+                                 <select class="custom-select mb-4" id="SearchBank" style=""></select>                                   
+                               </select>
+                               --%>
+                                  
+                            <div class="form-group">
+                                <label class="form-title language_replace">輸入分行代碼</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style" id="bankBranchCode"
+                                        language_replace="placeholder" placeholder="請輸入分行代碼" onkeyup="bankBranchCodeCheck()" />
+
+                                </div>
+                            </div>
+                            <div class="form-group award-take-check">
+                                <div class="form-check">
+                                    <label for="CheckAward">
+                                        <input class="form-check-input" type="checkbox" name="CheckAward" id="CheckAward">
+                                        <span style="color:red" class="language_replace">出金時，領取中心的獎勵將失效。</span>
+                                    </label>
+                                </div>
+                            </div>
 
                                 <!-- 換算金額(日元) -->
                                 <%--<div class="form-group ">
@@ -659,12 +721,15 @@
                     </div>
                     <div class="main-panel cryptopanel" data-deposite="step2">
                        
-                        <div class="box-item-container crypto-list">
-                       
-                            <!-- 溫馨提醒 -->
-                            <div class="notice-container mt-3 mb-3">
+                        <div class="box-item-container">                           
+                               <div class="card-item-intro">
+                                   <div class="img-crop"><img src="/images/CASHCARD.png"></div>
+                                  
+                              </div>
+                               <!-- 溫馨提醒 -->
+                            <div class="notice-container mt-4 mt-md-5 mb-2">
                                 <div class="notice-item">
-                                    <i class="icon-info_circle_outline"></i>
+                                    <i class="icon-info_circle_outline"></i>     
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
@@ -677,7 +742,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -860,7 +924,7 @@
                     </div>
                 </div>
 
-                <div class="btn-container mt-2">
+                <div class="btn-container mt-4">
                     <button class="btn btn-primary" data-deposite="step2">
                         <span class="language_replace">下一步</span>
                     </button>

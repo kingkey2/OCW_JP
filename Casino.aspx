@@ -67,7 +67,7 @@
     function showSearchGameModel() {
         window.parent.API_ShowSearchGameModel();
     }
- 
+
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
     }
@@ -80,7 +80,7 @@
     }
 
     function updateGameList(categoryCode) {
-    
+
         selectedCategoryCode = categoryCode;
         iframeWidth = $(window.parent.document).find('#IFramePage').width();
         var FavoGames = window.parent.API_GetFavoGames();
@@ -88,14 +88,14 @@
         idGameItemGroup.innerHTML = "";
 
         if (LobbyGameList) {
-           
+
             var companyCategoryDatasCount = 0;
             var categName;
 
             var categorys = LobbyGameList.find(e => e.Location == categoryCode);
 
             if (categorys) {
-              
+
                 categorys.Categories.forEach(category => {
                     var count = 0;
                     var categArea;
@@ -109,10 +109,10 @@
                             $(categArea).find('.CategName').text(mlp.getLanguageKey(categName));
                             $(categArea).find('.CategName').attr('langkey', categName);
 
-                            if (category.SortIndex==99) {
+                            if (category.SortIndex >= 90) {
                                 $(categArea).find('.text-link').css('display', 'block');
                                 $(categArea).find('.title-showAll').text(mlp.getLanguageKey('全部顯示'));
-                               
+
                             }
                         } else {
                             categArea = c.getTemplate("temCategArea2");
@@ -128,7 +128,7 @@
                             var showAllbtn = categArea.querySelector('.title-showAll');
                             showAllbtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
 
-                            if (category.SortIndex == 99) {
+                            if (category.SortIndex >= 90) {
                                 var categNamebtn = categArea.querySelector('.CategName');
                                 categNamebtn.onclick = new Function("window.parent.API_SearchGameByBrand('" + gameItem.GameBrand + "')");
                             }
@@ -145,8 +145,8 @@
 
                                 GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
 
-                                if (iframeWidth<936) {
-                                   $(categArea).find('.text-link').css('display', 'none');
+                                if (iframeWidth < 936) {
+                                    $(categArea).find('.text-link').css('display', 'none');
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {
@@ -251,7 +251,7 @@
 
                                 //非滿版時的斷點 slidesPerGroup
                                 breakpoints: {
-                                
+
                                     936: {
                                         freeMode: false,
                                         slidesPerGroup: 6, //index:992px
@@ -271,7 +271,7 @@
                                     1920: {
                                         slidesPerGroup: 8, //index:1920px up
                                     },
-                              }
+                                }
 
 
                             });
@@ -322,38 +322,49 @@
                 });
             }
 
-            if (!LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.Datas.length > 0 }).Datas.find(function (e) { return e.GameName == 'EWinGaming' })) {
-               
-                var categoryID = LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories[0].CategoryID;
+            if (!LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.CategoryName == "EWin" })) {
+
                 var EwinGame = {
-                    AllowDemoPlay: 1,
-                    BrandText: {
-                        CHT: "EWin",
-                        JPN: "EWin"
-                    },
-                    CategoryID: categoryID,
-                    GameBrand: "EWin",
-                    GameCategoryCode: "Live",
-                    GameCategorySubCode: "Baccarat",
-                    GameCode: null,
-                    GameID: 0,
-                    GameName: "EWinGaming",
-                    GameText: {
-                        CHT: "真人百家樂(eWIN)",
-                        JPN: "EWinゲーミング"
-                    },
-                    Info: "",
-                    IsHot: 0,
-                    IsNew: 0,
-                    RTPInfo: "",
+                    CategoryID: 0,
+                    CategoryName: "EWin",
+                    Datas: [{
+                        AllowDemoPlay: 1,
+                        BrandText: {
+                            CHT: "真人百家樂(eWIN)",
+                            JPN: "EWinゲーミング"
+                        },
+                        CategoryID: 0,
+                        GameBrand: "EWin",
+                        GameCategoryCode: "Live",
+                        GameCategorySubCode: "Baccarat",
+                        GameCode: null,
+                        GameID: 0,
+                        GameName: "EWinGaming",
+                        GameText: {
+                            CHT: "真人百家樂(eWIN)",
+                            JPN: "EWinゲーミング"
+                        },
+                        Info: "",
+                        IsHot: 0,
+                        IsNew: 0,
+                        RTPInfo: "",
+                        SortIndex: 99,
+                        Tag: null
+                    }],
+                    Location: "GameList_All",
+                    ShowType: 0,
                     SortIndex: 99,
-                    Tag: null
+                    State: 0
                 }
 
-                LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.Datas.length >0 }).Datas.unshift(EwinGame);
-
+                var BGindex = LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.findIndex(function (e) { return e.CategoryName == "BTI" });
+                if (BGindex != -1) {
+                    LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.splice(BGindex, 0, EwinGame);
+                } else {
+                    LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.unshift(EwinGame);
+                }
             }
-      
+
             for (var i = 0; i < LobbyGameList.length; i++) {
                 //="API_LoadPage('Casino', 'Casino.aspx', true)"
 
@@ -362,7 +373,7 @@
                 $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
                 switch (LobbyGameList[i].Location) {
                     case 'GameList_All':
-                        $(RecordDom).find('.CategIcon').addClass('icon-all-tt');
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
                         break;
                     case 'GameList_Live':
                         $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
@@ -487,6 +498,19 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=6')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/event/bng/bng2207/img/gameroom-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/event/bng/bng2207/img/gameroom-l.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/pp-slot-s.jpg" alt="">
@@ -558,7 +582,7 @@
         </section>
         <div class="tab-game">
             <div class="tab-inner">
-                <div class="tab-search" onclick="showSearchGameModel()"><img src="images/icon/ico-search-dog.svg" alt=""><span class="title language_replace">找遊戲</span></div>            
+                <div class="tab-search" onclick="showSearchGameModel()"><img src="images/icon/ico-search-dog-tt.svg" alt=""><span class="title language_replace">找遊戲</span></div>            
                 <div class="tab-scroller tab-5">
                     <div class="tab-scroller__area">
                         <ul class="tab-scroller__content" id="idGameItemTitle">
@@ -599,6 +623,7 @@
 
     <div id="temGameItem" class="is-hide">
         <div class="swiper-slide">
+            <!-- 設定 遊戲 NEW/HOT Label ： game-item 加class=> "label-new"/"label-hot" -->
             <div class="game-item">
                 <div class="game-item-inner">
                     <span class="game-item-mobile-popup" data-toggle="modal"></span>
@@ -634,6 +659,8 @@
                                         </div>
                                         <div class="action">
                                             <div class="btn-s-wrapper">
+                                                <!-- 遊戲 NEW/HOT Label -->
+                                                <%--<span class="label-push-status"></span>--%>
                                                 <button type="button" class="btn-thumbUp btn btn-round">
                                                     <i class="icon icon-m-thumup"></i>
                                                 </button>

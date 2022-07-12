@@ -67,11 +67,17 @@
                         case "2":
                             GoActivityDetail(2, '/Activity/Act002/CenterPage/index.html');
                             break;
+                        case "3":
+                            GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')
+                            break;
                         case "4":
                             GoActivityDetail(4, '/Activity/event/pp-1/index-jp.html');
                             break;
                         case "5":
                             GoActivityDetail(5, '/Activity/event/pp-2/index-jp.html');
+                            break;
+                        case "6":
+                            GoActivityDetail(6, '/Activity/event/bng/bng2207/index.html');
                             break;
                     }
                 }
@@ -121,7 +127,8 @@
         //001 入金
         //002 註冊
         //003 7日
-        //004 BNG端午節
+        //004 PP-slot
+        //005 pp-live
         if (url) {
             switch (type) {
                 case 1:
@@ -143,7 +150,13 @@
                 case 5:
                     $('#ModalPP2 .activity-popup-detail-inner').load(url);
                     $('#ModalPP2').modal('show');
-
+                    break;
+                case 6:
+                    $('#Modalbng2 .activity-popup-detail-inner').load(url);
+                    $('#Modalbng2').modal('show');
+                    break;
+                case 7:
+                    window.open(url);
                     break;
                 default:
                     break;
@@ -157,7 +170,7 @@
 
         switch (type) {
             case 1:
-                window.parent.API_ComingSoonAlert();
+                window.parent.API_LoadPage('Casino', 'Casino.aspx', false);
                 break;
             case 2:
                 window.parent.API_LoadPage('Deposit', 'Deposit.aspx', true);
@@ -172,6 +185,10 @@
             case 5:
                 $('#ModalPP2').modal('hide');
                 window.parent.searchGameByBrandAndGameCategory("PP", "Live");
+                break;
+            case 6:
+                $('#Modalbng2').modal('hide');
+                window.parent.searchGameByBrandAndGameCategory("BNG", "Slot");
                 break;
         }
     }
@@ -212,6 +229,60 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
                         <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="Activity/act001/CenterPage/img/deposit-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">Maharaja迎來夏之祭典！四葉親自準備了超優惠的入金活動 ，最高回饋獎金50,000 Ocoin！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(7,'/Activity/event/bng/bng2207-2/index.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="images/activity/BNG-actionList-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">Maharaja也為此思考能盡什麼力，於是抱著虧損的覺悟提出這次的活動。活動期間，「Booongo」的供應費與Maharaja收自Booongo的收益將捐給烏克蘭政府，希望能用於幫助受烏克蘭戰事摧殘的人民。</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" onclick="activityBtnClick(6)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')">                           
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng2207/img/actList-img.jpg" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">この狛犬大吉と一緒にBNGの周年記念キャンペーンに参加するぞ！対象ゲームで100ラウンドベットして、ポイントの高い人はボーナスが多くもらえるぞ！</div>
+                                        </div>
+                                       <!-- 活動詳情 Popup-->
+                                       <button type="button" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">                           
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -239,7 +310,7 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace"></figcaption> -->
-                                            <div class="desc language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！ライブカジノをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得しよう！。</div>
+                                            <div class="desc language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！ライブカジノをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得しよう！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <button type="button" onclick="activityBtnClick(5)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
@@ -248,7 +319,7 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner">
+                            <div class="activity-item-inner"  onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -261,24 +332,6 @@
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <button type="button" onclick="activityBtnClick(1)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img class="" src="images/activity/activity-deposit.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">慶祝Maharaja改版新上市，四葉為此帶來女神的祝福，活動期間入金任意金額都能享有對應比值的回饋獎金(上限五萬)！！</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -302,18 +355,12 @@
                             </div>
                         </figure>
                         
-
                     </div>
                 </section>
-
             </div>
-
         </div>
-
     </main>
-
-
-
+    
     <!-- Modal -->
     <div class="modal fade footer-center" id="ModalTest" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -359,7 +406,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_ComingSoonAlert()">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx', false)">參加活動</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -375,7 +422,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">盛大開幕15日限定</h5>
+                    <h5 class="modal-title language_replace">感謝フィードバック再開！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -494,6 +541,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(5)">參加活動</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade footer-center" id="Modalbng2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace">BNG周年祝い勝利レースプレゼント</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(6)">參加活動</button> -->
                 </div>
             </div>
         </div>

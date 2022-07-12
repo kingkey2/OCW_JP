@@ -63,6 +63,7 @@ public static class ActivityExpand {
                                 R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
                                 R.Data.Title = ActivityDetail["Title"].ToString();
                                 R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                                R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
                                 R.Data.JoinCount = 1;
                             } else {
                                 SetResultException(R, "PaymentCodeNotSupport");
@@ -94,6 +95,7 @@ public static class ActivityExpand {
                                 R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
                                 R.Data.Title = ActivityDetail["Title"].ToString();
                                 R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                                R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
                                 R.Data.JoinCount = 2;
                             } else {
                                 SetResultException(R, "PaymentCodeNotSupport");
@@ -125,6 +127,7 @@ public static class ActivityExpand {
                                 R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
                                 R.Data.Title = ActivityDetail["Title"].ToString();
                                 R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                                R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
                                 R.Data.JoinCount = 3;
                             } else {
                                 SetResultException(R, "PaymentCodeNotSupport");
@@ -174,6 +177,7 @@ public static class ActivityExpand {
                             R.Data.ThresholdValue = (decimal)ActivityDetail["Self"]["ThresholdValue"];
                             R.Data.Title = ActivityDetail["Title"].ToString();
                             R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                            R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
                             R.Data.JoinCount = 1;
 
                             R.Result = ActivityCore.enumActResult.OK;
@@ -277,7 +281,7 @@ public static class ActivityExpand {
                                         }).ToArray();
 
                                         foreach (var item in GameOrderList) {
-                                            if (item.TotalValidBetValue > OrderValue) {
+                                            if (item.TotalValidBetValue > OrderValue || item.TotalValidBetValue == OrderValue) {
                                                 BonusValue += OneDayBonus;
                                             }
                                         }
@@ -302,7 +306,8 @@ public static class ActivityExpand {
                                             R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
                                             R.Data.Title = ActivityDetail["Title"].ToString();
                                             R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
-                                            //R.Data.JoinActivityCycle = start.ToString("yyyy/MM/dd") + "-" + end.ToString("yyyy/MM/dd");
+                                            R.Data.JoinActivityCycle = start.ToString("yyyy/MM/dd") + "-" + end.ToString("yyyy/MM/dd");
+                                            R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
                                             R.Data.JoinCount = 1;
                                         } else {
                                             SetResultException(R, "NotEligible");

@@ -920,7 +920,7 @@
 }
 
 .progress-container {
-  margin: 0 0 1em;
+  margin: 0 0 2.5em;
 }
 
 .progress-line {
@@ -973,6 +973,25 @@
 .progress-title {
   text-align: center;
   margin: 0 0 1.5em;
+}
+
+.card-item-intro{
+  text-align: center;
+  margin-bottom: 1rem;
+  width: 90%;  
+  margin:0 auto;
+ 
+}
+
+.card-item-intro .img-crop{
+  
+  max-width:360px;
+  margin:0 auto;
+
+}
+
+.card-item-intro img{
+  width: 100%;
 }
 
 .card-item {
@@ -1769,7 +1788,7 @@
     margin-bottom: 0.65rem;
   }
   .card-item-inner .title.vertical-center {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
   }
 }
 @media only screen and (min-width: 960px) {
@@ -2400,12 +2419,19 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-flow: row wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   border-bottom: solid 1px rgba(44, 45, 58, 0.1);
   margin-bottom: 1rem;
 }
+
+.deposit-detail .item.no-border {
+  border-bottom: none;
+}
+
+
 .deposit-detail .item:last-child {
   border-bottom: none;
 }
@@ -2419,6 +2445,36 @@
   word-break: break-all;
   text-align: right;
 }
+
+.deposit-detail-sub {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.deposit-detail-sub .sub-item{
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-flow: row wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-bottom: solid 1px rgba(44, 45, 58, 0.1);
+  margin-bottom: 1rem;  
+}
+
+.deposit-detail-sub .sub-item:last-child{
+  border-bottom: none;
+  
+}
+
+.deposit-detail-sub .sub-item .title{
+  font-size: 0.85rem;
+  color: rgba(44, 45, 58, 0.8);
+
+}
+
 
 i.icon-logo {
   display: -webkit-inline-box;

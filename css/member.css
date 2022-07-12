@@ -3,13 +3,6 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .article-member-center {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
   position: relative;
 }
 
@@ -17,6 +10,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .section-member-activity,
 .section-member-wallet-transaction {
   width: 100%;
+  margin-bottom: 1.5rem;
 }
 
 .icon-mask:before {
@@ -32,12 +26,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-ordinal-group: -3;
       -ms-flex-order: -4;
           order: -4;
-}
-.data-item.password {
-  width: 70%;
-  -webkit-box-ordinal-group: -1;
-      -ms-flex-order: -2;
-          order: -2;
 }
 .data-item.birth {
   width: 30%;
@@ -83,21 +71,10 @@ input.month:read-only, input.day:read-only {
           flex: 0 0 calc(100% - 37px);
 }
 
-.data-item-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
-  width: 100%;
-}
-
-.data-item-title {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.password-real .data-item-form-group {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .labels .label {
@@ -116,8 +93,8 @@ input.month:read-only, input.day:read-only {
 }
 
 .member-profile-avater-wrapper {
-  max-width: 145px;
-  margin: 2rem auto 2rem;
+  max-width: 125px;
+  margin: 0rem auto 1rem;
   position: relative;
 }
 .member-profile-avater-wrapper .avater {
@@ -199,20 +176,21 @@ input.month:read-only, input.day:read-only {
 }
 
 .member-wallet-wrapper {
-  background-color: #7acea6;
-  background-image: url(../images/theme/bg_dog_white.png), url(../images/icon/ico-dog-w-shadow.svg);
+  background-color: rgba(81, 189, 139, 0.7);
+  background-image: url(../images/theme/bg_dog_white.png);
   background-position: center center, center top;
   background-repeat: repeat, no-repeat;
   background-size: auto, cover;
-  min-height: 350px;
+  min-height: 185px;
   height: 100%;
   border-radius: 10px;
-  overflow: hidden;
   position: relative;
   margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 .member-wallet-inner {
-  position: absolute;
   width: 100%;
   left: 0;
   right: 0;
@@ -223,17 +201,14 @@ input.month:read-only, input.day:read-only {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-orient: horizontal;
+  border-radius: 10px;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  text-align: center;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .member-wallet-inner > * {
   width: 100%;
@@ -243,6 +218,42 @@ input.month:read-only, input.day:read-only {
 }
 .member-wallet-contnet {
   padding: 10px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  border-radius: 10px 10px 0 0;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 70%;
+          flex: 0 0 70%;
+  height: 70%;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.member-wallet-contnet::after {
+  content: "";
+  display: inline-block;
+  width: 30%;
+  max-width: 160px;
+  height: calc(100% + 25px);
+  height: 100%;
+  position: absolute;
+  position: relative;
+  background: url(../images/icon/ico-dog-w-shadow.svg) center top no-repeat;
+  background-size: contain;
+}
+.member-wallet-contnet:hover {
+  background-color: rgba(0, 0, 0, 0.45);
+}
+.member-wallet-contnet:hover .btn {
+  background-color: #d91a72 !important;
+}
+.member-wallet-detail {
+  width: 70%;
 }
 .member-wallet-amount {
   display: -webkit-box;
@@ -252,15 +263,45 @@ input.month:read-only, input.day:read-only {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
+  width: 65%;
+  padding-right: 8px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .member-wallet-amount .unit {
-  width: 100%;
+  font-size: 1.125rem;
 }
 .member-wallet-amount .amount {
-  font-size: 2.25rem;
+  font-size: 1.375rem;
+  font-weight: 500;
 }
 .member-wallet-amount .member-deposit {
-  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.member-wallet-amount .btn-deposit {
+  width: 36px;
+  height: 36px;
+  margin-left: 0.5em;
+}
+
+.member-record-wrapper {
+  background: #44956E;
+  padding: 0 10px;
+  border-radius: 0 0 10px 10px;
+  text-align: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
+  height: 30%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -271,15 +312,9 @@ input.month:read-only, input.day:read-only {
       -ms-flex-pack: center;
           justify-content: center;
 }
-.member-wallet-amount .btn-deposit {
-  width: 30px;
-  height: 30px;
-  margin-left: 0.5em;
-}
-
-.member-record-wrapper {
-  background: #44956E;
-  padding: 10px;
+.member-record-wrapper .btn {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .member-record-title {
   display: -webkit-box;
@@ -292,11 +327,10 @@ input.month:read-only, input.day:read-only {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
-  padding: 0.5rem 0;
 }
 .member-record-title .icon {
-  width: 36px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
 }
 .member-record-title .icon:before {
   background-color: #fff;
@@ -310,7 +344,26 @@ input.month:read-only, input.day:read-only {
   text-align: center;
   position: relative;
 }
-.activity-center-wrapper {
+
+.activity-center-wrapper .title {
+  font-size: 1.625rem;
+  color: #fff;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+}
+.activity-center-wrapper .btn-activity-in {
+  background-color: #0081bb;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: bold;
+  border-radius: 30px;
+  width: 100%;
+}
+.activity-center-content {
+  position: absolute;
+  bottom: 10px;
+}
+.activity-center-inner {
   background-color: #45c5ff;
   background-image: url(../images/theme/bg_dog_white.png), url(../images/member/bg_activity.svg);
   background-position: center center, 100% 120%;
@@ -322,14 +375,31 @@ input.month:read-only, input.day:read-only {
   overflow: hidden;
   position: relative;
   margin-bottom: 1rem;
+  padding: 10px;
 }
-.activity-center-wrapper .title {
-  font-size: 1.625rem;
+
+.prize-center-wrapper .title {
+  font-size: 1.375rem;
   color: #fff;
   position: absolute;
   bottom: 20px;
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   font-weight: bold;
+  max-width: 4.125rem;
+}
+.prize-center-inner {
+  background-color: #e14382;
+  background-image: url(../images/member/gril-doubt-M.svg);
+  background-position: calc(100% + 30px) calc(50% + 10px);
+  background-repeat: no-repeat;
+  background-size: auto 160%;
+  cursor: pointer;
+  min-height: 120px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 10px;
 }
 
 .dailylogin-bouns-inner {
@@ -344,7 +414,10 @@ input.month:read-only, input.day:read-only {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  width: 140px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  max-width: 140px;
   height: 72px;
   background: url(../images/prize/obj-golden-bag.svg) left center no-repeat;
   background-size: contain;
@@ -382,7 +455,7 @@ input.month:read-only, input.day:read-only {
       -ms-flex-pack: center;
           justify-content: center;
   position: relative;
-  width: 25%;
+  width: 14.2857142857%;
 }
 .dailylogin-bouns-list .bouns-item:before {
   content: "";
@@ -416,13 +489,13 @@ input.month:read-only, input.day:read-only {
   background-color: #dbdbdb;
   mix-blend-mode: color;
   -webkit-mask-position: center center;
-          mask-position: center center;
   -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
   -webkit-mask-size: contain;
-          mask-size: contain;
+  mask-position: center center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
   -webkit-mask-image: url(../images/prize/obj-coin-bouns.svg);
-  mask-image: url(.../images/prize/obj-coin-bouns.svg);
+  mask-image: url(../images/prize/obj-coin-bouns.svg);
   margin: 0 auto;
 }
 .dailylogin-bouns-list .bouns-item.got:after {
@@ -442,117 +515,198 @@ input.month:read-only, input.day:read-only {
   margin-bottom: 6px;
 }
 
-.member-withdraw-wrapper.lacking .member-withdraw-limit-wrapper {
-  background: -webkit-gradient(linear, left top, left bottom, from(#6F6F6F), color-stop(69.79%, #848484), color-stop(74.48%, #6F6F6F));
-  background: linear-gradient(180deg, #6F6F6F 0%, #848484 69.79%, #6F6F6F 74.48%);
-}
-.member-withdraw-wrapper.lacking .member-withdraw-limit-wrapper::after {
-  background-image: url(../images/member/dog-dance-lacking.png);
-}
-.member-withdraw-wrapper.lacking .icon-lock:before {
-  -webkit-mask-image: url(../images/icon/ico-lock-closed.svg);
-  mask-image: url(../images/icon/ico-lock-closed.svg);
-}
-.member-withdraw-wrapper.lacking .title.enough {
-  display: none;
-}
-.member-withdraw-wrapper.enough .member-withdraw-limit-wrapper {
-  background: -webkit-gradient(linear, left top, left bottom, from(#FF9900), color-stop(69.79%, #F4D9BD), color-stop(74.48%, #E58A4C));
-  background: linear-gradient(180deg, #FF9900 0%, #F4D9BD 69.79%, #E58A4C 74.48%);
-}
-.member-withdraw-wrapper.enough .member-withdraw-limit-wrapper::after {
-  background-image: url(../images/member/dog-dance-enough.png);
-}
-.member-withdraw-wrapper.enough .icon-lock:before {
-  -webkit-mask-image: url(../images/icon/ico-lock-open.svg);
-  mask-image: url(../images/icon/ico-lock-open.svg);
-}
-.member-withdraw-wrapper.enough .title.lacking {
-  display: none;
-}
-.member-withdraw-wrapper.enough .limit-amount {
-  display: none;
-}
-.member-withdraw-limit-wrapper {
-  min-height: 350px;
+.member-withdraw-limit-inner {
+  min-height: 185px;
   height: 100%;
-  position: relative;
   border-radius: 10px;
-  margin-bottom: 1rem;
-  padding: 1rem 0;
+  position: relative;
   color: #fff;
-  overflow: hidden;
+  background-position: center top;
 }
-.member-withdraw-limit-wrapper:before {
+.member-withdraw-limit-inner:before {
   content: "";
+  display: block;
   position: absolute;
-  bottom: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background: url(../images/member/bg-spot-mobile.png) center center no-repeat;
-  mix-blend-mode: screen;
-  background-size: contain;
+  background-image: url(../images/theme/bg_dog_white.png);
+  background-position: center center;
+  opacity: 0.3;
 }
-.member-withdraw-limit-wrapper:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  width: 70%;
-  height: 70%;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.member-withdraw-limit-inner {
-  position: relative;
-  z-index: 2;
+.member-withdraw-limit-content {
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 10px 10%;
-  width: 100%;
+}
+.member-withdraw-limit-hint {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 70%;
+          flex: 0 0 70%;
+  height: 70%;
+}
+.member-withdraw-limit-hint:before {
+  content: "";
+  display: block;
+  position: relative;
+  top: -15px;
+  width: 80%;
+  max-width: 220px;
   margin: 0 auto;
+  -webkit-transform: translateX(30px);
+          transform: translateX(30px);
+  height: 100%;
+  min-height: 130px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
-.member-withdraw-limit-inner .icon-lock {
-  width: 5rem;
-  height: 5rem;
+.member-withdraw-limit-detail {
+  position: relative;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
+  height: 30%;
+  max-height: 70px;
+  background-color: #425059;
+  z-index: 1;
+  border-radius: 0 0 10px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
 }
-.member-withdraw-limit-content {
+.member-withdraw-wrapper .limit-wrapper {
+  width: 90%;
+  max-width: 300px;
+}
+.member-withdraw-wrapper .limit-status, .member-withdraw-wrapper .limit-amount {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 0.75rem;
+}
+.member-withdraw-wrapper .limit-status {
+  margin-bottom: 0.1rem;
+}
+.member-withdraw-wrapper .limit-status .value {
+  color: #FAC823;
+  display: none;
+}
+.member-withdraw-wrapper .limit-amount .value {
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+.member-withdraw-wrapper.lacking .member-withdraw-limit-inner {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#E69D00), to(#009ED0));
+  background-image: linear-gradient(0deg, #E69D00 0%, #009ED0 100%);
+}
+.member-withdraw-wrapper.lacking .limit-status .value.lacking {
+  display: initial;
+}
+.member-withdraw-wrapper.lacking .member-withdraw-limit-hint:before {
+  background-image: url(../images/member/dog-sad.svg);
+}
+.member-withdraw-wrapper.enough .member-withdraw-limit-inner {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#E69D00), to(#E69D00));
+  background-image: linear-gradient(0deg, #E69D00 0%, #E69D00 100%);
+}
+.member-withdraw-wrapper.enough .limit-status .value.enough {
+  display: initial;
+}
+.member-withdraw-wrapper.enough .member-withdraw-limit-hint:before {
+  background-image: url(../images/member/dog-happy.svg);
+}
+
+.activity-promo-wrapper {
+  margin-top: 2rem;
+}
+.activity-promo-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.activity-promo-list .promo-item {
+  padding: 0 10px;
+  width: 50%;
+}
+.activity-promo-list .promo-inner {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+}
+.activity-promo-list .promo-img {
+  background-color: #333;
+}
+.activity-promo-list .promo-img:hover img {
+  opacity: 0.5;
+}
+.activity-promo-list .promo-content {
+  padding: 10px;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
-.member-withdraw-limit-content .title {
-  font-size: 1.125rem;
+.activity-promo-list .promo-content .title {
+  font-size: 0.9375rem;
 }
-.member-withdraw-limit-content .limit-amount {
-  font-size: 2.25rem;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 100%;
-          flex: 0 0 100%;
+.activity-promo-list .promo-content .btn {
+  background-color: #3DB6FF;
+  color: #fff;
+  width: 100%;
+  margin-top: 1rem;
 }
-.member-withdraw-limit-content .btn-QA-transaction {
+.activity-promo-list .promo-content .btn:hover {
+  background-color: #0aa3ff;
+}
+.activity-promo-list .promo-content .btn .icon {
   width: 26px;
   height: 26px;
-  padding: 5px;
-  margin-left: 0.5rem;
+}
+
+.data-item-group {
+  min-height: 250px;
+}
+.data-item-group .wrapper_center {
+  width: 100%;
+}
+.data-item-group .wrapper_center .btn {
+  max-width: 300px;
+  border-radius: 30px;
 }
 
 @media (min-width: 640px) {
@@ -594,6 +748,10 @@ input.month:read-only, input.day:read-only {
   .dailylogin-bouns-content .title {
     position: relative;
     bottom: -10px;
+    min-width: 150px;
+  }
+  .dailylogin-bouns-content .title:before {
+    width: 100%;
   }
   .dailylogin-bouns-content .title .name {
     position: absolute;
@@ -607,6 +765,7 @@ input.month:read-only, input.day:read-only {
   .dailylogin-bouns-list {
     position: absolute;
     width: calc(100% - 150px);
+    max-width: 600px;
     right: 0;
     bottom: -10px;
   }
@@ -628,27 +787,33 @@ input.month:read-only, input.day:read-only {
     padding: 0.5rem;
     max-width: 65px;
   }
-}
-.data-item-group {
-  min-height: 250px;
-}
-.data-item-group .wrapper_center {
-  width: 100%;
-}
-.data-item-group .wrapper_center .btn {
-  max-width: 300px;
-  margin: 0 auto;
-  border-radius: 30px;
-}
 
+  .activity-record-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .activity-center-wrapper {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    padding-right: 5px;
+  }
+
+  .prize-center-wrapper {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    padding-left: 5px;
+  }
+
+  .activity-promo-list .promo-item {
+    width: 33.3333333333%;
+  }
+}
 @media (min-width: 712px) {
   .data-item.name {
-    width: 27.5%;
-    -webkit-box-ordinal-group: initial;
-        -ms-flex-order: initial;
-            order: initial;
-  }
-  .data-item.password {
     width: 27.5%;
     -webkit-box-ordinal-group: initial;
         -ms-flex-order: initial;
@@ -676,6 +841,23 @@ input.month:read-only, input.day:read-only {
     width: 100%;
     right: 0;
   }
+
+  .prize-center-wrapper {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 40%;
+            flex: 0 0 40%;
+  }
+  .prize-center-inner {
+    background-image: url(../images/member/gril-doubt-L.svg);
+    background-position: center center;
+    background-position: calc(100% + 30px) calc(50% - 10px);
+    background-size: auto 180%;
+  }
+}
+@media (min-width: 936px) {
+  .activity-promo-list .promo-item {
+    width: 25%;
+  }
 }
 @media (min-width: 1384px) {
   .data-item.name {
@@ -683,12 +865,6 @@ input.month:read-only, input.day:read-only {
     -webkit-box-ordinal-group: -3;
         -ms-flex-order: -4;
             order: -4;
-  }
-  .data-item.password {
-    width: 60%;
-    -webkit-box-ordinal-group: -1;
-        -ms-flex-order: -2;
-            order: -2;
   }
   .data-item.birth {
     width: 40%;
@@ -711,56 +887,23 @@ input.month:read-only, input.day:read-only {
     right: 0;
   }
 
+  .article-member-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+  }
+
   .section-member-profile,
-.section-member-activity,
-.section-member-wallet-transaction {
+.section-member-setting {
     width: 50%;
   }
 
   .section-member-profile {
     padding-right: 1rem;
-  }
-
-  .section-member-activity {
-    min-height: 950px;
-  }
-
-  .section-member-wallet-transaction {
-    position: absolute;
-    right: 0;
-    top: 260px;
-  }
-  .section-member-wallet-transaction .member-wallet-deposit-wrapper,
-.section-member-wallet-transaction .member-withdraw-wrapper {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-    padding: 0;
-  }
-  .section-member-wallet-transaction .member-wallet-deposit-wrapper {
-    margin-bottom: 1rem;
-  }
-
-  .member-wallet-wrapper {
-    background-size: auto 125%;
-    background-position: -30px center;
-    min-height: 300px;
-  }
-  .member-wallet-contnet {
-    width: 50%;
-  }
-
-  .member-wallet-inner {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(89, 181, 135, 0.9)), to(rgba(22, 181, 114, 0.9)));
-    background: linear-gradient(180deg, rgba(89, 181, 135, 0.9) 0%, rgba(22, 181, 114, 0.9) 100%);
-    padding: 10px;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-  }
-
-  .member-record-wrapper {
-    width: 30%;
-    border-radius: 10px;
   }
 
   .section-member-profile {
@@ -782,31 +925,17 @@ input.month:read-only, input.day:read-only {
   }
 
   .member-withdraw-limit-wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-  .member-withdraw-limit-wrapper:before {
-    background-image: url(../images/member/bg-spot-desk.png);
-  }
-  .member-withdraw-limit-wrapper:after {
-    width: 40%;
-    left: auto;
-    bottom: 20px;
-  }
-  .member-withdraw-limit-inner {
-    width: 60%;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    margin-left: 20px;
-  }
-
-  .member-withdraw-limit-wrapper {
     min-height: 300px;
   }
   .member-withdraw-limit-content .limit-amount {
     width: 100%;
+  }
+
+  .activity-promo-wrapper {
+    padding-left: 150px;
+  }
+  .activity-promo-list .promo-item {
+    width: 25%;
   }
 }
 @media screen and (max-width: 639px) {
@@ -824,12 +953,6 @@ input.month:read-only, input.day:read-only {
         -ms-flex-order: -4;
             order: -4;
   }
-  .data-item.password {
-    width: 70%;
-    -webkit-box-ordinal-group: -1;
-        -ms-flex-order: -2;
-            order: -2;
-  }
   .data-item.birth {
     width: 30%;
     -webkit-box-ordinal-group: -2;
@@ -838,12 +961,6 @@ input.month:read-only, input.day:read-only {
   }
   .data-item.currency {
     width: 30%;
-    -webkit-box-ordinal-group: 0;
-        -ms-flex-order: -1;
-            order: -1;
-  }
-
-  .section-member-activity {
     -webkit-box-ordinal-group: 0;
         -ms-flex-order: -1;
             order: -1;
@@ -863,11 +980,17 @@ input.month:read-only, input.day:read-only {
     top: -70px;
     color: #fff;
     text-shadow: 0px 0px 5px #000000;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
   }
   .dailylogin-bouns-content .title .name {
     position: relative;
     z-index: 1;
-    font-size: 1em;
+    font-size: 1.625rem;
   }
   .dailylogin-bouns-content .title:after {
     content: "";
@@ -880,9 +1003,6 @@ input.month:read-only, input.day:read-only {
     position: absolute;
     bottom: 0;
     left: 0;
-  }
-  .dailylogin-bouns-list .bouns-item {
-    margin-bottom: 15px;
   }
   .dailylogin-bouns-list .bouns-item .day {
     background: #FFE9A8;

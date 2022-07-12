@@ -448,6 +448,12 @@
 
     //建立訂單
     function CreateCryptoWithdrawal() {
+        if (!$('#CheckAward').prop("checked")) {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請勾選確認出金注意事項"), function () { });
+            window.parent.API_LoadingEnd(1);
+            return false;
+        }
+
         if ($("#amount").val() != '') {
             var amount = parseFloat($("#amount").val());
             var selPaymentMethod = $("input[name=payment-crypto]:checked.PaymentCode");
@@ -792,6 +798,15 @@
                                     </div>
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
+                                <div class="form-group award-take-check">
+                                    <div class="form-check">
+                                        <label for="CheckAward">
+                                            <input class="form-check-input" type="checkbox" name="CheckAward" id="CheckAward">
+                                            <span style="color:red" class="language_replace">出金時，領取中心的獎勵將失效。</span>
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <!-- 換算金額(日元) -->
                                 <%--<div class="form-group ">
                                     <div class="input-group inputlike-box-group">

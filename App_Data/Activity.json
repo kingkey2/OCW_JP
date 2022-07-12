@@ -8,18 +8,18 @@
       "InfoMethodName": "OpenIntroBonus"
     },
     {
-      "Name": "Act001",
-      "Path": "2022_6/Act001.json",
+      "Name": "Act006",
+      "Path": "2022_6/Act006.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
     }
-    //,
-    //{
-    //  "Name": "Act003",
-    //  "Path": "2022_6/Act003.json",
-    //  "MethodName": "OpenBonusSevenDaysDeposit",
-    //  "InfoMethodName": "OpenBonusSevenDaysDeposit"
-    //}
+    ,
+    {
+      "Name": "Act003",
+      "Path": "2022_6/Act003.json",
+      "MethodName": "OpenBonusSevenDaysDeposit",
+      "InfoMethodName": "OpenBonusSevenDaysDeposit"
+    }
   ],
   "ParentBonusAfterDeposit": [
     {
@@ -51,17 +51,20 @@
       "InfoMethodName": "RegisterBouns"
     },
     {
-      "Name": "Act001",
-      "Path": "2022_6/Act001.json",
+      "Name": "Act006",
+      "Path": "2022_6/Act006.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "Act003",
+      "Path": "2022_6/Act003.json",
+      "MethodName": "OpenBonusSevenDaysDeposit",
+      "InfoMethodName": "OpenBonusSevenDaysDeposit"
+    },
+    {
+      "Name": "BS001",
+      "Path": "BackendSend/BS001.json"
     }
-    //,
-    //{
-    //  "Name": "Act003",
-    //  "Path": "2022_6/Act003.json",
-    //  "MethodName": "OpenBonusSevenDaysDeposit",
-    //  "InfoMethodName": "OpenBonusSevenDaysDeposit"
-    //}
   ]
 }

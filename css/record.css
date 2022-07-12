@@ -61,7 +61,33 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .tab-record {
-  width: 250px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: rgba(133, 133, 133, 0.85);
+  border-radius: 30px;
+  margin-bottom: 1rem;
+}
+.tab-record.tab-scroller .tab-item {
+  color: white;
+  z-index: 1;
+  position: relative;
+}
+.tab-record.tab-scroller .tab-item.active {
+  color: #fff;
+}
+.tab-record.tab-scroller .tab-item.payment.active {
+  background-color: #7acea6;
+}
+.tab-record.tab-scroller .tab-item.game.active {
+  background-color: #f3b20c;
+}
+.tab-record .tab-slide {
+  height: 100%;
+  z-index: 0;
+  border-radius: 30px;
+  -webkit-box-shadow: 0 4px 12px -4px rgba(137, 153, 167, 0.5019607843);
+          box-shadow: 0 4px 12px -4px rgba(137, 153, 167, 0.5019607843);
 }
 
 .sec-record-payment .tab-record .tab-item:hover, .sec-record-payment .tab-record .tab-item.active {
@@ -98,20 +124,46 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .record-overview-wrapper .MT__table .Thead .thead__th {
   background-color: transparent;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 .record-overview-wrapper .MT__table .amount {
-  font-size: 1.875rem;
+  font-size: 1.5625rem;
+}
+.record-overview-wrapper .MT__table .thead__tr {
+  height: auto;
 }
 .record-overview-wrapper .MT__table .tbody__tr.stress .tbody__td {
   padding: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
-.record-overview-inner {
-  padding: 10px;
+.record-overview-wrapper .MT__table .tbody__tr.stress .tbody__td:first-child .td__content {
+  border-radius: 10px 0 0 10px;
+}
+.record-overview-wrapper .MT__table .tbody__tr.stress .tbody__td:last-child .td__content {
+  border-radius: 0 10px 10px 0;
+}
+.record-overview-wrapper .MT__table .Tbody .tbody__td .td__title {
+  font-weight: 300;
+  font-size: 0.90625rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+.record-overview-wrapper .btn-detail-link {
+  padding-top: 0;
+  padding-bottom: 0;
+  display: none;
 }
 .record-overview-box {
   width: 100%;
   border-radius: 15px;
   padding: 10px 5px;
+  position: relative;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.record-overview-box.active .btn-detail-link {
+  display: none;
 }
 .record-overview-box.payment {
   background-color: #7ACEA6;
@@ -137,6 +189,18 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .record-overview-box.game .MT__table .tbody__tr.stress .td__content {
   background-color: #E5C573;
 }
+.record-overview-link {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+.record-overview-inner {
+  padding: 5px 10px;
+}
 .record-overview-title-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -144,9 +208,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: 1.25rem;
+  margin-bottom: 5px;
+  font-size: 1.125rem;
 }
+
 .MT__table {
   position: relative;
 }
@@ -173,15 +238,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-.label.order-status.success {
-  background-color: #59B587;
-}
-.label.order-status.fail {
-  background-color: #D33605;
-}
-.label.order-status.processing {
-  background-color: #FFB103;
 }
 .label.order-status .icon {
   width: 20px;
@@ -293,7 +349,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: flex;
   width: 100%;
   position: relative;
-  padding-left: 30px;
+  padding-left: 20px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -312,10 +368,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-flex: 1;
       -ms-flex: auto;
           flex: auto;
-  padding: 0.45em 0.75em;
+  padding: 0.45em 0.45em;
 }
 .record-table-tab .record-table-cell .count {
-  font-size: 1.25em;
+  font-size: 1.125rem;
   font-weight: 500;
 }
 .record-table-tab .record-table-cell .count.positive {
@@ -329,13 +385,25 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .record-table-tab .td-status {
   position: absolute;
   left: -30px;
-  top: 5px;
+  top: 0;
+  bottom: 0;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 .record-table-tab .td-amount {
   font-weight: 700;
+  min-width: 115px;
 }
 .record-table-tab .td-paymentWay {
   font-weight: 500;
+  font-size: 0.875rem;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+.record-table-tab .td-paymentWay .order-status {
+  margin-right: 0.25rem;
 }
 .record-table-tab .data-amount {
   display: -webkit-inline-box;
@@ -640,11 +708,51 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .record-overview-box {
     width: 49%;
   }
+  .record-overview-box.payment.active {
+    -webkit-box-shadow: inset 0 0 0 5px #59b587;
+            box-shadow: inset 0 0 0 5px #59b587;
+  }
+  .record-overview-box.payment:hover {
+    -webkit-box-shadow: inset 0 0 0 5px #59b587, 0 0 7px 3px #7acea6;
+            box-shadow: inset 0 0 0 5px #59b587, 0 0 7px 3px #7acea6;
+  }
+  .record-overview-box.game.active {
+    -webkit-box-shadow: inset 0 0 0 5px #DD8800;
+            box-shadow: inset 0 0 0 5px #DD8800;
+  }
+  .record-overview-box.game:hover {
+    -webkit-box-shadow: inset 0 0 0 5px #DD8800, 0 0 7px 3px rgba(255, 157, 0, 0.55);
+            box-shadow: inset 0 0 0 5px #DD8800, 0 0 7px 3px rgba(255, 157, 0, 0.55);
+  }
+  .record-overview-box.active .record-overview-link:after {
+    opacity: 0;
+  }
+  .record-overview-box:hover .record-overview-link:after {
+    opacity: 0;
+  }
+  .record-overview-link:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    opacity: 1;
+  }
 
   .record-table.games-record .record-table-drop-panel .record-drop-item-wrapper .record-drop-item-orderValue {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 120px;
             flex: 0 0 120px;
+  }
+
+  .tab-record {
+    display: none;
   }
 }
 @media (min-width: 936px) {
@@ -731,6 +839,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .record-overview-box {
     margin-bottom: 1rem;
   }
+  .record-overview-box:not(.active) {
+    display: none;
+  }
+  .record-overview-link {
+    display: none;
+  }
 
   .record-table.games-record .record-table-drop-panel .record-drop-item.header {
     display: none;
@@ -794,6 +908,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
         -ms-flex: 0 0 60px;
             flex: 0 0 60px;
     text-align: right;
+  }
+
+  .sec-month {
+    margin: 0.8rem 0;
   }
 }
 @media screen and (max-width: 576px) {

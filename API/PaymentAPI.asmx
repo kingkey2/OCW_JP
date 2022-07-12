@@ -117,16 +117,27 @@ public class PaymentAPI : System.Web.Services.WebService
 
         Path = HttpContext.Current.Server.MapPath("/App_Data/EPay/" + "BankSetting.json");
 
-        var jsonDetailData = LoadSetting(Path);
+        Newtonsoft.Json.Linq.JObject o = null;
 
-        Newtonsoft.Json.Linq.JObject jo = jsonDetailData.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["ProviderCode"] != null && o["ProviderCode"].ToString() == ProviderCode);
+        if (System.IO.File.Exists(Path))
+        {
+            string SettingContent;
+
+            SettingContent = System.IO.File.ReadAllText(Path);
+
+            if (string.IsNullOrEmpty(SettingContent) == false)
+            {
+                try { o = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(SettingContent); } catch (Exception ex) { }
+            }
+        }
+
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
-            if (jo != null)
+            if (o != null)
             {
-                R.Datas = jo["BankCodeSettings"].ToString();
+                R.Datas = o["BankCodeSettings"].ToString();
                 R.Result = enumResult.OK;
             }
             else
@@ -456,7 +467,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue,
                                 JoinCount = activityDepositResult.Data.JoinCount
-                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ,
+                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
+                                CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -775,7 +788,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue
-                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ,
+                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
+                                CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1100,7 +1115,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue
-                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ,
+                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
+                                CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1234,7 +1251,9 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
                                 ThresholdValue = activityDepositResult.Data.ThresholdValue
-                                //,JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle
+                                ,
+                                JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
+                                CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
                             //PointValue += activityDepositResult.Data.BonusValue;
                             tagInfoData.ActivityDatas.Add(infoActivityData);
@@ -1507,7 +1526,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
 
                                         paymentCommonData.PaymentType = 0;
-                                        paymentCommonData.BasicType = 0;
+                                        paymentCommonData.BasicType = 1;
                                         paymentCommonData.OrderNumber = OrderNumber;
                                         paymentCommonData.LoginAccount = SI.LoginAccount;
                                         paymentCommonData.Amount = Amount;
@@ -1676,7 +1695,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     ReceiveTotalAmount = Amount * (1 + HandingFeeRate);
 
                                     paymentCommonData.PaymentType = 0;
-                                    paymentCommonData.BasicType = 0;
+                                    paymentCommonData.BasicType = 1;
                                     paymentCommonData.OrderNumber = OrderNumber;
                                     paymentCommonData.LoginAccount = SI.LoginAccount;
                                     paymentCommonData.Amount = Amount;
@@ -3271,12 +3290,13 @@ public class PaymentAPI : System.Web.Services.WebService
     public class EWinTagInfoActivityData
     {
         public string ActivityName { get; set; }
-        //public string JoinActivityCycle { get; set; }
+        public string JoinActivityCycle { get; set; }
         public decimal BonusRate { get; set; }
         public decimal BonusValue { get; set; }
         public decimal ThresholdRate { get; set; }
         public decimal ThresholdValue { get; set; }
         public int JoinCount { get; set; }
+        public string CollectAreaType { get; set; }
     }
 
 
