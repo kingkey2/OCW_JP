@@ -704,7 +704,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
             flex: 0 0 140px;
   }
 }
-@media (min-width: 712px) {
+@media (min-width: 768px) {
   .record-overview-box {
     width: 49%;
   }
@@ -755,7 +755,19 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: none;
   }
 }
-@media (min-width: 936px) {
+@media (min-width: 992px) {
+  .MT__table.table-desktop .Tbody .td-transesult .td__content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .MT__table.table-desktop .Tbody .td-transesult .td__content .label {
+    margin-right: 4px;
+  }
+
   .section-record-payment .table-desktop {
     display: table;
   }
@@ -835,7 +847,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
             flex: 0 0 150px;
   }
 }
-@media screen and (max-width: 711px) {
+@media screen and (max-width: 767px) {
   .record-overview-box {
     margin-bottom: 1rem;
   }
