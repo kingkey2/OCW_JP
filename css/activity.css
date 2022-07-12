@@ -39,9 +39,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.25);
 }
 .activity-item .img-wrap {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 30%;
-          flex: 0 0 30%;
+  height: 0;
   padding-bottom: 63.2%;
   border-radius: 8px 8px 0 0;
   background-repeat: no-repeat;
@@ -100,16 +98,26 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .tab-prize {
   margin-bottom: 0;
-  width: 250px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: rgba(133, 133, 133, 0.85);
+  border-radius: 30px;
+  margin-bottom: 1rem;
 }
-.tab-prize .tab-scroller__content .tab-item.active {
-  color: #459E74;
+.tab-prize.tab-scroller .tab-item {
+  color: white;
+  z-index: 1;
+  position: relative;
+  -webkit-transition: all 0.35s linear;
+  transition: all 0.35s linear;
 }
-.tab-prize .tab-scroller__content .tab-item.active .tab-item-link {
-  border-bottom: solid 4px #459E74;
+.tab-prize.tab-scroller .tab-item.active {
+  color: #fff;
+  background-color: #45c5ff;
 }
-.tab-prize .tab-scroller__content .tab-item {
-  font-weight: bold;
+.tab-prize.tab-scroller .tab-item:not(.active):hover {
+  background-color: #369AD6;
 }
 .prize-item {
   position: relative;
@@ -401,6 +409,25 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   top: 0;
 }
 
+.btn-QA-transaction {
+  width: 20px;
+  height: 20px;
+}
+
+@media screen and (min-width: 641px) {
+  .sec-title-container .btn-activity {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    display: none;
+  }
+  .sec-title-container .tab-prize {
+    width: auto;
+  }
+  .sec-title-container .tab-prize .tab-item-link {
+    padding: 5px 20px;
+  }
+}
 @media (min-width: 712px) {
   .activity-item {
     width: 50%;
