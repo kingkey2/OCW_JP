@@ -1043,7 +1043,7 @@
     <!-- 存款 -->
     <div id="tmpPayment_D" style="display: none">
         <!-- 處理中訂單 => class="order-processing"-->
-        <div class="tbody__tr deposit order-processing">
+        <div class="tbody__tr deposit">
             <div class="tbody__td td-payment">
                 <span class="td__content">
                     <span class="payment-status">
@@ -1090,7 +1090,7 @@
     <!-- 出款 -->
     <div id="tmpPayment_W" style="display: none">
         <!-- 處理中訂單 => class="order-processing"-->
-        <div class="tbody__tr withdraw order-processing">
+        <div class="tbody__tr withdraw">
             <div class="tbody__td td-payment">
                 <span class="td__content">
                     <span class="payment-status">
@@ -1137,7 +1137,7 @@
     <!-- 存款 手機-->
     <div id="tmpPayment_M_D" style="display: none">
         <!-- 處理中訂單 => class="order-processing"-->
-        <div class="record-table-item deposit order-processing">
+        <div class="record-table-item deposit">
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
@@ -1200,7 +1200,7 @@
     <!-- 出款 手機-->
     <div id="tmpPayment_M_W" style="display: none">
         <!-- 處理中訂單 => class="order-processing"-->
-        <div class="record-table-item withdraw order-processing">
+        <div class="record-table-item withdraw">
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
