@@ -928,11 +928,11 @@
                             </div>
                         </div>
                         <!-- TABLE for Desktop -->
-                        <div class="MT__table table-RWD table-payment table-desktop">
+                        <div class="MT__table table-payment table-desktop">
                             <!-- thead  -->
                             <div class="Thead">
                                 <div class="thead__tr">
-                                    <div class="thead__th"><span class="language_replace"></span></div>
+                                    <div class="thead__th" style="width:70px;"><span class="language_replace"></span></div>
                                     <div class="thead__th">
                                         <span class="language_replace">日期</span>
                                         <%--<span class="arrow arrow-down"></span>--%>
@@ -1007,7 +1007,6 @@
                     <!-- TABLE -->
                     <div class="record-table-container">
                         <div class="record-table games-record">
-
                             <div class="record-table-item header">
                                 <div class="record-table-cell td-date">
                                     <span class="language_replace">日期</span>
@@ -1025,7 +1024,6 @@
                                     <span class="language_replace">勝/負</span>
                                 </div>
                             </div>
-
                             <div id="divGame">
                             </div>
                                 <div class="no-Data" id="idNoGameData">
@@ -1035,7 +1033,6 @@
                             </div>
                         </div>
                     </div>
-
                 </section>
                 </div>
             </section>
@@ -1079,7 +1076,12 @@
                 </span>
             </div>
             <div class="tbody__td td-transesult">
-                <span class="td__content"><span class="PaymentStatus"></span></span>
+                <span class="td__content">
+                    <!-- 入金訂單狀態 -->
+                    <span class="label order-status success" style="display: "><i class="icon icon-mask icon-check"></i></span>
+                    <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
+                    <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
+                    <span class="PaymentStatus"></span></span>
             </div>
         </div>
     </div>
@@ -1120,7 +1122,8 @@
                 </span>
             </div>
             <div class="tbody__td td-transesult">
-                <span class="td__content"><span class="PaymentStatus language_replace">成功</span></span>
+                <span class="td__content">
+                    <span class="PaymentStatus language_replace">成功</span></span>
             </div>
         </div>
     </div>
@@ -1142,7 +1145,7 @@
                 <div class="record-table-cell td-paymentWay-date">
                     <div class="record-table-cell-wrapper">
                         <div class="td-paymentWay">
-                             <!-- 出入金訂單狀態 -->
+                            <!-- 入金訂單狀態 -->
                             <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
                             <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
                             <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
@@ -1205,6 +1208,10 @@
                 <div class="record-table-cell td-paymentWay-date">
                     <div class="record-table-cell-wrapper">
                         <div class="td-paymentWay">
+                            <!-- 出金訂單狀態 -->
+                            <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
+                            <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
+                            <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
                             <span class="data BasicType">paypal</span>
                         </div>
                         <div class="td-date">
