@@ -932,8 +932,8 @@
                             <!-- thead  -->
                             <div class="Thead">
                                 <div class="thead__tr">
-                                    <div class="thead__th" style="width:70px;"><span class="language_replace"></span></div>
-                                    <div class="thead__th">
+                                    <div class="thead__th" style="width:100px;"><span class="language_replace"></span></div>
+                                    <div class="thead__th" style="width:120px;">
                                         <span class="language_replace">日期</span>
                                         <%--<span class="arrow arrow-down"></span>--%>
                                     </div>
@@ -1042,7 +1042,8 @@
 
     <!-- 存款 -->
     <div id="tmpPayment_D" style="display: none">
-        <div class="tbody__tr deposit">
+        <!-- 處理中訂單 => class="order-processing"-->
+        <div class="tbody__tr deposit order-processing">
             <div class="tbody__td td-payment">
                 <span class="td__content">
                     <span class="payment-status">
@@ -1078,7 +1079,7 @@
             <div class="tbody__td td-transesult">
                 <span class="td__content">
                     <!-- 入金訂單狀態 -->
-                    <span class="label order-status success" style="display: "><i class="icon icon-mask icon-check"></i></span>
+                    <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
                     <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
                     <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
                     <span class="PaymentStatus"></span></span>
@@ -1088,7 +1089,8 @@
 
     <!-- 出款 -->
     <div id="tmpPayment_W" style="display: none">
-        <div class="tbody__tr withdraw">
+        <!-- 處理中訂單 => class="order-processing"-->
+        <div class="tbody__tr withdraw order-processing">
             <div class="tbody__td td-payment">
                 <span class="td__content">
                     <span class="payment-status">
@@ -1123,6 +1125,10 @@
             </div>
             <div class="tbody__td td-transesult">
                 <span class="td__content">
+                    <!-- 出金訂單狀態 -->
+                    <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
+                    <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
+                    <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
                     <span class="PaymentStatus language_replace">成功</span></span>
             </div>
         </div>
@@ -1130,7 +1136,8 @@
 
     <!-- 存款 手機-->
     <div id="tmpPayment_M_D" style="display: none">
-        <div class="record-table-item deposit">
+        <!-- 處理中訂單 => class="order-processing"-->
+        <div class="record-table-item deposit order-processing">
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">
@@ -1192,7 +1199,8 @@
 
     <!-- 出款 手機-->
     <div id="tmpPayment_M_W" style="display: none">
-        <div class="record-table-item withdraw">
+        <!-- 處理中訂單 => class="order-processing"-->
+        <div class="record-table-item withdraw order-processing">
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
                     <div class="data">

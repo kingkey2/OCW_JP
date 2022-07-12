@@ -249,10 +249,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: none;
 }
 
-.record-table-container {
-  padding-left: 22.5px;
-}
-
 .record-table td, .record-table th {
   word-break: break-all;
 }
@@ -298,7 +294,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-left: 0.5rem;
 }
 .record-table-item {
-  margin: 0 0 0.55em;
   background: #fff;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -343,6 +338,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .record-table-item.withdraw .thead-th .title {
   background-color: #369AD6;
 }
+.record-table-item.order-processing .td-toggle .arrow.arrow-down {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  position: relative;
+  right: 2px;
+}
 .record-table-tab {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -375,7 +376,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: 500;
 }
 .record-table-tab .record-table-cell .count.positive {
-  color: #2AC3CD;
+  color: #59B587;
+}
+.record-table-tab .record-table-cell .count.negative {
+  color: #e24f4f;
 }
 .record-table-tab .td-toggle {
   -webkit-box-flex: 0;
@@ -466,7 +470,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: 500;
 }
 .record-table.games-record .record-table-tab {
-  border: solid 1px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px 0 5px;
   padding-left: 30px;
@@ -756,6 +759,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 }
 @media (min-width: 992px) {
+  .MT__table.table-desktop .Tbody .tbody__tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
   .MT__table.table-desktop .Tbody .td-transesult .td__content {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -763,17 +769,64 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
   .MT__table.table-desktop .Tbody .td-transesult .td__content .label {
     margin-right: 4px;
+  }
+  .MT__table.table-desktop .order-processing {
+    cursor: pointer;
+  }
+  .MT__table.table-desktop .order-processing .td-transesult .td__content::before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border: 1px solid #969696;
+    border-radius: 50%;
+    right: 10px;
+  }
+  .MT__table.table-desktop .order-processing .td-transesult .td__content::after {
+    content: "";
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    width: 3px;
+    height: 3px;
+    border: solid rgba(0, 0, 0, 0.7);
+    border-width: 2px 2px 0 0;
+    display: inline-block;
+    padding: 3px;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    position: absolute;
+    right: 23px;
+  }
+  .MT__table.table-desktop .order-processing.tbody__tr:hover .td-transesult .td__content::before {
+    background-color: #B4B4B4;
+    border-color: #B4B4B4;
+  }
+  .MT__table.table-desktop .order-processing.tbody__tr:hover .td-transesult .td__content::after {
+    border-color: #fff;
   }
 
   .section-record-payment .table-desktop {
     display: table;
   }
+  .record-table-tab {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  }
   .record-table.games-record .record-table-tab {
     border-radius: 0;
-    border: 0;
     padding-left: 0;
   }
   .record-table.games-record .record-table-tab .td-status {
@@ -800,7 +853,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     text-align: right;
   }
   .record-table.games-record .record-table-wrapper {
-    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
     padding-bottom: 1rem;
   }
   .record-table.games-record .record-table-wrapper .record-table-cell {
@@ -845,6 +897,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-flex: 0;
         -ms-flex: 0 0 150px;
             flex: 0 0 150px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .record-table-container {
+    padding-left: 22.5px;
+  }
+  .record-table-item {
+    margin: 0 0 0.55em;
+  }
+  .record-table-tab {
+    border: solid 1px rgba(0, 0, 0, 0.1);
   }
 }
 @media screen and (max-width: 767px) {
