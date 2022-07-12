@@ -1545,7 +1545,7 @@
                 }
             }, 1000);
 
-            window.onresize = reportWindowSize;
+            //window.onresize = reportWindowSize;
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
