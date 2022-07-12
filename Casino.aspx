@@ -200,7 +200,7 @@
                 if (iframeWidth < 936) {
                     GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                     btnplay = '<button type="button" class="btn btn-play">';
-                    gameitemlink = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})">`;
+                    gameitemlink = '<span class="game-item-link" onclick="' + `window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})` + '"></span>';
                 } else {
                     GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                     gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '"></span>';
