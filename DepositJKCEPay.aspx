@@ -447,7 +447,7 @@
                     if (o.Data.length > 0) {
                         var ThresholdValue = 0
                         for (var i = 0; i < o.Data.length; i++) {
-                            setActivity(o.Data[i]["Title"], o.Data[i]["SubTitle"], o.Data[i]["ActivityName"], o.Data[i]["ThresholdValue"], o.Data[i]["BonusValue"]);
+                            setActivity(o.Data[i]["Title"], o.Data[i]["SubTitle"], o.Data[i]["ActivityName"], o.Data[i]["ThresholdValue"], o.Data[i]["BonusValue"], o.Data[i]["CollectAreaType"]);
                         }
                     }
                 }
@@ -469,7 +469,7 @@
     }
 
     //建立可選活動
-    function setActivity(ActivityTitle, ActivitySubTitle, ActivityName, ThresholdValue, BonusValue) {
+    function setActivity(ActivityTitle, ActivitySubTitle, ActivityName, ThresholdValue, BonusValue, CollectAreaType) {
         var ParentActivity = document.getElementsByClassName("ActivityMain")[0];
         var ActivityCount = ParentActivity.children.length + 1;
 
@@ -480,28 +480,30 @@
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-ActivityName", ActivityName);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-ThresholdValue", ThresholdValue);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-bonusvalue", BonusValue);
+        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
-        $(".ThresholdValue").text(FormatNumber(ReFormatNumber($(".ThresholdValue").text()) + ThresholdValue));
+        $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
         $("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BonusValue));
         $("#idTotalReceiveValue").text(FormatNumber(ReFormatNumber($("#idTotalReceiveValue").text()) + BonusValue));
 
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].addEventListener("change", function (e) {
             let THV = $(e.target).data("thresholdvalue");
             let BV = $(e.target).data("bonusvalue");
+            let CAT = $(e.target).data("collectareatype");
             let activityname = $(e.target).data("activityname");
             if ($(e.target).data("checked")) {
                 //取消參加活動
                 $(e.target).data("checked", false);
-                $(".ThresholdValue").text(FormatNumber(ReFormatNumber($(".ThresholdValue").text()) - THV));
+                $(".ThresholdValue_" + CAT).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CAT).text()) - THV));
                 $("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) - BV));
                 $("#idTotalReceiveValue").text(FormatNumber(ReFormatNumber($("#idTotalReceiveValue").text()) - BV));
             } else {
                 //參加活動
                 $(e.target).data("checked", true);
-                $(".ThresholdValue").text(FormatNumber(ReFormatNumber($(".ThresholdValue").text()) + THV));
+                $(".ThresholdValue_" + CAT).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CAT).text()) + THV));
                 $("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BV));
                 $("#idTotalReceiveValue").text(FormatNumber(ReFormatNumber($("#idTotalReceiveValue").text()) + BV));
             }
@@ -830,15 +832,15 @@
                                         <ul class="deposit-detail-sub">
                                             <li class="sub-item">
                                                 <span class="title language_replace">入金部份</span>
-                                                <span class="data">123456</span>
+                                                <span class="data ThresholdValue">0</span>
                                             </li>
                                             <li class="sub-item">
                                                 <span class="title language_replace">獎金部份</span>
-                                                <span class="data">123456</span>
+                                                <span class="data ThresholdValue_1">0</span>
                                             </li>
                                             <li class="sub-item">
                                                 <span class="title language_replace">禮金部份</span>
-                                                <span class="data">123456</span>
+                                                <span class="data ThresholdValue_2">0</span>
                                             </li>
                                         </ul>
                                     </li>
