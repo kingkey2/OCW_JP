@@ -928,7 +928,7 @@
                             </div>
                         </div>
                         <!-- TABLE for Desktop -->
-                        <div class="MT__table table-payment table-desktop">
+                        <div class="MT__table table-RWD table-payment table-desktop">
                             <!-- thead  -->
                             <div class="Thead">
                                 <div class="thead__tr">
