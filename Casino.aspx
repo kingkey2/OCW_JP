@@ -67,7 +67,7 @@
     function showSearchGameModel() {
         window.parent.API_ShowSearchGameModel();
     }
- 
+
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
     }
@@ -80,7 +80,7 @@
     }
 
     function updateGameList(categoryCode) {
-    
+
         selectedCategoryCode = categoryCode;
         iframeWidth = $(window.parent.document).find('#IFramePage').width();
         var FavoGames = window.parent.API_GetFavoGames();
@@ -88,14 +88,14 @@
         idGameItemGroup.innerHTML = "";
 
         if (LobbyGameList) {
-           
+
             var companyCategoryDatasCount = 0;
             var categName;
 
             var categorys = LobbyGameList.find(e => e.Location == categoryCode);
 
             if (categorys) {
-              
+
                 categorys.Categories.forEach(category => {
                     var count = 0;
                     var categArea;
@@ -109,10 +109,10 @@
                             $(categArea).find('.CategName').text(mlp.getLanguageKey(categName));
                             $(categArea).find('.CategName').attr('langkey', categName);
 
-                            if (category.SortIndex>=90) {
+                            if (category.SortIndex >= 90) {
                                 $(categArea).find('.text-link').css('display', 'block');
                                 $(categArea).find('.title-showAll').text(mlp.getLanguageKey('全部顯示'));
-                               
+
                             }
                         } else {
                             categArea = c.getTemplate("temCategArea2");
@@ -145,8 +145,8 @@
 
                                 GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
 
-                                if (iframeWidth<936) {
-                                   $(categArea).find('.text-link').css('display', 'none');
+                                if (iframeWidth < 936) {
+                                    $(categArea).find('.text-link').css('display', 'none');
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {
@@ -251,7 +251,7 @@
 
                                 //非滿版時的斷點 slidesPerGroup
                                 breakpoints: {
-                                
+
                                     936: {
                                         freeMode: false,
                                         slidesPerGroup: 6, //index:992px
@@ -271,7 +271,7 @@
                                     1920: {
                                         slidesPerGroup: 8, //index:1920px up
                                     },
-                              }
+                                }
 
 
                             });
@@ -323,7 +323,7 @@
             }
 
             if (!LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.CategoryName == "EWin" })) {
-         
+
                 var EwinGame = {
                     CategoryID: 0,
                     CategoryName: "EWin",
@@ -357,14 +357,14 @@
                     State: 0
                 }
 
-                var BGindex= LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.findIndex(function (e) { return e.CategoryName == "BTI" });
+                var BGindex = LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.findIndex(function (e) { return e.CategoryName == "BTI" });
                 if (BGindex != -1) {
                     LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.splice(BGindex, 0, EwinGame);
                 } else {
                     LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.unshift(EwinGame);
                 }
             }
-      
+
             for (var i = 0; i < LobbyGameList.length; i++) {
                 //="API_LoadPage('Casino', 'Casino.aspx', true)"
 
