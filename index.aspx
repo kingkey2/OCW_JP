@@ -699,7 +699,7 @@
             $(likebtn).removeClass("added");
         }
 
-        likebtn.onclick = new Function("favBtnEvent(" + GameID + ",this)");
+        likebtn.onclick = new Function("favBtnEvent(" + GameID + ",this,true)");
 
         var GI_img = document.getElementById('popupMoblieGameInfo').querySelector(".imgsrc");
         if (GI_img != null) {

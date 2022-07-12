@@ -65,7 +65,11 @@
     var selectedCategoryCode;
     var categoryDatas = [];
     var FavoGames;
-    var tmpCategory = "";
+    var tmpCategory_GameList_All = "";
+    var tmpCategory_GameList_Live = "";
+    var tmpCategory_GameList_Electron = "";
+    var tmpCategory_GameList_Other = "";
+    var tmpCategory_GameList_Slot = "";
     function showSearchGameModel() {
         window.parent.API_ShowSearchGameModel();
     }
@@ -81,32 +85,98 @@
         updateGameList(categoryCode);
     }
 
-    function updateGameList(categoryCode) {
-
-
-        selectedCategoryCode = categoryCode;
-        iframeWidth = $(window.parent.document).find('#IFramePage').width();
-        FavoGames = window.parent.API_GetFavoGames();
-        var idGameItemGroup = document.getElementById("gameAreas");
-        idGameItemGroup.innerHTML = "";
-        tmpCategory = "";
+    function createAllGameList() {
         if (LobbyGameList) {
-
-            var categorys = LobbyGameList.find(e => e.Location == categoryCode);
-
-            if (categorys) {
-                promiseForEach(categorys.Categories, function (category, companyCategoryDatasCount) { createCategory(category, companyCategoryDatasCount) });
-
+       
+            selectedCategoryCode = "GameList_All";
+            iframeWidth = $(window.parent.document).find('#IFramePage').width();
+            FavoGames = window.parent.API_GetFavoGames();
+            var idGameItemGroup = document.getElementById("gameAreas");
+            idGameItemGroup.innerHTML = "";
+           
+            if (LobbyGameList) {
+                    var categorys = LobbyGameList;
+                if (categorys) {
+                    promiseForEach(categorys, function () {
+                        $('#categoryPage_GameList_All').show();
+                        setSwiper();
+                    });
+                }
             }
         }
     }
 
+    function updateGameList(categoryCode) {
+
+        $('.categoryPage').hide();
+        $('#categoryPage_' + categoryCode).show();
+        setSwiper();
+    }
+
+    function setSwiper() {
+        new Swiper(".GameItemGroup", {
+            slidesPerView: "auto",
+            // loop:true,
+            // slidesPerGroup: 2,
+            // loopedSlides: 8,
+            lazy: true,
+            freeMode: true,
+            navigation: {
+                nextEl: ".GameItemGroup .swiper-button-next",
+                prevEl: ".GameItemGroup .swiper-button-prev",
+            },
+            breakpoints: {
+
+                936: {
+                    freeMode: false,
+                    slidesPerGroup: 6, //index:992px
+                },
+                1144: {
+                    slidesPerGroup: 7, //index:1200px
+                },
+                1384: {
+                    slidesPerGroup: 7, //index:1440px
+                },
+                1544: {
+                    slidesPerGroup: 7, //index:1600px
+                },
+                1864: {
+                    slidesPerGroup: 8, //index:1920px
+                },
+                1920: {
+                    slidesPerGroup: 8, //index:1920px up
+                },
+            }
+        });
+    }
+
     function promiseForEach(arr, cb) {
+        var i = 0;
+
+        var nextPromise = function () {
+            if (i >= arr.length) {
+                cb();
+                return;
+            }
+
+            createCategory(arr[i]);
+            var newPromise = Promise.resolve();
+            i++;
+            // Chain to finish processing.
+            return newPromise.then(nextPromise);
+        };
+
+        // Kick off the chain.
+        return Promise.resolve().then(nextPromise);
+    };
+
+
+    function promiseForEach2(arr,cb) {
         var i = 0;
         var nextPromise = function () {
             const promise1 = new Promise((resolve, reject) => {
                 if (i >= arr.length) {
-                    $(gameAreas).append(tmpCategory);
+                    console.log("gameAreas append finish all");
                     new Swiper(".GameItemGroup", {
                         slidesPerView: "auto",
                         // loop:true,
@@ -144,14 +214,11 @@
                     return;
                 }
 
-                let category = arr[i];
-                let companyCategoryDatasCount = i;
-
-                cb(arr[i], i);
+                createCategory(arr[i])
+           
                 i++;
                 resolve();
             });
-
 
             promise1.then(nextPromise);
         };
@@ -160,70 +227,76 @@
         nextPromise();
     };
 
-    function createCategory(category, companyCategoryDatasCount) {
+    function createCategory(lobbyGame) {
+     
+        var Location = lobbyGame.Location;
+        var categAreas="";
+        categorys = lobbyGame.Categories;
+        for (var i = 0; i < categorys.length; i++) {
+            
+            var category = categorys[i];
+            if (category.Datas.length > 0) {
+                var categArea;
+                var textlink;
+                var gameItems = "";
 
-        if (category.Datas.length > 0) {
-            var categArea;
-            var textlink;
-            var gameItems = "";
+                category.Datas.sort(function (a, b) {
+                    return b.SortIndex - a.SortIndex;
+                });
 
-            category.Datas.sort(function (a, b) {
-                return b.SortIndex - a.SortIndex;
-            });
+                category.Datas.forEach(gameItem => {
+                    var GI;
+                    var btnlike;
+                    var GItitle;
+                    var gameitemlink;
+                    var btnplay;
+                    var imgsrc;
+                    var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                    if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                        btnlike = `<button type="button" class="btn-like btn btn-round added" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
+                    } else {
+                        btnlike = `<button type="button" class="btn-like btn btn-round" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
+                    }
 
-            category.Datas.forEach(gameItem => {
-                var GI;
-                var btnlike;
-                var GItitle;
-                var gameitemlink;
-                var btnplay;
-                var imgsrc;
-                var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
-                    btnlike = `<button type="button" class="btn-like btn btn-round added" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
-                } else {
-                    btnlike = `<button type="button" class="btn-like btn btn-round" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
-                }
+                    var RTP = "";
+                    if (gameItem.RTPInfo) {
+                        var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
 
-                var RTP = "";
-                if (gameItem.RTPInfo) {
-                    var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
-
-                    if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
-                        RTP = RtpInfoObj.RTP.toString();
+                        if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                            RTP = RtpInfoObj.RTP.toString();
+                        } else {
+                            RTP = '--';
+                        }
                     } else {
                         RTP = '--';
                     }
-                } else {
-                    RTP = '--';
-                }
 
-                if (iframeWidth < 936) {
-                    GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                    btnplay = '<button type="button" class="btn btn-play">';
-                    gameitemlink = `<span class="game-item-link"></span>`;
-                    gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
-                    //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
-                } else {
-                    gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                    GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                    gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '"></span>';
-                    btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '">';
-                }
+                    if (iframeWidth < 936) {
+                        GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
+                        btnplay = '<button type="button" class="btn btn-play">';
+                        gameitemlink = `<span class="game-item-link"></span>`;
+                        gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                        //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                    } else {
+                        gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                        GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
+                        gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '"></span>';
+                        btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '">';
+                    }
 
-                //$GI.find('.btn-more').click(function () {
-                //    // $(this).toggleClass('show');
-                //    $(this).closest('.game-item-info-detail').toggleClass('open');
-                //});
+                    //$GI.find('.btn-more').click(function () {
+                    //    // $(this).toggleClass('show');
+                    //    $(this).closest('.game-item-info-detail').toggleClass('open');
+                    //});
 
-                //$GI.find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
+                    //$GI.find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
 
 
 
-                imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+                    imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
 
 
-                GI = `${GItitle}
+                    GI = `${GItitle}
                             <div class="game-item">
 <div class="game-item-inner">
     ${gameitemmobilepopup}
@@ -234,7 +307,7 @@
                 <img class="gameimg lozad" src="${imgsrc}">
             </div>
         </div>
-        <div class="game-item-info-detail">
+        <div class="game-item-info-detail open">
             <div class="game-item-info-detail-wrapper">
                 <div class="game-item-info-detail-moreInfo">
                     <ul class="moreInfo-item-wrapper">
@@ -265,7 +338,7 @@
                                ${btnlike}
     <i class="icon icon-m-favorite"></i>
 </button>
-<button type="button" class="btn-more btn btn-round">
+<button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
     <i class="arrow arrow-down"></i>
 </button>
                             </div>
@@ -286,22 +359,21 @@
                             </div>
                         </div>`;
 
-                gameItems += GI;
-            });
+                    gameItems += GI;
+                });
 
-            categName = category.CategoryName.replace('@', '').replace('#', '');
-            gameBrand = category.Datas[0].GameBrand;
-            if (iframeWidth < 936) {
-                textlink = '';
-            } else {
-                textlink = `<a class="text-link">
+                categName = category.CategoryName.replace('@', '').replace('#', '');
+                gameBrand = category.Datas[0].GameBrand;
+                if (iframeWidth < 936) {
+                    textlink = '';
+                } else {
+                    textlink = `<a class="text-link">
                         <span class="title-showAll" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey('全部顯示')}</span><i class="icon arrow arrow-right"></i>
                         </a>`;
-            }
+                }
 
-
-            if (category.SortIndex >= 90) {
-                categArea = ` <section class="section-wrap section-levelUp">
+                if (category.SortIndex >= 90) {
+                    categArea = ` <section class="section-wrap section-levelUp">
                         <div class="game_wrapper">
                         <div class="sec-title-container">
                         <div class="sec-title-wrapper">
@@ -318,8 +390,8 @@
                         </div>
                         </div>
                         </section>`;
-            } else {
-                categArea = ` <section class="section-wrap section-levelUp">
+                } else {
+                    categArea = ` <section class="section-wrap section-levelUp">
                         <div class="game_wrapper">
                         <div class="sec-title-container">
                         <div class="sec-title-wrapper">
@@ -336,12 +408,15 @@
                         </div>
                         </section>`;
 
+                }
+                categAreas += categArea;
             }
-
-            tmpCategory += categArea;
-
         }
 
+        var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="display:none;"></div>');
+        categoryDiv.append(categAreas);
+        $('#gameAreas').append(categoryDiv);
+        console.log("gameAreas append finish " + Location);
     }
 
     function updateGameCode() {
@@ -433,8 +508,8 @@
 
             $('#idGameItemTitle').append('<div class="tab-slide"></div>');
         }
-        updateGameList("GameList_All");
-
+        //updateGameList("GameList_All");
+        createAllGameList();
     }
 
     function init() {
@@ -637,138 +712,12 @@
             </div>
         </section>
     </main>
-    <div id="temCategArea" class="is-hide">
-        <section class="section-wrap section-levelUp">
-            <%--<div class="container">--%>
-            <div class="game_wrapper">
-                <div class="sec-title-container">
-                    <div class="sec-title-wrapper">
-                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName"></span></h3>
-                    </div>
-                    <a class="text-link" style="display: none;">
-                        <span class="title-showAll"></span><i class="icon arrow arrow-right"></i>
-                    </a>
-                </div>
-                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
-                    <div class="swiper-wrapper GameItemGroupContent">
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-            </div>
-            <%--</div>--%>
-        </section>
-    </div>
-    <!-- 若是 JS套入 class "game-item-focus"=>  請套入 default/sideLeft/sideRight 三個class -->
 
-    <div id="temGameItem" class="is-hide">
-        <div class="swiper-slide">
-            <!-- 設定 遊戲 NEW/HOT Label ： game-item 加class=> "label-new"/"label-hot" -->
-            <div class="game-item">
-                <div class="game-item-inner">
-                    <span class="game-item-mobile-popup" data-toggle="modal"></span>
-                    <div class="game-item-focus">
-                        <div class="game-item-img">
-                            <span class="game-item-link"></span>
-                            <div class="img-wrap">
-                                <img class="gameimg" src="">
-                            </div>
-                        </div>
-                        <div class="game-item-info-detail">
-                            <div class="game-item-info-detail-wrapper">
-                                <div class="game-item-info-detail-moreInfo">
-                                    <ul class="moreInfo-item-wrapper">
-                                        <li class="moreInfo-item brand">
-                                            <span class="title language_replace">品牌</span>
-                                            <span class="value GameBrand"></span>
-                                        </li>
-                                        <li class="moreInfo-item RTP">
-                                            <span class="title">RTP</span>
-                                            <span class="value number valueRTP"></span>
-                                        </li>
-                                        <li class="moreInfo-item gamecode">
-                                            <span class="title">NO.</span>
-                                            <span class="value number GameID"></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="game-item-info-detail-indicator">
-                                    <div class="game-item-info-detail-indicator-inner">
-                                        <div class="info">
-                                            <h3 class="game-item-name"></h3>
-                                        </div>
-                                        <div class="action">
-                                            <div class="btn-s-wrapper">
-                                                <!-- 遊戲 NEW/HOT Label -->
-                                                <%--<span class="label-push-status"></span>--%>
-                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                    <i class="icon icon-m-thumup"></i>
-                                                </button>
-                                                <button type="button" class="btn-like btn btn-round">
-                                                    <i class="icon icon-m-favorite"></i>
-                                                </button>
-                                                <button type="button" class="btn-more btn btn-round">
-                                                    <i class="arrow arrow-down"></i>
-                                                </button>
-                                            </div>
-                                            <button type="button" class="btn btn-play">
-                                                <span class="language_replace">遊玩</span><i class="triangle"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-item-info">
-                        <div class="game-item-info-inner">
-                            <h3 class="game-item-name"></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <%--推薦遊戲--%>
-    <div id="temCategArea2" class="is-hide">
-        <section class="section-wrap section_randomRem">
-            <div class="container-fluid">
-                <div class="game_wrapper">
-                    <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <!-- <h3 class="title">隨機推薦遊戲</h3> -->
-                        </div>
-                    </div>
-                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
-                        <div class="swiper-wrapper GameItemGroupContent">
-                        </div>
-                    </div>
-                </div>
-        </section>
-    </div>
-    <div id="temGameItem2" class="is-hide">
-        <div class="swiper-slide">
-            <div class="game-item">
-                <div class="game-item-inner">
-                    <span class="game-item-link"></span>
-                    <div class="img-wrap">
-                        <img class="gameimg lozad" src="">
-                    </div>
-                </div>
-                <div class="game-item-info">
-                    <h3 class="game-item-name"></h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="temCategItem" class="is-hide">
+     <div id="temCategItem" class="is-hide">
         <li class="tab-item">
             <span class="tab-item-link"><i class="icon icon-mask CategIcon"></i>
                 <span class="title language_replace CategName"></span></span>
         </li>
     </div>
-
-    <!-- Modal - Game Info for Mobile Device-->
-
 </body>
 </html>
