@@ -129,7 +129,7 @@
                                 if (summaryDateDom.classList.contains("show")) {
                                     summaryDateDom.classList.remove("show");
                                 } else {
-                                    summaryDateDom.classList.add("show");                              
+                                    summaryDateDom.classList.add("show");
                                 }
 
 
@@ -323,7 +323,10 @@
                             paymentRecordStatus = 0;
                             paymentRecordText = mlp.getLanguageKey('進行中');
                             $(RecordDom_M).find('.processing').show();
+                            $(RecordDom).find('.processing').show();
 
+                            $(RecordDom_M).addClass('order-processing');
+                            $(RecordDom).addClass('order-processing');
                             // 0=一般/1=銀行卡/2=區塊鏈
                             switch (record.BasicType) {
                                 case 0:
@@ -420,6 +423,9 @@
                                         paymentRecordStatus = 2;
                                         paymentRecordText = mlp.getLanguageKey('完成');
                                         $(RecordDom_M).find('.success').show();
+                                        $(RecordDom).find('.success').show();
+                                        $(RecordDom_M).removeClass('order-processing');
+                                        $(RecordDom).removeClass('order-processing');
                                         break;
                                     case 3:
                                         if (record.BasicType == 1) {
@@ -429,11 +435,17 @@
                                         }
                                         paymentRecordStatus = 3;
                                         $(RecordDom_M).find('.fail').show();
+                                        $(RecordDom).find('.fail').show();
+                                        $(RecordDom_M).removeClass('order-processing');
+                                        $(RecordDom).removeClass('order-processing');
                                         break;
                                     case 4:
                                         paymentRecordStatus = 4;
                                         paymentRecordText = mlp.getLanguageKey('審核拒絕');
                                         $(RecordDom_M).find('.fail').show();
+                                        $(RecordDom).find('.fail').show();
+                                        $(RecordDom_M).removeClass('order-processing');
+                                        $(RecordDom).removeClass('order-processing');
                                         break;
                                 }
 
@@ -510,7 +522,7 @@
                             }
                         }
                     }
-                    
+
                     if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
                         if (WebInfo.DeviceType == 1) {
                             $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
@@ -606,6 +618,9 @@
     }
 
     function copyText(tag) {
+        if (event) {
+            event.stopPropagation();
+        }
 
         var copyText = $(tag).parent().find('.inputPaymentSerial')[0];
 
