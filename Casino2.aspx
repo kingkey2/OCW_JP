@@ -554,7 +554,7 @@ ${gameitemmobilepopup}
 
                 mlp.loadLanguage(lang, function () {
                     window.parent.API_LoadingEnd(1);
-                    updateGameCode();
+                    resetCategory(selectedCategoryCode);
                 });
                 break;
 
