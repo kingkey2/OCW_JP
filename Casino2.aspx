@@ -81,12 +81,12 @@
     }
 
     function selGameCategory(categoryCode, doc) {
+        selectedCategoryCode = categoryCode;
         selectedCategory = $('#idGameItemTitle .tab-item.active>span>span').attr('langkey');
         $('#idGameItemTitle .tab-item').removeClass('active');
         $(doc).addClass('active');
         if (!selectedCategorys.includes(categoryCode)) {
             createCategory(categoryCode, function () {
-                debugger;
                 $('#categoryPage_' + selectedCategory).css('content-visibility', 'hidden');
                 $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
                 setSwiper(categoryCode);
@@ -100,10 +100,6 @@
         window.document.documentElement.scrollTop = 0;
     }
 
-    function updateGameList(categoryCode) {
-       
-    }
-
     function setSwiper(categoryName) {
         new Swiper(".GameItemGroup_" + categoryName, {
             slidesPerView: "auto",
@@ -114,7 +110,7 @@
             freeMode: true,
             navigation: {
                 nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
-                prevEl: ".GameItemGroup_" + categoryName + ".swiper-button-prev",
+                prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
             },
             breakpoints: {
 
@@ -227,15 +223,6 @@
                                     btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')" + '">';
                                 }
 
-                                //$GI.find('.btn-more').click(function () {
-                                //    // $(this).toggleClass('show');
-                                //    $(this).closest('.game-item-info-detail').toggleClass('open');
-                                //});
-
-                                //$GI.find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
-
-
-
                                 imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
 
 
@@ -341,7 +328,7 @@ ${gameitemmobilepopup}
                     <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName langkey">${mlp.getLanguageKey(categName)}</span></h3>
                     </div>
                     </div>
-                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup_${Location}">
                     <div class="swiper-wrapper GameItemGroupContent">
                     ${gameItems}
                     </div>
@@ -470,6 +457,20 @@ ${gameitemmobilepopup}
         });
     }
 
+    function resetCategory(categoryCode) {
+        
+        selectedCategorys = [];
+        var idGameItemGroup = document.getElementById("gameAreas");
+        idGameItemGroup.innerHTML = "";
+        iframeWidth = $(window.parent.document).find('#IFramePage').width();
+        createCategory(categoryCode, function () {
+            $('.categoryPage').css('content-visibility', 'hidden');
+            $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+            setSwiper(categoryCode);
+        });
+
+    }
+
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -542,8 +543,9 @@ ${gameitemmobilepopup}
             case "BalanceChange":
                 break;
             case "resize":
+          
                 if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
-                    updateGameList(selectedCategoryCode);
+                    resetCategory(selectedCategoryCode);
                 }
 
                 break;
@@ -552,7 +554,7 @@ ${gameitemmobilepopup}
 
                 mlp.loadLanguage(lang, function () {
                     window.parent.API_LoadingEnd(1);
-                    updateGameCode();
+                    resetCategory(selectedCategoryCode);
                 });
                 break;
 
