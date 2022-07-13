@@ -480,14 +480,16 @@
     }
 
     //取得當週期7日活動所需資訊
-    function API_GetUserThisWeekTotalValidBetValue() {
+    function API_GetUserThisWeekTotalValidBetValue(cb) {
 
-        if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+        if (UserThisWeekTotalValidBetValueData.length == 0) {
             lobbyClient.GetUserAccountThisWeekTotalValidBetValueResult(EWinWebInfo.SID, Math.uuid(), function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
                         UserThisWeekTotalValidBetValueData = o.Datas;
-                        notifyWindowEvent("UserThisWeekTotalValidBetValueDataGet");
+                        if (cb != null) {
+                            cb(UserThisWeekTotalValidBetValueData);
+                        }
                     } else {
                         UserThisWeekTotalValidBetValueData = [];
                     }
@@ -500,7 +502,9 @@
                 }
             });
         } else {
-            UserThisWeekTotalValidBetValueData = [];
+            if (cb != null) {
+                cb(UserThisWeekTotalValidBetValueData);
+            }
         }
     }
     //#endregion
@@ -1470,7 +1474,7 @@
                                             API_LoadPage("SrcPage", srcPage, true);
                                         }
                                     }
-                                    API_GetUserThisWeekTotalValidBetValue();
+                   
                                     notifyWindowEvent("IndexFirstLoad", logined);
                                     EWinWebInfo.FirstLoaded = true;
                                 });
