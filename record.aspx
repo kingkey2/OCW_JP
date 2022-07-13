@@ -129,7 +129,7 @@
                                 if (summaryDateDom.classList.contains("show")) {
                                     summaryDateDom.classList.remove("show");
                                 } else {
-                                    summaryDateDom.classList.add("show");                              
+                                    summaryDateDom.classList.add("show");
                                 }
 
 
@@ -323,7 +323,10 @@
                             paymentRecordStatus = 0;
                             paymentRecordText = mlp.getLanguageKey('進行中');
                             $(RecordDom_M).find('.processing').show();
+                            $(RecordDom).find('.processing').show();
 
+                            $(RecordDom_M).addClass('order-processing');
+                            $(RecordDom).addClass('order-processing');
                             // 0=一般/1=銀行卡/2=區塊鏈
                             switch (record.BasicType) {
                                 case 0:
@@ -420,6 +423,9 @@
                                         paymentRecordStatus = 2;
                                         paymentRecordText = mlp.getLanguageKey('完成');
                                         $(RecordDom_M).find('.success').show();
+                                        $(RecordDom).find('.success').show();
+                                        $(RecordDom_M).removeClass('order-processing');
+                                        $(RecordDom).removeClass('order-processing');
                                         break;
                                     case 3:
                                         if (record.BasicType == 1) {
@@ -429,11 +435,17 @@
                                         }
                                         paymentRecordStatus = 3;
                                         $(RecordDom_M).find('.fail').show();
+                                        $(RecordDom).find('.fail').show();
+                                        $(RecordDom_M).removeClass('order-processing');
+                                        $(RecordDom).removeClass('order-processing');
                                         break;
                                     case 4:
                                         paymentRecordStatus = 4;
                                         paymentRecordText = mlp.getLanguageKey('審核拒絕');
                                         $(RecordDom_M).find('.fail').show();
+                                        $(RecordDom).find('.fail').show();
+                                        $(RecordDom_M).removeClass('order-processing');
+                                        $(RecordDom).removeClass('order-processing');
                                         break;
                                 }
 
@@ -510,7 +522,7 @@
                             }
                         }
                     }
-                    
+
                     if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
                         if (WebInfo.DeviceType == 1) {
                             $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
@@ -606,6 +618,9 @@
     }
 
     function copyText(tag) {
+        if (event) {
+            event.stopPropagation();
+        }
 
         var copyText = $(tag).parent().find('.inputPaymentSerial')[0];
 
@@ -932,8 +947,8 @@
                             <!-- thead  -->
                             <div class="Thead">
                                 <div class="thead__tr">
-                                    <div class="thead__th"><span class="language_replace"></span></div>
-                                    <div class="thead__th">
+                                    <div class="thead__th" style="width:100px;"><span class="language_replace"></span></div>
+                                    <div class="thead__th" style="width:120px;">
                                         <span class="language_replace">日期</span>
                                         <%--<span class="arrow arrow-down"></span>--%>
                                     </div>
@@ -1007,7 +1022,6 @@
                     <!-- TABLE -->
                     <div class="record-table-container">
                         <div class="record-table games-record">
-
                             <div class="record-table-item header">
                                 <div class="record-table-cell td-date">
                                     <span class="language_replace">日期</span>
@@ -1025,7 +1039,6 @@
                                     <span class="language_replace">勝/負</span>
                                 </div>
                             </div>
-
                             <div id="divGame">
                             </div>
                                 <div class="no-Data" id="idNoGameData">
@@ -1035,7 +1048,6 @@
                             </div>
                         </div>
                     </div>
-
                 </section>
                 </div>
             </section>
@@ -1045,6 +1057,7 @@
 
     <!-- 存款 -->
     <div id="tmpPayment_D" style="display: none">
+        <!-- 處理中訂單 => class="order-processing"-->
         <div class="tbody__tr deposit">
             <div class="tbody__td td-payment">
                 <span class="td__content">
@@ -1079,13 +1092,19 @@
                 </span>
             </div>
             <div class="tbody__td td-transesult">
-                <span class="td__content"><span class="PaymentStatus"></span></span>
+                <span class="td__content">
+                    <!-- 入金訂單狀態 -->
+                    <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
+                    <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
+                    <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
+                    <span class="PaymentStatus"></span></span>
             </div>
         </div>
     </div>
 
     <!-- 出款 -->
     <div id="tmpPayment_W" style="display: none">
+        <!-- 處理中訂單 => class="order-processing"-->
         <div class="tbody__tr withdraw">
             <div class="tbody__td td-payment">
                 <span class="td__content">
@@ -1120,13 +1139,19 @@
                 </span>
             </div>
             <div class="tbody__td td-transesult">
-                <span class="td__content"><span class="PaymentStatus language_replace">成功</span></span>
+                <span class="td__content">
+                    <!-- 出金訂單狀態 -->
+                    <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
+                    <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
+                    <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
+                    <span class="PaymentStatus language_replace">成功</span></span>
             </div>
         </div>
     </div>
 
     <!-- 存款 手機-->
     <div id="tmpPayment_M_D" style="display: none">
+        <!-- 處理中訂單 => class="order-processing"-->
         <div class="record-table-item deposit">
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
@@ -1142,7 +1167,7 @@
                 <div class="record-table-cell td-paymentWay-date">
                     <div class="record-table-cell-wrapper">
                         <div class="td-paymentWay">
-                             <!-- 出入金訂單狀態 -->
+                            <!-- 入金訂單狀態 -->
                             <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
                             <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
                             <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
@@ -1189,6 +1214,7 @@
 
     <!-- 出款 手機-->
     <div id="tmpPayment_M_W" style="display: none">
+        <!-- 處理中訂單 => class="order-processing"-->
         <div class="record-table-item withdraw">
             <div class="record-table-tab">
                 <div class="record-table-cell td-status">
@@ -1205,6 +1231,10 @@
                 <div class="record-table-cell td-paymentWay-date">
                     <div class="record-table-cell-wrapper">
                         <div class="td-paymentWay">
+                            <!-- 出金訂單狀態 -->
+                            <span class="label order-status success" style="display: none"><i class="icon icon-mask icon-check"></i></span>
+                            <span class="label order-status fail" style="display: none"><i class="icon icon-mask icon-error"></i></span>
+                            <span class="label order-status processing" style="display: none"><i class="icon icon-mask icon-exclamation"></i></span>
                             <span class="data BasicType">paypal</span>
                         </div>
                         <div class="td-date">

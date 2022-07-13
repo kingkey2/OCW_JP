@@ -107,7 +107,7 @@
   "Electron": "電子",
   "Slot": "スロット",
   "全部": "すべて",
-  "公告詳情": "お知らせ",
+  "公告詳情": "詳細情報",
   "尚未輸入關鍵字或遊戲品牌": "入力が確認出来ません",
   "遊戲搜尋": "ゲーム検索",
   "MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。": "マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。",
@@ -124,5 +124,7 @@
   "HB": "ハバネロ",
   "MG": "マイクロゲーミング",
   "NE": "ネットエント",
-  "RT": "レッドタイガー"
+  "RT": "レッドタイガー",
+  "公告時間": "更新時間",
+  "公告詳情-": "お知らせ"
 }

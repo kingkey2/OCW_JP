@@ -55,13 +55,16 @@
       "Path": "2022_6/Act006.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
-    }
-    ,
+    },
     {
       "Name": "Act003",
       "Path": "2022_6/Act003.json",
       "MethodName": "OpenBonusSevenDaysDeposit",
       "InfoMethodName": "OpenBonusSevenDaysDeposit"
+    },
+    {
+      "Name": "BS001",
+      "Path": "BackendSend/BS001.json"
     }
   ]
 }

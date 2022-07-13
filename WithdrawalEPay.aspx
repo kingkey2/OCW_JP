@@ -284,7 +284,8 @@
     //建立訂單
     function CreateEPayWithdrawal() {
         var bankCard = $("#bankCard").val().trim();
-        var bankCardName = $("#bankCardName").val().trim();
+        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
+        var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
         var bankName = $("#SearchBank").val();
         var bankBranchCode = $("#bankBranchCode").val().trim();
         if ($("#amount").val().trim() == '') {
@@ -309,8 +310,14 @@
             $("#bankCard").css('border-color', '');
         }
 
-        if (bankCardName == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入姓名"), function () { });
+        if (bankCardNameFirst == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
+            window.parent.API_LoadingEnd(1);
+            return false;
+        }
+
+        if (bankCardNameSecond == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
             window.parent.API_LoadingEnd(1);
             return false;
         }
@@ -337,7 +344,13 @@
             $("#bankBranchCode").css('border-color', '');
         }
 
+        if(!$('#CheckAward').prop("checked")){
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請勾選確認出金注意事項"), function () { });
+            window.parent.API_LoadingEnd(1);
+            return false;
+        }
 
+        var bankCardName=bankCardNameFirst+"　"+bankCardNameSecond;
         var amount = parseFloat($("#amount").val().trim());
     
         var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
@@ -431,7 +444,9 @@
     //完成訂單
     function ConfirmEPayWithdrawal() {
         var bankCard = $("#bankCard").val().trim();
-        var bankCardName = $("#bankCardName").val().trim();
+        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
+        var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
+        var bankCardName=bankCardNameFirst+"　"+bankCardNameSecond;
         var bankName = $("#SearchBank").val();
         var bankBranchCode = $("#bankBranchCode").val().trim();
 
@@ -644,31 +659,49 @@
                                     </div>
                                     <label onClick="goBankPage()" class="bankUrl text-s language_replace mt-1">郵帳銀行請參考此處</label>
                                 </div>
-                           
-                                  <div class="form-group">
+                                <div class="form-group depositLastName mb-2">
                                     <label class="form-title language_replace">輸入持卡人姓名</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCardName" language_replace="placeholder" placeholder="請輸入持卡人姓名" />
-                                   
+                                        <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="請填寫片假名的姓" />
                                     </div>
                                 </div>
-                                <div class="language_replace mt-4 mb-1">
-                                    <label class="form-title language_replace" style="font-size: 1rem;">選擇銀行</label>
+                                <div class="form-group depositFirstName">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control custom-style" id="bankCardNameSecond" language_replace="placeholder" placeholder="請填寫片假名的名">
+                                    </div>                            
+                                </div>
+                                <div class="form-group mt-4 mb-0">
+                                    <label class="form-title language_replace" >選擇銀行</label>
+                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
+                                    <select class="custom-select mb-4" id="SearchBank" style=""></select> 
+                                </div>
+                                
+                                <!-- 舊的 測試無誤時刪除-->
+                                <%--
+                                <div class="language_replace mt-4 mb-0" >
+                                    <label class="language_replace" style="font-size: 1rem;">選擇銀行</label>
                                     <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
                                  </div>
-                                 <select class="custom-select mb-4" id="SearchBank" style=""></select>
-                                   
-                            </select>
-                                
+                                 <select class="custom-select mb-4" id="SearchBank" style=""></select>                                   
+                               </select>
+                               --%>
                                   
-                     
-                                    <div class="form-group">
-                                    <label class="form-title language_replace">輸入分行代碼</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankBranchCode" language_replace="placeholder" placeholder="請輸入分行代碼" onkeyup="bankBranchCodeCheck()" />
-                                   
-                                    </div>
+                            <div class="form-group">
+                                <label class="form-title language_replace">輸入分行代碼</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style" id="bankBranchCode"
+                                        language_replace="placeholder" placeholder="請輸入分行代碼" onkeyup="bankBranchCodeCheck()" />
+
                                 </div>
+                            </div>
+                            <div class="form-group award-take-check">
+                                <div class="form-check">
+                                    <label for="CheckAward">
+                                        <input class="form-check-input" type="checkbox" name="CheckAward" id="CheckAward">
+                                        <span style="color:red" class="language_replace">出金時，領取中心的獎勵將失效。</span>
+                                    </label>
+                                </div>
+                            </div>
 
                                 <!-- 換算金額(日元) -->
                                 <%--<div class="form-group ">

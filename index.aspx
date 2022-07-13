@@ -699,7 +699,7 @@
             $(likebtn).removeClass("added");
         }
 
-        likebtn.onclick = new Function("favBtnEvent(" + GameID + ",this)");
+        likebtn.onclick = new Function("favBtnEvent(" + GameID + ",this,true)");
 
         var GI_img = document.getElementById('popupMoblieGameInfo').querySelector(".imgsrc");
         if (GI_img != null) {
@@ -2002,7 +2002,7 @@
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                        onclick="API_LoadPage('Casino', 'Casino2.aspx', false)">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
@@ -3047,7 +3047,7 @@
                             <div class="popup-detail-inner">
                                 <div class="popup-detail-content">
                                     <section class="section-wrap">
-                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情</span></h6>
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情-</span></h6>
                                         <div class="section-content">
                                             <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
                                         </div>
@@ -3086,13 +3086,13 @@
                             <div class="popup-detail-inner">
                                 <div class="popup-detail-content">
                                     <section class="section-wrap">
-                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告時間</span></h6>
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告時間</span></h6>
                                         <div class="section-content">
                                             <div class="alert_Time"></div>
                                         </div>
                                     </section>
                                     <section class="section-wrap">
-                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="">公告詳情</span></h6>
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情</span></h6>
                                         <div class="section-content">
                                             <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
                                         </div>

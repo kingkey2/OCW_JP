@@ -175,9 +175,16 @@
                                 c.setClassText(RecordDom, "year_c", null, CreateDate.toString("yyyy"));
                                 c.setClassText(RecordDom, "month_c", null, CreateDate.toString("MM"));
                                 c.setClassText(RecordDom, "day_c", null, CreateDate.toString("dd"));
-                                c.setClassText(RecordDom, "year_e", null, ExpireDate.toString("yyyy"));
-                                c.setClassText(RecordDom, "month_e", null, ExpireDate.toString("MM"));
-                                c.setClassText(RecordDom, "day_e", null, ExpireDate.toString("dd"));
+                                if (ExpireDate) {
+                                    c.setClassText(RecordDom, "year_e", null, ExpireDate.toString("yyyy"));
+                                    c.setClassText(RecordDom, "month_e", null, ExpireDate.toString("MM"));
+                                    c.setClassText(RecordDom, "day_e", null, ExpireDate.toString("dd"));
+                                } else {
+                                    let k = CreateDate.getFullYear() + 1;
+                                    c.setClassText(RecordDom, "year_e", null, k);
+                                    c.setClassText(RecordDom, "month_e", null, CreateDate.toString("MM"));
+                                    c.setClassText(RecordDom, "day_e", null, CreateDate.toString("dd"));
+                                }
                                 c.setClassText(RecordDom, "title", null, Collect.PromotionTitle);
                                 $(RecordDom).attr("data-collectid", Collect.CollectID);
                                 $(RecordDom).attr("data-val", PointValue);
@@ -346,22 +353,23 @@
                     </a>
                     <div class="sec-title-wrapper">
                         <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
-                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', true)">
-                            <i class="icon icon-mask icon-question"></i>
-                        </span>
-                        <!-- 獎金/禮金 TAB -->
-                        <div class="tab-prize tab-scroller tab-2">
-                            <div class="tab-scroller__area">
-                                <ul class="tab-scroller__content">
-                                    <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
-                                        <span class="tab-item-link"><span class="title language_replace">獎金</span>
-                                        </span>
-                                    </li>
-                                    <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
-                                        <span class="tab-item-link"><span class="title language_replace">禮金</span></span>
-                                    </li>
-                                </ul>
-                            </div>
+                        <!-- 使用說明LINK -->
+                        <span class="sec-title-intro-link" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', true)">
+                            <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="title language_replace">領獎中心使用說明</span>
+                        </span>                       
+                    </div>
+                     <!-- 獎金/禮金 TAB -->
+                     <div class="tab-prize tab-scroller tab-2">
+                        <div class="tab-scroller__area">
+                            <ul class="tab-scroller__content">
+                                <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
+                                    <span class="tab-item-link"><span class="title language_replace">獎金</span>
+                                    </span>
+                                </li>
+                                <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
+                                    <span class="tab-item-link"><span class="title language_replace">禮金</span></span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -482,7 +490,7 @@
                                 <span class="year year_c">2022</span><span class="month month_c">04</span><span class="day day_c">04</span>
                             </span>
                             <span class="date-period-end">
-                                <span class="year year_e">2022</span><span class="month month_e">06</span><span class="day day_c">06</span>
+                                <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
                             </span>
                         </div>
                     </div>

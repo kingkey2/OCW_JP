@@ -249,6 +249,10 @@
                     window.parent.API_LoadingEnd(1);
                 });
                 break;
+            case "UserThisWeekTotalValidBetValueDataGet":
+                //顯示簽到完成與否
+                setUserThisWeekLogined();
+                break;
         }
     }
 
@@ -276,8 +280,7 @@
 
             if (p != null) {
                 updateBaseInfo();
-                //顯示簽到完成與否
-                setUserThisWeekLogined();
+                window.top.API_GetUserThisWeekTotalValidBetValue();
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
