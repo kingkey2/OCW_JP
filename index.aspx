@@ -677,20 +677,27 @@
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
         var FavoGames = getFavoriteGames();
+        var popupMoblieGameInfo = $('#popupMoblieGameInfo');
+        var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-link");
+        var playgamebtn = popupMoblieGameInfo[0].querySelector(".btn-play");
+        var btnmore = popupMoblieGameInfo[0].querySelector(".btn-more");
+        var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
+        var GI_img = popupMoblieGameInfo[0].querySelector(".imgsrc");
 
-        $('#popupMoblieGameInfo .BrandName').text(brandName);
-        $('#popupMoblieGameInfo .valueRTP').text(RTP);
-        $('#popupMoblieGameInfo .GameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
-        $('#popupMoblieGameInfo .GameID').text(GameID);
-        $('.headerGameName').text(API_GetGameLang(1, EWinWebInfo.Lang, brandName + "." + gameName));
-        var gameitemlink = document.getElementById('popupMoblieGameInfo').querySelector(".game-item-link");
-        var playgamebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-play");
+        popupMoblieGameInfo.find('.BrandName').text(brandName);
+        popupMoblieGameInfo.find('.valueRTP').text(RTP);
+
+        API_GetGameLang(EWinWebInfo.Lang, brandName + "." + gameName, function (langText) {
+            popupMoblieGameInfo.find('.GameName').text(langText);
+            $('.headerGameName').text(langText);
+        });
+        
+
         playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        var btnmore = document.getElementById('popupMoblieGameInfo').querySelector(".btn-more");
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");      
         btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
 
-        var likebtn = document.getElementById('popupMoblieGameInfo').querySelector(".btn-like");
+     
         if (FavoGames.filter(e => e.GameID === GameID).length > 0) {
             $(likebtn).addClass("added");
         } else {
@@ -699,14 +706,15 @@
 
         likebtn.onclick = new Function("favBtnEvent(" + GameID + ",this,true)");
 
-        var GI_img = document.getElementById('popupMoblieGameInfo').querySelector(".imgsrc");
+      
         if (GI_img != null) {
             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
             //var el = GI_img;
             //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
             //observer.observe();
         }
-        $('#popupMoblieGameInfo').modal('show');
+
+        popupMoblieGameInfo.modal('show');
     }
 
     function popupMoblieGameInfoShowMore(doc) {
@@ -2079,7 +2087,7 @@
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('Casino', 'Casino2.aspx', false)">
+                                        onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
