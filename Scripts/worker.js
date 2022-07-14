@@ -11,29 +11,25 @@ self.addEventListener('message', function (e) {
     //Cmd => 執行動作
     //Params => data參數
     if (e.data) {
-        if (e.data.Cmd == "Init") {
-            wokerControl = new Worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], e.data.Params[3], e.data.Params[4]);
-            wokerControl.onRefreshCtEvent = function (ctResult) {
+        if (e.data.Cmd == "Init") {            
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2]);
+
+            //dataExist,true => indexedDB已經有資料，可不等同步直接使用
+            wokerControl.OnInitSyncStart = function (dataExist) {
                 self.postMessage({
-                    Cmd: "RefreshCtList",
-                    Data: ctResult,
-                });
-            };
-            wokerControl.onRefreshDicEvent = function (searchResult) {
-                self.postMessage({
-                    Cmd: "RefreshDic",
-                    Data: searchResult,
+                    Cmd: "InitSyncStart",
+                    Data: dataExist,
                 });
             };
 
-            wokerControl.onLoadLangEnd = function (langs) {
+            wokerControl.OnInitSyncEnd = function () {
                 self.postMessage({
-                    Cmd: "LangsLoaded",
-                    Data: langs,
+                    Cmd: "InitSyncEnd",
+                    Data: null,
                 });
             };
 
-            wokerControl.start();
+            wokerControl.Start();
         }
     }
 }, false);
@@ -41,600 +37,307 @@ self.addEventListener('message', function (e) {
 
 
 //#region  Class
-var Worker = function (version, url, langUrl, second, timeStamp) {
-    var defineLocations = ["Home", "GameList_All", "GameList_Slot", "GameList_Live", "GameList_Electron", "GameList_Other"];
-    var defineLangs = ["JPN", "CHT"];    
-    var url = url
-    var langUrl = langUrl;
-    var IntervalSecond = second;   
-    var version = version;
+var worker = function (WebUrl, Second, eWinGameItem) {
+    var workerSelf = this;        
+    var APIUrl = WebUrl;
+    
 
-    var lobbyAPI;
+    function callService(URL, postObject, timeoutMS, cb) {
+        var xmlHttp = new XMLHttpRequest;
+        var postData;
 
-    var languages = [
+        if (postObject)
+            postData = JSON.stringify(postObject);
 
-    ];
+        xmlHttp.open("POST", URL, true);
+        xmlHttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                var contentText = this.responseText;
 
-    var multiLanguage = function (v) {
-        var _LanguageContextJSON = [];
-
-        this.getLangText = function () {
-            return _LanguageContextJSON[0];
-        }
-
-        function loadLanguageFromFile(langFile, cb) {
-            readTextFile(langFile, function (success, text) {
-                if (success) {
-                    var langObj = JSON.parse(text);
-
-                    _LanguageContextJSON[_LanguageContextJSON.length] = langObj;
-                }
-
-                if (cb != null)
-                    cb();
-            });
-        }
-
-        function readTextFile(file, callback) {
-            var rawFile = new XMLHttpRequest();
-            //rawFile.overrideMimeType("application/json");
-            rawFile.open("GET", file, true);
-            //rawFile.setRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            rawFile.onreadystatechange = function () {
-                if (rawFile.readyState === 4) {
-                    if (rawFile.status == "200") {
-                        callback(true, rawFile.responseText);
-                    } else {
-                        callback(false, rawFile.responseText);
-                    }
-
-                }
-            }
-            rawFile.send(null);
-        }
-
-        this.getLanguageKey = function (key) {
-            var retValue = key;
-
-            if (key) {
-                if (key != "") {
-                    if (_LanguageContextJSON != null) {
-                        for (var _i = 0; _i < _LanguageContextJSON.length; _i++) {
-                            var _o = _LanguageContextJSON[_i];
-
-                            if (typeof _o[key] != 'undefined') {
-                                retValue = _o[key];
-                            }
-                        }
-                    }
-                }
-            }
-
-            return retValue;
-        }
-
-        this.loadLanguageByOtherFile = function (filePath, lang, cb) {
-            if (lang) {
-                if (lang != "") {
-                    _LanguageContextJSON = [];
-
-                    if (v) {
-                        loadLanguageFromFile(filePath + lang + ".json?" + v, function () {
-                            if (cb)
-                                cb(lang);
-                        });
-                    } else {
-                        loadLanguageFromFile(filePath + lang + ".json", function () {
-                            if (cb)
-                                cb(lang);
-                        });
+                if (this.status == "200") {
+                    if (cb) {
+                        cb(true, contentText);
                     }
                 } else {
-                    if (cb)
-                        cb(lang);
+                    cb(false, contentText);
                 }
-            } else {
-                if (cb)
-                    cb(lang);
             }
-        }
+        };
 
-    };
+        xmlHttp.timeout = timeoutMS;
+        xmlHttp.ontimeout = function () {
+            /*
+            timeoutTryCount += 1;
+ 
+            if (timeoutTryCount < 2)
+                xmlHttp.send(postData);
+            else*/
+            if (cb)
+                cb(false, "Timeout");
+        };
 
-    var LoadLang = function (cb) {
-        var PromiseList = [];
-        
-        for (var i = 0; i < defineLangs.length; i++) {
-            var gameCodeMlp = new multiLanguage(version);
-            var gameBrandMlp = new multiLanguage(version);
-            var lang = defineLangs[i];
-            PromiseList.push(new Promise(function (resolve, reject) {               
-                gameCodeMlp.loadLanguageByOtherFile(langUrl + "/GameCode.", lang, (function (lang) {
-                    languages.push({
-                        lang: lang,
-                        type: "GameCode",
-                        mlp: this
-                    });
-                    resolve({ Data: this.getLangText(), lang: lang, type: "GameCode"});
-                }).bind(gameCodeMlp));
-            }));
-
-            PromiseList.push(new Promise(function (resolve, reject) {             
-                gameBrandMlp.loadLanguageByOtherFile(langUrl + "/GameBrand.", lang, (function (lang) {
-                    languages.push({
-                        lang: lang,
-                        type: "GameBrand",
-                        mlp: this
-                    });
-                    resolve({ Data: this.getLangText(), lang: lang, type: "GameBrand"});
-                }).bind(gameBrandMlp));
-            }));         
-        }
-
-        Promise.all(PromiseList).then(function (values) {
-            cb(values);
-        });
+        xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        xmlHttp.send(postData);
     }
 
-    var RefreshData = function RefreshData() {
+    function getJSON(text) {
+        var obj = JSON.parse(text);
 
-        //#region List Define
-
-
-        //var GameList = {
-        //    Slices: [
-        //        {
-        //            Index: 0 // GameID /100
-        //            Datas: [
-        //          GameData                           
-        //            ]
-        //        }
-        //    ]
-        //};
-
-        //var SearchDic = {
-        //    //廠牌搜尋
-        //    Brands: [{GameBrand:,AllGame:[],GameIndex}],
-        //    //總文字搜尋
-        //    Langs: { CHT : { 好:[] }}
-        //};
-
-
-        //var GameCtList = [{
-        //    Location: "",
-        //    Categories: [
-        //        {
-        //            CategoryID: 0,
-        //            State: 0,
-        //            SortIndex: 0,
-        //            Location: 0,
-        //            ShowType: 0,
-        //            Datas: [
-        //                {
-        //                    CategoryID: 0,
-        //                    GameID: 0,
-        //                    GameCode: "",
-        //                    GameName: "",
-        //                    GameCategoryCode: "",
-        //                    GameCategorySubCode: "",
-        //                    AllowDemoPlay: 0,
-        //                    RTPInfo: 0,
-        //                    Info: 0,
-        //                    IsHot: 0,
-        //                    IsNew: 0,
-        //                    SortIndex: 0
-        //                }
-        //            ]
-        //        }
-        //    ]
-        //}];
-
-        //#endregion List
-
-        let tempStamp = this.RecordTimeStamp;
-        lobbyAPI.GetCompanyGameCodeTwo(Math.uuid(), tempStamp, (function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    if (o.CompanyCategoryDatas.length > 0) {
-                        var GameCtList = [];
-
-                        for (var i = 0; i < defineLocations.length; i++) {
-                            GameCtList.push({
-                                Location: defineLocations[i],
-                                Categories: []
-                            });
-                        }
-
-
-                        for (var i = 0; i < o.CompanyCategoryDatas.length; i++) {
-                            var ctData = o.CompanyCategoryDatas[i];
-                            var targetLocation = GameCtList.find(x => x.Location == ctData.Location);
-                            var pushCtData = {
-                                CategoryID: ctData.CompanyCategoryID,
-                                State: ctData.State,
-                                SortIndex: ctData.SortIndex,
-                                CategoryName: ctData.CategoryName,
-                                Location: ctData.Location,
-                                ShowType: ctData.ShowType,
-                                Datas: [],
-                            };
-
-                            for (var ii = 0; ii < ctData.Datas.length; ii++) {
-
-                                var gameData = ctData.Datas[ii];
-                                var pushGameData = {
-                                    CategoryID: ctData.CompanyCategoryID,
-                                    GameID: gameData.GameID,
-                                    GameCode: gameData.GameCode,
-                                    GameBrand: gameData.GameBrand,
-                                    GameName: gameData.GameName,
-                                    GameCategoryCode: gameData.GameCategoryCode,
-                                    GameCategorySubCode: gameData.GameCategorySubCode,
-                                    AllowDemoPlay: gameData.AllowDemoPlay,
-                                    RTPInfo: gameData.RTPInfo,
-                                    Info: gameData.Info,
-                                    RTPInfo: gameData.RTPInfo,
-                                    IsHot: gameData.IsHot,
-                                    IsNew: gameData.IsNew,
-                                    SortIndex: gameData.SortIndex,
-                                    Tag: gameData.Tag,
-                                    GameText: {},
-                                    BrandText: {}
-                                };
-
-                                for (var iii = 0; iii < languages.length; iii++) {
-                                    var language = languages[iii];
-
-                                    if (language.type == "GameCode") {
-                                        pushGameData.GameText[language.lang] = language.mlp.getLanguageKey(pushGameData.GameBrand + "." + pushGameData.GameName);
-
-                                    } else if (language.type == "GameBrand") {
-                                        pushGameData.BrandText[language.lang] = language.mlp.getLanguageKey(pushGameData.GameBrand);
-                                    }
-                                }
-
-                                pushCtData.Datas.push(pushGameData);
-                            }
-
-                            pushCtData.Datas.sort((a, b) => a.SortIndex - b.SortIndex);
-
-                            targetLocation.Categories.push(pushCtData);
-                        }
-
-                        for (var i = 0; i < GameCtList.length; i++) {
-                            GameCtList[i].Categories.sort((a, b) => a.SortIndex - b.SortIndex);
-                        }
-
-
-                        this.RecordTimeStamp = o.TimeStamp;
-                        if (this.onRefreshCtEvent) {
-                            this.onRefreshCtEvent({
-                                TimeStamp: this.RecordTimeStamp,
-                                CtList:GameCtList
-                            });
-                        }
-                    }                                    
-                }
+        if (obj) {
+            if (obj.hasOwnProperty('d')) {
+                return obj.d;
+            } else {
+                return obj;
             }
-        }).bind(this));
+        }
+    }
 
-        lobbyAPI.GeAllCompanyGameCode(Math.uuid(), tempStamp, (function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    if (o.Datas.length > 0) {
-                        var GameList = {
-                            Slices: [],
-                            TotalCount: 0
-                        };
+    
+    //#region public屬性
 
-
-                        var SearchDic = {
-                            //廠牌搜尋
-                            Brands: [],
-                            //總文字搜尋
-                            Langs: {}
-                        };
-
-                        GameList.Slices.length = Math.trunc(o.MaxGameID / 100) + 1;
-
-                        for (var i = 0; i < GameList.Slices.length; i++) {
-                            GameList.Slices[i] = [];
-                            GameList.Slices[i].length = 100;
-                        }
-
-                        for (var i = 0; i < o.Datas.length; i++) {
-                            //利用MaxGameID整理index                        
-                            var Data = o.Datas[i];
-                            var targetBrand;
-                            var pushData = {
-                                GameID: Data.GameID,
-                                GameCode: Data.GameCode,
-                                GameBrand: Data.GameBrand,
-                                GameName: Data.GameName,
-                                GameCategoryCode: Data.GameCategoryCode,
-                                GameCategorySubCode: Data.GameCategorySubCode,
-                                AllowDemoPlay: Data.AllowDemoPlay,
-                                RTPInfo: Data.RTPInfo,
-                                Info: Data.Info,
-                                IsHot: Data.IsHot,
-                                IsNew: Data.IsNew,
-                                SortIndex: Data.SortIndex,
-                                Tag: Data.Tag,
-                                GameText: {},
-                                BrandText: {}
-                            };
-
-
-                            //依據廠牌整理搜尋索引
-                            targetBrand = SearchDic.Brands.find(x => x.GameBrand == Data.GameBrand);
-
-
-                            if (targetBrand) {
-                                targetBrand.AllGame.push(Data.GameID);
-                                var targeCharDatas = targetBrand.GameNameIndex[Data.GameName[0]];
-                                if (targeCharDatas) {
-                                    targeCharDatas.push({
-                                        TargetValue: Data.GameName,
-                                        GameID: Data.GameID
-                                    });
-                                } else {
-                                    targetBrand.GameNameIndex[Data.GameName[0]] = [{
-                                        TargetValue: Data.GameName,
-                                        GameID: Data.GameID
-                                    }];
-                                }
-                            } else {
-                                //初始化廠牌
-                                targetBrand = {
-                                    GameBrand: Data.GameBrand,
-                                    //廠牌GameCode搜尋
-                                    GameNameIndex: {
-
-                                    },
-                                    //廠牌文字搜尋，需再區分語系
-                                    Langs: {
-
-                                    },
-                                    BrandText: {},
-                                    GameCtList:[],
-                                    AllGame: [Data.GameID]
-                                };
-
-                                //取第一個字母當作切片依據
-                                targetBrand.GameNameIndex[Data.GameName[0]] = [{
-                                    TargetValue: Data.GameName,
-                                    GameID: Data.GameID
-                                }];
-
-
-                                
-
-                                for (var ii = 0; ii < languages.length; ii++) {
-                                    var language = languages[ii];
-                                    var transBrandText = language.mlp.getLanguageKey(Data.GameBrand);
-                                    var targetLangData;
-
-                                    if (language.type == "GameCode") {
-                                       
-                                    } else if (language.type == "GameBrand") {
-                                        targetBrand.BrandText[language.lang] = transBrandText;
-                                    }
-                                }
-
-                                SearchDic.Brands.push(targetBrand);
-                            }
-
-                            //處理Brand的Category
-                            if (targetBrand.GameCtList.indexOf(pushData.GameCategoryCode) == -1) {
-                                targetBrand.GameCtList.push(pushData.GameCategoryCode);
-                            }
-
-
-                            //整理語系資料與依照字母加入搜尋索引
-                            for (var ii = 0; ii < languages.length; ii++) {
-                                var language = languages[ii];
-                                var transGameText = language.mlp.getLanguageKey(Data.GameCode);
-                                var transBrandText = language.mlp.getLanguageKey(Data.GameBrand);
-                                var targetLangData;
-
-                                if (language.type == "GameCode") {
-                                    pushData.GameText[language.lang] = transGameText;
-                                } else if (language.type == "GameBrand") {
-                                    pushData.BrandText[language.lang] = transBrandText;
-                                }
-
-                                if (language.type == "GameCode") {
-                                    //新增至全部文字搜尋
-                                    targetLangData = SearchDic.Langs[language.lang];
-
-                                    if (targetLangData) {
-                                        var targetCharDatas = targetLangData[transGameText[0]];
-
-                                        if (targetCharDatas) {
-                                            targetCharDatas.push({
-                                                TargetValue: transGameText,
-                                                GameID: Data.GameID
-                                            });
-                                        } else {
-                                            targetLangData[transGameText[0]] = [{
-                                                TargetValue: transGameText,
-                                                GameID: Data.GameID
-                                            }];
-                                        }
-                                    } else {
-                                        var tempCharDatas = {};
-                                        tempCharDatas[transGameText[0]] = [{
-                                            TargetValue: transGameText,
-                                            GameID: Data.GameID
-                                        }];
-                                        SearchDic.Langs[language.lang] = tempCharDatas;
-                                    }
-
-
-                                    //新增至廠牌全文字搜尋
-                                    targetLangData = targetBrand.Langs[language.lang];
-
-                                    if (targetLangData) {
-                                        var targetCharDatasByBrand = targetLangData[transGameText[0]];
-
-                                        if (targetCharDatasByBrand) {
-                                            targetCharDatasByBrand.push({
-                                                TargetValue: transGameText,
-                                                GameID: Data.GameID
-                                            });
-                                        } else {
-                                            targetLangData[transGameText[0]] = [{
-                                                TargetValue: transGameText,
-                                                GameID: Data.GameID
-                                            }];
-                                        }
-                                    } else {
-                                        var tempCharDatas = {};
-                                        tempCharDatas[transGameText[0]] = [{
-                                            TargetValue: transGameText,
-                                            GameID: Data.GameID
-                                        }];
-                                        targetBrand.Langs[language.lang] = tempCharDatas;
-                                    }
-                                }
-                            }
-
-                            var IndexOne = Math.trunc(Data.GameID / 100);
-                            var IndexTwo = Data.GameID % 100;
-
-                            GameList.Slices[IndexOne][IndexTwo] = pushData;
-                            GameList.TotalCount++;
-                        }
-
-                        this.RecordTimeStamp = o.TimeStamp;
-                        if (this.onRefreshDicEvent) {
-                            this.onRefreshDicEvent({
-                                TimeStamp: this.RecordTimeStamp,
-                                SearchCore: {
-                                    GameList: GameList,
-                                    SearchDic: SearchDic
-                                }});
-                        }
-                    }             
-                }
-            }
-        }).bind(this));
+    //property
+    this.SyncEventData = {
+        Database: null,
+        LastTimeStamp: 0,
+        LastGameID : 0,
+        NowTimeStamp: 0,
+        NowGameID: 0 ,
+        IntervalSecond: Second,
+        FailureSecond : 3,
     };
 
+    this.EWinGameItem = eWinGameItem;
 
-    //#region public屬性
-    this.RecordTimeStamp = timeStamp;
-    //刷新全部
-    this.onRefreshDicEvent;
-    //刷新分類
-    this.onRefreshCtEvent;
+    //delegate
+    //刷新全部    
+    this.OnInitSyncStart;
 
-    this.onLoadLangEnd;
+    this.OnInitSyncEnd;
 
-    this.start = function () {
-        lobbyAPI = new (function (APIUrl) {
-            this.GeAllCompanyGameCode = function (GUID, RecordTimeStamp, cb) {
-                var url = APIUrl + "/GeAllCompanyGameCode";
-                var postData;
+    this.IsFirstLoaded = false;
 
-                postData = {
-                    GUID: GUID,
-                    RecordTimeStamp: RecordTimeStamp
-                };
+    this.Sync = function () {
+        //初始化，不指定version
+        let DBRequestLink = self.indexedDB.open('GameCodeDB');
 
-                callService(url, postData, 10000, function (success, text) {
-                    if (success == true) {
-                        var obj = getJSON(text);
+        //check indexDB init
 
-                        if (cb)
-                            cb(true, obj);
-                    } else {
-                        if (cb)
-                            cb(false, text);
+        //版本號高於當前版本，觸發
+        DBRequestLink.onupgradeneeded = function (event) {
+            var db = event.target.result;
+            var store;
+            // 第一次建立indexedDB
+            if (event.oldVersion == 0) {
+                store = db.createObjectStore("GameCodes", { keyPath: "GameCode", autoIncrement: false });
+                store.createIndex('GameID', "GameID", { unique: true, multiEntry: false });
+                store.createIndex('GameBrand', ['GameBrand', 'SortIndex'], { unique: false, multiEntry: false });
+                store.createIndex('GameCategoryCode', ['GameCategoryCode', 'SortIndex'], { unique: false, multiEntry: false });
+                store.createIndex('Personal', 'Personal', { unique: false, multiEntry: true });
+                store.createIndex('GameCategorySubCode', ['GameCategoryCode', 'GameCategorySubCode', 'SortIndex'], { unique: false, multiEntry: false });
+                store.createIndex('SearchKeyWord', "Tags", { unique: false, multiEntry: true }); //搜尋關鍵字使用
+                //store.createIndex('ShowTags', 'ShowTags', { unique: false, multiEntry: true }); //顯性標籤
+
+                if (workerSelf.EWinGameItem) {
+                    store.put(workerSelf.EWinGameItem);
+                }
+            } 
+        };
+
+        DBRequestLink.onsuccess = function (event) {
+            workerSelf.SyncEventData.Database = event.target.result;
+            if (workerSelf.SyncEventData.Database.version == 1) {
+                //有初始化，但沒同步過資料 version =>1
+                workerSelf.SyncEventData.NowGameID = 0;
+                workerSelf.SyncEventData.NowTimeStamp = 0;
+
+                if (workerSelf.IsFirstLoaded == false) {
+                    if (workerSelf.OnInitSyncStart) {
+                        workerSelf.OnInitSyncStart(false);
                     }
-                });
-            };
+                }               
+            } else {
+                //有初始化，有同步過資料 version => 15位數，10位數unix + 5 位GamdID
+                workerSelf.SyncEventData.NowTimeStamp = Math.floor(workerSelf.SyncEventData.Database.version / 100000);
+                workerSelf.SyncEventData.NowGameID = workerSelf.SyncEventData.Database.version % 100000;
 
-            this.GetCompanyGameCodeTwo = function (GUID, RecordTimeStamp, cb) {
-                var url = APIUrl + "/GetCompanyGameCodeTwo";
-                var postData;
-
-                postData = {
-                    GUID: GUID,
-                    RecordTimeStamp: RecordTimeStamp
-                };
-
-                callService(url, postData, 10000, function (success, text) {
-                    if (success == true) {
-                        var obj = getJSON(text);
-
-                        if (cb)
-                            cb(true, obj);
-                    } else {
-                        if (cb)
-                            cb(false, text);
+                if (workerSelf.IsFirstLoaded == false) {
+                    if (workerSelf.OnInitSyncStart) {
+                        workerSelf.OnInitSyncStart(true);
                     }
-                });
-            };
-
-            function callService(URL, postObject, timeoutMS, cb) {
-                var xmlHttp = new XMLHttpRequest;
-                var postData;
-
-                if (postObject)
-                    postData = JSON.stringify(postObject);
-
-                xmlHttp.open("POST", URL, true);
-                xmlHttp.onreadystatechange = function () {
-                    if (this.readyState == 4) {
-                        var contentText = this.responseText;
-
-                        if (this.status == "200") {
-                            if (cb) {
-                                cb(true, contentText);
-                            }
-                        } else {
-                            cb(false, contentText);
-                        }
-                    }
-                };
-
-                xmlHttp.timeout = timeoutMS;
-                xmlHttp.ontimeout = function () {
-                    /*
-                    timeoutTryCount += 1;
-        
-                    if (timeoutTryCount < 2)
-                        xmlHttp.send(postData);
-                    else*/
-                    if (cb)
-                        cb(false, "Timeout");
-                };
-
-                xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-                xmlHttp.send(postData);
+                }              
             }
 
-            function getJSON(text) {
-                var obj = JSON.parse(text);
+           
+            workerSelf.RecursiveSyncGameCode();
+        };
+    }
 
-                if (obj) {
-                    if (obj.hasOwnProperty('d')) {
-                        return obj.d;
+    this.NextSync = function (Second) {
+        workerSelf.SyncEventData.LastTimeStamp = 0;
+        workerSelf.SyncEventData.LastGameID = 0;
+
+
+        setTimeout(workerSelf.Sync, Second * 1000)
+    };
+
+    this.SyncSuccess = function (needResetVersion) {
+        //db drop
+
+        if (workerSelf.SyncEventData.Database) {
+            workerSelf.SyncEventData.Database.close();
+            workerSelf.SyncEventData.Database = null;
+        }
+ 
+        //更新目前同步時間與IndexedDB版本
+        if (needResetVersion) {
+            if (workerSelf.SyncEventData.NowTimeStamp * 100000 + workerSelf.SyncEventData.NowGameID == 0) {
+                self.indexedDB.open('GameCodeDB', 1);
+            } else {
+                self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.NowTimeStamp * 100000 + workerSelf.SyncEventData.NowGameID);
+            }           
+        }
+
+        if (workerSelf.IsFirstLoaded == false) {
+            if (workerSelf.OnInitSyncEnd) {
+                workerSelf.OnInitSyncEnd();
+            }
+
+            workerSelf.IsFirstLoaded = true;
+        }
+
+        workerSelf.NextSync(workerSelf.SyncEventData.IntervalSecond);
+    };
+
+    this.SyncFaliure = function () {
+        //db drop
+        if (workerSelf.SyncEventData.Database) {
+            workerSelf.SyncEventData.Database.close();
+            workerSelf.SyncEventData.Database = null;
+        }
+
+        //更新目前同步時間與IndexedDB版本
+        if (workerSelf.SyncEventData.NowTimeStamp * 100000 + workerSelf.SyncEventData.NowGameID == 0) {
+            self.indexedDB.open('GameCodeDB', 1);
+        } else {
+            self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.NowTimeStamp * 100000 + workerSelf.SyncEventData.NowGameID);
+        }
+        workerSelf.NextSync(workerSelf.SyncEventData.FailureSecond);
+    };
+
+    this.GetCompanyGameCodeByUpdateTimestamp = function (GUID, UpdateTimestamp, GameID, cb) {
+        var url = APIUrl + "/GetCompanyGameCodeByUpdateTimestamp";
+        var postData;
+
+        postData = {
+            GUID: GUID,
+            UpdateTimestamp: UpdateTimestamp,
+            GameID: GameID
+        };
+
+        callService(url, postData, 100000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+                                                      
+    this.RecursiveSyncGameCode = function () {
+        workerSelf.GetCompanyGameCodeByUpdateTimestamp(Math.uuid(), workerSelf.SyncEventData.NowTimeStamp, workerSelf.SyncEventData.NowGameID, function (success, o) {
+            if (workerSelf.SyncEventData.Database) {
+                if (success) {
+                    if (o.Result == 0) {
+                        workerSelf.SyncEventData.LastTimeStamp = o.LastTimestamp;
+                        workerSelf.SyncEventData.LastGameID = o.LastGameID;
+
+                        if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
+                            //已是最新數據，不用同步
+                            workerSelf.SyncSuccess(false);
+                        } else {
+
+                            let transaction = workerSelf.SyncEventData.Database.transaction(['GameCodes'], 'readwrite');
+                            let objectStore = transaction.objectStore('GameCodes');
+
+                            for (var i = 0; i < o.GameCodeList.length; i++) {
+                                let gameCodeItem = o.GameCodeList[i];
+                                let tags = [];
+                                let temps = gameCodeItem.CompanyCategoryTag.split(",");
+
+                                for (var ii = 0; ii < temps.length; ii++) {
+                                    let index = temps[ii].indexOf("@")
+                                    if (index != -1) {                                        
+                                        tags.push(temps[ii].substring(index + 1).trim());
+                                    }
+                                }
+
+                                let InsertData = {
+                                    GameCode: gameCodeItem.GameCode,
+                                    GameBrand: gameCodeItem.BrandCode,
+                                    GameID: gameCodeItem.GameID,
+                                    GameName: gameCodeItem.GameName,
+                                    GameCategoryCode: gameCodeItem.GameCategoryCode,
+                                    GameCategorySubCode: gameCodeItem.GameCategorySubCode,
+                                    GameAccountingCode: gameCodeItem.GameAccountingCode,
+                                    AllowDemoPlay: gameCodeItem.AllowDemoPlay,
+                                    RTPInfo: gameCodeItem.RTPInfo,
+                                    IsHot: gameCodeItem.IsHot,
+                                    IsNew: gameCodeItem.IsNew,
+                                    SortIndex: gameCodeItem.SortIndex,                                    
+                                    Tags: tags,
+                                    Personal: [],
+                                    Language: gameCodeItem.Language,
+                                    RTP: gameCodeItem.RTP
+                                };
+
+
+                                try {
+                                    objectStore.put(InsertData);
+                                    workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
+                                    workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
+                                } catch (e) {
+                                    workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
+                                    workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
+                                    workerSelf.SyncFaliure();
+                                    break;
+                                }
+
+                                
+                            }
+                
+                            transaction.oncomplete = function (event) {
+                                if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
+                                    workerSelf.SyncSuccess(true);
+                                } else {
+                                    workerSelf.RecursiveSyncGameCode();
+                                }
+                            };
+                        }
                     } else {
-                        return obj;
+                        workerSelf.SyncFaliure();
                     }
+                } else {
+                    workerSelf.SyncFaliure();
                 }
             }
-        })(url);
+        });
+    };
 
-        
+    this.Start = function () {
+        //分為兩部分進行
+        //1.indexDB 處理GameCode事務
+        //2.處理分類事務
+               
+        //indexDB init
+        self.indexedDB = self.indexedDB || self.mozIndexedDB || self.webkitIndexedDB || self.msIndexedDB;
+        self.IDBTransaction = self.IDBTransaction || self.webkitIDBTransaction || self.msIDBTransaction;
+        self.IDBKeyRange = self.IDBKeyRange || self.webkitIDBKeyRange || self.msIDBKeyRange;
 
-        LoadLang((function (values) {
-            this.onLoadLangEnd(values);
-            RefreshData.call(this);
-            setInterval(RefreshData.bind(this), IntervalSecond);
-        }).bind(this));
+        workerSelf.Sync();
     }
     //#endregion
 };

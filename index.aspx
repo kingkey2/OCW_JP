@@ -136,7 +136,7 @@
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
-<script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
+<script src="Scripts/vendor/lib/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
 <script type="text/javascript" src="/Scripts/NoSleep.min.js"></script>
@@ -182,7 +182,11 @@
     //#region TOP API
 
     function API_GetGCB() {
-        return GCB;
+        if (GCB.IsFirstLoaded) {
+            return GCB;
+        } else {
+            return null;
+        }
     }
 
 
@@ -220,33 +224,21 @@
     }
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
-    function API_GetGameLang(type, lang, data) {
-        var Ret;
+    function API_GetGameLang(lang, GameCode, cb) {
+        GCB.GetByGameCode(GameCode, (GameCodeItem) => {
+            var langText = null;
 
-        if (type == 0) {
-            Ret = data;
-        } else if (type == 1) {//return gamecode
-
-            Ret = GCB.GetGameText(lang, data);
-
-            if (!Ret) {
-                Ret = GCB.OtherFindGameCodeText(lang, data);
+            if (GameCodeItem) {
+                for (var i = 0; i < gameCodeItem.Language.length; i++) {
+                    if (gameCodeItem.Language[i].LanguageCode.toLowerCase() == lang.toLowerCase()) {
+                        langText = gameCodeItem.Language[i].DisplayText;
+                        break;
+                    }
+                }
             }
-        } else if (type == 2) {//return gameBrand
-            Ret = GCB.GetBrandText(lang, data);
 
-            if (!Ret) {
-                Ret = GCB.OtherFindGameBrandText(lang, data);
-            }
-        } else {
-            Ret = data;
-        }
-
-        if (!Ret) {
-            Ret = data;
-        }
-
-        return Ret;
+            cb(langText);            
+        })
     }
 
     //打開熱門文章
@@ -507,6 +499,8 @@
             }
         }
     }
+
+    function get () { }
     //#endregion
 
     //#region Alert
@@ -1395,10 +1389,36 @@
             return;
         }
 
-        GCB = new GameCodeBridge("1", "/API/LobbyAPI.asmx", EWinWebInfo.EWinUrl, 3000000, function () {
-            notifyWindowEvent("GameLoadEnd", null);
-            //API_LoadingEnd(1);
-        });
+        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 300,
+            {
+                GameCode: "EWin.EWinGaming",
+                GameBrand: "EWin",
+                GameID: 0,
+                GameName: "EWinGaming",
+                GameCategoryCode: "Live",
+                GameCategorySubCode: "Baccarat",
+                GameAccountingCode: null,
+                AllowDemoPlay: 1,
+                RTPInfo:"",
+                IsHot: 1,
+                IsNew: 1,
+                SortIndex: 99,
+                Tags: [],
+                Personal: [],
+                Language: [{
+                    LanguageCode: "JPN",
+                    DisplayText:"EWinゲーミング"
+                }, 
+                {
+                    LanguageCode: "CHT",
+                    DisplayText: "真人百家樂(eWIN)"
+                }],
+                RTP: null
+            },
+            () => {                
+                notifyWindowEvent("GameLoadEnd", null);
+            }
+        );
 
 
         mlp = new multiLanguage(v);
@@ -1584,6 +1604,8 @@
     }
 
     function searchGameByBrandAndGameCategory(gameBrand, gameCategoryName) {
+        //待修正
+
         $('#alertSearch').modal('show');
         $("#div_SearchGameCategory").show();
         $("input[name='button-brandExchange']").each(function () {
@@ -1599,7 +1621,7 @@
         o = new Option(mlp.getLanguageKey("全部"), "All");
         $("#seleGameCategory").append(o);
 
-        var gameCategory = GCB.SearchGameCtByBrand(gameBrand);
+        //var gameCategory = GCB.SearchGameCtByBrand(gameBrand);
 
         if (gameCategory.length > 0) {
             for (var i = 0; i < gameCategory.length; i++) {
@@ -1614,7 +1636,16 @@
         searchGameList(gameBrand);
     }
 
+    var SearchControl = new (function () {
+        //private
+        var a;
+
+        //public
+        this.b;        
+    })();
+
     //#region 搜尋彈出
+
     function searchGameList(gameBrand) {
         var checkSearchFiliter = false;
         var arrayGameBrand = [];
