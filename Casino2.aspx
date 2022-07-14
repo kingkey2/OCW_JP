@@ -120,18 +120,23 @@
                 },
                 1144: {
                     slidesPerGroup: 7, //index:1200px
+                    allowTouchMove: false, //拖曳
                 },
                 1384: {
                     slidesPerGroup: 7, //index:1440px
+                    allowTouchMove: false,
                 },
                 1544: {
                     slidesPerGroup: 7, //index:1600px
+                    allowTouchMove: false,
                 },
                 1864: {
                     slidesPerGroup: 8, //index:1920px
+                    allowTouchMove: false,
                 },
                 1920: {
                     slidesPerGroup: 8, //index:1920px up
+                    allowTouchMove: false,
                 },
             }
         });
