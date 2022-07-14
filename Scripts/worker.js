@@ -126,6 +126,7 @@ var worker = function (WebUrl, Second, eWinGameItem) {
         DBRequestLink.onupgradeneeded = function (event) {
             var db = event.target.result;
             var store;
+            var categoryStore;
             // 第一次建立indexedDB
             if (event.oldVersion == 0) {
                 store = db.createObjectStore("GameCodes", { keyPath: "GameCode", autoIncrement: false });
@@ -137,8 +138,15 @@ var worker = function (WebUrl, Second, eWinGameItem) {
                 store.createIndex('SearchKeyWord', "Tags", { unique: false, multiEntry: true }); //搜尋關鍵字使用
                 //store.createIndex('ShowTags', 'ShowTags', { unique: false, multiEntry: true }); //顯性標籤
 
+                categoryStore = db.createObjectStore("GameCategory", { keyPath: ['GameBrand', 'GameCategoryCode'] ,autoIncrement: false });
+                categoryStore.createIndex('GameBrand', 'GameBrand', { unique: false, multiEntry: false });
+                categoryStore.createIndex('GameCategoryCode', 'GameCategoryCode', { unique: false, multiEntry: false });
                 if (workerSelf.EWinGameItem) {
                     store.put(workerSelf.EWinGameItem);
+                    categoryStore.put({
+                        GameBrand: workerSelf.EWinGameItem.GameBrand,
+                        GameCategoryCode: workerSelf.EWinGameItem.GameCategoryCode,
+                    });
                 }
             } 
         };
@@ -260,8 +268,9 @@ var worker = function (WebUrl, Second, eWinGameItem) {
                             workerSelf.SyncSuccess(false);
                         } else {
 
-                            let transaction = workerSelf.SyncEventData.Database.transaction(['GameCodes'], 'readwrite');
+                            let transaction = workerSelf.SyncEventData.Database.transaction(['GameCodes', 'GameCategory'], 'readwrite');
                             let objectStore = transaction.objectStore('GameCodes');
+                            let objectCategoryStore = transaction.objectStore('GameCategory');
 
                             for (var i = 0; i < o.GameCodeList.length; i++) {
                                 let gameCodeItem = o.GameCodeList[i];
@@ -297,6 +306,10 @@ var worker = function (WebUrl, Second, eWinGameItem) {
 
                                 try {
                                     objectStore.put(InsertData);
+                                    objectCategoryStore.put({
+                                        GameBrand: InsertData.GameBrand,
+                                        GameCategoryCode: InsertData.GameCategoryCode
+                                    });
                                     workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
                                     workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
                                 } catch (e) {
