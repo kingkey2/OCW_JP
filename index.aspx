@@ -2006,7 +2006,7 @@
                             <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('Casino', 'Casino2.aspx', false)">
+                                        onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
