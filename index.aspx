@@ -987,38 +987,7 @@
     }
 
     function setGameCodeToMyGames(gameBrand, gameName) {
-        var TotalCount = 14;
-        var objMyGame = new Object();
-        objMyGame.GameBrand = gameBrand;
-        objMyGame.GameName = gameName;
-
-        if (!localStorage.getItem('MyGames')) {
-            var arrayMyGames = new Array();
-            arrayMyGames.push(objMyGame);
-            localStorage.setItem('MyGames', JSON.stringify(arrayMyGames));
-        } else {
-            var arrayMyGames = JSON.parse(localStorage.getItem('MyGames'));
-            var isDuplicate = false;
-            for (var i = 0; i < arrayMyGames.length; i++) {
-                if (arrayMyGames[i].GameBrand == gameBrand && arrayMyGames[i].GameName == gameName) {
-                    isDuplicate = true;
-                    break;
-                }
-            }
-
-            if (!isDuplicate) {
-                if (arrayMyGames.length == TotalCount) {
-                    arrayMyGames.pop();
-                    arrayMyGames.unshift(objMyGame);
-                } else {
-                    arrayMyGames.unshift(objMyGame);
-                }
-            }
-
-            localStorage.setItem('MyGames', JSON.stringify(arrayMyGames));
-        }
-
-        notifyWindowEvent("RefreshMyGames", null);
+        GCB.AddPersonal()
     }
 
     function getMyGames() {
