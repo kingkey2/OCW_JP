@@ -24,18 +24,14 @@
                     switch (e.data.Cmd) {
                         case "InitSyncStart":
                             if (e.data.Data == true) {
-                                setTimeout(function () {
-                                    GCBSelf.InitDB(resolve);
-                                }, 10000);                                                       
+                                GCBSelf.InitDB(resolve);
                             }
 
                             break;
 
                         case "InitSyncEnd":
                             if (GCBSelf.IsFirstLoaded == false) {
-                                setTimeout(function () {
-                                    GCBSelf.InitDB(resolve);
-                                }, 10000);
+                                GCBSelf.InitDB(resolve);
                             }
                             break;
                         default:
