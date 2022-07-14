@@ -258,6 +258,7 @@
                                     },
                                     1144: {
                                         slidesPerGroup: 7, //index:1200px
+                                        allowTouchMove: false,
                                     },
                                     1384: {
                                         slidesPerGroup: 7, //index:1440px
