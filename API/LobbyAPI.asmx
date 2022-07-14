@@ -492,13 +492,13 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     }
 
-        
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.CompanyGameCodeResult GetCompanyGameCodeByUpdateTimestamp(string GUID, long UpdateTimestamp, int GameID)
     {
 
-         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         return lobbyAPI.GetCompanyGameCodeByUpdateTimestamp(GetToken(), GUID, UpdateTimestamp, GameID);
 
     }
@@ -1054,7 +1054,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 end = currentTime.AddDays(4 - week);  //這禮拜4
             }
 
-       
+
             TimeSpan ts = end.Subtract(start); //兩時間天數相減
 
             int dayCount = ts.Days + 1; //相距天數
@@ -1988,6 +1988,14 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
 
         return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.GameBrandResult GetGameBrand(string GUID) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        var a = lobbyAPI.GetGameBrand(GetToken(), GUID);
+        return a;
     }
 
     public class UserTwoMonthSummaryResult : EWin.Lobby.APIResult {
