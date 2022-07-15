@@ -180,7 +180,6 @@
     var LobbyGameList = {};
     var UserThisWeekTotalValidBetValueData = [];
     //#region TOP API
-
     function API_GetGCB() {
         if (GCB.IsFirstLoaded) {
             return GCB;
@@ -188,7 +187,6 @@
             return null;
         }
     }
-
 
     function API_GetWebInfo() {
         return EWinWebInfo;
@@ -417,10 +415,6 @@
 
     function API_GetFavoGames() {
         return getFavoriteGames();
-    }
-
-    function API_GetMyGames() {
-        return getMyGames();
     }
 
     function API_SendSerivceMail(subject, body, email) {
@@ -704,7 +698,7 @@
             $(likebtn).removeClass("added");
         }
 
-        likebtn.onclick = new Function("favBtnEvent(" + GameID + ",this,true)");
+        likebtn.onclick = new Function("favBtnEvent(" + GameID + "," + brandName + "." + gameName + ",this,true)");
 
       
         if (GI_img != null) {
@@ -857,7 +851,7 @@
             }, null);
         } else {
             EWinWebInfo.IsOpenGame = true;
-            setGameCodeToMyGames(gameBrand, gameName);
+            GCB.AddPersonal(gameBrand + "." + gameName, 1);
 
             $('.headerGameName').text(gameLangName);
 
@@ -876,7 +870,7 @@
     function openDemo(gameBrand, gameName) {
         //先關閉Game彈出視窗(如果存在)
         EWinWebInfo.IsOpenGame = true;
-        setGameCodeToMyGames(gameBrand, gameName);
+        GCB.AddPersonal(gameBrand + "." + gameName, 1);
 
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
@@ -894,7 +888,7 @@
         }
     }
 
-    function favBtnEvent(gameID, doc, isSearchGame) {
+    function favBtnEvent(gameID, gameCode, doc, isSearchGame) {
         if (event) {
             event.stopPropagation();
         }
@@ -906,7 +900,7 @@
                 $(doc).addClass("added");
             }
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').addClass("added");
-            setFavoriteGame(gameID);
+            setFavoriteGame(gameCode);
             if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
                 document.getElementById('IFramePage').contentWindow.refreshFavoGame();
             }
@@ -915,7 +909,7 @@
                 $(doc).removeClass("added");
             }
             $('#IFramePage').contents().find('.gameid_' + gameID + ' .btn-like').removeClass("added");
-            setFavoriteGame(gameID);
+            setFavoriteGame(gameCode);
             if (document.getElementById('IFramePage').contentWindow.refreshFavoGame) {
                 document.getElementById('IFramePage').contentWindow.refreshFavoGame();
             }
@@ -935,20 +929,20 @@
     //    return favoriteGames;
     //}
 
-    function setFavoriteGame(gameID) {
+    function setFavoriteGame(gameCode) {
         var favoriteGames=[];
 
         GCB.GetPersonal(0, function (data) {
             favoriteGames.push(data);
         }, function (data) {
-            if (!favoriteGames.filter(e => e.GameID === gameID).length > 0) {
-                //add
-                addFavoriteGamesByGameIDToIndexDB(gameID);
+            if (!favoriteGames.filter(e => e.GameCode === gameCode).length > 0) {
+                //ad
+                 GCB.AddPersonal(gameCode, 0);
 
                 showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
             } else {
                 //remove
-                removeFavoriteGamesByGameIDToIndexDB(gameID);
+                 GCB.RemovePersonal(gameCode, 0);
                 showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
             }
         });
@@ -979,52 +973,6 @@
         }
     }
 
-    function setGameCodeToMyGames(gameBrand, gameName) {
-        var TotalCount = 14;
-        var objMyGame = new Object();
-        objMyGame.GameBrand = gameBrand;
-        objMyGame.GameName = gameName;
-
-        if (!localStorage.getItem('MyGames')) {
-            var arrayMyGames = new Array();
-            arrayMyGames.push(objMyGame);
-            localStorage.setItem('MyGames', JSON.stringify(arrayMyGames));
-        } else {
-            var arrayMyGames = JSON.parse(localStorage.getItem('MyGames'));
-            var isDuplicate = false;
-            for (var i = 0; i < arrayMyGames.length; i++) {
-                if (arrayMyGames[i].GameBrand == gameBrand && arrayMyGames[i].GameName == gameName) {
-                    isDuplicate = true;
-                    break;
-                }
-            }
-
-            if (!isDuplicate) {
-                if (arrayMyGames.length == TotalCount) {
-                    arrayMyGames.pop();
-                    arrayMyGames.unshift(objMyGame);
-                } else {
-                    arrayMyGames.unshift(objMyGame);
-                }
-            }
-
-            localStorage.setItem('MyGames', JSON.stringify(arrayMyGames));
-        }
-
-        notifyWindowEvent("RefreshMyGames", null);
-    }
-
-    function getMyGames() {
-        var MyGames;
-        if (window.localStorage.getItem('MyGames')) {
-            MyGames = JSON.parse(window.localStorage.getItem('MyGames'));
-        } else {
-            MyGames = [];
-        }
-
-        return MyGames;
-    }
-    
     function addFavoriteGamesByGameCodeToIndexDB(GameCode, cb) {
         GCB.AddPersonal(GameCode, 0, function () {
             if (cb) {
@@ -1422,7 +1370,7 @@
             return;
         }
 
-        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 300,
+        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30,
             {
                 GameCode: "EWin.EWinGaming",
                 GameBrand: "EWin",
@@ -1451,6 +1399,10 @@
             () => {   
                 var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
                 var favoriteGames;
+                var myGamesStr = window.localStorage.getItem("MyGames");
+                var myGames;
+
+
                 if (favoriteGamesStr) {
                     favoriteGames = JSON.parse(favoriteGamesStr);
 
@@ -1458,6 +1410,16 @@
                         addFavoriteGamesByGameIDToIndexDB(favoriteGames[i].GameID);
                     }
                 }
+
+                if (myGamesStr) {
+                    myGames = JSON.parse(myGamesStr);
+
+                    for (var i = 0; i < myGames.length; i++) {
+                        var myGame = myGames[i];
+                        GCB.AddPersonal(myGame.GameBrand + "." + myGame.GameName, 1);                        
+                    }
+                }
+
 
                 notifyWindowEvent("GameLoadEnd", null);
             }
@@ -1744,7 +1706,7 @@
 
                     GI = c.getTemplate("tmpSearchGameItem");
                     //var GI_a = GI.querySelector(".btn-play");
-                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
                     var GI_img = GI.querySelector(".gameimg");
                     if (GI_img != null) {
                         GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1760,10 +1722,10 @@
                         $(likebtn).removeClass("added");
                     }
 
-                    likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+                    likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                    $(GI).find(".gameName").text(gameItem.GameText[lang]);
-                    $(GI).find(".BrandName").text(gameItem.BrandText[lang]);
+                    $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
+                    $(GI).find(".BrandName").text(gameItem.GameBrand);
                     $(GI).find(".valueRTP").text(RTP);
                     $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
 
@@ -1798,7 +1760,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         //var GI_a = GI.querySelector(".btn-play");
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x=>x.LanguageCode = EWinWebInfo.Lang).DisplayText + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1815,9 +1777,9 @@
                             $(likebtn).removeClass("added");
                         }
 
-                        likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+                        likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                        $(GI).find(".gameName").text(gameItem.Language.find(x=>x.LanguageCode = EWinWebInfo.Lang).DisplayText);
+                        $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
                         $(GI).find(".BrandName").text(gameItem.GameBrand);
                         $(GI).find(".valueRTP").text(RTP);
                         $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
@@ -1844,7 +1806,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         //var GI_a = GI.querySelector(".btn-play");
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode = EWinWebInfo.Lang).DisplayText + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1861,9 +1823,9 @@
                             $(likebtn).removeClass("added");
                         }
 
-                        likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",this,true)");
+                        likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                        $(GI).find(".gameName").text(gameItem.Language.find(x=>x.LanguageCode = EWinWebInfo.Lang).DisplayText);
+                        $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
                         $(GI).find(".BrandName").text(gameItem.GameBrand);
                         $(GI).find(".valueRTP").text(RTP);
                         $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
@@ -2054,7 +2016,7 @@
                     <div class="sk-circle11 sk-circle"></div>
                     <div class="sk-circle12 sk-circle"></div>
                 </div>
-                <div class="loader-text language_replace">正在加載...</div>
+                <%--<div class="loader-text language_replace">正在加載...</div>--%>
             </div>
 
 

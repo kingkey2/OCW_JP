@@ -70,7 +70,9 @@
             var objectStore = transaction.objectStore('GameCodes');
 
             objectStore.get(GameCode).onsuccess = function (event) {
-                cb(event.target.result);
+                if (cb) {
+                    cb(event.target.result);
+                }
             };
         };
 
@@ -123,10 +125,14 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     isDataExist = true;
-                    cb(cursor.value);
+                    if (cb) {
+                        cb(cursor.value);
+                    }
                     cursor.continue();
                 } else {
-                    endCb(isDataExist);
+                    if (endCb) {
+                        endCb(isDataExist);
+                    }
                 }
             };
         };
@@ -183,10 +189,14 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     isDataExist = true;
-                    cb(cursor.value);
+                    if (cb) {
+                        cb(cursor.value);
+                    }
                     cursor.continue();
                 } else {
-                    endCb(isDataExist);
+                    if (endCb) {
+                        endCb(isDataExist);
+                    }
                 }
             };
         };
@@ -212,10 +222,14 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     isDataExist = true;
-                    cb(cursor.value);
+                    if (cb) {
+                        cb(cursor.value);
+                    }
                     cursor.continue();
                 } else {
-                    endCb(isDataExist);
+                    if (endCb) {
+                        endCb(isDataExist);
+                    }
                 }
             };
         };
@@ -240,7 +254,9 @@
             } else if (type == 1) {
                 FavoIndexStr = "History";
             } else {
-                cb(false);
+                if (cb) {
+                    cb(false);
+                }
                 return;
             }
 
@@ -250,9 +266,13 @@
                     var data = event.target.result;
                     data.Personal.push(FavoIndexStr);
                     objectStore.put(data);
-                    cb(true);
+                    if (cb) {
+                        cb(true);
+                    }
                 } else {
-                    cb(false);
+                    if (cb) {
+                        cb(false);
+                    }
                 }
             };
         };
@@ -330,12 +350,18 @@
                     if (index != -1) {
                         data.Personal.splice(index, 1);
                         objectStore.put(data);
-                        cb(true);
+                        if (cb) {
+                            cb(true);
+                        }
                     } else {
-                        cb(false);
-                    }                    
+                        if (cb) {
+                            cb(false);
+                        }
+                    }
                 } else {
-                    cb(false);
+                    if (cb) {
+                        cb(false);
+                    }
                 }
             };
         };
@@ -409,10 +435,14 @@
                 var cursor = event.target.result;
                 if (cursor) {
                     isDataExist = true;
-                    cb(cursor.value);
+                    if (cb) {
+                        cb(cursor.value);
+                    }
                     cursor.continue();
                 } else {
-                    endCb(isDataExist);
+                    if (endCb) {
+                        endCb(isDataExist);
+                    }
                 }
             };
         };
@@ -448,9 +478,12 @@
                         var cursor = event.target.result;
                         if (cursor) {
                             isDataExist = true;
-                            cb(cursor.value);                            
-                            endCb(isDataExist);
-                        } else {                            
+                            if (cb) {
+                                cb(cursor.value);
+                            }
+                        }
+
+                        if (endCb) {
                             endCb(isDataExist);
                         }
                     };
@@ -473,7 +506,9 @@
                 request = objectStore.index("SearchKeyWord").openCursor(SearchKeyWord.toLowerCase());
                 isSearchKeyRequest = true;
             } else {
-                endCb(isDataExist);
+                if (endCb) {
+                    endCb(isDataExist);
+                }
                 return;
             }
 
@@ -498,6 +533,11 @@
                                 searchFlag = true;
                                 break;
                             }
+
+                            if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                searchFlag = true;
+                                break;
+                            } 
                         }
 
                         //不存在關鍵字內，搜尋翻譯後的遊戲名稱
@@ -517,7 +557,9 @@
 
                     if (checkFlag) {
                         isDataExist = true;
-                        cb(gameCodeItem);
+                        if (cb) {
+                            cb(gameCodeItem);
+                        }
                     }
 
                     cursor.continue();
@@ -538,6 +580,11 @@
                                         searchFlag = true;
                                         break;
                                     }
+
+                                    if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                        searchFlag = true;
+                                        break;
+                                    }
                                 }
 
                                 for (var i = 0; i < gameCodeItem.Language.length; i++) {
@@ -551,22 +598,27 @@
 
                                 if (searchFlag) {
                                     isDataExist = true;
-                                    cb(gameCodeItem);
+                                    if (cb) {
+                                        cb(gameCodeItem);
+                                    }                                   
                                 }
 
                                 cursor.continue();
                             } else {
                                 //資料遍歷完
                                 if (updateDatas.length >= 20) {
-                                    GCBSelf.updateByKeywordSearch(updateDatas, SearchKeyWord.toLowerCase());
-                                    endCb(isDataExist);
-                                } else {
+                                    GCBSelf.updateByKeywordSearch(updateDatas, SearchKeyWord.toLowerCase());                                                            
+                                }
+
+                                if (endCb) {
                                     endCb(isDataExist);
                                 }
                             }
                         }
                     } else {
-                        endCb(isDataExist);
+                        if (endCb) {
+                            endCb(isDataExist);
+                        }                        
                     }
                 }
             };;
@@ -604,13 +656,15 @@
 
                             if (searchGameID) {
                                 if (isDataExist) {
-                                    resolve(isDataExist);                                    
+                                    resolve(isDataExist);
                                 } else {
                                     objectStore.index("GameID").openCursor(searchGameID).onsuccess = function (event) {
                                         var cursor = event.target.result;
                                         if (cursor) {
                                             isDataExist = true;
-                                            cb(cursor.value);
+                                            if (cb) {
+                                                cb(cursor.value);
+                                            }                                          
                                             resolve(isDataExist);
                                         } else {
                                             resolve(isDataExist);
@@ -618,7 +672,7 @@
                                     };
                                 }
 
-                                return;                                                           
+                                return;
                             }
                         }
 
@@ -661,6 +715,11 @@
                                             searchFlag = true;
                                             break;
                                         }
+
+                                        if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                            searchFlag = true;
+                                            break;
+                                        }
                                     }
 
                                     //不存在關鍵字內，搜尋翻譯後的遊戲名稱
@@ -680,7 +739,9 @@
 
                                 if (checkFlag) {
                                     isDataExist = true;
-                                    cb(gameCodeItem);
+                                    if (cb) {
+                                        cb(gameCodeItem);
+                                    }                                  
                                 }
 
                                 cursor.continue();
@@ -701,6 +762,11 @@
                                                     searchFlag = true;
                                                     break;
                                                 }
+
+                                                if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                                    searchFlag = true;
+                                                    break;
+                                                }
                                             }
 
                                             for (var i = 0; i < gameCodeItem.Language.length; i++) {
@@ -714,7 +780,9 @@
 
                                             if (searchFlag) {
                                                 isDataExist = true;
-                                                cb(gameCodeItem);
+                                                if (cb) {
+                                                    cb(gameCodeItem);
+                                                }                                              
                                             }
 
                                             cursor.continue();
@@ -746,9 +814,11 @@
                 mainPromise = mainPromise.then(getPromiseForGameBrand("", GameCategoryCode, GameCategorySubCode, SearchKeyWord, cb))
             }
 
-            mainPromise.then(endCb);
+            if (endCb) {
+                mainPromise.then(endCb);
+            }           
         }
- 
+
         GCBSelf.InitPromise.then(queue);
     }
 

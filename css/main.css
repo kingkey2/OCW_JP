@@ -181,6 +181,7 @@ button, input {
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
+  font-weight: normal;
 }
 
 ul {
@@ -1118,7 +1119,6 @@ hr.line {
     -webkit-box-direction: normal;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
-    margin-bottom: 0;
   }
   .sec-title-wrapper .tab-scroller {
     width: 100%;
