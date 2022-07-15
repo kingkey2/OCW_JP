@@ -85,28 +85,6 @@
     };
 
     /**
-     * Return  遊戲代碼
-     * @param {string} GameCode 遊戲代碼
-     * @param {Function} cb 找到資料時的cb, param => data, null時為無資料
-     */
-    this.GetByGameCodeSync = async function (GameCode) {
-        var GameCodeItem = await new Promise((resolve, reject) => {
-            var queue = () => {
-                var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
-                var objectStore = transaction.objectStore('GameCodes');
-
-                objectStore.get(GameCode).onsuccess = function (event) {
-                    resolve(event.target.result);
-                };
-            };
-
-            GCBSelf.InitPromise.then(queue);
-        });
-
-        return GameCodeItem;
-    };
-
-    /**
      * 
      * @param {any} GameBrand   遊戲廠牌
      * @param {any} cb  資料迭代cb, param => data
