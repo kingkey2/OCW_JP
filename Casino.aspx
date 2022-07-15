@@ -677,15 +677,20 @@ ${gameitemmobilepopup}
                 <!-- SLOT -->
                 <div class="category-dailypush-wrapper slot">
                     <div class="category-dailypush-inner">
-                        <div class="category-dailypush-img">
-
-                            <div class="img-wrap">
-                                <img src="images/lobby/dailypush-slot-M-001.jpg" alt="" class="mobile">
-                                <img src="images/lobby/dailypush-slot-001.jpg" alt="" class="desktop">
+                        <div class="category-dailypush-img" style="background-color: #121a16;">
+                            <div class="img-box mobile">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-slot-M-001.jpg" alt="" >
+                                </div>
+                            </div>
+                            <div class="img-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-slot-001.jpg" alt="" >
+                                </div>
                             </div>
                         </div>
                         <div class="category-dailypush-cotent">
-                            <h2 class="titile language_replace">本日優選推薦</h2>
+                            <h2 class="title language_replace">本日優選推薦</h2>
                             <div class="info">
                                 <h3 class="gamename language_replace">月亮守護者</h3>
                                 <div class="detail">
@@ -693,11 +698,14 @@ ${gameitemmobilepopup}
                                     <span class="gamecategory">SLOT</span>
                                 </div>
                             </div>
-                            <div class="intro language_replace">
+                            <!-- <div class="intro language_replace">
                                 遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
-                            </div>
+                            </div> -->
                             <div class="action">
-                                <button class="btn"><span class="language_replace">進入遊戲</span></button>
+                                <button class="btn btn-play"><span class="language_replace">進入遊戲</span></button>
+                                <button type="button" class="btn-like btn btn-round">
+                                    <i class="icon icon-m-favorite"></i>
+                                </button>
                             </div>
 
                         </div>
