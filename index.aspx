@@ -1706,7 +1706,7 @@
 
                     GI = c.getTemplate("tmpSearchGameItem");
                     //var GI_a = GI.querySelector(".btn-play");
-                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[EWinWebInfo.Lang] + "')");
+                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
                     var GI_img = GI.querySelector(".gameimg");
                     if (GI_img != null) {
                         GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1724,7 +1724,7 @@
 
                     likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                    $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode = EWinWebInfo.Lang).DisplayText);
+                    $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
                     $(GI).find(".BrandName").text(gameItem.GameBrand);
                     $(GI).find(".valueRTP").text(RTP);
                     $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
@@ -1760,7 +1760,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         //var GI_a = GI.querySelector(".btn-play");
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode = EWinWebInfo.Lang).DisplayText + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1779,7 +1779,7 @@
 
                         likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                        $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode = EWinWebInfo.Lang).DisplayText);
+                        $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
                         $(GI).find(".BrandName").text(gameItem.GameBrand);
                         $(GI).find(".valueRTP").text(RTP);
                         $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
@@ -1806,7 +1806,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         //var GI_a = GI.querySelector(".btn-play");
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode = EWinWebInfo.Lang).DisplayText + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1825,7 +1825,7 @@
 
                         likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                        $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode = EWinWebInfo.Lang).DisplayText);
+                        $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
                         $(GI).find(".BrandName").text(gameItem.GameBrand);
                         $(GI).find(".valueRTP").text(RTP);
                         $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
