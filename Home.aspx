@@ -253,7 +253,7 @@
             if (success) {
                 if (o.Result == 0) {
                     if (o.LobbyGameList.length > 0) {            
-                        Promise.all([createCategory(o.LobbyGameList, "Home"), createPersonal(0), createPersonal(1)]).then(() => {
+                        Promise.all([createCategory(o.LobbyGameList, "Home"), createPersonal(0, true), createPersonal(1, true)]).then(() => {
                             setSwiper("Home");
                         })
                     } else {
@@ -276,7 +276,7 @@
         });
     }
 
-    async function createPersonal(type) {    
+    async function createPersonal(type , isInit) {    
         await new Promise((resolve, reject) => {
             var Location = "Home"
             var CategCode;
@@ -414,7 +414,9 @@
                     }
                 }, (isDataExist) => {
                     if (isDataExist && gameItems) {
-                        categArea = ` <section id="${'categ_' + CategCode}" class="section-wrap section-levelUp">
+
+                        if (isInit) {
+                            categArea = ` <section id="${'categ_' + CategCode}" class="section-wrap section-levelUp">
                                              <div class="game_wrapper">
                                              <div class="sec-title-container">
                                              <div class="sec-title-wrapper">
@@ -430,7 +432,10 @@
                                              </div>
                                              </div>
                                              </section>`;
-                        $('#gameAreas').prepend(categArea);
+                            $('#gameAreas').prepend(categArea);
+                        } else {
+                            $('.GameItemGroup_' + CategCode + ' .GameItemGroupContent').append(gameItems);
+                        } 
                     }
                     resolve();
                 });
@@ -791,21 +796,21 @@
             case "RefreshPersonalFavo":
                 //window.parent.API_LoadingEnd();
                 var selector = "." + ("gameCode_" + param.GameCode + " .btn-like").replace(".", "\\.");
-                $("#categ_PersonalFavo").remove();
+                $(".GameItemGroup_PersonalFavo .GameItemGroupContent").empty();
                 if (param.IsAdded) {
                     $(selector).addClass("added");
                 } else {
                     $(selector).removeClass("added");
                 }
                
-                createPersonal(0).then(function () {
+                createPersonal(0, false).then(function () {
                     setSwiperBySelector(".GameItemGroup_PersonalFavo");
                 });
                 break;
             case "RefreshPersonalPlayed":
                 //window.parent.API_LoadingEnd();
-                $("#categ_PersonalPlayed").remove();
-                createPersonal(1).then(function () {
+                $(".GameItemGroup_PersonalPlayed .GameItemGroupContent").empty();
+                createPersonal(1, false).then(function () {
                     setSwiperBySelector(".GameItemGroup_PersonalPlayed");
                 });
                 break;
