@@ -181,8 +181,9 @@
 
         if (temp_gameItem.GameLangName == "EWinGaming") {
         c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
-        } else {
-        c.setClassText(tempGI, "gameName", null, GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName));
+        } else {//gameItem.GameText[EWinWebInfo.Lang] 
+            //GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName)
+        c.setClassText(tempGI, "gameName", null, "");
         }
 
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));
@@ -213,7 +214,10 @@
                     updateFourGame();
                 }
 
-                setUserThisWeekLogined();
+                window.parent.API_GetUserThisWeekTotalValidBetValue(function (e) {
+                    setUserThisWeekLogined(e);
+                })
+
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -677,10 +681,10 @@
         });
     }
 
-    function setUserThisWeekLogined() {
-        if (window.top.UserThisWeekTotalValidBetValueData) {
-            for (var i = 0; i < window.top.UserThisWeekTotalValidBetValueData.length; i++) {
-                if (window.top.UserThisWeekTotalValidBetValueData[i].Status == 1) {
+    function setUserThisWeekLogined(UserThisWeekTotalValidBetValueData) {
+        if (UserThisWeekTotalValidBetValueData) {
+            for (var i = 0; i < UserThisWeekTotalValidBetValueData.length; i++) {
+                if (UserThisWeekTotalValidBetValueData[i].Status == 1) {
                     $(".bouns-item").eq(i).addClass("got");
                 }
             }
@@ -721,10 +725,6 @@
                 updateGameList();
                 //}
                 window.parent.API_LoadingEnd(1);
-                break;
-            case "UserThisWeekTotalValidBetValueDataGet":
-                //顯示簽到完成與否
-                setUserThisWeekLogined();
                 break;
         }
     }

@@ -201,7 +201,11 @@
                             let GameBrand = record.GameCode.split('.')[0];
                             let GameName = record.GameCode.split('.')[1];
 
-                            c.setClassText(RecordDom, "gameName", null, window.parent.API_GetGameLang(1, WebInfo.Lang, record.GameCode));
+                            window.parent.API_GetGameLang(WebInfo.Lang, record.GameCode, function (langText) {
+                                c.setClassText(RecordDom, "gameName", null, langText);
+                            })
+
+                       
                             RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
                             RecordDom.querySelector(".gameName").classList.add("gameLangkey");
 
@@ -685,8 +689,10 @@
 
                     for (var i = 0; i < gameDoms.length; i++) {
                         var gameDom = gameDoms[i];
-                        var newGameLang = window.parent.API_GetGameLang(1, lang, gameDom.getAttribute("gameLangkey"));
-                        gameDom.innerText = newGameLang;
+
+                        window.parent.API_GetGameLang(lang, gameDom.getAttribute("gameLangkey"), function (langText) {
+                            gameDom.innerText = langText;
+                        });                                             
                     }
 
                     window.parent.API_LoadingEnd(1);

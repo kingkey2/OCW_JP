@@ -161,6 +161,62 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-color: rgba(104, 188, 255, 0.9);
 }
 
+.section-category-dailypush {
+  margin-bottom: 1.5rem;
+}
+.section-category-dailypush .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.category-dailypush-inner {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.category-dailypush-img .img-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 53.3333333333%;
+}
+.category-dailypush-img img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: left top;
+     object-position: left top;
+  width: 100%;
+  height: 100%;
+}
+.category-dailypush-img .desktop {
+  display: none;
+}
+.category-dailypush-cotent {
+  position: relative;
+  padding: 10px;
+  right: 0;
+  width: 50%;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+
 .game_slider .swiper-slide {
   padding-right: 10px;
   width: 31.25%;
@@ -228,6 +284,26 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .game_slider .swiper-slide {
     width: 18.1818181818%;
+  }
+}
+@media (min-width: 768px) {
+  .category-dailypush-inner {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .category-dailypush-img .img-wrap {
+    padding-bottom: 21.1805555556%;
+  }
+  .category-dailypush-img .mobile {
+    display: none;
+  }
+  .category-dailypush-img .desktop {
+    display: inherit;
+  }
+  .category-dailypush-img img {
+    -o-object-position: 70% 0;
+       object-position: 70% 0;
   }
 }
 @media (min-width: 936px) {

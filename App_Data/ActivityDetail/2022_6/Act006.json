@@ -119,7 +119,7 @@
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.15
+      "BonusRate": 0.3
     },
     {
       "PaymentCode": "XRP",
@@ -189,7 +189,7 @@
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.15
+      "BonusRate": 0.3
     },
     {
       "PaymentCode": "JOOB01",
@@ -212,7 +212,7 @@
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.15
+      "BonusRate": 0.3
     },
     {
       "PaymentCode": "XRP",
@@ -282,7 +282,7 @@
       "ReceiveValueMaxLimit": 50000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.15
+      "BonusRate": 0.3
     },
     {
       "PaymentCode": "JOOB01",
