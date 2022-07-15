@@ -671,9 +671,44 @@ ${gameitemmobilepopup}
                 </div>
             </div>
         </div>
+        <!-- 各分類-單一遊戲推薦區 -->
+        <section class="section-category-dailypush">
+            <div class="container">
+                <!-- SLOT -->
+                <div class="category-dailypush-wrapper slot">
+                    <div class="category-dailypush-inner">
+                        <div class="category-dailypush-img">
+
+                            <div class="img-wrap">
+                                <img src="images/lobby/dailypush-slot-M-001.jpg" alt="" class="mobile">
+                                <img src="images/lobby/dailypush-slot-001.jpg" alt="" class="desktop">
+                            </div>
+                        </div>
+                        <div class="category-dailypush-cotent">
+                            <h2 class="titile language_replace">本日優選推薦</h2>
+                            <div class="info">
+                                <h3 class="gamename language_replace">月亮守護者</h3>
+                                <div class="detail">
+                                    <span class="gamebrand">PNG</span>
+                                    <span class="gamecategory">SLOT</span>
+                                </div>
+                            </div>
+                            <div class="intro language_replace">
+                                遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                            </div>
+                            <div class="action">
+                                <button class="btn"><span class="language_replace">進入遊戲</span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- REAL -->
+                <!-- REAL -->
+            </div>
+        </section>
         <section class="game-area overflow-hidden">
             <div class="container" id="gameAreas">
-            
             </div>
         </section>
     </main>

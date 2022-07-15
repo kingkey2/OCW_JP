@@ -181,8 +181,9 @@
 
         if (temp_gameItem.GameLangName == "EWinGaming") {
         c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
-        } else {
-        c.setClassText(tempGI, "gameName", null, GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName));
+        } else {//gameItem.GameText[EWinWebInfo.Lang] 
+            //GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName)
+        c.setClassText(tempGI, "gameName", null, "");
         }
 
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));

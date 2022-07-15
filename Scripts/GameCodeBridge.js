@@ -322,7 +322,7 @@
 
     /**
      * 
-     * @param {any} GameCode    遊戲代碼
+     * @param {any} GameID    遊戲代碼
      * @param {any} type   cb, param => 0=Favo,1=History of Play
      * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
      */
@@ -362,6 +362,51 @@
                     if (cb) {
                         cb(false);
                     }
+                }
+            };
+        };
+
+        GCBSelf.InitPromise.then(queue);
+    }
+
+
+    /**
+     * 
+     * @param {any} GameCode    遊戲代碼
+     * @param {any} type   cb, param => 0=Favo,1=History of Play
+     * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
+     */
+    this.RemovePersonalByGameID = function (GameID, type, cb) {
+        var queue = () => {
+            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+            var objectStore = transaction.objectStore('GameCodes');
+            var index = objectStore.index("GameID");
+            var FavoIndexStr;
+
+            if (type == 0) {
+                FavoIndexStr = "Favo";
+            } else if (type == 1) {
+                FavoIndexStr = "History";
+            } else {
+                cb(false);
+                return;
+            }
+
+
+            index.get(GameID).onsuccess = function (event) {
+                if (event.target.result) {
+                    var data = event.target.result;
+                    var index = data.FavoTag.indexOf(FavoIndexStr);
+
+                    if (index != -1) {
+                        data.Personal.splice(index, 1);
+                        objectStore.put(data);
+                        cb(true);
+                    } else {
+                        cb(false);
+                    }
+                } else {
+                    cb(false);
                 }
             };
         };

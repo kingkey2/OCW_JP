@@ -922,38 +922,42 @@
         }
     };
 
-    function getFavoriteGames() {
-        var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
-        var favoriteGames;
+    //function getFavoriteGames() {
+    //    var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
+    //    var favoriteGames;
 
-        if (favoriteGamesStr) {
-            favoriteGames = JSON.parse(favoriteGamesStr);
-        } else {
-            favoriteGames = [];
-        }
+    //    if (favoriteGamesStr) {
+    //        favoriteGames = JSON.parse(favoriteGamesStr);
+    //    } else {
+    //        favoriteGames = [];
+    //    }
 
-        return favoriteGames;
-    }
+    //    return favoriteGames;
+    //}
 
     function setFavoriteGame(gameID) {
         var favoriteGames = getFavoriteGames();
-        var favoriteGame = {
-            GameID: gameID
-        };
+        //var favoriteGame = {
+        //    GameID: gameID
+        //};
 
         if (!favoriteGames.filter(e => e.GameID === gameID).length > 0) {
             //add
-            favoriteGames.splice(0, 0, favoriteGame);
-            window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+            //favoriteGames.splice(0, 0, favoriteGame);
+            //window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+
+            addFavoriteGamesByGameIDToIndexDB(gameID);
+
             showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
         } else {
             //remove
-            var index = favoriteGames.findIndex(x => x.GameID == gameID);
-            if (index > -1) {
-                favoriteGames.splice(index, 1);
-            }
+            //var index = favoriteGames.findIndex(x => x.GameID == gameID);
+            //if (index > -1) {
+            //    favoriteGames.splice(index, 1);
+            //}
 
-            window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+            //window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+            removeFavoriteGamesByGameIDToIndexDB(gameID);
             showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
         }
     }
@@ -963,31 +967,13 @@
     //#region FavoriteGames And MyGames
 
     function getFavoriteGames() {
-        var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
-        var favoriteGames;
         var retFavoriteGames = [];
 
-        if (favoriteGamesStr) {
-            favoriteGames = JSON.parse(favoriteGamesStr);
-
-            for (var i = 0; i < favoriteGames.length; i++) {
-                GCB.AddPersonalByGameID(favoriteGames[i].GameID,
-                    function (data) {
-
-                    }, function (data) {
-
-                    }
-                )
-            }
-        }
-
         GCB.GetPersonal(0, function (data) {
-            retFavoriteGames.add(data);
-            }, function (data) {
+            retFavoriteGames.push(data);
+        }, function (data) {
 
-            }
-        )
-
+        });
         return retFavoriteGames;
     }
 
@@ -1017,15 +1003,35 @@
         return MyGames;
     }
     
-    function addFavoriteGamesToIndexDB(GameCode) {
+    function addFavoriteGamesByGameCodeToIndexDB(GameCode, cb) {
         GCB.AddPersonal(GameCode, 0, function () {
-
+            if (cb) {
+                cb();
+            }
         });
     }
 
-    function removeFavoriteGamesToIndexDB(GameCode) {
-        GCB.RemovePersonal(GameCode, 0, function () {
+    function addFavoriteGamesByGameIDToIndexDB(GameID, cb) {
+        GCB.AddPersonalByGameID(GameID, 0, function () {
+            if (cb) {
+                cb();
+            }
+        });
+    }
 
+    function removeFavoriteGamesByGameCodeToIndexDB(GameCode, cb) {
+        GCB.RemovePersonal(GameCode, 0, function () {
+            if (cb) {
+                cb();
+            }
+        });
+    }
+
+    function removeFavoriteGamesByGameIDToIndexDB(GameID, cb) {
+        GCB.RemovePersonalByGameID(GameID, 0, function () {
+            if (cb) {
+                cb();
+            }
         });
     }
     //#endregion
@@ -1420,7 +1426,17 @@
                 }],
                 RTP: null
             },
-            () => {                
+            () => {   
+                var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
+                var favoriteGames;
+                if (favoriteGamesStr) {
+                    favoriteGames = JSON.parse(favoriteGamesStr);
+
+                    for (var i = 0; i < favoriteGames.length; i++) {
+                        addFavoriteGamesByGameIDToIndexDB(favoriteGames[i].GameID);
+                    }
+                }
+
                 notifyWindowEvent("GameLoadEnd", null);
             }
         );
@@ -1916,26 +1932,30 @@
 
         lobbyClient.GetGameBrand(Math.uuid(), function (success, o) {
             if (success == true) {
-                if (o.ResultCode == 0) {
+                if (o.Result == 0) {
                     let GBLDom;
                     let GBL_img;
-                    for (var i = 0; i < o.GameBrandList.length; i++) {
-                        let GBL = o.GameBrandList[i];
-                        GBLDom = c.getTemplate("tmpSearchGameBrand");
-                        GBL_img = GBLDom.querySelector(".brandImg");
-
-                        if (GBL.GameBrandState == 0) {
-                            GBL_img.src = `images/logo/default/${GBL.GameBrand}.png`;
-                        }
-
-                        ParentMain.appendChild(GBLDom);
-                    }
 
                     GBLDom = c.getTemplate("tmpSearchGameBrand");
                     GBL_img = GBLDom.querySelector(".brandImg");
                     GBL_img.src = `images/logo/default/logo-eWIN.svg`;
-
                     ParentMain.appendChild(GBLDom);
+
+                    for (var i = 0; i < o.GameBrandList.length; i++) {
+                        let GBL = o.GameBrandList[i];
+                        if (GBL.GameBrandState == 0) {
+                            GBLDom = c.getTemplate("tmpSearchGameBrand");
+                            GBL_img = GBLDom.querySelector(".brandImg");
+
+                            $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_" + GBL.GameBrand);
+
+                            if (GBL.GameBrandState == 0) {
+                                GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
+                            }
+
+                            ParentMain.appendChild(GBLDom);
+                        }
+                    }
                 } else {
 
                 }
@@ -3370,7 +3390,7 @@
     <div id="tmpSearchGameBrand" style="display:none">
         <li class="brand-item custom-control custom-checkboxValue-noCheck">
              <label class="custom-label">
-                 <input type="checkbox" name="button-brandExchange" id="" class="custom-control-input-hidden" onchange="searchGameChange()">
+                 <input type="checkbox" name="button-brandExchange" id="" class="custom-control-input-hidden searchGameBrandcheckbox" onchange="searchGameChange()">
                  <div class="custom-input checkbox">
                      <span class="logo-wrap">
                          <span class="img-wrap">
