@@ -936,45 +936,36 @@
     //}
 
     function setFavoriteGame(gameID) {
-        var favoriteGames = getFavoriteGames();
-        //var favoriteGame = {
-        //    GameID: gameID
-        //};
+        var favoriteGames=[];
 
-        if (!favoriteGames.filter(e => e.GameID === gameID).length > 0) {
-            //add
-            //favoriteGames.splice(0, 0, favoriteGame);
-            //window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
+        GCB.GetPersonal(0, function (data) {
+            favoriteGames.push(data);
+        }, function (data) {
+            if (!favoriteGames.filter(e => e.GameID === gameID).length > 0) {
+                //add
+                addFavoriteGamesByGameIDToIndexDB(gameID);
 
-            addFavoriteGamesByGameIDToIndexDB(gameID);
-
-            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
-        } else {
-            //remove
-            //var index = favoriteGames.findIndex(x => x.GameID == gameID);
-            //if (index > -1) {
-            //    favoriteGames.splice(index, 1);
-            //}
-
-            //window.localStorage.setItem("FavoriteGames", JSON.stringify(favoriteGames));
-            removeFavoriteGamesByGameIDToIndexDB(gameID);
-            showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
-        }
+                showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
+            } else {
+                //remove
+                removeFavoriteGamesByGameIDToIndexDB(gameID);
+                showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
+            }
+        });
     }
 
     //#endregion
 
     //#region FavoriteGames And MyGames
-
+    
     function getFavoriteGames() {
-        var retFavoriteGames = [];
 
+        var retFavoriteGames = [];
         GCB.GetPersonal(0, function (data) {
             retFavoriteGames.push(data);
         }, function (data) {
-
+            return retFavoriteGames;
         });
-        return retFavoriteGames;
     }
 
     function checkInFavoriteGame(gameBrand, gameName) {
@@ -1763,7 +1754,7 @@
                     }
 
                     var likebtn = GI.querySelector(".btn-like");
-                    if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+                    if (gameItem.Personal.toString().includes("Favo")) {
                         $(likebtn).addClass("added");
                     } else {
                         $(likebtn).removeClass("added");
@@ -1817,7 +1808,8 @@
                         }
 
                         var likebtn = GI.querySelector(".btn-like");
-                        if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+
+                        if (gameItem.Personal.toString().includes("Favo")) {
                             $(likebtn).addClass("added");
                         } else {
                             $(likebtn).removeClass("added");
@@ -1862,7 +1854,8 @@
                         }
 
                         var likebtn = GI.querySelector(".btn-like");
-                        if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
+
+                        if (gameItem.Personal.toString().includes("Favo")) {
                             $(likebtn).addClass("added");
                         } else {
                             $(likebtn).removeClass("added");
