@@ -180,6 +180,13 @@
     var LobbyGameList = {};
     var UserThisWeekTotalValidBetValueData = [];
     //#region TOP API
+    function API_GetGCB() {
+        if (GCB.IsFirstLoaded) {
+            return GCB;
+        } else {
+            return null;
+        }
+    }
 
     function API_GetWebInfo() {
         return EWinWebInfo;
@@ -1363,7 +1370,7 @@
             return;
         }
 
-        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 300,
+        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30,
             {
                 GameCode: "EWin.EWinGaming",
                 GameBrand: "EWin",
