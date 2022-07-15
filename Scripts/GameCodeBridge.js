@@ -533,6 +533,11 @@
                                 searchFlag = true;
                                 break;
                             }
+
+                            if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                searchFlag = true;
+                                break;
+                            } 
                         }
 
                         //不存在關鍵字內，搜尋翻譯後的遊戲名稱
@@ -572,6 +577,11 @@
                                 //先搜尋既有關鍵字
                                 for (var i = 0; i < gameCodeItem.Tags.length; i++) {
                                     if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                        searchFlag = true;
+                                        break;
+                                    }
+
+                                    if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
                                         searchFlag = true;
                                         break;
                                     }
@@ -705,6 +715,11 @@
                                             searchFlag = true;
                                             break;
                                         }
+
+                                        if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                            searchFlag = true;
+                                            break;
+                                        }
                                     }
 
                                     //不存在關鍵字內，搜尋翻譯後的遊戲名稱
@@ -744,6 +759,11 @@
                                             //先搜尋既有關鍵字
                                             for (var i = 0; i < gameCodeItem.Tags.length; i++) {
                                                 if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                                    searchFlag = true;
+                                                    break;
+                                                }
+
+                                                if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
                                                     searchFlag = true;
                                                     break;
                                                 }

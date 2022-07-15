@@ -376,10 +376,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: 500;
 }
 .record-table-tab .record-table-cell .count.positive {
-  color: #59B587;
+  color: #e24f4f;
 }
 .record-table-tab .record-table-cell .count.negative {
-  color: #e24f4f;
+  color: #59B587;
 }
 .record-table-tab .td-toggle {
   -webkit-box-flex: 0;
