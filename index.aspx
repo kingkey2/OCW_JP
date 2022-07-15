@@ -989,20 +989,9 @@
     }
 
     function setGameCodeToMyGames(gameBrand, gameName) {
-        GCB.AddPersonal()
+        
     }
 
-    function getMyGames() {
-        var MyGames;
-        if (window.localStorage.getItem('MyGames')) {
-            MyGames = JSON.parse(window.localStorage.getItem('MyGames'));
-        } else {
-            MyGames = [];
-        }
-
-        return MyGames;
-    }
-    
     function addFavoriteGamesByGameCodeToIndexDB(GameCode, cb) {
         GCB.AddPersonal(GameCode, 0, function () {
             if (cb) {
@@ -1429,6 +1418,10 @@
             () => {   
                 var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
                 var favoriteGames;
+                var myGamesStr = window.localStorage.getItem("MyGames");
+                var myGames;
+
+
                 if (favoriteGamesStr) {
                     favoriteGames = JSON.parse(favoriteGamesStr);
 
@@ -1436,6 +1429,16 @@
                         addFavoriteGamesByGameIDToIndexDB(favoriteGames[i].GameID);
                     }
                 }
+
+                if (myGamesStr) {
+                    myGames = JSON.parse(myGamesStr);
+
+                    for (var i = 0; i < myGames.length; i++) {
+                        var myGame = myGames[i];
+                        GCB.AddPersonal(myGame.GameBrand + "." + myGame.GameName, 1);                        
+                    }
+                }
+
 
                 notifyWindowEvent("GameLoadEnd", null);
             }
