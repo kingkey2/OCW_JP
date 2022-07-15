@@ -842,7 +842,6 @@ hr.line {
 }
 .sec-title-container .btn {
   color: #fff;
-  margin-left: 0.5rem;
 }
 .sec-title-container .btn:not([href]):not([tabindex]) {
   color: #fff;
@@ -1079,10 +1078,16 @@ hr.line {
         -ms-flex-align: center;
             align-items: center;
   }
+  .sec-title-container .sec-month {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
   .sec-title-container .sec-month .btn {
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
+    max-width: 120px;
   }
   .sec-title-container .btn-link {
     width: 100%;
@@ -1092,6 +1097,7 @@ hr.line {
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
     padding: 0 20px;
+    font-size: 1.125rem;
   }
   .sec-title-container.sec-col-2 .sec-title-wrapper {
     -webkit-box-flex: 1;
@@ -6476,6 +6482,11 @@ i {
 @media (min-width: 1384px) {
   .game-item-name {
     font-size: 1.0625rem;
+  }
+}
+@media screen and (max-width: 640px) {
+  .section-levelUp .sec-title-wrapper {
+    margin-bottom: 0;
   }
 }
 @media screen and (max-width: 575px) {

@@ -97,13 +97,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .tab-prize {
-  margin-bottom: 0;
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
   background-color: rgba(133, 133, 133, 0.85);
   border-radius: 30px;
-  margin-bottom: 1rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
 }
 .tab-prize.tab-scroller .tab-item {
   color: white;
@@ -414,6 +414,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   height: 20px;
 }
 
+.section-prize-record {
+  margin-top: 1.3rem;
+}
+
+.sec-title-intro-link {
+  margin-left: 0.5rem;
+}
+
 @media screen and (min-width: 641px) {
   .sec-title-container .btn-activity {
     -webkit-box-ordinal-group: 3;
@@ -456,6 +464,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
         -ms-flex-order: -1;
             order: -1;
     margin: 0 0 1rem 0;
+  }
+
+  .btn-activity {
+    margin-bottom: 1.5rem !important;
   }
 }
 @media screen and (max-width: 576px) {
