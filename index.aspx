@@ -181,15 +181,6 @@
     var UserThisWeekTotalValidBetValueData = [];
     //#region TOP API
 
-    function API_GetGCB() {
-        if (GCB.IsFirstLoaded) {
-            return GCB;
-        } else {
-            return null;
-        }
-    }
-
-
     function API_GetWebInfo() {
         return EWinWebInfo;
     }
@@ -417,10 +408,6 @@
 
     function API_GetFavoGames() {
         return getFavoriteGames();
-    }
-
-    function API_GetMyGames() {
-        return getMyGames();
     }
 
     function API_SendSerivceMail(subject, body, email) {
@@ -857,7 +844,7 @@
             }, null);
         } else {
             EWinWebInfo.IsOpenGame = true;
-            setGameCodeToMyGames(gameBrand, gameName);
+            GCB.AddPersonal(gameBrand + "." + gameName, 1);
 
             $('.headerGameName').text(gameLangName);
 
@@ -876,7 +863,7 @@
     function openDemo(gameBrand, gameName) {
         //先關閉Game彈出視窗(如果存在)
         EWinWebInfo.IsOpenGame = true;
-        setGameCodeToMyGames(gameBrand, gameName);
+        GCB.AddPersonal(gameBrand + "." + gameName, 1);
 
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
@@ -977,10 +964,6 @@
         } else {
             return false;
         }
-    }
-
-    function setGameCodeToMyGames(gameBrand, gameName) {
-        
     }
 
     function addFavoriteGamesByGameCodeToIndexDB(GameCode, cb) {
@@ -2026,7 +2009,7 @@
                     <div class="sk-circle11 sk-circle"></div>
                     <div class="sk-circle12 sk-circle"></div>
                 </div>
-                <div class="loader-text language_replace">正在加載...</div>
+                <%--<div class="loader-text language_replace">正在加載...</div>--%>
             </div>
 
 
