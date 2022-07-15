@@ -402,7 +402,6 @@
             });
 
             if (lobbyGame) {
-                selectedCategorys.push(categoryName);
                 var Location = lobbyGame.Location;
                 var categAreas = "";
 
