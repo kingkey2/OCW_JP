@@ -201,7 +201,7 @@
                                 if (gameItem) {
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                                    if (gameItem.Personal.toString().includes("Favo")) {
+                                    if (gameItem.FavoTimeStamp) {
                                         btnlike = `<button type="button" class="btn-like btn btn-round added" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
                                     } else {
                                         btnlike = `<button type="button" class="btn-like btn btn-round" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;

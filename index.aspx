@@ -1,7 +1,8 @@
 <%@ Page Language="C#" %>
 
 <%
-    if (EWinWeb.IsInMaintain()) {
+    if (EWinWeb.IsInMaintain())
+    {
         Response.Redirect("/Maintain.aspx");
     }
 
@@ -15,7 +16,8 @@
     int RegisterParentPersonCode;
     string Version = EWinWeb.Version;
 
-    if (string.IsNullOrEmpty(Request["SID"]) == false) {
+    if (string.IsNullOrEmpty(Request["SID"]) == false)
+    {
         SID = Request["SID"];
     }
 
@@ -31,43 +33,78 @@
 
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
-    if (string.IsNullOrEmpty(Request["Lang"])) {
+    if (string.IsNullOrEmpty(Request["Lang"]))
+    {
         string userLang = CodingControl.GetDefaultLanguage();
 
-        if (userLang.ToUpper() == "zh-TW".ToUpper()) {
+        if (userLang.ToUpper() == "zh-TW".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-HK".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-HK".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-MO".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-MO".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-CHT".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-CHT".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-CHS".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-CHS".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-SG".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-SG".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh-CN".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh-CN".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "zh".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "zh".ToUpper())
+        {
             Lang = "CHT";
-        } else if (userLang.ToUpper() == "en-US".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "en-US".ToUpper())
+        {
             Lang = "JPN";
-        } else if (userLang.ToUpper() == "en-CA".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "en-CA".ToUpper())
+        {
             Lang = "JPN";
-        } else if (userLang.ToUpper() == "en-PH".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "en-PH".ToUpper())
+        {
             Lang = "JPN";
-        } else if (userLang.ToUpper() == "en".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "en".ToUpper())
+        {
             Lang = "JPN";
-        } else if (userLang.ToUpper() == "ko-KR".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "ko-KR".ToUpper())
+        {
             Lang = "JPN";
-        } else if (userLang.ToUpper() == "ko-KP".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "ko-KP".ToUpper())
+        {
             Lang = "JPN";
-        } else if (userLang.ToUpper() == "ko".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "ko".ToUpper())
+        {
             Lang = "JPN";
-        } else if (userLang.ToUpper() == "ja".ToUpper()) {
+        }
+        else if (userLang.ToUpper() == "ja".ToUpper())
+        {
             Lang = "JPN";
-        } else { Lang = "JPN"; }
-    } else {
+        }
+        else { Lang = "JPN"; }
+    }
+    else
+    {
         Lang = Request["Lang"];
     }
 
@@ -112,7 +149,8 @@
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?20220627">
 </head>
-<% if (EWinWeb.IsTestSite == false) { %>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WRNSR38PQ7"></script>
 <script>
@@ -181,11 +219,7 @@
     var UserThisWeekTotalValidBetValueData = [];
     //#region TOP API
     function API_GetGCB() {
-        if (GCB.IsFirstLoaded) {
-            return GCB;
-        } else {
-            return null;
-        }
+        return GCB;
     }
 
     function API_GetWebInfo() {
@@ -235,7 +269,7 @@
                 }
             }
 
-            cb(langText);            
+            cb(langText);
         })
     }
 
@@ -285,33 +319,36 @@
         });
     }
 
+    function API_RefreshPersonalFavo(gameCode, isAdded) {
+        notifyWindowEvent("RefreshPersonalFavo", { GameCode: gameCode, IsAdded: isAdded });
+    }
+
+    function API_RefreshPersonalPlayed(gameCode, isAdded) {
+        notifyWindowEvent("RefreshPersonalPlayed", { GameCode: gameCode, IsAdded: isAdded });
+    }
+
     function API_LoadingStart() {
         $('.loader-container').show();
         $('.loader-backdrop').removeClass('is-show');
     }
 
     function API_LoadingEnd(type) {
-        var iframeDom = document.getElementById("IFramePage").contentDocument;
-        if (iframeDom) {
-            if (type && type == 1) {
+        if ($('.loader-container').is(':visible')) {
+            var iframeDom = document.getElementById("IFramePage").contentDocument;
+            if (iframeDom) {
+                if (type && type == 1) {
 
-            } else {
-
-
-                var footerDom = c.getTemplate("footer");
-
-                if (true) {
-
+                } else {
+                    var footerDom = c.getTemplate("footer");
+                    document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
                 }
-
-                document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
             }
+            $('.loader-backdrop').addClass('is-show');
+            $('.loader-container').fadeOut(250, function () {
+                $('.iframe-container').addClass('is-show');
+            });
         }
-        $('.loader-backdrop').addClass('is-show');
-        $('.loader-container').fadeOut(250, function () {
-            $('.iframe-container').addClass('is-show');
-        });
-
+        
         //resize();
     }
 
@@ -494,7 +531,9 @@
         }
     }
 
-    function get () { }
+    function API_OpenGame(GameBrand, GameName, LangName) {
+        openGame(GameBrand, GameName, LangName);
+    }
     //#endregion
 
     //#region Alert
@@ -685,13 +724,13 @@
             popupMoblieGameInfo.find('.GameName').text(langText);
             $('.headerGameName').text(langText);
         });
-        
+
 
         playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");      
+        gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
 
-     
+
         if (FavoGames.filter(e => e.GameID === GameID).length > 0) {
             $(likebtn).addClass("added");
         } else {
@@ -700,7 +739,7 @@
 
         likebtn.onclick = new Function("favBtnEvent(" + GameID + "," + brandName + "." + gameName + ",this,true)");
 
-      
+
         if (GI_img != null) {
             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
             //var el = GI_img;
@@ -815,6 +854,11 @@
 
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 API_LoadingStart();
+
+                setTimeout(function () {
+                    API_LoadingEnd(1);
+                }, 10000);
+
                 IFramePage.src = url;
                 IFramePage.onload = function () {
                     API_LoadingEnd(1);
@@ -851,7 +895,11 @@
             }, null);
         } else {
             EWinWebInfo.IsOpenGame = true;
-            GCB.AddPersonal(gameBrand + "." + gameName, 1);
+            GCB.AddPlayed(gameBrand + "." + gameName, function (success) {
+                if (success) {
+                    API_RefreshPersonalPlayed(gameBrand + "." + gameName, true);
+                }
+            });
 
             $('.headerGameName').text(gameLangName);
 
@@ -870,7 +918,11 @@
     function openDemo(gameBrand, gameName) {
         //先關閉Game彈出視窗(如果存在)
         EWinWebInfo.IsOpenGame = true;
-        GCB.AddPersonal(gameBrand + "." + gameName, 1);
+        GCB.AddPlayed(gameBrand + "." + gameName, function (success) {
+            if (success) {
+                API_RefreshPersonalPlayed(gameBrand + "." + gameName, true);
+            }
+        });
 
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
@@ -930,19 +982,19 @@
     //}
 
     function setFavoriteGame(gameCode) {
-        var favoriteGames=[];
+        var favoriteGames = [];
 
-        GCB.GetPersonal(0, function (data) {
+        GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
             if (!favoriteGames.filter(e => e.GameCode === gameCode).length > 0) {
                 //ad
-                 GCB.AddPersonal(gameCode, 0);
+                GCB.AddFavo(gameCode);
 
                 showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
             } else {
                 //remove
-                 GCB.RemovePersonal(gameCode, 0);
+                GCB.RemoveFavo(gameCode);
                 showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
             }
         });
@@ -951,11 +1003,11 @@
     //#endregion
 
     //#region FavoriteGames And MyGames
-    
+
     function getFavoriteGames() {
 
         var retFavoriteGames = [];
-        GCB.GetPersonal(0, function (data) {
+        GCB.GetFavo(function (data) {
             retFavoriteGames.push(data);
         }, function (data) {
             return retFavoriteGames;
@@ -973,37 +1025,6 @@
         }
     }
 
-    function addFavoriteGamesByGameCodeToIndexDB(GameCode, cb) {
-        GCB.AddPersonal(GameCode, 0, function () {
-            if (cb) {
-                cb();
-            }
-        });
-    }
-
-    function addFavoriteGamesByGameIDToIndexDB(GameID, cb) {
-        GCB.AddPersonalByGameID(GameID, 0, function () {
-            if (cb) {
-                cb();
-            }
-        });
-    }
-
-    function removeFavoriteGamesByGameCodeToIndexDB(GameCode, cb) {
-        GCB.RemovePersonal(GameCode, 0, function () {
-            if (cb) {
-                cb();
-            }
-        });
-    }
-
-    function removeFavoriteGamesByGameIDToIndexDB(GameID, cb) {
-        GCB.RemovePersonalByGameID(GameID, 0, function () {
-            if (cb) {
-                cb();
-            }
-        });
-    }
     //#endregion
 
     function checkUserLogin(SID, cb) {
@@ -1062,13 +1083,12 @@
 
         if (IFramePage != null) {
             isDisplay = true;
-            if (!EWinWebInfo.IsOpenGame) {
-                if (IFramePage.contentWindow && IFramePage.contentWindow.EWinEventNotify) {
-                    try {
-                        IFramePage.contentWindow.EWinEventNotify(eventName, isDisplay, o)
-                    } catch (e) {
 
-                    }
+            if (IFramePage.contentWindow && IFramePage.contentWindow.EWinEventNotify) {
+                try {
+                    IFramePage.contentWindow.EWinEventNotify(eventName, isDisplay, o)
+                } catch (e) {
+
                 }
             }
         }
@@ -1323,7 +1343,7 @@
 
         API_LoadPage("Article", orgin);
     }
-    
+
     function resize() {
         if (IFramePage.contentWindow.document.body) {
 
@@ -1380,23 +1400,22 @@
                 GameCategorySubCode: "Baccarat",
                 GameAccountingCode: null,
                 AllowDemoPlay: 1,
-                RTPInfo:"",
+                RTPInfo: "",
                 IsHot: 1,
                 IsNew: 1,
                 SortIndex: 99,
                 Tags: [],
-                Personal: [],
                 Language: [{
                     LanguageCode: "JPN",
-                    DisplayText:"EWinゲーミング"
-                }, 
+                    DisplayText: "EWinゲーミング"
+                },
                 {
                     LanguageCode: "CHT",
                     DisplayText: "真人百家樂(eWIN)"
                 }],
                 RTP: null
             },
-            () => {   
+            () => {
                 var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
                 var favoriteGames;
                 var myGamesStr = window.localStorage.getItem("MyGames");
@@ -1407,7 +1426,7 @@
                     favoriteGames = JSON.parse(favoriteGamesStr);
 
                     for (var i = 0; i < favoriteGames.length; i++) {
-                        addFavoriteGamesByGameIDToIndexDB(favoriteGames[i].GameID);
+                        GCB.AddFavoByGameID(favoriteGames[i].GameID);
                     }
                 }
 
@@ -1416,7 +1435,7 @@
 
                     for (var i = 0; i < myGames.length; i++) {
                         var myGame = myGames[i];
-                        GCB.AddPersonal(myGame.GameBrand + "." + myGame.GameName, 1);                        
+                        GCB.AddPlayed(myGame.GameBrand + "." + myGame.GameName);
                     }
                 }
 
@@ -1503,7 +1522,7 @@
                                             API_LoadPage("SrcPage", srcPage, true);
                                         }
                                     }
-                   
+
                                     notifyWindowEvent("IndexFirstLoad", logined);
                                     EWinWebInfo.FirstLoaded = true;
                                 });
@@ -1645,14 +1664,6 @@
         searchGameList(gameBrand);
     }
 
-    var SearchControl = new (function () {
-        //private
-        var a;
-
-        //public
-        this.b;        
-    })();
-
     //#region 搜尋彈出
 
     function searchGameList(gameBrand) {
@@ -1719,7 +1730,7 @@
                     }
 
                     var likebtn = GI.querySelector(".btn-like");
-                    if (gameItem.Personal.toString().includes("Favo")) {
+                    if (gameItem.FavoTimeStamp) {
                         $(likebtn).addClass("added");
                     } else {
                         $(likebtn).removeClass("added");
@@ -1775,7 +1786,7 @@
 
                         var likebtn = GI.querySelector(".btn-like");
 
-                        if (gameItem.Personal.toString().includes("Favo")) {
+                        if (gameItem.FavoTimeStamp) {
                             $(likebtn).addClass("added");
                         } else {
                             $(likebtn).removeClass("added");
@@ -1822,7 +1833,7 @@
 
                         var likebtn = GI.querySelector(".btn-like");
 
-                        if (gameItem.Personal.toString().includes("Favo")) {
+                        if (gameItem.FavoTimeStamp) {
                             $(likebtn).addClass("added");
                         } else {
                             $(likebtn).removeClass("added");
@@ -1873,7 +1884,7 @@
 
         if (arrayGameBrand.length > 0) {
             for (var k = 0; k < arrayGameBrand.length; k++) {
-                
+
                 GCB.CursorGetGameCategoryCodeByGameBrand(arrayGameBrand[k],
                     function (data) {
                         if (kk.indexOf(data.GameCategoryCode) < 0) {
@@ -1883,7 +1894,7 @@
                             seleGameCategory.append(o);
                         }
                     }, function (data) { //endcallback
-                        
+
                     }
                 );
             }
@@ -1955,35 +1966,6 @@
     }
     //#endregion
 
-    function getCompanyGameCodeTwo() {
-        var CategoryList = ['GameList_All', 'GameList_Slot', 'GameList_Electron', 'GameList_Live', 'GameList_Other'];
-
-        var EWinGame = { GameBrand: "EWin", GameCategoryCode: "Slot", GameName: "EWinGaming" };
-        lobbyClient.GetCompanyGameCodeTwo(Math.uuid(), function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    if (o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot')) {
-                        o.CompanyCategoryDatas.find(e => e.CategoryName == 'Hot').Datas.unshift(EWinGame);
-                    }
-
-                    LobbyGameList.CompanyCategoryDatas = o.CompanyCategoryDatas;
-
-                    LobbyGameList.CategoryList = CategoryList;
-                    notifyWindowEvent("GameLoadEnd", null);
-                    API_LoadingEnd(1);
-                } else {
-                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("獲取遊戲資料錯誤") + ":" + mlp.getLanguageKey(o.Message));
-                }
-            } else {
-                if (o == "Timeout")
-                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新操作"));
-                else
-                    if ((o != null) && (o != ""))
-                        alert(o);
-            }
-
-        });
-    }
     //openFullSearch
     function openFullSearch(e) {
         var header_SearchFull = document.getElementById("header_SearchFull");
@@ -3122,12 +3104,12 @@
                         </article>
                     </div>
                 </div>
-                <div style="padding: 1rem;border-top: 1px solid #e9ecef;">
+                <div style="padding: 1rem; border-top: 1px solid #e9ecef;">
                     <div style="display: inline-block;">
                         <input style="width: 12px; height: 12px; cursor: pointer" type="checkbox" id="cboxLoginMessage">
                         <label style="font-size: 14px" for="cboxLoginMessage " class="language_replace">今後不顯示</label>
                     </div>
-                    <div class="btn-container"  style="float: right;display: inline-block;">
+                    <div class="btn-container" style="float: right; display: inline-block;">
                         <button type="button" class="alertContact_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
                     </div>
                 </div>
@@ -3378,18 +3360,18 @@
         });
     </script>
 
-    <div id="tmpSearchGameBrand" style="display:none">
+    <div id="tmpSearchGameBrand" style="display: none">
         <li class="brand-item custom-control custom-checkboxValue-noCheck">
-             <label class="custom-label">
-                 <input type="checkbox" name="button-brandExchange" id="" class="custom-control-input-hidden searchGameBrandcheckbox" onchange="searchGameChange()">
-                 <div class="custom-input checkbox">
-                     <span class="logo-wrap">
-                         <span class="img-wrap">
-                             <img class="brandImg" src="images/logo/default/logo-eWIN.svg" alt=""></span>
-                     </span>
-                 </div>
-             </label>
-         </li>
+            <label class="custom-label">
+                <input type="checkbox" name="button-brandExchange" id="" class="custom-control-input-hidden searchGameBrandcheckbox" onchange="searchGameChange()">
+                <div class="custom-input checkbox">
+                    <span class="logo-wrap">
+                        <span class="img-wrap">
+                            <img class="brandImg" src="images/logo/default/logo-eWIN.svg" alt=""></span>
+                    </span>
+                </div>
+            </label>
+        </li>
     </div>
 
 </body>

@@ -215,35 +215,25 @@
         GCBSelf.InitPromise.then(queue);
     };
 
+    //#region Favo
+
     /**
-     * 
-     * @param {any} GameCode    遊戲代碼
-     * @param {any} type   cb, param => 0=Favo,1=History of Play
-     * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
-     */
-    this.AddPersonal = function (GameCode, type, cb) {
+   * 
+   * @param {any} GameCode    遊戲代碼
+   * @param {any} type   cb, param => 0=Favo,1=History of Play
+   * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
+   */
+    this.AddFavo = function (GameCode, cb) {
         var queue = () => {
             var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
-            var FavoIndexStr;
-
-            if (type == 0) {
-                FavoIndexStr = "Favo";
-            } else if (type == 1) {
-                FavoIndexStr = "History";
-            } else {
-                if (cb) {
-                    cb(false);
-                }
-                return;
-            }
-
 
             objectStore.get(GameCode).onsuccess = function (event) {
                 if (event.target.result) {
                     var data = event.target.result;
-                    data.Personal.push(FavoIndexStr);
+                    data.FavoTimeStamp = new Date().getTime();
                     objectStore.put(data);
+
                     if (cb) {
                         cb(true);
                     }
@@ -265,76 +255,20 @@
      * @param {any} type   cb, param => 0=Favo,1=History of Play
      * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
      */
-    this.AddPersonalByGameID = function (GameID, type, cb) {
+    this.AddFavoByGameID = function (GameID, cb) {
         var queue = () => {
             var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("GameID");
-            var FavoIndexStr;
-
-            if (type == 0) {
-                FavoIndexStr = "Favo";
-            } else if (type == 1) {
-                FavoIndexStr = "History";
-            } else {
-                cb(false);
-                return;
-            }
-
 
             index.get(GameID).onsuccess = function (event) {
                 if (event.target.result) {
                     var data = event.target.result;
-                    data.Personal.push(FavoIndexStr);
+                    data.FavoTimeStamp = new Date().getTime();
                     objectStore.put(data);
-                    cb(true);
-                } else {
-                    cb(false);
-                }
-            };
-        };
 
-        GCBSelf.InitPromise.then(queue);
-    }
-
-
-    /**
-     * 
-     * @param {any} GameID    遊戲代碼
-     * @param {any} type   cb, param => 0=Favo,1=History of Play
-     * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
-     */
-    this.RemovePersonal = function (GameCode, type, cb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
-            var objectStore = transaction.objectStore('GameCodes');
-            var FavoIndexStr;
-
-            if (type == 0) {
-                FavoIndexStr = "Favo";
-            } else if (type == 1) {
-                FavoIndexStr = "History";
-            } else {
-                cb(false);
-                return;
-            }
-
-
-            objectStore.get(GameCode).onsuccess = function (event) {
-                if (event.target.result) {
-                    var data = event.target.result;
-                    var index = data.Personal.indexOf(FavoIndexStr);
-
-                    if (index != -1) {
-                        data.Personal.splice(index, 1);
-                        objectStore.put(data);
-                        if (cb) {
-                            cb(true);
-                        }
-                    } else {
-                        if (cb) {
-                            cb(false);
-                        }
+                    if (cb) {
+                        cb(true);
                     }
                 } else {
                     if (cb) {
@@ -350,41 +284,27 @@
 
     /**
      * 
-     * @param {any} GameCode    遊戲代碼
-     * @param {any} type   cb, param => 0=Favo,1=History of Play
+     * @param {any} GameID    遊戲代碼     
      * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
      */
-    this.RemovePersonalByGameID = function (GameID, type, cb) {
+    this.RemoveFavo = function (GameCode, cb) {
         var queue = () => {
             var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
-            var index = objectStore.index("GameID");
-            var FavoIndexStr;
 
-            if (type == 0) {
-                FavoIndexStr = "Favo";
-            } else if (type == 1) {
-                FavoIndexStr = "History";
-            } else {
-                cb(false);
-                return;
-            }
-
-
-            index.get(GameID).onsuccess = function (event) {
+            objectStore.get(GameCode).onsuccess = function (event) {
                 if (event.target.result) {
                     var data = event.target.result;
-                    var index = data.Personal.indexOf(FavoIndexStr);
+                    data.FavoTimeStamp = null;
+                    objectStore.put(data);
 
-                    if (index != -1) {
-                        data.Personal.splice(index, 1);
-                        objectStore.put(data);
+                    if (cb) {
                         cb(true);
-                    } else {
-                        cb(false);
                     }
                 } else {
-                    cb(false);
+                    if (cb) {
+                        cb(false);
+                    }
                 }
             };
         };
@@ -392,24 +312,20 @@
         GCBSelf.InitPromise.then(queue);
     }
 
-    this.GetPersonal = function (type, cb, endCb) {
+    /**
+     * 
+     * @param {any} cb
+     * @param {any} endCb
+     */
+    this.GetFavo = function (cb, endCb) {
         var queue = () => {
             var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
-            var index = objectStore.index("Personal");
+            var index = objectStore.index("PersonalFavo");
             var isDataExist = false;
-            var FavoIndexStr;
 
-            if (type == 0) {
-                FavoIndexStr = "Favo";
-            } else if (type == 1) {
-                FavoIndexStr = "History";
-            } else {
-                endCb(isDataExist);
-                return;
-            }
             //var count = index.count();
-            index.openCursor(FavoIndexStr).onsuccess = function (event) {
+            index.openCursor(null, "prev").onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
                     isDataExist = true;
@@ -427,6 +343,138 @@
 
         GCBSelf.InitPromise.then(queue);
     }
+
+    //#endregion 
+
+    //#region Played
+
+    /**
+     * 
+     * @param {any} GameCode    遊戲代碼
+     * @param {any} type   cb, param => 0=Favo,1=History of Play
+     * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
+     */
+    this.AddPlayed = function (GameCode, cb) {
+        var queue = () => {
+            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+            var objectStore = transaction.objectStore('GameCodes');
+            var index = objectStore.index("PersonalPlayed");
+
+            index.count().onsuccess = function (event) {
+                var count = event.target.result;
+
+                if (count >= 20) {
+                    index.openCursor().onsuccess = function (event) {
+                        var cursor = event.target.result;
+                        if (cursor) {
+                            var data = cursor.value;
+                            data.PlayedTimeStamp = null;
+                            objectStore.put(data);
+                        }
+                    };
+                }
+            
+                objectStore.get(GameCode).onsuccess = function (event) {
+                    if (event.target.result) {                        
+                        var data = event.target.result;
+                        data.PlayedTimeStamp = new Date().getTime();
+                        objectStore.put(data);
+
+                        if (cb) {
+                            cb(true);
+                        }
+                    } else {
+                        if (cb) {
+                            cb(false);
+                        }
+                    }
+                };
+            };
+        };
+
+        GCBSelf.InitPromise.then(queue);
+    }
+
+    /**
+     * 
+     * @param {any} GameID    遊戲代碼     
+     * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
+     */
+    this.RemovePlayed = function (GameCode, cb) {
+        var queue = () => {
+            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+            var objectStore = transaction.objectStore('GameCodes');
+
+            objectStore.get(GameCode).onsuccess = function (event) {
+                if (event.target.result) {
+                    var data = event.target.result;
+                    data.PlayedTimeStamp = null;
+                    objectStore.put(data);
+
+                    if (cb) {
+                        cb(true);
+                    }
+                } else {
+                    if (cb) {
+                        cb(false);
+                    }
+                }
+            };
+        };
+
+        GCBSelf.InitPromise.then(queue);
+    }
+
+    /**
+     * 
+     * @param {any} cb
+     * @param {any} endCb
+     */
+    this.GetPlayed = function (cb, endCb) {
+        var queue = () => {
+            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+            var objectStore = transaction.objectStore('GameCodes');
+            var index = objectStore.index("PersonalPlayed");
+            var isDataExist = false;
+
+            //var count = index.count();
+            index.openCursor(null, "prev").onsuccess = function (event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    isDataExist = true;
+                    if (cb) {
+                        cb(cursor.value);
+                    }
+                    cursor.continue();
+                } else {
+                    if (endCb) {
+                        endCb(isDataExist);
+                    }
+                }
+            };
+        };
+
+        GCBSelf.InitPromise.then(queue);
+    }
+
+    //#endregion 
+
+    /**
+     * 
+     * @param {any} type
+     * @param {any} cb
+     * @param {any} endCb
+     */
+    this.GetPersonal = function (type, cb, endCb) {
+        if (type == 0) {
+            GCBSelf.GetFavo(cb, endCb);
+        } else if (type == 1) {
+            GCBSelf.GetPlayed(cb, endCb);
+        } else {
+            GCBSelf.GetFavo(cb, endCb);
+        }
+    }
+
 
     /**
      *  搜尋，取交集
@@ -606,14 +654,14 @@
     }
 
     /**
- *  搜尋，取交集
- * @param {any} GameBrands 遊戲廠牌
- * @param {any} GameCategoryCode 遊戲分類
- * @param {any} GameCategorySubCode 遊戲次分類(使用時請連遊戲分類一起給)
- * @param {any} SearchKeyWord   搜尋關鍵字(如果為5位數內的數字，視為GameID做搜尋，並回傳單一GameItem)
- * @param {any} cb  迭代fun
- * @param {any} endCb   結束fun(isDataExist) => isDataExist=true 有資料, isDataExist=false 無資料
- */
+     *  搜尋，取交集
+     * @param {any} GameBrands 遊戲廠牌
+     * @param {any} GameCategoryCode 遊戲分類
+     * @param {any} GameCategorySubCode 遊戲次分類(使用時請連遊戲分類一起給)
+     * @param {any} SearchKeyWord   搜尋關鍵字(如果為5位數內的數字，視為GameID做搜尋，並回傳單一GameItem)
+     * @param {any} cb  迭代fun
+     * @param {any} endCb   結束fun(isDataExist) => isDataExist=true 有資料, isDataExist=false 無資料
+     */
     this.CursorGetByMultiSearch2 = function (GameBrands, GameCategoryCode, GameCategorySubCode, SearchKeyWord, cb, endCb) {
         var queue = () => {
             var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');

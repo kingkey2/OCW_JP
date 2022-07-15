@@ -132,10 +132,11 @@ var worker = function (WebUrl, Second, eWinGameItem) {
                 store = db.createObjectStore("GameCodes", { keyPath: "GameCode", autoIncrement: false });
                 store.createIndex('GameID', "GameID", { unique: true, multiEntry: false });
                 store.createIndex('GameBrand', ['GameBrand', 'SortIndex'], { unique: false, multiEntry: false });
-                store.createIndex('GameCategoryCode', ['GameCategoryCode', 'SortIndex'], { unique: false, multiEntry: false });
-                store.createIndex('Personal', 'Personal', { unique: false, multiEntry: true });
+                store.createIndex('GameCategoryCode', ['GameCategoryCode', 'SortIndex'], { unique: false, multiEntry: false });                
                 store.createIndex('GameCategorySubCode', ['GameCategoryCode', 'GameCategorySubCode', 'SortIndex'], { unique: false, multiEntry: false });
                 store.createIndex('SearchKeyWord', "Tags", { unique: false, multiEntry: true }); //搜尋關鍵字使用
+                store.createIndex('PersonalFavo', 'FavoTimeStamp', { unique: false, multiEntry: false });
+                store.createIndex('PersonalPlayed', 'PlayedTimeStamp', { unique: false, multiEntry: false });
                 //store.createIndex('ShowTags', 'ShowTags', { unique: false, multiEntry: true }); //顯性標籤
 
                 categoryStore = db.createObjectStore("GameCategory", { keyPath: ['GameBrand', 'GameCategoryCode'] ,autoIncrement: false });
@@ -298,9 +299,10 @@ var worker = function (WebUrl, Second, eWinGameItem) {
                                     IsNew: gameCodeItem.IsNew,
                                     SortIndex: gameCodeItem.SortIndex,                                    
                                     Tags: tags,
-                                    Personal: [],
                                     Language: gameCodeItem.Language,
-                                    RTP: gameCodeItem.RTP
+                                    RTP: gameCodeItem.RTP,
+                                    FavoTimeStamp: null,
+                                    PlayedTimeStamp: null
                                 };
 
 
