@@ -826,7 +826,7 @@
                                         <span class="data text-primary ExpireSecond"></span>
                                     </li>
 
-                                    <li class="item mt-4" style="display: none">
+                                    <li class="item mt-4">
                                         <h6 class="title language_replace">出金條件</h6>
                                         <%--<span class="data ThresholdValue"></span>--%>
                                         <ul class="deposit-detail-sub">

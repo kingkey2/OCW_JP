@@ -127,6 +127,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding-top: 6px;
   padding-bottom: 6px;
 }
+.record-overview-wrapper .MT__table .Thead .thead__th:not(:last-child):after {
+  content: none;
+}
+.record-overview-wrapper .MT__table .Tbody .tbody__td:not(:last-child) .td__content::after {
+  content: none;
+}
 .record-overview-wrapper .MT__table .amount {
   font-size: 1.5625rem;
 }
@@ -376,10 +382,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: 500;
 }
 .record-table-tab .record-table-cell .count.positive {
-  color: #59B587;
+  color: #e24f4f;
 }
 .record-table-tab .record-table-cell .count.negative {
-  color: #e24f4f;
+  color: #59B587;
 }
 .record-table-tab .td-toggle {
   -webkit-box-flex: 0;

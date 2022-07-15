@@ -1082,7 +1082,7 @@
                                 <div class="crypto-info-inqury">
                                     <div class="content">
                                         <p class="desc">
-                                            <span class="language_replace desc-1">可透過</span>
+                                            <%--<span class="language_replace desc-1">可透過</span>--%>
                                             <a href="https://etherscan.io/" target="_blank" class="btn btn-outline-primary btn-etherscan btn-white">Etherscan</a><span class="language_replace desc-2">查詢入款交易狀況</span>
                                         </p>
                                         <!-- 說明頁 -->

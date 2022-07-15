@@ -181,9 +181,16 @@
 
         if (temp_gameItem.GameLangName == "EWinGaming") {
         c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
-        } else {//gameItem.GameText[EWinWebInfo.Lang] 
-            //GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName)
-        c.setClassText(tempGI, "gameName", null, "");
+        } else {
+            GCB.GetByGameCode(temp_gameItem.GameLangName, function (gameItem) {
+
+                if (gameItem) {
+                    let lang_GameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+                    c.setClassText(tempGI, "gameName", null, lang_GameName);
+                } else {
+                    c.setClassText(tempGI, "gameName", null, "");
+                }
+            })
         }
 
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));
@@ -206,10 +213,7 @@
         mlp.loadLanguage(lang, function () {
             if (p != null) {
                 window.parent.API_LoadingEnd();
-                if (GCB.FirstLoaded) {
-                    updateGameList();
-                }
-
+                getCompanyGameCode();
                 if (FourGames) {
                     updateFourGame();
                 }
@@ -361,292 +365,276 @@
         }
     }
 
-    function updateGameList() {
-        iframeWidth = $(window.parent.document).find('#IFramePage').width();
-        var LobbyGameList = GCB.GetCategory("Home");
-        var idGameItemGroup = document.getElementById("gameAreas");
-        idGameItemGroup.innerHTML = "";
-
-        FavoGames = window.parent.API_GetFavoGames();
-
-        if (LobbyGameList && LobbyGameList.Categories) {
-
-            var companyCategoryDatasCount = 0;
-            var categName;
-
-            LobbyGameList.Categories.forEach(category => {
-                var count = 0;
-                var categArea;
-                companyCategoryDatasCount++;
-
-                if (category.Location == "Home" && category.Datas.length > 0) {
-
-                    if (category.ShowType == 0) {
-                        categArea = c.getTemplate("temCategArea");
-                        categName = category.CategoryName.replace('@', '').replace('#', '');
-                        $(categArea).find('.CategoryName').text(mlp.getLanguageKey(categName));
+    function getCompanyGameCode() {
+        p.GetCompanyGameCodeThree(Math.uuid(), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    if (o.LobbyGameList.length > 0) {
+                        createCategory(o.LobbyGameList,"Home", function () {
+                            setSwiper("Home");
+                        });
                     } else {
-                        categArea = c.getTemplate("temCategArea2");
-                    }
-
-                    $(categArea).find('.GameItemGroup').attr('id', 'GameItemGroup_' + companyCategoryDatasCount);
-                    $(categArea).find('.GameItemGroupContent').attr('id', 'GameItemGroupContent_' + companyCategoryDatasCount);
-                    category.Datas.sort(function (a, b) {
-                        return b.SortIndex - a.SortIndex;
-                    });
-
-                    category.Datas.forEach(gameItem => {
-                        var GI;
-
-                        if (category.ShowType == 0) {
-                            GI = c.getTemplate("temGameItem");
-                            $(GI).addClass('gameid_' + gameItem.GameID);
-                            var GI_a = GI.querySelector(".btn-play");
-                            var GI_Favor = GI.querySelector(".btn-like");
-
-                            if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
-                                $(GI_Favor).addClass("added");
-                            }
-
-                            GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
-
-                            if (iframeWidth < 936) {
-
-                                var RTP = "--";
-                                if (gameItem.RTPInfo) {
-                                    RTP = JSON.parse(gameItem.RTPInfo).RTP;
-                                }
-
-                                if (RTP == "0") {
-                                    RTP = "--";
-                                }
-
-                                GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
-                            } else {
-
-                                var GI_gameitemlink = GI.querySelector(".game-item-link");
-                                GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
-                                GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
-                            }
-
-                            $(GI).find('.btn-more').click(function () {
-                                // $(this).toggleClass('show');
-                                $(this).closest('.game-item-info-detail').toggleClass('open');
-                            });
-
-                            $(GI).find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
-                        } else {
-                            GI = c.getTemplate("temGameItem2");
-                        }
-
-                        var GI_img = GI.querySelector(".gameimg");
-
-                        if (GI_img != null) {
-                            GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
-                            var el = GI_img;
-                            var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
-                            observer.observe();
-                        }
-
-                        $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
-                        if (gameItem.RTPInfo) {
-                            $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
-                        } else {
-                            $(GI).find(".valueRTP").text('--');
-                        }
-
-                        $(GI).find(".GameID").text(gameItem.GameID);
-                        $(GI).find(".game-item-name").text(gameItem.GameText[lang]);
-
-                        $(categArea).find('.GameItemGroupContent').append(GI);
-
-                    });
-
-                    gameAreas.append(categArea);
-
-                    if (category.ShowType == 0) {
-                        new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
-                            loop: false,
-                            slidesPerView: "auto",
-                            // slidesPerView: 2,
-                            // slidesPerGroup: 2,
-                            freeMode: true,
-                            navigation: {
-                                nextEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-next",
-                                prevEl: "#" + 'GameItemGroup_' + companyCategoryDatasCount + " .swiper-button-prev",
-                            },
-                            breakpoints: {
-                                // 576: {
-                                //     slidesPerGroup: 3,
-                                // },
-                                // 640: {
-                                // slidesPerGroup: 4,
-                                // },
-                                936: {
-                                    freeMode: false,
-                                    slidesPerGroup: 6, //index:992px
-                                },
-                                1144: {
-                                    slidesPerGroup: 7, //index:1200px
-                                },
-                                1384: {
-                                    slidesPerGroup: 7, //index:1440px
-                                },
-                                1544: {
-                                    slidesPerGroup: 7, //index:1600px
-                                },
-                                1864: {
-                                    slidesPerGroup: 8, //index:1920px
-                                },
-                                1920: {
-                                    slidesPerGroup: 8, //index:1920px up
-                                },
-                            }
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
+                            window.parent.location.href = "index.aspx";
                         });
                     }
-                    else {
-                        new Swiper("#" + 'GameItemGroup_' + companyCategoryDatasCount, {
-                            effect: "coverflow",
-                            grabCursor: true,
-                            centeredSlides: true,
-                            slidesPerView: "auto",
-                            // slidesPerView: 5,
-                            coverflowEffect: {
-                                rotate: 20,
-                                stretch: 0,
-                                depth: 200,
-                                modifier: 1,
-                                slideShadows: true,
-                            },
-                            // pagination: {
-                            //     el: ".swiper-pagination",
-                            // },
-                            loop: true,
-                            autuplay: {
-                                delay: 100,
-                                disableOnInteraction: false,
-                            }
-                        });
-                    }
-                }
-            });
-
-        }
-
-        categArea = c.getTemplate("temCategArea");
-
-        $(categArea).find('.CategoryName').text(mlp.getLanguageKey("我的最愛"));
-        $(categArea).find('.GameItemGroup').attr('id', 'idFavoGameItemGroup');
-        if (FavoGames && FavoGames.length > 0) {
-            for (var i = 0; i < FavoGames.length; i++) {
-                if (FavoGames[i].GameID == 0) {
-                    gameItem = {
-                        AllowDemoPlay: 1,
-                        "BrandText": {
-                            CHT: "真人百家樂(eWIN)",
-                            JPN: "EWinゲーミング"
-                        },
-                        "GameBrand": "EWin",
-                        "GameCategoryCode": "Live",
-                        "GameCategorySubCode": "Baccarat",
-                        "GameCode": null,
-                        "GameID": 0,
-                        "GameName": "EWinGaming",
-                        "GameText": {
-                            CHT: "真人百家樂(eWIN)",
-                            JPN: "EWinゲーミング"
-                        },
-                        "Info": null,
-                        "IsHot": 0,
-                        "IsNew": 0,
-                        "RTPInfo": "",
-                        "SortIndex": 0,
-                        "Tag": null
-                    };
                 } else {
-                    gameItem = GCB.GetGameCode(FavoGames[i].GameID);
-                }
-                
-                if (gameItem) {
-                    var GI;
-                    GI = c.getTemplate("temGameItem");
-                    $(GI).addClass('gameid_' + gameItem.GameID);
-                    var GI_a = GI.querySelector(".btn-play");
-                    var GI_Favor = GI.querySelector(".btn-like");
-                    GI_Favor.onclick = new Function("window.parent.favBtnEvent(" + gameItem.GameID + ",this)");
-
-                    if (FavoGames.filter(e => e.GameID === gameItem.GameID).length > 0) {
-                        $(GI_Favor).addClass("added");
-                    }
-
-                    if (iframeWidth < 936) {
-
-                        var RTP = "--";
-                        if (gameItem.RTPInfo) {
-                            RTP = JSON.parse(gameItem.RTPInfo).RTP;
-                        }
-
-                        if (RTP == "0") {
-                            RTP = "--";
-                        }
-
-                        GI.onclick = new Function("window.parent.API_MobileDeviceGameInfo('" + gameItem.GameBrand + "','" + RTP + "','" + gameItem.GameName + "'," + gameItem.GameID + ")");
-                    } else {
-
-                        var GI_gameitemlink = GI.querySelector(".game-item-link");
-                        GI_gameitemlink.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
-                        GI_a.onclick = new Function("window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.GameText[lang] + "')");
-                    }
-
-                    $(GI).find('.btn-more').click(function () {
-                        // $(this).toggleClass('show');
-                        $(this).closest('.game-item-info-detail').toggleClass('open');
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
+                        window.parent.location.href = "index.aspx";
                     });
-
-                    $(GI).find('.btn-more').closest('.game-item-info-detail').toggleClass('open');
-
-
-                    var GI_img = GI.querySelector(".gameimg");
-                    var GI_gameitem = GI.querySelector(".game-item");
-
-
-                    if (GI_img != null) {
-                        GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
-                        var el = GI_img;
-                        var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
-                        observer.observe();
-                    }
-
-                    $(GI).find(".GameBrand").text(mlp.getLanguageKey(gameItem.GameBrand));
-                    if (gameItem.RTPInfo) {
-                        $(GI).find(".valueRTP").text(JSON.parse(gameItem.RTPInfo).RTP == "0" ? "--" : JSON.parse(gameItem.RTPInfo).RTP);
-                    } else {
-                        $(GI).find(".valueRTP").text('--');
-                    }
-
-                    $(GI).find(".GameID").text(gameItem.GameID);
-                    $(GI).find(".game-item-name").text(gameItem.GameText[lang]);
-
-                    $(categArea).find('.GameItemGroupContent').append(GI);
                 }
             }
-        } else {
-            $(categArea).addClass('is-hide');
-        }
+            else {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
+                    window.parent.location.href = "index.aspx";
+                });
+            }
 
-        gameAreas.append(categArea);
+        });
+    }
 
-        if (FavoGames && FavoGames.length > 0) {
-            new Swiper('#idFavoGameItemGroup', {
-                loop: false,
-                slidesPerView: "auto",
-                slidesPerGroup: 8,
-                navigation: {
-                    nextEl: "#idFavoGameItemGroup .swiper-button-next",
-                    prevEl: "#idFavoGameItemGroup .swiper-button-prev",
-                }
+    async function createCategory(LobbyGameList,categoryName, cb) {
+
+        if (LobbyGameList) {
+
+            var lobbyGame = LobbyGameList.find(function (o) {
+                return o.Location == categoryName;
             });
+
+            if (lobbyGame) {
+                var Location = lobbyGame.Location;
+                var categAreas = "";
+
+                for (var i = 0; i < lobbyGame.Categories.length; i++) {
+                    category = lobbyGame.Categories[i];
+                    if (category) {
+
+                        if (category.Datas.length > 0) {
+                            var categArea;
+                            var textlink;
+                            var gameItems = "";
+
+                            for (var ii = 0; ii < category.Datas.length; ii++) {
+                                var o = category.Datas[ii];
+
+                                var GI;
+                                var btnlike;
+                                var GItitle;
+                                var gameitemlink;
+                                var btnplay;
+                                var imgsrc;
+                                var gameName;
+                                var gameItem = await new Promise((resolve, reject) => {
+                                    GCB.GetByGameCode(o.GameCode, (gameItem) => {
+                                        resolve(gameItem);
+                                    })
+                                });
+
+                                if (gameItem) {
+                                    gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+                                    var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                                    if (gameItem.Personal.toString().includes("Favo")) {
+                                        btnlike = `<button type="button" class="btn-like btn btn-round added" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
+                                    } else {
+                                        btnlike = `<button type="button" class="btn-like btn btn-round" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
+                                    }
+
+                                    var RTP = "";
+                                    if (gameItem.RTPInfo) {
+                                        var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
+
+                                        if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                                            RTP = RtpInfoObj.RTP.toString();
+                                        } else {
+                                            RTP = '--';
+                                        }
+                                    } else {
+                                        RTP = '--';
+                                    }
+
+                                    if (iframeWidth < 936) {
+                                        GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
+                                        btnplay = '<button type="button" class="btn btn-play">';
+                                        gameitemlink = `<span class="game-item-link"></span>`;
+                                        gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                                        //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                                    } else {
+                                        gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                                        GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
+                                        gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
+                                        btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
+                                    }
+
+                                    imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+
+
+                                    GI = `${GItitle}
+                        <div class="game-item">
+<div class="game-item-inner">
+${gameitemmobilepopup}
+<div class="game-item-focus">
+    <div class="game-item-img">
+        ${gameitemlink}
+        <div class="img-wrap">
+            <img class="gameimg lozad" src="${imgsrc}">
+        </div>
+    </div>
+    <div class="game-item-info-detail open">
+        <div class="game-item-info-detail-wrapper">
+            <div class="game-item-info-detail-moreInfo">
+                <ul class="moreInfo-item-wrapper">
+                    <li class="moreInfo-item brand">
+                        <span class="title language_replace">品牌</span>
+                        <span class="value GameBrand">${gameItem.GameBrand}</span>
+                    </li>
+                    <li class="moreInfo-item RTP">
+                        <span class="title">RTP</span>
+                        <span class="value number valueRTP">${RTP}</span>
+                    </li>
+                    <li class="moreInfo-item gamecode">
+                        <span class="title">NO.</span>
+                        <span class="value number GameID">${gameItem.GameID}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="game-item-info-detail-indicator">
+                <div class="game-item-info-detail-indicator-inner">
+                    <div class="info">
+                        <h3 class="game-item-name">${gameName}</h3>
+                    </div>
+                    <div class="action">
+                        <div class="btn-s-wrapper">
+<button type="button" class="btn-thumbUp btn btn-round">
+<i class="icon icon-m-thumup"></i>
+</button>
+                            ${btnlike}
+<i class="icon icon-m-favorite"></i>
+</button>
+<button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
+<i class="arrow arrow-down"></i>
+</button>
+                        </div>
+                        ${btnplay}
+<span class="language_replace">遊玩</span><i class="triangle"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="game-item-info">
+    <div class="game-item-info-inner">
+        <h3 class="game-item-name"></h3>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>`;
+
+                                    gameItems += GI;
+                                }
+                            }
+
+                            categName = category.CategoryName.replace('@', '').replace('#', '');
+                            gameBrand = category.Datas[0].GameBrand;
+                            if (iframeWidth < 936) {
+                                textlink = '';
+                            } else {
+                                textlink = `<a class="text-link">
+                    <span class="title-showAll" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey('全部顯示')}</span><i class="icon arrow arrow-right"></i>
+                    </a>`;
+                            }
+
+                            if (category.SortIndex >= 90) {
+                                categArea = ` <section class="section-wrap section-levelUp">
+                    <div class="game_wrapper">
+                    <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                    <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName langkey" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey(categName)}</span></h3>
+                    </div>
+                    ${textlink}
+                    </div>
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup_${Location}">
+                    <div class="swiper-wrapper GameItemGroupContent">
+                    ${gameItems}
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    </div>
+                    </div>
+                    </section>`;
+                            } else {
+                                categArea = ` <section class="section-wrap section-levelUp">
+                    <div class="game_wrapper">
+                    <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                    <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName langkey">${mlp.getLanguageKey(categName)}</span></h3>
+                    </div>
+                    </div>
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup_${Location}">
+                    <div class="swiper-wrapper GameItemGroupContent">
+                    ${gameItems}
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    </div>
+                    </div>
+                    </section>`;
+
+                            }
+
+                            categAreas += categArea;
+                        }
+                    }
+                }
+
+                $('#gameAreas').append(categAreas);
+                cb();
+
+            }
         }
+    }
+
+    function setSwiper(categoryName) {
+        new Swiper(".GameItemGroup_" + categoryName, {
+            slidesPerView: "auto",
+            // loop:true,
+            // slidesPerGroup: 2,
+            // loopedSlides: 8,
+            lazy: true,
+            freeMode: true,
+            navigation: {
+                nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
+                prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
+            },
+            breakpoints: {
+
+                936: {
+                    freeMode: false,
+                    slidesPerGroup: 6, //index:992px
+                },
+                1144: {
+                    slidesPerGroup: 7, //index:1200px
+                    allowTouchMove: false, //拖曳
+                },
+                1384: {
+                    slidesPerGroup: 7, //index:1440px
+                    allowTouchMove: false,
+                },
+                1544: {
+                    slidesPerGroup: 7, //index:1600px
+                    allowTouchMove: false,
+                },
+                1864: {
+                    slidesPerGroup: 8, //index:1920px
+                    allowTouchMove: false,
+                },
+                1920: {
+                    slidesPerGroup: 8, //index:1920px up
+                    allowTouchMove: false,
+                },
+            }
+        });
     }
 
     function setBulletinBoard() {
@@ -703,7 +691,6 @@
                 lang = param;
 
                 mlp.loadLanguage(lang, function () {
-                    updateGameList();
                     updateFourGame();
                     window.parent.API_LoadingEnd(1);
                 });

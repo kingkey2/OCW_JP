@@ -1645,7 +1645,7 @@ public static class RedisCache {
 
             Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
 
-            SS = "SELECT * FROM CompanyGameCode WITH (NOLOCK) WHERE forCompanyCategoryID = @forCompanyCategoryID";
+            SS = "SELECT * FROM CompanyCategoryGameCode WITH (NOLOCK) WHERE forCompanyCategoryID = @forCompanyCategoryID";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;

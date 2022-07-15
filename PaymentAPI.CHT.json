@@ -22,7 +22,7 @@
   "GetInfoError": "取得資訊失敗",
   "CurrencyNotFound": "指定幣別不存在",
   "GetThresholdError": "取得限額額度失敗",
-  "NotInOpenTime": "今は出金時間外です。出金時間は朝の10時から午後18時になります。",
+  "NotInOpenTime": "現在不在出金時間內。出金時間為早上10時至下午18時。",
   "DailyAmountGreaterThanMaxlimit": "毎日出款金額已達上限",
   "DailyCountGreaterThanMaxlimit": "毎日出款次數已達上限",
   "InvalidCryptoExchangeRate": "無效的加密貨幣匯率",
@@ -31,6 +31,7 @@
   "LockFailure": "鎖定失敗",
   "InvalidStatus": "訂單狀態有誤",
   "JKCAmountInsufficient": "JKC餘額不足",
-  "ClientOrderNumber": "訂單已存在,請重新申請訂單"
-
+  "ClientOrderNumber": "訂單已存在,請重新申請訂單",
+  "WithdrawlTemporaryMaintenance": "出款程序維護中",
+  "OPFailure": "餘額不足"
 }
