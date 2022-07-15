@@ -422,6 +422,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-left: 0.5rem;
 }
 
+.MT__table.table-prize-record .Thead .thead__th:not(:last-child):after {
+  border-left-color: rgba(255, 255, 255, 0.35);
+}
+
 @media screen and (min-width: 641px) {
   .sec-title-container .btn-activity {
     -webkit-box-ordinal-group: 3;

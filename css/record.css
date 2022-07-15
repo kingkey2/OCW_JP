@@ -127,6 +127,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding-top: 6px;
   padding-bottom: 6px;
 }
+.record-overview-wrapper .MT__table .Thead .thead__th:not(:last-child):after {
+  content: none;
+}
+.record-overview-wrapper .MT__table .Tbody .tbody__td:not(:last-child) .td__content::after {
+  content: none;
+}
 .record-overview-wrapper .MT__table .amount {
   font-size: 1.5625rem;
 }
