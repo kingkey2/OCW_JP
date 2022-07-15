@@ -402,7 +402,7 @@
                         </div>
 
                     </div>
-                    <div class="MT__table">
+                    <div class="MT__table table-prize-record">
                         <!-- Thead  -->
                         <div class="Thead">
                             <div class="thead__tr">
