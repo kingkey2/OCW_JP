@@ -181,15 +181,6 @@
     var UserThisWeekTotalValidBetValueData = [];
     //#region TOP API
 
-    function API_GetGCB() {
-        if (GCB.IsFirstLoaded) {
-            return GCB;
-        } else {
-            return null;
-        }
-    }
-
-
     function API_GetWebInfo() {
         return EWinWebInfo;
     }
@@ -417,10 +408,6 @@
 
     function API_GetFavoGames() {
         return getFavoriteGames();
-    }
-
-    function API_GetMyGames() {
-        return getMyGames();
     }
 
     function API_SendSerivceMail(subject, body, email) {
@@ -857,7 +844,7 @@
             }, null);
         } else {
             EWinWebInfo.IsOpenGame = true;
-            setGameCodeToMyGames(gameBrand, gameName);
+            GCB.AddPersonal(gameBrand + "." + gameName, 1);
 
             $('.headerGameName').text(gameLangName);
 
@@ -876,7 +863,7 @@
     function openDemo(gameBrand, gameName) {
         //先關閉Game彈出視窗(如果存在)
         EWinWebInfo.IsOpenGame = true;
-        setGameCodeToMyGames(gameBrand, gameName);
+        GCB.AddPersonal(gameBrand + "." + gameName, 1);
 
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
@@ -979,52 +966,6 @@
         }
     }
 
-    function setGameCodeToMyGames(gameBrand, gameName) {
-        var TotalCount = 14;
-        var objMyGame = new Object();
-        objMyGame.GameBrand = gameBrand;
-        objMyGame.GameName = gameName;
-
-        if (!localStorage.getItem('MyGames')) {
-            var arrayMyGames = new Array();
-            arrayMyGames.push(objMyGame);
-            localStorage.setItem('MyGames', JSON.stringify(arrayMyGames));
-        } else {
-            var arrayMyGames = JSON.parse(localStorage.getItem('MyGames'));
-            var isDuplicate = false;
-            for (var i = 0; i < arrayMyGames.length; i++) {
-                if (arrayMyGames[i].GameBrand == gameBrand && arrayMyGames[i].GameName == gameName) {
-                    isDuplicate = true;
-                    break;
-                }
-            }
-
-            if (!isDuplicate) {
-                if (arrayMyGames.length == TotalCount) {
-                    arrayMyGames.pop();
-                    arrayMyGames.unshift(objMyGame);
-                } else {
-                    arrayMyGames.unshift(objMyGame);
-                }
-            }
-
-            localStorage.setItem('MyGames', JSON.stringify(arrayMyGames));
-        }
-
-        notifyWindowEvent("RefreshMyGames", null);
-    }
-
-    function getMyGames() {
-        var MyGames;
-        if (window.localStorage.getItem('MyGames')) {
-            MyGames = JSON.parse(window.localStorage.getItem('MyGames'));
-        } else {
-            MyGames = [];
-        }
-
-        return MyGames;
-    }
-    
     function addFavoriteGamesByGameCodeToIndexDB(GameCode, cb) {
         GCB.AddPersonal(GameCode, 0, function () {
             if (cb) {
@@ -1451,6 +1392,10 @@
             () => {   
                 var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
                 var favoriteGames;
+                var myGamesStr = window.localStorage.getItem("MyGames");
+                var myGames;
+
+
                 if (favoriteGamesStr) {
                     favoriteGames = JSON.parse(favoriteGamesStr);
 
@@ -1458,6 +1403,16 @@
                         addFavoriteGamesByGameIDToIndexDB(favoriteGames[i].GameID);
                     }
                 }
+
+                if (myGamesStr) {
+                    myGames = JSON.parse(myGamesStr);
+
+                    for (var i = 0; i < myGames.length; i++) {
+                        var myGame = myGames[i];
+                        GCB.AddPersonal(myGame.GameBrand + "." + myGame.GameName, 1);                        
+                    }
+                }
+
 
                 notifyWindowEvent("GameLoadEnd", null);
             }
@@ -2054,7 +2009,7 @@
                     <div class="sk-circle11 sk-circle"></div>
                     <div class="sk-circle12 sk-circle"></div>
                 </div>
-                <div class="loader-text language_replace">正在加載...</div>
+                <%--<div class="loader-text language_replace">正在加載...</div>--%>
             </div>
 
 
