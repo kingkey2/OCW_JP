@@ -12,7 +12,7 @@
   "請輸入郵遞區號": "請輸入郵遞區號",
   "請輸入都到縣府": "請輸入都到縣府",
   "請輸入地址": "請輸入地址",
-  "請確認已年滿18歲": "請確認已年滿18歲",
+  "請確認已年滿18歲": "請確認已年滿20歲",
   "成功": "成功",
   "註冊成功": "註冊成功",
   "失敗": "失敗",
@@ -51,7 +51,7 @@
   "現在就存款": "現在就存款",
   "首頁": "首頁",
   "立刻登入": "立刻登入",
-  "點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。": "點選「開設帳號」就代表理解<span class=\"link\" style=\"cursor:pointer\" onclick=\"window.parent.API_ShowPartialHtml('隱私權政策', 'PrivacyPolicy_CHT', false)\">隱私權政策<\/span>，也同意<span class=\"link\" style=\"cursor:pointer\" onclick=\"window.parent.API_ShowPartialHtml('利用規約', 'rules_CHT', false)\">利用規約<\/span>還有在マハラジャ不能持有複數的帳號這個條件。",
+  "點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。": "點選「開設帳號」就代表理解<span class=\"link\" style=\"cursor:pointer\" onclick=\"window.parent.API_ShowPartialHtml('隱私權政策', 'PrivacyPolicy_CHT', false)\">隱私權政策</span>，也同意<span class=\"link\" style=\"cursor:pointer\" onclick=\"window.parent.API_ShowPartialHtml('利用規約', 'rules_CHT', false)\">利用規約</span>還有在マハラジャ不能持有複數的帳號這個條件。",
   "不可輸入 , ": "不可輸入 , ",
   "請輸入驗證碼": "請輸入驗證碼",
   "請輸入正確驗證碼": "請輸入正確驗證碼",
@@ -75,5 +75,5 @@
   "請先取得驗證碼": "請先取得驗證碼",
   "請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字": "請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字",
   "國碼只能為+81": "國碼只能為+81",
-  "變更個人資訊，請透過客服進行 ！": "變更個人資訊，請透過客服進行 ！"
+  "變更個人資訊，請透過客服進行 ！": "變更個人資訊，請透過客服進行！"
 }

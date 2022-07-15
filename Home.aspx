@@ -181,9 +181,16 @@
 
         if (temp_gameItem.GameLangName == "EWinGaming") {
         c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
-        } else {//gameItem.GameText[EWinWebInfo.Lang] 
-            //GCB.GetGameText(WebInfo.Lang,temp_gameItem.GameLangName)
-        c.setClassText(tempGI, "gameName", null, "");
+        } else {
+            GCB.GetByGameCode(temp_gameItem.GameLangName, function (gameItem) {
+
+                if (gameItem) {
+                    let lang_GameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+                    c.setClassText(tempGI, "gameName", null, lang_GameName);
+                } else {
+                    c.setClassText(tempGI, "gameName", null, "");
+                }
+            })
         }
 
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));

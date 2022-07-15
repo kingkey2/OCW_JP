@@ -1476,6 +1476,8 @@
 
             getSearchGameBrand();
 
+
+
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
             //登入Check
@@ -1696,6 +1698,7 @@
                 for (var i = 0; i < gameList.length; i++) {
                     var gameItem = gameList[i];
                     var RTP = "--";
+                    var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
                     if (gameItem.RTPInfo) {
                         RTP = JSON.parse(gameItem.RTPInfo).RTP;
                     }
@@ -1706,7 +1709,7 @@
 
                     GI = c.getTemplate("tmpSearchGameItem");
                     //var GI_a = GI.querySelector(".btn-play");
-                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
+                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
                     var GI_img = GI.querySelector(".gameimg");
                     if (GI_img != null) {
                         GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1724,7 +1727,7 @@
 
                     likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                    $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
+                    $(GI).find(".gameName").text(lang_gamename);
                     $(GI).find(".BrandName").text(gameItem.GameBrand);
                     $(GI).find(".valueRTP").text(RTP);
                     $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
@@ -1750,6 +1753,7 @@
                 GCB.CursorGetByMultiSearch2(null, gamecategory, null, keyWord,
                     function (gameItem) {
                         var RTP = "--";
+                        var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
                         }
@@ -1760,7 +1764,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         //var GI_a = GI.querySelector(".btn-play");
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1779,7 +1783,7 @@
 
                         likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                        $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
+                        $(GI).find(".gameName").text(lang_gamename);
                         $(GI).find(".BrandName").text(gameItem.GameBrand);
                         $(GI).find(".valueRTP").text(RTP);
                         $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);
@@ -1796,6 +1800,7 @@
                 GCB.CursorGetByMultiSearch2(arrayGameBrand, gamecategory, null, keyWord,
                     function (gameItem) {
                         var RTP = "--";
+                        var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
                         }
@@ -1806,7 +1811,7 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         //var GI_a = GI.querySelector(".btn-play");
-                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText + "')");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1825,7 +1830,7 @@
 
                         likebtn.onclick = new Function("favBtnEvent(" + gameItem.GameID + ",'" + gameItem.GameCode + "',this,true)");
 
-                        $(GI).find(".gameName").text(gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText);
+                        $(GI).find(".gameName").text(lang_gamename);
                         $(GI).find(".BrandName").text(gameItem.GameBrand);
                         $(GI).find(".valueRTP").text(RTP);
                         $(GI).find(".GameCategoryCode").text(gameItem.GameCategoryCode);

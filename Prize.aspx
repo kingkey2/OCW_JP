@@ -395,7 +395,7 @@
                             <h1 class="sec-title title-deco"><span class="language_replace">領取紀錄</span></h1>
                         </div>
                         <!-- 前/後 月 -->
-                        <div class="sec_link">
+                        <div class="sec_link sec-month">
                             <button class="btn btn-link btn-gray" type="button" onclick="getPreMonth()"><i class="icon arrow arrow-left mr-1"></i><span class="language_replace">上個月</span></button>
                             <span id="idSearchDate_P" class="date_text"></span>
                             <button class="btn btn-link btn-gray" type="button" onclick="getNextMonth()"><span class="language_replace">下個月</span><i class="icon arrow arrow-right ml-1"></i></button>
