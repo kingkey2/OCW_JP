@@ -135,7 +135,6 @@
                 },
             }
         });
-        console.log("setSwiper " + categoryName);
     }
 
     function promiseForEach(arr, cb) {
@@ -347,7 +346,6 @@ ${gameitemmobilepopup}
                 var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="content-visibility:hidden"></div>');
                 categoryDiv.append(categAreas);
                 $('#gameAreas').append(categoryDiv);
-                console.log('gameAreas append ' + Location);
                 cb();
 
             }
