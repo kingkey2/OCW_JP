@@ -345,7 +345,7 @@
             objectStore.get(GameCode).onsuccess = function (event) {
                 if (event.target.result) {
                     var data = event.target.result;
-                    var index = data.FavoTag.indexOf(FavoIndexStr);
+                    var index = data.Personal.indexOf(FavoIndexStr);
 
                     if (index != -1) {
                         data.Personal.splice(index, 1);
@@ -396,7 +396,7 @@
             index.get(GameID).onsuccess = function (event) {
                 if (event.target.result) {
                     var data = event.target.result;
-                    var index = data.FavoTag.indexOf(FavoIndexStr);
+                    var index = data.Personal.indexOf(FavoIndexStr);
 
                     if (index != -1) {
                         data.Personal.splice(index, 1);
