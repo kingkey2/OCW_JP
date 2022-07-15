@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\API",
-    "\\App_Data",
-    "\\App_Data\\EPAY",
-    "\\App_Data\\PayPal"
+    "\\App_Code"
   ],
-  "SelectedNode": "\\OCW_JP.sln",
+  "SelectedNode": "\\Casino2.aspx",
   "PreviewInSolutionExplorer": false
 }
