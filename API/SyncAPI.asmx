@@ -21,7 +21,7 @@ public class SyncAPI : System.Web.Services.WebService
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     //public EWin.Lobby.APIResult CreateJKCUserAccount()
-    //{
+    //{ 
     //    string Filename;
     //    EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
     //    if (EWinWeb.IsTestSite)
