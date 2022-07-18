@@ -215,9 +215,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .category-dailypush-img .desktop {
   display: none;
 }
-.category-dailypush-cotent {
+.category-dailypush-cotentBox {
   position: relative;
-  padding: 10px;
+  padding: 20px;
   right: 0;
   width: 50%;
   color: #fff;
@@ -229,39 +229,72 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
 }
-.category-dailypush-cotent .title {
+.category-dailypush-cotentBox .title {
   font-weight: 500;
   font-size: 1.25rem;
   margin-bottom: 1rem;
+  width: 100%;
 }
-.category-dailypush-cotent .gamename {
+.category-dailypush-cotentBox .info {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.category-dailypush-cotentBox .gamename {
   font-size: 1rem;
   margin-bottom: 0.6rem;
 }
-.category-dailypush-cotent .gamecategory {
+.category-dailypush-cotentBox .gamecategory {
   border: solid 1px #fff;
 }
-.category-dailypush-cotent .intro {
+.category-dailypush-cotentBox .intro {
   display: -webkit-box;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: 0.75rem;
+  margin-bottom: 1rem;
 }
-.category-dailypush-cotent .btn-play {
+.category-dailypush-cotentBox .action {
+  width: 100%;
+}
+.category-dailypush-cotentBox .btn-play {
   border-radius: 50px;
   background-color: #00AFFF;
   color: #fff;
 }
-.category-dailypush-cotent .btn-like {
+.category-dailypush-cotentBox .btn-like {
   background-color: transparent;
   border: solid 1px #fff;
+  font-size: 26px;
 }
-.category-dailypush-cotent .btn-like .icon {
+.category-dailypush-cotentBox .btn-like .icon {
   color: #fff;
 }
 
+.gameRanking .swiper-wrapper {
+  counter-reset: num;
+}
+.gameRanking .swiper-wrapper .swiper-slide {
+  position: relative;
+  padding-left: 60px;
+}
+.gameRanking .swiper-wrapper .swiper-slide:before {
+  content: "";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 60px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-image: url(../images/icon/num01.svg);
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+}
 .game_slider .swiper-slide {
   padding-right: 10px;
   width: 31.25%;
@@ -336,9 +369,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-pack: start;
         -ms-flex-pack: start;
             justify-content: flex-start;
+    aspect-ratio: 288/65;
   }
-  .category-dailypush-img .img-wrap {
-    padding-bottom: 21.1805555556%;
+  .category-dailypush-img {
+    border-radius: 15px;
+    overflow: hidden;
   }
   .category-dailypush-img .mobile {
     display: none;
@@ -347,8 +382,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: inherit;
   }
   .category-dailypush-img img {
-    -o-object-position: 70% 0;
-       object-position: 70% 0;
+    -o-object-position: 100% 0;
+       object-position: 100% 0;
   }
 }
 @media (min-width: 936px) {
