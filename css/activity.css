@@ -4,6 +4,7 @@
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .activity-item {
   padding: 10px;
+  width: 100%;
 }
 .activity-item-group {
   display: -webkit-box;
