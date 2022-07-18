@@ -726,6 +726,27 @@
         });
     };
 
+    this.GetCompanyGameCodeThree = function (GUID, cb) {
+        var url = APIUrl + "/GetCompanyGameCodeThree";
+        var postData;
+
+        postData = {
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetStatisticsCompanyGameCode = function (GUID, cb) {
         var url = APIUrl + "/GetStatisticsCompanyGameCode";
         var postData;

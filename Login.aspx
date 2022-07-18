@@ -54,7 +54,7 @@
             }
 
             if (string.IsNullOrEmpty(WebSID) == false) {
-                string EwinCallBackUrl = EWinWeb.CasinoWorldUrl + "/RefreshParent.aspx?index.aspx";
+                string EwinCallBackUrl = Request.Url.Scheme + "://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
                 Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("SID", WebSID));
