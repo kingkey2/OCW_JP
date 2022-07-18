@@ -238,10 +238,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">Maharaja迎來夏之祭典！四葉親自準備了超優惠的入金活動 ，最高回饋獎金50,000 Ocoin！</div>
+                                            <div class="desc language_replace">方法問わず、毎回入金最大50,000 Ocoin還元。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -256,10 +257,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">Maharaja也為此思考能盡什麼力，於是抱著虧損的覺悟提出這次的活動。活動期間，「Booongo」的供應費與Maharaja收自Booongo的收益將捐給烏克蘭政府，希望能用於幫助受烏克蘭戰事摧殘的人民。</div>
+                                            <div class="desc language_replace">出血覚悟で平和祈願ボーナズ！毎回最大100,000 Ocoin。</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(6)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <!-- <button type="button" onclick="activityBtnClick(6)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -277,7 +279,8 @@
                                             <div class="desc language_replace">この狛犬大吉と一緒にBNGの周年記念キャンペーンに参加するぞ！対象ゲームで100ラウンドベットして、ポイントの高い人はボーナスが多くもらえるぞ！</div>
                                         </div>
                                        <!-- 活動詳情 Popup-->
-                                       <button type="button" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                       <!-- <button type="button" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                       <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -292,10 +295,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！対象スロットゲームをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得！ラッキーなプレイヤーの方々はサプライズ賞ももらえるぞ！</div>
+                                            <div class="desc language_replace">プラグマティックプレイの対象ゲームをプレイし、高いポジションを争い、高額ギフトマネー＆サプライズ賞を獲得！</div>
                                         </div>
                                        <!-- 活動詳情 Popup-->
-                                       <button type="button" onclick="activityBtnClick(4)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                       <!-- <button type="button" onclick="activityBtnClick(4)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                       <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -310,10 +314,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace"></figcaption> -->
-                                            <div class="desc language_replace">この狛犬大吉がプラグマティックプレイさんをマハラジャに招き、みんなさんにギフトマネーをプレゼントするぞ！ライブカジノをプレイし、リーダーボードで高いポジションを争い、優勝ギフトマネーを獲得しよう！</div>
+                                            <div class="desc language_replace">プラグマティックプレイの対象ライブカジノをプレイし、高いポジションを争い、高額ギフトマネーを獲得！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(5)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <!-- <button type="button" onclick="activityBtnClick(5)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -328,10 +333,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">簽到功能全新上市，神犬大吉奉女神之命給所有勤勞的MAHARAJA的會員帶來豐厚的簽到禮金！</div>
+                                            <div class="desc language_replace">毎日5000ローリングのミッションを達成し、最大10,000 Ocoin獲得できる！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(1)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <!-- <button type="button" onclick="activityBtnClick(1)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -346,10 +352,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">神犬大吉歡迎所有新朋友，無論是註冊新會員還是推廌朋友一起玩，都可以領到大吉送的見面禮金！</div>
+                                            <div class="desc language_replace">新規登録と招待で、最大1,000 Ocoin獲得できる！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
-                                        <button type="button" onclick="activityBtnClick(3)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <!-- <button type="button" onclick="activityBtnClick(3)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
