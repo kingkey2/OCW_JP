@@ -1196,7 +1196,7 @@
                 <div class="box-item-inner">
                     <div class="box-item-img">
                         <div class="img-wrap">
-                            <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/KGS/PC/CHT/25.png">
+                            <img src="">
                         </div>
                     </div>
                     <div class="box-item-detail">
