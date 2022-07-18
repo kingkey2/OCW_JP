@@ -166,7 +166,7 @@
     integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
-<script type="text/javascript" src="/Scripts/popper.min.js"></script>
+<script type="text/javascript" src="Scripts/popper.min.js"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
 <script src="Scripts/jquery-3.3.1.min.js"></script>
 <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
@@ -174,7 +174,7 @@
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
-<script src="Scripts/vendor/lib/swiper/js/swiper-bundle.min.js"></script>
+<script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
 <script type="text/javascript" src="/Scripts/NoSleep.min.js"></script>
