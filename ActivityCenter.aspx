@@ -238,11 +238,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">方法問わず、毎回入金最大50,000 Ocoin還元。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                            <div class="desc language_replace">熱狂！好評還元再開！方法問わず、毎回入金最大50,000 Ocoin還元</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main" style="margin-top: 30px;"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -257,11 +257,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">出血覚悟で平和祈願ボーナズ！毎回最大100,000 Ocoin。</div>
+                                            <div class="desc language_replace">マハラジャは出血覚悟で平和祈願ボーナズ！毎回最大100,000 Ocoin</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(6)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main" style="margin-top: 30px;"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +280,7 @@
                                         </div>
                                        <!-- 活動詳情 Popup-->
                                        <!-- <button type="button" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                       <button type="button" class="btn-popup btn btn-full-main" style="margin-top: 30px;"><span class="language_replace">立即確認</span></button>
+                                       <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@
                                         </div>
                                        <!-- 活動詳情 Popup-->
                                        <!-- <button type="button" onclick="activityBtnClick(4)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                       <button type="button" class="btn-popup btn btn-full-main" style="margin-top: 30px;"><span class="language_replace">立即確認</span></button>
+                                       <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -318,7 +318,7 @@
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(5)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main" style="margin-top: 30px;"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -337,7 +337,7 @@
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(1)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main" style="margin-top: 30px;"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -352,11 +352,11 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">新規登録と招待で、最大1,000 Ocoin獲得できる！</div>
+                                            <div class="desc language_replace">マハラジャ会員限定！新規登録と招待で、最大1,000 Ocoin獲得できる</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(3)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main" style="margin-top: 30px;"><span class="language_replace">立即確認</span></button>
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
