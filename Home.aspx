@@ -249,7 +249,7 @@
     }
     
     function getCompanyGameCode() {
-        p.GetCompanyGameCodeThree(Math.uuid(), function (success, o) {
+        p.GetCompanyGameCodeThree(Math.uuid(), "Home", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.LobbyGameList.length > 0) {            

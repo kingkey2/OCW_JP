@@ -726,12 +726,13 @@
         });
     };
 
-    this.GetCompanyGameCodeThree = function (GUID, cb) {
+    this.GetCompanyGameCodeThree = function (GUID,Location, cb) {
         var url = APIUrl + "/GetCompanyGameCodeThree";
         var postData;
 
         postData = {
-            GUID: GUID
+            GUID: GUID,
+            Location: Location
         };
 
         callService(url, postData, 10000, function (success, text) {

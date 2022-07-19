@@ -556,7 +556,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public OcwCompanyCategoryGameCodeResult GetCompanyGameCodeThree(string GUID)
+    public OcwCompanyCategoryGameCodeResult GetCompanyGameCodeThree(string GUID,string Location)
     {
         OcwCompanyCategoryGameCodeResult Ret = new OcwCompanyCategoryGameCodeResult() { LobbyGameList = new List<GroupOcwCompanyCategoryGameCode>() };
         System.Data.DataTable CompanyCategoryDT;
@@ -570,43 +570,55 @@ public class LobbyAPI : System.Web.Services.WebService {
             {
                 for (int i = 0; i < CompanyCategoryDT.Rows.Count; i++)
                 {
-                    if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
+                    if (((string)CompanyCategoryDT.Rows[i]["Location"]).Contains(Location))
                     {
-                        CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
-                        CompanyGameCodeDT = RedisCache.CompanyCategoryGameCode.GetCompanyCategoryGameCodeByID(CompanyCategoryID);
-
-                        var companyCategoryData = new OcwCompanyCategorysGameCode();
-                        companyCategoryData.CompanyCategoryID = CompanyCategoryID;
-                        companyCategoryData.CategoryName = (string)CompanyCategoryDT.Rows[i]["CategoryName"];
-                        companyCategoryData.SortIndex = (int)CompanyCategoryDT.Rows[i]["SortIndex"];
-                        companyCategoryData.State = (int)CompanyCategoryDT.Rows[i]["State"];
-                        companyCategoryData.Location = (string)CompanyCategoryDT.Rows[i]["Location"];
-                        companyCategoryData.ShowType = (int)CompanyCategoryDT.Rows[i]["ShowType"];
-                        companyCategoryData.Datas = new List<OcwCompanyCategoryGameCode>();
-
-
-                        if (CompanyGameCodeDT != null && CompanyGameCodeDT.Rows.Count > 0)
+                        if ((int)CompanyCategoryDT.Rows[i]["State"] == 0)
                         {
-                            for (int k = 0; k < CompanyGameCodeDT.Rows.Count; k++)
+                            CompanyCategoryID = (int)CompanyCategoryDT.Rows[i]["CompanyCategoryID"];
+                            CompanyGameCodeDT = RedisCache.CompanyCategoryGameCode.GetCompanyCategoryGameCodeByID(CompanyCategoryID);
+
+                            var companyCategoryData = new OcwCompanyCategorysGameCode();
+                            companyCategoryData.CompanyCategoryID = CompanyCategoryID;
+                            companyCategoryData.CategoryName = (string)CompanyCategoryDT.Rows[i]["CategoryName"];
+                            companyCategoryData.SortIndex = (int)CompanyCategoryDT.Rows[i]["SortIndex"];
+                            companyCategoryData.State = (int)CompanyCategoryDT.Rows[i]["State"];
+                            companyCategoryData.Location = (string)CompanyCategoryDT.Rows[i]["Location"];
+                            companyCategoryData.ShowType = (int)CompanyCategoryDT.Rows[i]["ShowType"];
+                            companyCategoryData.Datas = new List<OcwCompanyCategoryGameCode>();
+
+
+                            if (CompanyGameCodeDT != null && CompanyGameCodeDT.Rows.Count > 0)
                             {
-                                var data = new OcwCompanyCategoryGameCode();
-                                data.forCompanyCategoryID = (int)CompanyGameCodeDT.Rows[k]["forCompanyCategoryID"];
-                                data.GameCode = (string)CompanyGameCodeDT.Rows[k]["GameCode"];
+                                for (int k = 0; k < CompanyGameCodeDT.Rows.Count; k++)
+                                {
+                                    var data = new OcwCompanyCategoryGameCode();
+                                    data.forCompanyCategoryID = (int)CompanyGameCodeDT.Rows[k]["forCompanyCategoryID"];
+                                    data.GameCode = (string)CompanyGameCodeDT.Rows[k]["GameCode"];
 
-                                companyCategoryData.Datas.Add(data);
+                                    companyCategoryData.Datas.Add(data);
+                                }
                             }
-                        }
-                        if (LobbyGameList.Where(w => w.Location == companyCategoryData.Location).Count() > 0)
-                        {
-                            LobbyGameList.Find(w => w.Location == companyCategoryData.Location).Categories.Add(companyCategoryData);
-                        }
-                        else {
-                            LobbyGameList.Add(new GroupOcwCompanyCategoryGameCode() { Categories = new List<OcwCompanyCategorysGameCode>() { companyCategoryData }, Location = companyCategoryData.Location });
+                            if (LobbyGameList.Where(w => w.Location == companyCategoryData.Location).Count() > 0)
+                            {
+                                LobbyGameList.Find(w => w.Location == companyCategoryData.Location).Categories.Add(companyCategoryData);
+                            }
+                            else
+                            {
+                                LobbyGameList.Add(new GroupOcwCompanyCategoryGameCode() { Categories = new List<OcwCompanyCategorysGameCode>() { companyCategoryData }, Location = companyCategoryData.Location });
+                            }
                         }
                     }
                 }
-                Ret.LobbyGameList = LobbyGameList;
-                Ret.Result = EWin.Lobby.enumResult.OK;
+
+                if (LobbyGameList.Count > 0)
+                {
+                    Ret.LobbyGameList = LobbyGameList;
+                    Ret.Result = EWin.Lobby.enumResult.OK;
+                }
+                else
+                {
+                    Ret.Result = EWin.Lobby.enumResult.ERR;
+                }
             }
             else
             {
