@@ -77,15 +77,13 @@
     }
 
     function selGameCategory(categoryCode, doc) {
-        selectedCategoryCode = categoryCode;
-        selectedCategory = $('#idGameItemTitle .tab-item.active>span>span').attr('langkey');
+       
+        selectedCategory = selectedCategoryCode;
         $('#idGameItemTitle .tab-item').removeClass('active');
         $(doc).addClass('active');
+        selectedCategoryCode = categoryCode;
         if (!selectedCategorys.includes(categoryCode)) {
             createCategory(categoryCode, function () {
-                //$('#categoryPage_' + selectedCategory).css('content-visibility', 'hidden');
-                //$('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
-
                 $('#categoryPage_' + selectedCategory).css('height', '0');
                 
                 $('#categoryPage_' + categoryCode).css('height', 'auto');
@@ -101,45 +99,89 @@
     }
 
     function setSwiper(categoryName) {
-        new Swiper(".GameItemGroup_" + categoryName, {
-            slidesPerView: "auto",
-            // loop:true,
-            // slidesPerGroup: 2,
-            // loopedSlides: 8,
-            lazy: true,
-            freeMode: true,
-            navigation: {
-                nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
-                prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
-            },
-            breakpoints: {
 
-                936: {
-                    freeMode: false,
-                    slidesPerGroup: 6, //index:992px
+            new Swiper(".GameItemGroup0_" + categoryName, {
+                slidesPerView: "auto",
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
                 },
-                1144: {
-                    slidesPerGroup: 7, //index:1200px
-                    allowTouchMove: false, //拖曳
-                },
-                1384: {
-                    slidesPerGroup: 7, //index:1440px
-                    allowTouchMove: false,
-                },
-                1544: {
-                    slidesPerGroup: 7, //index:1600px
-                    allowTouchMove: false,
-                },
-                1864: {
-                    slidesPerGroup: 8, //index:1920px
-                    allowTouchMove: false,
-                },
-                1920: {
-                    slidesPerGroup: 8, //index:1920px up
-                    allowTouchMove: false,
+                breakpoints: {
+
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        allowTouchMove: false,
+                    }
                 }
+            });
+            new Swiper('.GameItemGroup1_' + categoryName, {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                // slidesPerView: 5,
+                coverflowEffect: {
+                    rotate: 20,
+                    stretch: 0,
+                    depth: 200,
+                    modifier: 1,
+                    slideShadows: true,
+                },
+                // pagination: {
+                //     el: ".swiper-pagination",
+                // },
+                loop: true,
+                autuplay: {
+                    delay: 100,
+                    disableOnInteraction: false,
+                }
+            });
+
+        new Swiper('.GameItemGroup', {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            // slidesPerView: 5,
+            coverflowEffect: {
+                rotate: 20,
+                stretch: 0,
+                depth: 200,
+                modifier: 1,
+                slideShadows: true,
+            },
+            // pagination: {
+            //     el: ".swiper-pagination",
+            // },
+            loop: true,
+            autuplay: {
+                delay: 100,
+                disableOnInteraction: false,
             }
         });
+        
     }
 
     async function createCategory(categoryName, cb) {
@@ -157,20 +199,15 @@
                 for (var i = 0; i < lobbyGame.Categories.length; i++) {
                     category = lobbyGame.Categories[i];
                     if (category) {
-
+                        var showType = category.ShowType;
+                        var game_wrapper = "";
                         if (category.Datas.length > 0) {
                             var categArea;
                             var textlink;
                             var gameItems = "";
-                    
+                            
                             for (var ii = 0; ii < category.Datas.length; ii++) {
                                 var o = category.Datas[ii];
-                                var gameitemmobilepopup;
-                                var GI;
-                                var GItitle;
-                                var gameitemlink;
-                                var imgsrc;
-                                var gameName;
                                 var gameItem = await new Promise((resolve, reject) => {
                                     GCB.GetByGameCode(o.GameCode, (gameItem) => {
                                         resolve(gameItem);
@@ -178,62 +215,13 @@
                                 });
                              
                                 if (gameItem) {
-                                    gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
-
-                                    var RTP = "";
-                                    if (gameItem.RTPInfo) {
-                                        var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
-
-                                        if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
-                                            RTP = RtpInfoObj.RTP.toString();
-                                        } else {
-                                            RTP = '--';
-                                        }
-                                    } else {
-                                        RTP = '--';
-                                    }
-
-                                    if (iframeWidth < 936) {
-                                        GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                         
-                                        gameitemlink = `<span class="game-item-link"></span>`;
-                                        gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
-                                        //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
-                                    } else {
-                                        gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                                        GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                                        gameitemlink = '<span class="game-item-link" onmouseover="' + "appendGameProp('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "','" + RTP + "','" + gameItem.GameID + "','" + gameItem.FavoTimeStamp + "','" + gameItem.GameCode +"')" + '" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
-       
-                                    }
-
-                                    imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
-
-
-                                    GI = `${GItitle}
-                        <div class="game-item">
-<div class="game-item-inner">
-${gameitemmobilepopup}
-<div class="game-item-focus">
-    <div class="game-item-img">
-        ${gameitemlink}
-        <div class="img-wrap">
-            <img class="gameimg lozad" src="${imgsrc}">
-        </div>
-    </div>
- 
-</div>
-<div class="game-item-info">
-    <div class="game-item-info-inner">
-        <h3 class="game-item-name"></h3>
-    </div>
-</div>
-</div>
-                        </div>
-                    </div>`;
-
-                                    gameItems += GI;
+                                    createGameItem(gameItem,showType ,function (stringGameItem) {
+                                        gameItems += stringGameItem;
+                                    });
                                 }
                             }
+
+                           
                        
                             categName = category.CategoryName.replace('@', '').replace('#', '');
                             gameBrand = category.Datas[0].GameBrand;
@@ -245,47 +233,73 @@ ${gameitemmobilepopup}
                     </a>`;
                             }
 
-                            if (category.SortIndex >= 90) {
-                                categArea = ` <section class="section-wrap section-levelUp">
-                    <div class="game_wrapper">
-                    <div class="sec-title-container">
-                    <div class="sec-title-wrapper">
-                    <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName langkey" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey(categName)}</span></h3>
-                    </div>
-                    ${textlink}
-                    </div>
-                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup_${Location}">
-                    <div class="swiper-wrapper GameItemGroupContent">
-                    ${gameItems}
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    </div>
-                    </div>
-                    </section>`;
-                            } else {
-                                categArea = ` <section class="section-wrap section-levelUp">
-                    <div class="game_wrapper">
-                    <div class="sec-title-container">
-                    <div class="sec-title-wrapper">
-                    <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="language_replace title CategName langkey">${mlp.getLanguageKey(categName)}</span></h3>
-                    </div>
-                    </div>
-                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup_${Location}">
-                    <div class="swiper-wrapper GameItemGroupContent">
-                    ${gameItems}
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    </div>
-                    </div>
-                    </section>`;
+                            if (showType == 0) {
+                                game_wrapper = '<div class="game_wrapper">';
+                            } else if (showType == 1) {
+                                game_wrapper = '<div class="game_wrapper gameRanking">';
+                            } 
 
+                            if (showType == 2) {
+                                categArea = `<section class="section-wrap section_randomRem">
+                                        <div class="container-fluid">
+                                            <div class="game_wrapper">
+                                                <div class="sec-title-container">
+                                                    <div class="sec-title-wrapper">
+                                                    </div>
+                                                </div>
+                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup1_${Location}">
+                                                    <div class="swiper-wrapper GameItemGroupContent">
+                                                    ${gameItems}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         </div>
+                                    </section>`;
+                            } else {
+                                if (category.SortIndex >= 90) {
+                                    categArea = ` <section class="section-wrap section-levelUp">
+                                                ${game_wrapper}
+                                                <div class="sec-title-container">
+                                                <div class="sec-title-wrapper">
+                                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i>
+                                                <span class="language_replace title CategName langkey" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey(categName)}</span>
+                                                </h3>
+                                                </div>
+                                                ${textlink}
+                                                </div>
+                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
+                                                <div class="swiper-wrapper GameItemGroupContent">
+                                                ${gameItems}
+                                                </div>
+                                                <div class="swiper-button-next"></div>
+                                                <div class="swiper-button-prev"></div>
+                                                </div>
+                                                </div>
+                                                </section>`;
+                                }
+                                else {
+                                    categArea = ` <section class="section-wrap section-levelUp">
+                                                ${game_wrapper}
+                                                <div class="sec-title-container">
+                                                <div class="sec-title-wrapper">
+                                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i>
+                                                    <span class="language_replace title CategName langkey">${mlp.getLanguageKey(categName)}</span>
+                                                </h3>
+                                                </div>
+                                                </div>
+                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
+                                                <div class="swiper-wrapper GameItemGroupContent">
+                                                ${gameItems}
+                                                </div>
+                                                <div class="swiper-button-next"></div>
+                                                <div class="swiper-button-prev"></div>
+                                                </div>
+                                                </div>
+                                                </section>`;
+                                }
                             }
-                            for (var iii = 0; iii < 10; iii++) {
-                                categAreas += categArea;
-                            }
-                       
+
+                            categAreas += categArea;
                         }
                     }
                 }
@@ -301,13 +315,108 @@ ${gameitemmobilepopup}
         }
     }
 
-    function appendGameProp(gameBrand, gameName, gameLangName, RTP, gameID, favoTimeStamp, gameCode) {
+    function createGameItem(gameItem,showType,cb) {
+        var gameitemmobilepopup;
+        var GI;
+        var GItitle;
+        var gameitemlink;
+        var imgsrc;
+        var gameName;
+        var gameItemInfo="";
+        if (gameItem) {
+            gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+
+            var RTP = "";
+            if (gameItem.RTPInfo) {
+                var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
+
+                if (RtpInfoObj.RTP && RtpInfoObj.RTP != 0) {
+                    RTP = RtpInfoObj.RTP.toString();
+                } else {
+                    RTP = '--';
+                }
+            } else {
+                RTP = '--';
+            }
+
+            
+            
+            if (showType == 0) {
+                gameItemInfo = `<div class="game-item-info">
+                                    <div class="game-item-info-inner">
+                                        <h3 class="game-item-name"></h3>
+                                    </div>
+                                </div>`;
+            } else if (showType==2) {
+                gameItemInfo = `<div class="game-item-info">
+                                    <h3 class="game-item-name"></h3>
+                                 </div>`;
+            }
+
+         
+
+            if (iframeWidth < 936) {
+                GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
+
+                gameitemlink = `<span class="game-item-link"></span>`;
+                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+            } else {
+                gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
+                gameitemlink = '<span class="game-item-link" onmouseover="' + "appendGameProp('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "','" + RTP + "','" + gameItem.GameID + "','" + gameItem.FavoTimeStamp + "','" + gameItem.GameCode + "'," + showType + ")" + '" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
+
+            }
+
+            imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+
+            if (showType == 2) {
+                GI = `${GItitle}
+                        <div class="game-item">
+                            <div class="game-item-inner">
+                                ${gameitemmobilepopup}
+                                    ${gameitemlink}
+                                    <div class="img-wrap">
+                                        <img class="gameimg lozad" src="${imgsrc}">
+                                    </div>
+                             </div>
+                             <div class="game-item-info">
+                               <h3 class="game-item-name"></h3>
+                             </div>
+                           </div>
+                        </div>`;
+            } else {
+                GI = `${GItitle}
+                        <div class="game-item">
+                            <div class="game-item-inner">
+                            ${gameitemmobilepopup}
+                            <div class="game-item-focus">
+                                <div class="game-item-img">
+                                    ${gameitemlink}
+                                    <div class="img-wrap">
+                                        <img class="gameimg lozad" src="${imgsrc}">
+                                    </div>
+                                </div>
+ 
+                            </div>
+                            ${gameItemInfo}
+                            </div>
+                        </div>
+                    </div>`;
+            }
+           
+            
+            cb(GI);
+        }
+    }
+
+    function appendGameProp(gameBrand, gameName, gameLangName, RTP, gameID, favoTimeStamp, gameCode, showType) {
       
         var doc = event.currentTarget;
         var jquerydoc = $(doc).parent().parent().eq(0);
         var btnlike;
         var btnplay;
-
+        var gameProp;
         if (!jquerydoc.hasClass('addedGameProp')) {
             if (favoTimeStamp) {
                 btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
@@ -316,8 +425,8 @@ ${gameitemmobilepopup}
             }
 
             btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameBrand + "', '" + gameName + "','" + gameLangName + "')" + '">';
-
-            var gameProp = `<div class="game-item-info-detail open">
+            if (showType == 0) {
+                gameProp = `<div class="game-item-info-detail open">
         <div class="game-item-info-detail-wrapper">
             <div class="game-item-info-detail-moreInfo">
                 <ul class="moreInfo-item-wrapper">
@@ -338,7 +447,7 @@ ${gameitemmobilepopup}
             <div class="game-item-info-detail-indicator">
                 <div class="game-item-info-detail-indicator-inner">
                     <div class="info">
-                        <h3 class="game-item-name">${gameName}</h3>
+                        <h3 class="game-item-name">${gameLangName}</h3>
                     </div>
                     <div class="action"
                         <div class="btn-s-wrapper">
@@ -359,6 +468,52 @@ ${gameitemmobilepopup}
             </div>
         </div>
     </div>`;
+            }
+            else if (showType == 1) {
+                gameProp = `   <div class="game-item-info-detail">
+                                                    <div class="game-item-info-detail-wrapper">
+                                                        <div class="game-item-info-detail-moreInfo">
+                                                            <ul class="moreInfo-item-wrapper">
+                                                                <li class="moreInfo-item brand">
+                                                                    <span class="title language_replace">品牌</span>
+                                                                    <span class="value GameBrand">${gameBrand}</span>
+                                                                </li>
+                                                                <li class="moreInfo-item RTP">
+                                                                     <span class="title">RTP</span>
+                                                                     <span class="value number valueRTP">${RTP}</span>
+                                                                </li>
+                                                                <li class="moreInfo-item gamecode">
+                                                                     <span class="title">NO.</span>
+                                                                     <span class="value number GameID">${gameID}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="game-item-info-detail-indicator">
+                                                            <div class="game-item-info-detail-indicator-inner">
+                                                                <div class="info">
+                                                                    <h3 class="game-item-name">${gameLangName}</h3>
+                                                                </div>
+                                                                <div class="action">
+                                                                    <div class="btn-s-wrapper">
+                                                                        <button type="button" class="btn-thumbUp btn btn-round">
+                                                                            <i class="icon icon-m-thumup"></i>
+                                                                        </button>
+                                                                         ${btnlike}
+                                                                            <i class="icon icon-m-favorite"></i>
+                                                                        </button>
+                                                                        <button type="button" class="btn-more btn btn-round">
+                                                                            <i class="arrow arrow-down"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                     ${btnplay}
+                                                                        <span class="language_replace">遊玩</span><i class="triangle"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+            }
+     
             jquerydoc.append(gameProp);
             jquerydoc.addClass('addedGameProp');
         }
@@ -699,7 +854,7 @@ ${gameitemmobilepopup}
             </div>
         </div>
         <!-- 各分類-單一遊戲推薦區 -->
-        <section class="section-category-dailypush" style="display: ;">
+        <section class="section-category-dailypush" style="display:;">
             <div class="container">
                 <!-- SLOT -->
                 <div class="category-dailypush-wrapper slot">
@@ -746,9 +901,9 @@ ${gameitemmobilepopup}
         <section class="game-area overflow-hidden">
             <div class="container" id="gameAreas">
             </div>
-
-              <!-- 遊戲-排名區-->
-         <section class="game-area overflow-hidden">
+        </section>
+         <!-- 遊戲-排名區-->
+         <section class="game-area overflow-hidden" style="display:none">
             <div class="container">
                 <section class="section-wrap section-levelUp"> 
                     <div class="game_wrapper gameRanking">
@@ -1393,8 +1548,36 @@ ${gameitemmobilepopup}
             </section>
             </div> 
          </section>
-
+         <!-- 遊戲-隨機推薦-->
+         <section class="section-wrap section_randomRem" style="display:none;">
+            <div class="container-fluid">
+                <div class="game_wrapper">
+                    <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
+                            <!-- <h3 class="title">隨機推薦遊戲</h3> -->
+                        </div>
+                    </div>
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                        <div class="swiper-wrapper GameItemGroupContent">
+                           <div class="swiper-slide">
+                                <div class="game-item">
+                                    <div class="game-item-inner">
+                                        <span class="game-item-link"></span>
+                                        <div class="img-wrap">
+                                            <img class="gameimg lozad" src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                        </div>
+                                    </div>
+                                    <div class="game-item-info">
+                                        <h3 class="game-item-name"></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
         </section>
+
     </main>
 
     <div id="temCategItem" class="is-hide">
@@ -1403,45 +1586,162 @@ ${gameitemmobilepopup}
                 <span class="title language_replace CategName"></span></span>
         </li>
     </div>
+    <%--推薦遊戲--%>
+    <div id="temCategArea2" class="is-hide">
+        <section class="section-wrap section_randomRem">
+            <div class="container-fluid">
+                <div class="game_wrapper">
+                    <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
+                            <!-- <h3 class="title">隨機推薦遊戲</h3> -->
+                        </div>
+                    </div>
+                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                        <div class="swiper-wrapper GameItemGroupContent">
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+    </div>
+    <div id="temGameItem2" class="is-hide">
+        <div class="swiper-slide">
+            <div class="game-item">
+                <div class="game-item-inner">
+                    <span class="game-item-link"></span>
+                    <div class="img-wrap">
+                        <img class="gameimg lozad" src="">
+                    </div>
+                </div>
+                <div class="game-item-info">
+                    <h3 class="game-item-name"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="temCategArea3" class="is-hide">
+         <section class="section-wrap section-levelUp"> 
+                    <div class="game_wrapper gameRanking">
+                        <div class="sec-title-container">
+                        <div class="sec-title-wrapper">
+                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
+                        </div>
+                        </div>
+                        <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow">
+                            <div class="swiper-wrapper">
+                    
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+            </section>
+    </div>
+
+    <div id="temGameItem3" class="is-hide">
+         <div class="swiper-slide">
+                                    <div class="game-item">
+                                        <div class="game-item-inner">
+                                            <span class="game-item-mobile-popup" data-toggle="modal"></span>
+                                            <div class="game-item-focus">
+                                                <div class="game-item-img">
+                                                    <span class="game-item-link"></span>
+                                                    <div class="img-wrap">
+                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                    </div>
+                                                </div>
+                                                <div class="game-item-info-detail">
+                                                    <div class="game-item-info-detail-wrapper">
+                                                        <div class="game-item-info-detail-moreInfo">
+                                                            <ul class="moreInfo-item-wrapper">
+                                                                <li class="moreInfo-item brand">
+                                                                    <span class="title">メーカー</span>
+                                                                    <span class="value">PG</span>
+                                                                </li>
+                                                                <li class="moreInfo-item RTP">
+                                                                    <span class="title">RTP</span>
+                                                                    <span class="value number">96.66</span>
+                                                                </li>
+                                                                <li class="moreInfo-item gamecode">
+                                                                    <span class="title">NO.</span>
+                                                                    <span class="value number">00976</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="game-item-info-detail-indicator">
+                                                            <div class="game-item-info-detail-indicator-inner">
+                                                                <div class="info">
+                                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                                </div>
+                                                                <div class="action">
+                                                                    <div class="btn-s-wrapper">
+                                                                        <button type="button" class="btn-thumbUp btn btn-round">
+                                                                            <i class="icon icon-m-thumup"></i>
+                                                                        </button>
+                                                                        <button type="button" class="btn-like btn btn-round">
+                                                                            <i class="icon icon-m-favorite"></i>
+                                                                        </button>
+                                                                        <button type="button" class="btn-more btn btn-round">
+                                                                            <i class="arrow arrow-down"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-play">
+                                                                        <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="game-item-info">
+                                                <div class="game-item-info-inner">
+                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+    </div>
 </body>
 <script>
      // 遊戲排名 TEST
-     var GameRanking = new Swiper("#idGameRanking", {    
-        slidesPerView: "auto",
-        lazy: true,
-        freeMode: true,
-        navigation: {
-            nextEl: "#idGameRanking .swiper-button-next",
-            prevEl: "#idGameRanking .swiper-button-prev",
-        },
-        breakpoints: {
-                936: {
-                    // freeMode: false,
-                    // slidesPerGroup: 6, //index:992px
-                },
-                1144: {
-                    // slidesPerGroup: 7, //index:1200px
-                    // allowTouchMove: false, //拖曳
-                },
-                1384: {
-                    // slidesPerGroup: 7, //index:1440px
-                    // allowTouchMove: false,
-                },
-                1544: {
-                    // slidesPerGroup: 7, //index:1600px
-                    // allowTouchMove: false,
-                },
-                1864: {
-                    // slidesPerGroup: 8, //index:1920px
-                    // allowTouchMove: false,
-                },
-                1920: {
-                    // slidesPerGroup: 8, //index:1920px up
-                    // allowTouchMove: false,
-                },
-        }
+    // var GameRanking = new Swiper("#idGameRanking", {    
+    //    slidesPerView: "auto",
+    //    lazy: true,
+    //    freeMode: true,
+    //    navigation: {
+    //        nextEl: "#idGameRanking .swiper-button-next",
+    //        prevEl: "#idGameRanking .swiper-button-prev",
+    //    },
+    //    breakpoints: {
+    //        936: {
+    //                freeMode: false,
+    //                slidesPerGroup: 6, //index:992px
+    //            },
+    //            1144: {
+    //                slidesPerGroup: 7, //index:1200px
+    //                allowTouchMove: false, //拖曳
+    //            },
+    //            1384: {
+    //                slidesPerGroup: 7, //index:1440px
+    //                allowTouchMove: false,
+    //            },
+    //            1544: {
+    //                slidesPerGroup: 7, //index:1600px
+    //                allowTouchMove: false,
+    //            },
+    //            1864: {
+    //                slidesPerGroup: 8, //index:1920px
+    //                allowTouchMove: false,
+    //            },
+    //            1920: {
+    //                slidesPerGroup: 8, //index:1920px up
+    //                allowTouchMove: false,
+    //            },
+    //    }
 
-    });
+    //});
     
 </script>
 </html>
