@@ -83,13 +83,17 @@
         $(doc).addClass('active');
         if (!selectedCategorys.includes(categoryCode)) {
             createCategory(categoryCode, function () {
-                $('#categoryPage_' + selectedCategory).css('content-visibility', 'hidden');
-                $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+                //$('#categoryPage_' + selectedCategory).css('content-visibility', 'hidden');
+                //$('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+
+                $('#categoryPage_' + selectedCategory).css('height', '0');
+                
+                $('#categoryPage_' + categoryCode).css('height', 'auto');
                 setSwiper(categoryCode);
             });
         } else {
-            $('#categoryPage_' + selectedCategory).css('content-visibility', 'hidden');
-            $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+            $('#categoryPage_' + selectedCategory).css('height', '0');
+            $('#categoryPage_' + categoryCode).css('height', 'auto');
         }
 
         window.document.body.scrollTop = 0;
@@ -288,12 +292,17 @@ ${gameitemmobilepopup}
                     </section>`;
 
                             }
-                            categAreas += categArea;
+                            for (var iii = 0; iii < 10; iii++) {
+                                categAreas += categArea;
+                            }
+                       
                         }
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="content-visibility:hidden"></div>');
+                //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="content-visibility:hidden"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;overflow-y:hidden;overflow-x:hidden;"></div>');
+            
                 categoryDiv.append(categAreas);
                 $('#gameAreas').append(categoryDiv);
                 cb();
@@ -440,20 +449,15 @@ ${gameitemmobilepopup}
         idGameItemGroup.innerHTML = "";
 
         createCategory(selectedCategoryCode, function () {
-            $('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
+            //$('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
             $('#idGameItemTitle .tab-item').eq(0).addClass('active');
-            $('#categoryPage_GameList_Slot').css('content-visibility', 'auto');
+    
+            $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
+
             setSwiper(selectedCategoryCode);
         });
 
-        selectedCategoryCode = "GameList_Slot";
-        
-        createCategory(selectedCategoryCode, function () {
-            $('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
-            $('#categoryPage_GameList_All').css('content-visibility', 'auto');
-            $('#idGameItemTitle .tab-item').eq(0).addClass('active');
-            setSwiper(selectedCategoryCode);
-        });
     }
 
     function resetCategory(categoryCode) {
@@ -463,8 +467,14 @@ ${gameitemmobilepopup}
         idGameItemGroup.innerHTML = "";
         iframeWidth = window.innerWidth;
         createCategory(categoryCode, function () {
-            $('.categoryPage').css('content-visibility', 'hidden');
-            $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+            //$('.categoryPage').css('content-visibility', 'hidden');
+            //$('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+
+            $('.categoryPage').css('height', '0');
+            $('.categoryPage').css('overflow-y', 'hidden');
+
+            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            $('#categoryPage_' + categoryCode).css('overflow-y', 'hidden');
             setSwiper(categoryCode);
         });
 
