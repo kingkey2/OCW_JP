@@ -282,7 +282,7 @@
                 }
 
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="content-visibility:hidden"></div>');
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;overflow-y:hidden;overflow-x:hidden;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;"></div>');
             
                 categoryDiv.append(categAreas);
                 $('#gameAreas').append(categoryDiv);
@@ -578,7 +578,7 @@
             $('#idGameItemTitle .tab-item').eq(0).addClass('active');
     
             $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
-            $('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
+            //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
 
             setSwiper(selectedCategoryCode);
         });
@@ -596,10 +596,10 @@
             //$('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
 
             $('.categoryPage').css('height', '0');
-            $('.categoryPage').css('overflow-y', 'hidden');
+            //$('.categoryPage').css('overflow-y', 'hidden');
 
             $('#categoryPage_' + categoryCode).css('height', 'auto');
-            $('#categoryPage_' + categoryCode).css('overflow-y', 'hidden');
+            //$('#categoryPage_' + categoryCode).css('overflow-y', 'hidden');
             setSwiper(categoryCode);
         });
 
