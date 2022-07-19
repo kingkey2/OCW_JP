@@ -431,7 +431,7 @@ ${gameitemmobilepopup}
                             $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
                             break;
                         case 'GameList_Other':
-                            $(RecordDom).find('.CategIcon').addClass('icon-other-tt');
+                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
                             break;
                         case 'GameList_Brand':
                             $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
