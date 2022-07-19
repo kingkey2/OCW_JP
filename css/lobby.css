@@ -276,23 +276,28 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   color: #fff;
 }
 
+.game_slider .swiper-slide {
+  padding-right: 10px;
+  width: 31.25%;
+}
 .gameRanking .swiper-wrapper {
   counter-reset: num;
 }
 .gameRanking .swiper-wrapper .swiper-slide {
   position: relative;
-  padding-left: 60px;
+  padding-left: 50%;
+  width: 62.5%;
 }
 .gameRanking .swiper-wrapper .swiper-slide:before {
   content: "";
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  width: 60px;
+  width: 100px;
   height: 100%;
   background-repeat: no-repeat;
   background-position: left top;
-  background-size: cover;
+  background-size: contain;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -332,10 +337,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-image: url(../images/icon/num10.svg);
 }
 
-.game_slider .swiper-slide {
-  padding-right: 10px;
-  width: 31.25%;
-}
 @media (min-width: 375px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 230px;
