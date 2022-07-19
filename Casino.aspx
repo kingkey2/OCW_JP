@@ -141,9 +141,8 @@
             }
         });
     }
-    //人氣,搜長,slot,live,其他,品牌
-    async function createCategory(categoryName, cb) {
 
+    async function createCategory(categoryName, cb) {
         if (LobbyGameList) {
 
             var lobbyGame = LobbyGameList.find(function (o) {
@@ -166,15 +165,12 @@
                     
                             for (var ii = 0; ii < category.Datas.length; ii++) {
                                 var o = category.Datas[ii];
-
+                                var gameitemmobilepopup;
                                 var GI;
-                                var btnlike;
                                 var GItitle;
                                 var gameitemlink;
-                                var btnplay;
                                 var imgsrc;
                                 var gameName;
-                                var appendGameProp;
                                 var gameItem = await new Promise((resolve, reject) => {
                                     GCB.GetByGameCode(o.GameCode, (gameItem) => {
                                         resolve(gameItem);
@@ -183,12 +179,6 @@
                              
                                 if (gameItem) {
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
-                                    var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                                    if (gameItem.FavoTimeStamp) {
-                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
-                                    } else {
-                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
-                                    }
 
                                     var RTP = "";
                                     if (gameItem.RTPInfo) {
@@ -205,7 +195,7 @@
 
                                     if (iframeWidth < 936) {
                                         GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                                        btnplay = '<button type="button" class="btn btn-play">';
+                         
                                         gameitemlink = `<span class="game-item-link"></span>`;
                                         gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                                         //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
@@ -213,7 +203,7 @@
                                         gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                         GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                                         gameitemlink = '<span class="game-item-link" onmouseover="' + "appendGameProp('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "','" + RTP + "','" + gameItem.GameID + "','" + gameItem.FavoTimeStamp + "','" + gameItem.GameCode +"')" + '" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
-                                        btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
+       
                                     }
 
                                     imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
@@ -531,7 +521,7 @@ ${gameitemmobilepopup}
     }
 
     function getCompanyGameCode() {
-        p.GetCompanyGameCodeThree(Math.uuid(), function (success, o) {
+        p.GetCompanyGameCodeThree(Math.uuid(),"GameList" ,function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.LobbyGameList.length > 0) {
