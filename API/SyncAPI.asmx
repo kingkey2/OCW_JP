@@ -105,21 +105,24 @@ public class SyncAPI : System.Web.Services.WebService
         switch (LocationCode)
         {
             case "01":
-                ret = "GameList_All";
+                ret = "GameList_Hot";
                 break;
             case "02":
-                ret = "GameList_Slot";
+                ret = "GameList_Favo";
                 break;
             case "03":
-                ret = "GameList_Electron";
+                ret = "GameList_Live";
                 break;
             case "04":
-                ret = "GameList_Live";
+                ret = "GameList_Slot";
                 break;
             case "05":
                 ret = "GameList_Other";
                 break;
             case "06":
+                ret = "GameList_Brand";
+                break;
+            case "07":
                 ret = "Home";
                 break;
             default:
@@ -138,6 +141,12 @@ public class SyncAPI : System.Web.Services.WebService
                 break;
             case "02":
                 ret = 1;
+                break;
+            case "03":
+                ret = 2;
+                break;
+            case "04":
+                ret = 3;
                 break;
             default:
                 ret = 0;
@@ -1027,15 +1036,21 @@ public class SyncAPI : System.Web.Services.WebService
 
                     CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
                     for (int i = 0; i < companyCategoryResult.CategoryList.Length; i++) {
-                        if (companyCategoryResult.CategoryList[i].Tag.Length == 4) {
-                            Location = ParseLocation(companyCategoryResult.CategoryList[i].Tag.Substring(0, 2));
-                            ShowType = ParseShowType(companyCategoryResult.CategoryList[i].Tag.Substring(2, 2));
-
-                            if (CompanyCategoryDT.Select("EwinCompanyCategoryID='" + companyCategoryResult.CategoryList[i].CompanyCategoryID + "' And CategoryType=0").Length == 0)
+                        //@隱性分類不顯示,故不處理
+                        if (!companyCategoryResult.CategoryList[i].CategoryName.Contains("@"))
+                        {
+                            if (companyCategoryResult.CategoryList[i].Tag.Length == 4)
                             {
-                                EWinWebDB.CompanyCategory.InsertCompanyCategory(companyCategoryResult.CategoryList[i].CompanyCategoryID, 0, companyCategoryResult.CategoryList[i].CategoryName, companyCategoryResult.CategoryList[i].SortIndex, 0, Location, ShowType);
+                                Location = ParseLocation(companyCategoryResult.CategoryList[i].Tag.Substring(0, 2));
+                                ShowType = ParseShowType(companyCategoryResult.CategoryList[i].Tag.Substring(2, 2));
+
+                                if (CompanyCategoryDT.Select("EwinCompanyCategoryID='" + companyCategoryResult.CategoryList[i].CompanyCategoryID + "' And CategoryType=0").Length == 0)
+                                {
+                                    EWinWebDB.CompanyCategory.InsertCompanyCategory(companyCategoryResult.CategoryList[i].CompanyCategoryID, 0, companyCategoryResult.CategoryList[i].CategoryName, companyCategoryResult.CategoryList[i].SortIndex, 0, Location, ShowType);
+                                }
                             }
                         }
+
                     }
 
                     CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
@@ -1069,13 +1084,18 @@ public class SyncAPI : System.Web.Services.WebService
                                             {
                                                 foreach (var companyCategoryTag in companyCategoryTags)
                                                 {
-                                                    CompanyCategoryRow = CompanyCategoryDT.Select("CategoryName='" + companyCategoryTag.Trim() + "'");
-                                                    if (CompanyCategoryRow.Length > 0)
+                                                    //@隱性分類不顯示,故不處理
+                                                    if (!companyCategoryTag.Trim().Contains("@"))
                                                     {
-                                                        CompanyCategoryID = (int)CompanyCategoryRow[0]["CompanyCategoryID"];
-                                                        EWinWebDB.CompanyCategoryGameCode.InsertCompanyCategoryGameCode(CompanyCategoryID, GameCode);
+                                                        CompanyCategoryRow = CompanyCategoryDT.Select("CategoryName='" + companyCategoryTag.Trim() + "'");
+                                                        if (CompanyCategoryRow.Length > 0)
+                                                        {
+                                                            CompanyCategoryID = (int)CompanyCategoryRow[0]["CompanyCategoryID"];
+                                                            EWinWebDB.CompanyCategoryGameCode.InsertCompanyCategoryGameCode(CompanyCategoryID, GameCode);
 
+                                                        }
                                                     }
+
                                                 }
                                             }
                                         }

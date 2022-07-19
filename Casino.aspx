@@ -83,13 +83,17 @@
         $(doc).addClass('active');
         if (!selectedCategorys.includes(categoryCode)) {
             createCategory(categoryCode, function () {
-                $('#categoryPage_' + selectedCategory).css('content-visibility', 'hidden');
-                $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+                //$('#categoryPage_' + selectedCategory).css('content-visibility', 'hidden');
+                //$('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+
+                $('#categoryPage_' + selectedCategory).css('height', '0');
+                
+                $('#categoryPage_' + categoryCode).css('height', 'auto');
                 setSwiper(categoryCode);
             });
         } else {
-            $('#categoryPage_' + selectedCategory).css('content-visibility', 'hidden');
-            $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+            $('#categoryPage_' + selectedCategory).css('height', '0');
+            $('#categoryPage_' + categoryCode).css('height', 'auto');
         }
 
         window.document.body.scrollTop = 0;
@@ -288,12 +292,17 @@ ${gameitemmobilepopup}
                     </section>`;
 
                             }
-                            categAreas += categArea;
+                            for (var iii = 0; iii < 10; iii++) {
+                                categAreas += categArea;
+                            }
+                       
                         }
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="content-visibility:hidden"></div>');
+                //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="content-visibility:hidden"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;overflow-y:hidden;overflow-x:hidden;"></div>');
+            
                 categoryDiv.append(categAreas);
                 $('#gameAreas').append(categoryDiv);
                 cb();
@@ -403,57 +412,55 @@ ${gameitemmobilepopup}
             }
 
             for (var i = 0; i < LobbyGameList.length; i++) {
-                RecordDom = c.getTemplate("temCategItem");
-                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(LobbyGameList[i].Location));
-                $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
-                switch (LobbyGameList[i].Location) {
-                    case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
-                        break;
-                    case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
-                        break;
-                    case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-elec-tt');
-                        break;
-                    case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
-                        break;
-                    case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
-                        break;
-                    case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
-                        break;
-                    default:
+                var lobbyGame = LobbyGameList[i];
+                if (lobbyGame.Location.includes("GameList")) {
+                    RecordDom = c.getTemplate("temCategItem");
+                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                    switch (lobbyGame.Location) {
+                        case 'GameList_Hot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                            break;
+                        case 'GameList_Favo':
+                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                            break;
+                        case 'GameList_Live':
+                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                            break;
+                        case 'GameList_Slot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                            break;
+                        case 'GameList_Other':
+                            $(RecordDom).find('.CategIcon').addClass('icon-other-tt');
+                            break;
+                        case 'GameList_Brand':
+                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                            break;
+                        default:
+                    }
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    idGameItemTitle.appendChild(RecordDom);
                 }
-                RecordDom.onclick = new Function("selGameCategory('" + LobbyGameList[i].Location + "',this)");
-                idGameItemTitle.appendChild(RecordDom);
             }
 
             $('#idGameItemTitle').append('<div class="tab-slide"></div>');
         }
 
-        selectedCategoryCode = "GameList_All";
+        selectedCategoryCode = "GameList_Slot";
         iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
 
         createCategory(selectedCategoryCode, function () {
-            $('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
+            //$('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
             $('#idGameItemTitle .tab-item').eq(0).addClass('active');
-            $('#categoryPage_GameList_Slot').css('content-visibility', 'auto');
+    
+            $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
+
             setSwiper(selectedCategoryCode);
         });
 
-        selectedCategoryCode = "GameList_Slot";
-        
-        createCategory(selectedCategoryCode, function () {
-            $('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
-            $('#categoryPage_GameList_All').css('content-visibility', 'auto');
-            $('#idGameItemTitle .tab-item').eq(0).addClass('active');
-            setSwiper(selectedCategoryCode);
-        });
     }
 
     function resetCategory(categoryCode) {
@@ -463,8 +470,14 @@ ${gameitemmobilepopup}
         idGameItemGroup.innerHTML = "";
         iframeWidth = window.innerWidth;
         createCategory(categoryCode, function () {
-            $('.categoryPage').css('content-visibility', 'hidden');
-            $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+            //$('.categoryPage').css('content-visibility', 'hidden');
+            //$('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
+
+            $('.categoryPage').css('height', '0');
+            $('.categoryPage').css('overflow-y', 'hidden');
+
+            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            $('#categoryPage_' + categoryCode).css('overflow-y', 'hidden');
             setSwiper(categoryCode);
         });
 
@@ -597,7 +610,7 @@ ${gameitemmobilepopup}
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                    <!-- <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=6')"></a>
                             <div class="hero-item-box mobile">
@@ -609,7 +622,7 @@ ${gameitemmobilepopup}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')"></a>
