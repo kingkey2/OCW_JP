@@ -313,9 +313,9 @@
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                         if (gameItem.FavoTimeStamp) {
-                            btnlike = `<button type="button" class="btn-like btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                         } else {
-                            btnlike = `<button type="button" class="btn-like btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                         }
 
                         var RTP = "";
@@ -484,9 +484,9 @@
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                     if (gameItem.FavoTimeStamp) {
-                                        btnlike = `<button type="button" class="btn-like btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                     } else {
-                                        btnlike = `<button type="button" class="btn-like btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                     }
 
                                     var RTP = "";
@@ -795,7 +795,7 @@
                 break;
             case "RefreshPersonalFavo":
                 //window.parent.API_LoadingEnd();
-                var selector = "." + ("gameCode_" + param.GameCode + " .btn-like").replace(".", "\\.");
+                var selector = "." + ("gameCode_" + param.GameCode + ".btn-like").replace(".", "\\.");
                 $(".GameItemGroup_PersonalFavo .GameItemGroupContent").empty();
                 if (param.IsAdded) {
                     $(selector).addClass("added");
