@@ -60,5 +60,8 @@
   "RT": "RT",
   "EWin": "EWin",
   "TH": "TH",
-  "WM": "WM"
+  "WM": "WM",
+  "GameList_Hot": "熱門",
+  "GameList_Brand": "品牌",
+  "GameList_Favo": "最愛"
 }

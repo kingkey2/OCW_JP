@@ -412,38 +412,41 @@ ${gameitemmobilepopup}
             }
 
             for (var i = 0; i < LobbyGameList.length; i++) {
-                RecordDom = c.getTemplate("temCategItem");
-                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(LobbyGameList[i].Location));
-                $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
-                switch (LobbyGameList[i].Location) {
-                    case 'GameList_Hot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
-                        break;
-                    case 'GameList_Favo':
-                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
-                        break;
-                    case 'GameList_Live':
-                        $(RecordDom).find('.CategIcon').addClass('icon-elec-tt');
-                        break;
-                    case 'GameList_Slot':
-                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
-                        break;
-                    case 'GameList_Other':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
-                        break;
-                    case 'GameList_Brand':
-                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
-                        break;
-                    default:
+                var lobbyGame = LobbyGameList[i];
+                if (lobbyGame.Location.includes("GameList")) {
+                    RecordDom = c.getTemplate("temCategItem");
+                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                    switch (lobbyGame.Location) {
+                        case 'GameList_Hot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                            break;
+                        case 'GameList_Favo':
+                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                            break;
+                        case 'GameList_Live':
+                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                            break;
+                        case 'GameList_Slot':
+                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                            break;
+                        case 'GameList_Other':
+                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                            break;
+                        case 'GameList_Brand':
+                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                            break;
+                        default:
+                    }
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    idGameItemTitle.appendChild(RecordDom);
                 }
-                RecordDom.onclick = new Function("selGameCategory('" + LobbyGameList[i].Location + "',this)");
-                idGameItemTitle.appendChild(RecordDom);
             }
 
             $('#idGameItemTitle').append('<div class="tab-slide"></div>');
         }
 
-        selectedCategoryCode = "GameList_All";
+        selectedCategoryCode = "GameList_Slot";
         iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
@@ -607,7 +610,7 @@ ${gameitemmobilepopup}
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                    <!-- <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=6')"></a>
                             <div class="hero-item-box mobile">
@@ -619,7 +622,7 @@ ${gameitemmobilepopup}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')"></a>

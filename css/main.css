@@ -3314,6 +3314,14 @@ main.innerMain.fixed {
   -webkit-mask-image: url(../images/icon/ico-slot-tt.svg);
   mask-image: url(../images/icon/ico-slot-tt.svg);
 }
+.icon-mask.icon-favo-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-favo-tt.svg);
+  mask-image: url(../images/icon/ico-favo-tt.svg);
+}
+.icon-mask.icon-brand-tt::before {
+  -webkit-mask-image: url(../images/icon/ico-favo-tt.svg);
+  mask-image: url(../images/icon/ico-favo-tt.svg);
+}
 .icon-mask.icon-wallet::before {
   -webkit-mask-image: url(../images/icon/ico-wallet.svg);
   mask-image: url(../images/icon/ico-wallet.svg);

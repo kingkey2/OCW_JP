@@ -645,4 +645,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-mask-image: url(../images/icon/ico-slot-tt-m.svg);
     mask-image: url(../images/icon/ico-slot-tt-m.svg);
   }
+  .tab-game .icon-favo-tt::before {
+    -webkit-mask-image: url(../images/icon/ico-favo-tt-m.svg);
+    mask-image: url(../images/icon/ico-favo-tt-m.svg);
+  }
+  .tab-game .icon-brand-tt::before {
+    -webkit-mask-image: url(../images/icon/ico-favo-tt-m.svg);
+    mask-image: url(../images/icon/ico-favo-tt-m.svg);
+  }
 }
