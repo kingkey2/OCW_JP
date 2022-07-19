@@ -84,14 +84,14 @@
         selectedCategoryCode = categoryCode;
         if (!selectedCategorys.includes(categoryCode)) {
             createCategory(categoryCode, function () {
-                $('#categoryPage_' + selectedCategory).css('height', '0');
+                $('#categoryPage_' + selectedCategory).css('transform', 'scale(0,0)');
                 
-                $('#categoryPage_' + categoryCode).css('height', 'auto');
+                $('#categoryPage_' + categoryCode).css('transform', 'scale(1,1)');
                 setSwiper(categoryCode);
             });
         } else {
-            $('#categoryPage_' + selectedCategory).css('height', '0');
-            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategory).css('transform', 'scale(0,0)');
+            $('#categoryPage_' + categoryCode).css('transform', 'scale(1,1)');
         }
 
         window.document.body.scrollTop = 0;
@@ -282,7 +282,8 @@
                 }
 
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="content-visibility:hidden"></div>');
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;"></div>');
+                // var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="transform: scale(0,0);"></div>');
             
                 categoryDiv.append(categAreas);
                 $('#gameAreas').append(categoryDiv);
@@ -577,7 +578,8 @@
             //$('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
             $('#idGameItemTitle .tab-item').eq(0).addClass('active');
     
-            $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+            // $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategoryCode).css('transform', 'scale(1,1)');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
 
             setSwiper(selectedCategoryCode);
@@ -595,10 +597,12 @@
             //$('.categoryPage').css('content-visibility', 'hidden');
             //$('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
 
-            $('.categoryPage').css('height', '0');
+            // $('.categoryPage').css('height', '0');
+            $('.categoryPage').css('transform', 'scale(0,0)');
             //$('.categoryPage').css('overflow-y', 'hidden');
 
-            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            // $('#categoryPage_' + categoryCode).css('height', 'auto');
+            $('#categoryPage_' + categoryCode).css('transform', 'scale(1,1)');
             //$('#categoryPage_' + categoryCode).css('overflow-y', 'hidden');
             setSwiper(categoryCode);
         });
