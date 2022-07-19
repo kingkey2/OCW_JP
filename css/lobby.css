@@ -306,9 +306,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .gameRanking .swiper-slide:nth-child(1):before {
   background-image: url(../images/icon/num01.svg);
 }
-.gameRanking .swiper-slide:nth-child(1):before {
-  background-image: url(../images/icon/num01.svg);
-}
 .gameRanking .swiper-slide:nth-child(2):before {
   background-image: url(../images/icon/num02.svg);
 }
@@ -335,6 +332,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .gameRanking .swiper-slide:nth-child(10):before {
   background-image: url(../images/icon/num10.svg);
+}
+.gameRanking .swiper-slide:nth-child(10) ~ .swiper-slide {
+  display: none;
+}
+.gameRanking .swiper-button-next, .gameRanking .swiper-button-prev {
+  height: calc(100% - 10px);
 }
 
 @media (min-width: 375px) {
