@@ -803,22 +803,8 @@
         var bodyText = contactUsDom.querySelector(".contectUs_Body").value;
         var NickName = contactUsDom.querySelector(".contectUs_NickName").value;
         var Phone = contactUsDom.querySelector(".contectUs_Phone").value;
-        //}
 
         API_SendSerivceMail(subjectText, "ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>" + bodyText, emailText);
-    }
-
-    function CloseGameFrame() {
-        var IFramePage = document.getElementById("GameIFramePage");
-        IFramePage.src = "";
-        //非滿版遊戲介面
-        // $('#headerGameDetailContent').hide();
-        // $('#GameIFramePage').hide();
-        //非滿版遊戲介面 end
-
-        //滿版遊戲介面
-        $('#divGameFrame').css('display', 'none');
-        //滿版遊戲介面 end
     }
     //#region Game
     function GameLoadPage(url, gameBrand, gameName) {
@@ -849,8 +835,6 @@
             //    }
             //}
 
-
-
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 API_LoadingStart();
 
@@ -873,20 +857,22 @@
     }
 
     function openGame(gameBrand, gameName, gameLangName) {
+        var alertSearch = $("#alertSearch");
+        var alertSearchCloseButton = $("#alertSearchCloseButton");
 
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
         }
 
-        if ($("#alertSearch").css("display") == "block") {
-            $("#alertSearchCloseButton").click();
+        if (alertSearch.css("display") == "block") {
+            alertSearchCloseButton.click();
         }
 
         if (!EWinWebInfo.UserLogined) {
 
-            if ($("#alertSearch").css("display") == "block") {
-                $("#alertSearchCloseButton").click();
+            if (alertSearch.css("display") == "block") {
+                alertSearchCloseButton.click();
             }
 
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
@@ -937,6 +923,19 @@
         } else {
             gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
         }
+    }
+
+    function CloseGameFrame() {
+        var IFramePage = document.getElementById("GameIFramePage");
+        IFramePage.src = "";
+        //非滿版遊戲介面
+        // $('#headerGameDetailContent').hide();
+        // $('#GameIFramePage').hide();
+        //非滿版遊戲介面 end
+
+        //滿版遊戲介面
+        $('#divGameFrame').css('display', 'none');
+        //滿版遊戲介面 end
     }
     //#endregion
 
@@ -1333,29 +1332,33 @@
     }
 
     function initByArt() {
-        $('[data-btn-click="openLag"]').click(function () {
-            $('.lang-select-panel').fadeToggle('fast');
-        });
+        //$('[data-btn-click="openLag"]').click(function () {
+        //    $('.lang-select-panel').fadeToggle('fast');
+        //});
 
-        $('.lang-select-panel a').click(function () {
-            var curLang = $(this).text();
-            $('.lang-select-panel').fadeToggle('fast');
-            $('[data-btn-click="openLag"]').find('span').text(curLang);
-        });
+        //$('.lang-select-panel a').click(function () {
+        //    var curLang = $(this).text();
+        //    $('.lang-select-panel').fadeToggle('fast');
+        //    $('[data-btn-click="openLag"]').find('span').text(curLang);
+        //});
+
+        var navbartoggler = $('.navbar-toggler');
+        var verticalmenu = $('.vertical-menu');
+        var headermenu = $('.header_menu');
 
         //主選單收合
-        $('.navbar-toggler').click(function () {
-            $('.vertical-menu').toggleClass('navbar-show');
-            $('.header_menu').toggleClass('show');
-            if ($('.navbar-toggler').attr("aria-expanded") == "false") {
-                $('.navbar-toggler').attr("aria-expanded", "true");
+        navbartoggler.click(function () {
+            verticalmenu.toggleClass('navbar-show');
+            headermenu.toggleClass('show');
+            if (navbartoggler.attr("aria-expanded") == "false") {
+                navbartoggler.attr("aria-expanded", "true");
             }
         });
         $('.header_area .mask_overlay').click(function () {
-            $('.vertical-menu').removeClass('navbar-show');
-            $('.header_menu, .navbarMenu').removeClass('show');
-            if ($('.navbar-toggler').attr("aria-expanded") == "true") {
-                $('.navbar-toggler').attr("aria-expanded", "false");
+            verticalmenu.removeClass('navbar-show');
+            headermenu.find(".navbarMenu").removeClass('show');
+            if (navbartoggler.attr("aria-expanded") == "true") {
+                navbartoggler.attr("aria-expanded", "false");
             }
         });
     }
@@ -1439,11 +1442,12 @@
             //}
 
             var dstPage = c.getParameter("DstPage");
+            var closeGameBtn = $('#closeGameBtn');
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
             paymentClient = new PaymentAPI("/API/PaymentAPI.asmx");
 
-            $('#closeGameBtn').attr('title', mlp.getLanguageKey("關閉遊戲"));
-            $('#closeGameBtn').tooltip();
+            closeGameBtn.attr('title', mlp.getLanguageKey("關閉遊戲"));
+            closeGameBtn.tooltip();
 
             if (dstPage) {
                 var loadPage;
