@@ -288,13 +288,46 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   height: 100%;
   background-repeat: no-repeat;
   background-position: left top;
-  background-image: url(../images/icon/num01.svg);
   background-size: cover;
   position: absolute;
   left: 0;
   bottom: 0;
   top: 0;
 }
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(1):before {
+  background-image: url(../images/icon/num01.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(1):before {
+  background-image: url(../images/icon/num01.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(2):before {
+  background-image: url(../images/icon/num02.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(3):before {
+  background-image: url(../images/icon/num03.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(4):before {
+  background-image: url(../images/icon/num04.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(5):before {
+  background-image: url(../images/icon/num05.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(6):before {
+  background-image: url(../images/icon/num06.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(7):before {
+  background-image: url(../images/icon/num07.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(8):before {
+  background-image: url(../images/icon/num08.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(9):before {
+  background-image: url(../images/icon/num09.svg);
+}
+.gameRanking .swiper-wrapper .swiper-slide:nth-child(10):before {
+  background-image: url(../images/icon/num10.svg);
+}
+
 .game_slider .swiper-slide {
   padding-right: 10px;
   width: 31.25%;
