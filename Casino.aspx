@@ -53,8 +53,6 @@
     var sumask;
     var Webinfo;
     var p;
-    var nowCateg = "All";
-    var nowSubCateg = "Hot";
     var LobbyGameList;
     var lang;
     var nowGameBrand = "All";
@@ -135,31 +133,11 @@
                 1920: {
                     slidesPerGroup: 8, //index:1920px up
                     allowTouchMove: false,
-                },
+                }
             }
         });
     }
-
-    function promiseForEach(arr, cb) {
-        var i = 0;
-
-        var nextPromise = function () {
-            if (i >= arr.length) {
-                cb();
-                return;
-            }
-
-
-            var newPromise = Promise.resolve();
-            i++;
-            // Chain to finish processing.
-            return newPromise.then(nextPromise);
-        };
-
-        // Kick off the chain.
-        return Promise.resolve().then(nextPromise);
-    };
-
+    //人氣,搜長,slot,live,其他,品牌
     async function createCategory(categoryName, cb) {
 
         if (LobbyGameList) {
@@ -192,6 +170,7 @@
                                 var btnplay;
                                 var imgsrc;
                                 var gameName;
+                                var appendGameProp;
                                 var gameItem = await new Promise((resolve, reject) => {
                                     GCB.GetByGameCode(o.GameCode, (gameItem) => {
                                         resolve(gameItem);
@@ -202,9 +181,9 @@
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                     if (gameItem.FavoTimeStamp) {
-                                        btnlike = `<button type="button" class="btn-like btn btn-round added" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
+                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                     } else {
-                                        btnlike = `<button type="button" class="btn-like btn btn-round" onclick="window.parent.favBtnEvent('${gameItem.GameID}',this)">`;
+                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                     }
 
                                     var RTP = "";
@@ -229,7 +208,7 @@
                                     } else {
                                         gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                         GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                                        gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
+                                        gameitemlink = '<span class="game-item-link" onmouseover="' + "appendGameProp('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "','" + RTP + "','" + gameItem.GameID + "','" + gameItem.FavoTimeStamp + "','" + gameItem.GameCode +"')" + '" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
                                         btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
                                     }
 
@@ -247,48 +226,7 @@ ${gameitemmobilepopup}
             <img class="gameimg lozad" src="${imgsrc}">
         </div>
     </div>
-    <div class="game-item-info-detail open">
-        <div class="game-item-info-detail-wrapper">
-            <div class="game-item-info-detail-moreInfo">
-                <ul class="moreInfo-item-wrapper">
-                    <li class="moreInfo-item brand">
-                        <span class="title language_replace">品牌</span>
-                        <span class="value GameBrand">${gameItem.GameBrand}</span>
-                    </li>
-                    <li class="moreInfo-item RTP">
-                        <span class="title">RTP</span>
-                        <span class="value number valueRTP">${RTP}</span>
-                    </li>
-                    <li class="moreInfo-item gamecode">
-                        <span class="title">NO.</span>
-                        <span class="value number GameID">${gameItem.GameID}</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="game-item-info-detail-indicator">
-                <div class="game-item-info-detail-indicator-inner">
-                    <div class="info">
-                        <h3 class="game-item-name">${gameName}</h3>
-                    </div>
-                    <div class="action">
-                        <div class="btn-s-wrapper">
-<button type="button" class="btn-thumbUp btn btn-round">
-<i class="icon icon-m-thumup"></i>
-</button>
-                            ${btnlike}
-<i class="icon icon-m-favorite"></i>
-</button>
-<button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
-<i class="arrow arrow-down"></i>
-</button>
-                        </div>
-                        ${btnplay}
-<span class="language_replace">遊玩</span><i class="triangle"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
 </div>
 <div class="game-item-info">
     <div class="game-item-info-inner">
@@ -350,10 +288,7 @@ ${gameitemmobilepopup}
                     </section>`;
 
                             }
-                            debugger;
-                            console.log(4);
                             categAreas += categArea;
-                            console.log(5);
                         }
                     }
                 }
@@ -367,8 +302,93 @@ ${gameitemmobilepopup}
         }
     }
 
+    function appendGameProp(gameBrand, gameName, gameLangName, RTP, gameID, favoTimeStamp, gameCode) {
+      
+        var doc = event.currentTarget;
+        var jquerydoc = $(doc).parent().parent().eq(0);
+        var btnlike;
+        var btnplay;
+
+        if (!jquerydoc.hasClass('addedGameProp')) {
+            if (favoTimeStamp) {
+                btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+            } else {
+                btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+            }
+
+            btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameBrand + "', '" + gameName + "','" + gameLangName + "')" + '">';
+
+            var gameProp = `<div class="game-item-info-detail open">
+        <div class="game-item-info-detail-wrapper">
+            <div class="game-item-info-detail-moreInfo">
+                <ul class="moreInfo-item-wrapper">
+                    <li class="moreInfo-item brand">
+                        <span class="title language_replace">品牌</span>
+                        <span class="value GameBrand">${gameBrand}</span>
+                    </li>
+                    <li class="moreInfo-item RTP">
+                        <span class="title">RTP</span>
+                        <span class="value number valueRTP">${RTP}</span>
+                    </li>
+                    <li class="moreInfo-item gamecode">
+                        <span class="title">NO.</span>
+                        <span class="value number GameID">${gameID}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="game-item-info-detail-indicator">
+                <div class="game-item-info-detail-indicator-inner">
+                    <div class="info">
+                        <h3 class="game-item-name">${gameName}</h3>
+                    </div>
+                    <div class="action"
+                        <div class="btn-s-wrapper">
+<button type="button" class="btn-thumbUp btn btn-round">
+<i class="icon icon-m-thumup"></i>
+</button>
+                            ${btnlike}
+<i class="icon icon-m-favorite"></i>
+</button>
+<button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
+<i class="arrow arrow-down"></i>
+</button>
+                        </div>
+                        ${btnplay}
+<span class="language_replace">遊玩</span><i class="triangle"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+            jquerydoc.append(gameProp);
+            jquerydoc.addClass('addedGameProp');
+        }
+
+      
+
+    };
+
+    function favBtnClcik(gameCode) {
+        var btn = event.currentTarget;
+        event.stopPropagation();
+
+        if ($(btn).hasClass("added")) {
+            $(btn).removeClass("added");
+            GCB.RemoveFavo(gameCode, function () {
+                window.parent.API_RefreshPersonalFavo(gameCode, false);
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
+            });
+        } else {
+            $(btn).addClass("added");
+            GCB.AddFavo(gameCode, function () {
+                window.parent.API_RefreshPersonalFavo(gameCode, true);
+                window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
+            });
+        }
+    }
+
     function updateGameCode() {
-        iframeWidth = $(window.parent.document).find('#IFramePage').width();
+        iframeWidth = window.innerWidth;
         var idGameItemTitle = document.getElementById("idGameItemTitle");
         idGameItemTitle.innerHTML = "";
         // 尋找新增+
@@ -382,64 +402,27 @@ ${gameitemmobilepopup}
                 });
             }
 
-            //if (!LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.find(function (e) { return e.CategoryName == "EWin" })) {
-
-            //    var EwinGame = {
-            //        CategoryID: 0,
-            //        CategoryName: "EWin",
-            //        Datas: [{
-            //            AllowDemoPlay: 1,
-            //            Language: [{ LanguageCode: 'CHT', DisplayText: '真人百家樂(eWIN)' }, { LanguageCode: 'JPN', DisplayText: 'EWinゲーミング' }],
-            //            CategoryID: 0,
-            //            GameBrand: "EWin",
-            //            GameCategoryCode: "Live",
-            //            GameCategorySubCode: "Baccarat",
-            //            GameCode: "EWin.Baccarat",
-            //            GameID: 0,
-            //            GameName: "EWinGaming",
-            //            GameText: {
-            //                CHT: "真人百家樂(eWIN)",
-            //                JPN: "EWinゲーミング"
-            //            },
-            //            Info: "",
-            //            IsHot: 0,
-            //            IsNew: 0,
-            //            RTPInfo: "",
-            //            SortIndex: 99,
-            //            Tag: null
-            //        }],
-            //        Location: "GameList_All",
-            //        ShowType: 0,
-            //        SortIndex: 99,
-            //        State: 0
-            //    }
-
-            //    var BGindex = LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.findIndex(function (e) { return e.CategoryName == "BTI" });
-            //    if (BGindex != -1) {
-            //        LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.splice(BGindex, 0, EwinGame);
-            //    } else {
-            //        LobbyGameList.find(function (d) { return d.Location == 'GameList_All' }).Categories.unshift(EwinGame);
-            //    }
-            //}
-
             for (var i = 0; i < LobbyGameList.length; i++) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(LobbyGameList[i].Location));
                 $(RecordDom).find('.CategName').attr('langkey', LobbyGameList[i].Location);
                 switch (LobbyGameList[i].Location) {
-                    case 'GameList_All':
+                    case 'GameList_Hot':
                         $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
                         break;
-                    case 'GameList_Live':
+                    case 'GameList_Favo':
                         $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
                         break;
-                    case 'GameList_Electron':
+                    case 'GameList_Live':
                         $(RecordDom).find('.CategIcon').addClass('icon-elec-tt');
                         break;
-                    case 'GameList_Other':
+                    case 'GameList_Slot':
                         $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
                         break;
-                    case 'GameList_Slot':
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Brand':
                         $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
                         break;
                     default:
@@ -452,12 +435,22 @@ ${gameitemmobilepopup}
         }
 
         selectedCategoryCode = "GameList_All";
-        iframeWidth = $(window.parent.document).find('#IFramePage').width();
+        iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
 
         createCategory(selectedCategoryCode, function () {
             $('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
+            $('#idGameItemTitle .tab-item').eq(0).addClass('active');
+            $('#categoryPage_GameList_Slot').css('content-visibility', 'auto');
+            setSwiper(selectedCategoryCode);
+        });
+
+        selectedCategoryCode = "GameList_Slot";
+        
+        createCategory(selectedCategoryCode, function () {
+            $('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
+            $('#categoryPage_GameList_All').css('content-visibility', 'auto');
             $('#idGameItemTitle .tab-item').eq(0).addClass('active');
             setSwiper(selectedCategoryCode);
         });
@@ -468,7 +461,7 @@ ${gameitemmobilepopup}
         selectedCategorys = [];
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
-        iframeWidth = $(window.parent.document).find('#IFramePage').width();
+        iframeWidth = window.innerWidth;
         createCategory(categoryCode, function () {
             $('.categoryPage').css('content-visibility', 'hidden');
             $('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
@@ -485,18 +478,8 @@ ${gameitemmobilepopup}
         GCB = window.parent.API_GetGCB();
         WebInfo = window.parent.API_GetWebInfo();
         p = window.parent.API_GetLobbyAPI();
-        nowCateg = c.getParameter("Category");
-        nowSubCateg = c.getParameter("SubCategory");
+
         lang = window.parent.API_GetLang();
-
-        if (nowCateg == undefined || nowCateg == "") {
-            nowCateg = "All";
-        }
-
-        if (nowSubCateg == undefined || nowSubCateg == "") {
-            nowSubCateg = "Hot";
-        }
-
 
         var heroLobby = new Swiper("#hero-slider-lobby", {
             loop: true,
@@ -581,6 +564,16 @@ ${gameitemmobilepopup}
                     resetCategory(selectedCategoryCode);
                 }
 
+                break;
+            case "RefreshPersonalFavo":
+                //window.parent.API_LoadingEnd();
+                var selector = "." + ("gameCode_" + param.GameCode + ".btn-like").replace(".", "\\.");
+             
+                if (param.IsAdded) {
+                    $(selector).addClass("added");
+                } else {
+                    $(selector).removeClass("added");
+                }
                 break;
             case "SetLanguage":
                 lang = param;
