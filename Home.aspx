@@ -213,9 +213,9 @@
         mlp.loadLanguage(lang, function () {
             if (p != null) {
                 if (GCB.IsFirstLoaded) {
-                    window.parent.API_LoadingEnd();
+                  
                 }
-               
+                 window.parent.API_LoadingEnd();
                 getCompanyGameCode();
 
                 if (FourGames) {
