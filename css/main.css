@@ -151,6 +151,14 @@ button, input {
   backdrop-filter: blur(10px);
 }
 
+.contain-disappear {
+  contain: size;
+  -webkit-transform: scale(1, 0);
+          transform: scale(1, 0);
+  -webkit-transform-origin: center top;
+          transform-origin: center top;
+}
+
 .is-hide {
   display: none !important;
 }
@@ -6199,6 +6207,9 @@ i {
       -ms-flex-pack: center;
           justify-content: center;
   margin-bottom: 70px;
+}
+.section_randomRem .container {
+  overflow: hidden;
 }
 
 .game-item-group {
