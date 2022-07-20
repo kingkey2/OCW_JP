@@ -431,11 +431,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .dailylogin-bouns-wrapper {
   margin-top: 35px;
+  cursor: pointer;
 }
 .dailylogin-bouns-inner {
   background: -webkit-gradient(linear, left top, left bottom, from(#FFFAC3), to(#FFDFD2));
   background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px;
 }
 .dailylogin-bouns-content {
   position: relative;
@@ -617,6 +618,21 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .dailylogin-bouns-list .bouns-item.sunday {
   color: #ff0000;
 }
+.dailylogin-bouns-amount {
+  width: 100%;
+  background-color: #1D63A3;
+  color: #fff;
+  position: absolute;
+  margin: 0 auto;
+  bottom: 0;
+  border-radius: 0 0 20px 20px;
+  text-align: center;
+  padding: 10px 0;
+}
+.dailylogin-bouns-amount .bouns-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
 
 .game_slider .swiper-slide {
   padding-right: 10px;
@@ -649,6 +665,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
+    padding-bottom: 50px;
   }
   .dailylogin-bouns-content .title {
     position: relative;
@@ -1085,6 +1102,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     background-color: #fff;
     border-radius: 10px;
     padding-top: 10px;
+    padding-bottom: 30px;
   }
   .dailylogin-bouns-content .title {
     position: absolute;
@@ -1125,6 +1143,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .dailylogin-bouns-list {
     width: 100%;
+  }
+  .dailylogin-bouns-amount {
+    width: calc(100% + 20px);
+    left: -10px;
+    bottom: -10px;
+    padding: 15px 0 5px;
   }
 
   .sec-title-wrapper .sec-title {

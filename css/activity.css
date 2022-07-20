@@ -260,10 +260,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex: 1;
           flex: 1;
   padding: 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 .prize-item .title {
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  width: 100%;
   font-size: 1.125rem;
   overflow: hidden;
   display: -webkit-box;
@@ -271,6 +278,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+.prize-item .date-period {
+  width: 100%;
+  font-size: 0.90625rem;
+}
+.prize-item .prize-status {
+  width: 100%;
+  font-size: 0.875rem;
 }
 .prize-item .desc {
   margin-bottom: 0.5rem;
