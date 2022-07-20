@@ -363,7 +363,7 @@
                                                             <div class="game-item-info-detail-moreInfo">
                                                                 <ul class="moreInfo-item-wrapper">
                                                                     <li class="moreInfo-item brand">
-                                                                        <span class="title language_replace">品牌</span>
+                                                                        <span class="title language_replace">廠牌</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
@@ -534,7 +534,7 @@
                                                             <div class="game-item-info-detail-moreInfo">
                                                                 <ul class="moreInfo-item-wrapper">
                                                                     <li class="moreInfo-item brand">
-                                                                        <span class="title language_replace">品牌</span>
+                                                                        <span class="title language_replace">廠牌</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
