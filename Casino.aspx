@@ -1049,7 +1049,7 @@
                             <!-- <h3 class="title">隨機推薦遊戲</h3> -->
                         </div>
                     </div>
-                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup">
+                    <div class="game_slider swiper-container round-arrow swiper-cover GameItemGroup">
                         <div class="swiper-wrapper GameItemGroupContent">
                            <div class="swiper-slide">
                                 <div class="game-item">
