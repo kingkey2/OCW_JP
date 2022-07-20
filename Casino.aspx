@@ -193,10 +193,6 @@
                                 });
 
                                 if (gameItem) {
-                                    if (!GameCategoryCodeArray.includes(gameItem.GameCategoryCode)) {
-                                        GameCategoryCodeArray.push(gameItem.GameCategoryCode)
-                                    }
-                                    
                                     createGameItem(gameItem, showType, function (stringGameItem) {
                                         gameItems += stringGameItem;
                                     });
@@ -222,9 +218,8 @@
                             }
           
                             if (showType == 2) {
-                                categArea = `<section class="game-area">
-                                                  <section class="section-wrap section_randomRem">
-                                                    <div class="container">
+                                categArea = `<section class="section-wrap section_randomRem">
+                                                    <div class="container-fluid">
                                                         <div class="game_wrapper">
                                                             <div class="sec-title-container">
                                                                 <div class="sec-title-wrapper">
@@ -237,13 +232,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </section>
-                                              </section>`;
+                                                </section>`;
                             } else {
                                 if (category.SortIndex >= 90) {
-                                    categArea = `<section class="game-area">
-                                                    <section class="section-wrap section-levelUp">
-                                                    <div class="container">
+                                    categArea = `<section class="section-wrap section-levelUp">
                                                     ${game_wrapper}
                                                     <div class="sec-title-container">
                                                     <div class="sec-title-wrapper">
@@ -261,14 +253,10 @@
                                                     <div class="swiper-button-prev"></div>
                                                     </div>
                                                     </div>
-                                                    </div>
-                                                    </section>
                                                     </section>`;
                                 }
                                 else {
-                                    categArea = ` <section class="game-area">
-                                                <section class="section-wrap section-levelUp">
-                                                 <div class="container">
+                                    categArea = `<section class="section-wrap section-levelUp">
                                                 ${game_wrapper}
                                                 <div class="sec-title-container">
                                                 <div class="sec-title-wrapper">
@@ -285,8 +273,6 @@
                                                 <div class="swiper-button-prev"></div>
                                                 </div>
                                                 </div>
-                                                </div>
-                                                </section>
                                                 </section>`;
                                 }
                             }
@@ -869,9 +855,10 @@
                 <!-- REAL -->                
             </div>
         </section>
-        <div id="gameAreas">
-
-        </div>
+         <section class="game-area overflow-hidden">
+            <div class="container" id="gameAreas">
+            </div>
+        </section>
           <!-- 遊戲-排名區-新版 遊戲內容-->
          <section class="game-area overflow-hidden" style="display:">
             <div class="container">
