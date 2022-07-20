@@ -875,10 +875,14 @@
                 <!-- REAL -->                
             </div>
         </section>
-        <section class="game-area overflow-hidden">
-            <div class="container" id="gameAreas">
+        <div id="gameAreas">
+              <section class="game-area overflow-hidden">
+            <div class="container">
             </div>
         </section>
+
+        </div>
+      
          <!-- 遊戲-排名區-->
          <section class="game-area overflow-hidden" style="display:none">
             <div class="container">

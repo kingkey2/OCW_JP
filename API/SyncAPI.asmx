@@ -136,17 +136,14 @@ public class SyncAPI : System.Web.Services.WebService
         int ret = 0;
         switch (ShowType)
         {
-            case "01":
+            case "01"://01 => 基本版型
                 ret = 0;
                 break;
-            case "02":
+            case "02"://02 => 排行版型
                 ret = 1;
                 break;
-            case "03":
+            case "03"://03 => 隨機推薦版型
                 ret = 2;
-                break;
-            case "04":
-                ret = 3;
                 break;
             default:
                 ret = 0;
