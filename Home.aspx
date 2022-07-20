@@ -1026,7 +1026,7 @@
                             </div>
                             <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
-                                <div class="activity-dailylogin-wrapper">
+                                <div class="activity-dailylogin-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
                                     <%--
                                     <div class="coming-soon-text">
                                         2022/7/8 イベントスタート
@@ -1058,6 +1058,10 @@
                                                         <span class="day"><span class="language_replace">四</span></span>
                                                     </li>
                                                 </ul>
+                                                <div class="dailylogin-bouns-amount">
+                                                    <span class="amount-title language_replace">累積獎金</span>
+                                                    <span class="bouns-amount">123,123</span>
+                                                </div>
 
                                             </div>
                                         </div>
