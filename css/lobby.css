@@ -73,6 +73,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 96%;
   max-width: 640px;
   margin: 0 auto;
+  position: relative;
 }
 .tab-search {
   position: relative;
@@ -82,6 +83,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   cursor: pointer;
   margin-right: 2px;
   width: 46.9565217391px;
+  border-radius: 50%;
+  background-color: #48C5FF;
+  border: solid 3px #D9D9D9;
 }
 .tab-search .title {
   display: none;
@@ -272,66 +276,70 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   color: #fff;
 }
 
-.gameRanking .swiper-wrapper {
-  counter-reset: num;
-}
-.gameRanking .swiper-wrapper .swiper-slide {
-  position: relative;
-  padding-left: 60px;
-}
-.gameRanking .swiper-wrapper .swiper-slide:before {
-  content: "";
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  width: 60px;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: left top;
-  background-size: cover;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  top: 0;
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(1):before {
-  background-image: url(../images/icon/num01.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(1):before {
-  background-image: url(../images/icon/num01.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(2):before {
-  background-image: url(../images/icon/num02.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(3):before {
-  background-image: url(../images/icon/num03.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(4):before {
-  background-image: url(../images/icon/num04.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(5):before {
-  background-image: url(../images/icon/num05.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(6):before {
-  background-image: url(../images/icon/num06.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(7):before {
-  background-image: url(../images/icon/num07.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(8):before {
-  background-image: url(../images/icon/num08.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(9):before {
-  background-image: url(../images/icon/num09.svg);
-}
-.gameRanking .swiper-wrapper .swiper-slide:nth-child(10):before {
-  background-image: url(../images/icon/num10.svg);
-}
-
 .game_slider .swiper-slide {
   padding-right: 10px;
   width: 31.25%;
 }
+.gameRanking .swiper-wrapper {
+  counter-reset: num;
+}
+.gameRanking .swiper-slide {
+  position: relative;
+  padding-left: 15.625%;
+  width: 46.875%;
+}
+.gameRanking .swiper-slide:before {
+  content: "";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 100%;
+  height: calc(100% - 10px);
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: contain;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 10px;
+}
+.gameRanking .swiper-slide:nth-child(1):before {
+  background-image: url(../images/icon/num01.svg);
+}
+.gameRanking .swiper-slide:nth-child(2):before {
+  background-image: url(../images/icon/num02.svg);
+}
+.gameRanking .swiper-slide:nth-child(3):before {
+  background-image: url(../images/icon/num03.svg);
+}
+.gameRanking .swiper-slide:nth-child(4):before {
+  background-image: url(../images/icon/num04.svg);
+}
+.gameRanking .swiper-slide:nth-child(5):before {
+  background-image: url(../images/icon/num05.svg);
+}
+.gameRanking .swiper-slide:nth-child(6):before {
+  background-image: url(../images/icon/num06.svg);
+}
+.gameRanking .swiper-slide:nth-child(7):before {
+  background-image: url(../images/icon/num07.svg);
+}
+.gameRanking .swiper-slide:nth-child(8):before {
+  background-image: url(../images/icon/num08.svg);
+}
+.gameRanking .swiper-slide:nth-child(9):before {
+  background-image: url(../images/icon/num09.svg);
+}
+.gameRanking .swiper-slide:nth-child(10):before {
+  background-image: url(../images/icon/num10.svg);
+}
+.gameRanking .swiper-slide:nth-child(10) ~ .swiper-slide {
+  display: none;
+}
+.gameRanking .swiper-button-next, .gameRanking .swiper-button-prev {
+  height: calc(100% - 10px);
+}
+
 @media (min-width: 375px) {
   .hero_slider_lobby .img-wrap {
     padding-bottom: 230px;
@@ -339,6 +347,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .game_slider .swiper-slide {
     width: 28.5714285714%;
+  }
+
+  .gameRanking .swiper-slide {
+    padding-left: 14.2857142857%;
+    width: 42.8571428571%;
   }
 }
 @media (min-width: 576px) {
@@ -352,14 +365,24 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .game_slider .swiper-slide {
     width: 22.2222222222%;
   }
+
+  .gameRanking .swiper-slide {
+    padding-left: 11.1111111111%;
+    width: 33.3333333333%;
+  }
 }
 @media (min-width: 640px) {
+  .hero_slider_lobby .swiper-slide {
+    max-width: 70%;
+  }
+
   .game_slider .swiper-slide {
     width: 18.1818181818%;
   }
 
-  .hero_slider_lobby .swiper-slide {
-    max-width: 70%;
+  .gameRanking .swiper-slide {
+    padding-left: 9.0909090909%;
+    width: 27.2727272727%;
   }
 }
 @media (min-width: 712px) {
@@ -395,6 +418,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .game_slider .swiper-slide {
     width: 18.1818181818%;
+  }
+
+  .gameRanking .swiper-slide {
+    padding-left: 9.0909090909%;
+    width: 27.2727272727%;
   }
 }
 @media (min-width: 768px) {
@@ -446,6 +474,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-transform: translateX(-38%);
             transform: translateX(-38%);
   }
+
+  .gameRanking .swiper-slide {
+    padding-left: 8.3333333333%;
+    width: 25%;
+  }
 }
 @media (min-width: 1144px) {
   .hero_slider_lobby .img-wrap {
@@ -476,6 +509,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     right: auto;
     -webkit-transform: translateX(-38%);
             transform: translateX(-38%);
+  }
+
+  .gameRanking .swiper-slide {
+    padding-left: 7.1428571429%;
+    width: 21.4285714286%;
   }
 }
 @media (min-width: 1384px) {
@@ -508,6 +546,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-transform: translateX(-38%);
             transform: translateX(-38%);
   }
+
+  .gameRanking .swiper-slide {
+    padding-left: 7.1428571429%;
+    width: 21.4285714286%;
+  }
 }
 @media (min-width: 1544px) {
   .hero_slider_lobby .img-wrap {
@@ -539,6 +582,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-transform: translateX(-38%);
             transform: translateX(-38%);
   }
+
+  .gameRanking .swiper-slide {
+    padding-left: 7.1428571429%;
+    width: 21.4285714286%;
+  }
 }
 @media (min-width: 1864px) and (max-width: 1919px) {
   .game_slider .swiper-slide {
@@ -561,6 +609,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     right: auto;
     -webkit-transform: translateX(-38%);
             transform: translateX(-38%);
+  }
+
+  .gameRanking .swiper-slide {
+    padding-left: 6.25%;
+    width: 18.75%;
   }
 }
 @media (min-width: 1864px) {
@@ -585,6 +638,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     height: 64px;
   }
 
+  .hero_slider_lobby .swiper-slide {
+    max-width: 70%;
+  }
+
   .game_slider .swiper-slide {
     width: 200px;
   }
@@ -607,8 +664,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
             transform: translateX(-38%);
   }
 
-  .hero_slider_lobby .swiper-slide {
-    max-width: 70%;
+  .gameRanking .swiper-slide {
+    padding-left: 100px;
+    width: 300px;
   }
 }
 @media (min-width: 2560px) {
@@ -650,7 +708,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     mask-image: url(../images/icon/ico-favo-tt-m.svg);
   }
   .tab-game .icon-brand-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-favo-tt-m.svg);
-    mask-image: url(../images/icon/ico-favo-tt-m.svg);
+    -webkit-mask-image: url(../images/icon/ico-brand-tt-m.svg);
+    mask-image: url(../images/icon/ico-brand-tt-m.svg);
   }
 }
