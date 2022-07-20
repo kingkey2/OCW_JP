@@ -1474,8 +1474,6 @@
             }
             
             SearchControll = new searchControlInit("alertSearch");
-
-            SearchControll.getSearchGameBrand();
             
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
@@ -1601,6 +1599,7 @@
     function searchControlInit(searchDomID) {
         var SearchSelf = this;
         var SearchDom = $("#" + searchDomID);
+        var showMoreClickCount = 1;
 
         this.searchGameList = function (gameBrand) {
             var arrayGameBrand = [];
@@ -1609,6 +1608,8 @@
             var gamecategory = SearchDom.find("#seleGameCategory").val() == "All" ? "" : $("#seleGameCategory").val();
             var lang = EWinWebInfo.Lang;
             var alertSearchContent = SearchDom.find('#alertSearchContent');
+            var gameItemCount = 0;
+            showMoreClickCount = 1;
 
             alertSearchContent.empty();
 
@@ -1621,55 +1622,81 @@
                     }
                 });
             }
+            
+            if (arrayGameBrand.length == 0 && gamecategory == "" && keyWord == "") {
+                showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請選擇／輸入其中一項"));
+            } else {
+                GCB.CursorGetByMultiSearch2(arrayGameBrand, gamecategory, null, keyWord,
+                    function (gameItem) {
+                        gameItemCount++;
 
-            GCB.CursorGetByMultiSearch2(arrayGameBrand, gamecategory, null, keyWord,
-                function (gameItem) {
-                    var RTP = "--";
-                    var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
-                    if (gameItem.RTPInfo) {
-                        RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        var RTP = "--";
+                        var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                        if (gameItem.RTPInfo) {
+                            RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                        }
+
+                        if (RTP == "0") {
+                            RTP = "--";
+                        }
+
+                        GI = c.getTemplate("tmpSearchGameItem");
+                        let GI1 = $(GI);
+                        //var GI_a = GI.querySelector(".btn-play");
+                        GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                        GI1.addClass("group" + parseInt(gameItemCount / 60));
+                        var GI_img = GI.querySelector(".gameimg");
+                        if (GI_img != null) {
+                            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                            var el = GI_img;
+                            var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                            observer.observe();
+                        }
+
+                        var likebtn = GI.querySelector(".btn-like");
+
+                        if (gameItem.FavoTimeStamp) {
+                            $(likebtn).addClass("added");
+                        } else {
+                            $(likebtn).removeClass("added");
+                        }
+
+                        likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
+
+                        GI1.find(".gameName").text(lang_gamename);
+                        GI1.find(".BrandName").text(gameItem.GameBrand);
+                        GI1.find(".valueRTP").text(RTP);
+                        GI1.find(".valueID").text(gameItem.GameID);
+                        GI1.find(".GameCategoryCode").text(gameItem.GameCategoryCode);
+
+                        if (gameItemCount < 61) {
+                            alertSearchContent.append(GI);
+                        } else {
+                            GI1.css("display", "none");
+                            alertSearchContent.append(GI);
+                        }
+
+                    }, function (data) {
+                        if (alertSearchContent.children().length == 0) {
+                            alertSearchContent.append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("沒有資料")}</span></div></div>`);
+                        } else if (alertSearchContent.children().length >60) {
+                            alertSearchContent.append(`<div class="no-Data" onclick="SearchControll.rem()"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("查看更多")}</span></div></div>`);
+                        }
                     }
-
-                    if (RTP == "0") {
-                        RTP = "--";
-                    }
-
-                    GI = c.getTemplate("tmpSearchGameItem");
-                    let GI1 = $(GI);
-                    //var GI_a = GI.querySelector(".btn-play");
-                    GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
-                    var GI_img = GI.querySelector(".gameimg");
-                    if (GI_img != null) {
-                        GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
-                        var el = GI_img;
-                        var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
-                        observer.observe();
-                    }
-
-                    var likebtn = GI.querySelector(".btn-like");
-
-                    if (gameItem.FavoTimeStamp) {
-                        $(likebtn).addClass("added");
-                    } else {
-                        $(likebtn).removeClass("added");
-                    }
-                    
-                    likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
-                    
-                    GI1.find(".gameName").text(lang_gamename);
-                    GI1.find(".BrandName").text(gameItem.GameBrand);
-                    GI1.find(".valueRTP").text(RTP);
-                    GI1.find(".valueID").text(gameItem.GameID);
-                    GI1.find(".GameCategoryCode").text(gameItem.GameCategoryCode);
-
-                    alertSearchContent.append(GI);
-                }, function (data) {
-                    if (alertSearchContent.children().length == 0) {
-                        alertSearchContent.append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("沒有資料")}</span></div></div>`);
-                    }
-                }
-            )
+                )
+            }
         };
+        this.rem = function () {
+            if (SearchDom.children().find(".group"+showMoreClickCount).length > 0) {
+                SearchDom.children().find(".group" + showMoreClickCount).show();
+            }
+
+            showMoreClickCount++;
+
+            if (SearchDom.children().find(".group" + showMoreClickCount).length == 0) {
+                $(event.currentTarget).remove();
+            }
+        }
 
         this.searchGameChange = function () {
 
@@ -1730,55 +1757,6 @@
             SearchSelf.searchGameList();
         }
 
-        this.SearchKeyWordKeyup = function () {
-            var gameBrand = SearchDom.find('#alertSearchBrand').val();
-            var keyWord = SearchDom.find('#alertSearchKeyWord').val().trim();
-
-            if ((gameBrand == "-1" || gameBrand == undefined) && keyWord == "") {
-                SearchDom.find("#div_SearchGameCategory").hide();
-            } else {
-                SearchDom.find("#div_SearchGameCategory").show();
-            }
-        }
-
-        this.getSearchGameBrand = function () {
-            var ParentMain = SearchDom.find("#ulSearchGameBrand");
-            ParentMain.empty();
-
-            lobbyClient.GetGameBrand(Math.uuid(), function (success, o) {
-                if (success == true) {
-                    if (o.Result == 0) {
-                        let GBLDom;
-                        let GBL_img;
-
-                        GBLDom = c.getTemplate("tmpSearchGameBrand");
-                        GBL_img = GBLDom.querySelector(".brandImg");
-                        $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
-                        GBL_img.src = `images/logo/default/logo-eWIN.svg`;
-                        ParentMain.append(GBLDom);
-                    
-                        for (var i = 0; i < o.GameBrandList.length; i++) {
-                            let GBL = o.GameBrandList[i];
-                            if (GBL.GameBrandState == 0) {
-                                GBLDom = c.getTemplate("tmpSearchGameBrand");
-                                GBL_img = GBLDom.querySelector(".brandImg");
-
-                                $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_" + GBL.GameBrand);
-
-                                if (GBL.GameBrandState == 0) {
-                                    GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
-                                }
-
-                                ParentMain.append(GBLDom);
-                            }
-                        }
-                    } else {
-
-                    }
-                }
-            });
-        }
-
         this.searchGameByBrand = function (gameBrand) {
             SearchDom.find("input[name='button-brandExchange']").each(function (e, v) {
                 $(v).prop("checked", false);
@@ -1823,30 +1801,67 @@
             SearchSelf.searchGameList(gameBrand);
         }
 
-        function init() {
+        //openFullSearch
+        this.openFullSearch = function(e) {
+            var header_SearchFull = document.getElementById("header_SearchFull");
+            header_SearchFull.classList.add("open");
+        }
 
+        //openFullSearch
+        this.closeFullSearch = function (e) {
+            var header_SearchFull = document.getElementById("header_SearchFull");
+
+            if (header_SearchFull.classList.contains("open")) {
+                header_SearchFull.classList.remove("open");
+            }
+        }
+
+        var getSearchGameBrand = function () {
+            var ParentMain = SearchDom.find("#ulSearchGameBrand");
+            ParentMain.empty();
+
+            lobbyClient.GetGameBrand(Math.uuid(), function (success, o) {
+                if (success == true) {
+                    if (o.Result == 0) {
+                        let GBLDom;
+                        let GBL_img;
+
+                        GBLDom = c.getTemplate("tmpSearchGameBrand");
+                        GBL_img = GBLDom.querySelector(".brandImg");
+                        $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
+                        GBL_img.src = `images/logo/default/logo-eWIN.svg`;
+                        ParentMain.append(GBLDom);
+
+                        for (var i = 0; i < o.GameBrandList.length; i++) {
+                            let GBL = o.GameBrandList[i];
+                            if (GBL.GameBrandState == 0) {
+                                GBLDom = c.getTemplate("tmpSearchGameBrand");
+                                GBL_img = GBLDom.querySelector(".brandImg");
+
+                                $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_" + GBL.GameBrand);
+
+                                if (GBL.GameBrandState == 0) {
+                                    GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
+                                }
+
+                                ParentMain.append(GBLDom);
+                            }
+                        }
+                    } else {
+
+                    }
+                }
+            });
+        }
+
+        function init() {
+            getSearchGameBrand();
         }
 
         init();
     };
 
     //#endregion
-
-    //openFullSearch
-    function openFullSearch(e) {
-        var header_SearchFull = document.getElementById("header_SearchFull");
-        header_SearchFull.classList.add("open");
-    }
-
-    //openFullSearch
-    function closeFullSearch(e) {
-
-        var header_SearchFull = document.getElementById("header_SearchFull");
-
-        if (header_SearchFull.classList.contains("open")) {
-            header_SearchFull.classList.remove("open");
-        }
-    }
 
     window.onload = init;
 </script>
@@ -1890,7 +1905,7 @@
                                 <div class="btn btnSearch"><span class="language_replace">搜尋</span></div>
                                 <button type="reset" class="btn btnReset"><i class="icon icon-ewin-input-reset"></i></button>
                             </div>
-                            <span class="btn btn__closefullsearch" onclick="closeFullSearch(this)"><i class="icon icon-ewin-input-compress"></i></span>
+                            <span class="btn btn__closefullsearch" onclick="SearchControll.closeFullSearch(this)"><i class="icon icon-ewin-input-compress"></i></span>
                         </form>
                     </div>
                 </div>
@@ -2431,8 +2446,7 @@
                                     <div class="has-arrow"><i class="arrow"></i></div>
                                 </div>
                             </div>
-                            <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory"
-                                style="display: none">
+                            <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory">
                                 <select class="custom-select" id="seleGameCategory">
                                     <option class="title language_replace" value="All" selected>全部</option>
                                     <option class="searchFilter-option language_replace" value="Electron">Electron
@@ -2445,7 +2459,7 @@
                             </div>
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
-                                    language_replace="placeholder" placeholder="キーワード" onkeyup="SearchControll.SearchKeyWordKeyup()" enterkeyhint="">
+                                    language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
                                 <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                             </div>
                             <button onclick="SearchControll.searchGameList()" type="button"
