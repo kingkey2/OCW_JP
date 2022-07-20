@@ -979,7 +979,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     GUID = GUID
                 };
 
-                R.SummaryList = callResult.SummaryList.Where(y=>y.LoginAccount == SI.LoginAccount).GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
+                R.SummaryList = callResult.SummaryList.Where(x=>x.OrderValue > 0).GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
                     ValidBetValue = sum.Sum(y => y.ValidBetValue),
                     RewardValue = sum.Sum(y => y.RewardValue),
                     OrderValue = sum.Sum(y => y.OrderValue),
