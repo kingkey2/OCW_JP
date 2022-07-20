@@ -215,47 +215,57 @@
                             } else if (showType == 1) {
                                 game_wrapper = '<div class="game_wrapper gameRanking">';
                             }
-
+          
                             if (showType == 2) {
-                                categArea = `<section class="section-wrap section_randomRem">
-                                        <div class="container-fluid">
-                                            <div class="game_wrapper">
-                                                <div class="sec-title-container">
+                                categArea = `<section class="game-area">
+                                               <div class="container">
+                                                  <section class="section-wrap section_randomRem">
+                                                    <div class="container-fluid">
+                                                        <div class="game_wrapper">
+                                                            <div class="sec-title-container">
+                                                                <div class="sec-title-wrapper">
+                                                                </div>
+                                                            </div>
+                                                            <div class="game_slider swiper_container round-arrow swiper-cover GameItemGroup1_${Location}">
+                                                                <div class="swiper-wrapper GameItemGroupContent">
+                                                                ${gameItems}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                     </div>
+                                                </section>
+                                               </div>
+                                              </section>`;
+                            } else {
+                                if (category.SortIndex >= 90) {
+                                    categArea = `<section class="game-area overflow-hidden">
+                                                    <div class="container">
+                                                    <section class="section-wrap section-levelUp">
+                                                    ${game_wrapper}
+                                                    <div class="sec-title-container">
                                                     <div class="sec-title-wrapper">
+                                                    <h3 class="sec-title"><i class="icon icon-mask icon-star"></i>
+                                                    <span class="language_replace title CategName langkey" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey(categName)}</span>
+                                                    </h3>
                                                     </div>
-                                                </div>
-                                                <div class="game_slider swiper_container round-arrow swiper-cover GameItemGroup1_${Location}">
+                                                    ${textlink}
+                                                    </div>
+                                                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
                                                     <div class="swiper-wrapper GameItemGroupContent">
                                                     ${gameItems}
                                                     </div>
-                                                </div>
-                                            </div>
-                                         </div>
-                                    </section>`;
-                            } else {
-                                if (category.SortIndex >= 90) {
-                                    categArea = ` <section class="section-wrap section-levelUp">
-                                                ${game_wrapper}
-                                                <div class="sec-title-container">
-                                                <div class="sec-title-wrapper">
-                                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i>
-                                                <span class="language_replace title CategName langkey" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey(categName)}</span>
-                                                </h3>
-                                                </div>
-                                                ${textlink}
-                                                </div>
-                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
-                                                <div class="swiper-wrapper GameItemGroupContent">
-                                                ${gameItems}
-                                                </div>
-                                                <div class="swiper-button-next"></div>
-                                                <div class="swiper-button-prev"></div>
-                                                </div>
-                                                </div>
-                                                </section>`;
+                                                    <div class="swiper-button-next"></div>
+                                                    <div class="swiper-button-prev"></div>
+                                                    </div>
+                                                    </div>
+                                                    </section>
+                                                    </div>
+                                                    </section>`;
                                 }
                                 else {
-                                    categArea = ` <section class="section-wrap section-levelUp">
+                                    categArea = ` <section class="game-area overflow-hidden">
+                                                  <div class="container">
+                                                <section class="section-wrap section-levelUp">
                                                 ${game_wrapper}
                                                 <div class="sec-title-container">
                                                 <div class="sec-title-wrapper">
@@ -271,6 +281,8 @@
                                                 <div class="swiper-button-next"></div>
                                                 <div class="swiper-button-prev"></div>
                                                 </div>
+                                                </div>
+                                                </section>
                                                 </div>
                                                 </section>`;
                                 }
@@ -876,10 +888,8 @@
             </div>
         </section>
         <div id="gameAreas">
-              <section class="game-area overflow-hidden">
-            <div class="container">
-            </div>
-        </section>
+
+        </div>
           <!-- 遊戲-排名區-新版 遊戲內容-->
          <section class="game-area overflow-hidden" style="display:">
             <div class="container">
