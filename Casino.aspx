@@ -68,6 +68,7 @@
     var tmpCategory_GameList_Other = "";
     var tmpCategory_GameList_Slot = "";
     var selectedCategorys = [];
+    var GameCategoryCodeArray = [];
     function showSearchGameModel() {
         window.parent.API_ShowSearchGameModel();
     }
@@ -192,6 +193,10 @@
                                 });
 
                                 if (gameItem) {
+                                    if (!GameCategoryCodeArray.includes(gameItem.GameCategoryCode)) {
+                                        GameCategoryCodeArray.push(gameItem.GameCategoryCode)
+                                    }
+                                    
                                     createGameItem(gameItem, showType, function (stringGameItem) {
                                         gameItems += stringGameItem;
                                     });
@@ -220,7 +225,6 @@
                                 categArea = `<section class="game-area">
                                                   <section class="section-wrap section_randomRem">
                                                     <div class="container">
-                                                    <div class="container-fluid">
                                                         <div class="game_wrapper">
                                                             <div class="sec-title-container">
                                                                 <div class="sec-title-wrapper">
@@ -232,7 +236,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                     </div>
                                                     </div>
                                                 </section>
                                               </section>`;
@@ -353,7 +356,7 @@
             } else {
                 gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                gameitemlink = '<span class="game-item-link" onmouseover="' + "appendGameProp('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "','" + RTP + "','" + gameItem.GameID + "','" + gameItem.FavoTimeStamp + "','" + gameItem.GameCode + "'," + showType + ")" + '" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
+                gameitemlink = '<span class="game-item-link" onmouseover="' + "appendGameProp('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "','" + RTP + "','" + gameItem.GameID + "','" + gameItem.FavoTimeStamp + "','" + gameItem.GameCode + "'," + showType + ",'" + gameItem.GameCategoryCode + "')" + '" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
 
             }
 
@@ -399,13 +402,29 @@
         }
     }
 
-    function appendGameProp(gameBrand, gameName, gameLangName, RTP, gameID, favoTimeStamp, gameCode, showType) {
+    function appendGameProp(gameBrand, gameName, gameLangName, RTP, gameID, favoTimeStamp, gameCode, showType, gameCategoryCode) {
 
         var doc = event.currentTarget;
         var jquerydoc = $(doc).parent().parent().eq(0);
         var btnlike;
         var btnplay;
         var gameProp;
+        var _gameCategoryCode;
+        switch (gameCategoryCode) {
+            case "Electron":
+                _gameCategoryCode = "elec";
+                break;
+            case "Live":
+                _gameCategoryCode = "live";
+                break;
+            case "Slot":
+                _gameCategoryCode = "slot";
+                break;
+            default:
+                _gameCategoryCode = "etc";
+                break;
+        }
+
         if (!jquerydoc.hasClass('addedGameProp')) {
             if (favoTimeStamp) {
                 btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
@@ -413,102 +432,147 @@
                 btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
             }
 
-            btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameBrand + "', '" + gameName + "','" + gameLangName + "')" + '">';
-            if (showType == 0) {
+            //btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameBrand + "', '" + gameName + "','" + gameLangName + "')" + '">';
+//            if (showType == 0) {
+//                gameProp = `<div class="game-item-info-detail open">
+//        <div class="game-item-info-detail-wrapper">
+//            <div class="game-item-info-detail-moreInfo">
+//                <ul class="moreInfo-item-wrapper">
+//                    <li class="moreInfo-item brand">
+//                        <span class="title language_replace">品牌</span>
+//                        <span class="value GameBrand">${gameBrand}</span>
+//                    </li>
+//                    <li class="moreInfo-item RTP">
+//                        <span class="title">RTP</span>
+//                        <span class="value number valueRTP">${RTP}</span>
+//                    </li>
+//                    <li class="moreInfo-item gamecode">
+//                        <span class="title">NO.</span>
+//                        <span class="value number GameID">${gameID}</span>
+//                    </li>
+//                </ul>
+//            </div>
+//            <div class="game-item-info-detail-indicator">
+//                <div class="game-item-info-detail-indicator-inner">
+//                    <div class="info">
+//                        <h3 class="game-item-name">${gameLangName}</h3>
+//                    </div>
+//                    <div class="action"
+//                        <div class="btn-s-wrapper">
+//<button type="button" class="btn-thumbUp btn btn-round">
+//<i class="icon icon-m-thumup"></i>
+//</button>
+//                            ${btnlike}
+//<i class="icon icon-m-favorite"></i>
+//</button>
+//<button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
+//<i class="arrow arrow-down"></i>
+//</button>
+//                        </div>
+//                        ${btnplay}
+//<span class="language_replace">遊玩</span><i class="triangle"></i></button>
+//                    </div>
+//                </div>
+//            </div>
+//        </div>
+//    </div>`;
+//            }
+//            else if (showType == 1) {
+//                gameProp = `   <div class="game-item-info-detail">
+//                                                    <div class="game-item-info-detail-wrapper">
+//                                                        <div class="game-item-info-detail-moreInfo">
+//                                                            <ul class="moreInfo-item-wrapper">
+//                                                                <li class="moreInfo-item brand">
+//                                                                    <span class="title language_replace">品牌</span>
+//                                                                    <span class="value GameBrand">${gameBrand}</span>
+//                                                                </li>
+//                                                                <li class="moreInfo-item RTP">
+//                                                                     <span class="title">RTP</span>
+//                                                                     <span class="value number valueRTP">${RTP}</span>
+//                                                                </li>
+//                                                                <li class="moreInfo-item gamecode">
+//                                                                     <span class="title">NO.</span>
+//                                                                     <span class="value number GameID">${gameID}</span>
+//                                                                </li>
+//                                                            </ul>
+//                                                        </div>
+//                                                        <div class="game-item-info-detail-indicator">
+//                                                            <div class="game-item-info-detail-indicator-inner">
+//                                                                <div class="info">
+//                                                                    <h3 class="game-item-name">${gameLangName}</h3>
+//                                                                </div>
+//                                                                <div class="action">
+//                                                                    <div class="btn-s-wrapper">
+//                                                                        <button type="button" class="btn-thumbUp btn btn-round">
+//                                                                            <i class="icon icon-m-thumup"></i>
+//                                                                        </button>
+//                                                                         ${btnlike}
+//                                                                            <i class="icon icon-m-favorite"></i>
+//                                                                        </button>
+//                                                                        <button type="button" class="btn-more btn btn-round">
+//                                                                            <i class="arrow arrow-down"></i>
+//                                                                        </button>
+//                                                                    </div>
+//                                                                     ${btnplay}
+//                                                                        <span class="language_replace">遊玩</span><i class="triangle"></i></button>
+//                                                                </div>
+//                                                            </div>
+//                                                        </div>
+//                                                    </div>
+//                                                </div>`;
+//            }
+            //<!-- 判斷分類 加入class=> slot/live/etc/elec-->
+            if (showType != 2) {
                 gameProp = `<div class="game-item-info-detail open">
-        <div class="game-item-info-detail-wrapper">
-            <div class="game-item-info-detail-moreInfo">
-                <ul class="moreInfo-item-wrapper">
-                    <li class="moreInfo-item brand">
-                        <span class="title language_replace">品牌</span>
-                        <span class="value GameBrand">${gameBrand}</span>
-                    </li>
-                    <li class="moreInfo-item RTP">
-                        <span class="title">RTP</span>
-                        <span class="value number valueRTP">${RTP}</span>
-                    </li>
-                    <li class="moreInfo-item gamecode">
-                        <span class="title">NO.</span>
-                        <span class="value number GameID">${gameID}</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="game-item-info-detail-indicator">
-                <div class="game-item-info-detail-indicator-inner">
-                    <div class="info">
-                        <h3 class="game-item-name">${gameLangName}</h3>
-                    </div>
-                    <div class="action"
-                        <div class="btn-s-wrapper">
-<button type="button" class="btn-thumbUp btn btn-round">
-<i class="icon icon-m-thumup"></i>
-</button>
-                            ${btnlike}
-<i class="icon icon-m-favorite"></i>
-</button>
-<button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
-<i class="arrow arrow-down"></i>
-</button>
-                        </div>
-                        ${btnplay}
-<span class="language_replace">遊玩</span><i class="triangle"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>`;
-            }
-            else if (showType == 1) {
-                gameProp = `   <div class="game-item-info-detail">
-                                                    <div class="game-item-info-detail-wrapper">
-                                                        <div class="game-item-info-detail-moreInfo">
-                                                            <ul class="moreInfo-item-wrapper">
-                                                                <li class="moreInfo-item brand">
-                                                                    <span class="title language_replace">品牌</span>
-                                                                    <span class="value GameBrand">${gameBrand}</span>
-                                                                </li>
-                                                                <li class="moreInfo-item RTP">
-                                                                     <span class="title">RTP</span>
-                                                                     <span class="value number valueRTP">${RTP}</span>
-                                                                </li>
-                                                                <li class="moreInfo-item gamecode">
-                                                                     <span class="title">NO.</span>
-                                                                     <span class="value number GameID">${gameID}</span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="game-item-info-detail-indicator">
-                                                            <div class="game-item-info-detail-indicator-inner">
-                                                                <div class="info">
-                                                                    <h3 class="game-item-name">${gameLangName}</h3>
-                                                                </div>
-                                                                <div class="action">
-                                                                    <div class="btn-s-wrapper">
-                                                                        <button type="button" class="btn-thumbUp btn btn-round">
-                                                                            <i class="icon icon-m-thumup"></i>
-                                                                        </button>
-                                                                         ${btnlike}
-                                                                            <i class="icon icon-m-favorite"></i>
-                                                                        </button>
-                                                                        <button type="button" class="btn-more btn btn-round">
-                                                                            <i class="arrow arrow-down"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                     ${btnplay}
-                                                                        <span class="language_replace">遊玩</span><i class="triangle"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>`;
-            }
+                                <div class="game-item-info-detail-wrapper">
+                                    <div class="game-item-info-detail-moreInfo">
+                                        <ul class="moreInfo-item-wrapper">
+                                            <li class="moreInfo-item category ${_gameCategoryCode}">
+                                                <span class="value"><i class="icon icon-mask"></i></span>
+                                            </li>
+                                            <li class="moreInfo-item brand">
+                                                <span class="title language_replace">品牌</span>
+                                                <span class="value GameBrand">${gameBrand}</span>
+                                            </li>
+                                            <li class="moreInfo-item RTP">
+                                                 <span class="title">RTP</span>
+                                                 <span class="value number valueRTP">${RTP}</span>
+                                            </li>
+                                            <li class="moreInfo-item gamecode">
+                                                 <span class="title">NO.</span>
+                                                 <span class="value number GameID">${gameID}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="game-item-info-detail-indicator">
+                                        <div class="game-item-info-detail-indicator-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">${gameLangName}</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round is-hide">
+                                                        <i class="icon icon-m-thumup"></i>
+                                                    </button>
+                                                     ${btnlike}
+                                                        <i class="icon icon-m-favorite"></i>
+                                                    </button>
+                                                    <!-- <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button> -->
+                                                </div>
+                                                <!-- <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">???</span><i class="triangle"></i></button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
 
-            jquerydoc.append(gameProp);
+                jquerydoc.append(gameProp);
+            }
             jquerydoc.addClass('addedGameProp');
         }
-
-
-
     };
 
     function favBtnClcik(gameCode) {
