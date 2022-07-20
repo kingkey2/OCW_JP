@@ -85,14 +85,14 @@
         selectedCategoryCode = categoryCode;
         if (!selectedCategorys.includes(categoryCode)) {
             createCategory(categoryCode, function () {
-                $('#categoryPage_' + selectedCategory).css('height', '0');
+                $('#categoryPage_' + selectedCategory).addClass('contain-disappear');
 
-                $('#categoryPage_' + categoryCode).css('height', 'auto');
+                $('#categoryPage_' + categoryCode).removeClass('contain-disappear');
                 setSwiper(categoryCode);
             });
         } else {
-            $('#categoryPage_' + selectedCategory).css('height', '0');
-            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategory).addClass('contain-disappear');
+            $('#categoryPage_' + categoryCode).removeClass('contain-disappear');
         }
 
         window.document.body.scrollTop = 0;
@@ -241,7 +241,7 @@
                                               </section>`;
                             } else {
                                 if (category.SortIndex >= 90) {
-                                    categArea = `<section class="game-area overflow-hidden">
+                                    categArea = `<section class="game-area">
                                                     <section class="section-wrap section-levelUp">
                                                     <div class="container">
                                                     ${game_wrapper}
@@ -266,7 +266,7 @@
                                                     </section>`;
                                 }
                                 else {
-                                    categArea = ` <section class="game-area overflow-hidden">
+                                    categArea = ` <section class="game-area">
                                                 <section class="section-wrap section-levelUp">
                                                  <div class="container">
                                                 ${game_wrapper}
@@ -296,9 +296,8 @@
                     }
                 }
 
-                //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="content-visibility:hidden"></div>');
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;overflow-y: hidden;overflow-x: hidden;"></div>');
-
+                //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;overflow-y: hidden;overflow-x: hidden;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 categoryDiv.append(categAreas);
                 $('#gameAreas').append(categoryDiv);
                 cb();
@@ -315,6 +314,7 @@
         var imgsrc;
         var gameName;
         var gameItemInfo = "";
+
         if (gameItem) {
             gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
 
@@ -356,7 +356,7 @@
             } else {
                 gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                gameitemlink = '<span class="game-item-link" onmouseover="' + "appendGameProp('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "','" + RTP + "','" + gameItem.GameID + "','" + gameItem.FavoTimeStamp + "','" + gameItem.GameCode + "'," + showType + ",'" + gameItem.GameCategoryCode + "')" + '" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
+                gameitemlink = '<span class="game-item-link" onmouseover="' + "appendGameProp('" + gameItem.GameBrand + "','" + gameName + "','" + RTP + "','" + gameItem.GameID +  "','" + gameItem.GameCode + "'," + showType + ",'" + gameItem.GameCategoryCode + "')" + '" onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
 
             }
 
@@ -402,128 +402,45 @@
         }
     }
 
-    function appendGameProp(gameBrand, gameName, gameLangName, RTP, gameID, favoTimeStamp, gameCode, showType, gameCategoryCode) {
+    function appendGameProp(gameBrand, gameLangName, RTP, gameID, gameCode, showType, gameCategoryCode) {
 
         var doc = event.currentTarget;
         var jquerydoc = $(doc).parent().parent().eq(0);
         var btnlike;
-        var btnplay;
         var gameProp;
         var _gameCategoryCode;
-        switch (gameCategoryCode) {
-            case "Electron":
-                _gameCategoryCode = "elec";
-                break;
-            case "Live":
-                _gameCategoryCode = "live";
-                break;
-            case "Slot":
-                _gameCategoryCode = "slot";
-                break;
-            default:
-                _gameCategoryCode = "etc";
-                break;
-        }
+   
+        const promise = new Promise((resolve, reject) => {
+            GCB.GetByGameCode(gameCode, (gameItem) => {
+                resolve(gameItem.FavoTimeStamp);
+            })
+        });
+        promise.then((favoTimeStamp) => {
 
-        if (!jquerydoc.hasClass('addedGameProp')) {
-            if (favoTimeStamp) {
-                btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
-            } else {
-                btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
-            }
+                switch (gameCategoryCode) {
+                    case "Electron":
+                        _gameCategoryCode = "elec";
+                        break;
+                    case "Live":
+                        _gameCategoryCode = "live";
+                        break;
+                    case "Slot":
+                        _gameCategoryCode = "slot";
+                        break;
+                    default:
+                        _gameCategoryCode = "etc";
+                        break;
+                }
 
-            //btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.openGame('" + gameBrand + "', '" + gameName + "','" + gameLangName + "')" + '">';
-//            if (showType == 0) {
-//                gameProp = `<div class="game-item-info-detail open">
-//        <div class="game-item-info-detail-wrapper">
-//            <div class="game-item-info-detail-moreInfo">
-//                <ul class="moreInfo-item-wrapper">
-//                    <li class="moreInfo-item brand">
-//                        <span class="title language_replace">品牌</span>
-//                        <span class="value GameBrand">${gameBrand}</span>
-//                    </li>
-//                    <li class="moreInfo-item RTP">
-//                        <span class="title">RTP</span>
-//                        <span class="value number valueRTP">${RTP}</span>
-//                    </li>
-//                    <li class="moreInfo-item gamecode">
-//                        <span class="title">NO.</span>
-//                        <span class="value number GameID">${gameID}</span>
-//                    </li>
-//                </ul>
-//            </div>
-//            <div class="game-item-info-detail-indicator">
-//                <div class="game-item-info-detail-indicator-inner">
-//                    <div class="info">
-//                        <h3 class="game-item-name">${gameLangName}</h3>
-//                    </div>
-//                    <div class="action"
-//                        <div class="btn-s-wrapper">
-//<button type="button" class="btn-thumbUp btn btn-round">
-//<i class="icon icon-m-thumup"></i>
-//</button>
-//                            ${btnlike}
-//<i class="icon icon-m-favorite"></i>
-//</button>
-//<button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
-//<i class="arrow arrow-down"></i>
-//</button>
-//                        </div>
-//                        ${btnplay}
-//<span class="language_replace">遊玩</span><i class="triangle"></i></button>
-//                    </div>
-//                </div>
-//            </div>
-//        </div>
-//    </div>`;
-//            }
-//            else if (showType == 1) {
-//                gameProp = `   <div class="game-item-info-detail">
-//                                                    <div class="game-item-info-detail-wrapper">
-//                                                        <div class="game-item-info-detail-moreInfo">
-//                                                            <ul class="moreInfo-item-wrapper">
-//                                                                <li class="moreInfo-item brand">
-//                                                                    <span class="title language_replace">品牌</span>
-//                                                                    <span class="value GameBrand">${gameBrand}</span>
-//                                                                </li>
-//                                                                <li class="moreInfo-item RTP">
-//                                                                     <span class="title">RTP</span>
-//                                                                     <span class="value number valueRTP">${RTP}</span>
-//                                                                </li>
-//                                                                <li class="moreInfo-item gamecode">
-//                                                                     <span class="title">NO.</span>
-//                                                                     <span class="value number GameID">${gameID}</span>
-//                                                                </li>
-//                                                            </ul>
-//                                                        </div>
-//                                                        <div class="game-item-info-detail-indicator">
-//                                                            <div class="game-item-info-detail-indicator-inner">
-//                                                                <div class="info">
-//                                                                    <h3 class="game-item-name">${gameLangName}</h3>
-//                                                                </div>
-//                                                                <div class="action">
-//                                                                    <div class="btn-s-wrapper">
-//                                                                        <button type="button" class="btn-thumbUp btn btn-round">
-//                                                                            <i class="icon icon-m-thumup"></i>
-//                                                                        </button>
-//                                                                         ${btnlike}
-//                                                                            <i class="icon icon-m-favorite"></i>
-//                                                                        </button>
-//                                                                        <button type="button" class="btn-more btn btn-round">
-//                                                                            <i class="arrow arrow-down"></i>
-//                                                                        </button>
-//                                                                    </div>
-//                                                                     ${btnplay}
-//                                                                        <span class="language_replace">遊玩</span><i class="triangle"></i></button>
-//                                                                </div>
-//                                                            </div>
-//                                                        </div>
-//                                                    </div>
-//                                                </div>`;
-//            }
-            //<!-- 判斷分類 加入class=> slot/live/etc/elec-->
-            if (showType != 2) {
-                gameProp = `<div class="game-item-info-detail open">
+                if (!jquerydoc.hasClass('addedGameProp')) {
+                    if (favoTimeStamp != null) {
+                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                    } else {
+                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                    }
+                    //<!-- 判斷分類 加入class=> slot/live/etc/elec-->
+                    if (showType != 2) {
+                        gameProp = `<div class="game-item-info-detail open">
                                 <div class="game-item-info-detail-wrapper">
                                     <div class="game-item-info-detail-moreInfo">
                                         <ul class="moreInfo-item-wrapper">
@@ -569,10 +486,12 @@
                                 </div>
                             </div>`;
 
-                jquerydoc.append(gameProp);
-            }
-            jquerydoc.addClass('addedGameProp');
-        }
+                        jquerydoc.append(gameProp);
+                    }
+                    jquerydoc.addClass('addedGameProp');
+                }
+
+        });
     };
 
     function favBtnClcik(gameCode) {
@@ -653,7 +572,7 @@
             //$('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
             $('#idGameItemTitle .tab-item').eq(0).addClass('active');
 
-            $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
 
             setSwiper(selectedCategoryCode);
@@ -671,10 +590,9 @@
             //$('.categoryPage').css('content-visibility', 'hidden');
             //$('#categoryPage_' + categoryCode).css('content-visibility', 'auto');
 
-            $('.categoryPage').css('height', '0');
+            $('.categoryPage').addClass('contain-disappear');
             //$('.categoryPage').css('overflow-y', 'hidden');
-
-            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + categoryCode).css('overflow-y', 'hidden');
             setSwiper(categoryCode);
         });
