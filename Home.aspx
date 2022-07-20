@@ -1062,7 +1062,6 @@
                                                     <span class="amount-title language_replace">累積獎金</span>
                                                     <span class="bouns-amount">123,123</span>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
