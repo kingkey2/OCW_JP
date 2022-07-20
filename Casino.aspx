@@ -218,8 +218,8 @@
           
                             if (showType == 2) {
                                 categArea = `<section class="game-area">
-                                               <div class="container">
                                                   <section class="section-wrap section_randomRem">
+                                                    <div class="container">
                                                     <div class="container-fluid">
                                                         <div class="game_wrapper">
                                                             <div class="sec-title-container">
@@ -233,14 +233,14 @@
                                                             </div>
                                                         </div>
                                                      </div>
+                                                    </div>
                                                 </section>
-                                               </div>
                                               </section>`;
                             } else {
                                 if (category.SortIndex >= 90) {
                                     categArea = `<section class="game-area overflow-hidden">
-                                                    <div class="container">
                                                     <section class="section-wrap section-levelUp">
+                                                    <div class="container">
                                                     ${game_wrapper}
                                                     <div class="sec-title-container">
                                                     <div class="sec-title-wrapper">
@@ -258,14 +258,14 @@
                                                     <div class="swiper-button-prev"></div>
                                                     </div>
                                                     </div>
-                                                    </section>
                                                     </div>
+                                                    </section>
                                                     </section>`;
                                 }
                                 else {
                                     categArea = ` <section class="game-area overflow-hidden">
-                                                  <div class="container">
                                                 <section class="section-wrap section-levelUp">
+                                                 <div class="container">
                                                 ${game_wrapper}
                                                 <div class="sec-title-container">
                                                 <div class="sec-title-wrapper">
@@ -282,8 +282,8 @@
                                                 <div class="swiper-button-prev"></div>
                                                 </div>
                                                 </div>
-                                                </section>
                                                 </div>
+                                                </section>
                                                 </section>`;
                                 }
                             }
