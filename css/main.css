@@ -5542,9 +5542,6 @@ i {
   padding-bottom: 20px;
 }
 
-.game-area.overflow-hidden {
-  padding-left: 10px;
-}
 .game-area.overflow-hidden .container {
   overflow: hidden;
   padding-left: 0;
@@ -6498,10 +6495,6 @@ i {
   }
 }
 @media (min-width: 936px) {
-  .game-area.overflow-hidden {
-    padding-bottom: 160px;
-  }
-
   .swiper-button-next, .swiper-button-next.swiper-button-disabled, .swiper-button-prev, .swiper-button-prev.swiper-button-disabled {
     display: inline-block;
     color: #fff;
