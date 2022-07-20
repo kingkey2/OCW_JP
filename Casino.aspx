@@ -790,8 +790,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -812,11 +810,50 @@
         </div>
         <!-- 各分類-單一遊戲推薦區 -->
         <section class="section-category-dailypush" style="display:;">
-            <div class="container">
+            <div class="container">                
+                <!-- hot -->
+                <div class="category-dailypush-wrapper hot">
+                    <div class="category-dailypush-inner">
+                        <div class="category-dailypush-img" style="background-color: #121a16;">
+                            <div class="img-box mobile">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-hot-M-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-hot-001.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-dailypush-cotentBox">
+                            <div class="category-dailypush-cotent">
+                                <h2 class="title language_replace">本日優選推薦</h2>
+                                <div class="info">
+                                    <h3 class="gamename language_replace">叢林之王-集鴻運</h3>
+                                    <div class="detail">
+                                        <span class="gamebrand">BNG</span>
+                                        <span class="gamecategory">HOT</span>
+                                    </div>
+                                </div>
+                                <div class="intro language_replace is-hide">
+                                    遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                                </div>
+                                <div class="action">
+                                    <button class="btn btn-play"><span class="language_replace">進入遊戲</span></button>
+                                    <!-- 加入最愛 class=>added-->
+                                    <button type="button" class="btn-like btn btn-round">
+                                        <i class="icon icon-m-favorite"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- SLOT -->
                 <div class="category-dailypush-wrapper slot">
                     <div class="category-dailypush-inner">
-                        <div class="category-dailypush-img" style="background-color: #121a16;">
+                        <div class="category-dailypush-img" style="background-color: #3f2e56;">
                             <div class="img-box mobile">
                                 <div class="img-wrap">
                                     <img src="images/lobby/dailypush-slot-M-001.jpg" alt="">
@@ -832,13 +869,13 @@
                             <div class="category-dailypush-cotent">
                                 <h2 class="title language_replace">本日優選推薦</h2>
                                 <div class="info">
-                                    <h3 class="gamename language_replace">月亮守護者</h3>
+                                    <h3 class="gamename language_replace">moonprincess 月亮守護者</h3>
                                     <div class="detail">
                                         <span class="gamebrand">PNG</span>
                                         <span class="gamecategory">SLOT</span>
                                     </div>
                                 </div>
-                                <div class="intro language_replace">
+                                <div class="intro language_replace is-hide">
                                     遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
                                 </div>
                                 <div class="action">
@@ -852,7 +889,162 @@
                         </div>
                     </div>
                 </div>
-                <!-- REAL -->                
+                <!-- LIVE -->   
+                <div class="category-dailypush-wrapper live">
+                    <div class="category-dailypush-inner">
+                        <div class="category-dailypush-img" style="background-color: #010101;">
+                            <div class="img-box mobile">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-live-M-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-live-001.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-dailypush-cotentBox">
+                            <div class="category-dailypush-cotent">
+                                <h2 class="title language_replace">本日優選推薦</h2>
+                                <div class="info">
+                                    <h3 class="gamename language_replace">LightningTable01 閃電輪盤</h3>
+                                    <div class="detail">
+                                        <span class="gamebrand">EVO</span>
+                                        <span class="gamecategory">LIVE</span>
+                                    </div>
+                                </div>
+                                <div class="intro language_replace is-hide">
+                                    遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                                </div>
+                                <div class="action">
+                                    <button class="btn btn-play"><span class="language_replace">進入遊戲</span></button>
+                                    <!-- 加入最愛 class=>added-->
+                                    <button type="button" class="btn-like btn btn-round">
+                                        <i class="icon icon-m-favorite"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>             
+                <!-- OTHER -->   
+                <div class="category-dailypush-wrapper other">
+                    <div class="category-dailypush-inner">
+                        <div class="category-dailypush-img" style="background-color: #3a3227;">
+                            <div class="img-box mobile">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-other-M-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-other-001.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-dailypush-cotentBox">
+                            <div class="category-dailypush-cotent">
+                                <h2 class="title language_replace">本日優選推薦</h2>
+                                <div class="info">
+                                    <h3 class="gamename language_replace">7PK</h3>
+                                    <div class="detail">
+                                        <span class="gamebrand">KGS</span>
+                                        <span class="gamecategory">OTHER</span>
+                                    </div>
+                                </div>
+                                <div class="intro language_replace is-hide">
+                                    遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                                </div>
+                                <div class="action">
+                                    <button class="btn btn-play"><span class="language_replace">進入遊戲</span></button>
+                                    <!-- 加入最愛 class=>added-->
+                                    <button type="button" class="btn-like btn btn-round">
+                                        <i class="icon icon-m-favorite"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>             
+                <!-- FAVO -->   
+                <div class="category-dailypush-wrapper favo">
+                    <div class="category-dailypush-inner">
+                        <div class="category-dailypush-img" style="background-color: #352c1d;">
+                            <div class="img-box mobile">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-favo-M-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-favo-001.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-dailypush-cotentBox">
+                            <div class="category-dailypush-cotent">
+                                <h2 class="title language_replace">本日優選推薦</h2>
+                                <div class="info">
+                                    <h3 class="gamename language_replace">GonzoTH000000001 岡佐的尋寶之旅</h3>
+                                    <div class="detail">
+                                        <span class="gamebrand">EVO</span>
+                                        <span class="gamecategory">FAVO</span>
+                                    </div>
+                                </div>
+                                <div class="intro language_replace is-hide">
+                                    遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                                </div>
+                                <div class="action">
+                                    <button class="btn btn-play"><span class="language_replace">進入遊戲</span></button>
+                                    <!-- 加入最愛 class=>added-->
+                                    <button type="button" class="btn-like btn btn-round">
+                                        <i class="icon icon-m-favorite"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>             
+                <!-- BRAND -->   
+                <div class="category-dailypush-wrapper brand">
+                    <div class="category-dailypush-inner">
+                        <div class="category-dailypush-img" style="background-color: #014a5d;">
+                            <div class="img-box mobile">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-brand-M-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/dailypush-brand-001.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-dailypush-cotentBox">
+                            <div class="category-dailypush-cotent">
+                                <h2 class="title language_replace">本日優選推薦</h2>
+                                <div class="info">
+                                    <h3 class="gamename language_replace">冰球突破豪華版</h3>
+                                    <div class="detail">
+                                        <span class="gamebrand">MG</span>
+                                        <span class="gamecategory">BRAND</span>
+                                    </div>
+                                </div>
+                                <div class="intro language_replace is-hide">
+                                    遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                                </div>
+                                <div class="action">
+                                    <button class="btn btn-play"><span class="language_replace">進入遊戲</span></button>
+                                    <!-- 加入最愛 class=>added-->
+                                    <button type="button" class="btn-like btn btn-round">
+                                        <i class="icon icon-m-favorite"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>             
             </div>
         </section>
          <section class="game-area overflow-hidden">
