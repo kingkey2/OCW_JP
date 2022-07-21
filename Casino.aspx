@@ -809,7 +809,7 @@
             </div>
         </div>
         <!-- 各分類-單一遊戲推薦區 -->
-        <section class="section-category-dailypush" style="display:;">
+        <section class="section-category-dailypush" style="display:none;">
             <div class="container">                
                 <!-- hot -->
                 <div class="category-dailypush-wrapper hot">
