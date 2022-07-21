@@ -1036,7 +1036,7 @@
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
                                                 <h3 class="title">
-                                                    <span class="name language_replace">金曜日的禮物</span></h3>
+                                                    <span class="name language_replace" style="font-size: 0.45em;width: 5em;text-align: center;">金曜日の<br>プレゼント</span></h3>
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item">
