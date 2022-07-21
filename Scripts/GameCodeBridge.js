@@ -863,7 +863,7 @@
                     }                     
                 }
 
-                searchKeyObjectStore.put(searchKeyword);
+                searchKeyObjectStore.put({ RealSearchKey: searchKeyword});
             }
         }
     }

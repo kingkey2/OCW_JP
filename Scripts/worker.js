@@ -11,8 +11,8 @@ self.addEventListener('message', function (e) {
     //Cmd => 執行動作
     //Params => data參數
     if (e.data) {
-        if (e.data.Cmd == "Init") {            
-            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2]);
+        if (e.data.Cmd == "Init") {
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 1);
 
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
@@ -37,12 +37,12 @@ self.addEventListener('message', function (e) {
 
 
 //#region  Class
-var worker = function (WebUrl, Second, eWinGameItem) {
-    var workerSelf = this;        
+var worker = function (WebUrl, Second, eWinGameItem, Version) {
+    var workerSelf = this;
     var APIUrl = WebUrl;
-    
 
-    function callService(URL, postObject, timeoutMS, cb) {
+
+    var callService = function (URL, postObject, timeoutMS, cb) {
         var xmlHttp = new XMLHttpRequest;
         var postData;
 
@@ -80,7 +80,7 @@ var worker = function (WebUrl, Second, eWinGameItem) {
         xmlHttp.send(postData);
     }
 
-    function getJSON(text) {
+    var getJSON = function (text) {
         var obj = JSON.parse(text);
 
         if (obj) {
@@ -92,19 +92,68 @@ var worker = function (WebUrl, Second, eWinGameItem) {
         }
     }
 
-    
+    var InitDBSchema = function (db) {
+        var store;
+        var categoryStore;
+
+        store = db.createObjectStore("GameCodes", { keyPath: "GameCode", autoIncrement: false });
+        store.createIndex('GameID', "GameID", { unique: true, multiEntry: false });
+        store.createIndex('GameBrand', ['GameBrand', 'SortIndex'], { unique: false, multiEntry: false });
+        store.createIndex('GameCategoryCode', ['GameCategoryCode', 'SortIndex'], { unique: false, multiEntry: false });
+        store.createIndex('GameCategorySubCode', ['GameCategoryCode', 'GameCategorySubCode', 'SortIndex'], { unique: false, multiEntry: false });
+        store.createIndex('SearchKeyWord', "Tags", { unique: false, multiEntry: true }); //搜尋關鍵字使用
+        store.createIndex('PersonalFavo', 'FavoTimeStamp', { unique: false, multiEntry: false });
+        store.createIndex('PersonalPlayed', 'PlayedTimeStamp', { unique: false, multiEntry: false });
+        //store.createIndex('ShowTags', 'ShowTags', { unique: false, multiEntry: true }); //顯性標籤
+
+        categoryStore = db.createObjectStore("GameCategory", { keyPath: ['GameBrand', 'GameCategoryCode'], autoIncrement: false });
+        categoryStore.createIndex('GameBrand', 'GameBrand', { unique: false, multiEntry: false });
+        categoryStore.createIndex('GameCategoryCode', 'GameCategoryCode', { unique: false, multiEntry: false });
+
+        db.createObjectStore("RealSearchKey", { keyPath: "RealSearchKey", autoIncrement: false });
+
+        if (workerSelf.EWinGameItem) {
+            store.put(workerSelf.EWinGameItem);
+            categoryStore.put({
+                GameBrand: workerSelf.EWinGameItem.GameBrand,
+                GameCategoryCode: workerSelf.EWinGameItem.GameCategoryCode,
+            });
+        }
+    }
+
+    var ClearDBSchema = function (cb) {
+        workerSelf.SyncEventData.Database.close();
+        console.log("deleteStart");
+        let DBDeleteRequest = self.indexedDB.deleteDatabase("GameCodeDB");
+
+        DBDeleteRequest.onsuccess = function (event) {
+            console.log("Deleted database successfully")
+            if (cb) {
+                cb();
+            }
+        };
+
+        DBDeleteRequest.onerror = function () {
+            console.log("Couldn't delete database");
+        };
+        DBDeleteRequest.onblocked = function () {
+            console.log("Couldn't delete database due to the operation being blocked");
+        };
+    };
+
     //#region public屬性
 
     //property
     this.SyncEventData = {
         Database: null,
         LastTimeStamp: 0,
-        LastGameID : 0,
+        LastGameID: 0,
         NowTimeStamp: 0,
-        NowGameID: 0 ,
+        NowGameID: 0,
         IntervalSecond: Second,
         FailureSecond: 3,
-        RealSearchKeys = []
+        RealSearchKeys: [],
+        Version: Version
     };
 
     this.EWinGameItem = eWinGameItem;
@@ -114,7 +163,7 @@ var worker = function (WebUrl, Second, eWinGameItem) {
     this.OnInitSyncStart;
 
     this.OnInitSyncEnd;
-
+ 
     this.IsFirstLoaded = false;
 
     this.Sync = function () {
@@ -125,43 +174,18 @@ var worker = function (WebUrl, Second, eWinGameItem) {
 
         //版本號高於當前版本，觸發
         DBRequestLink.onupgradeneeded = function (event) {
-            var db = event.target.result;
-            var store;
-            var categoryStore;
-            var realSearchKeyStore;
             // 第一次建立indexedDB
             if (event.oldVersion == 0) {
-                store = db.createObjectStore("GameCodes", { keyPath: "GameCode", autoIncrement: false });
-                store.createIndex('GameID', "GameID", { unique: true, multiEntry: false });
-                store.createIndex('GameBrand', ['GameBrand', 'SortIndex'], { unique: false, multiEntry: false });
-                store.createIndex('GameCategoryCode', ['GameCategoryCode', 'SortIndex'], { unique: false, multiEntry: false });                
-                store.createIndex('GameCategorySubCode', ['GameCategoryCode', 'GameCategorySubCode', 'SortIndex'], { unique: false, multiEntry: false });
-                store.createIndex('SearchKeyWord', "Tags", { unique: false, multiEntry: true }); //搜尋關鍵字使用
-                store.createIndex('PersonalFavo', 'FavoTimeStamp', { unique: false, multiEntry: false });
-                store.createIndex('PersonalPlayed', 'PlayedTimeStamp', { unique: false, multiEntry: false });
-                //store.createIndex('ShowTags', 'ShowTags', { unique: false, multiEntry: true }); //顯性標籤
-
-                categoryStore = db.createObjectStore("GameCategory", { keyPath: ['GameBrand', 'GameCategoryCode'] ,autoIncrement: false });
-                categoryStore.createIndex('GameBrand', 'GameBrand', { unique: false, multiEntry: false });
-                categoryStore.createIndex('GameCategoryCode', 'GameCategoryCode', { unique: false, multiEntry: false });
-
-                realSearchKeyStore = db.createObjectStore("RealSearchKey", { keyPath: "RealSearchKey", autoIncrement: false });
-
-
-
-                if (workerSelf.EWinGameItem) {
-                    store.put(workerSelf.EWinGameItem);
-                    categoryStore.put({
-                        GameBrand: workerSelf.EWinGameItem.GameBrand,
-                        GameCategoryCode: workerSelf.EWinGameItem.GameCategoryCode,
-                    });
-                }
-            } 
+                InitDBSchema(event.target.result);
+            }
         };
 
         DBRequestLink.onsuccess = function (event) {
+            let dbVersion;
             workerSelf.SyncEventData.Database = event.target.result;
-            if (workerSelf.SyncEventData.Database.version == 1) {
+            dbVersion = workerSelf.SyncEventData.Database.version;
+
+            if (dbVersion == 1) {
                 //有初始化，但沒同步過資料 version =>1
                 workerSelf.SyncEventData.NowGameID = 0;
                 workerSelf.SyncEventData.NowTimeStamp = 0;
@@ -170,47 +194,68 @@ var worker = function (WebUrl, Second, eWinGameItem) {
                     if (workerSelf.OnInitSyncStart) {
                         workerSelf.OnInitSyncStart(false);
                     }
-                }               
-            } else {
-                //有初始化，有同步過資料 version => 15位數，10位數unix + 5 位GamdID
-                workerSelf.SyncEventData.NowTimeStamp = Math.floor(workerSelf.SyncEventData.Database.version / 100000);
-                workerSelf.SyncEventData.NowGameID = workerSelf.SyncEventData.Database.version % 100000;
 
-                if (workerSelf.IsFirstLoaded == false) {
-                    if (workerSelf.OnInitSyncStart) {
-                        workerSelf.OnInitSyncStart(true);
+                    workerSelf.RecursiveSyncGameCode();
+                }
+            } else {
+                if (dbVersion.toString().length == 16) {
+                    let tempNum = dbVersion % 1000000;
+                    let oldVersion = tempNum % 10;
+                    //有初始化，有同步過資料 version => 16位數，10位數unix + 5 位GamdID  + 1位版本號
+                    workerSelf.SyncEventData.NowTimeStamp = Math.floor(dbVersion / 1000000);
+                    workerSelf.SyncEventData.NowGameID = Math.floor(tempNum / 10);
+
+                    if (oldVersion != workerSelf.SyncEventData.Version) {
+                        if (workerSelf.IsFirstLoaded == false) {
+                            ClearDBSchema(function () {
+                                workerSelf.Sync();
+                            });
+                        }
+                    } else {                        
+                        if (workerSelf.IsFirstLoaded == false) {
+                            if (workerSelf.OnInitSyncStart) {
+                                workerSelf.OnInitSyncStart(true);                              
+                            }
+
+                            workerSelf.RecursiveSyncGameCode();
+                        }
                     }
-                }              
+                } else {
+                    if (workerSelf.IsFirstLoaded == false) {
+                        ClearDBSchema(function () {
+                            workerSelf.Sync();
+                        });
+                    }
+                }               
             }
 
-           
-            workerSelf.RecursiveSyncGameCode();
+
+          
         };
     }
 
     this.NextSync = function (Second) {
         workerSelf.SyncEventData.LastTimeStamp = 0;
         workerSelf.SyncEventData.LastGameID = 0;
-
-
+          
         setTimeout(workerSelf.Sync, Second * 1000)
     };
 
     this.SyncSuccess = function (needResetVersion) {
         //db drop
-
+        console.log('StartSync')
         if (workerSelf.SyncEventData.Database) {
             workerSelf.SyncEventData.Database.close();
             workerSelf.SyncEventData.Database = null;
         }
- 
+
         //更新目前同步時間與IndexedDB版本
         if (needResetVersion) {
-            if (workerSelf.SyncEventData.NowTimeStamp * 100000 + workerSelf.SyncEventData.NowGameID == 0) {
+            if (workerSelf.SyncEventData.NowTimeStamp * 1000000 + workerSelf.SyncEventData.NowGameID * 10 + workerSelf.SyncEventData.Version == 0) {
                 self.indexedDB.open('GameCodeDB', 1);
             } else {
-                self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.NowTimeStamp * 100000 + workerSelf.SyncEventData.NowGameID);
-            }           
+                self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.NowTimeStamp * 1000000 + workerSelf.SyncEventData.NowGameID * 10 + workerSelf.SyncEventData.Version);
+            }
         }
 
         if (workerSelf.IsFirstLoaded == false) {
@@ -229,13 +274,13 @@ var worker = function (WebUrl, Second, eWinGameItem) {
         if (workerSelf.SyncEventData.Database) {
             workerSelf.SyncEventData.Database.close();
             workerSelf.SyncEventData.Database = null;
-        }
+        } 
 
         //更新目前同步時間與IndexedDB版本
-        if (workerSelf.SyncEventData.NowTimeStamp * 100000 + workerSelf.SyncEventData.NowGameID == 0) {
+        if (workerSelf.SyncEventData.NowTimeStamp * 1000000 + workerSelf.SyncEventData.NowGameID * 10 + workerSelf.SyncEventData.Version == 0) {
             self.indexedDB.open('GameCodeDB', 1);
         } else {
-            self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.NowTimeStamp * 100000 + workerSelf.SyncEventData.NowGameID);
+            self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.NowTimeStamp * 1000000 + workerSelf.SyncEventData.NowGameID * 10 + workerSelf.SyncEventData.Version);
         }
         workerSelf.NextSync(workerSelf.SyncEventData.FailureSecond);
     };
@@ -262,13 +307,13 @@ var worker = function (WebUrl, Second, eWinGameItem) {
             }
         });
     };
-                                                      
+
     this.RecursiveSyncGameCode = function () {
         let transaction = workerSelf.SyncEventData.Database.transaction(['RealSearchKey'], 'readonly');
         let objectStore = transaction.objectStore('RealSearchKey');
         let getAllKeysRequest = objectStore.getAllKeys();
 
-        getAllKeysRequest.onsuccess = () => {
+        getAllKeysRequest.onsuccess = (event) => {
             if (event.target.result) {
                 workerSelf.SyncEventData.RealSearchKeys = event.target.result;
             }
@@ -287,7 +332,7 @@ var worker = function (WebUrl, Second, eWinGameItem) {
 
                                 let transaction = workerSelf.SyncEventData.Database.transaction(['GameCodes', 'GameCategory'], 'readwrite');
                                 let objectStore = transaction.objectStore('GameCodes');
-                                let objectCategoryStore = transaction.objectStore('GameCategory');                               
+                                let objectCategoryStore = transaction.objectStore('GameCategory');
 
                                 for (var i = 0; i < o.GameCodeList.length; i++) {
                                     let gameCodeItem = o.GameCodeList[i];
@@ -304,7 +349,7 @@ var worker = function (WebUrl, Second, eWinGameItem) {
 
 
                                     //檢查目前存在的關鍵字，產生相關索引
-                                    for (var ii = 0; ii < workerSelf.SyncEventData.RealSearchKeys; ii++) {
+                                    for (var ii = 0; ii < workerSelf.SyncEventData.RealSearchKeys.length; ii++) {
                                         let SearchKeyWord = workerSelf.SyncEventData.RealSearchKeys[ii];
                                         let searchFlag = false;
 
@@ -318,12 +363,12 @@ var worker = function (WebUrl, Second, eWinGameItem) {
                                             if (SearchKeyWord.length >= 2 && tagValue.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
                                                 searchFlag = true;
                                                 break;
-                                            }                                  
+                                            }
                                         }
 
                                         for (var iii = 0; iii < gameCodeItem.Language.length; iii++) {
                                             if (gameCodeItem.Language[iii].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
-                                                searchFlag = true;                                                
+                                                searchFlag = true;
                                                 break;
                                             }
                                         }
@@ -332,17 +377,7 @@ var worker = function (WebUrl, Second, eWinGameItem) {
                                             tags.push(SearchKeyWord);
                                         }
                                     }
-
-
-                                    for (var i = 0; i < gameCodeItem.Language.length; i++) {
-                                        if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
-                                            searchFlag = true;
-                                            updateDatas.push(gameCodeItem)
-                                            break;
-                                        }
-                                    }
-
-
+  
                                     let InsertData = {
                                         GameCode: gameCodeItem.GameCode,
                                         GameBrand: gameCodeItem.BrandCode,
@@ -400,14 +435,14 @@ var worker = function (WebUrl, Second, eWinGameItem) {
             });
         };
 
-   
+
     };
 
     this.Start = function () {
         //分為兩部分進行
         //1.indexDB 處理GameCode事務
         //2.處理分類事務
-               
+
         //indexDB init
         self.indexedDB = self.indexedDB || self.mozIndexedDB || self.webkitIndexedDB || self.msIndexedDB;
         self.IDBTransaction = self.IDBTransaction || self.webkitIDBTransaction || self.msIDBTransaction;
