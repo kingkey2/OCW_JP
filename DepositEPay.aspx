@@ -215,6 +215,13 @@
         }
     }
 
+    function test_pKatakana(word) {
+    
+        var pKatakana = "[\\u30A1-\\u30FA\\u30FD-\\u30FF\\u31F0-\\u31FF\\u32D0-\\u32FE\\u3300-\\u3357\\uFF66-\\uFF6F\\uFF71-\\uFF9D]|\\uD82C\\uDC00";
+        var rx = new RegExp("^/" + pKatakana+"/*$");
+        console.log(rx.test(word));
+     
+    }
     //根據訂單編號取得可參加活動
     function GetDepositActivityInfoByOrderNumber(OrderNum) {
         PaymentClient.GetDepositActivityInfoByOrderNumber(WebInfo.SID, Math.uuid(), OrderNum, function (success, o) {
@@ -313,7 +320,7 @@
                  if (o.Result == 0) {
                     var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
-                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}&Type=${"EPay"}`, "_blank");
+                        window.open(o.Message);
                     });
 
                     setExpireSecond();

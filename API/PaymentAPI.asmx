@@ -1047,8 +1047,8 @@ public class PaymentAPI : System.Web.Services.WebService
         string ReceiveCurrencyType;
         string Decription = "";
         dynamic o = null;
-
-
+        //一般入金與JKC入金
+        string Type;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
@@ -1070,6 +1070,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     var getUserAccountJKCValue = GetUserAccountJKCValue(WebSID, GUID);
                     if (getUserAccountJKCValue.Result == enumResult.OK)
                     {
+                        Type = "EPayJKC";
                         for (int i = 0; i < TempCommonData.PaymentCryptoDetailList.Count; i++)
                         {
                             Decription += TempCommonData.PaymentCryptoDetailList[i].TokenCurrencyType + ",Amount=" + TempCommonData.PaymentCryptoDetailList[i].ReceiveAmount + ",";
@@ -1093,6 +1094,7 @@ public class PaymentAPI : System.Web.Services.WebService
                 }
                 else
                 {
+                    Type = "EPay";
                     Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
                 }
 
@@ -1150,19 +1152,29 @@ public class PaymentAPI : System.Web.Services.WebService
 
                         if (updateTagResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                         {
-
-                            int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
-
-                            if (UpdateRet == 1)
+                            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+                            EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
+                            var CreateEPayDepositeReturn = Payment.EPay.CreateEPayDeposite(paymentResult.PaymentSerial, TempCommonData.Amount, Type, TempCommonData.ToInfo, userInfoResult.ContactPhoneNumber);
+                            if (CreateEPayDepositeReturn.ResultState== Payment.APIResult.enumResultCode.OK)
                             {
-                                R.Result = enumResult.OK;
-                                R.Data = TempCommonData;
-                                TempCommonData.PaymentSerial = paymentResult.PaymentSerial;
-                                TempCommonData.ActivityDatas = tagInfoData.ActivityDatas;
-                                TempCommonData.PointValue = PointValue;
+                                int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
 
-                                //RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(TempCommonData), OrderNumber, TempCommonData.ExpireSecond);
-                                //RedisCache.PaymentContent.KeepPaymentContents(TempCommonData, SI.LoginAccount);
+                                if (UpdateRet == 1)
+                                {
+                                    R.Result = enumResult.OK;
+                                    R.Data = TempCommonData;
+                                    R.Message = CreateEPayDepositeReturn.Message;
+                                    TempCommonData.PaymentSerial = paymentResult.PaymentSerial;
+                                    TempCommonData.ActivityDatas = tagInfoData.ActivityDatas;
+                                    TempCommonData.PointValue = PointValue;
+
+                                    //RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(TempCommonData), OrderNumber, TempCommonData.ExpireSecond);
+                                    //RedisCache.PaymentContent.KeepPaymentContents(TempCommonData, SI.LoginAccount);
+                                }
+                                else
+                                {
+                                    SetResultException(R, "UpdateFailure");
+                                }
                             }
                             else
                             {
