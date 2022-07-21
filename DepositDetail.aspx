@@ -71,7 +71,7 @@
                           window.parent.API_Reload();
                     });
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o), function () {
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請聯絡客服。"), function () {
                           window.parent.API_Reload();
                     });
                 }
