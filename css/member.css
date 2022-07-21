@@ -402,6 +402,9 @@ input.month:read-only, input.day:read-only {
   padding: 10px;
 }
 
+.dailylogin-bouns-wrapper {
+  cursor: pointer;
+}
 .dailylogin-bouns-inner {
   background: -webkit-gradient(linear, left top, left bottom, from(#FFFAC3), to(#FFDFD2));
   background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
@@ -513,6 +516,21 @@ input.month:read-only, input.day:read-only {
   font-size: 1.75rem;
   padding: 3px 0;
   margin-bottom: 6px;
+}
+.dailylogin-bouns-amount {
+  width: 100%;
+  background-color: #1D63A3;
+  color: #fff;
+  position: absolute;
+  margin: 0 auto;
+  bottom: 0;
+  border-radius: 0 0 20px 20px;
+  text-align: center;
+  padding: 10px 0;
+}
+.dailylogin-bouns-amount .bouns-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .member-withdraw-limit-inner {
@@ -736,14 +754,14 @@ input.month:read-only, input.day:read-only {
   }
 
   .dailylogin-bouns-inner {
-    border-bottom: solid 15px #4288C9;
-    border-radius: 20px 20px 0 0;
+    border-radius: 20px;
     padding-top: 15px;
   }
   .dailylogin-bouns-content {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    padding-bottom: 60px;
   }
   .dailylogin-bouns-content .title {
     position: relative;
@@ -767,10 +785,25 @@ input.month:read-only, input.day:read-only {
     width: calc(100% - 150px);
     max-width: 600px;
     right: 0;
-    bottom: -10px;
+    top: -15px;
+  }
+  .dailylogin-bouns-list:after {
+    content: "";
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: calc(100% + 10px);
+    height: 10px;
+    background: #4288C9;
+    z-index: 0;
+    border-radius: 5px 0 0 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
   .dailylogin-bouns-list .bouns-item {
     width: 14.2857142857%;
+    z-index: 1;
   }
   .dailylogin-bouns-list .bouns-item:before {
     max-width: 45px;
@@ -972,7 +1005,8 @@ input.month:read-only, input.day:read-only {
   }
   .dailylogin-bouns-content {
     background: #fff;
-    padding-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 45px;
   }
   .dailylogin-bouns-content .title {
     position: absolute;
@@ -1033,5 +1067,11 @@ input.month:read-only, input.day:read-only {
     border-color: #FFE9A8 transparent transparent transparent;
     -webkit-transform: translateX(-18.5px);
             transform: translateX(-18.5px);
+  }
+  .dailylogin-bouns-amount {
+    width: calc(100% + 20px);
+    left: -10px;
+    bottom: -10px;
+    padding: 12px 0;
   }
 }

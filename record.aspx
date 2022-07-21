@@ -112,12 +112,12 @@
                             }
 
                             c.setClassText(RecordDom, "SummaryDate", null, summaryDate.toString("yyyy/MM/dd"));
-                            c.setClassText(RecordDom, "orderValue", null, new BigNumber(daySummary.TotalOrderValue).toFormat());
-                            c.setClassText(RecordDom, "validBet", null, new BigNumber(daySummary.TotalValidBetValue).toFormat());
-                            c.setClassText(RecordDom, "rewardValue", null, new BigNumber(daySummary.TotalRewardValue).toFormat());
+                            c.setClassText(RecordDom, "orderValue", null, new BigNumber(daySummary.OrderValue).toFormat());
+                            c.setClassText(RecordDom, "validBet", null, new BigNumber(daySummary.ValidBetValue).toFormat());
+                            c.setClassText(RecordDom, "rewardValue", null, new BigNumber(daySummary.RewardValue).toFormat());
 
-                            totalOrderValue = totalOrderValue + daySummary.TotalOrderValue;
-                            totalRewardValue = totalRewardValue + daySummary.TotalRewardValue;
+                            totalOrderValue = totalOrderValue + daySummary.OrderValue;
+                            totalRewardValue = totalRewardValue + daySummary.RewardValue;
 
                             RecordDom.dataset.queryDate = daySummary.SummaryDate;
                             var toggle = RecordDom.querySelector(".btn-toggle")

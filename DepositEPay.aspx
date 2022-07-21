@@ -215,6 +215,12 @@
         }
     }
 
+    function test_pKatakana(word) {
+    
+        if (word.match(/[^ァ-ヶぁ-ヶ|ー]/)) {
+            alert("只能输入日文假名");
+        }
+    }
     //根據訂單編號取得可參加活動
     function GetDepositActivityInfoByOrderNumber(OrderNum) {
         PaymentClient.GetDepositActivityInfoByOrderNumber(WebInfo.SID, Math.uuid(), OrderNum, function (success, o) {
@@ -313,7 +319,7 @@
                  if (o.Result == 0) {
                     var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
-                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}&Type=${"EPay"}`, "_blank");
+                        window.open(o.Message);
                     });
 
                     setExpireSecond();

@@ -308,11 +308,11 @@
                     var btnplay;
                     var imgsrc;
                     var gameName;
-
+                    var _gameCategoryCode;
                     if (gameItem) {
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                        if (gameItem.FavoTimeStamp) {
+                        if (gameItem.FavoTimeStamp!=null) {
                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                         } else {
                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
@@ -346,6 +346,20 @@
 
                         imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
 
+                        switch (gameItem.GameCategoryCode) {
+                            case "Electron":
+                                _gameCategoryCode = "elec";
+                                break;
+                            case "Live":
+                                _gameCategoryCode = "live";
+                                break;
+                            case "Slot":
+                                _gameCategoryCode = "slot";
+                                break;
+                            default:
+                                _gameCategoryCode = "etc";
+                                break;
+                        }
 
                         GI = `${GItitle}
                                             <div class="game-item">
@@ -362,17 +376,20 @@
                                                         <div class="game-item-info-detail-wrapper">
                                                             <div class="game-item-info-detail-moreInfo">
                                                                 <ul class="moreInfo-item-wrapper">
+                                                                    <li class="moreInfo-item category ${_gameCategoryCode}">
+                                                                        <span class="value"><i class="icon icon-mask"></i></span>
+                                                                    </li>
                                                                     <li class="moreInfo-item brand">
                                                                         <span class="title language_replace">品牌</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
-                                                                        <span class="title">RTP</span>
-                                                                        <span class="value number valueRTP">${RTP}</span>
+                                                                         <span class="title">RTP</span>
+                                                                         <span class="value number valueRTP">${RTP}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item gamecode">
-                                                                        <span class="title">NO.</span>
-                                                                        <span class="value number GameID">${gameItem.GameID}</span>
+                                                                         <span class="title">NO.</span>
+                                                                         <span class="value number GameID">${gameItem.GameID}</span>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -383,18 +400,18 @@
                                                                     </div>
                                                                     <div class="action">
                                                                         <div class="btn-s-wrapper">
-                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                <i class="icon icon-m-thumup"></i>
-                                                </button>
-                                                                            ${btnlike}
-                                                <i class="icon icon-m-favorite"></i>
-                                                </button>
-                                                <button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
-                                                <i class="arrow arrow-down"></i>
-                                                </button>
+                                                                            <button type="button" class="btn-thumbUp btn btn-round is-hide">
+                                                                                <i class="icon icon-m-thumup"></i>
+                                                                            </button>
+                                                                             ${btnlike}
+                                                                                <i class="icon icon-m-favorite"></i>
+                                                                            </button>
+                                                                            <!-- <button type="button" class="btn-more btn btn-round">
+                                                                                <i class="arrow arrow-down"></i>
+                                                                            </button> -->
                                                                         </div>
-                                                                        ${btnplay}
-                                                <span class="language_replace">遊玩</span><i class="triangle"></i></button>
+                                                                        <!-- <button type="button" class="btn btn-play">
+                                                                            <span class="language_replace">???</span><i class="triangle"></i></button> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -466,7 +483,7 @@
 
                             for (var ii = 0; ii < category.Datas.length; ii++) {
                                 var o = category.Datas[ii];
-
+                                var _gameCategoryCode;
                                 var GI;
                                 var btnlike;
                                 var GItitle;
@@ -483,7 +500,7 @@
                                 if (gameItem) {
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                                    if (gameItem.FavoTimeStamp) {
+                                    if (gameItem.FavoTimeStamp!=null) {
                                         btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                     } else {
                                         btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
@@ -517,6 +534,20 @@
 
                                     imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
 
+                                    switch (gameItem.GameCategoryCode) {
+                                        case "Electron":
+                                            _gameCategoryCode = "elec";
+                                            break;
+                                        case "Live":
+                                            _gameCategoryCode = "live";
+                                            break;
+                                        case "Slot":
+                                            _gameCategoryCode = "slot";
+                                            break;
+                                        default:
+                                            _gameCategoryCode = "etc";
+                                            break;
+                                    }
 
                                     GI = `${GItitle}
                                             <div class="game-item">
@@ -529,21 +560,24 @@
                                                             <img class="gameimg lozad" src="${imgsrc}">
                                                         </div>
                                                     </div>
-                                                    <div class="game-item-info-detail open">
+                                                   <div class="game-item-info-detail open">
                                                         <div class="game-item-info-detail-wrapper">
                                                             <div class="game-item-info-detail-moreInfo">
                                                                 <ul class="moreInfo-item-wrapper">
+                                                                    <li class="moreInfo-item category ${_gameCategoryCode}">
+                                                                        <span class="value"><i class="icon icon-mask"></i></span>
+                                                                    </li>
                                                                     <li class="moreInfo-item brand">
                                                                         <span class="title language_replace">品牌</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
-                                                                        <span class="title">RTP</span>
-                                                                        <span class="value number valueRTP">${RTP}</span>
+                                                                         <span class="title">RTP</span>
+                                                                         <span class="value number valueRTP">${RTP}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item gamecode">
-                                                                        <span class="title">NO.</span>
-                                                                        <span class="value number GameID">${gameItem.GameID}</span>
+                                                                         <span class="title">NO.</span>
+                                                                         <span class="value number GameID">${gameItem.GameID}</span>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -554,18 +588,18 @@
                                                                     </div>
                                                                     <div class="action">
                                                                         <div class="btn-s-wrapper">
-                                                <button type="button" class="btn-thumbUp btn btn-round">
-                                                <i class="icon icon-m-thumup"></i>
-                                                </button>
-                                                                            ${btnlike}
-                                                <i class="icon icon-m-favorite"></i>
-                                                </button>
-                                                <button type="button" class="btn-more btn btn-round" onclick="$(this).closest('.game-item-info-detail').toggleClass('open');">
-                                                <i class="arrow arrow-down"></i>
-                                                </button>
+                                                                            <button type="button" class="btn-thumbUp btn btn-round is-hide">
+                                                                                <i class="icon icon-m-thumup"></i>
+                                                                            </button>
+                                                                             ${btnlike}
+                                                                                <i class="icon icon-m-favorite"></i>
+                                                                            </button>
+                                                                            <!-- <button type="button" class="btn-more btn btn-round">
+                                                                                <i class="arrow arrow-down"></i>
+                                                                            </button> -->
                                                                         </div>
-                                                                        ${btnplay}
-                                                <span class="language_replace">遊玩</span><i class="triangle"></i></button>
+                                                                        <!-- <button type="button" class="btn btn-play">
+                                                                            <span class="language_replace">???</span><i class="triangle"></i></button> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1026,7 +1060,7 @@
                             </div>
                             <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
-                                <div class="activity-dailylogin-wrapper">
+                                <div class="activity-dailylogin-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
                                     <%--
                                     <div class="coming-soon-text">
                                         2022/7/8 イベントスタート
@@ -1036,7 +1070,7 @@
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
                                                 <h3 class="title">
-                                                    <span class="name language_replace">金曜日的禮物</span></h3>
+                                                    <span class="name language_replace" style="font-size: 0.45em;width: 5em;text-align: center;">金曜日の<br>プレゼント</span></h3>
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item">
@@ -1058,7 +1092,10 @@
                                                         <span class="day"><span class="language_replace">四</span></span>
                                                     </li>
                                                 </ul>
-
+                                                <div class="dailylogin-bouns-amount">
+                                                    <span class="amount-title language_replace">累積獎金</span>
+                                                    <span class="bouns-amount">123,123</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
