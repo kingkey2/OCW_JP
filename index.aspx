@@ -148,6 +148,32 @@
     <link rel="shortcut icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?20220627">
+    <style>
+        .s-btn-more {
+            border-radius: 20px;
+            border: 1px solid #c0c0c0;
+            padding: 10px 50px;
+            width: fit-content;
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 20px auto;
+        }
+            .s-btn-more:hover {
+                background-color: #ddd;
+                border: 1ps solid #666;
+            }
+            .s-btn-more:active {
+                background-color: #ddd;
+                border: 1ps solid #666;
+            }
+            .s-btn-more:visited {
+                background-color: #ddd;
+                border: 1ps solid #666;
+                color: #777;
+            }
+    </style>
 </head>
 <% if (EWinWeb.IsTestSite == false)
     { %>
@@ -1680,7 +1706,7 @@
                         if (alertSearchContent.children().length == 0) {
                             alertSearchContent.append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("沒有資料")}</span></div></div>`);
                         } else if (alertSearchContent.children().length >60) {
-                            alertSearchContent.append(`<div class="no-Data" onclick="SearchControll.rem()"><div class="data"><span class="text language_replace">${mlp.getLanguageKey("查看更多")}</span></div></div>`);
+                            alertSearchContent.append(`<div style="width: 100%;display: block;"></div><div class="s-btn-more" onclick="SearchControll.rem()">${mlp.getLanguageKey("查看更多")}</div>`);
                         }
                     }
                 )
@@ -1742,7 +1768,7 @@
         }
 
         this.searchGameChangeClear = function () {
-            SearchDom.find("#div_SearchGameCategory").hide();
+            SearchDom.find("#div_SearchGameCategory").val("All");
             SearchDom.find("#alertSearchKeyWord").val("");
             SearchDom.find("input[name='button-brandExchange']").each(function (e, v) {
                 $(v).prop("checked", false);
