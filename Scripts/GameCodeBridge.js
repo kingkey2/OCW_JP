@@ -851,14 +851,19 @@
     this.updateByKeywordSearch = function (datas, searchKeyword) {
         if (GCBSelf.IsFirstLoaded) {
             if (datas.length >= 20) {
-                var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+                var transaction = GCBSelf.IndexedDB.transaction(['GameCodes', 'RealSearchKey'], 'readwrite');
                 var objectStore = transaction.objectStore('GameCodes');
+                var searchKeyObjectStore = transaction.objectStore('RealSearchKey');
 
                 for (var i = 0; i < datas.length; i++) {
                     var data = datas[i];
-                    data.Tags.push(searchKeyword);
-                    objectStore.put(data);
+                    if (!data.Tags.includes(searchKeyword)) {
+                        data.Tags.push(searchKeyword);
+                        objectStore.put(data);
+                    }                     
                 }
+
+                searchKeyObjectStore.put(searchKeyword);
             }
         }
     }

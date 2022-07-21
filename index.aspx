@@ -447,10 +447,6 @@
         }
     }
 
-    function API_GetFavoGames() {
-        return getFavoriteGames();
-    }
-
     function API_SendSerivceMail(subject, body, email) {
         lobbyClient.SendCSMail(EWinWebInfo.SID, Math.uuid(), email, subject, body, function (success, o) {
             if (success) {
@@ -940,27 +936,6 @@
     //#endregion
 
     //#region FavoriteGames And MyGames
-
-    function getFavoriteGames() {
-
-        var retFavoriteGames = [];
-        GCB.GetFavo(function (data) {
-            retFavoriteGames.push(data);
-        }, function (data) {
-            return retFavoriteGames;
-        });
-    }
-
-    function checkInFavoriteGame(gameBrand, gameName) {
-        var FavoGames = getFavoriteGames();
-        var index = FavoGames.findIndex(x => x.GameBrand == gameBrand && x.GameName == gameName);
-
-        if (index > -1) {
-            return true
-        } else {
-            return false;
-        }
-    }
 
     function favBtnClick(gameCode) {
         var btn = event.currentTarget;

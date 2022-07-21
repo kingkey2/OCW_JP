@@ -103,7 +103,8 @@ var worker = function (WebUrl, Second, eWinGameItem) {
         NowTimeStamp: 0,
         NowGameID: 0 ,
         IntervalSecond: Second,
-        FailureSecond : 3,
+        FailureSecond: 3,
+        RealSearchKeys = []
     };
 
     this.EWinGameItem = eWinGameItem;
@@ -127,6 +128,7 @@ var worker = function (WebUrl, Second, eWinGameItem) {
             var db = event.target.result;
             var store;
             var categoryStore;
+            var realSearchKeyStore;
             // 第一次建立indexedDB
             if (event.oldVersion == 0) {
                 store = db.createObjectStore("GameCodes", { keyPath: "GameCode", autoIncrement: false });
@@ -142,6 +144,11 @@ var worker = function (WebUrl, Second, eWinGameItem) {
                 categoryStore = db.createObjectStore("GameCategory", { keyPath: ['GameBrand', 'GameCategoryCode'] ,autoIncrement: false });
                 categoryStore.createIndex('GameBrand', 'GameBrand', { unique: false, multiEntry: false });
                 categoryStore.createIndex('GameCategoryCode', 'GameCategoryCode', { unique: false, multiEntry: false });
+
+                realSearchKeyStore = db.createObjectStore("RealSearchKey", { keyPath: "RealSearchKey", autoIncrement: false });
+
+
+
                 if (workerSelf.EWinGameItem) {
                     store.put(workerSelf.EWinGameItem);
                     categoryStore.put({
@@ -257,89 +264,143 @@ var worker = function (WebUrl, Second, eWinGameItem) {
     };
                                                       
     this.RecursiveSyncGameCode = function () {
-        workerSelf.GetCompanyGameCodeByUpdateTimestamp(Math.uuid(), workerSelf.SyncEventData.NowTimeStamp, workerSelf.SyncEventData.NowGameID, function (success, o) {
-            if (workerSelf.SyncEventData.Database) {
-                if (success) {
-                    if (o.Result == 0) {
-                        workerSelf.SyncEventData.LastTimeStamp = o.LastTimestamp;
-                        workerSelf.SyncEventData.LastGameID = o.LastGameID;
+        let transaction = workerSelf.SyncEventData.Database.transaction(['RealSearchKey'], 'readonly');
+        let objectStore = transaction.objectStore('RealSearchKey');
+        let getAllKeysRequest = objectStore.getAllKeys();
 
-                        if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
-                            //已是最新數據，不用同步
-                            workerSelf.SyncSuccess(false);
-                        } else {
+        getAllKeysRequest.onsuccess = () => {
+            if (event.target.result) {
+                workerSelf.SyncEventData.RealSearchKeys = event.target.result;
+            }
 
-                            let transaction = workerSelf.SyncEventData.Database.transaction(['GameCodes', 'GameCategory'], 'readwrite');
-                            let objectStore = transaction.objectStore('GameCodes');
-                            let objectCategoryStore = transaction.objectStore('GameCategory');
+            workerSelf.GetCompanyGameCodeByUpdateTimestamp(Math.uuid(), workerSelf.SyncEventData.NowTimeStamp, workerSelf.SyncEventData.NowGameID, function (success, o) {
+                if (workerSelf.SyncEventData.Database) {
+                    if (success) {
+                        if (o.Result == 0) {
+                            workerSelf.SyncEventData.LastTimeStamp = o.LastTimestamp;
+                            workerSelf.SyncEventData.LastGameID = o.LastGameID;
 
-                            for (var i = 0; i < o.GameCodeList.length; i++) {
-                                let gameCodeItem = o.GameCodeList[i];
-                                let tags = [];
-                                let temps = gameCodeItem.CompanyCategoryTag.split(",");
+                            if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
+                                //已是最新數據，不用同步
+                                workerSelf.SyncSuccess(false);
+                            } else {
 
-                                for (var ii = 0; ii < temps.length; ii++) {
-                                    let index = temps[ii].indexOf("@")
-                                    if (index != -1) {                                        
-                                        tags.push(temps[ii].substring(index + 1).trim());
+                                let transaction = workerSelf.SyncEventData.Database.transaction(['GameCodes', 'GameCategory'], 'readwrite');
+                                let objectStore = transaction.objectStore('GameCodes');
+                                let objectCategoryStore = transaction.objectStore('GameCategory');                               
+
+                                for (var i = 0; i < o.GameCodeList.length; i++) {
+                                    let gameCodeItem = o.GameCodeList[i];
+                                    let tags = [];
+                                    let temps = gameCodeItem.GameCodeCategory;
+
+                                    for (var ii = 0; ii < temps.length; ii++) {
+                                        let index = temps[ii].CategoryName.indexOf("@")
+                                        if (index != -1) {
+                                            let tagValue = temps[ii].CategoryName.substring(index + 1).trim();
+                                            tags.push(tagValue);
+                                        }
                                     }
+
+
+                                    //檢查目前存在的關鍵字，產生相關索引
+                                    for (var ii = 0; ii < workerSelf.SyncEventData.RealSearchKeys; ii++) {
+                                        let SearchKeyWord = workerSelf.SyncEventData.RealSearchKeys[ii];
+                                        let searchFlag = false;
+
+                                        for (var iii = 0; iii < tags.length; iii++) {
+                                            let tagValue = tags[iii]
+                                            if (SearchKeyWord.toLowerCase().includes(tagValue)) {
+                                                searchFlag = true;
+                                                break;
+                                            }
+
+                                            if (SearchKeyWord.length >= 2 && tagValue.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                                searchFlag = true;
+                                                break;
+                                            }                                  
+                                        }
+
+                                        for (var iii = 0; iii < gameCodeItem.Language.length; iii++) {
+                                            if (gameCodeItem.Language[iii].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                                searchFlag = true;                                                
+                                                break;
+                                            }
+                                        }
+
+                                        if (searchFlag == true && !tags.includes(realSearchKey)) {
+                                            tags.push(SearchKeyWord);
+                                        }
+                                    }
+
+
+                                    for (var i = 0; i < gameCodeItem.Language.length; i++) {
+                                        if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                            searchFlag = true;
+                                            updateDatas.push(gameCodeItem)
+                                            break;
+                                        }
+                                    }
+
+
+                                    let InsertData = {
+                                        GameCode: gameCodeItem.GameCode,
+                                        GameBrand: gameCodeItem.BrandCode,
+                                        GameID: gameCodeItem.GameID,
+                                        GameName: gameCodeItem.GameName,
+                                        GameCategoryCode: gameCodeItem.GameCategoryCode,
+                                        GameCategorySubCode: gameCodeItem.GameCategorySubCode,
+                                        GameAccountingCode: gameCodeItem.GameAccountingCode,
+                                        AllowDemoPlay: gameCodeItem.AllowDemoPlay,
+                                        RTPInfo: gameCodeItem.RTPInfo,
+                                        IsHot: gameCodeItem.IsHot,
+                                        IsNew: gameCodeItem.IsNew,
+                                        SortIndex: gameCodeItem.SortIndex,
+                                        Tags: tags,
+                                        Language: gameCodeItem.Language,
+                                        RTP: gameCodeItem.RTP,
+                                        FavoTimeStamp: null,
+                                        PlayedTimeStamp: null
+                                    };
+
+
+                                    try {
+                                        objectStore.put(InsertData);
+                                        objectCategoryStore.put({
+                                            GameBrand: InsertData.GameBrand,
+                                            GameCategoryCode: InsertData.GameCategoryCode
+                                        });
+                                        workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
+                                        workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
+                                    } catch (e) {
+                                        workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
+                                        workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
+                                        workerSelf.SyncFaliure();
+                                        break;
+                                    }
+
+
                                 }
 
-                                let InsertData = {
-                                    GameCode: gameCodeItem.GameCode,
-                                    GameBrand: gameCodeItem.BrandCode,
-                                    GameID: gameCodeItem.GameID,
-                                    GameName: gameCodeItem.GameName,
-                                    GameCategoryCode: gameCodeItem.GameCategoryCode,
-                                    GameCategorySubCode: gameCodeItem.GameCategorySubCode,
-                                    GameAccountingCode: gameCodeItem.GameAccountingCode,
-                                    AllowDemoPlay: gameCodeItem.AllowDemoPlay,
-                                    RTPInfo: gameCodeItem.RTPInfo,
-                                    IsHot: gameCodeItem.IsHot,
-                                    IsNew: gameCodeItem.IsNew,
-                                    SortIndex: gameCodeItem.SortIndex,                                    
-                                    Tags: tags,
-                                    Language: gameCodeItem.Language,
-                                    RTP: gameCodeItem.RTP,
-                                    FavoTimeStamp: null,
-                                    PlayedTimeStamp: null
+                                transaction.oncomplete = function (event) {
+                                    if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
+                                        workerSelf.SyncSuccess(true);
+                                    } else {
+                                        workerSelf.RecursiveSyncGameCode();
+                                    }
                                 };
-
-
-                                try {
-                                    objectStore.put(InsertData);
-                                    objectCategoryStore.put({
-                                        GameBrand: InsertData.GameBrand,
-                                        GameCategoryCode: InsertData.GameCategoryCode
-                                    });
-                                    workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
-                                    workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
-                                } catch (e) {
-                                    workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
-                                    workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
-                                    workerSelf.SyncFaliure();
-                                    break;
-                                }
-
-                                
                             }
-                
-                            transaction.oncomplete = function (event) {
-                                if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
-                                    workerSelf.SyncSuccess(true);
-                                } else {
-                                    workerSelf.RecursiveSyncGameCode();
-                                }
-                            };
+                        } else {
+                            workerSelf.SyncFaliure();
                         }
                     } else {
                         workerSelf.SyncFaliure();
                     }
-                } else {
-                    workerSelf.SyncFaliure();
                 }
-            }
-        });
+            });
+        };
+
+   
     };
 
     this.Start = function () {
