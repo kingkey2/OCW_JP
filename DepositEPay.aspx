@@ -217,10 +217,9 @@
 
     function test_pKatakana(word) {
     
-        var pKatakana = "[\\u30A1-\\u30FA\\u30FD-\\u30FF\\u31F0-\\u31FF\\u32D0-\\u32FE\\u3300-\\u3357\\uFF66-\\uFF6F\\uFF71-\\uFF9D]|\\uD82C\\uDC00";
-        var rx = new RegExp("^/" + pKatakana+"/*$");
-        console.log(rx.test(word));
-     
+        if (word.match(/[^ァ-ヶぁ-ヶ|ー]/)) {
+            alert("只能输入日文假名");
+        }
     }
     //根據訂單編號取得可參加活動
     function GetDepositActivityInfoByOrderNumber(OrderNum) {
