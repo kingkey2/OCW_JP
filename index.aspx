@@ -1374,6 +1374,7 @@
             {
                 GameCode: "EWin.EWinGaming",
                 GameBrand: "EWin",
+                GameStatus: 0,
                 GameID: 0,
                 GameName: "EWinGaming",
                 GameCategoryCode: "Live",

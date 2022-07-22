@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 1);
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 2);
 
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
@@ -381,6 +381,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                     let InsertData = {
                                         GameCode: gameCodeItem.GameCode,
                                         GameBrand: gameCodeItem.BrandCode,
+                                        GameStatus: gameCodeItem.GameStatus,
                                         GameID: gameCodeItem.GameID,
                                         GameName: gameCodeItem.GameName,
                                         GameCategoryCode: gameCodeItem.GameCategoryCode,
