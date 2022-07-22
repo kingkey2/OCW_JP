@@ -32,6 +32,7 @@
         .game-item-info-detail{
             cursor: pointer;
         }
+
     </style>
 </head>
 <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
@@ -141,14 +142,23 @@
         selectedCategoryCode = categoryCode;
         if (!selectedCategorys.includes(categoryCode)) {
             createCategory(categoryCode, function () {
-                $('#categoryPage_' + selectedCategory).css('height', '0');
+                var oldSel = $('#categoryPage_' + selectedCategory);
+                var newSel = $('#categoryPage_' + categoryCode);
 
-                $('#categoryPage_' + categoryCode).css('height', 'auto');
+                oldSel.css('height', '0');
+                oldSel.css('padding-bottom', '0');
+                newSel.css('height', 'auto');
+                newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
             });
         } else {
-            $('#categoryPage_' + selectedCategory).css('height', '0');
-            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            var oldSel = $('#categoryPage_' + selectedCategory);
+            var newSel = $('#categoryPage_' + categoryCode);
+
+            oldSel.css('height', '0');
+            oldSel.css('padding-bottom', '0');
+            newSel.css('height', 'auto');
+            newSel.css('padding-bottom', '160px');
         }
 
         window.document.body.scrollTop = 0;
@@ -342,12 +352,12 @@
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0;overflow-y: hidden;overflow-x: hidden;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage container" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
-                    categoryDiv.append(categAreas);
-                    $('#gameAreas').append(categoryDiv);
+                    categoryDiv.append(categAreas);                   
+                    $('#gameAreas').append(categoryDiv);                   
                     cb();
                 });
             }
@@ -786,13 +796,14 @@
 
         });
 
+        GCB.InitPromise.then(() => {           
+            window.parent.API_LoadingEnd();
+        });
+
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
-                if (GCB.IsFirstLoaded) {
-                    getCompanyGameCode();
-                    window.parent.API_LoadingEnd();
-                }
+                getCompanyGameCode();
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -868,8 +879,12 @@
                     window.parent.API_LoadingEnd(1);
                     resetCategory(selectedCategoryCode);
                 });
+            case "GameLoadEnd":
+                //if (!initCreatedGameList) {                                     
+                //updateGameList();
+                //}
+               
                 break;
-
         }
     }
 
@@ -1219,8 +1234,9 @@
             </div>
         </section>
          <section class="game-area overflow-hidden">
-            <div class="container" id="gameAreas">
-            </div>
+            <div id="gameAreas">
+                 
+            </div>           
         </section>
           <!-- 遊戲-排名區-新版 遊戲內容-->
          <section class="game-area overflow-hidden" style="display:none">

@@ -363,7 +363,10 @@
 
                 } else {
                     var footerDom = c.getTemplate("footer");
-                    document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
+                    var target = document.getElementById("IFramePage").contentDocument.body;
+                    if (!target.querySelector("footer")) {
+                        document.getElementById("IFramePage").contentDocument.body.appendChild(footerDom);
+                    }                
                 }
             }
             $('.loader-backdrop').addClass('is-show');
