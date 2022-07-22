@@ -432,7 +432,7 @@
                                 <div class="info">
                                     <h3 class="gamename language_replace">${gameName}</h3>
                                     <div class="detail">
-                                        <span class="gamebrand">${gameItem.GameBrand}</span>
+                                        <span class="gamebrand">${mlp.getLanguageKey(gameItem.GameBrand)}</span >
                                         <span class="gamecategory">${gameItem.GameCategoryCode}</span>
                                     </div>
                                 </div>
