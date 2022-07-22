@@ -868,8 +868,7 @@ public class SyncAPI : System.Web.Services.WebService
         SettingData = EWinWeb.GetCompanyGameCodeSettingJObj();
 
 
-        if (true) {
-            //if (CheckPassword(Key)) {
+        if (CheckPassword(Key)) {
             CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
 
             #region 統計值

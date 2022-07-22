@@ -164,7 +164,7 @@
                 return false;
             }
 
-            if (test_pKatakana(bankCardNameFirst)) {
+            if (check_pKatakana(bankCardNameFirst)) {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
                 window.parent.API_LoadingEnd(1);
                 return false;
@@ -177,7 +177,7 @@
                 return false;
             }
 
-            if (test_pKatakana(bankCardNameSecond)) {
+            if (check_pKatakana(bankCardNameSecond)) {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
                 window.parent.API_LoadingEnd(1);
                 return false;
@@ -228,7 +228,7 @@
         }
     }
 
-    function test_pKatakana(word) {
+    function check_pKatakana(word) {
     
         if (word.match(/[^ァ-ヶ|ー]/)) {
             return true;
