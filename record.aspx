@@ -748,7 +748,7 @@
                                     </span>
                                 </li>
                                 <li class="tab-item game" onclick="showRecord(1)" id="tabRecordGame">
-                                    <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲記錄</span></span>
+                                    <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲紀錄資訊</span></span>
                                     </span>
                                 </li>
                                 <div class="tab-slide"></div>
