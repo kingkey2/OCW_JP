@@ -458,8 +458,8 @@
         $('#alertSearch').modal('show');
     }
 
-    function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
-        return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID);
+    function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
+        return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode);
     }
 
     function API_ShowPartialHtml(title, pathName, isNeedLang, cbOK) {
@@ -747,27 +747,40 @@
     }
     //#endregion
 
-    function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID) {
+    function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
         var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-link");
-        var playgamebtn = popupMoblieGameInfo[0].querySelector(".btn-play");
-        var btnmore = popupMoblieGameInfo[0].querySelector(".btn-more");
         var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
         var GI_img = popupMoblieGameInfo[0].querySelector(".imgsrc");
         var favoriteGames = [];
         var gamecode = brandName + "." + gameName;
+        var _gameCategoryCode;
+
+        switch (GameCategoryCode) {
+            case "Electron":
+                _gameCategoryCode = "elec";
+                break;
+            case "Live":
+                _gameCategoryCode = "live";
+                break;
+            case "Slot":
+                _gameCategoryCode = "slot";
+                break;
+            default:
+                _gameCategoryCode = "etc";
+                break;
+        }
 
         popupMoblieGameInfo.find('.BrandName').text(brandName);
         popupMoblieGameInfo.find('.valueRTP').text(RTP);
-
-        API_GetGameLang(EWinWebInfo.Lang, brandName + "." + gameName, function (langText) {
-            popupMoblieGameInfo.find('.GameName').text(langText);
-            $('.headerGameName').text(langText);
-        });
+        popupMoblieGameInfo.find('.GameID').text(GameID);
+        popupMoblieGameInfo.find('.moreInfo-item.category').eq(0).addClass(_gameCategoryCode);
+        popupMoblieGameInfo.find('.GameName').text(GameLangName);
+        $('.headerGameName').text(GameLangName);
         
-        playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
+        //playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
+        //btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
 
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
@@ -789,10 +802,6 @@
         }
 
         popupMoblieGameInfo.modal('show');
-    }
-
-    function popupMoblieGameInfoShowMore(doc) {
-        $(doc).closest('.game-item-info-detail').toggleClass('open');
     }
 
     function showPartialHtml(title, pathName, isNeedLang, cbOK) {
@@ -901,17 +910,21 @@
     function openGame(gameBrand, gameName, gameLangName) {
         var alertSearch = $("#alertSearch");
         var alertSearchCloseButton = $("#alertSearchCloseButton");
-
+        var popupMoblieGameInfo = $('#popupMoblieGameInfo');
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
         }
-
-        if (alertSearch.css("display") == "block") {
-            alertSearchCloseButton.click();
-        }
-
+       
         if (!EWinWebInfo.UserLogined) {
+
+            if (popupMoblieGameInfo) {
+                popupMoblieGameInfo.modal('hide');
+            }
+
+            if (alertSearch.css("display") == "block") {
+                alertSearchCloseButton.click();
+            }
 
             if (alertSearch.css("display") == "block") {
                 alertSearchCloseButton.click();
@@ -2883,6 +2896,9 @@
                                         <div class="game-item-info-detail-wrapper">
                                             <div class="game-item-info-detail-moreInfo">
                                                 <ul class="moreInfo-item-wrapper">
+                                                    <li class="moreInfo-item category">
+                                                        <span class="value"><i class="icon icon-mask"></i></span>
+                                                    </li>
                                                     <li class="moreInfo-item brand">
                                                         <span class="title language_replace">廠牌</span>
                                                         <span class="value BrandName"></span>
@@ -2904,18 +2920,19 @@
                                                     </div>
                                                     <div class="action">
                                                         <div class="btn-s-wrapper">
-                                                            <button type="button" class="btn-thumbUp btn btn-round">
+                                                       <%-- <button type="button" class="btn-thumbUp btn btn-round">
                                                                 <i class="icon icon-m-thumup"></i>
-                                                            </button>
+                                                            </button>--%>
                                                             <button type="button" class="btn-like btn btn-round">
                                                                 <i class="icon icon-m-favorite"></i>
                                                             </button>
-                                                            <button type="button" class="btn-more btn btn-round">
+                                                      <%--      <button type="button" class="btn-more btn btn-round">
                                                                 <i class="arrow arrow-down"></i>
-                                                            </button>
+                                                            </button>--%>
                                                         </div>
-                                                        <button type="button" class="btn btn-play">
-                                                            <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                                <%--        <button type="button" class="btn btn-play">
+                                                            <span class="language_replace">プレイ</span><i class="triangle"></i>
+                                                        </button>--%>
                                                     </div>
                                                 </div>
                                             </div>

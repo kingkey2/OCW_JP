@@ -340,7 +340,7 @@
                         } else {
                             gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
-                            gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
+                            gameitemlink = '<span class="game-item-link"></span>';
                             btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
                         }
 
@@ -372,7 +372,7 @@
                                                             <img class="gameimg lozad" src="${imgsrc}">
                                                         </div>
                                                     </div>
-                                                    <div class="game-item-info-detail open">
+                                                    <div class="game-item-info-detail open" onclick="window.parent.openGame('${gameItem.GameBrand}','${gameItem.GameName}','${gameName}')">
                                                         <div class="game-item-info-detail-wrapper">
                                                             <div class="game-item-info-detail-moreInfo">
                                                                 <ul class="moreInfo-item-wrapper">
@@ -523,7 +523,7 @@
                                         GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                                         btnplay = '<button type="button" class="btn btn-play">';
                                         gameitemlink = `<span class="game-item-link"></span>`;
-                                        gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                                        gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode }')"></span>`;
                                         //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                                     } else {
                                         gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
@@ -560,7 +560,7 @@
                                                             <img class="gameimg lozad" src="${imgsrc}">
                                                         </div>
                                                     </div>
-                                                   <div class="game-item-info-detail open">
+                                                   <div class="game-item-info-detail open" onclick="window.parent.openGame('${gameItem.GameBrand}','${gameItem.GameName}','${gameName}')">
                                                         <div class="game-item-info-detail-wrapper">
                                                             <div class="game-item-info-detail-moreInfo">
                                                                 <ul class="moreInfo-item-wrapper">
