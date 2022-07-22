@@ -792,7 +792,7 @@
             }
         });
     }
-
+     
     function setUserThisWeekLogined(UserThisWeekTotalValidBetValueData) {
         if (UserThisWeekTotalValidBetValueData) {
             let k = 0;

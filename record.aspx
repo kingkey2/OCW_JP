@@ -738,7 +738,7 @@
                             <h1 class="sec-title title-deco"><span class="language_replace">紀錄總覽</span></h1>
                         </div>
                     </div>
-                    --%>
+                    --%> 
                      <!-- 獎金/禮金 TAB -->
                      <div class="tab-record tab-scroller tab-2">
                         <div class="tab-scroller__area">
