@@ -254,11 +254,15 @@
 
     function setUserThisWeekLogined(UserThisWeekTotalValidBetValueData) {
         if (UserThisWeekTotalValidBetValueData) {
+            let k = 0;
             for (var i = 0; i < UserThisWeekTotalValidBetValueData.length; i++) {
                 if (UserThisWeekTotalValidBetValueData[i].Status == 1) {
+                    k++;
                     $(".bouns-item").eq(i).addClass("got");
                 }
             }
+
+            $(".bouns-amount").text(k * 1000);
         }
     }
 
@@ -645,7 +649,7 @@
                                             </ul>
                                             <div class="dailylogin-bouns-amount">
                                                 <span class="amount-title language_replace">累積獎金</span>
-                                                <span class="bouns-amount">123,123</span>
+                                                <span class="bouns-amount"></span>
                                             </div>
                                         </div>
                                     </div>

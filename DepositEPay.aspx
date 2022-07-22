@@ -164,8 +164,21 @@
                 return false;
             }
 
+            if (check_pKatakana(bankCardNameFirst)) {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
+                window.parent.API_LoadingEnd(1);
+                return false;
+            }
+            
+
             if (bankCardNameSecond == '') {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
+                window.parent.API_LoadingEnd(1);
+                return false;
+            }
+
+            if (check_pKatakana(bankCardNameSecond)) {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
                 window.parent.API_LoadingEnd(1);
                 return false;
             }
@@ -215,10 +228,12 @@
         }
     }
 
-    function test_pKatakana(word) {
+    function check_pKatakana(word) {
     
-        if (word.match(/[^ァ-ヶぁ-ヶ|ー]/)) {
-            alert("只能输入日文假名");
+        if (word.match(/[^ァ-ヶ|ー]/)) {
+            return true;
+        } else {
+            return false;
         }
     }
     //根據訂單編號取得可參加活動
@@ -317,7 +332,6 @@
             window.parent.API_LoadingEnd(1);
              if (success) {
                  if (o.Result == 0) {
-                    var data = o.Data;
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
                         window.open(o.Message);
                     });

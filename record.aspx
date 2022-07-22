@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Maharaja</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="js/vendor/swiper/css/swiper-bundle.min.css">
+    <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/basic.min.css">    
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/record.css">
@@ -748,7 +748,7 @@
                                     </span>
                                 </li>
                                 <li class="tab-item game" onclick="showRecord(1)" id="tabRecordGame">
-                                    <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲記錄</span></span>
+                                    <span class="tab-item-link"><span class="title"><span class="language_replace">遊戲紀錄資訊</span></span>
                                     </span>
                                 </li>
                                 <div class="tab-slide"></div>
