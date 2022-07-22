@@ -525,7 +525,24 @@
     function API_GetUserThisWeekTotalValidBetValue(cb) {
 
         //if (UserThisWeekTotalValidBetValueData.length == 0) {
-
+        //    lobbyClient.GetUserAccountThisWeekTotalValidBetValueResult(EWinWebInfo.SID, Math.uuid(), function (success, o) {
+        //        if (success) {
+        //            if (o.Result == 0) {
+        //                UserThisWeekTotalValidBetValueData = o.Datas;
+        //                if (cb != null) {
+        //                    cb(UserThisWeekTotalValidBetValueData);
+        //                }
+        //            } else {
+        //                UserThisWeekTotalValidBetValueData = [];
+        //            }
+        //        } else {
+        //            if (o == "Timeout") {
+        //                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+        //            } else {
+        //                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), o);
+        //            }
+        //        }
+        //    });
         //} else {
         //    if (cb != null) {
         //        cb(UserThisWeekTotalValidBetValueData);
@@ -536,9 +553,6 @@
             if (success) {
                 if (o.Result == 0) {
                     UserThisWeekTotalValidBetValueData = o.Datas;
-                    if (cb != null) {
-                        cb(UserThisWeekTotalValidBetValueData);
-                    }
                 } else {
                     UserThisWeekTotalValidBetValueData = [];
                 }
