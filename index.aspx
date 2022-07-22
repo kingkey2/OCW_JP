@@ -749,7 +749,7 @@
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
-        var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-link");
+        var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-info-detail.open");
         var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
         var GI_img = popupMoblieGameInfo[0].querySelector(".imgsrc");
         var favoriteGames = [];
@@ -915,19 +915,16 @@
         if (gameWindow) {
             gameWindow.close();
         }
+
+
+        if (alertSearch.css("display") == "block") {
+            alertSearchCloseButton.click();
+        }
        
         if (!EWinWebInfo.UserLogined) {
 
             if (popupMoblieGameInfo) {
                 popupMoblieGameInfo.modal('hide');
-            }
-
-            if (alertSearch.css("display") == "block") {
-                alertSearchCloseButton.click();
-            }
-
-            if (alertSearch.css("display") == "block") {
-                alertSearchCloseButton.click();
             }
 
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
