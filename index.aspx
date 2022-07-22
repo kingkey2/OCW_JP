@@ -553,6 +553,9 @@
             if (success) {
                 if (o.Result == 0) {
                     UserThisWeekTotalValidBetValueData = o.Datas;
+                     if (cb != null) {
+                         cb(UserThisWeekTotalValidBetValueData);
+                     }
                 } else {
                     UserThisWeekTotalValidBetValueData = [];
                 }
@@ -564,10 +567,7 @@
                 }
             }
         });
-
-        if (cb != null) {
-            cb(UserThisWeekTotalValidBetValueData);
-        }
+        
     }
 
     function API_OpenGame(GameBrand, GameName, LangName) {
