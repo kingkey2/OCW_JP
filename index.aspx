@@ -473,10 +473,6 @@
         }
     }
 
-    function API_GetFavoGames() {
-        return getFavoriteGames();
-    }
-
     function API_SendSerivceMail(subject, body, email) {
         lobbyClient.SendCSMail(EWinWebInfo.SID, Math.uuid(), email, subject, body, function (success, o) {
             if (success) {
@@ -966,27 +962,6 @@
     //#endregion
 
     //#region FavoriteGames And MyGames
-
-    function getFavoriteGames() {
-
-        var retFavoriteGames = [];
-        GCB.GetFavo(function (data) {
-            retFavoriteGames.push(data);
-        }, function (data) {
-            return retFavoriteGames;
-        });
-    }
-
-    function checkInFavoriteGame(gameBrand, gameName) {
-        var FavoGames = getFavoriteGames();
-        var index = FavoGames.findIndex(x => x.GameBrand == gameBrand && x.GameName == gameName);
-
-        if (index > -1) {
-            return true
-        } else {
-            return false;
-        }
-    }
 
     function favBtnClick(gameCode) {
         var btn = event.currentTarget;
@@ -1693,7 +1668,7 @@
                         GI1.find(".BrandName").text(gameItem.GameBrand);
                         GI1.find(".valueRTP").text(RTP);
                         GI1.find(".valueID").text(gameItem.GameID);
-                        GI1.find(".GameCategoryCode").text(gameItem.GameCategoryCode);
+                        GI1.find(".GameCategoryCode").text(mlp.getLanguageKey(gameItem.GameCategoryCode));
 
                         if (gameItemCount < 61) {
                             alertSearchContent.append(GI);
@@ -2475,8 +2450,7 @@
                             <div class="searchFilter-item input-group game-type" id="div_SearchGameCategory">
                                 <select class="custom-select" id="seleGameCategory">
                                     <option class="title language_replace" value="All" selected>全部</option>
-                                    <option class="searchFilter-option language_replace" value="Electron">Electron
-                                    </option>
+                                    <option class="searchFilter-option language_replace" value="Electron">Electron</option>
                                     <option class="searchFilter-option language_replace" value="Fish">Fish</option>
                                     <option class="searchFilter-option language_replace" value="Live">Live</option>
                                     <option class="searchFilter-option language_replace" value="Slot">Slot</option>
