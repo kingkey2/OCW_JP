@@ -1173,12 +1173,12 @@ public class PaymentAPI : System.Web.Services.WebService
                                 }
                                 else
                                 {
-                                    SetResultException(R, "UpdateFailure");
+                                    SetResultException(R, "UpdateFailure1");
                                 }
                             }
                             else
                             {
-                                SetResultException(R, "UpdateFailure");
+                                SetResultException(R, "UpdateFailure2");
                             }
                         }
                         else

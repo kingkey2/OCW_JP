@@ -184,6 +184,10 @@
                             var textlink;
                             var gameItems = "";
 
+                            category.Datas = category.Datas.sort(function (a, b) {
+                                return b.SortIndex - a.SortIndex;
+                            });
+
                             for (var ii = 0; ii < category.Datas.length; ii++) {
                                 var o = category.Datas[ii];
                                 var gameItem = await new Promise((resolve, reject) => {
@@ -510,7 +514,7 @@
         if (LobbyGameList) {
             for (var i = 0; i < LobbyGameList.length; i++) {
                 LobbyGameList[i].Categories.sort(function (a, b) {
-                    return a.SortIndex - b.SortIndex;
+                    return b.SortIndex - a.SortIndex;
                 });
             }
 
