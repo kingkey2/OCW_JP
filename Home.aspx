@@ -795,11 +795,15 @@
 
     function setUserThisWeekLogined(UserThisWeekTotalValidBetValueData) {
         if (UserThisWeekTotalValidBetValueData) {
+            let k = 0;
             for (var i = 0; i < UserThisWeekTotalValidBetValueData.length; i++) {
                 if (UserThisWeekTotalValidBetValueData[i].Status == 1) {
+                    k++;
                     $(".bouns-item").eq(i).addClass("got");
                 }
             }
+
+            $(".bouns-amount").text(k * 1000);
         }
     }
 

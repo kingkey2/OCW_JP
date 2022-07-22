@@ -1629,7 +1629,6 @@
             } else {
                 GCB.CursorGetByMultiSearch2(arrayGameBrand, gamecategory, null, keyWord,
                     function (gameItem) {
-                        gameItemCount++;
 
                         var RTP = "--";
                         var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
@@ -1646,6 +1645,7 @@
                         //var GI_a = GI.querySelector(".btn-play");
                         GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
                         GI1.addClass("group" + parseInt(gameItemCount / 60));
+                        gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
                             GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
@@ -1700,11 +1700,12 @@
         }
 
         this.searchGameChange = function () {
-
             var keyWord = SearchDom.find('#alertSearchKeyWord').val().trim();
             var arrayGameBrand = [];
+            let strSeleBrandText = SearchDom.find(".brandSeleCount");
             let kk = "";
             var seleGameCategory = SearchDom.find("#seleGameCategory");
+            let allGameBrandLength = $("#alertSearch").find("input[name='button-brandExchange']").length;
 
             SearchDom.find("input[name='button-brandExchange']").each(function (e, v) {
                 if ($(v).prop("checked")) {
@@ -1712,10 +1713,15 @@
                 }
             });
 
-            if (arrayGameBrand.length == 0 && keyWord == "") {
-                SearchDom.find("#div_SearchGameCategory").hide();
+            //if (arrayGameBrand.length == 0 && keyWord == "") {
+            //    SearchDom.find("#div_SearchGameCategory").hide();
+            //} else {
+            //    SearchDom.find("#div_SearchGameCategory").show();
+            //}
+            if (arrayGameBrand.length == 0 || arrayGameBrand.length == allGameBrandLength) {
+                strSeleBrandText.text(mlp.getLanguageKey("全部"));
             } else {
-                SearchDom.find("#div_SearchGameCategory").show();
+                strSeleBrandText.text(` ${arrayGameBrand.length} / ${allGameBrandLength} `);
             }
 
             var o;
@@ -1743,8 +1749,9 @@
         }
 
         this.searchGameChangeClear = function () {
-            SearchDom.find("#div_SearchGameCategory").val("All");
+            resetSeleGameCategory();
             SearchDom.find("#alertSearchKeyWord").val("");
+            SearchDom.find(".brandSeleCount").text(mlp.getLanguageKey("全部"));
             SearchDom.find("input[name='button-brandExchange']").each(function (e, v) {
                 $(v).prop("checked", false);
             });
@@ -1853,6 +1860,28 @@
                     }
                 }
             });
+        }
+
+        var resetSeleGameCategory = function () {
+            var seleGameCategory = SearchDom.find("#seleGameCategory");
+            var o;
+
+            seleGameCategory.empty();
+
+            o = new Option(mlp.getLanguageKey("全部"), "All");
+            seleGameCategory.append(o);
+            o = new Option(mlp.getLanguageKey("Electron"), "Electron");
+            seleGameCategory.append(o);
+            o = new Option(mlp.getLanguageKey("Fish"), "Fish");
+            seleGameCategory.append(o);
+            o = new Option(mlp.getLanguageKey("Live"), "Live");
+            seleGameCategory.append(o);
+            o = new Option(mlp.getLanguageKey("Slot"), "Slot");
+            seleGameCategory.append(o);
+            o = new Option(mlp.getLanguageKey("Sports"), "Sports");
+            seleGameCategory.append(o);
+
+            seleGameCategory.val("All");
         }
 
         function init() {
@@ -2443,7 +2472,10 @@
                         <div class="modal-header-container">
                             <div class="searchFilter-item input-group game-brand">
                                 <div class="input-fake-select">
-                                    <div class="gameName"><span class="language_replace">遊戲品牌</span></div>
+                                    <div class="gameName">
+                                        <span class="language_replace">遊戲品牌</span>
+                                        (<span class="brandSeleCount language_replace">全部</span>)
+                                    </div>
                                     <div class="has-arrow"><i class="arrow"></i></div>
                                 </div>
                             </div>
