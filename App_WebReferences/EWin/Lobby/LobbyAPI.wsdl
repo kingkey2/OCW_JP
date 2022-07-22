@@ -1201,6 +1201,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Tag" type="tns:ArrayOfPropertySet" />
           <s:element minOccurs="0" maxOccurs="1" name="Language" type="tns:ArrayOfGameCodeLanguage" />
           <s:element minOccurs="0" maxOccurs="1" name="RTP" type="tns:ArrayOfRTPInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameCodeCategory" type="tns:ArrayOfCompanyGameCodeCategory" />
         </s:sequence>
       </s:complexType>
       <s:simpleType name="enumGameCodeStatus">
@@ -1241,6 +1242,17 @@
           <s:element minOccurs="1" maxOccurs="1" name="RTP3" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="RTP10" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="RTP30" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCompanyGameCodeCategory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CompanyGameCodeCategory" nillable="true" type="tns:CompanyGameCodeCategory" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CompanyGameCodeCategory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SortIndex" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetCompanyGameCode">

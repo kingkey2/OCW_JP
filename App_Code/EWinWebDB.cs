@@ -210,7 +210,7 @@ public static class EWinWebDB {
     public static class CompanyCategoryGameCode
     {
 
-        public static int InsertCompanyCategoryGameCode(int forCompanyCategoryID, string GameCode)
+        public static int InsertCompanyCategoryGameCode(int forCompanyCategoryID, string GameCode,int SortIndex)
         {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -224,18 +224,29 @@ public static class EWinWebDB {
             DBCmd.CommandType = System.Data.CommandType.Text;
             DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = forCompanyCategoryID;
             DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+        
             searchCount = int.Parse(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd).ToString());
-
             if (searchCount == 0)
             {
-                SS = "INSERT INTO CompanyCategoryGameCode (forCompanyCategoryID,GameCode) " +
-            "                VALUES (@forCompanyCategoryID,@GameCode) ";
+                SS = "INSERT INTO CompanyCategoryGameCode (forCompanyCategoryID,GameCode,SortIndex) " +
+            "                VALUES (@forCompanyCategoryID,@GameCode,@SortIndex) ";
                 DBCmd = new System.Data.SqlClient.SqlCommand();
                 DBCmd.CommandText = SS;
                 DBCmd.CommandType = System.Data.CommandType.Text;
                 DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = forCompanyCategoryID;
                 DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
-
+                DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
+                insertCount = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            }
+            else {
+                SS = "UPDATE CompanyCategoryGameCode WITH (ROWLOCK) SET SortIndex=@SortIndex " +
+                     " WHERE forCompanyCategoryID=@forCompanyCategoryID And GameCode=@GameCode ";
+                DBCmd = new System.Data.SqlClient.SqlCommand();
+                DBCmd.CommandText = SS;
+                DBCmd.CommandType = System.Data.CommandType.Text;
+                DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = forCompanyCategoryID;
+                DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+                DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
                 insertCount = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
             }
 

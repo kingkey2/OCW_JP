@@ -594,7 +594,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                     var data = new OcwCompanyCategoryGameCode();
                                     data.forCompanyCategoryID = (int)CompanyGameCodeDT.Rows[k]["forCompanyCategoryID"];
                                     data.GameCode = (string)CompanyGameCodeDT.Rows[k]["GameCode"];
-
+                                    data.SortIndex = (int)CompanyGameCodeDT.Rows[k]["SortIndex"];
                                     companyCategoryData.Datas.Add(data);
                                 }
                             }
@@ -2112,6 +2112,7 @@ public class LobbyAPI : System.Web.Services.WebService {
     {
         public int forCompanyCategoryID { get; set; }
         public string GameCode { get; set; }
+        public int SortIndex { get; set; }
     }
 
     public class OcwCompanyCategory {
