@@ -4,6 +4,7 @@
     PaymentCallbackResult R = new PaymentCallbackResult() { Result = 1 };
     string GUID = System.Guid.NewGuid().ToString();
     string Token = GetToken();
+    string PromotionCollectKey;
 
     if (CodingControl.FormSubmit())
     {
@@ -78,6 +79,7 @@
                                             foreach (var activityData in tagInfoData.ActivityDatas) {
                                                 List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                 description = activityData.ActivityName;
+                                                PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
                                                 JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                                 CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
 
@@ -85,9 +87,8 @@
                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                                lobbyAPI.AddPromotionCollect(Token, GUID, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                                 EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
-                                                //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, 1, activityData.ThresholdValue, activityData.BonusValue);
                                             }
                                         } else {
                                             TotalErrorMsg = string.Empty;
@@ -104,6 +105,7 @@
                                                 foreach (var activityData in allParentBonusAfterDepositResult.Data) {
                                                     List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
                                                     description = activityData.ActivityName;
+                                                    PromotionCollectKey = description + "_" + BodyObj.ClientOrderNumber;
                                                     JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
                                                     CollectAreaType = activityData.CollectAreaType == null ? "1" : activityData.CollectAreaType;
 
@@ -111,10 +113,8 @@
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                                     PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                                    //lobbyAPI.AddPromotionCollect(Token, GUID, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, 1, 30, description,  PropertySets.ToArray());
-                                                    lobbyAPI.AddPromotionCollect(Token, GUID, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
+                                                    lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
                                                     EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(activityData.ParentLoginAccount, description, JoinActivityCycle, 1, 0, 0);
-                                                    //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(activityData.ParentLoginAccount, description, 1, 0, 0);
                                                 }
 
                                                 if (string.IsNullOrEmpty(TotalErrorMsg)) {
