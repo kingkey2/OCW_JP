@@ -18,9 +18,6 @@
 
         if (string.IsNullOrEmpty(PostBody) == false)
         {
-
-            ReportSystem.PaymentCallBackLog.CreatePaymentCallBackLog("EWinPaymentCallBack.aspx", DateTime.Now.ToString(), PostBody);
-
             try { BodyObj = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentCallbackInfo>(PostBody); }
             catch (Exception ex)
             {

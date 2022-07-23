@@ -226,22 +226,6 @@ public static class ReportSystem {
         }
     }
 
-    public class PaymentCallBackLog {
-        public static void CreatePaymentCallBackLog(string PageName, string CallTime, string Content) {
-            string Folder;
-            string Filename;
-
-            Newtonsoft.Json.Linq.JObject o = new Newtonsoft.Json.Linq.JObject();
-            o["Page"] = PageName;
-            o["CallTime"] = CallTime;
-            o["PostBody"] = Content;
-
-            Folder = PrepareReportFolder("/PaymentCallBackLog/" + DateTime.Now.ToString("yyyy-MM-dd"));
-            Filename = Folder + "\\PaymentCallBackLog.json";
-            AppendAllText(Filename, o.ToString());
-        }
-    }
-
     private static string[] CheckAndGetJSONRecordByIDRange(string AllContent, string KeyField, long LimitValueBegin = -1, long LimitValueEnd = -1)
     {
         List<Newtonsoft.Json.Linq.JObject> ObjList = new List<Newtonsoft.Json.Linq.JObject>();
