@@ -29,19 +29,28 @@
                     {
                         if ((string)RequestData.PayingStatus == "0")
                         {
-                            EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
-                            var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
-
-                            if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
+                            if ((int)PaymentOrderDT.Rows[0]["FlowStatus"] == 1)
                             {
-                                R.ResultState = APIResult.enumResultCode.OK;
-                                R.Message = "SUCCESS";
+                                EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
+                                var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+
+                                if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
+                                {
+                                    R.ResultState = APIResult.enumResultCode.OK;
+                                    R.Message = "SUCCESS";
+                                }
+                                else
+                                {
+                                    R.ResultState = APIResult.enumResultCode.ERR;
+                                    R.Message = "Finished Fail " + Newtonsoft.Json.JsonConvert.SerializeObject(finishResult);
+                                }
                             }
                             else
                             {
                                 R.ResultState = APIResult.enumResultCode.ERR;
-                                R.Message = "Finished Fail "+Newtonsoft.Json.JsonConvert.SerializeObject(finishResult);
+                                R.Message = "FlowStatus Error";
                             }
+
                         }
                         else {
                             R.ResultState = APIResult.enumResultCode.ERR;

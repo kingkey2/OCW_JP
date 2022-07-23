@@ -15,7 +15,7 @@
     {
         PostBody = reader.ReadToEnd();
     };
-
+    ReportSystem.CreateTestContent("EWINPAY呼叫日本站Body:"+PostBody+","+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff")+"\r\n");
     System.Data.DataTable PaymentOrderDT;
     APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
 
@@ -41,6 +41,7 @@
                         {
                             if ((int)PaymentOrderDT.Rows[0]["FlowStatus"] == 1)
                             {
+                              
                                 DetailData = (string)PaymentOrderDT.Rows[0]["DetailData"];
                                 if (!string.IsNullOrEmpty(DetailData))
                                 {
@@ -142,7 +143,7 @@
         R.ResultState = APIResult.enumResultCode.ERR;
         R.Message = "No Data";
     }
-
+     ReportSystem.CreateTestContent("日本站 回傳EWINPAY Body:"+Newtonsoft.Json.JsonConvert.SerializeObject(R)+","+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff")+"\r\n");
     Response.Write(R.Message);
     Response.Flush();
     Response.End();
