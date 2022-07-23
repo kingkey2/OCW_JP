@@ -7,8 +7,7 @@ using System.Web;
 /// <summary>
 /// RedisCache 的摘要描述
 /// </summary>
-public static class ReportSystem
-{
+public static class ReportSystem {
 
     static System.Collections.ArrayList iSyncRoot = new System.Collections.ArrayList();
 
@@ -16,10 +15,8 @@ public static class ReportSystem
     /// <summary>
     /// 金流(第四方)存款
     /// </summary>
-    public static class UserAccountPayment
-    {                
-        public static string GetUserAccountPayment(DateTime QueryDate, string LoginAccount)
-        {
+    public static class UserAccountPayment {
+        public static string GetUserAccountPayment(DateTime QueryDate, string LoginAccount) {
             string Folder;
             string Filename;
             string RetValue = string.Empty;
@@ -27,16 +24,14 @@ public static class ReportSystem
             Folder = GetReportFolder("/Payment/" + QueryDate.ToString("yyyy-MM-dd") + "/ByLoginAccount");
             Filename = Folder + "\\" + LoginAccount + ".json";
 
-            if (System.IO.File.Exists(Filename))
-            {
+            if (System.IO.File.Exists(Filename)) {
                 RetValue = ReadAllText(Filename);
             }
 
             return RetValue;
         }
 
-        public static void CreateUserAccountPayment(string OrderNumber)
-        {
+        public static void CreateUserAccountPayment(string OrderNumber) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -54,8 +49,7 @@ public static class ReportSystem
             DBCmd.Parameters.Add("@OrderNumber", System.Data.SqlDbType.VarChar).Value = OrderNumber;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
 
-            foreach (System.Data.DataRow DR in DT.Rows)
-            {
+            foreach (System.Data.DataRow DR in DT.Rows) {
                 dynamic o = new System.Dynamic.ExpandoObject();
                 string Content;
                 o.PaymentType = (int)DR["PaymentType"];
@@ -93,8 +87,7 @@ public static class ReportSystem
             }
         }
 
-        public static void ResetUserAccountPayment(string LoginAccount, DateTime SummaryDate)
-        {
+        public static void ResetUserAccountPayment(string LoginAccount, DateTime SummaryDate) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT;
@@ -117,7 +110,7 @@ public static class ReportSystem
 
             foreach (System.Data.DataRow DR in DT.Rows) {
                 dynamic o = new System.Dynamic.ExpandoObject();
-               
+
                 o.PaymentType = (int)DR["PaymentType"];
                 o.BasicType = (int)DR["EWinPaymentType"];
                 o.PaymentFlowType = (int)DR["FlowStatus"];
@@ -146,7 +139,7 @@ public static class ReportSystem
 
                 Content += Newtonsoft.Json.JsonConvert.SerializeObject(o) + "\r\n";
 
-              
+
             }
 
 
@@ -214,7 +207,7 @@ public static class ReportSystem
     }
 
     public class UserAccountPromotionCollect {
-        public static void CreateUserAccountPromotionCollect(string Token,string LoginAccount,string CurrencyType, string Description) {
+        public static void CreateUserAccountPromotionCollect(string Token, string LoginAccount, string CurrencyType, string Description) {
             string Folder;
             string Filename;
 
