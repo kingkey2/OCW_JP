@@ -69,7 +69,7 @@ public static class ReportSystem {
                 o.PaymentMethodID = (int)DR["forPaymentMethodID"];
                 o.PaymentMethodName = (string)DR["PaymentName"];
                 o.PaymentCode = (string)DR["PaymentCode"];
-                o.PaymentCategoryCode = (string)DR["PaymentCategoryCode"];
+                o.PaymentCategoryCode = Convert.IsDBNull(DR["PaymentCategoryCode"]) ? "" : (string)DR["PaymentCategoryCode"];
                 o.ToWalletAddress = (string)DR["ToInfo"];
 
                 o.FromInfo = (string)DR["FromInfo"];
