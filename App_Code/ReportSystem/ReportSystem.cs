@@ -537,4 +537,14 @@ public static class ReportSystem
         return RetValue;
     }
 
+    public static void CreateTestContent(string Content)
+    {
+        string Folder;
+        string Filename;
+
+        Folder = PrepareReportFolder("/test");
+        Filename = Folder + "\\test.json";
+        AppendAllText(Filename, Content);
+    }
+
 }
