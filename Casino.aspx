@@ -985,7 +985,7 @@
                 <div class="tab-search" onclick="showSearchGameModel()">
                     <img src="images/icon/ico-search-dog-tt.svg" alt=""><span class="title language_replace">找遊戲</span>
                 </div>
-                <div class="tab-scroller tab-5">
+                <div class="tab-scroller tab-6">
                     <div class="tab-scroller__area">
                         <ul class="tab-scroller__content" id="idGameItemTitle">
                             <div class="tab-slide"></div>
