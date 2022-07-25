@@ -24,14 +24,18 @@
                     switch (e.data.Cmd) {
                         case "InitSyncStart":
                             if (e.data.Data == true) {
-                                GCBSelf.InitDB(resolve);                                         
+                                GCBSelf.IsFirstLoaded = true;
+                                resolve();
+                                //GCBSelf.InitDB(resolve);                                         
                             }
 
                             break;
 
                         case "InitSyncEnd":
                             if (GCBSelf.IsFirstLoaded == false) {
-                                GCBSelf.InitDB(resolve);
+                                GCBSelf.IsFirstLoaded = true;
+                                resolve();
+                                //GCBSelf.InitDB(resolve);
                             }
                             break;
                         default:
@@ -45,17 +49,21 @@
     }
 
     this.InitDB = function (resolve) {
-        var DBOpenRequest = window.indexedDB.open('GameCodeDB');
+        //var DBOpenRequest = window.indexedDB.open('GameCodeDB');
 
-        GCBSelf.IsFirstLoaded = true;
 
-        DBOpenRequest.onsuccess = function (event) {
-            GCBSelf.IndexedDB = event.target.result;
-            GCBSelf.IsFirstLoaded = true;
-            resolve();
-        };
-    }
+    };
 
+    var getDB = function () {
+        return new Promise((resolve, reject) => {
+            var DBOpenRequest = window.indexedDB.open('GameCodeDB');
+
+            DBOpenRequest.onsuccess = function (event) {
+                var IndexedDB = event.target.result;
+                resolve(IndexedDB);
+            };
+        });
+    };
 
     //搜尋方法 cb回傳統一為一個或多個GameCodeItem
 
@@ -65,26 +73,24 @@
      * @param {Function} cb 找到資料時的cb, param => data, null時為無資料
      */
     this.GetByGameCode = function (GameCode, cb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
 
             objectStore.get(GameCode).onsuccess = function (event) {
                 if (cb) {
                     if (event.target.result) {
-                        if (event.target.result.GameStatus == 0) {
-                            cb(event.target.result);
-                        } else {
-                            cb(null);
-                        }
+                        cb(event.target.result);
                     } else {
                         cb(null);
-                    }                                  
+                    }
                 }
+
+                IndexedDB.close();
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
         //if (GCBSelf.IsFirstLoaded) {
         //    event();
         //} else {
@@ -99,8 +105,8 @@
      * @param {any} endCb 結束cb, param => true=結束,有找到資料 false=結束,無找到資料
      */
     this.CursorGetByGameBrand = function (GameBrand, cb, endCb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("GameBrand");
             var isDataExist = false;
@@ -122,11 +128,12 @@
                     if (endCb) {
                         endCb(isDataExist);
                     }
+                    IndexedDB.close();
                 }
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     };
 
     /**
@@ -136,8 +143,8 @@
      * @param {any} endCb 結束cb, param => true=結束,有找到資料 false=結束,無找到資料
      */
     this.CursorGetGameCategoryCodeByGameBrand = function (GameBrand, cb, endCb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCategory'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCategory'], 'readonly');
             var objectStore = transaction.objectStore('GameCategory');
             var index = objectStore.index("GameBrand");
             var isDataExist = false;
@@ -154,10 +161,11 @@
                 } else {
                     endCb(isDataExist);
                 }
+                IndexedDB.close();
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     };
 
 
@@ -169,8 +177,8 @@
      * @param {any} endCb 結束cb, param => true=結束,有找到資料 false=結束,無找到資料
      */
     this.CursorGetByCategoryCode = function (GameCategoryCode, cb, endCb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("GameCategoryCode");
             var isDataExist = false;
@@ -190,11 +198,12 @@
                     if (endCb) {
                         endCb(isDataExist);
                     }
+                    IndexedDB.close();
                 }
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     };
 
     /**
@@ -205,8 +214,8 @@
      * @param {any} endCb 結束cb, param => true=結束,有找到資料 false=結束,無找到資料
      */
     this.CursorGetByCategorySubCode = function (GameCategoryCode, GameCategorySubCode, cb, endCb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("GameCategorySubCode");
             var isDataExist = false;
@@ -225,11 +234,12 @@
                     if (endCb) {
                         endCb(isDataExist);
                     }
+                    IndexedDB.close();
                 }
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     };
 
     //#region Favo
@@ -241,8 +251,8 @@
    * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
    */
     this.AddFavo = function (GameCode, cb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
 
             objectStore.get(GameCode).onsuccess = function (event) {
@@ -259,10 +269,12 @@
                         cb(false);
                     }
                 }
+
+                IndexedDB.close();
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
 
@@ -273,8 +285,8 @@
      * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
      */
     this.AddFavoByGameID = function (GameID, cb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("GameID");
 
@@ -292,10 +304,12 @@
                         cb(false);
                     }
                 }
+
+                IndexedDB.close();
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
 
@@ -305,8 +319,8 @@
      * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
      */
     this.RemoveFavo = function (GameCode, cb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
 
             objectStore.get(GameCode).onsuccess = function (event) {
@@ -323,10 +337,12 @@
                         cb(false);
                     }
                 }
+
+                IndexedDB.close();
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
     /**
@@ -335,8 +351,8 @@
      * @param {any} endCb
      */
     this.GetFavo = function (cb, endCb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("PersonalFavo");
             var isDataExist = false;
@@ -356,11 +372,12 @@
                     if (endCb) {
                         endCb(isDataExist);
                     }
+                    IndexedDB.close();
                 }
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
     //#endregion 
@@ -374,8 +391,8 @@
      * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
      */
     this.AddPlayed = function (GameCode, cb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("PersonalPlayed");
 
@@ -392,9 +409,9 @@
                         }
                     };
                 }
-            
+
                 objectStore.get(GameCode).onsuccess = function (event) {
-                    if (event.target.result) {                        
+                    if (event.target.result) {
                         var data = event.target.result;
                         data.PlayedTimeStamp = new Date().getTime();
                         objectStore.put(data);
@@ -407,11 +424,13 @@
                             cb(false);
                         }
                     }
+
+                    IndexedDB.close();
                 };
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
     /**
@@ -420,8 +439,8 @@
      * @param {any} cb   cb, param => true=成功, false=失敗FavoTag
      */
     this.RemovePlayed = function (GameCode, cb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readwrite');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
 
             objectStore.get(GameCode).onsuccess = function (event) {
@@ -438,10 +457,12 @@
                         cb(false);
                     }
                 }
+
+                IndexedDB.close();
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
     /**
@@ -450,8 +471,8 @@
      * @param {any} endCb
      */
     this.GetPlayed = function (cb, endCb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("PersonalPlayed");
             var isDataExist = false;
@@ -471,11 +492,12 @@
                     if (endCb) {
                         endCb(isDataExist);
                     }
+                    IndexedDB.close();
                 }
             };
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
     //#endregion 
@@ -507,8 +529,8 @@
      * @param {any} endCb   結束fun(isDataExist) => isDataExist=true 有資料, isDataExist=false 無資料
      */
     this.CursorGetByMultiSearch = function (GameBrand, GameCategoryCode, GameCategorySubCode, SearchKeyWord, cb, endCb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             //var index = null;
             var request;
@@ -528,13 +550,14 @@
                                 if (cb) {
                                     cb(event.target.result);
                                 }
-                            }                            
-                        } 
-
+                            }
+                        }
 
                         if (endCb) {
                             endCb(isDataExist);
                         }
+
+                        IndexedDB.close();
                     };
 
                     return;
@@ -558,6 +581,7 @@
                 if (endCb) {
                     endCb(isDataExist);
                 }
+                IndexedDB.close();
                 return;
             }
 
@@ -575,24 +599,35 @@
                         checkFlag = false;
                     } else if (SearchKeyWord) {
                         var searchFlag = false;
+                        var targetSearch = SearchKeyWord.toLowerCase();
 
-                        //先搜尋既有關鍵字
-                        for (var i = 0; i < gameCodeItem.Tags.length; i++) {
-                            if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
-                                searchFlag = true;
-                                break;
+                        if (gameCodeItem.GameCode.toLowerCase() == targetSearch) {
+
+                        } else if (gameCodeItem.GameBrand.toLowerCase() == targetSearch) {
+                            searchFlag = true;
+                        } else if (gameCodeItem.GameCategoryCode.toLowerCase() == targetSearch) {
+                            searchFlag = true;
+                        } else if (gameCodeItem.GameCategorySubCode.toLowerCase() == targetSearch) {
+                            searchFlag = true;
+                        } else {
+                            //先搜尋既有關鍵字
+                            for (var i = 0; i < gameCodeItem.Tags.length; i++) {
+                                if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                    searchFlag = true;
+                                    break;
+                                }
+
+                                if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                    searchFlag = true;
+                                    break;
+                                }
                             }
-
-                            if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
-                                searchFlag = true;
-                                break;
-                            } 
                         }
 
                         //不存在關鍵字內，搜尋翻譯後的遊戲名稱
                         if (searchFlag == false) {
                             for (var i = 0; i < gameCodeItem.Language.length; i++) {
-                                if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(targetSearch)) {
                                     searchFlag = true;
                                     break;
                                 }
@@ -624,19 +659,29 @@
                             if (cursor) {
                                 var gameCodeItem = cursor.value;
                                 var searchFlag = false;
+                                var targetSearch = SearchKeyWord.toLowerCase();
 
-                                //先搜尋既有關鍵字
-                                for (var i = 0; i < gameCodeItem.Tags.length; i++) {
-                                    if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
-                                        searchFlag = true;
-                                        break;
-                                    }
+                                if (gameCodeItem.GameBrand.toLowerCase() == targetSearch) {
+                                    searchFlag = true;
+                                } else if (gameCodeItem.GameCategoryCode.toLowerCase() == targetSearch) {
+                                    searchFlag = true;
+                                } else if (gameCodeItem.GameCategorySubCode.toLowerCase() == targetSearch) {
+                                    searchFlag = true;
+                                } else {
+                                    //先搜尋既有關鍵字
+                                    for (var i = 0; i < gameCodeItem.Tags.length; i++) {
+                                        if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                            searchFlag = true;
+                                            break;
+                                        }
 
-                                    if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
-                                        searchFlag = true;
-                                        break;
+                                        if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                            searchFlag = true;
+                                            break;
+                                        }
                                     }
                                 }
+
 
                                 for (var i = 0; i < gameCodeItem.Language.length; i++) {
                                     if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
@@ -660,24 +705,26 @@
                             } else {
                                 //資料遍歷完
                                 if (updateDatas.length >= 20) {
-                                    GCBSelf.updateByKeywordSearch(updateDatas, SearchKeyWord.toLowerCase());                                                            
+                                    GCBSelf.updateByKeywordSearch(updateDatas, SearchKeyWord.toLowerCase());
                                 }
 
                                 if (endCb) {
                                     endCb(isDataExist);
                                 }
+                                IndexedDB.close();
                             }
                         }
                     } else {
                         if (endCb) {
                             endCb(isDataExist);
-                        }                        
+                        }
+                        IndexedDB.close();
                     }
                 }
             };;
         };
 
-        GCBSelf.InitPromise.then(queue);
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
     /**
@@ -690,8 +737,8 @@
      * @param {any} endCb   結束fun(isDataExist) => isDataExist=true 有資料, isDataExist=false 無資料
      */
     this.CursorGetByMultiSearch2 = function (GameBrands, GameCategoryCode, GameCategorySubCode, SearchKeyWord, cb, endCb) {
-        var queue = () => {
-            var transaction = GCBSelf.IndexedDB.transaction(['GameCodes'], 'readonly');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             var mainPromise = Promise.resolve(false);
             var getPromiseForGameBrand = (GameBrand, GameCategoryCode, GameCategorySubCode, SearchKeyWord, cb) => {
@@ -723,7 +770,7 @@
                                         }
 
                                         resolve(isDataExist);
-                                    };            
+                                    };
                                 }
 
                                 return;
@@ -872,18 +919,23 @@
                 mainPromise = mainPromise.then(getPromiseForGameBrand("", GameCategoryCode, GameCategorySubCode, SearchKeyWord, cb))
             }
 
-            if (endCb) {
-                mainPromise.then(endCb);
-            }           
-        }
+            mainPromise.then(() => {
+                if (endCb) {
+                    endCb();
+                }
+                IndexedDB.close();
+            });
 
-        GCBSelf.InitPromise.then(queue);
+
+        };
+
+        GCBSelf.InitPromise.then(getDB).then(queue);
     }
 
     this.updateByKeywordSearch = function (datas, searchKeyword) {
         if (GCBSelf.IsFirstLoaded) {
             if (datas.length >= 20) {
-                var transaction = GCBSelf.IndexedDB.transaction(['GameCodes', 'RealSearchKey'], 'readwrite');
+                var transaction = IndexedDB.transaction(['GameCodes', 'RealSearchKey'], 'readwrite');
                 var objectStore = transaction.objectStore('GameCodes');
                 var searchKeyObjectStore = transaction.objectStore('RealSearchKey');
 
@@ -892,15 +944,13 @@
                     if (!data.Tags.includes(searchKeyword)) {
                         data.Tags.push(searchKeyword);
                         objectStore.put(data);
-                    }                     
+                    }
                 }
 
-                searchKeyObjectStore.put({ RealSearchKey: searchKeyword});
+                searchKeyObjectStore.put({ RealSearchKey: searchKeyword });
             }
         }
     }
-
-    this.IndexedDB = null;
 
     this.IsFirstLoaded = false;
 
