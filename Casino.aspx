@@ -506,12 +506,12 @@
             if (showType == 0) {
                 gameItemInfo = `<div class="game-item-info">
                                     <div class="game-item-info-inner">
-                                        <h3 class="game-item-name"></h3>
+                                        <h3 class="game-item-name">${gameName}</h3>
                                     </div>
                                 </div>`;
             } else if (showType == 2) {
                 gameItemInfo = `<div class="game-item-info">
-                                    <h3 class="game-item-name"></h3>
+                                    <h3 class="game-item-name">${gameName}</h3>
                                  </div>`;
             }
 
@@ -543,7 +543,7 @@
                                     </div>
                              </div>
                              <div class="game-item-info">
-                               <h3 class="game-item-name"></h3>
+                               <h3 class="game-item-name">${gameName}</h3>
                              </div>
                            </div>
                         </div>`;
