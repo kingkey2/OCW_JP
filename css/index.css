@@ -690,7 +690,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     position: absolute;
     width: 90%;
     left: 0;
-    width: 4em;
+    width: 5em;
     z-index: 2;
     font-size: 0.5em;
     margin: 0 auto;
@@ -698,6 +698,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     font-weight: 900;
     z-index: 1;
     margin-left: 45%;
+  }
+  .dailylogin-bouns-content .title .name span {
+    display: block;
   }
   .dailylogin-bouns-list {
     -webkit-box-flex: 1;
