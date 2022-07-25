@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 1);
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 6);
 
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
@@ -318,6 +318,9 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                 workerSelf.SyncEventData.RealSearchKeys = event.target.result;
             }
 
+            console.log('workerSelf.SyncEventData.NowTimeStamp = ' + workerSelf.SyncEventData.NowTimeStamp);
+            console.log('workerSelf.SyncEventData.NowGameID = ' + workerSelf.SyncEventData.NowGameID);
+
             workerSelf.GetCompanyGameCodeByUpdateTimestamp(Math.uuid(), workerSelf.SyncEventData.NowTimeStamp, workerSelf.SyncEventData.NowGameID, function (success, o) {
                 if (workerSelf.SyncEventData.Database) {
                     if (success) {
@@ -373,14 +376,20 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                             }
                                         }
 
-                                        if (searchFlag == true && !tags.includes(realSearchKey)) {
+                                        if (searchFlag == true && !tags.includes(SearchKeyWord)) {
                                             tags.push(SearchKeyWord);
                                         }
                                     }
-  
+
+                                    if (gameCodeItem.GameCode == 'CQ9.7') {
+                                        console.log(gameCodeItem);
+                                    }
+
+
                                     let InsertData = {
                                         GameCode: gameCodeItem.GameCode,
                                         GameBrand: gameCodeItem.BrandCode,
+                                        GameStatus: gameCodeItem.GameStatus,
                                         GameID: gameCodeItem.GameID,
                                         GameName: gameCodeItem.GameName,
                                         GameCategoryCode: gameCodeItem.GameCategoryCode,

@@ -1206,7 +1206,6 @@
       </s:complexType>
       <s:simpleType name="enumGameCodeStatus">
         <s:restriction base="s:string">
-          <s:enumeration value="NotYet" />
           <s:enumeration value="GameOpen" />
           <s:enumeration value="GameMaintain" />
           <s:enumeration value="GameClosed" />
@@ -5666,16 +5665,16 @@
   </wsdl:binding>
   <wsdl:service name="LobbyAPI">
     <wsdl:port name="LobbyAPISoap" binding="tns:LobbyAPISoap">
-      <soap:address location="http://ewin.dev.mts.idv.tw/api/LobbyAPI.asmx" />
+      <soap:address location="http://ewin.dev.mts.idv.tw/api/lobbyapi.asmx" />
     </wsdl:port>
     <wsdl:port name="LobbyAPISoap12" binding="tns:LobbyAPISoap12">
-      <soap12:address location="http://ewin.dev.mts.idv.tw/api/LobbyAPI.asmx" />
+      <soap12:address location="http://ewin.dev.mts.idv.tw/api/lobbyapi.asmx" />
     </wsdl:port>
     <wsdl:port name="LobbyAPIHttpGet" binding="tns:LobbyAPIHttpGet">
-      <http:address location="http://ewin.dev.mts.idv.tw/api/LobbyAPI.asmx" />
+      <http:address location="http://ewin.dev.mts.idv.tw/api/lobbyapi.asmx" />
     </wsdl:port>
     <wsdl:port name="LobbyAPIHttpPost" binding="tns:LobbyAPIHttpPost">
-      <http:address location="http://ewin.dev.mts.idv.tw/api/LobbyAPI.asmx" />
+      <http:address location="http://ewin.dev.mts.idv.tw/api/lobbyapi.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

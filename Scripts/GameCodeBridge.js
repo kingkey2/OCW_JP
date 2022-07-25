@@ -71,7 +71,15 @@
 
             objectStore.get(GameCode).onsuccess = function (event) {
                 if (cb) {
-                    cb(event.target.result);
+                    if (event.target.result) {
+                        if (event.target.result.GameStatus == 0) {
+                            cb(event.target.result);
+                        } else {
+                            cb(null);
+                        }
+                    } else {
+                        cb(null);
+                    }                                  
                 }
             };
         };
@@ -102,10 +110,13 @@
             index.openCursor(range, "prev").onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
-                    isDataExist = true;
-                    if (cb) {
-                        cb(cursor.value);
+                    if (cursor.value.GameStatus == 0) {
+                        isDataExist = true;
+                        if (cb) {
+                            cb(cursor.value);
+                        }
                     }
+
                     cursor.continue();
                 } else {
                     if (endCb) {
@@ -135,8 +146,12 @@
             index.openCursor(GameBrand).onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
-                    isDataExist = true;
-                    cb(cursor.value);
+                    if (cursor.value.GameStatus == 0) {
+                        isDataExist = true;
+                        if (cb) {
+                            cb(cursor.value);
+                        }
+                    }
                     cursor.continue();
                 } else {
                     endCb(isDataExist);
@@ -166,9 +181,11 @@
             index.openCursor(range, "prev").onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
-                    isDataExist = true;
-                    if (cb) {
-                        cb(cursor.value);
+                    if (cursor.value.GameStatus == 0) {
+                        isDataExist = true;
+                        if (cb) {
+                            cb(cursor.value);
+                        }
                     }
                     cursor.continue();
                 } else {
@@ -199,9 +216,11 @@
             index.openCursor(range, "prev").onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
-                    isDataExist = true;
-                    if (cb) {
-                        cb(cursor.value);
+                    if (cursor.value.GameStatus == 0) {
+                        isDataExist = true;
+                        if (cb) {
+                            cb(cursor.value);
+                        }
                     }
                     cursor.continue();
                 } else {
@@ -328,9 +347,11 @@
             index.openCursor(null, "prev").onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
-                    isDataExist = true;
                     if (cb) {
-                        cb(cursor.value);
+                        if (cursor.value.GameStatus == 0) {
+                            isDataExist = true;
+                            cb(cursor.value);
+                        }
                     }
                     cursor.continue();
                 } else {
@@ -441,9 +462,11 @@
             index.openCursor(null, "prev").onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
-                    isDataExist = true;
                     if (cb) {
-                        cb(cursor.value);
+                        if (cursor.value.GameStatus == 0) {
+                            isDataExist = true;
+                            cb(cursor.value);
+                        }
                     }
                     cursor.continue();
                 } else {
@@ -500,14 +523,16 @@
                 var searchGameID = Number(SearchKeyWord);
 
                 if (searchGameID) {
-                    objectStore.index("GameID").openCursor(searchGameID).onsuccess = function (event) {
-                        var cursor = event.target.result;
-                        if (cursor) {
-                            isDataExist = true;
-                            if (cb) {
-                                cb(cursor.value);
-                            }
-                        }
+                    objectStore.index("GameID").get(searchGameID).onsuccess = function (event) {
+                        if (event.target.result) {
+                            if (event.target.result.GameStatus == 0) {
+                                isDataExist = true;
+                                if (cb) {
+                                    cb(event.target.result);
+                                }
+                            }                            
+                        } 
+
 
                         if (endCb) {
                             endCb(isDataExist);
@@ -582,9 +607,11 @@
                     }
 
                     if (checkFlag) {
-                        isDataExist = true;
-                        if (cb) {
-                            cb(gameCodeItem);
+                        if (gameCodeItem.GameStatus == 0) {
+                            isDataExist = true;
+                            if (cb) {
+                                cb(gameCodeItem);
+                            }
                         }
                     }
 
@@ -623,10 +650,12 @@
 
 
                                 if (searchFlag) {
-                                    isDataExist = true;
-                                    if (cb) {
-                                        cb(gameCodeItem);
-                                    }                                   
+                                    if (gameCodeItem.GameStatus == 0) {
+                                        isDataExist = true;
+                                        if (cb) {
+                                            cb(gameCodeItem);
+                                        }
+                                    }
                                 }
 
                                 cursor.continue();
@@ -684,18 +713,19 @@
                                 if (isDataExist) {
                                     resolve(isDataExist);
                                 } else {
-                                    objectStore.index("GameID").openCursor(searchGameID).onsuccess = function (event) {
-                                        var cursor = event.target.result;
-                                        if (cursor) {
-                                            isDataExist = true;
-                                            if (cb) {
-                                                cb(cursor.value);
-                                            }                                          
-                                            resolve(isDataExist);
-                                        } else {
-                                            resolve(isDataExist);
+
+                                    objectStore.index("GameID").get(searchGameID).onsuccess = function (event) {
+                                        if (event.target.result) {
+                                            if (event.target.result.GameStatus == 0) {
+                                                isDataExist = true;
+                                                if (cb) {
+                                                    cb(event.target.result);
+                                                }
+                                            }
                                         }
-                                    };
+
+                                        resolve(isDataExist);
+                                    };            
                                 }
 
                                 return;
@@ -764,10 +794,12 @@
                                 }
 
                                 if (checkFlag) {
-                                    isDataExist = true;
-                                    if (cb) {
-                                        cb(gameCodeItem);
-                                    }                                  
+                                    if (gameCodeItem.GameStatus == 0) {
+                                        isDataExist = true;
+                                        if (cb) {
+                                            cb(gameCodeItem);
+                                        }
+                                    }
                                 }
 
                                 cursor.continue();
@@ -805,10 +837,12 @@
 
 
                                             if (searchFlag) {
-                                                isDataExist = true;
-                                                if (cb) {
-                                                    cb(gameCodeItem);
-                                                }                                              
+                                                if (gameCodeItem.GameStatus == 0) {
+                                                    isDataExist = true;
+                                                    if (cb) {
+                                                        cb(gameCodeItem);
+                                                    }
+                                                }
                                             }
 
                                             cursor.continue();
