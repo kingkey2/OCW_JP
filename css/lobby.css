@@ -236,6 +236,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 20px;
   right: 0;
   width: 50%;
+  max-width: 300px;
   color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -255,12 +256,30 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 100%;
   margin-bottom: 1rem;
 }
+.category-dailypush-cotentBox .detail {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
 .category-dailypush-cotentBox .gamename {
   font-size: 1rem;
   margin-bottom: 0.6rem;
 }
 .category-dailypush-cotentBox .gamecategory {
   border: solid 1px #fff;
+  margin-left: 1rem;
+  padding: 5px;
+  height: 25px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .category-dailypush-cotentBox .intro {
   display: -webkit-box;
@@ -273,6 +292,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .category-dailypush-cotentBox .action {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .category-dailypush-cotentBox .btn-play {
   border-radius: 50px;
@@ -286,6 +311,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .category-dailypush-cotentBox .btn-like .icon {
   color: #fff;
+}
+.category-dailypush-cotent {
+  width: 100%;
 }
 
 .game_slider.swiper-cover .swiper-slide {
