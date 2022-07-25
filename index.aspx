@@ -1476,6 +1476,14 @@
             //    noSleep.enable();
             //}
 
+            if (EWinWebInfo.DeviceType == 1) {
+                $(".searchFilter-item").eq(0).css("flex-grow", "0");
+                $(".searchFilter-item").eq(0).css("flex-shrink","0");
+                $(".searchFilter-item").eq(0).css("flex-basis","100%");
+                $(".searchFilter-item").eq(1).css("margin-left", "0");
+                //$(".searchFilter-item").eq(2).css("margin-left","0");
+            }
+
             var dstPage = c.getParameter("DstPage");
             var closeGameBtn = $('#closeGameBtn');
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
