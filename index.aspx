@@ -1430,30 +1430,6 @@
                 RTP: null
             },
             () => {
-                var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
-                var favoriteGames;
-                var myGamesStr = window.localStorage.getItem("MyGames");
-                var myGames;
-
-
-                if (favoriteGamesStr) {
-                    favoriteGames = JSON.parse(favoriteGamesStr);
-
-                    for (var i = 0; i < favoriteGames.length; i++) {
-                        GCB.AddFavoByGameID(favoriteGames[i].GameID);
-                    }
-                }
-
-                if (myGamesStr) {
-                    myGames = JSON.parse(myGamesStr);
-
-                    for (var i = 0; i < myGames.length; i++) {
-                        var myGame = myGames[i];
-                        GCB.AddPlayed(myGame.GameBrand + "." + myGame.GameName);
-                    }
-                }
-
-
                 notifyWindowEvent("GameLoadEnd", null);
             }
         );

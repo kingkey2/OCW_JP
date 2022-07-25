@@ -122,23 +122,27 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
     }
 
     var ClearDBSchema = function (cb) {
-        workerSelf.SyncEventData.Database.close();
-        console.log("deleteStart");
-        let DBDeleteRequest = self.indexedDB.deleteDatabase("GameCodeDB");
+        //workerSelf.SyncEventData.Database.close();
+        //console.log("deleteStart");
+        //let DBDeleteRequest = self.indexedDB.deleteDatabase("GameCodeDB");
 
-        DBDeleteRequest.onsuccess = function (event) {
-            console.log("Deleted database successfully")
-            if (cb) {
-                cb();
-            }
-        };
+        //DBDeleteRequest.onsuccess = function (event) {
+        //    console.log("Deleted database successfully")
+        //    if (cb) {
+        //        cb();
+        //    }
+        //};
 
-        DBDeleteRequest.onerror = function () {
-            console.log("Couldn't delete database");
-        };
-        DBDeleteRequest.onblocked = function () {
-            console.log("Couldn't delete database due to the operation being blocked");
-        };
+        //DBDeleteRequest.onerror = function () {
+        //    console.log("Couldn't delete database");
+        //};
+        //DBDeleteRequest.onblocked = function () {
+        //    console.log("Couldn't delete database due to the operation being blocked");
+        //};
+
+        if (cb) {
+            cb();
+        }
     };
 
     //#region public屬性
