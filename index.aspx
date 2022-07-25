@@ -263,7 +263,7 @@
     }
 
     function API_SearchGameByBrand(gameBrand) {
-        return searchGameByBrand(gameBrand);
+        return SearchControll.searchGameByBrand(gameBrand);
     }
 
     function API_GetPaymentAPI() {
