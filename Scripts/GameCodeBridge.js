@@ -933,23 +933,32 @@
     }
 
     this.updateByKeywordSearch = function (datas, searchKeyword) {
-        if (GCBSelf.IsFirstLoaded) {
-            if (datas.length >= 20) {
-                var transaction = IndexedDB.transaction(['GameCodes', 'RealSearchKey'], 'readwrite');
-                var objectStore = transaction.objectStore('GameCodes');
-                var searchKeyObjectStore = transaction.objectStore('RealSearchKey');
+        var DBOpenRequest = window.indexedDB.open('GameCodeDB');
 
-                for (var i = 0; i < datas.length; i++) {
-                    var data = datas[i];
-                    if (!data.Tags.includes(searchKeyword)) {
-                        data.Tags.push(searchKeyword);
-                        objectStore.put(data);
+        DBOpenRequest.onsuccess = function (event) {
+            var IndexedDB = event.target.result;
+            if (GCBSelf.IsFirstLoaded) {
+                if (datas.length >= 20) {
+                    var transaction = IndexedDB.transaction(['GameCodes', 'RealSearchKey'], 'readwrite');
+                    var objectStore = transaction.objectStore('GameCodes');
+                    var searchKeyObjectStore = transaction.objectStore('RealSearchKey');
+
+                    for (var i = 0; i < datas.length; i++) {
+                        var data = datas[i];
+                        if (!data.Tags.includes(searchKeyword)) {
+                            data.Tags.push(searchKeyword);
+                            objectStore.put(data);
+                        }
                     }
-                }
+                    searchKeyObjectStore.put({ RealSearchKey: searchKeyword });
 
-                searchKeyObjectStore.put({ RealSearchKey: searchKeyword });
+                    transaction.oncomplete = function (event) {
+                        IndexedDB.close();
+                    };                  
+                }
             }
-        }
+        };
+      
     }
 
     this.IsFirstLoaded = false;
