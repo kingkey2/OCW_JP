@@ -1381,7 +1381,7 @@
                                                 <div class="game-item-img">
                                                     <span class="game-item-link"></span>
                                                     <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                        <img src="" />
                                                     </div>
                                                 </div>
                                                 <div class="game-item-info-detail open">
@@ -1463,7 +1463,7 @@
                                     <div class="game-item-inner">
                                         <span class="game-item-link"></span>
                                         <div class="img-wrap">
-                                            <img class="gameimg lozad" src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                            <img class="gameimg lozad" src="">
                                         </div>
                                     </div>
                                     <div class="game-item-info">
@@ -1547,7 +1547,7 @@
                                                 <div class="game-item-img">
                                                     <span class="game-item-link"></span>
                                                     <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                        <img src="">
                                                     </div>
                                                 </div>
                                                 <div class="game-item-info-detail">
