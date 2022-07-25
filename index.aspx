@@ -1390,6 +1390,7 @@
         });
         $('.header_area .mask_overlay').click(function () {
             verticalmenu.removeClass('navbar-show');
+            headermenu.removeClass('show');
             headermenu.find(".navbarMenu").removeClass('show');
             if (navbartoggler.attr("aria-expanded") == "true") {
                 navbartoggler.attr("aria-expanded", "false");
