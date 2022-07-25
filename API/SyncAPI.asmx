@@ -21,7 +21,7 @@ public class SyncAPI : System.Web.Services.WebService
     //[WebMethod]
     //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     //public EWin.Lobby.APIResult CreateJKCUserAccount()
-    //{ 
+    //{
     //    string Filename;
     //    EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
     //    if (EWinWeb.IsTestSite)
@@ -58,37 +58,37 @@ public class SyncAPI : System.Web.Services.WebService
     //    return R;
     //}
 
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.Lobby.APIResult UpdateJKCUserAccount(string ContactPhoneNumber, decimal Amount)
-    //{
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult UpdateJKCUserAccount(string ContactPhoneNumber, decimal Amount)
+    {
 
-    //    EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
 
-    //    var retVal = EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber2(ContactPhoneNumber, Amount);
-    //    if (retVal == 0)
-    //    {
-    //        R.Result = EWin.Lobby.enumResult.OK;
-    //    }
+        var retVal = EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber2(ContactPhoneNumber, Amount);
+        if (retVal == 0)
+        {
+            R.Result = EWin.Lobby.enumResult.OK;
+        }
 
-    //    return R;
-    //}
+        return R;
+    }
 
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public EWin.Lobby.APIResult InsertJKCUserAccountByContactPhoneNumber(string ContactPhoneNumber, decimal Amount)
-    //{
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult InsertJKCUserAccountByContactPhoneNumber(string ContactPhoneNumber, decimal Amount)
+    {
 
-    //    EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
 
-    //    var retVal = EWinWebDB.JKCDeposit.InsertJKCDepositByContactPhoneNumber(ContactPhoneNumber, Amount);
-    //    if (retVal > 0)
-    //    {
-    //        R.Result = EWin.Lobby.enumResult.OK;
-    //    }
+        var retVal = EWinWebDB.JKCDeposit.InsertJKCDepositByContactPhoneNumber(ContactPhoneNumber, Amount);
+        if (retVal > 0)
+        {
+            R.Result = EWin.Lobby.enumResult.OK;
+        }
 
-    //    return R;
-    //}
+        return R;
+    }
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -210,19 +210,19 @@ public class SyncAPI : System.Web.Services.WebService
                 ShowType = 0;
 
                 OCWcompanyStatisticsCategoryResult.CategoryList = new EWin.Lobby.CompanyCategory[] { new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 89
+        CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 77
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxBetCount30Day",CompanyCategoryID = 0,SortIndex = 89
+        CategoryName = "SlotMaxBetCount30Day",CompanyCategoryID = 0,SortIndex = 75
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinValue7Day",CompanyCategoryID = 0,SortIndex =89
+        CategoryName = "SlotMaxWinValue7Day",CompanyCategoryID = 0,SortIndex =74
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinValueYesterday",CompanyCategoryID = 0,SortIndex = 89
+        CategoryName = "SlotMaxWinValueYesterday",CompanyCategoryID = 0,SortIndex = 71
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinRate7Day",CompanyCategoryID = 0,SortIndex = 89
+        CategoryName = "SlotMaxWinRate7Day",CompanyCategoryID = 0,SortIndex = 73
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxWinRateYesterday",CompanyCategoryID = 0,SortIndex = 89
+        CategoryName = "SlotMaxWinRateYesterday",CompanyCategoryID = 0,SortIndex = 70
         },new EWin.Lobby.CompanyCategory() {
-        CategoryName = "SlotMaxRTPYesterday",CompanyCategoryID = 0,SortIndex = 89
+        CategoryName = "SlotMaxRTPYesterday",CompanyCategoryID = 0,SortIndex = 69
         }};
 
                 for (int i = 0; i < OCWcompanyStatisticsCategoryResult.CategoryList.Length; i++)

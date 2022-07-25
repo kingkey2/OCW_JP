@@ -41,7 +41,16 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script src="Scripts/lozad.min.js"></script>
+        <style>
+        .title-showAll:hover {
+            cursor: pointer;
+        }
 
+        .game-item-info-detail{
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <script type="text/javascript">
     if (self != top) {
@@ -339,7 +348,7 @@
                             //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                         } else {
                             gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                            GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
+                            GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                             gameitemlink = '<span class="game-item-link"></span>';
                             btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
                         }
@@ -420,7 +429,7 @@
                                                 </div>
                                                 <div class="game-item-info">
                                                     <div class="game-item-info-inner">
-                                                        <h3 class="game-item-name"></h3>
+                                                        <h3 class="game-item-name">${gameName}</h3>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -608,7 +617,7 @@
                                                 </div>
                                                 <div class="game-item-info">
                                                     <div class="game-item-info-inner">
-                                                        <h3 class="game-item-name"></h3>
+                                                        <h3 class="game-item-name">${gameName}</h3>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -1074,7 +1083,7 @@
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
                                                 <h3 class="title">
-                                                    <span class="name language_replace">金曜日のプレゼント</span></h3>
+                                                    <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item">
