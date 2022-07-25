@@ -140,17 +140,15 @@
             var transaction = GCBSelf.IndexedDB.transaction(['GameCategory'], 'readonly');
             var objectStore = transaction.objectStore('GameCategory');
             var index = objectStore.index("GameBrand");
-            var isDataExist = false;            
+            var isDataExist = false;
             //var count = index.count();
 
             index.openCursor(GameBrand).onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
-                    if (cursor.value.GameStatus == 0) {
-                        isDataExist = true;
-                        if (cb) {
-                            cb(cursor.value);
-                        }
+                    isDataExist = true;
+                    if (cb) {
+                        cb(cursor.value);
                     }
                     cursor.continue();
                 } else {
