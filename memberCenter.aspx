@@ -732,7 +732,7 @@
                                     <div class="game-item-img">
                                         <span class="game-item-link"></span>
                                         <div class="img-wrap">
-                                            <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                            <img src="">
                                         </div>
                                     </div>
                                     <div class="game-item-info-detail open">
