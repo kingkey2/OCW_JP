@@ -154,7 +154,7 @@ public class SyncAPI : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult TestUpdateCompanyCategory(string Key) {
+    public EWin.Lobby.APIResult UpdateCompanyCategory(string Key) {
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
         EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
         EWin.Lobby.CompanyCategoryResult companyCategoryResult;
