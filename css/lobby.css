@@ -288,6 +288,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   color: #fff;
 }
 
+.game_slider.swiper-cover .swiper-slide {
+  width: 130px;
+}
+
 .game_slider .swiper-slide {
   padding-right: 10px;
   width: 31.25%;
@@ -440,6 +444,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     padding-left: 9.0909090909%;
     width: 27.2727272727%;
   }
+
+  .game_slider.swiper-cover .swiper-slide {
+    width: 160px;
+  }
 }
 @media (min-width: 768px) {
   .category-dailypush-inner {
@@ -502,6 +510,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 70%;
+  }
+
+  .game_slider.swiper-cover .swiper-slide {
+    width: 200px;
   }
 }
 @media (min-width: 1144px) and (max-width: 1383px) {
@@ -687,6 +699,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .gameRanking .swiper-slide {
     padding-left: 100px;
     width: 300px;
+  }
+
+  .game_slider.swiper-cover .swiper-slide {
+    width: 260px;
   }
 }
 @media (min-width: 2560px) {

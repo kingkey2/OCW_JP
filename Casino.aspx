@@ -212,7 +212,7 @@
             coverflowEffect: {
                 rotate: 20,
                 stretch: 0,
-                depth: 200,
+                depth: 300,
                 modifier: 1,
                 slideShadows: true,
             },
