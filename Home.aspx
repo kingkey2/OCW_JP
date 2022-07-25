@@ -295,7 +295,7 @@
             switch (type) {
                 case 0:
                     CategCode = "PersonalFavo";
-                    CategText = "我的遊戲";
+                    CategText = "我的最愛";
                     break;
                 case 1:
                     CategCode = "PersonalPlayed";
@@ -303,7 +303,7 @@
                     break;
                 default:
                     CategCode = "PersonalFavo";
-                    CategText = "我的遊戲";
+                    CategText = "我的最愛";
                     break;
             }
 
