@@ -381,11 +381,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                         }
                                     }
 
-                                    if (gameCodeItem.GameCode == 'CQ9.7') {
-                                        console.log(gameCodeItem);
-                                    }
-
-
+                        
                                     let InsertData = {
                                         GameCode: gameCodeItem.GameCode,
                                         GameBrand: gameCodeItem.BrandCode,
