@@ -752,8 +752,9 @@
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
-        var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-info-detail.open");
+        var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-link");
         var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
+        var playbtn = popupMoblieGameInfo[0].querySelector(".btn-play");
         var GI_img = popupMoblieGameInfo[0].querySelector(".imgsrc");
         var favoriteGames = [];
         var gamecode = brandName + "." + gameName;
@@ -781,10 +782,8 @@
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
         
-        //playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        //btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
-
+        playbtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -1390,6 +1389,7 @@
         });
         $('.header_area .mask_overlay').click(function () {
             verticalmenu.removeClass('navbar-show');
+            headermenu.removeClass('show');
             headermenu.find(".navbarMenu").removeClass('show');
             if (navbartoggler.attr("aria-expanded") == "true") {
                 navbartoggler.attr("aria-expanded", "false");
@@ -2931,9 +2931,9 @@
                                                                 <i class="arrow arrow-down"></i>
                                                             </button>--%>
                                                         </div>
-                                                <%--        <button type="button" class="btn btn-play">
+                                                        <button type="button" class="btn btn-play">
                                                             <span class="language_replace">プレイ</span><i class="triangle"></i>
-                                                        </button>--%>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
