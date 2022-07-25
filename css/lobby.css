@@ -1,5 +1,4 @@
 /*=================== fonts ====================*/
-@import url("https://fonts.googleapis.com/css?family=Heebo:300,400,700,900|Roboto:300,400,500,700");
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .tab-game {
@@ -233,10 +232,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .category-dailypush-cotentBox {
   position: relative;
-  padding: 20px;
+  padding: 10px 20px;
   right: 0;
   width: 50%;
   max-width: 300px;
+  min-width: 190px;
   color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -248,12 +248,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .category-dailypush-cotentBox .title {
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   margin-bottom: 1rem;
   width: 100%;
 }
 .category-dailypush-cotentBox .info {
-  width: 100%;
   margin-bottom: 1rem;
 }
 .category-dailypush-cotentBox .detail {
@@ -264,10 +263,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.875rem;
 }
 .category-dailypush-cotentBox .gamename {
-  font-size: 1rem;
+  font-size: 1.125rem;
   margin-bottom: 0.6rem;
+  font-weight: 500;
 }
 .category-dailypush-cotentBox .gamecategory {
   border: solid 1px #fff;
@@ -292,6 +296,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .category-dailypush-cotentBox .action {
   width: 100%;
+  height: 38px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -303,17 +308,31 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   border-radius: 50px;
   background-color: #00AFFF;
   color: #fff;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .category-dailypush-cotentBox .btn-like {
   background-color: transparent;
   border: solid 1px #fff;
   font-size: 26px;
+  width: 38px;
+  margin-left: 1rem;
 }
 .category-dailypush-cotentBox .btn-like .icon {
   color: #fff;
 }
 .category-dailypush-cotent {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -ms-flex-line-pack: justify;
+      align-content: space-between;
 }
 
 .game_slider.swiper-cover .swiper-slide {
@@ -579,6 +598,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .hero_slider_lobby .swiper-slide {
     max-width: 66%;
   }
+
+  .category-dailypush-cotentBox {
+    height: 90%;
+  }
 }
 @media (min-width: 1384px) and (max-width: 1543px) {
   .game_slider .swiper-slide {
@@ -731,6 +754,21 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .game_slider.swiper-cover .swiper-slide {
     width: 260px;
+  }
+
+  .category-dailypush-cotentBox {
+    padding: 20px 30px;
+    max-width: 360px;
+  }
+  .category-dailypush-cotentBox .title,
+.category-dailypush-cotentBox .gamename {
+    font-size: 1.375rem;
+  }
+  .category-dailypush-cotentBox .action {
+    height: 48px;
+  }
+  .category-dailypush-cotentBox .btn-like {
+    width: 48px;
   }
 }
 @media (min-width: 2560px) {

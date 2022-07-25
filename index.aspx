@@ -1430,30 +1430,6 @@
                 RTP: null
             },
             () => {
-                var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
-                var favoriteGames;
-                var myGamesStr = window.localStorage.getItem("MyGames");
-                var myGames;
-
-
-                if (favoriteGamesStr) {
-                    favoriteGames = JSON.parse(favoriteGamesStr);
-
-                    for (var i = 0; i < favoriteGames.length; i++) {
-                        GCB.AddFavoByGameID(favoriteGames[i].GameID);
-                    }
-                }
-
-                if (myGamesStr) {
-                    myGames = JSON.parse(myGamesStr);
-
-                    for (var i = 0; i < myGames.length; i++) {
-                        var myGame = myGames[i];
-                        GCB.AddPlayed(myGame.GameBrand + "." + myGame.GameName);
-                    }
-                }
-
-
                 notifyWindowEvent("GameLoadEnd", null);
             }
         );
@@ -1475,6 +1451,14 @@
             //    noSleep = new NoSleep();
             //    noSleep.enable();
             //}
+
+            if (EWinWebInfo.DeviceType == 1) {
+                $(".searchFilter-item").eq(0).css("flex-grow", "0");
+                $(".searchFilter-item").eq(0).css("flex-shrink","0");
+                $(".searchFilter-item").eq(0).css("flex-basis","100%");
+                $(".searchFilter-item").eq(1).css("margin-left", "0");
+                //$(".searchFilter-item").eq(2).css("margin-left","0");
+            }
 
             var dstPage = c.getParameter("DstPage");
             var closeGameBtn = $('#closeGameBtn');
