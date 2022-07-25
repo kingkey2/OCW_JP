@@ -239,7 +239,7 @@
                 selectedCategorys.push(categoryName);
                 var Location = lobbyGame.Location;
                 var categAreas = "";
-
+                var gameBrand;
                 for (var i = 0; i < lobbyGame.Categories.length; i++) {
                     category = lobbyGame.Categories[i];
                     if (category) {
@@ -264,15 +264,14 @@
 
                                 if (gameItem) {
                                     createGameItem(gameItem, showType, function (stringGameItem) {
+                                        gameBrand = gameItem.GameBrand;
                                         gameItems += stringGameItem;
                                     });
                                 }
                             }
 
-
-
                             categName = category.CategoryName.replace('@', '').replace('#', '');
-                            gameBrand = category.Datas[0].GameBrand;
+                   
                             if (iframeWidth < 936) {
                                 textlink = '';
                             } else {
@@ -304,7 +303,7 @@
                                                     </div>
                                                 </section>`;
                             } else {
-                                if (category.SortIndex >= 90) {
+                                if (Location == "GameList_Brand") {
                                     categArea = `<section class="section-wrap section-levelUp">
                                                     ${game_wrapper}
                                                     <div class="sec-title-container">
@@ -858,7 +857,7 @@
             $('#idGameItemTitle').append('<div class="tab-slide"></div>');
         }
 
-        selectedCategoryCode = "GameList_Slot";
+        selectedCategoryCode = "GameList_Hot";
         iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
