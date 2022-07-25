@@ -6163,7 +6163,6 @@ i {
   width: 300px;
   -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0%, transparent 75%, rgba(0, 0, 0, 0.555) 100%);
   border-radius: 15px;
-  overflow: hidden;
   padding-right: 0;
 }
 .game_slider.swiper-cover .swiper-slide img {
@@ -6178,10 +6177,12 @@ i {
   left: 0;
   right: 0;
   text-align: center;
+  min-height: 35px;
 }
 .game_slider.swiper-cover .game-item-name {
-  font-size: 1.25rem;
+  font-size: 0.9375rem;
   text-align: center;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.85);
 }
 .game_slider.swiper-cover .game-item-name {
   opacity: 0;
@@ -6207,6 +6208,11 @@ i {
   right: 0;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(40.62%, rgba(255, 255, 255, 0)), color-stop(40.63%, #03206B), color-stop(97.92%, rgba(15, 43, 115, 0)));
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40.62%, #03206B 40.63%, rgba(15, 43, 115, 0) 97.92%);
+}
+.section_randomRem .game_wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 .section_randomRem .swiper-cover {
   padding-bottom: 100px;
