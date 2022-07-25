@@ -695,9 +695,10 @@
                     for (var i = 0; i < gameDoms.length; i++) {
                         var gameDom = gameDoms[i];
 
-                        window.parent.API_GetGameLang(lang, gameDom.getAttribute("gameLangkey"), function (langText) {
+                        window.parent.API_GetGameLang(lang, gameDom.getAttribute("gameLangkey"), (function (langText) {
+                            var gameDom = this;
                             gameDom.innerText = langText;
-                        });                                             
+                        }).bind(gameDom));
                     }
 
                     window.parent.API_LoadingEnd(1);
