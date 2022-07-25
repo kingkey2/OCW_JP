@@ -368,6 +368,7 @@
         var type = "";
         var btnlike = "";
         var btnplay = "";
+        var titleobj = "";
         switch (Location) {
             case "GameList_Hot":
                 type = "hot";
@@ -421,12 +422,14 @@
                     }
 
                     if (iframeWidth < 936) {
+                        titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})">`;
                         btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     } else {
+                        titleobj = `<section class="section-category-dailypush" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                         btnplay = `<button class="btn btn-play" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     }
 
-                    var docString = `<section class="section-category-dailypush">
+                    var docString = `${titleobj}
                  <div class="category-dailypush-wrapper ${type}">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: ${headerGameData.BackgroundColor};">
@@ -526,7 +529,7 @@
             } else {
                 gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                gameitemlink = `<span class="game-item-link" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
+                gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
 
             }
 
@@ -699,37 +702,158 @@
                 });
             }
 
-            for (var i = 0; i < LobbyGameList.length; i++) {
-                var lobbyGame = LobbyGameList[i];
-                if (lobbyGame.Location.includes("GameList")) {
-                    RecordDom = c.getTemplate("temCategItem");
-                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
-                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
-                    switch (lobbyGame.Location) {
-                        case 'GameList_Hot':
-                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
-                            break;
-                        case 'GameList_Favo':
-                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
-                            break;
-                        case 'GameList_Live':
-                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
-                            break;
-                        case 'GameList_Slot':
-                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
-                            break;
-                        case 'GameList_Other':
-                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
-                            break;
-                        case 'GameList_Brand':
-                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
-                            break;
-                        default:
-                    }
-                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
-                    idGameItemTitle.appendChild(RecordDom);
+            //熱門
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location =="GameList_Hot" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
                 }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
             }
+
+            //老虎雞
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Slot" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+            //真人
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Live" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+            //其他
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Other" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+            //廠牌
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Brand" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+
 
             $('#idGameItemTitle').append('<div class="tab-slide"></div>');
         }
