@@ -191,37 +191,42 @@
                     if (o.DetailList.length > 0) {
                         for (var i = 0; i < o.DetailList.length; i++) {
                             var record = o.DetailList[i];
-                            var RecordDom;
 
-                            if (record.RewardValue >= 0) {
-                                RecordDom = c.getTemplate("tmpGameDetail_W");
-                            } else {
-                                RecordDom = c.getTemplate("tmpGameDetail_L");
-                            }
-                            let GameBrand = record.GameCode.split('.')[0];
-                            let GameName = record.GameCode.split('.')[1];
+                            window.parent.API_GetGameLang(WebInfo.Lang, record.GameCode, (function (langText) {
+                                var record = this;
+                                var RecordDom;
 
-                            window.parent.API_GetGameLang(WebInfo.Lang, record.GameCode, function (langText) {
+                                if (record.RewardValue >= 0) {
+                                    RecordDom = c.getTemplate("tmpGameDetail_W");
+                                } else {
+                                    RecordDom = c.getTemplate("tmpGameDetail_L");
+                                }
+                                let GameBrand = record.GameCode.split('.')[0];
+                                let GameName = record.GameCode.split('.')[1];
                                 c.setClassText(RecordDom, "gameName", null, langText);
-                            })
+                                
+                                if (record.GameCode.toUpperCase() =="PP.VS20STARLIGHT") {
+                                    c.setClassText(RecordDom, "gameName", null, "スタァラァトゥ姫");
+                                }
+                               
+                                RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
+                                RecordDom.querySelector(".gameName").classList.add("gameLangkey");
 
-                       
-                            RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
-                            RecordDom.querySelector(".gameName").classList.add("gameLangkey");
+                                c.setClassText(RecordDom, "rewardValue", null, new BigNumber(record.RewardValue).toFormat());
+                                c.setClassText(RecordDom, "orderValue", null, new BigNumber(record.OrderValue).toFormat());
+                                c.setClassText(RecordDom, "validBet", null, new BigNumber(record.ValidBetValue).toFormat());
 
-                            c.setClassText(RecordDom, "rewardValue", null, new BigNumber(record.RewardValue).toFormat());
-                            c.setClassText(RecordDom, "orderValue", null, new BigNumber(record.OrderValue).toFormat());
-                            c.setClassText(RecordDom, "validBet", null, new BigNumber(record.ValidBetValue).toFormat());
+                                let GI_img = RecordDom.querySelector(".gameimg");
 
-                            let GI_img = RecordDom.querySelector(".gameimg");
+                                if (GameBrand == "EWin") {
+                                    c.setClassText(RecordDom, "gameName", null, "EWinゲーミング");
+                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
+                                } else {
+                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
+                                }
 
-                            if (GameBrand == "EWin") {
-                                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
-                            } else {
-                                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
-                            }
-
-                            panel.appendChild(RecordDom);
+                                panel.appendChild(RecordDom);
+                            }).bind(record))
                         }
 
                         if (cb) {
@@ -1424,7 +1429,7 @@
                 </div>
                 <div class="record-drop-item-wrapper">
                     <div class="record-drop-item-gameName record-item">
-                        <span class="data language_replace gameName">火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試</span>
+                        <span class="data language_replace gameName"></span>
                     </div>
                     <div class="record-drop-item-orderValue record-item">
                         <span class="title language_replace">投注</span>
@@ -1453,7 +1458,7 @@
                 </div>
                 <div class="record-drop-item-wrapper">
                     <div class="record-drop-item-gameName record-item">
-                        <span class="data language_replace gameName">火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試</span>
+                        <span class="data language_replace gameName"></span>
                     </div>
                     <div class="record-drop-item-orderValue record-item">
                         <span class="title language_replace">投注</span>

@@ -72,11 +72,7 @@
             objectStore.get(GameCode).onsuccess = function (event) {
                 if (cb) {
                     if (event.target.result) {
-                        if (event.target.result.GameStatus == 0) {
                             cb(event.target.result);
-                        } else {
-                            cb(null);
-                        }
                     } else {
                         cb(null);
                     }                                  
