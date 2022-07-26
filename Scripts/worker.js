@@ -195,6 +195,13 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
             }
         };
 
+        DBRequestLink.onerror = () => {
+            let delRequest = self.indexedDB.deleteDatabase('GameCodeDB');
+            delRequest.onsuccess = (event) => {
+                workerSelf.Sync();
+            };
+        };
+
         DBRequestLink.onsuccess = function (event) {
             let dbVersion;
             let SyncStartPromise;
@@ -202,27 +209,23 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
             workerSelf.SyncEventData.Database = event.target.result;
             dbVersion = workerSelf.SyncEventData.Database.version;
 
-            if (oldVersion != 0 && dbVersion != oldVersion && dbVersion == 7) {
-                workerSelf.SyncEventData.Database.close();
-                let delRequest = self.indexedDB.deleteDatabase('GameCodes');
-                delRequest.onsuccess = (event) => {
-                    workerSelf.Sync();
-                };
-                return;
-            }
-
             SyncStartPromise = new Promise((resolve, reject) => {
                 let transaction = workerSelf.SyncEventData.Database.transaction(['SyncData'], 'readwrite');
                 let objectStore = transaction.objectStore('SyncData');
 
                 if (oldVersion == 0) {
-                    objectStore.put({
+                    let syncData = {
                         SyncID: 1,
                         GameID: 0,
                         TimeStamp: 0,
                         LastUpdateDate: new Date().toISOString(),
                         StatusText: "Start"
-                    });
+                    };
+
+                    console.log("SyncStart");
+                    console.log(syncData);
+
+                    objectStore.put(syncData);
 
                     workerSelf.SyncEventData.NowGameID = 0;
                     workerSelf.SyncEventData.NowTimeStamp = 0;
@@ -237,6 +240,9 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                 } else {
                     objectStore.get(1).onsuccess = function (event) {
                         if (event.target.result) {
+                            console.log("SyncStart");
+                            console.log(event.target.result);
+
                             workerSelf.SyncEventData.NowGameID = event.target.result.GameID;
                             workerSelf.SyncEventData.NowTimeStamp = event.target.result.TimeStamp;
 
@@ -246,13 +252,19 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                 }
                             }
                         } else {
-                            objectStore.put({
+                            let syncData = {
                                 SyncID: 1,
                                 GameID: 0,
                                 TimeStamp: 0,
                                 LastUpdateDate: new Date().toISOString(),
                                 StatusText: "Start"
-                            });
+                            };
+
+                            console.log("SyncStart");
+                            console.log(syncData);
+
+
+                            objectStore.put(syncData);
 
                             workerSelf.SyncEventData.NowGameID = 0;
                             workerSelf.SyncEventData.NowTimeStamp = 0;
@@ -271,7 +283,8 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
             SyncStartPromise.then(workerSelf.RecursiveSyncGameCode);
         };
-    }
+
+    };
 
     this.NextSync = function (Second) {
         workerSelf.SyncEventData.LastTimeStamp = 0;
@@ -355,6 +368,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
                             if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
                                 //已是最新數據，不用同步
+                                console.log("NoSyncing, SyncSuccess");
                                 workerSelf.SyncSuccess(false);
                             } else {
 
@@ -437,22 +451,33 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                         });
 
                                         if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
-                                            objectSyncStore.put({
+                                            let syncData = {
                                                 SyncID: 1,
                                                 GameID: gameCodeItem.GameID,
                                                 TimeStamp: gameCodeItem.UpdateTimestamp,
                                                 LastUpdateDate: new Date().toISOString(),
                                                 StatusText: "Finish"
-                                            });
+                                            };
+
+                                            console.log("SyncFinish");
+                                            console.log(syncData);
+
+                                            objectSyncStore.put(syncData);
 
                                         } else {
-                                            objectSyncStore.put({
+                                            let syncData = {
                                                 SyncID: 1,
                                                 GameID: gameCodeItem.GameID,
                                                 TimeStamp: gameCodeItem.UpdateTimestamp,
                                                 LastUpdateDate: new Date().toISOString(),
                                                 StatusText: "Continue"
-                                            });
+                                            };
+
+                                            console.log("SyncContinue");
+                                            console.log(syncData);
+
+
+                                            objectSyncStore.put(syncData);
                                         }
 
                                         workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
@@ -467,6 +492,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
                                 transaction.oncomplete = function (event) {
                                     if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
+                                        console.log("hasSyncing, SyncSuccess");
                                         workerSelf.SyncSuccess(true);
                                     } else {
                                         workerSelf.RecursiveSyncGameCode();
@@ -497,7 +523,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
         self.IDBKeyRange = self.IDBKeyRange || self.webkitIDBKeyRange || self.msIDBKeyRange;
 
         workerSelf.Sync();
-    }
+    };
     //#endregion
 };
 //#endregion
