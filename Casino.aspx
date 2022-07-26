@@ -145,30 +145,30 @@
                 var oldSel = $('#categoryPage_' + selectedCategory);
                 var newSel = $('#categoryPage_' + categoryCode);
 
-                oldSel.addClass('contain-disappear');
-                oldSel.css('padding-bottom', '0');
-                newSel.removeClass('contain-disappear');
-                newSel.css('padding-bottom', '160px');
-
-                //oldSel.css('height', '0');
+                //oldSel.addClass('contain-disappear');
                 //oldSel.css('padding-bottom', '0');
-                //newSel.css('height', 'auto');
+                //newSel.removeClass('contain-disappear');
                 //newSel.css('padding-bottom', '160px');
+
+                oldSel.css('height', '0');
+                oldSel.css('padding-bottom', '0');
+                newSel.css('height', 'auto');
+                newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
             });
         } else {
             var oldSel = $('#categoryPage_' + selectedCategory);
             var newSel = $('#categoryPage_' + categoryCode);
 
-            oldSel.addClass('contain-disappear');
-            oldSel.css('padding-bottom', '0');
-            newSel.removeClass('contain-disappear');
-            newSel.css('padding-bottom', '160px');
-
-            //oldSel.css('height', '0');
+            //oldSel.addClass('contain-disappear');
             //oldSel.css('padding-bottom', '0');
-            //newSel.css('height', 'auto');
+            //newSel.removeClass('contain-disappear');
             //newSel.css('padding-bottom', '160px');
+
+            oldSel.css('height', '0');
+            oldSel.css('padding-bottom', '0');
+            newSel.css('height', 'auto');
+            newSel.css('padding-bottom', '160px');
         }
 
         window.document.body.scrollTop = 0;
@@ -361,8 +361,8 @@
                     }
                 }
 
-                //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage container" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage container" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
+                //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
                     categoryDiv.append(categAreas);                   
@@ -873,10 +873,10 @@
         idGameItemGroup.innerHTML = "";
 
         createCategory(selectedCategoryCode, function () {
-            $('#idGameItemTitle .tab-item').eq(0).addClass('active');
-            //$('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+            //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
+            $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
        
-            $('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
+            //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
 
 
@@ -893,10 +893,10 @@
         idGameItemGroup.innerHTML = "";
         iframeWidth = window.innerWidth;
         createCategory(categoryCode, function () {
-            $('.categoryPage').addClass('contain-disappear');
-            $('#categoryPage_' + categoryCode).removeClass('contain-disappear');
-            //$('.categoryPage').css('height', '0');
-            //$('#categoryPage_' + categoryCode).css('height', 'auto');
+            //$('.categoryPage').addClass('contain-disappear');
+            //$('#categoryPage_' + categoryCode).removeClass('contain-disappear');
+            $('.categoryPage').css('height', '0');
+            $('#categoryPage_' + categoryCode).css('height', 'auto');
             setSwiper(categoryCode);
         });
 
