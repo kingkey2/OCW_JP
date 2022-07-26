@@ -151,7 +151,7 @@
                 //newSel.css('padding-bottom', '160px');
 
                 oldSel.css('height', '0');
-                oldSel.css('padding-bottom', '0');
+                //oldSel.css('padding-bottom', '0');
                 newSel.css('height', 'auto');
                 //newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
@@ -166,7 +166,7 @@
             //newSel.css('padding-bottom', '160px');
 
             oldSel.css('height', '0');
-            oldSel.css('padding-bottom', '0');
+            //oldSel.css('padding-bottom', '0');
             newSel.css('height', 'auto');
             //newSel.css('padding-bottom', '160px');
         }
@@ -392,7 +392,7 @@
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0px;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
