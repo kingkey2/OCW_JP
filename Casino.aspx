@@ -469,7 +469,7 @@
                         btnplay = `<button class="btn btn-play" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     }
 
-                    var docString = `<div class="container">
+                    var docString = `<div class="container category-dailypush">
                                      ${titleobj}
                  <div class="category-dailypush-wrapper ${type}">
                     <div class="category-dailypush-inner">
