@@ -122,7 +122,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
             categoryStore.put({
                 GameBrand: workerSelf.EWinGameItem.GameBrand,
                 GameCategoryCode: workerSelf.EWinGameItem.GameCategoryCode,
-            });
+            });            
         }
     }
 
@@ -178,7 +178,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
     this.Sync = function () {
         //初始化，不指定version
         let DBRequestLink = self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.Version);
-        let oldVersion;
+        let oldVersion = event.oldVersion;
         //check indexDB init
 
         //版本號高於當前版本，觸發
@@ -197,7 +197,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
         DBRequestLink.onsuccess = function (event) {
             let dbVersion;
-            let SyncStartPromise;
+            let SyncStartPromise ;
 
             workerSelf.SyncEventData.Database = event.target.result;
             dbVersion = workerSelf.SyncEventData.Database.version;
@@ -262,7 +262,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                     workerSelf.OnInitSyncStart(false);
                                 }
                             }
-                        }
+                        }     
 
                         resolve();
                     };
@@ -406,7 +406,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                             tags.push(SearchKeyWord);
                                         }
                                     }
-
+       
                                     let InsertData = {
                                         GameCode: gameCodeItem.GameCode,
                                         GameBrand: gameCodeItem.BrandCode,
@@ -436,7 +436,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                             GameCategoryCode: InsertData.GameCategoryCode
                                         });
 
-                                        if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
+                                        if(workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
                                             objectSyncStore.put({
                                                 SyncID: 1,
                                                 GameID: gameCodeItem.GameID,
@@ -445,7 +445,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                                 StatusText: "Finish"
                                             });
 
-                                        } else {
+                                        }else {
                                             objectSyncStore.put({
                                                 SyncID: 1,
                                                 GameID: gameCodeItem.GameID,
@@ -454,7 +454,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                                 StatusText: "Continue"
                                             });
                                         }
-
+                                       
                                         workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
                                         workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
                                     } catch (e) {
