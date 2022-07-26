@@ -343,7 +343,7 @@
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                             btnplay = '<button type="button" class="btn btn-play">';
                             gameitemlink = `<span class="game-item-link"></span>`;
-                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
                             //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                         } else {
                             gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';

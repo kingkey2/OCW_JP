@@ -54,14 +54,22 @@
             }
 
             if (string.IsNullOrEmpty(WebSID) == false) {
-                string EwinCallBackUrl = EWinWeb.CasinoWorldUrl + "/RefreshParent.aspx?index.aspx";
+                if (EWinWeb.IsTestSite)
+                {
+                      string EwinCallBackUrl = (Request.Url.Scheme + "://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx");
+                }
+                else { 
+                  string EwinCallBackUrl = (Request.Url.Scheme + "://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx").Replace("http","https");
+                }
+
+              
                 Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("SID", WebSID));
                 Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
                 Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
 
-                 //Response.Redirect("RefreshParent.aspx?index.aspx");
+                //Response.Redirect("RefreshParent.aspx?index.aspx");
                 //DT = RedisCache.UserAccountFingerprint.GetUserAccountFingerprint(LoginAccount);
 
                 //if (DT != null && DT.Rows.Count > 0) {

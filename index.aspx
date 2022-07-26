@@ -756,6 +756,7 @@
         var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
         var playbtn = popupMoblieGameInfo[0].querySelector(".btn-play");
         var GI_img = popupMoblieGameInfo[0].querySelector(".imgsrc");
+        var moreInfoitemcategory= popupMoblieGameInfo.find('.moreInfo-item.category').eq(0);
         var favoriteGames = [];
         var gamecode = brandName + "." + gameName;
         var _gameCategoryCode;
@@ -778,7 +779,15 @@
         popupMoblieGameInfo.find('.BrandName').text(brandName);
         popupMoblieGameInfo.find('.valueRTP').text(RTP);
         popupMoblieGameInfo.find('.GameID').text(GameID);
-        popupMoblieGameInfo.find('.moreInfo-item.category').eq(0).addClass(_gameCategoryCode);
+        if (true) {
+
+        }
+    
+        moreInfoitemcategory.removeClass("slot");
+        moreInfoitemcategory.removeClass("live");
+        moreInfoitemcategory.removeClass("elec");
+        moreInfoitemcategory.removeClass("etc");
+        moreInfoitemcategory.addClass(_gameCategoryCode);
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
         
