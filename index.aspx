@@ -756,6 +756,7 @@
         var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
         var playbtn = popupMoblieGameInfo[0].querySelector(".btn-play");
         var GI_img = popupMoblieGameInfo[0].querySelector(".imgsrc");
+        var moreInfoitemcategory= popupMoblieGameInfo.find('.moreInfo-item.category').eq(0);
         var favoriteGames = [];
         var gamecode = brandName + "." + gameName;
         var _gameCategoryCode;
@@ -778,7 +779,15 @@
         popupMoblieGameInfo.find('.BrandName').text(brandName);
         popupMoblieGameInfo.find('.valueRTP').text(RTP);
         popupMoblieGameInfo.find('.GameID').text(GameID);
-        popupMoblieGameInfo.find('.moreInfo-item.category').eq(0).addClass(_gameCategoryCode);
+        if (true) {
+
+        }
+    
+        moreInfoitemcategory.removeClass("slot");
+        moreInfoitemcategory.removeClass("live");
+        moreInfoitemcategory.removeClass("elec");
+        moreInfoitemcategory.removeClass("etc");
+        moreInfoitemcategory.addClass(_gameCategoryCode);
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
         
@@ -1683,7 +1692,7 @@
                         likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
 
                         GI1.find(".gameName").text(lang_gamename);
-                        GI1.find(".BrandName").text(gameItem.GameBrand);
+                        GI1.find(".BrandName").text(mlp.getLanguageKey(gameItem.GameBrand));
                         GI1.find(".valueRTP").text(RTP);
                         GI1.find(".valueID").text(gameItem.GameID);
                         GI1.find(".GameCategoryCode").text(mlp.getLanguageKey(gameItem.GameCategoryCode));

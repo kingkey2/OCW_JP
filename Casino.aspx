@@ -113,8 +113,8 @@
             GameBrand: "MG",
             Location: "GameList_Brand",
             MobileSrc: "/images/lobby/dailypush-brand-M-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-brand-001.jpg",
-            BackgroundColor: "#014a5d"
+            DesktopSrc: "/images/lobby/dailypush-brand-002.jpg",
+            BackgroundColor: "#4c1802"
         },
         {
             GameCode: "EVO.GonzoTH000000001",
@@ -145,20 +145,30 @@
                 var oldSel = $('#categoryPage_' + selectedCategory);
                 var newSel = $('#categoryPage_' + categoryCode);
 
+                //oldSel.addClass('contain-disappear');
+                //oldSel.css('padding-bottom', '0');
+                //newSel.removeClass('contain-disappear');
+                //newSel.css('padding-bottom', '160px');
+
                 oldSel.css('height', '0');
-                oldSel.css('padding-bottom', '0');
+                //oldSel.css('padding-bottom', '0');
                 newSel.css('height', 'auto');
-                newSel.css('padding-bottom', '160px');
+                //newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
             });
         } else {
             var oldSel = $('#categoryPage_' + selectedCategory);
             var newSel = $('#categoryPage_' + categoryCode);
 
+            //oldSel.addClass('contain-disappear');
+            //oldSel.css('padding-bottom', '0');
+            //newSel.removeClass('contain-disappear');
+            //newSel.css('padding-bottom', '160px');
+
             oldSel.css('height', '0');
-            oldSel.css('padding-bottom', '0');
+            //oldSel.css('padding-bottom', '0');
             newSel.css('height', 'auto');
-            newSel.css('padding-bottom', '160px');
+            //newSel.css('padding-bottom', '160px');
         }
 
         window.document.body.scrollTop = 0;
@@ -240,6 +250,9 @@
                 var Location = lobbyGame.Location;
                 var categAreas = "";
                 var gameBrand;
+                var addContainStart = false;
+                var addContainMiddle = false;
+                var addContainEnd = false;
                 for (var i = 0; i < lobbyGame.Categories.length; i++) {
                     category = lobbyGame.Categories[i];
                     if (category) {
@@ -281,9 +294,22 @@
                             }
 
                             if (showType == 0) {
+                                if (!addContainStart) {
+                                    addContainStart = true;
+                                    addContainEnd = false;
+                                }
+
                                 game_wrapper = '<div class="game_wrapper">';
                             } else if (showType == 1) {
+                                if (!addContainStart) {
+                                    addContainStart = true;
+                                    addContainEnd = false;
+                                }
                                 game_wrapper = '<div class="game_wrapper gameRanking">';
+                            } else if (showType == 2) {
+                                addContainEnd = true;
+                                addContainStart = false;
+                                addContainMiddle = false;
                             }
           
                             if (showType == 2) {
@@ -346,12 +372,27 @@
                                 }
                             }
 
-                            categAreas += categArea;
+                            if (addContainMiddle) {
+                                categAreas += categArea;
+                            } else {
+                                if (addContainStart) {
+                                    addContainMiddle = true;
+                                    categAreas += '<div class="container"> ' + categArea;
+                                } else if (addContainEnd) {
+                                    addContainMiddle = false;
+                                    categAreas += '</div>'+categArea;
+                                } else {
+                                    categAreas += categArea;
+                                }
+                            }
+
+                           
+                        
                         }
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage container" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0px;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
@@ -421,14 +462,15 @@
                     }
 
                     if (iframeWidth < 936) {
-                        titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})">`;
-                        btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
+                        titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')">`;
+                        btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     } else {
                         titleobj = `<section class="section-category-dailypush" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                         btnplay = `<button class="btn btn-play" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     }
 
-                    var docString = `${titleobj}
+                    var docString = `<div class="container category-dailypush">
+                                     ${titleobj}
                  <div class="category-dailypush-wrapper ${type}">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: ${headerGameData.BackgroundColor};">
@@ -467,7 +509,8 @@
                         </div>
                     </div>
                 </div>
-         </section>`;
+         </section>
+        </div>`;
 
                     cb(docString);
                 } else {
@@ -621,7 +664,7 @@
                                                 <span class="value"><i class="icon icon-mask"></i></span>
                                             </li>
                                             <li class="moreInfo-item brand">
-                                                <span class="title language_replace">${mlp.getLanguageKey("品牌")}</span>
+                                                <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
                                                 <span class="value GameBrand">${gameBrand}</span>
                                             </li>
                                             <li class="moreInfo-item RTP">
@@ -863,11 +906,13 @@
         idGameItemGroup.innerHTML = "";
 
         createCategory(selectedCategoryCode, function () {
-            //$('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
-            $('#idGameItemTitle .tab-item').eq(0).addClass('active');
+            //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
             $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+       
             //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
+
+
 
             setSwiper(selectedCategoryCode);
         });
@@ -881,7 +926,8 @@
         idGameItemGroup.innerHTML = "";
         iframeWidth = window.innerWidth;
         createCategory(categoryCode, function () {
-
+            //$('.categoryPage').addClass('contain-disappear');
+            //$('#categoryPage_' + categoryCode).removeClass('contain-disappear');
             $('.categoryPage').css('height', '0');
             $('#categoryPage_' + categoryCode).css('height', 'auto');
             setSwiper(categoryCode);
@@ -1318,7 +1364,7 @@
                 <!-- BRAND -->   
                 <div class="category-dailypush-wrapper brand">
                     <div class="category-dailypush-inner">
-                        <div class="category-dailypush-img" style="background-color: #014a5d;">
+                        <div class="category-dailypush-img" style="background-color: #4c1802;">
                             <div class="img-box mobile">
                                 <div class="img-wrap">
                                     <img src="images/lobby/dailypush-brand-M-001.jpg" alt="">
@@ -1326,7 +1372,7 @@
                             </div>
                             <div class="img-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/dailypush-brand-001.jpg" alt="">
+                                    <img src="images/lobby/dailypush-brand-002.jpg" alt="">
                                 </div>
                             </div>
                         </div>

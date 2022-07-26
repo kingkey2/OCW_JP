@@ -79,35 +79,41 @@
             GameName: "43",
             GameBrand: "KGS",
             GameLangName: "KGS.43",
+            GameNameJP: "7PK",
             Description: "７枚のトランプが自動的に配られて、当たりかはずれを待つ時がすごくワクワクします。"
         },
         {
             GameName: "moonprincess",
             GameBrand: "PNG",
             GameLangName: "PNG.moonprincess",
+            GameNameJP: "ムーン・プリンセス",
             Description: "プレインゴーの知名度NO.1スロット。言わずと知れた高級キャバクラ！！"
         },
         {
             GameName: "242",
             GameBrand: "BNG",
             GameLangName: "BNG.242",
+            GameNameJP: "タイガー ジャングル",
             Description: "ブーンゴーのタイガーシリーズの不動の人気チャンピオン、マハラジャのイチオシ！！"
         },
         {
             GameName: "LightningTable01",
             GameBrand: "EVO",
             GameLangName: "EVO.LightningTable01",
+            GameNameJP: "ライトニング ルーレット",
             Description: "0から36まで37スポットのヨーロピアンタイプルーレットだが、毎回ランダムに発生する演出で配当が 50倍〜500倍GETできる！"
         },
         {
             GameName: "89",
             GameBrand: "PG",
             GameLangName: "PG.89",
+            GameNameJP: "ラッキー・ネコ",
             Description: "最高32400のマルチウェイ！最高倍率はなんと10万倍だ！熱い！"
         }, {
             GameName: "EWinGaming",
             GameBrand: "EWin",
             GameLangName: "EWinGaming",
+            GameNameJP: "EWinゲーミング",
             Description: "元祖ライブバカラ新しいサービス初めました！"
         }
     ];
@@ -188,19 +194,21 @@
             tempGI_img.onerror = new Function("setDefaultIcon('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "')");
         }
 
-        if (temp_gameItem.GameLangName == "EWinGaming") {
-        c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
-        } else {
-            GCB.GetByGameCode(temp_gameItem.GameLangName, function (gameItem) {
+       c.setClassText(tempGI, "gameName", null,  temp_gameItem.GameNameJP);
 
-                if (gameItem) {
-                    let lang_GameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
-                    c.setClassText(tempGI, "gameName", null, lang_GameName);
-                } else {
-                    c.setClassText(tempGI, "gameName", null, "");
-                }
-            })
-        }
+        //if (temp_gameItem.GameLangName == "EWinGaming") {
+        //    c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
+        //} else {
+        //    GCB.GetByGameCode(temp_gameItem.GameLangName, function (gameItem) {
+
+        //        if (gameItem) {
+        //            let lang_GameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+        //            c.setClassText(tempGI, "gameName", null, lang_GameName);
+        //        } else {
+        //            c.setClassText(tempGI, "gameName", null, "");
+        //        }
+        //    })
+        //}
 
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));
         tempGI.onclick = new Function("window.parent.openGame('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "','" + temp_gameItem.GameLangName + "')");
@@ -343,7 +351,7 @@
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                             btnplay = '<button type="button" class="btn btn-play">';
                             gameitemlink = `<span class="game-item-link"></span>`;
-                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
                             //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                         } else {
                             gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
@@ -388,7 +396,7 @@
                                                                         <span class="value"><i class="icon icon-mask"></i></span>
                                                                     </li>
                                                                     <li class="moreInfo-item brand">
-                                                                        <span class="title language_replace">品牌</span>
+                                                                        <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
@@ -576,7 +584,7 @@
                                                                         <span class="value"><i class="icon icon-mask"></i></span>
                                                                     </li>
                                                                     <li class="moreInfo-item brand">
-                                                                        <span class="title language_replace">品牌</span>
+                                                                        <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
@@ -1249,8 +1257,8 @@
                         </div>
                     </div>
                     <div class="box-item-detail">
-                        <div class="box-item-title gameName">Texas Ｈold'em</div>
-                        <div class="box-item-desc gameDescription">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                        <div class="box-item-title gameName"></div>
+                        <div class="box-item-desc gameDescription"></div>
                     </div>
                     <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
 

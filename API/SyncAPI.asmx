@@ -207,7 +207,7 @@ public class SyncAPI : System.Web.Services.WebService
             {
                 SettingData["LastSyncStatisticsByDay"] = DateTime.Now.ToString("yyyy/MM/dd");
                 Location = "GameList_Slot";
-                ShowType = 1;
+                ShowType = 0;
 
                 OCWcompanyStatisticsCategoryResult.CategoryList = new EWin.Lobby.CompanyCategory[] { new EWin.Lobby.CompanyCategory() {
         CategoryName = "SlotMaxBetCount3Day",CompanyCategoryID = 0,SortIndex = 77
