@@ -6162,7 +6162,7 @@ i {
   background-position: center;
   background-size: cover;
   width: 300px;
-  -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0%, transparent 75%, rgba(0, 0, 0, 0.555) 100%);
+  -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0%, transparent 75%, rgba(0, 0, 0, 0.355) 100%);
   border-radius: 15px;
   padding-right: 0;
 }
@@ -6174,22 +6174,25 @@ i {
 }
 .game_slider.swiper-cover .game-item-info {
   position: absolute;
-  bottom: -50px;
+  bottom: -80px;
   left: 0;
   right: 0;
   text-align: center;
-  min-height: 35px;
+  min-height: 60px;
 }
 .game_slider.swiper-cover .game-item-name {
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   text-align: center;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.85);
+  text-shadow: 0 0 5px rgba(3, 32, 107, 0.8);
+  -webkit-filter: drop-shadow(0px 0px 5px rgba(1, 24, 84, 0.8));
+          filter: drop-shadow(0px 0px 5px rgba(1, 24, 84, 0.8));
+  color: #fff;
 }
 .game_slider.swiper-cover .game-item-name {
   opacity: 0;
 }
 .game_slider.swiper-cover .swiper-slide-active {
-  -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0%, transparent 85%, rgba(0, 0, 0, 0.555) 100%);
+  -webkit-box-reflect: below 0px linear-gradient(to bottom, transparent 0%, transparent 75%, rgba(0, 0, 0, 0.155) 100%);
 }
 .game_slider.swiper-cover .swiper-slide-active .game-item-name {
   opacity: 1;
@@ -6198,7 +6201,6 @@ i {
 .section_randomRem {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(40.62%, rgba(255, 255, 255, 0)), color-stop(40.63%, #03206B), color-stop(97.92%, rgba(15, 43, 115, 0)));
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40.62%, #03206B 40.63%, rgba(15, 43, 115, 0) 97.92%);
-  color: #fff;
 }
 .section_randomRem:before {
   display: block;
@@ -6558,6 +6560,10 @@ i {
 @media (min-width: 1920px) {
   .game-item-info-inner .game-item-name {
     font-size: 0.9375rem;
+  }
+
+  .game_slider.swiper-cover .game-item-name {
+    font-size: 1.25rem;
   }
 }
 @media screen and (max-width: 640px) {
