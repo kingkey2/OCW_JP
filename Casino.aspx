@@ -250,6 +250,9 @@
                 var Location = lobbyGame.Location;
                 var categAreas = "";
                 var gameBrand;
+                var addContainStart = false;
+                var addContainMiddle = false;
+                var addContainEnd = false;
                 for (var i = 0; i < lobbyGame.Categories.length; i++) {
                     category = lobbyGame.Categories[i];
                     if (category) {
@@ -289,11 +292,24 @@
                     <span class="title-showAll" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey('全部顯示')}</span><i class="icon arrow arrow-right"></i>
                     </a>`;
                             }
-
+                            debugger;
                             if (showType == 0) {
+                                if (!addContainStart) {
+                                    addContainStart = true;
+                                    addContainEnd = false;
+                                }
+
                                 game_wrapper = '<div class="game_wrapper">';
                             } else if (showType == 1) {
+                                if (!addContainStart) {
+                                    addContainStart = true;
+                                    addContainEnd = false;
+                                }
                                 game_wrapper = '<div class="game_wrapper gameRanking">';
+                            } else if (showType == 2) {
+                                addContainEnd = true;
+                                addContainStart = false;
+                                addContainMiddle = false;
                             }
           
                             if (showType == 2) {
@@ -356,12 +372,27 @@
                                 }
                             }
 
-                            categAreas += categArea;
+                            if (addContainMiddle) {
+                                categAreas += categArea;
+                            } else {
+                                if (addContainStart) {
+                                    addContainMiddle = true;
+                                    categAreas += '<div class="container"> ' + categArea;
+                                } else if (addContainEnd) {
+                                    addContainMiddle = false;
+                                    categAreas += '</div>'+categArea;
+                                } else {
+                                    categAreas += categArea;
+                                }
+                            }
+
+                           
+                        
                         }
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage container" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
