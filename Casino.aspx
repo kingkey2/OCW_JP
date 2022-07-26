@@ -292,7 +292,7 @@
                     <span class="title-showAll" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey('全部顯示')}</span><i class="icon arrow arrow-right"></i>
                     </a>`;
                             }
-                            debugger;
+
                             if (showType == 0) {
                                 if (!addContainStart) {
                                     addContainStart = true;
@@ -469,7 +469,8 @@
                         btnplay = `<button class="btn btn-play" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     }
 
-                    var docString = `${titleobj}
+                    var docString = `<div class="container">
+                                     ${titleobj}
                  <div class="category-dailypush-wrapper ${type}">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: ${headerGameData.BackgroundColor};">
@@ -508,7 +509,8 @@
                         </div>
                     </div>
                 </div>
-         </section>`;
+         </section>
+        </div>`;
 
                     cb(docString);
                 } else {
