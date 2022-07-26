@@ -195,6 +195,14 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
             }
         };
 
+        DBRequestLink.onerror = (event) => {
+            //workerSelf.SyncEventData.Database.close();
+            let delRequest = self.indexedDB.deleteDatabase('GameCodeDB');
+            delRequest.onsuccess = (event) => {
+                workerSelf.Sync();
+            };
+        };
+
         DBRequestLink.onsuccess = function (event) {
             let dbVersion;
             let SyncStartPromise;
@@ -202,14 +210,14 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
             workerSelf.SyncEventData.Database = event.target.result;
             dbVersion = workerSelf.SyncEventData.Database.version;
 
-            if (oldVersion != 0 && dbVersion != oldVersion && dbVersion == 7) {
-                workerSelf.SyncEventData.Database.close();
-                let delRequest = self.indexedDB.deleteDatabase('GameCodes');
-                delRequest.onsuccess = (event) => {
-                    workerSelf.Sync();
-                };
-                return;
-            }
+            //if (oldVersion != 0 && dbVersion != oldVersion && dbVersion == 7) {
+            //    workerSelf.SyncEventData.Database.close();
+            //    let delRequest = self.indexedDB.deleteDatabase('GameCodes');
+            //    delRequest.onsuccess = (event) => {
+            //        workerSelf.Sync();
+            //    };
+            //    return;
+            //}
 
             SyncStartPromise = new Promise((resolve, reject) => {
                 let transaction = workerSelf.SyncEventData.Database.transaction(['SyncData'], 'readwrite');
