@@ -153,7 +153,7 @@
                 oldSel.css('height', '0');
                 oldSel.css('padding-bottom', '0');
                 newSel.css('height', 'auto');
-                newSel.css('padding-bottom', '160px');
+                //newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
             });
         } else {
@@ -168,7 +168,7 @@
             oldSel.css('height', '0');
             oldSel.css('padding-bottom', '0');
             newSel.css('height', 'auto');
-            newSel.css('padding-bottom', '160px');
+            //newSel.css('padding-bottom', '160px');
         }
 
         window.document.body.scrollTop = 0;
