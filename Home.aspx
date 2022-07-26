@@ -41,7 +41,16 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script src="Scripts/lozad.min.js"></script>
+        <style>
+        .title-showAll:hover {
+            cursor: pointer;
+        }
 
+        .game-item-info-detail{
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <script type="text/javascript">
     if (self != top) {
@@ -70,35 +79,41 @@
             GameName: "43",
             GameBrand: "KGS",
             GameLangName: "KGS.43",
+            GameNameJP: "7PK",
             Description: "７枚のトランプが自動的に配られて、当たりかはずれを待つ時がすごくワクワクします。"
         },
         {
             GameName: "moonprincess",
             GameBrand: "PNG",
             GameLangName: "PNG.moonprincess",
+            GameNameJP: "ムーン・プリンセス",
             Description: "プレインゴーの知名度NO.1スロット。言わずと知れた高級キャバクラ！！"
         },
         {
             GameName: "242",
             GameBrand: "BNG",
             GameLangName: "BNG.242",
+            GameNameJP: "タイガー ジャングル",
             Description: "ブーンゴーのタイガーシリーズの不動の人気チャンピオン、マハラジャのイチオシ！！"
         },
         {
             GameName: "LightningTable01",
             GameBrand: "EVO",
             GameLangName: "EVO.LightningTable01",
+            GameNameJP: "ライトニング ルーレット",
             Description: "0から36まで37スポットのヨーロピアンタイプルーレットだが、毎回ランダムに発生する演出で配当が 50倍〜500倍GETできる！"
         },
         {
             GameName: "89",
             GameBrand: "PG",
             GameLangName: "PG.89",
+            GameNameJP: "ラッキー・ネコ",
             Description: "最高32400のマルチウェイ！最高倍率はなんと10万倍だ！熱い！"
         }, {
             GameName: "EWinGaming",
             GameBrand: "EWin",
             GameLangName: "EWinGaming",
+            GameNameJP: "EWinゲーミング",
             Description: "元祖ライブバカラ新しいサービス初めました！"
         }
     ];
@@ -179,19 +194,21 @@
             tempGI_img.onerror = new Function("setDefaultIcon('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "')");
         }
 
-        if (temp_gameItem.GameLangName == "EWinGaming") {
-        c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
-        } else {
-            GCB.GetByGameCode(temp_gameItem.GameLangName, function (gameItem) {
+       c.setClassText(tempGI, "gameName", null,  temp_gameItem.GameNameJP);
 
-                if (gameItem) {
-                    let lang_GameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
-                    c.setClassText(tempGI, "gameName", null, lang_GameName);
-                } else {
-                    c.setClassText(tempGI, "gameName", null, "");
-                }
-            })
-        }
+        //if (temp_gameItem.GameLangName == "EWinGaming") {
+        //    c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
+        //} else {
+        //    GCB.GetByGameCode(temp_gameItem.GameLangName, function (gameItem) {
+
+        //        if (gameItem) {
+        //            let lang_GameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+        //            c.setClassText(tempGI, "gameName", null, lang_GameName);
+        //        } else {
+        //            c.setClassText(tempGI, "gameName", null, "");
+        //        }
+        //    })
+        //}
 
         c.setClassText(tempGI, "gameDescription", null, mlp.getLanguageKey(temp_gameItem.Description));
         tempGI.onclick = new Function("window.parent.openGame('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "','" + temp_gameItem.GameLangName + "')");
@@ -212,10 +229,9 @@
         //window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
             if (p != null) {
-                if (GCB.IsFirstLoaded) {
-                  
-                }
-                 window.parent.API_LoadingEnd();
+           
+                window.parent.API_LoadingEnd();
+
                 getCompanyGameCode();
 
                 if (FourGames) {
@@ -287,7 +303,7 @@
             switch (type) {
                 case 0:
                     CategCode = "PersonalFavo";
-                    CategText = "我的遊戲";
+                    CategText = "我的最愛";
                     break;
                 case 1:
                     CategCode = "PersonalPlayed";
@@ -295,7 +311,7 @@
                     break;
                 default:
                     CategCode = "PersonalFavo";
-                    CategText = "我的遊戲";
+                    CategText = "我的最愛";
                     break;
             }
 
@@ -335,11 +351,11 @@
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                             btnplay = '<button type="button" class="btn btn-play">';
                             gameitemlink = `<span class="game-item-link"></span>`;
-                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
                             //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                         } else {
                             gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                            GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
+                            GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                             gameitemlink = '<span class="game-item-link"></span>';
                             btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
                         }
@@ -380,7 +396,7 @@
                                                                         <span class="value"><i class="icon icon-mask"></i></span>
                                                                     </li>
                                                                     <li class="moreInfo-item brand">
-                                                                        <span class="title language_replace">品牌</span>
+                                                                        <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
@@ -420,7 +436,7 @@
                                                 </div>
                                                 <div class="game-item-info">
                                                     <div class="game-item-info-inner">
-                                                        <h3 class="game-item-name"></h3>
+                                                        <h3 class="game-item-name">${gameName}</h3>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -568,7 +584,7 @@
                                                                         <span class="value"><i class="icon icon-mask"></i></span>
                                                                     </li>
                                                                     <li class="moreInfo-item brand">
-                                                                        <span class="title language_replace">品牌</span>
+                                                                        <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
@@ -608,7 +624,7 @@
                                                 </div>
                                                 <div class="game-item-info">
                                                     <div class="game-item-info-inner">
-                                                        <h3 class="game-item-name"></h3>
+                                                        <h3 class="game-item-name">${gameName}</h3>
                                                     </div>
                                                 </div>
                                                 </div>
@@ -792,7 +808,7 @@
             }
         });
     }
-
+     
     function setUserThisWeekLogined(UserThisWeekTotalValidBetValueData) {
         if (UserThisWeekTotalValidBetValueData) {
             let k = 0;
@@ -1074,7 +1090,7 @@
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
                                                 <h3 class="title">
-                                                    <span class="name language_replace" style="font-size: 0.45em;width: 5em;text-align: center;">金曜日の<br>プレゼント</span></h3>
+                                                    <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item">
@@ -1241,8 +1257,8 @@
                         </div>
                     </div>
                     <div class="box-item-detail">
-                        <div class="box-item-title gameName">Texas Ｈold'em</div>
-                        <div class="box-item-desc gameDescription">ウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーションウマ娘と夢を叶える育成シミュレーション</div>
+                        <div class="box-item-title gameName"></div>
+                        <div class="box-item-desc gameDescription"></div>
                     </div>
                     <span class="btn btn-round"><i class="icon arrow arrow-right"></i></span>
 

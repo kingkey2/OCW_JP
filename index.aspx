@@ -263,7 +263,7 @@
     }
 
     function API_SearchGameByBrand(gameBrand) {
-        return searchGameByBrand(gameBrand);
+        return SearchControll.searchGameByBrand(gameBrand);
     }
 
     function API_GetPaymentAPI() {
@@ -752,9 +752,11 @@
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
-        var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-info-detail.open");
+        var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-link");
         var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
+        var playbtn = popupMoblieGameInfo[0].querySelector(".btn-play");
         var GI_img = popupMoblieGameInfo[0].querySelector(".imgsrc");
+        var moreInfoitemcategory= popupMoblieGameInfo.find('.moreInfo-item.category').eq(0);
         var favoriteGames = [];
         var gamecode = brandName + "." + gameName;
         var _gameCategoryCode;
@@ -777,14 +779,20 @@
         popupMoblieGameInfo.find('.BrandName').text(brandName);
         popupMoblieGameInfo.find('.valueRTP').text(RTP);
         popupMoblieGameInfo.find('.GameID').text(GameID);
-        popupMoblieGameInfo.find('.moreInfo-item.category').eq(0).addClass(_gameCategoryCode);
+        if (true) {
+
+        }
+    
+        moreInfoitemcategory.removeClass("slot");
+        moreInfoitemcategory.removeClass("live");
+        moreInfoitemcategory.removeClass("elec");
+        moreInfoitemcategory.removeClass("etc");
+        moreInfoitemcategory.addClass(_gameCategoryCode);
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
         $('.headerGameName').text(GameLangName);
         
-        //playgamebtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        //btnmore.onclick = new Function("popupMoblieGameInfoShowMore(this)");
-
+        playbtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -1390,6 +1398,7 @@
         });
         $('.header_area .mask_overlay').click(function () {
             verticalmenu.removeClass('navbar-show');
+            headermenu.removeClass('show');
             headermenu.find(".navbarMenu").removeClass('show');
             if (navbartoggler.attr("aria-expanded") == "true") {
                 navbartoggler.attr("aria-expanded", "false");
@@ -1430,30 +1439,6 @@
                 RTP: null
             },
             () => {
-                var favoriteGamesStr = window.localStorage.getItem("FavoriteGames");
-                var favoriteGames;
-                var myGamesStr = window.localStorage.getItem("MyGames");
-                var myGames;
-
-
-                if (favoriteGamesStr) {
-                    favoriteGames = JSON.parse(favoriteGamesStr);
-
-                    for (var i = 0; i < favoriteGames.length; i++) {
-                        GCB.AddFavoByGameID(favoriteGames[i].GameID);
-                    }
-                }
-
-                if (myGamesStr) {
-                    myGames = JSON.parse(myGamesStr);
-
-                    for (var i = 0; i < myGames.length; i++) {
-                        var myGame = myGames[i];
-                        GCB.AddPlayed(myGame.GameBrand + "." + myGame.GameName);
-                    }
-                }
-
-
                 notifyWindowEvent("GameLoadEnd", null);
             }
         );
@@ -1475,6 +1460,14 @@
             //    noSleep = new NoSleep();
             //    noSleep.enable();
             //}
+
+            if (EWinWebInfo.DeviceType == 1) {
+                $(".searchFilter-item").eq(0).css("flex-grow", "0");
+                $(".searchFilter-item").eq(0).css("flex-shrink","0");
+                $(".searchFilter-item").eq(0).css("flex-basis","100%");
+                $(".searchFilter-item").eq(1).css("margin-left", "0");
+                //$(".searchFilter-item").eq(2).css("margin-left","0");
+            }
 
             var dstPage = c.getParameter("DstPage");
             var closeGameBtn = $('#closeGameBtn');
@@ -1699,7 +1692,7 @@
                         likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
 
                         GI1.find(".gameName").text(lang_gamename);
-                        GI1.find(".BrandName").text(gameItem.GameBrand);
+                        GI1.find(".BrandName").text(mlp.getLanguageKey(gameItem.GameBrand));
                         GI1.find(".valueRTP").text(RTP);
                         GI1.find(".valueID").text(gameItem.GameID);
                         GI1.find(".GameCategoryCode").text(mlp.getLanguageKey(gameItem.GameCategoryCode));
@@ -2931,9 +2924,9 @@
                                                                 <i class="arrow arrow-down"></i>
                                                             </button>--%>
                                                         </div>
-                                                <%--        <button type="button" class="btn btn-play">
+                                                        <button type="button" class="btn btn-play">
                                                             <span class="language_replace">プレイ</span><i class="triangle"></i>
-                                                        </button>--%>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

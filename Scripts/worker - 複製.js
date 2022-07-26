@@ -95,7 +95,6 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
     var InitDBSchema = function (db) {
         var store;
         var categoryStore;
-        var syncStore;
 
         store = db.createObjectStore("GameCodes", { keyPath: "GameCode", autoIncrement: false });
         store.createIndex('GameID', "GameID", { unique: true, multiEntry: false });
@@ -110,10 +109,6 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
         categoryStore = db.createObjectStore("GameCategory", { keyPath: ['GameBrand', 'GameCategoryCode'], autoIncrement: false });
         categoryStore.createIndex('GameBrand', 'GameBrand', { unique: false, multiEntry: false });
         categoryStore.createIndex('GameCategoryCode', 'GameCategoryCode', { unique: false, multiEntry: false });
-
-        syncStore = db.createObjectStore("SyncData", { keyPath: 'SyncID', autoIncrement: false });
-
-        //store.createIndex('ShowTags', 'ShowTags', { unique: false, multiEntry: true }); //顯性標籤
 
         db.createObjectStore("RealSearchKey", { keyPath: "RealSearchKey", autoIncrement: false });
 
@@ -177,107 +172,74 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
     this.Sync = function () {
         //初始化，不指定version
-        let DBRequestLink = self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.Version);
-        let oldVersion;
+        let DBRequestLink = self.indexedDB.open('GameCodeDB');
+
         //check indexDB init
 
         //版本號高於當前版本，觸發
         DBRequestLink.onupgradeneeded = function (event) {
-            oldVersion = event.oldVersion;
+
             if (event.oldVersion == 0) {
                 InitDBSchema(event.target.result);
-            } else {
-                db.deleteObjectStore("GameCodes");
-                db.deleteObjectStore("GameCategory");
-                //db.deleteObjectStore("SyncData");
-                db.deleteObjectStore("RealSearchKey");
-                InitDBSchema(event.target.result);
             }
-        };
 
-        DBRequestLink.onerror = (event) => {
-            //workerSelf.SyncEventData.Database.close();
-            let delRequest = self.indexedDB.deleteDatabase('GameCodeDB');
-            delRequest.onsuccess = (event) => {
-                workerSelf.Sync();
-            };
         };
 
         DBRequestLink.onsuccess = function (event) {
             let dbVersion;
-            let SyncStartPromise;
-
             workerSelf.SyncEventData.Database = event.target.result;
             dbVersion = workerSelf.SyncEventData.Database.version;
 
-            //if (oldVersion != 0 && dbVersion != oldVersion && dbVersion == 7) {
-            //    workerSelf.SyncEventData.Database.close();
-            //    let delRequest = self.indexedDB.deleteDatabase('GameCodes');
-            //    delRequest.onsuccess = (event) => {
-            //        workerSelf.Sync();
-            //    };
-            //    return;
-            //}
+            workerSelf.SyncEventData.Database.onversionchange = () => {
+                db.close();
+            };
 
-            SyncStartPromise = new Promise((resolve, reject) => {
-                let transaction = workerSelf.SyncEventData.Database.transaction(['SyncData'], 'readwrite');
-                let objectStore = transaction.objectStore('SyncData');
+            if (dbVersion == 1) {
+                //有初始化，但沒同步過資料 version =>1
+                workerSelf.SyncEventData.NowGameID = 0;
+                workerSelf.SyncEventData.NowTimeStamp = 0;
 
-                if (oldVersion == 0) {
-                    objectStore.put({
-                        SyncID: 1,
-                        GameID: 0,
-                        TimeStamp: 0,
-                        LastUpdateDate: new Date().toISOString(),
-                        StatusText: "Start"
-                    });
-
-                    workerSelf.SyncEventData.NowGameID = 0;
-                    workerSelf.SyncEventData.NowTimeStamp = 0;
-
-                    if (workerSelf.IsFirstLoaded == false) {
-                        if (workerSelf.OnInitSyncStart) {
-                            workerSelf.OnInitSyncStart(false);
-                        }
+                if (workerSelf.IsFirstLoaded == false) {
+                    if (workerSelf.OnInitSyncStart) {
+                        workerSelf.OnInitSyncStart(false);
                     }
 
-                    resolve();
-                } else {
-                    objectStore.get(1).onsuccess = function (event) {
-                        if (event.target.result) {
-                            workerSelf.SyncEventData.NowGameID = event.target.result.GameID;
-                            workerSelf.SyncEventData.NowTimeStamp = event.target.result.TimeStamp;
-
-                            if (workerSelf.IsFirstLoaded == false) {
-                                if (workerSelf.OnInitSyncStart) {
-                                    workerSelf.OnInitSyncStart(true);
-                                }
-                            }
-                        } else {
-                            objectStore.put({
-                                SyncID: 1,
-                                GameID: 0,
-                                TimeStamp: 0,
-                                LastUpdateDate: new Date().toISOString(),
-                                StatusText: "Start"
-                            });
-
-                            workerSelf.SyncEventData.NowGameID = 0;
-                            workerSelf.SyncEventData.NowTimeStamp = 0;
-
-                            if (workerSelf.IsFirstLoaded == false) {
-                                if (workerSelf.OnInitSyncStart) {
-                                    workerSelf.OnInitSyncStart(false);
-                                }
-                            }
-                        }
-
-                        resolve();
-                    };
+                    workerSelf.RecursiveSyncGameCode();
                 }
-            });
+            } else {
+                if (dbVersion.toString().length == 16) {
+                    let tempNum = dbVersion % 1000000;
+                    let oldVersion = tempNum % 10;
+                    //有初始化，有同步過資料 version => 16位數，10位數unix + 5 位GamdID  + 1位版本號
+                    workerSelf.SyncEventData.NowTimeStamp = Math.floor(dbVersion / 1000000);
+                    workerSelf.SyncEventData.NowGameID = Math.floor(tempNum / 10);
 
-            SyncStartPromise.then(workerSelf.RecursiveSyncGameCode);
+                    if (oldVersion != workerSelf.SyncEventData.Version) {
+                        if (workerSelf.IsFirstLoaded == false) {
+                            ClearDBSchema(function () {
+                                workerSelf.Sync();
+                            });
+                        }
+                    } else {
+                        if (workerSelf.IsFirstLoaded == false) {
+                            if (workerSelf.OnInitSyncStart) {
+                                workerSelf.OnInitSyncStart(true);
+                            }
+
+                            workerSelf.RecursiveSyncGameCode();
+                        }
+                    }
+                } else {
+                    if (workerSelf.IsFirstLoaded == false) {
+                        ClearDBSchema(function () {
+                            workerSelf.Sync();
+                        });
+                    }
+                }
+            }
+
+
+
         };
     }
 
@@ -290,10 +252,19 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
     this.SyncSuccess = function (needResetVersion) {
         //db drop
-        console.log('SyncSuccess');
+        console.log('StartSync')
         if (workerSelf.SyncEventData.Database) {
             workerSelf.SyncEventData.Database.close();
             workerSelf.SyncEventData.Database = null;
+        }
+
+        //更新目前同步時間與IndexedDB版本
+        if (needResetVersion) {
+            if (workerSelf.SyncEventData.NowTimeStamp * 1000000 + workerSelf.SyncEventData.NowGameID * 10 + workerSelf.SyncEventData.Version == 0) {
+                self.indexedDB.open('GameCodeDB', 1);
+            } else {
+                self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.NowTimeStamp * 1000000 + workerSelf.SyncEventData.NowGameID * 10 + workerSelf.SyncEventData.Version);
+            }
         }
 
         if (workerSelf.IsFirstLoaded == false) {
@@ -308,13 +279,18 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
     };
 
     this.SyncFaliure = function () {
-        console.log('SyncFaliure');
         //db drop
         if (workerSelf.SyncEventData.Database) {
             workerSelf.SyncEventData.Database.close();
             workerSelf.SyncEventData.Database = null;
         }
 
+        //更新目前同步時間與IndexedDB版本
+        if (workerSelf.SyncEventData.NowTimeStamp * 1000000 + workerSelf.SyncEventData.NowGameID * 10 + workerSelf.SyncEventData.Version == 0) {
+            self.indexedDB.open('GameCodeDB', 1);
+        } else {
+            self.indexedDB.open('GameCodeDB', workerSelf.SyncEventData.NowTimeStamp * 1000000 + workerSelf.SyncEventData.NowGameID * 10 + workerSelf.SyncEventData.Version);
+        }
         workerSelf.NextSync(workerSelf.SyncEventData.FailureSecond);
     };
 
@@ -366,10 +342,9 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                 workerSelf.SyncSuccess(false);
                             } else {
 
-                                let transaction = workerSelf.SyncEventData.Database.transaction(['GameCodes', 'GameCategory', 'SyncData'], 'readwrite');
+                                let transaction = workerSelf.SyncEventData.Database.transaction(['GameCodes', 'GameCategory'], 'readwrite');
                                 let objectStore = transaction.objectStore('GameCodes');
                                 let objectCategoryStore = transaction.objectStore('GameCategory');
-                                let objectSyncStore = transaction.objectStore('SyncData');
 
                                 for (var i = 0; i < o.GameCodeList.length; i++) {
                                     let gameCodeItem = o.GameCodeList[i];
@@ -415,6 +390,11 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                         }
                                     }
 
+                                    if (gameCodeItem.GameCode == 'CQ9.7') {
+                                        console.log(gameCodeItem);
+                                    }
+
+
                                     let InsertData = {
                                         GameCode: gameCodeItem.GameCode,
                                         GameBrand: gameCodeItem.BrandCode,
@@ -443,26 +423,6 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                             GameBrand: InsertData.GameBrand,
                                             GameCategoryCode: InsertData.GameCategoryCode
                                         });
-
-                                        if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
-                                            objectSyncStore.put({
-                                                SyncID: 1,
-                                                GameID: gameCodeItem.GameID,
-                                                TimeStamp: gameCodeItem.UpdateTimestamp,
-                                                LastUpdateDate: new Date().toISOString(),
-                                                StatusText: "Finish"
-                                            });
-
-                                        } else {
-                                            objectSyncStore.put({
-                                                SyncID: 1,
-                                                GameID: gameCodeItem.GameID,
-                                                TimeStamp: gameCodeItem.UpdateTimestamp,
-                                                LastUpdateDate: new Date().toISOString(),
-                                                StatusText: "Continue"
-                                            });
-                                        }
-
                                         workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
                                         workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
                                     } catch (e) {
@@ -471,6 +431,8 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                         workerSelf.SyncFaliure();
                                         break;
                                     }
+
+
                                 }
 
                                 transaction.oncomplete = function (event) {

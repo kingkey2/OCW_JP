@@ -113,8 +113,8 @@
             GameBrand: "MG",
             Location: "GameList_Brand",
             MobileSrc: "/images/lobby/dailypush-brand-M-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-brand-001.jpg",
-            BackgroundColor: "#014a5d"
+            DesktopSrc: "/images/lobby/dailypush-brand-002.jpg",
+            BackgroundColor: "#4c1802"
         },
         {
             GameCode: "EVO.GonzoTH000000001",
@@ -145,20 +145,30 @@
                 var oldSel = $('#categoryPage_' + selectedCategory);
                 var newSel = $('#categoryPage_' + categoryCode);
 
+                //oldSel.addClass('contain-disappear');
+                //oldSel.css('padding-bottom', '0');
+                //newSel.removeClass('contain-disappear');
+                //newSel.css('padding-bottom', '160px');
+
                 oldSel.css('height', '0');
-                oldSel.css('padding-bottom', '0');
+                //oldSel.css('padding-bottom', '0');
                 newSel.css('height', 'auto');
-                newSel.css('padding-bottom', '160px');
+                //newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
             });
         } else {
             var oldSel = $('#categoryPage_' + selectedCategory);
             var newSel = $('#categoryPage_' + categoryCode);
 
+            //oldSel.addClass('contain-disappear');
+            //oldSel.css('padding-bottom', '0');
+            //newSel.removeClass('contain-disappear');
+            //newSel.css('padding-bottom', '160px');
+
             oldSel.css('height', '0');
-            oldSel.css('padding-bottom', '0');
+            //oldSel.css('padding-bottom', '0');
             newSel.css('height', 'auto');
-            newSel.css('padding-bottom', '160px');
+            //newSel.css('padding-bottom', '160px');
         }
 
         window.document.body.scrollTop = 0;
@@ -212,7 +222,7 @@
             coverflowEffect: {
                 rotate: 20,
                 stretch: 0,
-                depth: 200,
+                depth: 300,
                 modifier: 1,
                 slideShadows: true,
             },
@@ -239,7 +249,10 @@
                 selectedCategorys.push(categoryName);
                 var Location = lobbyGame.Location;
                 var categAreas = "";
-
+                var gameBrand;
+                var addContainStart = false;
+                var addContainMiddle = false;
+                var addContainEnd = false;
                 for (var i = 0; i < lobbyGame.Categories.length; i++) {
                     category = lobbyGame.Categories[i];
                     if (category) {
@@ -264,15 +277,14 @@
 
                                 if (gameItem) {
                                     createGameItem(gameItem, showType, function (stringGameItem) {
+                                        gameBrand = gameItem.GameBrand;
                                         gameItems += stringGameItem;
                                     });
                                 }
                             }
 
-
-
                             categName = category.CategoryName.replace('@', '').replace('#', '');
-                            gameBrand = category.Datas[0].GameBrand;
+                   
                             if (iframeWidth < 936) {
                                 textlink = '';
                             } else {
@@ -282,9 +294,22 @@
                             }
 
                             if (showType == 0) {
+                                if (!addContainStart) {
+                                    addContainStart = true;
+                                    addContainEnd = false;
+                                }
+
                                 game_wrapper = '<div class="game_wrapper">';
                             } else if (showType == 1) {
+                                if (!addContainStart) {
+                                    addContainStart = true;
+                                    addContainEnd = false;
+                                }
                                 game_wrapper = '<div class="game_wrapper gameRanking">';
+                            } else if (showType == 2) {
+                                addContainEnd = true;
+                                addContainStart = false;
+                                addContainMiddle = false;
                             }
           
                             if (showType == 2) {
@@ -304,7 +329,7 @@
                                                     </div>
                                                 </section>`;
                             } else {
-                                if (category.SortIndex >= 90) {
+                                if (Location == "GameList_Brand") {
                                     categArea = `<section class="section-wrap section-levelUp">
                                                     ${game_wrapper}
                                                     <div class="sec-title-container">
@@ -347,12 +372,27 @@
                                 }
                             }
 
-                            categAreas += categArea;
+                            if (addContainMiddle) {
+                                categAreas += categArea;
+                            } else {
+                                if (addContainStart) {
+                                    addContainMiddle = true;
+                                    categAreas += '<div class="container"> ' + categArea;
+                                } else if (addContainEnd) {
+                                    addContainMiddle = false;
+                                    categAreas += '</div>'+categArea;
+                                } else {
+                                    categAreas += categArea;
+                                }
+                            }
+
+                           
+                        
                         }
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage container" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0px;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
@@ -368,6 +408,7 @@
         var type = "";
         var btnlike = "";
         var btnplay = "";
+        var titleobj = "";
         switch (Location) {
             case "GameList_Hot":
                 type = "hot";
@@ -421,12 +462,15 @@
                     }
 
                     if (iframeWidth < 936) {
-                        btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
+                        titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')">`;
+                        btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     } else {
+                        titleobj = `<section class="section-category-dailypush" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                         btnplay = `<button class="btn btn-play" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     }
 
-                    var docString = `<section class="section-category-dailypush">
+                    var docString = `<div class="container category-dailypush">
+                                     ${titleobj}
                  <div class="category-dailypush-wrapper ${type}">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: ${headerGameData.BackgroundColor};">
@@ -465,7 +509,8 @@
                         </div>
                     </div>
                 </div>
-         </section>`;
+         </section>
+        </div>`;
 
                     cb(docString);
                 } else {
@@ -506,12 +551,12 @@
             if (showType == 0) {
                 gameItemInfo = `<div class="game-item-info">
                                     <div class="game-item-info-inner">
-                                        <h3 class="game-item-name"></h3>
+                                        <h3 class="game-item-name">${gameName}</h3>
                                     </div>
                                 </div>`;
             } else if (showType == 2) {
                 gameItemInfo = `<div class="game-item-info">
-                                    <h3 class="game-item-name"></h3>
+                                    <h3 class="game-item-name">${gameName}</h3>
                                  </div>`;
             }
 
@@ -526,7 +571,7 @@
             } else {
                 gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                gameitemlink = `<span class="game-item-link" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
+                gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
 
             }
 
@@ -543,7 +588,7 @@
                                     </div>
                              </div>
                              <div class="game-item-info">
-                               <h3 class="game-item-name"></h3>
+                               <h3 class="game-item-name">${gameName}</h3>
                              </div>
                            </div>
                         </div>`;
@@ -619,7 +664,7 @@
                                                 <span class="value"><i class="icon icon-mask"></i></span>
                                             </li>
                                             <li class="moreInfo-item brand">
-                                                <span class="title language_replace">${mlp.getLanguageKey("品牌")}</span>
+                                                <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
                                                 <span class="value GameBrand">${gameBrand}</span>
                                             </li>
                                             <li class="moreInfo-item RTP">
@@ -699,52 +744,175 @@
                 });
             }
 
-            for (var i = 0; i < LobbyGameList.length; i++) {
-                var lobbyGame = LobbyGameList[i];
-                if (lobbyGame.Location.includes("GameList")) {
-                    RecordDom = c.getTemplate("temCategItem");
-                    c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
-                    $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
-                    switch (lobbyGame.Location) {
-                        case 'GameList_Hot':
-                            $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
-                            break;
-                        case 'GameList_Favo':
-                            $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
-                            break;
-                        case 'GameList_Live':
-                            $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
-                            break;
-                        case 'GameList_Slot':
-                            $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
-                            break;
-                        case 'GameList_Other':
-                            $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
-                            break;
-                        case 'GameList_Brand':
-                            $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
-                            break;
-                        default:
-                    }
-                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
-                    idGameItemTitle.appendChild(RecordDom);
+            //熱門
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location =="GameList_Hot" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
                 }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
             }
+
+            //老虎雞
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Slot" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+            //真人
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Live" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+            //其他
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Other" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+            //廠牌
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Brand" });
+            if (lobbyGame.Location.includes("GameList")) {
+                RecordDom = c.getTemplate("temCategItem");
+                c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
+                $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
+                switch (lobbyGame.Location) {
+                    case 'GameList_Hot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        break;
+                    case 'GameList_Favo':
+                        $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
+                        break;
+                    case 'GameList_Live':
+                        $(RecordDom).find('.CategIcon').addClass('icon-live-tt');
+                        break;
+                    case 'GameList_Slot':
+                        $(RecordDom).find('.CategIcon').addClass('icon-slot-tt');
+                        break;
+                    case 'GameList_Other':
+                        $(RecordDom).find('.CategIcon').addClass('icon-etc-tt');
+                        break;
+                    case 'GameList_Brand':
+                        $(RecordDom).find('.CategIcon').addClass('icon-brand-tt');
+                        break;
+                    default:
+                }
+                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                idGameItemTitle.appendChild(RecordDom);
+            }
+
 
             $('#idGameItemTitle').append('<div class="tab-slide"></div>');
         }
 
-        selectedCategoryCode = "GameList_Slot";
+        selectedCategoryCode = "GameList_Hot";
         iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
 
         createCategory(selectedCategoryCode, function () {
-            //$('#categoryPage_' + selectedCategoryCode).css('content-visibility', 'auto');
-            $('#idGameItemTitle .tab-item').eq(0).addClass('active');
+            //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
             $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+       
             //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
+
+
 
             setSwiper(selectedCategoryCode);
         });
@@ -758,7 +926,8 @@
         idGameItemGroup.innerHTML = "";
         iframeWidth = window.innerWidth;
         createCategory(categoryCode, function () {
-
+            //$('.categoryPage').addClass('contain-disappear');
+            //$('#categoryPage_' + categoryCode).removeClass('contain-disappear');
             $('.categoryPage').css('height', '0');
             $('#categoryPage_' + categoryCode).css('height', 'auto');
             setSwiper(categoryCode);
@@ -985,7 +1154,7 @@
                 <div class="tab-search" onclick="showSearchGameModel()">
                     <img src="images/icon/ico-search-dog-tt.svg" alt=""><span class="title language_replace">找遊戲</span>
                 </div>
-                <div class="tab-scroller tab-5">
+                <div class="tab-scroller tab-6">
                     <div class="tab-scroller__area">
                         <ul class="tab-scroller__content" id="idGameItemTitle">
                             <div class="tab-slide"></div>
@@ -1195,7 +1364,7 @@
                 <!-- BRAND -->   
                 <div class="category-dailypush-wrapper brand">
                     <div class="category-dailypush-inner">
-                        <div class="category-dailypush-img" style="background-color: #014a5d;">
+                        <div class="category-dailypush-img" style="background-color: #4c1802;">
                             <div class="img-box mobile">
                                 <div class="img-wrap">
                                     <img src="images/lobby/dailypush-brand-M-001.jpg" alt="">
@@ -1203,7 +1372,7 @@
                             </div>
                             <div class="img-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/dailypush-brand-001.jpg" alt="">
+                                    <img src="images/lobby/dailypush-brand-002.jpg" alt="">
                                 </div>
                             </div>
                         </div>
@@ -1258,7 +1427,7 @@
                                                 <div class="game-item-img">
                                                     <span class="game-item-link"></span>
                                                     <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                        <img src="" />
                                                     </div>
                                                 </div>
                                                 <div class="game-item-info-detail open">
@@ -1340,7 +1509,7 @@
                                     <div class="game-item-inner">
                                         <span class="game-item-link"></span>
                                         <div class="img-wrap">
-                                            <img class="gameimg lozad" src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                            <img class="gameimg lozad" src="">
                                         </div>
                                     </div>
                                     <div class="game-item-info">
@@ -1424,7 +1593,7 @@
                                                 <div class="game-item-img">
                                                     <span class="game-item-link"></span>
                                                     <div class="img-wrap">
-                                                        <img src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                                        <img src="">
                                                     </div>
                                                 </div>
                                                 <div class="game-item-info-detail">

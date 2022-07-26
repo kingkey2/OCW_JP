@@ -112,9 +112,9 @@
                             }
 
                             c.setClassText(RecordDom, "SummaryDate", null, summaryDate.toString("yyyy/MM/dd"));
-                            c.setClassText(RecordDom, "orderValue", null, new BigNumber(daySummary.OrderValue).toFormat());
-                            c.setClassText(RecordDom, "validBet", null, new BigNumber(daySummary.ValidBetValue).toFormat());
-                            c.setClassText(RecordDom, "rewardValue", null, new BigNumber(daySummary.RewardValue).toFormat());
+                            c.setClassText(RecordDom, "orderValue", null, new BigNumber(daySummary.OrderValue).toFixed(2));
+                            c.setClassText(RecordDom, "validBet", null, new BigNumber(daySummary.ValidBetValue).toFixed(2));
+                            c.setClassText(RecordDom, "rewardValue", null, new BigNumber(daySummary.RewardValue).toFixed(2));
 
                             totalOrderValue = totalOrderValue + daySummary.OrderValue;
                             totalRewardValue = totalRewardValue + daySummary.RewardValue;
@@ -159,8 +159,8 @@
                         }
 
                         if (startDate.substring(0, startDate.length - 3) == Date.today().moveToFirstDayOfMonth().toString("yyyy/MM")) {
-                            $("#Game_O_1").text(new BigNumber(totalOrderValue).toFormat());
-                            $("#Game_R_1").text(new BigNumber(totalRewardValue).toFormat());
+                            $("#Game_O_1").text(new BigNumber(totalOrderValue).toFixed(2));
+                            $("#Game_R_1").text(new BigNumber(totalRewardValue).toFixed(2));
                         }
 
                         window.parent.API_CloseLoading();
@@ -191,37 +191,42 @@
                     if (o.DetailList.length > 0) {
                         for (var i = 0; i < o.DetailList.length; i++) {
                             var record = o.DetailList[i];
-                            var RecordDom;
 
-                            if (record.RewardValue >= 0) {
-                                RecordDom = c.getTemplate("tmpGameDetail_W");
-                            } else {
-                                RecordDom = c.getTemplate("tmpGameDetail_L");
-                            }
-                            let GameBrand = record.GameCode.split('.')[0];
-                            let GameName = record.GameCode.split('.')[1];
+                            window.parent.API_GetGameLang(WebInfo.Lang, record.GameCode, (function (langText) {
+                                var record = this;
+                                var RecordDom;
 
-                            window.parent.API_GetGameLang(WebInfo.Lang, record.GameCode, function (langText) {
+                                if (record.RewardValue >= 0) {
+                                    RecordDom = c.getTemplate("tmpGameDetail_W");
+                                } else {
+                                    RecordDom = c.getTemplate("tmpGameDetail_L");
+                                }
+                                let GameBrand = record.GameCode.split('.')[0];
+                                let GameName = record.GameCode.split('.')[1];
                                 c.setClassText(RecordDom, "gameName", null, langText);
-                            })
+                                
+                                if (record.GameCode.toUpperCase() =="PP.VS20STARLIGHT") {
+                                    c.setClassText(RecordDom, "gameName", null, "スタァラァトゥ姫");
+                                }
+                               
+                                RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
+                                RecordDom.querySelector(".gameName").classList.add("gameLangkey");
 
-                       
-                            RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
-                            RecordDom.querySelector(".gameName").classList.add("gameLangkey");
+                                c.setClassText(RecordDom, "rewardValue", null, new BigNumber(record.RewardValue).toFixed(2));
+                                c.setClassText(RecordDom, "orderValue", null, new BigNumber(record.OrderValue).toFixed(2));
+                                c.setClassText(RecordDom, "validBet", null, new BigNumber(record.ValidBetValue).toFixed(2));
 
-                            c.setClassText(RecordDom, "rewardValue", null, new BigNumber(record.RewardValue).toFormat());
-                            c.setClassText(RecordDom, "orderValue", null, new BigNumber(record.OrderValue).toFormat());
-                            c.setClassText(RecordDom, "validBet", null, new BigNumber(record.ValidBetValue).toFormat());
+                                let GI_img = RecordDom.querySelector(".gameimg");
 
-                            let GI_img = RecordDom.querySelector(".gameimg");
+                                if (GameBrand == "EWin") {
+                                    c.setClassText(RecordDom, "gameName", null, "EWinゲーミング");
+                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
+                                } else {
+                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
+                                }
 
-                            if (GameBrand == "EWin") {
-                                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
-                            } else {
-                                GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
-                            }
-
-                            panel.appendChild(RecordDom);
+                                panel.appendChild(RecordDom);
+                            }).bind(record))
                         }
 
                         if (cb) {
@@ -356,16 +361,16 @@
                             var countDom_M = RecordDom_M.querySelector(".amount");
                             if (Amount >= 0) {
                                 countDom.classList.add("positive");
-                                countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFormat();
+                                countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
 
                                 countDom_M.classList.add("positive");
-                                countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFormat();
+                                countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
                             } else {
                                 countDom.classList.add("negative");
-                                countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFormat();
+                                countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
 
                                 countDom_M.classList.add("negative");
-                                countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFormat();
+                                countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
                             }
 
                             c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
@@ -478,16 +483,16 @@
                                 var countDom_M = RecordDom_M.querySelector(".amount");
                                 if (Amount >= 0) {
                                     countDom.classList.add("positive");
-                                    countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFormat();
+                                    countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
 
                                     countDom_M.classList.add("positive");
-                                    countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFormat();
+                                    countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
                                 } else {
                                     countDom.classList.add("negative");
-                                    countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFormat();
+                                    countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
 
                                     countDom_M.classList.add("negative");
-                                    countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFormat();
+                                    countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
                                 }
 
                                 c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
@@ -566,13 +571,13 @@
             if (success) {
                 if (o.Result == 0) {
                     for (var i = 0; i < o.GameResult.length; i++) {
-                        $("#Game_O_" + i).text(new BigNumber(o.GameResult[i].OrderValue).toFormat());
-                        $("#Game_R_" + i).text(new BigNumber(o.GameResult[i].RewardValue).toFormat());
+                        $("#Game_O_" + i).text(new BigNumber(o.GameResult[i].OrderValue).toFixed(2));
+                        $("#Game_R_" + i).text(new BigNumber(o.GameResult[i].RewardValue).toFixed(2));
                     }
 
                     for (var j = 0; j < o.PaymentResult.length; j++) {
-                        $("#Paymeny_D_" + j).text(new BigNumber(o.PaymentResult[j].DepositAmount).toFormat());
-                        $("#Paymeny_W_" + j).text(new BigNumber(o.PaymentResult[j].WithdrawalAmount).toFormat());
+                        $("#Paymeny_D_" + j).text(new BigNumber(o.PaymentResult[j].DepositAmount).toFixed(2));
+                        $("#Paymeny_W_" + j).text(new BigNumber(o.PaymentResult[j].WithdrawalAmount).toFixed(2));
                     }
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
@@ -690,9 +695,10 @@
                     for (var i = 0; i < gameDoms.length; i++) {
                         var gameDom = gameDoms[i];
 
-                        window.parent.API_GetGameLang(lang, gameDom.getAttribute("gameLangkey"), function (langText) {
+                        window.parent.API_GetGameLang(lang, gameDom.getAttribute("gameLangkey"), (function (langText) {
+                            var gameDom = this;
                             gameDom.innerText = langText;
-                        });                                             
+                        }).bind(gameDom));
                     }
 
                     window.parent.API_LoadingEnd(1);
@@ -738,7 +744,7 @@
                             <h1 class="sec-title title-deco"><span class="language_replace">紀錄總覽</span></h1>
                         </div>
                     </div>
-                    --%>
+                    --%> 
                      <!-- 獎金/禮金 TAB -->
                      <div class="tab-record tab-scroller tab-2">
                         <div class="tab-scroller__area">
@@ -1424,7 +1430,7 @@
                 </div>
                 <div class="record-drop-item-wrapper">
                     <div class="record-drop-item-gameName record-item">
-                        <span class="data language_replace gameName">火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試</span>
+                        <span class="data language_replace gameName"></span>
                     </div>
                     <div class="record-drop-item-orderValue record-item">
                         <span class="title language_replace">投注</span>
@@ -1453,7 +1459,7 @@
                 </div>
                 <div class="record-drop-item-wrapper">
                     <div class="record-drop-item-gameName record-item">
-                        <span class="data language_replace gameName">火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試火樹贏花測試</span>
+                        <span class="data language_replace gameName"></span>
                     </div>
                     <div class="record-drop-item-orderValue record-item">
                         <span class="title language_replace">投注</span>
