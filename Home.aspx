@@ -388,7 +388,7 @@
                                                                         <span class="value"><i class="icon icon-mask"></i></span>
                                                                     </li>
                                                                     <li class="moreInfo-item brand">
-                                                                        <span class="title language_replace">品牌</span>
+                                                                        <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
@@ -576,7 +576,7 @@
                                                                         <span class="value"><i class="icon icon-mask"></i></span>
                                                                     </li>
                                                                     <li class="moreInfo-item brand">
-                                                                        <span class="title language_replace">品牌</span>
+                                                                        <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
                                                                         <span class="value GameBrand">${gameItem.GameBrand}</span>
                                                                     </li>
                                                                     <li class="moreInfo-item RTP">
