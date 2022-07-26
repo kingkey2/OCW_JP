@@ -1692,7 +1692,7 @@
                         likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
 
                         GI1.find(".gameName").text(lang_gamename);
-                        GI1.find(".BrandName").text(gameItem.GameBrand);
+                        GI1.find(".BrandName").text(mlp.getLanguageKey(gameItem.GameBrand));
                         GI1.find(".valueRTP").text(RTP);
                         GI1.find(".valueID").text(gameItem.GameID);
                         GI1.find(".GameCategoryCode").text(mlp.getLanguageKey(gameItem.GameCategoryCode));
