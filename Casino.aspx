@@ -151,9 +151,9 @@
                 //newSel.css('padding-bottom', '160px');
 
                 oldSel.css('height', '0');
-                oldSel.css('padding-bottom', '0');
+                //oldSel.css('padding-bottom', '0');
                 newSel.css('height', 'auto');
-                newSel.css('padding-bottom', '160px');
+                //newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
             });
         } else {
@@ -166,9 +166,9 @@
             //newSel.css('padding-bottom', '160px');
 
             oldSel.css('height', '0');
-            oldSel.css('padding-bottom', '0');
+            //oldSel.css('padding-bottom', '0');
             newSel.css('height', 'auto');
-            newSel.css('padding-bottom', '160px');
+            //newSel.css('padding-bottom', '160px');
         }
 
         window.document.body.scrollTop = 0;
@@ -250,6 +250,9 @@
                 var Location = lobbyGame.Location;
                 var categAreas = "";
                 var gameBrand;
+                var addContainStart = false;
+                var addContainMiddle = false;
+                var addContainEnd = false;
                 for (var i = 0; i < lobbyGame.Categories.length; i++) {
                     category = lobbyGame.Categories[i];
                     if (category) {
@@ -291,9 +294,22 @@
                             }
 
                             if (showType == 0) {
+                                if (!addContainStart) {
+                                    addContainStart = true;
+                                    addContainEnd = false;
+                                }
+
                                 game_wrapper = '<div class="game_wrapper">';
                             } else if (showType == 1) {
+                                if (!addContainStart) {
+                                    addContainStart = true;
+                                    addContainEnd = false;
+                                }
                                 game_wrapper = '<div class="game_wrapper gameRanking">';
+                            } else if (showType == 2) {
+                                addContainEnd = true;
+                                addContainStart = false;
+                                addContainMiddle = false;
                             }
           
                             if (showType == 2) {
@@ -356,12 +372,27 @@
                                 }
                             }
 
-                            categAreas += categArea;
+                            if (addContainMiddle) {
+                                categAreas += categArea;
+                            } else {
+                                if (addContainStart) {
+                                    addContainMiddle = true;
+                                    categAreas += '<div class="container"> ' + categArea;
+                                } else if (addContainEnd) {
+                                    addContainMiddle = false;
+                                    categAreas += '</div>'+categArea;
+                                } else {
+                                    categAreas += categArea;
+                                }
+                            }
+
+                           
+                        
                         }
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage container" style="height:0px;overflow-y: hidden;overflow-x: hidden;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0px;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
@@ -438,7 +469,8 @@
                         btnplay = `<button class="btn btn-play" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     }
 
-                    var docString = `${titleobj}
+                    var docString = `<div class="container category-dailypush">
+                                     ${titleobj}
                  <div class="category-dailypush-wrapper ${type}">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: ${headerGameData.BackgroundColor};">
@@ -477,7 +509,8 @@
                         </div>
                     </div>
                 </div>
-         </section>`;
+         </section>
+        </div>`;
 
                     cb(docString);
                 } else {
