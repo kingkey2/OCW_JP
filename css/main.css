@@ -5517,6 +5517,10 @@ i {
   background-color: #09f;
 }
 
+.categoryPage {
+  overflow: hidden;
+}
+
 .icon-m-favorite:before {
   content: "b";
 }
@@ -6538,7 +6542,7 @@ i {
     padding-bottom: 0px;
   }
   .game-area.overflow-hidden .container {
-    padding-bottom: 160px;
+    padding-bottom: 100px;
   }
 }
 @media (min-width: 1384px) {
