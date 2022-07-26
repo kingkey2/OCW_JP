@@ -6544,6 +6544,9 @@ i {
   .game-area.overflow-hidden .container {
     padding-bottom: 100px;
   }
+  .game-area.overflow-hidden .container.category-dailypush {
+    padding-bottom: 0;
+  }
 }
 @media (min-width: 1384px) {
   .game-item-name {
