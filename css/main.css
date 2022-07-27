@@ -2,6 +2,8 @@
 /*=================== fonts ====================*/
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap");
 @font-face {
   font-family: "maharaja";
   src: url("fonts/maharaja.eot");
@@ -135,8 +137,33 @@ body {
   }
 }
 
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
 button, input {
   color: rgba(0, 0, 0, 0.8);
+}
+
+ul {
+  padding: 0;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container,
+.container-fluid {
+  position: relative;
+}
+
+.text-primary {
+  color: #ff0066 !important;
 }
 
 .fixed {
@@ -182,31 +209,6 @@ button, input {
   padding-bottom: 0.0625rem;
   -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
-}
-
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 0;
-  font-weight: normal;
-}
-
-ul {
-  padding: 0;
-}
-
-ol,
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.container,
-.container-fluid {
-  position: relative;
-}
-
-.text-primary {
-  color: #ff0066 !important;
 }
 
 .no-Data {
