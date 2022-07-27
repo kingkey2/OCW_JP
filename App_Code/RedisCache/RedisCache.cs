@@ -1431,18 +1431,6 @@ public static class RedisCache {
             return DT;
         }
 
-        public static void DeleteCompanyCategory()
-        {
-            string Key;
-            System.Data.DataTable DT;
-            Key = XMLPath;
-
-            if (KeyExists(DBIndex, Key) == true)
-            {
-                KeyDelete(DBIndex, Key);
-            }
-        }
-
         public static System.Data.DataTable UpdateCompanyCategory() {
             string Key;
             string SS;
@@ -1676,11 +1664,11 @@ public static class RedisCache {
         private static string XMLPath = "CompanyGameCode";
         private static int DBIndex = 0;
 
-        public static void DeleteCompanyGameCode(int CompanyCategoryID)
+        public static void DeleteCompanyGameCode(string BrandCode, string GameCode)
         {
             string Key;
             System.Data.DataTable DT;
-            Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+            Key = XMLPath + ":"+ BrandCode+":" + GameCode;
 
             if (KeyExists(DBIndex, Key) == true)
             {
@@ -1688,216 +1676,48 @@ public static class RedisCache {
             }
         }
 
-        public static System.Data.DataTable GetCompanyGameCodeByID(int CompanyCategoryID) {
+        public static System.Data.DataTable GetCompanyGameCode(string BrandCode, string GameCode) {
             string Key;
             System.Data.DataTable DT;
-            Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
+            Key = XMLPath + ":" + BrandCode + ":" + GameCode;
 
             if (KeyExists(DBIndex, Key) == true) {
                 DT = DTReadFromRedis(DBIndex, Key);
             } else {
-                DT = UpdateCompanyGameCodeByID(CompanyCategoryID);
+                DT = UpdateCompanyGameCode(BrandCode,GameCode);
             }
 
             return DT;
         }
 
-        public static Dictionary<string, long> GetSyncData()
-        {
-            string Key;
-            string Value = null;
-            Dictionary<string, long> SyncData;
-            Key = XMLPath + ":SyncData";
-
-            if (KeyExists(DBIndex, Key) == true)
-            {
-                Value = JsonReadFromRedis(DBIndex, Key);
-            }
-
-            if (!string.IsNullOrEmpty(Value))
-            {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, long>>(Value);
-            }
-            else {
-                return null;
-            }
-            
-        }
-
-        public static int UpdateSyncData(int MaxGameID)
-        {
-            string Key;
-
-            Key = XMLPath + ":SyncData";
-
-            Dictionary<string, long> temp = new Dictionary<string, long>();
-            temp.Add("MaxGameID", (long)MaxGameID);
-            temp.Add("TimeStamp", DateTimeOffset.Now.ToUnixTimeSeconds());
-
-            for (int I = 0; I <= 3; I++)
-            {
-                try
-                {
-                    JsonStringWriteToRedis(0, Newtonsoft.Json.JsonConvert.SerializeObject(temp), Key);
-                    break;
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-
-            return MaxGameID;
-        }
-
-        public static System.Data.DataTable UpdateCompanyGameCode() {
+        public static System.Data.DataTable UpdateCompanyGameCode(string BrandCode, string GameCode) {
             string Key;
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             System.Data.DataTable DT = null;
-            System.Data.DataTable CompanyGameCodeDT = null;
+            Key = XMLPath + ":" + BrandCode + ":" + GameCode;
 
-            SS = "SELECT * FROM CompanyCategory WITH (NOLOCK)";
+            SS = "SELECT * FROM CompanyGameCode WITH (NOLOCK) WHERE GameCode=@GameCode";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
             DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
             if (DT.Rows.Count > 0) {
-
-                foreach (System.Data.DataRow DR in DT.Rows) {
-                    int CompanyCategoryID = (int)DR["CompanyCategoryID"];
-                    Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
-
-                    CompanyGameCodeDT = new System.Data.DataTable();
-
-                    SS = "SELECT * FROM CompanyGameCode WITH (NOLOCK) WHERE forCompanyCategoryID = @forCompanyCategoryID";
-                    DBCmd = new System.Data.SqlClient.SqlCommand();
-                    DBCmd.CommandText = SS;
-                    DBCmd.CommandType = System.Data.CommandType.Text;
-                    DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
-                    CompanyGameCodeDT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-
-                    if (CompanyGameCodeDT.Rows.Count > 0) {
-                        for (int I = 0; I <= 3; I++) {
-                            try {
-                                DTWriteToRedis(DBIndex, CompanyGameCodeDT, Key);
-                                break;
-                            } catch (Exception ex) {
-                            }
+                    for (int I = 0; I <= 3; I++)
+                    {
+                        try
+                        {
+                            DTWriteToRedis(DBIndex, DT, Key);
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
                         }
                     }
-
-                }
             }
 
             return DT;
-        }
-
-        public static string UpdateAllCompanyGameCode(string JsonString)
-        {
-            string Key;
-
-            Key = XMLPath + ":All";
-
-            for (int I = 0; I <= 3; I++)
-            {
-                try
-                {
-                    JsonStringWriteToRedis(0, JsonString, Key);
-                    break;
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-
-            return JsonString;
-        }
-
-        public static string UpdateAllCompanyGameCodeFromDB()
-        {
-            string Key;
-            string JsonString = "";
-            System.Data.SqlClient.SqlCommand DBCmd;
-            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-            EWin.Lobby.CompanyGameCodeResult companyGameCodeResult;
-
-            companyGameCodeResult = lobbyAPI.GetCompanyGameCode(GetToken(), Guid.NewGuid().ToString());
-            if (companyGameCodeResult.Result == EWin.Lobby.enumResult.OK)
-            {
-                JsonString = Newtonsoft.Json.JsonConvert.SerializeObject(companyGameCodeResult);
-                Key = XMLPath + ":All";
-
-                for (int I = 0; I <= 3; I++)
-                {
-                    try
-                    {
-                        JsonStringWriteToRedis(0, JsonString, Key);
-                        break;
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
-            }
-
-            return JsonString;
-        }
-
-        private static string GetToken()
-        {
-            string Token;
-            int RValue;
-            Random R = new Random();
-            RValue = R.Next(100000, 9999999);
-            Token = EWinWeb.CreateToken(EWinWeb.PrivateKey, EWinWeb.APIKey, RValue.ToString());
-
-            return Token;
-        }
-
-        public static string GetAllCompanyGameCode()
-        {
-            string Key;
-            string DATA = "";
-            Key = XMLPath + ":All";
-
-            if (KeyExists(DBIndex, Key) == true)
-            {
-                DATA = JsonReadFromRedis(DBIndex, Key);
-            }
-            else
-            {
-                DATA = UpdateAllCompanyGameCodeFromDB();
-            }
-
-            return DATA;
-        }
-
-        public static System.Data.DataTable UpdateCompanyGameCodeByID(int CompanyCategoryID) {
-            string Key;
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            System.Data.DataTable CompanyGameCodeDT = null;
-
-            Key = XMLPath + ":CompanyCategoryID:" + CompanyCategoryID;
-
-            SS = "SELECT * FROM CompanyGameCode WITH (NOLOCK) WHERE forCompanyCategoryID = @forCompanyCategoryID";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
-            CompanyGameCodeDT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-
-            if (CompanyGameCodeDT.Rows.Count > 0) {
-                for (int I = 0; I <= 3; I++) {
-                    try {
-                        DTWriteToRedis(DBIndex, CompanyGameCodeDT, Key);
-                        break;
-                    } catch (Exception ex) {
-                    }
-                }
-            }
-
-            return CompanyGameCodeDT;
         }
 
     }
