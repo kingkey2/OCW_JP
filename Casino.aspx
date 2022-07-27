@@ -314,7 +314,7 @@
           
                             if (showType == 2) {
                                 categArea = `<section class="section-wrap section_randomRem">
-                                                    <div class="container-fluid">
+                                                    <div class="container">
                                                         <div class="game_wrapper">
                                                             <div class="sec-title-container">
                                                                 <div class="sec-title-wrapper">
