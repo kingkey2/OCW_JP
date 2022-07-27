@@ -165,6 +165,8 @@
         $('#updateUserAccountRemoveReadOnlyBtn').removeClass('is-hide');
         $('#updateUserAccountCancelBtn').addClass('is-hide');
         $('#updateUserAccountBtn').addClass('is-hide');
+        $('#idNewPassword').val('');
+        $('#idOldPassword').val('');
     }
 
     function updateUserAccount() {
