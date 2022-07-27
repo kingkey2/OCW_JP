@@ -113,8 +113,8 @@
             GameBrand: "MG",
             Location: "GameList_Brand",
             MobileSrc: "/images/lobby/dailypush-brand-M-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-brand-001.jpg",
-            BackgroundColor: "#014a5d"
+            DesktopSrc: "/images/lobby/dailypush-brand-002.jpg",
+            BackgroundColor: "#4c1802"
         },
         {
             GameCode: "EVO.GonzoTH000000001",
@@ -1364,7 +1364,7 @@
                 <!-- BRAND -->   
                 <div class="category-dailypush-wrapper brand">
                     <div class="category-dailypush-inner">
-                        <div class="category-dailypush-img" style="background-color: #014a5d;">
+                        <div class="category-dailypush-img" style="background-color: #4c1802;">
                             <div class="img-box mobile">
                                 <div class="img-wrap">
                                     <img src="images/lobby/dailypush-brand-M-001.jpg" alt="">
@@ -1372,7 +1372,7 @@
                             </div>
                             <div class="img-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/dailypush-brand-001.jpg" alt="">
+                                    <img src="images/lobby/dailypush-brand-002.jpg" alt="">
                                 </div>
                             </div>
                         </div>
