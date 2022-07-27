@@ -350,6 +350,16 @@
         return oInstance;
     };
 
+    this.getTemplate2 = function (idTemplate) {
+        var oTemplate = document.getElementById(idTemplate);
+        var oInstance;
+
+        oInstance = oTemplate.content.cloneNode(true);
+
+        return oInstance;
+    };
+
+
     this.clearChildren = function (o) {
         while (o.firstChild) o.removeChild(o.firstChild);
     };
