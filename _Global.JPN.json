@@ -27,7 +27,7 @@
   "LoginFailure": "ログインが失敗しました",
   "InvalidCompany": "会社コードが無効",
   "GuestAccount": "ゲストアカウント",
-  "InvalidPassword": "パスワードが錯誤",
+  "InvalidPassword": "パスワードが正しくありません",
   "InvalidLoginAccount": "アカウントログイン無効",
   "LoginAccountNotExist": "アカウントログイン無効",
   "InvalidValidateCode": "無効なコード",

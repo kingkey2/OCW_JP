@@ -165,6 +165,8 @@
         $('#updateUserAccountRemoveReadOnlyBtn').removeClass('is-hide');
         $('#updateUserAccountCancelBtn').addClass('is-hide');
         $('#updateUserAccountBtn').addClass('is-hide');
+        $('#idNewPassword').val('');
+        $('#idOldPassword').val('');
     }
 
     function updateUserAccount() {
@@ -176,14 +178,14 @@
         if (idOldPassword == "") {
             $('#OldPasswordErrorMessage').text(mlp.getLanguageKey("尚未輸入舊密碼"));
             $('#OldPasswordErrorMessage').removeClass('is-hide');
-            $('#idOldPasswordSuccessIcon').addClass('is-hide');
-            $('#idOldPasswordErrorIcon').removeClass('is-hide');
+            //$('#idOldPasswordSuccessIcon').addClass('is-hide');
+            //$('#idOldPasswordErrorIcon').removeClass('is-hide');
             return false;
         } else {
             $('#OldPasswordErrorMessage').text('');
             $('#OldPasswordErrorMessage').addClass('is-hide');
-            $('#idOldPasswordSuccessIcon').removeClass('is-hide');
-            $('#idOldPasswordErrorIcon').addClass('is-hide');
+            //$('#idOldPasswordSuccessIcon').removeClass('is-hide');
+            //$('#idOldPasswordErrorIcon').addClass('is-hide');
         }
 
         if (idNewPassword == "") {

@@ -65,6 +65,12 @@
     {
       "Name": "BS001",
       "Path": "BackendSend/BS001.json"
+    },
+    {
+      "Name": "Act005",
+      "Path": "2022_6/Act005.json",
+      "MethodName": "OpenIntroBonusToParent",
+      "InfoMethodName": "OpenIntroBonusToParent"
     }
   ]
 }
