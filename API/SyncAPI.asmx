@@ -410,11 +410,14 @@ public class SyncAPI : System.Web.Services.WebService
                             {
                                 for (int i = 0; i < companyGameCodeResult.GameCodeList.Length; i++)
                                 {   //建立全部GameCode資料
-                                    GameID = companyGameCodeResult.GameCodeList[i].GameID;
-                                    UpdateTimestamp = companyGameCodeResult.GameCodeList[i].UpdateTimestamp;
-                                    GameCode=companyGameCodeResult.GameCodeList[i].GameCode;
+                                    var data = companyGameCodeResult.GameCodeList[i];
+                                    GameID = data.GameID;
+                                    UpdateTimestamp = data.UpdateTimestamp;
+                                    GameCode=data.GameCode;
                                     SettingData["UpdateTimestamp"] = UpdateTimestamp;
                                     SettingData["GameID"] = GameID;
+
+                                    EWinWebDB.CompanyGameCode.InsertCompanyGameCode(GameCode,GameID,data.GameName,data.GameCategoryCode,data.GameCategorySubCode,data.AllowDemoPlay,data.RTPInfo,data.IsHot,data.IsNew,Newtonsoft.Json.JsonConvert.SerializeObject(data.Tag),data.SortIndex,data.BrandCode,Newtonsoft.Json.JsonConvert.SerializeObject(data.Language),data.UpdateTimestamp,data.CompanyCategoryTag,data.GameAccountingCode,Newtonsoft.Json.JsonConvert.SerializeObject(data.GameCodeCategory),(int)companyGameCodeResult.GameCodeList[i].GameStatus);
 
                                     if (companyGameCodeResult.GameCodeList[i].GameStatus == EWin.Lobby.enumGameCodeStatus.GameOpen)
                                     {
@@ -559,19 +562,26 @@ public class SyncAPI : System.Web.Services.WebService
 
     public class CompanyGameCode
     {
-        public string BrandCode { get; set; }
+        public int forCompanyCategoryID { get; set; }
         public string GameCode { get; set; }
+        public int SortIndex { get; set; }
         public int GameID { get; set; }
+        public string BrandCode { get; set; }
         public string GameName { get; set; }
         public string GameCategoryCode { get; set; }
         public string GameCategorySubCode { get; set; }
         public int AllowDemoPlay { get; set; }
-        public string GameAccountingCode { get; set; }
         public string RTPInfo { get; set; }
+        public string Info { get; set; }
         public int IsNew { get; set; }
         public int IsHot { get; set; }
-        public string CompanyCategoryTag { get; set; }
         public string Tag { get; set; }
+        public string Language { get; set; }
+        public int UpdateTimestamp { get; set; }
+        public string CompanyCategoryTag { get; set; }
+        public string GameAccountingCode { get; set; }
+        public string GameCodeCategory { get; set; }
+
     }
 
     public class OcwCompanyGameCode
