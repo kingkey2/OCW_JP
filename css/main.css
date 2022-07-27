@@ -5575,7 +5575,7 @@ i {
   width: 5%;
   min-width: 60px;
   max-width: 80px;
-  height: calc(100% - 60px - 0.7rem);
+  height: calc(100% - 60px);
   top: 10px;
   margin-top: 0;
   cursor: pointer;
@@ -5615,7 +5615,6 @@ i {
 .swiper-button-next::before {
   background: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.85)), color-stop(75%, rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(270deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.7) 75%, rgba(0, 0, 0, 0) 100%);
-  border-radius: 0 15px 15px 0;
 }
 .swiper-button-next::after {
   right: 22%;
@@ -5629,7 +5628,6 @@ i {
 .swiper-button-prev::before {
   background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.85)), color-stop(75%, rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(-270deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.7) 75%, rgba(0, 0, 0, 0) 100%);
-  border-radius: 15px 0 0 15px;
 }
 .swiper-button-prev::after {
   left: 15%;
@@ -5679,8 +5677,8 @@ i {
   background: white;
 }
 .game-item .btn.btn-round {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 .game-item .btn.added, .game-item .btn:hover {
   color: white;
@@ -5706,11 +5704,6 @@ i {
   display: -ms-flexbox;
   display: flex;
 }
-.game-item .action {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 110px;
-          flex: 0 0 110px;
-}
 .game-item .action .btn-s-wrapper {
   margin-bottom: 1rem;
   display: -webkit-box;
@@ -5723,6 +5716,24 @@ i {
 .game-item .action .btn-play {
   width: 100%;
   border-radius: 50px;
+}
+.game-item .action .btn-like {
+  position: absolute;
+  top: -120px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border-color: #fff;
+  font-size: 22px;
+}
+.game-item .action .btn-like:hover {
+  color: #ff0000;
+}
+.game-item .action .btn-like:hover .icon-m-favorite:before {
+  content: "a";
+}
+.game-item .action .btn-like.added {
+  color: #ff0000;
+  background-color: rgba(255, 255, 255, 0.45);
 }
 .game-item-img {
   position: relative;
@@ -5749,7 +5760,6 @@ i {
   font-size: 0.8125rem;
 }
 .game-item-name {
-  margin-bottom: 0.5rem;
   font-weight: 400;
   font-size: 1rem;
   display: -webkit-box;
@@ -5907,11 +5917,16 @@ i {
       -ms-flex: 1;
           flex: 1;
   word-break: break-all;
-}
-.game-item-info-detail-indicator-inner .action {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 110px;
-          flex: 0 0 110px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 2rem;
 }
 .game-item-info-detail.open .game-item-info-detail-indicator {
   top: 60px;
@@ -6018,9 +6033,6 @@ i {
 }
 .gameinfo-hover .game-item-info-detail-indicator {
   position: absolute;
-}
-.gameinfo-hover .info {
-  margin-bottom: 0.5rem;
 }
 .gameinfo-hover .action {
   margin-bottom: 0.5rem;
@@ -6494,8 +6506,8 @@ i {
   border-bottom: none;
   position: absolute;
   top: 0;
-  width: 30px;
-  height: 30px;
+  width: 48px;
+  height: 48px;
   right: 30px;
   z-index: 1;
 }
@@ -8827,6 +8839,8 @@ select:-webkit-autofill:focus {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 48px;
           flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
 }
 .modal .modal-body {
   /* scroll 樣式 -- IE，Edge不適用   */
