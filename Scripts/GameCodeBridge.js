@@ -1,7 +1,7 @@
 ﻿var GameCodeBridge = function (url, second, eWinGameItem, notifyGameLoadEnd) {
     var GCBSelf = this;
     var myWorker;
-    var APIUrl = url;
+
 
     function init() {
         // In the following line, you should include the prefixes of implementations you want to test.
@@ -65,55 +65,6 @@
         });
     };
 
-    var callService = function (URL, postObject, timeoutMS, cb) {
-        var xmlHttp = new XMLHttpRequest;
-        var postData;
-
-        if (postObject)
-            postData = JSON.stringify(postObject);
-
-        xmlHttp.open("POST", URL, true);
-        xmlHttp.onreadystatechange = function () {
-            if (this.readyState == 4) {
-                var contentText = this.responseText;
-
-                if (this.status == "200") {
-                    if (cb) {
-                        cb(true, contentText);
-                    }
-                } else {
-                    cb(false, contentText);
-                }
-            }
-        };
-
-        xmlHttp.timeout = timeoutMS;
-        xmlHttp.ontimeout = function () {
-            /*
-            timeoutTryCount += 1;
- 
-            if (timeoutTryCount < 2)
-                xmlHttp.send(postData);
-            else*/
-            if (cb)
-                cb(false, "Timeout");
-        };
-
-        xmlHttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-        xmlHttp.send(postData);
-    }
-
-    var getJSON = function (text) {
-        var obj = JSON.parse(text);
-
-        if (obj) {
-            if (obj.hasOwnProperty('d')) {
-                return obj.d;
-            } else {
-                return obj;
-            }
-        }
-    }
     //搜尋方法 cb回傳統一為一個或多個GameCodeItem
 
     /**
@@ -122,56 +73,24 @@
      * @param {Function} cb 找到資料時的cb, param => data, null時為無資料
      */
     this.GetByGameCode = function (GameCode, cb) {
-        if (GCBSelf.IsFirstLoaded) {
-            var queue = (IndexedDB) => {
-                var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
-                var objectStore = transaction.objectStore('GameCodes');
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
+            var objectStore = transaction.objectStore('GameCodes');
 
-                objectStore.get(GameCode).onsuccess = function (event) {
-                    if (cb) {
-                        if (event.target.result) {
-                            console.log(event.target.result);
-                            cb(event.target.result);
-                        } else {
-                            cb(null);
-                        }
-                    }
-
-                    IndexedDB.close();
-                };
-            };
-
-            GCBSelf.InitPromise.then(getDB).then(queue);
-        } else {
-            GCBSelf.GetCompanyGameCode(Math.uuid(), GameCode, function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        let data = o.Data;
-                        data.FavoTimeStamp = null;
-                        data.PlayedTimeStamp = null;
-                        if (data.Language != "null") {
-                            data.Language = JSON.parse(data.Language);
-                        } else {
-                            data.Language = [];
-                        }
-
-                        if (data.Tags != "null") {
-                            data.Tags = JSON.parse(data.Language);
-                        } else {
-                            data.Tags = [];
-                        }
-
-                        console.log(o.Data);
-                        cb(data);
+            objectStore.get(GameCode).onsuccess = function (event) {
+                if (cb) {
+                    if (event.target.result) {
+                        cb(event.target.result);
                     } else {
                         cb(null);
                     }
-                } else {
-                    cb(null);
                 }
-            });
-        }
- 
+
+                IndexedDB.close();
+            };
+        };
+
+        GCBSelf.InitPromise.then(getDB).then(queue);
         //if (GCBSelf.IsFirstLoaded) {
         //    event();
         //} else {
@@ -248,6 +167,8 @@
 
         GCBSelf.InitPromise.then(getDB).then(queue);
     };
+
+
 
     /**
      *
@@ -1033,11 +954,11 @@
 
                     transaction.oncomplete = function (event) {
                         IndexedDB.close();
-                    };                  
+                    };
                 }
             }
         };
-      
+
     }
 
     this.IsFirstLoaded = false;
@@ -1045,28 +966,6 @@
     this.InitPromise;
 
     this.NotifyGameLoadEnd = notifyGameLoadEnd;
-
-    this.GetCompanyGameCode = function (GUID, GameCode, cb) {
-        var url = APIUrl + "/GetCompanyGameCode";
-        var postData;
-
-        postData = {
-            GUID: GUID,
-            GameCode: GameCode
-        };
-
-        callService(url, postData, 100000, function (success, text) {
-            if (success == true) {
-                var obj = getJSON(text);
-
-                if (cb)
-                    cb(true, obj);
-            } else {
-                if (cb)
-                    cb(false, text);
-            }
-        });
-    };
 
     init();
 }
