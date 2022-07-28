@@ -6379,6 +6379,7 @@ i {
   background-color: rgba(255, 255, 255, 0.3);
   border-color: rgba(0, 0, 0, 0.85);
   color: rgba(0, 0, 0, 0.8);
+  top: 0;
 }
 .game-item-group .game-item .action .btn-like:hover {
   color: #ff0000;
@@ -9332,6 +9333,13 @@ select:-webkit-autofill:focus {
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
 }
+.alertSearchTemp .wrapper_center.action-outter {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.alertSearchTemp .wrapper_center.action-outter .btn {
+  border-radius: 30px;
+}
 
 .brand-wrapper {
   position: absolute;
@@ -9429,11 +9437,6 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.35);
           box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.35);
 }
-.searchFilter-wrapper .game-brand {
-  -webkit-box-flex: 0 !important;
-      -ms-flex: 0 0 100% !important;
-          flex: 0 0 100% !important;
-}
 .searchFilter-wrapper.sticky {
   position: sticky;
   top: 0;
@@ -9446,10 +9449,18 @@ select:-webkit-autofill:focus {
           flex: 0 0 100%;
   margin-bottom: 0.5rem;
 }
+.searchFilter-wrapper .searchFilter-item.game-brand {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
 .searchFilter-wrapper .btn-search-popup {
   width: 100%;
   height: 40px;
-  margin-bottom: 0.5rem;
+}
+.searchFilter-wrapper .btn-reset-popup {
+  color: #009FE8;
+  border: solid 1px #009FE8;
 }
 .searchFilter-wrapper .btn {
   padding-top: 0;
@@ -9458,8 +9469,8 @@ select:-webkit-autofill:focus {
 @media (min-width: 375px) {
   .searchFilter-wrapper .searchFilter-item {
     -webkit-box-flex: 0;
-        -ms-flex: 0 0 48%;
-            flex: 0 0 48%;
+        -ms-flex: 0 0 49%;
+            flex: 0 0 49%;
   }
   .searchFilter-wrapper .searchFilter-item:first-of-type {
     margin-left: 0;
@@ -9476,9 +9487,43 @@ select:-webkit-autofill:focus {
     width: 20%;
   }
 }
+@media (min-width: 936px) {
+  .alertSearchTemp .modal-dialog {
+    max-width: 768px;
+  }
+  .alertSearchTemp .searchFilter-item.game-brand {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 40%;
+            flex: 0 0 40%;
+  }
+  .alertSearchTemp .searchFilter-item.game-type {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 29%;
+            flex: 0 0 29%;
+  }
+  .alertSearchTemp .searchFilter-item.keyword {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 29%;
+            flex: 0 0 29%;
+  }
+  .alertSearchTemp .wrapper_center.action-outter {
+    margin: 0.4rem auto;
+    margin-top: 1rem;
+    max-width: 480px;
+  }
+}
+@media (min-width: 1200px) {
+  .alertSearchTemp .modal-dialog {
+    max-width: 900px;
+  }
+}
 @media (min-width: 1440px) {
   .brand-popup-list .brand-item {
     width: 14.2857142857%;
+  }
+
+  .alertSearchTemp .modal-dialog {
+    max-width: 1200px;
   }
 }
 @media (min-width: 1440px) {
