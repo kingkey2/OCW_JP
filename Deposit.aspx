@@ -2,7 +2,6 @@
 
 <%
     string Version = EWinWeb.Version;
-    var s=123;
 %>
 <!DOCTYPE html>
 <html>
