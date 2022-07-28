@@ -251,7 +251,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                     objectStore.get(1).onsuccess = function (event) {
                         if (event.target.result) {
                             console.log("SyncStart");
-                            console.log(event.target.result);
+                            //console.log(event.target.result);
 
                             workerSelf.SyncEventData.NowGameID = event.target.result.GameID;
                             workerSelf.SyncEventData.NowTimeStamp = event.target.result.TimeStamp;
@@ -271,7 +271,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                             };
 
                             console.log("SyncStart");
-                            console.log(syncData);
+                            //console.log(syncData);
 
 
                             objectStore.put(syncData);
@@ -470,7 +470,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                             };
 
                                             console.log("SyncFinish");
-                                            console.log(syncData);
+                                            //console.log(syncData);
 
                                             objectSyncStore.put(syncData);
 
@@ -484,7 +484,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                             };
 
                                             console.log("SyncContinue");
-                                            console.log(syncData);
+                                            //console.log(syncData);
 
 
                                             objectSyncStore.put(syncData);
