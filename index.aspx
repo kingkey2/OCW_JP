@@ -203,7 +203,7 @@
 <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
-<script type="text/javascript" src="/Scripts/NoSleep.min.js"></script>
+<script type="text/javascript" src="/Scripts/NoSleep.js"></script>
 <script src="Scripts/lozad.min.js"></script>
 <script type="text/javascript">
     //if (self != top) {
@@ -1408,6 +1408,8 @@
 
     function init() {
 
+        //console.log("init start", new Date().toISOString());
+
         if (navigator.webdriver == true) {
             return;
         }
@@ -1450,16 +1452,22 @@
         if (window.localStorage.getItem("Lang")) {
             EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         }
-
+        
+        //console.log("initByArt start", new Date().toISOString());
         initByArt();
+        //console.log("initByArt End", new Date().toISOString());
         switchLang(EWinWebInfo.Lang, false);
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
 
-            //if (EWinWebInfo.DeviceType == 1) {
-            //    noSleep = new NoSleep();
-            //    noSleep.enable();
-            //}
+            if (EWinWebInfo.DeviceType == 1) {
+                //noSleep = new NoSleep();
+
+                //document.addEventListener('click', function enableNoSleep() {
+                //    document.removeEventListener('click', enableNoSleep, false);
+                //    noSleep.enable();
+                //}, false);
+            }
 
             if (EWinWebInfo.DeviceType == 1) {
                 $(".searchFilter-item").eq(0).css("flex-grow", "0");

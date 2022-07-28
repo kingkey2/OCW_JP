@@ -229,18 +229,24 @@
         //window.parent.API_LoadingStart();
         mlp.loadLanguage(lang, function () {
             if (p != null) {
-           
+
                 window.parent.API_LoadingEnd();
 
+                //console.log("getCompanyGameCode start", new Date().toISOString());
                 getCompanyGameCode();
+                //console.log("getCompanyGameCode end", new Date().toISOString());
 
                 if (FourGames) {
+                    //console.log("updateFourGame start", new Date().toISOString());
                     updateFourGame();
+                    //console.log("updateFourGame end", new Date().toISOString());
                 }
 
+                //console.log("API_GetUserThisWeekTotalValidBetValue start", new Date().toISOString());
                 window.parent.API_GetUserThisWeekTotalValidBetValue(function (e) {
                     setUserThisWeekLogined(e);
                 })
+                //console.log("API_GetUserThisWeekTotalValidBetValue end", new Date().toISOString());
 
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
@@ -249,10 +255,14 @@
             }
         });
 
+        //console.log("initSwiper start", new Date().toISOString());
         initSwiper();
+        //console.log("initSwiper end", new Date().toISOString());
 
+        //console.log("setBulletinBoard start", new Date().toISOString());
         setBulletinBoard();
-        
+        //console.log("setBulletinBoard end", new Date().toISOString());
+
         iframeWidth = document.body.scrollWidth;
     }
 
