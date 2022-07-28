@@ -6379,6 +6379,7 @@ i {
   background-color: rgba(255, 255, 255, 0.3);
   border-color: rgba(0, 0, 0, 0.85);
   color: rgba(0, 0, 0, 0.8);
+  top: 0;
 }
 .game-item-group .game-item .action .btn-like:hover {
   color: #ff0000;
