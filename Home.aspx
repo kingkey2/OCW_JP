@@ -839,7 +839,11 @@
                 }
             }
 
-            $(".bouns-amount").text(k * 1000);
+            if (k == 7) {
+                $(".bouns-amount").text(10000);
+            } else {
+                $(".bouns-amount").text(k * 1000);
+            }
         }
     }
 
