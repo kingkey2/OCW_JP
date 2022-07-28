@@ -680,23 +680,30 @@
                         var searchFlag = false;
                         var targetSearch = SearchKeyWord.toLowerCase();
 
-                        if (gameCodeItem.GameCode.toLowerCase() == targetSearch) {
+                        switch (targetSearch) {
 
-                        } else if (gameCodeItem.GameBrand.toLowerCase() == targetSearch) {
-                            searchFlag = true;
-                        } else if (gameCodeItem.GameCategoryCode.toLowerCase() == targetSearch) {
-                            searchFlag = true;
-                        } else if (gameCodeItem.GameCategorySubCode.toLowerCase() == targetSearch) {
-                            searchFlag = true;
-                        } else {
-                            //先搜尋既有關鍵字
+                            case gameCodeItem.GameCode.toLowerCase():
+                                searchFlag = true;
+                                break;
+                            case gameCodeItem.GameBrand.toLowerCase():
+                                searchFlag = true;
+                                break;
+                            case gameCodeItem.GameCategoryCode.toLowerCase():
+                                searchFlag = true;
+                                break;
+                            case gameCodeItem.GameCategorySubCode.toLowerCase():
+                                searchFlag = true;
+                                break;
+                        }
+
+                        if (searchFlag == false) {
                             for (var i = 0; i < gameCodeItem.Tags.length; i++) {
-                                if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                if (targetSearch.includes(gameCodeItem.Tags[i].toLowerCase())) {
                                     searchFlag = true;
                                     break;
                                 }
 
-                                if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(targetSearch)) {
                                     searchFlag = true;
                                     break;
                                 }
@@ -740,36 +747,45 @@
                                 var searchFlag = false;
                                 var targetSearch = SearchKeyWord.toLowerCase();
 
-                                if (gameCodeItem.GameBrand.toLowerCase() == targetSearch) {
-                                    searchFlag = true;
-                                } else if (gameCodeItem.GameCategoryCode.toLowerCase() == targetSearch) {
-                                    searchFlag = true;
-                                } else if (gameCodeItem.GameCategorySubCode.toLowerCase() == targetSearch) {
-                                    searchFlag = true;
-                                } else {
-                                    //先搜尋既有關鍵字
-                                    for (var i = 0; i < gameCodeItem.Tags.length; i++) {
-                                        if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
-                                            searchFlag = true;
-                                            break;
-                                        }
+                                switch (targetSearch) {
 
-                                        if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
-                                            searchFlag = true;
-                                            break;
-                                        }
-                                    }
-                                }
-
-
-                                for (var i = 0; i < gameCodeItem.Language.length; i++) {
-                                    if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                    case gameCodeItem.GameCode.toLowerCase():
                                         searchFlag = true;
-                                        updateDatas.push(gameCodeItem)
                                         break;
+                                    case gameCodeItem.GameBrand.toLowerCase():
+                                        searchFlag = true;
+                                        break;
+                                    case gameCodeItem.GameCategoryCode.toLowerCase():
+                                        searchFlag = true;
+                                        break;
+                                    case gameCodeItem.GameCategorySubCode.toLowerCase():
+                                        searchFlag = true;
+                                        break;
+                                }
+
+                                if (searchFlag == false) {
+                                    for (var i = 0; i < gameCodeItem.Tags.length; i++) {
+                                        if (targetSearch.includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                            searchFlag = true;
+                                            break;
+                                        }
+
+                                        if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(gameCodeItem.Tags[i])) {
+                                            searchFlag = true;
+                                            break;
+                                        }
                                     }
                                 }
 
+                                //不存在關鍵字內，搜尋翻譯後的遊戲名稱
+                                if (searchFlag == false) {
+                                    for (var i = 0; i < gameCodeItem.Language.length; i++) {
+                                        if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(targetSearch)) {
+                                            searchFlag = true;
+                                            break;
+                                        }
+                                    }
+                                }
 
                                 if (searchFlag) {
                                     if (gameCodeItem.GameStatus == 0) {
@@ -888,24 +904,42 @@
                                     checkFlag = false;
                                 } else if (SearchKeyWord) {
                                     var searchFlag = false;
+                                    var targetSearch = SearchKeyWord.toLowerCase();
 
-                                    //先搜尋既有關鍵字
-                                    for (var i = 0; i < gameCodeItem.Tags.length; i++) {
-                                        if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                    switch (targetSearch) {
+
+                                        case gameCodeItem.GameCode.toLowerCase():
                                             searchFlag = true;
                                             break;
-                                        }
-
-                                        if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                        case gameCodeItem.GameBrand.toLowerCase():
                                             searchFlag = true;
                                             break;
+                                        case gameCodeItem.GameCategoryCode.toLowerCase():
+                                            searchFlag = true;
+                                            break;
+                                        case gameCodeItem.GameCategorySubCode.toLowerCase():
+                                            searchFlag = true;
+                                            break;
+                                    }
+
+                                    if (searchFlag == false) {
+                                        for (var i = 0; i < gameCodeItem.Tags.length; i++) {
+                                            if (targetSearch.includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                                searchFlag = true;
+                                                break;
+                                            }
+
+                                            if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(gameCodeItem.Tags[i])) {
+                                                searchFlag = true;
+                                                break;
+                                            }
                                         }
                                     }
 
                                     //不存在關鍵字內，搜尋翻譯後的遊戲名稱
                                     if (searchFlag == false) {
                                         for (var i = 0; i < gameCodeItem.Language.length; i++) {
-                                            if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                            if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(targetSearch)) {
                                                 searchFlag = true;
                                                 break;
                                             }
@@ -936,29 +970,48 @@
                                         var cursor = event.target.result;
                                         if (cursor) {
                                             var gameCodeItem = cursor.value;
-                                            var searchFlag = false;
+                                            var searchFlag = false;                                            
+                                            var targetSearch = SearchKeyWord.toLowerCase();
 
-                                            //先搜尋既有關鍵字
-                                            for (var i = 0; i < gameCodeItem.Tags.length; i++) {
-                                                if (SearchKeyWord.toLowerCase().includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                            switch (targetSearch) {
+
+                                                case gameCodeItem.GameCode.toLowerCase():
                                                     searchFlag = true;
                                                     break;
-                                                }
-
-                                                if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(SearchKeyWord.toLowerCase())) {
+                                                case gameCodeItem.GameBrand.toLowerCase():
                                                     searchFlag = true;
                                                     break;
+                                                case gameCodeItem.GameCategoryCode.toLowerCase():
+                                                    searchFlag = true;
+                                                    break;
+                                                case gameCodeItem.GameCategorySubCode.toLowerCase():
+                                                    searchFlag = true;
+                                                    break;
+                                            }
+
+                                            if (searchFlag == false) {
+                                                for (var i = 0; i < gameCodeItem.Tags.length; i++) {
+                                                    if (targetSearch.includes(gameCodeItem.Tags[i].toLowerCase())) {
+                                                        searchFlag = true;
+                                                        break;
+                                                    }
+
+                                                    if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(gameCodeItem.Tags[i])) {
+                                                        searchFlag = true;
+                                                        break;
+                                                    }
                                                 }
                                             }
 
-                                            for (var i = 0; i < gameCodeItem.Language.length; i++) {
-                                                if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(SearchKeyWord.toLowerCase())) {
-                                                    searchFlag = true;
-                                                    updateDatas.push(gameCodeItem)
-                                                    break;
+                                            //不存在關鍵字內，搜尋翻譯後的遊戲名稱
+                                            if (searchFlag == false) {
+                                                for (var i = 0; i < gameCodeItem.Language.length; i++) {
+                                                    if (gameCodeItem.Language[i].DisplayText.toLowerCase().includes(targetSearch)) {
+                                                        searchFlag = true;
+                                                        break;
+                                                    }
                                                 }
                                             }
-
 
                                             if (searchFlag) {
                                                 if (gameCodeItem.GameStatus == 0) {

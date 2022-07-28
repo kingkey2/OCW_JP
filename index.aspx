@@ -1612,7 +1612,8 @@
                 }
             }, 1000);
 
-            window.onresize = reportWindowSize;
+            new ResizeObserver(reportWindowSize).observe(document.body)
+            //window.onresize = ;
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
