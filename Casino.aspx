@@ -150,9 +150,9 @@
                 //newSel.removeClass('contain-disappear');
                 //newSel.css('padding-bottom', '160px');
 
-                oldSel.css('height', '0');
+                oldSel.css('display', 'none');
                 //oldSel.css('padding-bottom', '0');
-                newSel.css('height', 'auto');
+                newSel.css('display', 'block');
                 //newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
             });
@@ -165,9 +165,9 @@
             //newSel.removeClass('contain-disappear');
             //newSel.css('padding-bottom', '160px');
 
-            oldSel.css('height', '0');
+            oldSel.css('display', 'none');
             //oldSel.css('padding-bottom', '0');
-            newSel.css('height', 'auto');
+            newSel.css('display', 'block');
             //newSel.css('padding-bottom', '160px');
         }
 
@@ -392,7 +392,7 @@
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0px;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="display:none;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
@@ -908,7 +908,7 @@
         //console.log("createCategory start", new Date().toISOString());
         createCategory(selectedCategoryCode, function () {
             //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
-            $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategoryCode).css('display', 'block');
 
             //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
@@ -932,8 +932,8 @@
         createCategory(categoryCode, function () {
             //$('.categoryPage').addClass('contain-disappear');
             //$('#categoryPage_' + categoryCode).removeClass('contain-disappear');
-            $('.categoryPage').css('height', '0');
-            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            $('.categoryPage').css('display', 'none');
+            $('#categoryPage_' + categoryCode).css('display', 'block');
             setSwiper(categoryCode);
         });
 
