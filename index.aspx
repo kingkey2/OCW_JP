@@ -1785,12 +1785,15 @@
         }
 
         this.searchGameChangeClear = function () {
+            var alertSearchContent = SearchDom.find('#alertSearchContent');
             resetSeleGameCategory();
             SearchDom.find("#alertSearchKeyWord").val("");
             SearchDom.find(".brandSeleCount").text(mlp.getLanguageKey("全部"));
             SearchDom.find("input[name='button-brandExchange']").each(function (e, v) {
                 $(v).prop("checked", false);
             });
+
+            alertSearchContent.empty();
         }
 
         this.searchGameChangeConfirm = function () {
@@ -2531,7 +2534,7 @@
                                 <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                             </div>
                             <div class="wrapper_center">
-                                <button onclick="" type="button" class="btn btn-full-main btn-sm btn-reset-popup">
+                                <button type="button" class="btn btn-full-main btn-sm btn-reset-popup" onclick="SearchControll.searchGameChangeClear()">
                                     <span class="language_replace">重新設定</span>
                                 </button>
                                 <button onclick="SearchControll.searchGameList()" type="button"
@@ -2549,10 +2552,10 @@
 
                                     </ul>
                                     <div class="wrapper_center">
-                                        <button class="btn btn-outline-main btn-brand-cancel" type="button"
+                                        <%--<button class="btn btn-outline-main btn-brand-cancel" type="button"
                                             onclick="SearchControll.searchGameChangeClear()">
                                             <span class="language_replace">重新設定</span>
-                                        </button>
+                                        </button>--%>
                                         <button class="btn btn-full-main btn-brand-confirm" type="button"
                                             onclick="SearchControll.searchGameChangeConfirm()">
                                             <span class="language_replace">確認</span>
