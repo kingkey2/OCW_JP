@@ -2734,6 +2734,8 @@ public class PaymentAPI : System.Web.Services.WebService
 
             if (R.Datas.Count > 0 || R.NotFinishDatas.Count > 0)
             {
+                R.Datas = R.Datas.OrderByDescending(x => x.FinishDate).ToList();
+                R.NotFinishDatas = R.NotFinishDatas.OrderByDescending(x => x.CreateDate).ToList();
                 R.Result = enumResult.OK;
             }
             else
