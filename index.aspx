@@ -344,6 +344,18 @@
 
     function API_RefreshPersonalFavo(gameCode, isAdded) {
         notifyWindowEvent("RefreshPersonalFavo", { GameCode: gameCode, IsAdded: isAdded });
+        
+        var selector = "." + ("GameCode_" + gameCode + ".btn-like").replace(".", "\\.");
+
+        if (isAdded) {
+            if (!$("#alertSearchContent " + selector).hasClass("added")) {
+                $("#alertSearchContent " + selector).addClass("added");
+            }
+        } else {
+            if ($("#alertSearchContent " + selector).hasClass("added")) {
+                $("#alertSearchContent " + selector).removeClass("added");
+            }
+        }
     }
 
     function API_RefreshPersonalPlayed(gameCode, isAdded) {
@@ -1698,6 +1710,8 @@
                         } else {
                             $(likebtn).removeClass("added");
                         }
+
+                        $(likebtn).addClass("GameCode_" + gameItem.GameCode);
 
                         likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
 
