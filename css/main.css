@@ -9334,7 +9334,11 @@ select:-webkit-autofill:focus {
           flex: 0 0 100%;
 }
 .alertSearchTemp .wrapper_center.action-outter {
-  max-width: unset;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.alertSearchTemp .wrapper_center.action-outter .btn {
+  border-radius: 30px;
 }
 
 .brand-wrapper {
@@ -9503,7 +9507,9 @@ select:-webkit-autofill:focus {
             flex: 0 0 29%;
   }
   .alertSearchTemp .wrapper_center.action-outter {
-    margin: 0.4rem;
+    margin: 0.4rem auto;
+    margin-top: 1rem;
+    max-width: 480px;
   }
 }
 @media (min-width: 1200px) {
