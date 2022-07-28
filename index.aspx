@@ -752,6 +752,7 @@
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
+        var gameiteminfodetail = popupMoblieGameInfo[0].querySelector(".game-item-info-detail.open");
         var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-link");
         var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
         var playbtn = popupMoblieGameInfo[0].querySelector(".btn-play");
@@ -792,7 +793,7 @@
         $('.headerGameName').text(GameLangName);
         
         gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        playbtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
+        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -2932,9 +2933,9 @@
                                                                 <i class="arrow arrow-down"></i>
                                                             </button>--%>
                                                         </div>
-                                                        <button type="button" class="btn btn-play">
+                                                  <%--      <button type="button" class="btn btn-play">
                                                             <span class="language_replace">プレイ</span><i class="triangle"></i>
-                                                        </button>
+                                                        </button>--%>
                                                     </div>
                                                 </div>
                                             </div>
