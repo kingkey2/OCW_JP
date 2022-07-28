@@ -302,7 +302,7 @@
         });
     }
 
-    async function createPersonal(type , isInit) {    
+    async function createPersonal(type, isInit) {
         await new Promise((resolve, reject) => {
             var Location = "Home"
             var CategCode;
@@ -338,7 +338,7 @@
                     if (gameItem) {
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                        if (gameItem.FavoTimeStamp!=null) {
+                        if (gameItem.FavoTimeStamp != null) {
                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                         } else {
                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
@@ -456,10 +456,15 @@
                         gameItems += GI;
                     }
                 }, (isDataExist) => {
-                    if (isDataExist && gameItems) {
+                    if (isInit) {
+                        let isHideStr;
+                        if (isDataExist && gameItems) {
 
-                        if (isInit) {
-                            categArea = ` <section id="${'categ_' + CategCode}" class="section-wrap section-levelUp">
+                        } else {
+                            isHideStr = 'style="display:none"';
+                        }
+
+                        categArea = ` <section id="${'categ_' + CategCode}" class="section-wrap section-levelUp" ${isHideStr}>
                                              <div class="game_wrapper">
                                              <div class="sec-title-container">
                                              <div class="sec-title-wrapper">
@@ -475,14 +480,19 @@
                                              </div>
                                              </div>
                                              </section>`;
-                            $('#gameAreas').prepend(categArea);
+                        $('#gameAreas').prepend(categArea);
+                    } else {
+                        if (isDataExist && gameItems) {
+                            $('#categ_' + CategCode).show();
                         } else {
-                            $('.GameItemGroup_' + CategCode + ' .GameItemGroupContent').append(gameItems);
-                        } 
+                            $('#categ_' + CategCode).hide();
+                        }
+                        $('.GameItemGroup_' + CategCode + ' .GameItemGroupContent').append(gameItems);
                     }
+
                     resolve();
                 });
-        });          
+        });
     }
 
     async function createCategory(LobbyGameList,categoryName) {
@@ -863,8 +873,15 @@
                 $(".GameItemGroup_PersonalFavo .GameItemGroupContent").empty();
                 if (param.IsAdded) {
                     $(selector).addClass("added");
+
                 } else {
                     $(selector).removeClass("added");
+
+                    //if ($(".GameItemGroup_PersonalFavo .gameCode_" + param.GameCode).length == 0) {
+                    //    $(".GameItemGroup_PersonalFavo").css("display", "none");
+                    //} else {
+                    //    $(".GameItemGroup_PersonalFavo").css("display", "none");
+                    //}
                 }
                
                 createPersonal(0, false).then(function () {
