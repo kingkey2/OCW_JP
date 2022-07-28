@@ -875,6 +875,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .section_publicize .publicize_bottom_inner .bulletin_inner {
     margin-top: 0;
   }
+
+  .game-area.overflow-hidden > .container {
+    padding-bottom: 100px;
+  }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
   .game_slider .swiper-slide {
