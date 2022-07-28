@@ -954,11 +954,11 @@
 
                     transaction.oncomplete = function (event) {
                         IndexedDB.close();
-                    };                  
+                    };
                 }
             }
         };
-      
+
     }
 
     this.IsFirstLoaded = false;

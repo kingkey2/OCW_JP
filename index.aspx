@@ -203,7 +203,7 @@
 <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
-<script type="text/javascript" src="/Scripts/NoSleep.min.js"></script>
+<script type="text/javascript" src="/Scripts/NoSleep.js"></script>
 <script src="Scripts/lozad.min.js"></script>
 <script type="text/javascript">
     //if (self != top) {
@@ -752,6 +752,7 @@
 
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
+        var gameiteminfodetail = popupMoblieGameInfo[0].querySelector(".game-item-info-detail.open");
         var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-link");
         var likebtn = popupMoblieGameInfo[0].querySelector(".btn-like");
         var playbtn = popupMoblieGameInfo[0].querySelector(".btn-play");
@@ -792,7 +793,7 @@
         $('.headerGameName').text(GameLangName);
         
         gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
-        playbtn.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
+        gameiteminfodetail.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
         GCB.GetFavo(function (data) {
             favoriteGames.push(data);
         }, function (data) {
@@ -1408,6 +1409,8 @@
 
     function init() {
 
+        //console.log("init start", new Date().toISOString());
+
         if (navigator.webdriver == true) {
             return;
         }
@@ -1450,16 +1453,22 @@
         if (window.localStorage.getItem("Lang")) {
             EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         }
-
+        
+        //console.log("initByArt start", new Date().toISOString());
         initByArt();
+        //console.log("initByArt End", new Date().toISOString());
         switchLang(EWinWebInfo.Lang, false);
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
 
-            //if (EWinWebInfo.DeviceType == 1) {
-            //    noSleep = new NoSleep();
-            //    noSleep.enable();
-            //}
+            if (EWinWebInfo.DeviceType == 1) {
+                //noSleep = new NoSleep();
+
+                //document.addEventListener('click', function enableNoSleep() {
+                //    document.removeEventListener('click', enableNoSleep, false);
+                //    noSleep.enable();
+                //}, false);
+            }
 
             if (EWinWebInfo.DeviceType == 1) {
                 // $(".searchFilter-item").eq(0).css("flex-grow", "0");
@@ -2929,9 +2938,9 @@
                                                                 <i class="arrow arrow-down"></i>
                                                             </button>--%>
                                                         </div>
-                                                        <button type="button" class="btn btn-play">
+                                                  <%--      <button type="button" class="btn btn-play">
                                                             <span class="language_replace">プレイ</span><i class="triangle"></i>
-                                                        </button>
+                                                        </button>--%>
                                                     </div>
                                                 </div>
                                             </div>
