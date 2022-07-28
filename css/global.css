@@ -242,6 +242,10 @@ img[src=""], img:not([src]) {
   z-index: 4;
 }
 
+.text-note{
+  font-size: 0.8125em;
+}
+
 .text-s {
   font-size: 0.875rem;
 }

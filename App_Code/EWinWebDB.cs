@@ -148,7 +148,7 @@ public static class EWinWebDB {
     }
 
     public static class CompanyGameCode {
-        public static int InsertCompanyGameCode(string GameCode, int GameID, string GameName, string GameCategoryCode, string GameCategorySubCode, int AllowDemoPlay, string RTPInfo,int IsHot, int IsNew, string Tag, int SortIndex,string BrandCode,string Language,long UpdateTimestamp,string CompanyCategoryTag,string GameAccountingCode,string GameCodeCategory,int GameStatus) {
+        public static int InsertCompanyGameCode(string GameCode, int GameID, string GameName, string GameCategoryCode, string GameCategorySubCode, int AllowDemoPlay, string RTPInfo,int IsHot, int IsNew, string Tag, int SortIndex,string GameBrand, string Language,long UpdateTimestamp,string CompanyCategoryTag,string GameAccountingCode,string GameCodeCategory,int GameStatus) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int insertCount = 0;
@@ -162,8 +162,8 @@ public static class EWinWebDB {
 
             if (searchCount == 0)
             {
-                SS = "INSERT INTO CompanyGameCode (GameCode,GameID, GameName,GameCategoryCode,GameCategorySubCode,AllowDemoPlay,RTPInfo,IsHot,IsNew,Tag,SortIndex,BrandCode,Language,UpdateTimestamp,CompanyCategoryTag,GameAccountingCode,GameCodeCategory,GameStatus) " +
-          "                VALUES (@GameCode,@GameID, @GameName,@GameCategoryCode,@GameCategorySubCode,@AllowDemoPlay,@RTPInfo,@IsHot,@IsNew,@Tag,@SortIndex,@BrandCode,@Language,@UpdateTimestamp,@CompanyCategoryTag,@GameAccountingCode,@GameCodeCategory,@GameStatus) ";
+                SS = "INSERT INTO CompanyGameCode (GameCode,GameID, GameName,GameCategoryCode,GameCategorySubCode,AllowDemoPlay,RTPInfo,IsHot,IsNew,Tags,SortIndex,GameBrand,Language,UpdateTimestamp,CompanyCategoryTag,GameAccountingCode,GameCodeCategory,GameStatus) " +
+          "                VALUES (@GameCode,@GameID, @GameName,@GameCategoryCode,@GameCategorySubCode,@AllowDemoPlay,@RTPInfo,@IsHot,@IsNew,@Tag,@SortIndex,@GameBrand,@Language,@UpdateTimestamp,@CompanyCategoryTag,@GameAccountingCode,@GameCodeCategory,@GameStatus) ";
 
                 DBCmd = new System.Data.SqlClient.SqlCommand();
                 DBCmd.CommandText = SS;
@@ -179,7 +179,7 @@ public static class EWinWebDB {
                 DBCmd.Parameters.Add("@IsNew", System.Data.SqlDbType.Int).Value = IsNew;
                 DBCmd.Parameters.Add("@Tag", System.Data.SqlDbType.NVarChar).Value = Tag;
                 DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
-                DBCmd.Parameters.Add("@BrandCode", System.Data.SqlDbType.VarChar).Value = BrandCode;
+                DBCmd.Parameters.Add("@GameBrand", System.Data.SqlDbType.VarChar).Value = GameBrand;
                 DBCmd.Parameters.Add("@Language", System.Data.SqlDbType.NVarChar).Value = Language;
                 DBCmd.Parameters.Add("@UpdateTimestamp", System.Data.SqlDbType.BigInt).Value = UpdateTimestamp;
                 DBCmd.Parameters.Add("@CompanyCategoryTag", System.Data.SqlDbType.NVarChar).Value = CompanyCategoryTag;
@@ -190,7 +190,7 @@ public static class EWinWebDB {
             }
             else
             {
-                SS = "UPDATE CompanyGameCode SET GameID=@GameID, GameName=@GameName,GameCategoryCode=@GameCategoryCode,GameCategorySubCode=@GameCategorySubCode,AllowDemoPlay=@AllowDemoPlay,RTPInfo=@RTPInfo,IsHot=@IsHot,IsNew=@IsNew,Tag=@Tag,SortIndex=@SortIndex,BrandCode=@BrandCode,Language=@Language,UpdateTimestamp=@UpdateTimestamp,CompanyCategoryTag=@CompanyCategoryTag,GameAccountingCode=@GameAccountingCode,GameCodeCategory=@GameCodeCategory,GameStatus=@GameStatus WHERE GameCode=@GameCode ";
+                SS = "UPDATE CompanyGameCode SET GameID=@GameID, GameName=@GameName,GameCategoryCode=@GameCategoryCode,GameCategorySubCode=@GameCategorySubCode,AllowDemoPlay=@AllowDemoPlay,RTPInfo=@RTPInfo,IsHot=@IsHot,IsNew=@IsNew,Tags=@Tag,SortIndex=@SortIndex,GameBrand=@GameBrand,Language=@Language,UpdateTimestamp=@UpdateTimestamp,CompanyCategoryTag=@CompanyCategoryTag,GameAccountingCode=@GameAccountingCode,GameCodeCategory=@GameCodeCategory,GameStatus=@GameStatus WHERE GameCode=@GameCode ";
                 DBCmd = new System.Data.SqlClient.SqlCommand();
                 DBCmd.CommandText = SS;
                 DBCmd.CommandType = System.Data.CommandType.Text;
@@ -205,7 +205,7 @@ public static class EWinWebDB {
                 DBCmd.Parameters.Add("@IsNew", System.Data.SqlDbType.Int).Value = IsNew;
                 DBCmd.Parameters.Add("@Tag", System.Data.SqlDbType.NVarChar).Value = Tag;
                 DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
-                DBCmd.Parameters.Add("@BrandCode", System.Data.SqlDbType.VarChar).Value = BrandCode;
+                DBCmd.Parameters.Add("@GameBrand", System.Data.SqlDbType.VarChar).Value = GameBrand;
                 DBCmd.Parameters.Add("@Language", System.Data.SqlDbType.NVarChar).Value = Language;
                 DBCmd.Parameters.Add("@UpdateTimestamp", System.Data.SqlDbType.BigInt).Value = UpdateTimestamp;
                 DBCmd.Parameters.Add("@CompanyCategoryTag", System.Data.SqlDbType.NVarChar).Value = CompanyCategoryTag;
@@ -215,7 +215,7 @@ public static class EWinWebDB {
                 DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
             }
      
-            RedisCache.CompanyGameCode.UpdateCompanyGameCode(BrandCode, GameCode);
+            RedisCache.CompanyGameCode.UpdateCompanyGameCode(GameBrand, GameCode);
 
             return insertCount;
         }

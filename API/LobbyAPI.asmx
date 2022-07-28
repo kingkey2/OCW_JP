@@ -479,14 +479,13 @@ public class LobbyAPI : System.Web.Services.WebService {
         CompanyGameCodeResult R = new CompanyGameCodeResult() { Result= EWin.Lobby.enumResult.ERR };
         System.Data.DataTable DT;
 
-        DT= RedisCache.CompanyCategory.GetCompanyCategory();
+        DT= RedisCache.CompanyGameCode.GetCompanyGameCode(GameCode.Split('.').First(),GameCode);
         if (DT!=null&&DT.Rows.Count>0) {
             R.Result = EWin.Lobby.enumResult.OK;
             R.Data=DT.ToList<CompanyGameCode>().First();
         }
 
         return R;
-
     }
 
 
@@ -1916,25 +1915,21 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     public class CompanyGameCode
     {
-        public int forCompanyCategoryID { get; set; }
         public string GameCode { get; set; }
         public int SortIndex { get; set; }
         public int GameID { get; set; }
-        public string BrandCode { get; set; }
+        public string GameBrand { get; set; }
         public string GameName { get; set; }
         public string GameCategoryCode { get; set; }
         public string GameCategorySubCode { get; set; }
         public int AllowDemoPlay { get; set; }
         public string RTPInfo { get; set; }
-        public string Info { get; set; }
         public int IsNew { get; set; }
         public int IsHot { get; set; }
-        public string Tag { get; set; }
+        public string Tags { get; set; }
         public string Language { get; set; }
-        public int UpdateTimestamp { get; set; }
-        public string CompanyCategoryTag { get; set; }
         public string GameAccountingCode { get; set; }
-        public string GameCodeCategory { get; set; }
+        public int GameStatus{ get; set; }
 
     }
 

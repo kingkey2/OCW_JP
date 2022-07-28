@@ -870,6 +870,7 @@
                                         <h6 class="title language_replace">JKC 餘額</h6>
                                         <span class="data JKCValue"></span>
                                     </li>
+                                    <p class="text-note text-primary language_replace">*獎金和禮金的出金門檻在BOUNS箱領取後才會追加</p>
                                 </ul>
                             </div>
                         </div>
