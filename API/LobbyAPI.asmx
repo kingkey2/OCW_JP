@@ -1652,7 +1652,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 }
 
                 R.Result = EWin.Lobby.enumResult.OK;
-                R.CollectList = collectList.ToArray();
+                R.CollectList = collectList.OrderByDescending(o=>o.CreateDate).ToArray();
 
             } else {
                 R.Result = EWin.Lobby.enumResult.ERR;
