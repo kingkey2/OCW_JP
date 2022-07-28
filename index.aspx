@@ -2531,7 +2531,7 @@
                                 <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                             </div>
                             <div class="wrapper_center">
-                                <button onclick="" type="button" class="btn btn-full-main btn-sm btn-search-popup">
+                                <button onclick="" type="button" class="btn btn-full-main btn-sm btn-reset-popup">
                                     <span class="language_replace">重新設定</span>
                                 </button>
                                 <button onclick="SearchControll.searchGameList()" type="button"
