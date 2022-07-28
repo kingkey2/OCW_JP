@@ -984,7 +984,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
