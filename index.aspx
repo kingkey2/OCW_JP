@@ -1843,6 +1843,8 @@
         this.searchGameByBrandAndGameCategory = function (gameBrand, gameCategoryName) {
             //待修正
             let o;
+            let strSeleBrandText = SearchDom.find(".brandSeleCount");
+            let allGameBrandLength = $("#alertSearch").find("input[name='button-brandExchange']").length;
 
             SearchDom.modal('show');
             SearchDom.find("#div_SearchGameCategory").show();
@@ -1852,6 +1854,7 @@
 
             if (SearchDom.find('#searchIcon_' + gameBrand).length > 0) {
                 SearchDom.find('#searchIcon_' + gameBrand).prop("checked", true);
+                strSeleBrandText.text(` 1 / ${allGameBrandLength} `);
             }
 
             SearchDom.find("#seleGameCategory").empty();

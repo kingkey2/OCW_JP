@@ -180,15 +180,15 @@
                 break;
             case 4:
                 $('#ModalPP1').modal('hide');
-                window.parent.searchGameByBrandAndGameCategory("PP", "Slot");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Slot");
                 break;
             case 5:
                 $('#ModalPP2').modal('hide');
-                window.parent.searchGameByBrandAndGameCategory("PP", "Live");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Live");
                 break;
             case 6:
                 $('#Modalbng2').modal('hide');
-                window.parent.searchGameByBrandAndGameCategory("BNG", "Slot");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory("BNG", "Slot");
                 break;
         }
     }
