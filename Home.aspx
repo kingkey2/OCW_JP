@@ -924,20 +924,7 @@
         <section class="section-wrap hero">
             <div class="swiper hero_slider swiper_container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" href="/Activity/event/bng/bng2207-2/index.html" target="_blank"></a>
-                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
-                            <div class="hero-item-box mobile">
-                                <img src="images/banner/b7-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/banner/b7.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="swiper-slide">
                         <div class="hero-item" >
                             <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
@@ -1004,9 +991,7 @@
                 <div class="container">
                     <div thumbsSlider="" class="thumbSwiper">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="images/banner/thumb-7.png" alt="">
-                            </div>
+                            
                             <div class="swiper-slide">
                                 <img src="images/banner/thumb-1.png" alt="">
                             </div>
