@@ -20,7 +20,7 @@
 </head>
 <body style="width: 100%">
 <span style="font-size:24px; text-align: center; width: 100%;">
-Please wait...
+
 </span>
 <script language="javascript">
     window.top.location.href="<%=CodingControl.JSEncodeString(DestURL) %>";
