@@ -2714,6 +2714,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     try { data = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentCommonData>(EachString); } catch (Exception ex) { }
                     if (data != null)
                     {
+                        data.PaymentShowType = 0;
                         R.Datas.Add(data);
                     }
                 }
@@ -2727,13 +2728,14 @@ public class PaymentAPI : System.Web.Services.WebService
                 {
                     var Row = DT.Rows[i];
                     PaymentCommonData data = CovertFromRow(Row);
-
-                    R.NotFinishDatas.Add(data);
+                    data.PaymentShowType = 1;
+                    R.Datas.Add(data);
                 }
             }
 
-            if (R.Datas.Count > 0 || R.NotFinishDatas.Count > 0)
+            if (R.Datas.Count > 0)
             {
+                R.Datas = R.Datas.OrderByDescending(o => o.CreateDate).ToList();
                 R.Result = enumResult.OK;
             }
             else
@@ -3276,6 +3278,7 @@ public class PaymentAPI : System.Web.Services.WebService
         public string ActivityData { get; set; }
         public string FromInfo { get; set; }
         public string ToInfo { get; set; }
+        public int PaymentShowType { get; set; }//0=完成|失敗訂單 1=進行中訂單
     }
 
     public class CryptoDetail

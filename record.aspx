@@ -315,149 +315,28 @@
                     var RecordDom_M;
                     let Amount;
 
-                    if (o.NotFinishDatas.length > 0) {
-                        for (var j = 0; j < o.NotFinishDatas.length; j++) {
-                            var record = o.NotFinishDatas[j];
-                            if (record.PaymentType == 0) {
-                                RecordDom = c.getTemplate("tmpPayment_D");
-                                RecordDom_M = c.getTemplate("tmpPayment_M_D");
-                            } else {
-                                RecordDom = c.getTemplate("tmpPayment_W");
-                                RecordDom_M = c.getTemplate("tmpPayment_M_W");
-                            }
-
-                            var paymentRecordText;
-                            var BasicType;
-
-                            paymentRecordStatus = 0;
-                            paymentRecordText = mlp.getLanguageKey('進行中');
-                            $(RecordDom_M).find('.processing').show();
-                            $(RecordDom).find('.processing').show();
-
-                            $(RecordDom_M).addClass('order-processing');
-                            $(RecordDom).addClass('order-processing');
-                            // 0=一般/1=銀行卡/2=區塊鏈
-                            switch (record.BasicType) {
-                                case 0:
-                                    BasicType = mlp.getLanguageKey('一般');
-                                    break;
-                                case 1:
-                                    BasicType = mlp.getLanguageKey('銀行卡');
-                                    break;
-                                case 2:
-                                    BasicType = mlp.getLanguageKey('區塊鏈');
-                                    break;
-                                default:
-                            }
-
-                            if (record.PaymentType == 0) {
-                                Amount = record.Amount;
-                            } else {
-                                Amount = record.Amount * -1;
-                            }
-
-                            //金額處理
-                            var countDom = RecordDom.querySelector(".amount");
-                            var countDom_M = RecordDom_M.querySelector(".amount");
-                            if (Amount >= 0) {
-                                countDom.classList.add("positive");
-                                countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
-
-                                countDom_M.classList.add("positive");
-                                countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
-                            } else {
-                                countDom.classList.add("negative");
-                                countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
-
-                                countDom_M.classList.add("negative");
-                                countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
-                            }
-
-                            c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                            c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
-                            c.setClassText(RecordDom, "BasicType", null, BasicType);
-                            c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
-
-                            c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                            c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
-                            c.setClassText(RecordDom_M, "BasicType", null, BasicType);
-                            c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
-
-                            let paymentSerial = record.PaymentSerial;
-                            let paymentType = record.PaymentType;
-                            var toggle = RecordDom_M.querySelector(".btn-toggle");
-
-                            RecordDom_M.onclick = (function () {
-                                if (paymentType == 0) {
-                                    window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + paymentSerial, true);
-                                } else {
-                                    window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + paymentSerial, true);
-                                }
-                            }).bind(toggle);
-
-                            RecordDom.onclick = (function () {
-                                if (paymentType == 0) {
-                                    window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + paymentSerial, true);
-                                } else {
-                                    window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + paymentSerial, true);
-                                }
-                            })
-
-                            $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
-                            $(RecordDom_M).find('.inputPaymentSerial').val(record.PaymentSerial);
-
-                            ParentMain.appendChild(RecordDom);
-                            ParentMain_M.appendChild(RecordDom_M);
-                        }
-                    }
-
                     if (o.Datas.length > 0) {
                         for (var i = 0; i < o.Datas.length; i++) {
-                            var record = o.Datas[i];
-                            if (record.PaymentType == 0) {
-                                RecordDom = c.getTemplate("tmpPayment_D");
-                                RecordDom_M = c.getTemplate("tmpPayment_M_D");
-                            } else {
-                                RecordDom = c.getTemplate("tmpPayment_W");
-                                RecordDom_M = c.getTemplate("tmpPayment_M_W");
-                            }
+                            if (o.Datas[i].PaymentShowType) {
+                                var record = o.Datas[i];
+                                if (record.PaymentType == 0) {
+                                    RecordDom = c.getTemplate("tmpPayment_D");
+                                    RecordDom_M = c.getTemplate("tmpPayment_M_D");
+                                } else {
+                                    RecordDom = c.getTemplate("tmpPayment_W");
+                                    RecordDom_M = c.getTemplate("tmpPayment_M_W");
+                                }
 
-                            //ewin資料存GMT+8，取出後改+9看是否該資料符合搜尋區間
-                            if (c.addHours(record.FinishDate, 1).format("MM") == search_Month_P) {
                                 var paymentRecordText;
                                 var BasicType;
 
-                                switch (record.PaymentFlowType) {
-                                    case 2:
-                                        paymentRecordStatus = 2;
-                                        paymentRecordText = mlp.getLanguageKey('完成');
-                                        $(RecordDom_M).find('.success').show();
-                                        $(RecordDom).find('.success').show();
-                                        $(RecordDom_M).removeClass('order-processing');
-                                        $(RecordDom).removeClass('order-processing');
-                                        break;
-                                    case 3:
-                                        if (record.BasicType == 1) {
-                                            paymentRecordText = mlp.getLanguageKey('審核拒絕');
-                                        } else {
-                                            paymentRecordText = mlp.getLanguageKey('主動取消');
-                                        }
-                                        paymentRecordStatus = 3;
-                                        $(RecordDom_M).find('.fail').show();
-                                        $(RecordDom).find('.fail').show();
-                                        $(RecordDom_M).removeClass('order-processing');
-                                        $(RecordDom).removeClass('order-processing');
-                                        break;
-                                    case 4:
-                                        paymentRecordStatus = 4;
-                                        paymentRecordText = mlp.getLanguageKey('審核拒絕');
-                                        $(RecordDom_M).find('.fail').show();
-                                        $(RecordDom).find('.fail').show();
-                                        $(RecordDom_M).removeClass('order-processing');
-                                        $(RecordDom).removeClass('order-processing');
-                                        break;
-                                }
+                                paymentRecordStatus = 0;
+                                paymentRecordText = mlp.getLanguageKey('進行中');
+                                $(RecordDom_M).find('.processing').show();
+                                $(RecordDom).find('.processing').show();
 
+                                $(RecordDom_M).addClass('order-processing');
+                                $(RecordDom).addClass('order-processing');
                                 // 0=一般/1=銀行卡/2=區塊鏈
                                 switch (record.BasicType) {
                                     case 0:
@@ -496,43 +375,163 @@
                                 }
 
                                 c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                                c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
                                 c.setClassText(RecordDom, "BasicType", null, BasicType);
                                 c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
 
                                 c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
-                                c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                                c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.CreateDate, 1).format("yyyy/MM/dd hh:mm:ss"));
                                 c.setClassText(RecordDom_M, "BasicType", null, BasicType);
                                 c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
 
+                                let paymentSerial = record.PaymentSerial;
+                                let paymentType = record.PaymentType;
                                 var toggle = RecordDom_M.querySelector(".btn-toggle");
-                                RecordDom_M.onclick = (function () {
-                                    var nowJQ = $(this);
-                                    var parentTarget = nowJQ.parents('.record-table-item');
-                                    nowJQ.toggleClass('cur');
-                                    parentTarget.find('.record-table-drop-panel').slideToggle();
 
-                                    if (parentTarget.hasClass("show")) {
-                                        parentTarget.removeClass("show");
+                                RecordDom_M.onclick = (function () {
+                                    if (paymentType == 0) {
+                                        window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + paymentSerial, true);
                                     } else {
-                                        parentTarget.addClass("show");
+                                        window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + paymentSerial, true);
                                     }
                                 }).bind(toggle);
+
+                                RecordDom.onclick = (function () {
+                                    if (paymentType == 0) {
+                                        window.parent.API_LoadPage('DepositDetail', 'DepositDetail.aspx?PS=' + paymentSerial, true);
+                                    } else {
+                                        window.parent.API_LoadPage('WtihdrawalDetail', 'WtihdrawalDetail.aspx?PS=' + paymentSerial, true);
+                                    }
+                                })
 
                                 $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
                                 $(RecordDom_M).find('.inputPaymentSerial').val(record.PaymentSerial);
 
                                 ParentMain.appendChild(RecordDom);
                                 ParentMain_M.appendChild(RecordDom_M);
+                            }
+                            else {
+                                var record = o.Datas[i];
+                                if (record.PaymentType == 0) {
+                                    RecordDom = c.getTemplate("tmpPayment_D");
+                                    RecordDom_M = c.getTemplate("tmpPayment_M_D");
+                                } else {
+                                    RecordDom = c.getTemplate("tmpPayment_W");
+                                    RecordDom_M = c.getTemplate("tmpPayment_M_W");
+                                }
 
-                                if ($(ParentMain).length == 0) {
-                                    //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                                //ewin資料存GMT+8，取出後改+9看是否該資料符合搜尋區間
+                                if (c.addHours(record.FinishDate, 1).format("MM") == search_Month_P) {
+                                    var paymentRecordText;
+                                    var BasicType;
+
+                                    switch (record.PaymentFlowType) {
+                                        case 2:
+                                            paymentRecordStatus = 2;
+                                            paymentRecordText = mlp.getLanguageKey('完成');
+                                            $(RecordDom_M).find('.success').show();
+                                            $(RecordDom).find('.success').show();
+                                            $(RecordDom_M).removeClass('order-processing');
+                                            $(RecordDom).removeClass('order-processing');
+                                            break;
+                                        case 3:
+                                            if (record.BasicType == 1) {
+                                                paymentRecordText = mlp.getLanguageKey('審核拒絕');
+                                            } else {
+                                                paymentRecordText = mlp.getLanguageKey('主動取消');
+                                            }
+                                            paymentRecordStatus = 3;
+                                            $(RecordDom_M).find('.fail').show();
+                                            $(RecordDom).find('.fail').show();
+                                            $(RecordDom_M).removeClass('order-processing');
+                                            $(RecordDom).removeClass('order-processing');
+                                            break;
+                                        case 4:
+                                            paymentRecordStatus = 4;
+                                            paymentRecordText = mlp.getLanguageKey('審核拒絕');
+                                            $(RecordDom_M).find('.fail').show();
+                                            $(RecordDom).find('.fail').show();
+                                            $(RecordDom_M).removeClass('order-processing');
+                                            $(RecordDom).removeClass('order-processing');
+                                            break;
+                                    }
+
+                                    // 0=一般/1=銀行卡/2=區塊鏈
+                                    switch (record.BasicType) {
+                                        case 0:
+                                            BasicType = mlp.getLanguageKey('一般');
+                                            break;
+                                        case 1:
+                                            BasicType = mlp.getLanguageKey('銀行卡');
+                                            break;
+                                        case 2:
+                                            BasicType = mlp.getLanguageKey('區塊鏈');
+                                            break;
+                                        default:
+                                    }
+
+                                    if (record.PaymentType == 0) {
+                                        Amount = record.Amount;
+                                    } else {
+                                        Amount = record.Amount * -1;
+                                    }
+
+                                    //金額處理
+                                    var countDom = RecordDom.querySelector(".amount");
+                                    var countDom_M = RecordDom_M.querySelector(".amount");
+                                    if (Amount >= 0) {
+                                        countDom.classList.add("positive");
+                                        countDom.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
+
+                                        countDom_M.classList.add("positive");
+                                        countDom_M.innerText = "+ " + new BigNumber(Math.abs(Amount)).toFixed(2);
+                                    } else {
+                                        countDom.classList.add("negative");
+                                        countDom.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
+
+                                        countDom_M.classList.add("negative");
+                                        countDom_M.innerText = "- " + new BigNumber(Math.abs(Amount)).toFixed(2);
+                                    }
+
+                                    c.setClassText(RecordDom, "PaymentStatus", null, paymentRecordText);
+                                    c.setClassText(RecordDom, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                                    c.setClassText(RecordDom, "BasicType", null, BasicType);
+                                    c.setClassText(RecordDom, "PaymentSerial", null, record.PaymentSerial);
+
+                                    c.setClassText(RecordDom_M, "PaymentStatus", null, paymentRecordText);
+                                    c.setClassText(RecordDom_M, "FinishDate", null, c.addHours(record.FinishDate, 1).format("yyyy/MM/dd hh:mm:ss"));
+                                    c.setClassText(RecordDom_M, "BasicType", null, BasicType);
+                                    c.setClassText(RecordDom_M, "PaymentSerial", null, record.PaymentSerial);
+
+                                    var toggle = RecordDom_M.querySelector(".btn-toggle");
+                                    RecordDom_M.onclick = (function () {
+                                        var nowJQ = $(this);
+                                        var parentTarget = nowJQ.parents('.record-table-item');
+                                        nowJQ.toggleClass('cur');
+                                        parentTarget.find('.record-table-drop-panel').slideToggle();
+
+                                        if (parentTarget.hasClass("show")) {
+                                            parentTarget.removeClass("show");
+                                        } else {
+                                            parentTarget.addClass("show");
+                                        }
+                                    }).bind(toggle);
+
+                                    $(RecordDom).find('.inputPaymentSerial').val(record.PaymentSerial);
+                                    $(RecordDom_M).find('.inputPaymentSerial').val(record.PaymentSerial);
+
+                                    ParentMain.appendChild(RecordDom);
+                                    ParentMain_M.appendChild(RecordDom_M);
+
+                                    if ($(ParentMain).length == 0) {
+                                        //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
+                                    }
                                 }
                             }
                         }
                     }
 
-                    if (o.Datas.length == 0 && o.NotFinishDatas.length == 0) {
+                    if (o.Datas.length == 0) {
                         if (WebInfo.DeviceType == 1) {
                             $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                         } else {
