@@ -101,12 +101,12 @@
             BackgroundColor: "#010101"
         },
         {
-            GameCode: "KGS.43",
-            GameBrand: "KGS",
+            GameCode: "BTI.Sport",
+            GameBrand: "BTI",
             Location: "GameList_Other",
-            MobileSrc: "/images/lobby/dailypush-other-M-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-other-001.jpg",
-            BackgroundColor: "#3a3227"
+            MobileSrc: "/images/lobby/dailypush-bti-M-001.jpg",
+            DesktopSrc: "/images/lobby/dailypush-bti-001.jpg",
+            BackgroundColor: "#f66f13"
         },
         {
             GameCode: "MG.429",
@@ -314,7 +314,7 @@
           
                             if (showType == 2) {
                                 categArea = `<section class="section-wrap section_randomRem">
-                                                    <div class="container-fluid">
+                                                    <div class="container">
                                                         <div class="game_wrapper">
                                                             <div class="sec-title-container">
                                                                 <div class="sec-title-wrapper">
