@@ -1471,10 +1471,10 @@
             }
 
             if (EWinWebInfo.DeviceType == 1) {
-                $(".searchFilter-item").eq(0).css("flex-grow", "0");
-                $(".searchFilter-item").eq(0).css("flex-shrink","0");
-                $(".searchFilter-item").eq(0).css("flex-basis","100%");
-                $(".searchFilter-item").eq(1).css("margin-left", "0");
+                // $(".searchFilter-item").eq(0).css("flex-grow", "0");
+                // $(".searchFilter-item").eq(0).css("flex-shrink","0");
+                // $(".searchFilter-item").eq(0).css("flex-basis","100%");
+                // $(".searchFilter-item").eq(1).css("margin-left", "0");
                 //$(".searchFilter-item").eq(2).css("margin-left","0");
             }
 
@@ -1785,12 +1785,15 @@
         }
 
         this.searchGameChangeClear = function () {
+            var alertSearchContent = SearchDom.find('#alertSearchContent');
             resetSeleGameCategory();
             SearchDom.find("#alertSearchKeyWord").val("");
             SearchDom.find(".brandSeleCount").text(mlp.getLanguageKey("全部"));
             SearchDom.find("input[name='button-brandExchange']").each(function (e, v) {
                 $(v).prop("checked", false);
             });
+
+            alertSearchContent.empty();
         }
 
         this.searchGameChangeConfirm = function () {
@@ -2530,10 +2533,15 @@
                                     language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
                                 <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                             </div>
-                            <button onclick="SearchControll.searchGameList()" type="button"
-                                class="btn btn-full-main btn-sm btn-search-popup">
-                                <span class="language_replace">検索</span>
-                            </button>
+                            <div class="wrapper_center">
+                                <button type="button" class="btn btn-full-main btn-sm btn-reset-popup" onclick="SearchControll.searchGameChangeClear()">
+                                    <span class="language_replace">重新設定</span>
+                                </button>
+                                <button onclick="SearchControll.searchGameList()" type="button"
+                                    class="btn btn-full-main btn-sm btn-search-popup">
+                                    <span class="language_replace">検索</span>
+                                </button>
+                            </div>                            
                         </div>
 
                         <!-- 品牌LOGO版 Collapse -->
@@ -2544,10 +2552,10 @@
 
                                     </ul>
                                     <div class="wrapper_center">
-                                        <button class="btn btn-outline-main btn-brand-cancel" type="button"
+                                        <%--<button class="btn btn-outline-main btn-brand-cancel" type="button"
                                             onclick="SearchControll.searchGameChangeClear()">
                                             <span class="language_replace">重新設定</span>
-                                        </button>
+                                        </button>--%>
                                         <button class="btn btn-full-main btn-brand-confirm" type="button"
                                             onclick="SearchControll.searchGameChangeConfirm()">
                                             <span class="language_replace">確認</span>

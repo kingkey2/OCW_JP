@@ -139,3 +139,19 @@ h3{
   margin: 10px auto; */
   font-size: 14px;
 }
+
+.btn-back-cashQa{
+  float: right;
+  padding: 5px 40px;
+  font-size: .85em;
+  border: 1px solid #999;
+  border-radius: 30px;
+  width: fit-content;
+  color: #666;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+.btn-back-cashQa:hover{
+  background-color: #999;
+  color: #fff;
+}
