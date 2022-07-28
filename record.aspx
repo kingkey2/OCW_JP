@@ -316,6 +316,9 @@
                     let Amount;
 
                     if (o.Datas.length > 0) {
+                        o.Datas= o.Datas.sort(function (a, b) {
+                            return b.CreateDate - a.CreateDate;
+                        });
                         for (var i = 0; i < o.Datas.length; i++) {
                             if (o.Datas[i].PaymentShowType) {
                                 var record = o.Datas[i];
