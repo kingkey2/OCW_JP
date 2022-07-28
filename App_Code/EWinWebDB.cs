@@ -12,43 +12,7 @@ using System.Web.UI.WebControls;
 /// </summary>
 public static class EWinWebDB {
     public static class CompanyCategory {
-        public static int DeleteCompanyCategory(int CategoryType) {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int CategoryCount = 0;
-
-            SS = " DELETE FROM CompanyCategory " +
-                 " WHERE  CategoryType=@CategoryType";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@CategoryType", System.Data.SqlDbType.Int).Value = CategoryType;
-            CategoryCount = Convert.ToInt32(DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd));
-
-            RedisCache.CompanyCategory.DeleteCompanyCategory();
-
-            return CategoryCount;
-        }
-
-        public static int DeleteCompanyCategoryByCompanyCategoryID(int CompanyCategoryID)
-        {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int CategoryCount = 0;
-
-            SS = " DELETE FROM CompanyCategory " +
-                 " WHERE  CompanyCategoryID=@CompanyCategoryID";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@CompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
-            CategoryCount = Convert.ToInt32(DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd));
-
-            RedisCache.CompanyCategory.UpdateCompanyCategory();
-            RedisCache.CompanyGameCode.DeleteCompanyGameCode(CompanyCategoryID);
-            return CategoryCount;
-        }
-
+   
         public static int DeleteCompanyCategoryByCompanyCategoryID2(int CompanyCategoryID)
         {
             string SS;
@@ -184,73 +148,104 @@ public static class EWinWebDB {
     }
 
     public static class CompanyGameCode {
-        public static int InsertCompanyGameCode(int forCompanyCategoryID, string GameBrand, string GameName, string Info, int GameID, string GameCategoryCode, string GameCategorySubCode, int AllowDemoPlay, string RTPInfo, int IsHot, int IsNew, string Tag, int SortIndex) {
+        public static int InsertCompanyGameCode(string GameCode, int GameID, string GameName, string GameCategoryCode, string GameCategorySubCode, int AllowDemoPlay, string RTPInfo,int IsHot, int IsNew, string Tag, int SortIndex,string GameBrand, string Language,long UpdateTimestamp,string CompanyCategoryTag,string GameAccountingCode,string GameCodeCategory,int GameStatus) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
             int insertCount = 0;
-
-            SS = "INSERT INTO CompanyGameCode (forCompanyCategoryID,GameBrand, GameName, Info,GameID,GameCategoryCode,GameCategorySubCode,AllowDemoPlay,RTPInfo,IsHot,IsNew,Tag,SortIndex) " +
-            "                VALUES (@forCompanyCategoryID,@GameBrand, @GameName, @Info,@GameID,@GameCategoryCode,@GameCategorySubCode,@AllowDemoPlay,@RTPInfo,@IsHot,@IsNew,@Tag,@SortIndex) ";
+            int searchCount = 0;
+            SS = " SELECT COUNT(*) FROM CompanyGameCode WHERE GameCode=@GameCode ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@forCompanyCategoryID", System.Data.SqlDbType.Int).Value = forCompanyCategoryID;
-            DBCmd.Parameters.Add("@GameBrand", System.Data.SqlDbType.VarChar).Value = GameBrand;
-            DBCmd.Parameters.Add("@GameName", System.Data.SqlDbType.VarChar).Value = GameName;
-            DBCmd.Parameters.Add("@Info", System.Data.SqlDbType.NVarChar).Value = Info;
-            DBCmd.Parameters.Add("@GameID", System.Data.SqlDbType.Int).Value = GameID;
-            DBCmd.Parameters.Add("@GameCategoryCode", System.Data.SqlDbType.VarChar).Value = GameCategoryCode;
-            DBCmd.Parameters.Add("@GameCategorySubCode", System.Data.SqlDbType.VarChar).Value = GameCategorySubCode;
-            DBCmd.Parameters.Add("@AllowDemoPlay", System.Data.SqlDbType.Int).Value = AllowDemoPlay;
-            DBCmd.Parameters.Add("@RTPInfo", System.Data.SqlDbType.VarChar).Value = RTPInfo;
-            DBCmd.Parameters.Add("@IsHot", System.Data.SqlDbType.Int).Value = IsHot;
-            DBCmd.Parameters.Add("@IsNew", System.Data.SqlDbType.Int).Value = IsNew;
-            DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
-            DBCmd.Parameters.Add("@Tag", System.Data.SqlDbType.NVarChar).Value = Tag;
-            insertCount = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+            searchCount = (int)DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd);
 
+            if (searchCount == 0)
+            {
+                SS = "INSERT INTO CompanyGameCode (GameCode,GameID, GameName,GameCategoryCode,GameCategorySubCode,AllowDemoPlay,RTPInfo,IsHot,IsNew,Tags,SortIndex,GameBrand,Language,UpdateTimestamp,CompanyCategoryTag,GameAccountingCode,GameCodeCategory,GameStatus) " +
+          "                VALUES (@GameCode,@GameID, @GameName,@GameCategoryCode,@GameCategorySubCode,@AllowDemoPlay,@RTPInfo,@IsHot,@IsNew,@Tag,@SortIndex,@GameBrand,@Language,@UpdateTimestamp,@CompanyCategoryTag,@GameAccountingCode,@GameCodeCategory,@GameStatus) ";
+
+                DBCmd = new System.Data.SqlClient.SqlCommand();
+                DBCmd.CommandText = SS;
+                DBCmd.CommandType = System.Data.CommandType.Text;
+                DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+                DBCmd.Parameters.Add("@GameID", System.Data.SqlDbType.Int).Value = GameID;
+                DBCmd.Parameters.Add("@GameName", System.Data.SqlDbType.VarChar).Value = GameName;
+                DBCmd.Parameters.Add("@GameCategoryCode", System.Data.SqlDbType.VarChar).Value = GameCategoryCode;
+                DBCmd.Parameters.Add("@GameCategorySubCode", System.Data.SqlDbType.VarChar).Value = GameCategorySubCode;
+                DBCmd.Parameters.Add("@AllowDemoPlay", System.Data.SqlDbType.Int).Value = AllowDemoPlay;
+                DBCmd.Parameters.Add("@RTPInfo", System.Data.SqlDbType.VarChar).Value = RTPInfo;
+                DBCmd.Parameters.Add("@IsHot", System.Data.SqlDbType.Int).Value = IsHot;
+                DBCmd.Parameters.Add("@IsNew", System.Data.SqlDbType.Int).Value = IsNew;
+                DBCmd.Parameters.Add("@Tag", System.Data.SqlDbType.NVarChar).Value = Tag;
+                DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
+                DBCmd.Parameters.Add("@GameBrand", System.Data.SqlDbType.VarChar).Value = GameBrand;
+                DBCmd.Parameters.Add("@Language", System.Data.SqlDbType.NVarChar).Value = Language;
+                DBCmd.Parameters.Add("@UpdateTimestamp", System.Data.SqlDbType.BigInt).Value = UpdateTimestamp;
+                DBCmd.Parameters.Add("@CompanyCategoryTag", System.Data.SqlDbType.NVarChar).Value = CompanyCategoryTag;
+                DBCmd.Parameters.Add("@GameAccountingCode", System.Data.SqlDbType.VarChar).Value = GameAccountingCode;
+                DBCmd.Parameters.Add("@GameCodeCategory", System.Data.SqlDbType.NVarChar).Value = GameCodeCategory;
+                DBCmd.Parameters.Add("@GameStatus", System.Data.SqlDbType.Int).Value = GameStatus;
+                DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            }
+            else
+            {
+                SS = "UPDATE CompanyGameCode SET GameID=@GameID, GameName=@GameName,GameCategoryCode=@GameCategoryCode,GameCategorySubCode=@GameCategorySubCode,AllowDemoPlay=@AllowDemoPlay,RTPInfo=@RTPInfo,IsHot=@IsHot,IsNew=@IsNew,Tags=@Tag,SortIndex=@SortIndex,GameBrand=@GameBrand,Language=@Language,UpdateTimestamp=@UpdateTimestamp,CompanyCategoryTag=@CompanyCategoryTag,GameAccountingCode=@GameAccountingCode,GameCodeCategory=@GameCodeCategory,GameStatus=@GameStatus WHERE GameCode=@GameCode ";
+                DBCmd = new System.Data.SqlClient.SqlCommand();
+                DBCmd.CommandText = SS;
+                DBCmd.CommandType = System.Data.CommandType.Text;
+                DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+                DBCmd.Parameters.Add("@GameID", System.Data.SqlDbType.Int).Value = GameID;
+                DBCmd.Parameters.Add("@GameName", System.Data.SqlDbType.VarChar).Value = GameName;
+                DBCmd.Parameters.Add("@GameCategoryCode", System.Data.SqlDbType.VarChar).Value = GameCategoryCode;
+                DBCmd.Parameters.Add("@GameCategorySubCode", System.Data.SqlDbType.VarChar).Value = GameCategorySubCode;
+                DBCmd.Parameters.Add("@AllowDemoPlay", System.Data.SqlDbType.Int).Value = AllowDemoPlay;
+                DBCmd.Parameters.Add("@RTPInfo", System.Data.SqlDbType.VarChar).Value = RTPInfo;
+                DBCmd.Parameters.Add("@IsHot", System.Data.SqlDbType.Int).Value = IsHot;
+                DBCmd.Parameters.Add("@IsNew", System.Data.SqlDbType.Int).Value = IsNew;
+                DBCmd.Parameters.Add("@Tag", System.Data.SqlDbType.NVarChar).Value = Tag;
+                DBCmd.Parameters.Add("@SortIndex", System.Data.SqlDbType.Int).Value = SortIndex;
+                DBCmd.Parameters.Add("@GameBrand", System.Data.SqlDbType.VarChar).Value = GameBrand;
+                DBCmd.Parameters.Add("@Language", System.Data.SqlDbType.NVarChar).Value = Language;
+                DBCmd.Parameters.Add("@UpdateTimestamp", System.Data.SqlDbType.BigInt).Value = UpdateTimestamp;
+                DBCmd.Parameters.Add("@CompanyCategoryTag", System.Data.SqlDbType.NVarChar).Value = CompanyCategoryTag;
+                DBCmd.Parameters.Add("@GameAccountingCode", System.Data.SqlDbType.VarChar).Value = GameAccountingCode;
+                DBCmd.Parameters.Add("@GameCodeCategory", System.Data.SqlDbType.NVarChar).Value = GameCodeCategory;
+                DBCmd.Parameters.Add("@GameStatus", System.Data.SqlDbType.Int).Value = GameStatus;
+                DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            }
+     
+            RedisCache.CompanyGameCode.UpdateCompanyGameCode(GameBrand, GameCode);
 
             return insertCount;
         }
 
-        public static int DeleteCompanyGameCode() {
-            string SS;
-            System.Data.SqlClient.SqlCommand DBCmd;
-            int DeleteCount = 0;
-            System.Data.DataTable DT = null;
-
-            SS = "SELECT * FROM CompanyCategory WITH (NOLOCK)";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
-            if (DT.Rows.Count > 0) {
-                for (int i = 0; i < DT.Rows.Count; i++) {
-                    RedisCache.CompanyGameCode.DeleteCompanyGameCode((int)DT.Rows[i]["CompanyCategoryID"]);
-                }
-            }
-
-            SS = " DELETE FROM CompanyGameCode ";
-            DBCmd = new System.Data.SqlClient.SqlCommand();
-            DBCmd.CommandText = SS;
-            DBCmd.CommandType = System.Data.CommandType.Text;
-            DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
-
-            return DeleteCount;
-        }
-
-        public static int DeleteCompanyGameCodeByCategoryID(int CompanyCategoryID)
+        public static System.Data.DataTable GetCompanyGameCode(string GameCode)
         {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
-            int DeleteCount = 0;
-            System.Data.DataTable DT = null;
+            System.Data.DataTable DT;
 
-            SS = " DELETE FROM CompanyGameCode WHERE forCompanyCategoryID=@CompanyCategoryID";
+            SS = " SELECT * FROM CompanyGameCode WHERE GameCode=@GameCode ";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
-            DBCmd.Parameters.Add("@CompanyCategoryID", System.Data.SqlDbType.Int).Value = CompanyCategoryID;
+            DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
+        public static int DeleteCompanyGameCode(string GameCode) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int DeleteCount = 0;
+  
+            SS = " DELETE FROM CompanyGameCode WHERE GameCode=@GameCode ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
             DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
 
             return DeleteCount;

@@ -204,11 +204,11 @@
                                 let GameBrand = record.GameCode.split('.')[0];
                                 let GameName = record.GameCode.split('.')[1];
                                 c.setClassText(RecordDom, "gameName", null, langText);
-                                
-                                if (record.GameCode.toUpperCase() =="PP.VS20STARLIGHT") {
+
+                                if (record.GameCode.toUpperCase() == "PP.VS20STARLIGHT") {
                                     c.setClassText(RecordDom, "gameName", null, "スタァラァトゥ姫");
                                 }
-                               
+
                                 RecordDom.querySelector(".gameName").setAttribute("gameLangkey", record.GameCode);
                                 RecordDom.querySelector(".gameName").classList.add("gameLangkey");
 

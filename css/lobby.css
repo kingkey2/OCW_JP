@@ -96,6 +96,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 3px;
   position: absolute;
   left: 0;
+  top: 5px;
   z-index: 1;
 }
 .tab-search .title {
@@ -184,6 +185,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding-right: 0;
 }
 
+.category-dailypush {
+  cursor: pointer;
+}
 .category-dailypush-inner {
   position: relative;
   display: -webkit-box;
@@ -220,8 +224,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   left: 0;
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-fit: contain;
-     object-fit: contain;
   -o-object-position: left top;
      object-position: left top;
   width: 100%;
@@ -232,11 +234,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .category-dailypush-cotentBox {
   position: relative;
-  padding: 10px 20px;
+  padding: 15px 20px;
   right: 0;
   width: 50%;
   max-width: 300px;
   min-width: 190px;
+  height: 100%;
+  min-height: 173px;
   color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -267,6 +271,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex-align: center;
           align-items: center;
   font-size: 0.875rem;
+  font-weight: 300;
 }
 .category-dailypush-cotentBox .gamename {
   font-size: 1.125rem;
@@ -293,6 +298,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   overflow: hidden;
   font-size: 0.75rem;
   margin-bottom: 1rem;
+  font-weight: 300;
 }
 .category-dailypush-cotentBox .action {
   width: 100%;
@@ -318,9 +324,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-size: 26px;
   width: 38px;
   margin-left: 1rem;
-}
-.category-dailypush-cotentBox .btn-like .icon {
   color: #fff;
+}
+.category-dailypush-cotentBox .btn-like:hover {
+  color: #ff0000;
+}
+.category-dailypush-cotentBox .btn-like:hover .icon-m-favorite:before {
+  content: "a";
+}
+.category-dailypush-cotentBox .btn-like.added {
+  color: #ff0000;
+  background-color: rgba(255, 255, 255, 0.25);
 }
 .category-dailypush-cotent {
   width: 100%;
@@ -433,6 +447,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     padding-left: 11.1111111111%;
     width: 33.3333333333%;
   }
+
+  .category-dailypush-img {
+    border-radius: 15px;
+    overflow: hidden;
+  }
 }
 @media (min-width: 640px) {
   .hero_slider_lobby .swiper-slide {
@@ -503,9 +522,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
             justify-content: flex-start;
     aspect-ratio: 288/65;
   }
-  .category-dailypush-img {
-    border-radius: 15px;
-    overflow: hidden;
+  .category-dailypush-img img {
+    -o-object-fit: contain;
+       object-fit: contain;
   }
   .category-dailypush-img .mobile {
     display: none;

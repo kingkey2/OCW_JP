@@ -588,7 +588,7 @@ public class MgmtAPI : System.Web.Services.WebService {
             if (callResult.Result == EWin.Lobby.enumResult.OK) {
 
                 var GameOrderList = callResult.SummaryList.GroupBy(x => new { x.CurrencyType, x.SummaryDate }, x => x, (key, sum) => new EWin.Lobby.OrderSummary {
-                    TotalValidBetValue = sum.Sum(y => y.TotalValidBetValue),
+                    TotalValidBetValue = sum.Sum(y => y.ValidBetValue),
                     CurrencyType = key.CurrencyType,
                     SummaryDate = key.SummaryDate
                 }).ToList();

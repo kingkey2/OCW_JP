@@ -238,29 +238,10 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">熱狂！好評還元再開！方法問わず、毎回入金最大50,000 Ocoin還元</div>
+                                            <div class="desc language_replace">史上最大還元キャンペーン！方法問わず、毎回入金最大100,000 Ocoin還元</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(7,'/Activity/event/bng/bng2207-2/index.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img class="" src="images/activity/BNG-actionList-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">マハラジャは出血覚悟で平和祈願ボーナズ！毎回最大100,000 Ocoin</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(6)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
                                         <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
@@ -338,6 +319,26 @@
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(3)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(7,'/Activity/event/bng/bng2207-2/index.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="images/activity/BNG-actionList-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">マハラジャは出血覚悟で平和祈願ボーナズ！毎回最大100,000 Ocoin</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(6)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
                                         <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
@@ -431,7 +432,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">感謝フィードバック再開！</h5>
+                    <h5 class="modal-title language_replace">情熱の八月バケイション！お得再開！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

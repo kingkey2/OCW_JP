@@ -101,12 +101,12 @@
             BackgroundColor: "#010101"
         },
         {
-            GameCode: "KGS.43",
-            GameBrand: "KGS",
+            GameCode: "BTI.Sport",
+            GameBrand: "BTI",
             Location: "GameList_Other",
-            MobileSrc: "/images/lobby/dailypush-other-M-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-other-001.jpg",
-            BackgroundColor: "#3a3227"
+            MobileSrc: "/images/lobby/dailypush-bti-M-001.jpg",
+            DesktopSrc: "/images/lobby/dailypush-bti-001.jpg",
+            BackgroundColor: "#f66f13"
         },
         {
             GameCode: "MG.429",
@@ -314,7 +314,7 @@
           
                             if (showType == 2) {
                                 categArea = `<section class="section-wrap section_randomRem">
-                                                    <div class="container-fluid">
+                                                    <div class="container">
                                                         <div class="game_wrapper">
                                                             <div class="sec-title-container">
                                                                 <div class="sec-title-wrapper">
@@ -745,7 +745,7 @@
             }
 
             //熱門
-            var lobbyGame = LobbyGameList.find(function (o) { return o.Location =="GameList_Hot" });
+            var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Hot" });
             if (lobbyGame.Location.includes("GameList")) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
@@ -905,17 +905,21 @@
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
 
+        //console.log("createCategory start", new Date().toISOString());
         createCategory(selectedCategoryCode, function () {
             //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
             $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
-       
+
             //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
 
 
 
+            //console.log("setSwiper start", new Date().toISOString());
             setSwiper(selectedCategoryCode);
+            //console.log("setSwiper end", new Date().toISOString());
         });
+        //console.log("createCategory end", new Date().toISOString());
 
     }
 
@@ -965,14 +969,17 @@
 
         });
 
-        GCB.InitPromise.then(() => {           
+        GCB.InitPromise.then(() => {
             window.parent.API_LoadingEnd();
         });
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
+
+                //console.log("getCompanyGameCode start", new Date().toISOString());
                 getCompanyGameCode();
+                //console.log("getCompanyGameCode end", new Date().toISOString());
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
@@ -984,12 +991,15 @@
     }
 
     function getCompanyGameCode() {
+        //console.log("GetCompanyGameCodeThree start", new Date().toISOString());
         p.GetCompanyGameCodeThree(Math.uuid(), "GameList", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.LobbyGameList.length > 0) {
                         LobbyGameList = o.LobbyGameList;
+                        //console.log("updateGameCode start", new Date().toISOString());
                         updateGameCode();
+                        //console.log("updateGameCode end", new Date().toISOString());
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                             window.parent.location.href = "index.aspx";
@@ -1008,6 +1018,7 @@
             }
 
         });
+        //console.log("GetCompanyGameCodeThree end", new Date().toISOString());
     }
 
     function setDefaultIcon(brand, name) {
