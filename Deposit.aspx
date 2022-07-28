@@ -209,7 +209,7 @@
                     <div class="notice-item">
                         <i class="icon-info_circle_outline"></i>
                         <div class="text-wrap">
-                            <p class="title language_replace" style="cursor:pointer" onclick="window.parent.API_LoadPage('record','Guide/EPayJKC/index.html', true)">JKC専用入金の流れ</p>
+                            <p class="title language_replace" style="cursor:pointer" onclick="window.parent.API_LoadPage('record','Article/guide_CashQa_jp.html', true)">各入金方法の手順説明</p>
                         </div>
                     </div>
                 </div>
