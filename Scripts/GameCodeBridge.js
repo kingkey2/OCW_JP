@@ -156,7 +156,6 @@
                 objectStore.get(GameCode).onsuccess = function (event) {
                     if (cb) {
                         if (event.target.result) {
-                            console.log(event.target.result);
                             cb(event.target.result);
                         } else {
                             cb(null);
@@ -187,7 +186,6 @@
                             data.Tags = [];
                         }
 
-                        console.log(o.Data);
                         cb(data);
                     } else {
                         cb(null);
