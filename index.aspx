@@ -1013,13 +1013,13 @@
             $(btn).removeClass("added");
             GCB.RemoveFavo(gameCode, function () {
                 window.parent.API_RefreshPersonalFavo(gameCode, false);
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
+                //window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
             });
         } else {
             $(btn).addClass("added");
             GCB.AddFavo(gameCode, function () {
                 window.parent.API_RefreshPersonalFavo(gameCode, true);
-                window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
+                //window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
             });
         }
     }
@@ -1034,11 +1034,11 @@
                 //ad
                 GCB.AddFavo(gameCode);
 
-                showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
+                //showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
             } else {
                 //remove
                 GCB.RemoveFavo(gameCode);
-                showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
+                //showMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
             }
         });
     }
@@ -1612,7 +1612,8 @@
                 }
             }, 1000);
 
-            window.onresize = reportWindowSize;
+            new ResizeObserver(reportWindowSize).observe(document.body)
+            //window.onresize = ;
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
