@@ -1462,10 +1462,10 @@
             //}
 
             if (EWinWebInfo.DeviceType == 1) {
-                $(".searchFilter-item").eq(0).css("flex-grow", "0");
-                $(".searchFilter-item").eq(0).css("flex-shrink","0");
-                $(".searchFilter-item").eq(0).css("flex-basis","100%");
-                $(".searchFilter-item").eq(1).css("margin-left", "0");
+                // $(".searchFilter-item").eq(0).css("flex-grow", "0");
+                // $(".searchFilter-item").eq(0).css("flex-shrink","0");
+                // $(".searchFilter-item").eq(0).css("flex-basis","100%");
+                // $(".searchFilter-item").eq(1).css("margin-left", "0");
                 //$(".searchFilter-item").eq(2).css("margin-left","0");
             }
 
@@ -2521,10 +2521,15 @@
                                     language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
                                 <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
                             </div>
-                            <button onclick="SearchControll.searchGameList()" type="button"
-                                class="btn btn-full-main btn-sm btn-search-popup">
-                                <span class="language_replace">検索</span>
-                            </button>
+                            <div class="wrapper_center">
+                                <button onclick="" type="button" class="btn btn-full-main btn-sm btn-search-popup">
+                                    <span class="language_replace">重新設定</span>
+                                </button>
+                                <button onclick="SearchControll.searchGameList()" type="button"
+                                    class="btn btn-full-main btn-sm btn-search-popup">
+                                    <span class="language_replace">検索</span>
+                                </button>
+                            </div>                            
                         </div>
 
                         <!-- 品牌LOGO版 Collapse -->

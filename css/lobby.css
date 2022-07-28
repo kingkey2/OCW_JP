@@ -185,6 +185,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding-right: 0;
 }
 
+.category-dailypush {
+  cursor: pointer;
+}
 .category-dailypush-inner {
   position: relative;
   display: -webkit-box;
@@ -321,9 +324,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-size: 26px;
   width: 38px;
   margin-left: 1rem;
-}
-.category-dailypush-cotentBox .btn-like .icon {
   color: #fff;
+}
+.category-dailypush-cotentBox .btn-like:hover {
+  color: #ff0000;
+}
+.category-dailypush-cotentBox .btn-like:hover .icon-m-favorite:before {
+  content: "a";
+}
+.category-dailypush-cotentBox .btn-like.added {
+  color: #ff0000;
+  background-color: rgba(255, 255, 255, 0.25);
 }
 .category-dailypush-cotent {
   width: 100%;
