@@ -473,20 +473,20 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
     }
 
-    [WebMethod]
-    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public CompanyGameCodeResult GetCompanyGameCode(string GUID,string GameCode) {
-        CompanyGameCodeResult R = new CompanyGameCodeResult() { Result= EWin.Lobby.enumResult.ERR };
-        System.Data.DataTable DT;
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public CompanyGameCodeResult GetCompanyGameCode(string GUID,string GameCode) {
+    //    CompanyGameCodeResult R = new CompanyGameCodeResult() { Result= EWin.Lobby.enumResult.ERR };
+    //    System.Data.DataTable DT;
 
-        DT= RedisCache.CompanyGameCode.GetCompanyGameCode(GameCode.Split('.').First(),GameCode);
-        if (DT!=null&&DT.Rows.Count>0) {
-            R.Result = EWin.Lobby.enumResult.OK;
-            R.Data=DT.ToList<CompanyGameCode>().First();
-        }
+    //    DT= RedisCache.CompanyGameCode.GetCompanyGameCode(GameCode.Split('.').First(),GameCode);
+    //    if (DT!=null&&DT.Rows.Count>0) {
+    //        R.Result = EWin.Lobby.enumResult.OK;
+    //        R.Data=DT.ToList<CompanyGameCode>().First();
+    //    }
 
-        return R;
-    }
+    //    return R;
+    //}
 
 
     [WebMethod]
@@ -1652,7 +1652,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 }
 
                 R.Result = EWin.Lobby.enumResult.OK;
-                R.CollectList = collectList.ToArray();
+                R.CollectList = collectList.OrderByDescending(o=>o.CreateDate).ToArray();
 
             } else {
                 R.Result = EWin.Lobby.enumResult.ERR;
