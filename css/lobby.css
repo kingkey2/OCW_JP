@@ -327,7 +327,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   color: #fff;
 }
 .category-dailypush-cotentBox .btn-like.desktop:hover {
-  color: #ff0000;
+  color: #fff;
 }
 .category-dailypush-cotentBox .btn-like.desktop:hover .icon-m-favorite:before {
   content: "a";

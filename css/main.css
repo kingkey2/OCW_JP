@@ -5731,7 +5731,7 @@ i {
   z-index: 2;
 }
 .game-item .action .btn-like.desktop:hover {
-  color: #ff0000;
+  color: #fff;
 }
 .game-item .action .btn-like.desktop:hover .icon-m-favorite:before {
   content: "a";
@@ -6413,7 +6413,7 @@ i {
   top: 0;
 }
 .game-item-group .game-item .action .btn-like.desktop:hover {
-  color: #ff0000;
+  color: #fff;
 }
 .game-item-group .game-item .action .btn-like.added {
   color: #ff0000;
