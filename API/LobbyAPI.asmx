@@ -807,7 +807,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            DateTime currentTime = DateTime.Now;
+            DateTime currentTime = DateTime.UtcNow.AddHours(09);
             int week = Convert.ToInt32(currentTime.DayOfWeek);
             week = week == 0 ? 7 : week;
             DateTime start;

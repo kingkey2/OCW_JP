@@ -150,9 +150,9 @@
                 //newSel.removeClass('contain-disappear');
                 //newSel.css('padding-bottom', '160px');
 
-                oldSel.css('height', '0');
+                oldSel.css('display', 'none');
                 //oldSel.css('padding-bottom', '0');
-                newSel.css('height', 'auto');
+                newSel.css('display', 'block');
                 //newSel.css('padding-bottom', '160px');
                 setSwiper(categoryCode);
             });
@@ -165,9 +165,9 @@
             //newSel.removeClass('contain-disappear');
             //newSel.css('padding-bottom', '160px');
 
-            oldSel.css('height', '0');
+            oldSel.css('display', 'none');
             //oldSel.css('padding-bottom', '0');
-            newSel.css('height', 'auto');
+            newSel.css('display', 'block');
             //newSel.css('padding-bottom', '160px');
         }
 
@@ -285,7 +285,7 @@
 
                             categName = category.CategoryName.replace('@', '').replace('#', '');
                    
-                            if (iframeWidth < 936) {
+                            if (WebInfo.DeviceType==1) {
                                 textlink = '';
                             } else {
                                 textlink = `<a class="text-link">
@@ -392,7 +392,7 @@
                     }
                 }
 
-                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="height:0px;"></div>');
+                var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="display:none;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
@@ -456,12 +456,20 @@
                     }
 
                     if (gameItem.FavoTimeStamp != null) {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        }
                     } else {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        }
                     }
 
-                    if (iframeWidth < 936) {
+                    if (WebInfo.DeviceType == 1) {
                         titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')">`;
                         btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     } else {
@@ -562,7 +570,7 @@
 
 
 
-            if (iframeWidth < 936) {
+            if (WebInfo.DeviceType == 1) {
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
 
                 gameitemlink = `<span class="game-item-link"></span>`;
@@ -649,9 +657,19 @@
 
                 if (!jquerydoc.hasClass('addedGameProp')) {
                     if (favoTimeStamp != null) {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        }
+                       
                     } else {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        }
+                       
                     }
                     // onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" 
                     //<!-- 判斷分類 加入class=> slot/live/etc/elec-->
@@ -908,7 +926,7 @@
         //console.log("createCategory start", new Date().toISOString());
         createCategory(selectedCategoryCode, function () {
             //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
-            $('#categoryPage_' + selectedCategoryCode).css('height', 'auto');
+            $('#categoryPage_' + selectedCategoryCode).css('display', 'block');
 
             //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
@@ -932,8 +950,8 @@
         createCategory(categoryCode, function () {
             //$('.categoryPage').addClass('contain-disappear');
             //$('#categoryPage_' + categoryCode).removeClass('contain-disappear');
-            $('.categoryPage').css('height', '0');
-            $('#categoryPage_' + categoryCode).css('height', 'auto');
+            $('.categoryPage').css('display', 'none');
+            $('#categoryPage_' + categoryCode).css('display', 'block');
             setSwiper(categoryCode);
         });
 
@@ -1037,9 +1055,9 @@
                 break;
             case "resize":
 
-                if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
-                    resetCategory(selectedCategoryCode);
-                }
+                //if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
+                //    resetCategory(selectedCategoryCode);
+                //}
 
                 break;
             case "RefreshPersonalFavo":

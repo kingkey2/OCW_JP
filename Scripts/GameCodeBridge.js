@@ -122,6 +122,32 @@
      * @param {Function} cb 找到資料時的cb, param => data, null時為無資料
      */
     this.GetByGameCode = function (GameCode, cb) {
+        var queue = (IndexedDB) => {
+            var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
+            var objectStore = transaction.objectStore('GameCodes');
+
+            objectStore.get(GameCode).onsuccess = function (event) {
+                if (cb) {
+                    if (event.target.result) {
+                        cb(event.target.result);
+                    } else {
+                        cb(null);
+                    }
+                }
+
+                IndexedDB.close();
+            };
+        };
+
+        GCBSelf.InitPromise.then(getDB).then(queue);
+        //if (GCBSelf.IsFirstLoaded) {
+        //    event();
+        //} else {
+
+        //}
+    };
+
+    this.GetByGameCode2 = function (GameCode, cb) {
         if (GCBSelf.IsFirstLoaded) {
             var queue = (IndexedDB) => {
                 var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
@@ -130,7 +156,6 @@
                 objectStore.get(GameCode).onsuccess = function (event) {
                     if (cb) {
                         if (event.target.result) {
-                            console.log(event.target.result);
                             cb(event.target.result);
                         } else {
                             cb(null);
@@ -161,7 +186,6 @@
                             data.Tags = [];
                         }
 
-                        console.log(o.Data);
                         cb(data);
                     } else {
                         cb(null);
@@ -970,7 +994,7 @@
                                         var cursor = event.target.result;
                                         if (cursor) {
                                             var gameCodeItem = cursor.value;
-                                            var searchFlag = false;                                            
+                                            var searchFlag = false;
                                             var targetSearch = SearchKeyWord.toLowerCase();
 
                                             switch (targetSearch) {

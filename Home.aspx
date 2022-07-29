@@ -339,9 +339,19 @@
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                         if (gameItem.FavoTimeStamp != null) {
-                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            if (WebInfo.DeviceType == 0) {
+                                btnlike = `<button type="button" class="btn-like desktop gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            } else {
+                                btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            }
+                    
                         } else {
-                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            if (WebInfo.DeviceType == 0) {
+                                btnlike = `<button type="button" class="btn-like desktop gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            } else {
+                                btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            }
+                        
                         }
 
                         var RTP = "";
@@ -357,7 +367,7 @@
                             RTP = '--';
                         }
 
-                        if (iframeWidth < 936) {
+                        if (WebInfo.DeviceType == 1) {
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                             btnplay = '<button type="button" class="btn btn-play">';
                             gameitemlink = `<span class="game-item-link"></span>`;
@@ -536,10 +546,19 @@
                                 if (gameItem) {
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                                    if (gameItem.FavoTimeStamp!=null) {
-                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                    if (gameItem.FavoTimeStamp != null) {
+                                        if (WebInfo.DeviceType == 0) {
+                                            btnlike = `<button type="button" desktop class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        } else {
+                                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        }
                                     } else {
-                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        if (WebInfo.DeviceType == 0) {
+                                            btnlike = `<button type="button" desktop class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        } else {
+                                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        }
+                                        
                                     }
 
                                     var RTP = "";
@@ -555,7 +574,7 @@
                                         RTP = '--';
                                     }
 
-                                    if (iframeWidth < 936) {
+                                    if (WebInfo.DeviceType == 1) {
                                         GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                                         btnplay = '<button type="button" class="btn btn-play">';
                                         gameitemlink = `<span class="game-item-link"></span>`;
@@ -657,7 +676,7 @@
 
                             categName = category.CategoryName.replace('@', '').replace('#', '');
                             gameBrand = category.Datas[0].GameBrand;
-                            if (iframeWidth < 936) {
+                            if (WebInfo.DeviceType == 1) {
                                 textlink = '';
                             } else {
                                 textlink = `<a class="text-link">
@@ -865,10 +884,10 @@
 
                 break;
             case "resize":
-                if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
-                    //updateGameList();
-                    refreshFavoGame();
-                }
+                //if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
+                //    //updateGameList();
+                //    refreshFavoGame();
+                //}
 
                 break;
             case "RefreshPersonalFavo":
@@ -984,7 +1003,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
+                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
