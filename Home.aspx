@@ -548,13 +548,13 @@
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                     if (gameItem.FavoTimeStamp != null) {
                                         if (WebInfo.DeviceType == 0) {
-                                            btnlike = `<button type="button" desktop class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn desktop btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         } else {
                                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         }
                                     } else {
                                         if (WebInfo.DeviceType == 0) {
-                                            btnlike = `<button type="button" desktop class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn desktop btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         } else {
                                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         }
