@@ -377,6 +377,8 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                             workerSelf.SyncEventData.LastGameID = o.LastGameID;
 
                             if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
+
+
                                 //已是最新數據，不用同步
                                 console.log("NoSyncing, SyncSuccess");
                                 workerSelf.SyncSuccess(false);
@@ -460,6 +462,9 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                             GameCategoryCode: InsertData.GameCategoryCode
                                         });
 
+                                        workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
+                                        workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
+
                                         if (workerSelf.SyncEventData.LastTimeStamp == workerSelf.SyncEventData.NowTimeStamp && workerSelf.SyncEventData.NowGameID == workerSelf.SyncEventData.LastGameID) {
                                             let syncData = {
                                                 SyncID: 1,
@@ -489,9 +494,6 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
                                             objectSyncStore.put(syncData);
                                         }
-
-                                        workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
-                                        workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
                                     } catch (e) {
                                         workerSelf.SyncEventData.NowGameID = gameCodeItem.GameID;
                                         workerSelf.SyncEventData.NowTimeStamp = gameCodeItem.UpdateTimestamp;
