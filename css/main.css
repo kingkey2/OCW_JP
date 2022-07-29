@@ -5730,10 +5730,10 @@ i {
   font-size: 22px;
   z-index: 2;
 }
-.game-item .action .btn-like.desktop:hover {
+.game-item .action .btn-like:not(.added).desktop:hover {
   color: #fff;
 }
-.game-item .action .btn-like.desktop:hover .icon-m-favorite:before {
+.game-item .action .btn-like:not(.added).desktop:hover .icon-m-favorite:before {
   content: "a";
 }
 .game-item .action .btn-like.added {
@@ -6412,7 +6412,7 @@ i {
   color: rgba(0, 0, 0, 0.8);
   top: 0;
 }
-.game-item-group .game-item .action .btn-like.desktop:hover {
+.game-item-group .game-item .action .btn-like:not(.added).desktop:hover {
   color: #fff;
 }
 .game-item-group .game-item .action .btn-like.added {
