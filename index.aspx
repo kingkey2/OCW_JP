@@ -1699,7 +1699,12 @@
 
                         var likebtn = GI.querySelector(".btn-like");
 
+                        if (EWinWebInfo.DeviceType == 0) {
+                            $(likebtn).addClass("desktop");
+                        }
+
                         if (gameItem.FavoTimeStamp) {
+                         
                             $(likebtn).addClass("added");
                         } else {
                             $(likebtn).removeClass("added");

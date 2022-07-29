@@ -456,9 +456,17 @@
                     }
 
                     if (gameItem.FavoTimeStamp != null) {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        }
                     } else {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        }
                     }
 
                     if (WebInfo.DeviceType == 1) {
@@ -649,9 +657,19 @@
 
                 if (!jquerydoc.hasClass('addedGameProp')) {
                     if (favoTimeStamp != null) {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        }
+                       
                     } else {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        }
+                       
                     }
                     // onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" 
                     //<!-- 判斷分類 加入class=> slot/live/etc/elec-->

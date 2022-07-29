@@ -339,9 +339,19 @@
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                         if (gameItem.FavoTimeStamp != null) {
-                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            if (WebInfo.DeviceType == 0) {
+                                btnlike = `<button type="button" class="btn-like desktop gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            } else {
+                                btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            }
+                    
                         } else {
-                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            if (WebInfo.DeviceType == 0) {
+                                btnlike = `<button type="button" class="btn-like desktop gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            } else {
+                                btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                            }
+                        
                         }
 
                         var RTP = "";
@@ -536,10 +546,19 @@
                                 if (gameItem) {
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
-                                    if (gameItem.FavoTimeStamp!=null) {
-                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                    if (gameItem.FavoTimeStamp != null) {
+                                        if (WebInfo.DeviceType == 0) {
+                                            btnlike = `<button type="button" desktop class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        } else {
+                                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        }
                                     } else {
-                                        btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        if (WebInfo.DeviceType == 0) {
+                                            btnlike = `<button type="button" desktop class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        } else {
+                                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                        }
+                                        
                                     }
 
                                     var RTP = "";
