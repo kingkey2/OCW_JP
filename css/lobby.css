@@ -326,10 +326,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin-left: 1rem;
   color: #fff;
 }
-.category-dailypush-cotentBox .btn-like:hover {
+.category-dailypush-cotentBox .btn-like.desktop:hover {
   color: #ff0000;
 }
-.category-dailypush-cotentBox .btn-like:hover .icon-m-favorite:before {
+.category-dailypush-cotentBox .btn-like.desktop:hover .icon-m-favorite:before {
   content: "a";
 }
 .category-dailypush-cotentBox .btn-like.added {

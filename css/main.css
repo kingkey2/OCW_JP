@@ -2,7 +2,6 @@
 /*=================== fonts ====================*/
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap");
 @font-face {
   font-family: "maharaja";
   src: url("fonts/maharaja.eot");
@@ -5731,10 +5730,10 @@ i {
   font-size: 22px;
   z-index: 2;
 }
-.game-item .action .btn-like:hover {
+.game-item .action .btn-like.desktop:hover {
   color: #ff0000;
 }
-.game-item .action .btn-like:hover .icon-m-favorite:before {
+.game-item .action .btn-like.desktop:hover .icon-m-favorite:before {
   content: "a";
 }
 .game-item .action .btn-like.added {
@@ -6382,7 +6381,7 @@ i {
   color: rgba(0, 0, 0, 0.8);
   top: 0;
 }
-.game-item-group .game-item .action .btn-like:hover {
+.game-item-group .game-item .action .btn-like.desktop:hover {
   color: #ff0000;
 }
 .game-item-group .game-item .action .btn-like.added {
