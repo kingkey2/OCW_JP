@@ -1736,7 +1736,7 @@
             }
         };
         this.rem = function () {
-            if (SearchDom.children().find(".group"+showMoreClickCount).length > 0) {
+            if (SearchDom.children().find(".group" + showMoreClickCount).length > 0) {
                 SearchDom.children().find(".group" + showMoreClickCount).show();
             }
 
