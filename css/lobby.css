@@ -512,7 +512,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
 
   .game_slider.swiper-cover .swiper-slide {
-    width: 160px;
+    width: 140px;
   }
 }
 @media (min-width: 768px) {
@@ -540,6 +540,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 @media (min-width: 936px) {
   .game_slider .swiper-slide {
     padding-right: 1vw;
+  }
+
+  .game_slider.swiper-cover .swiper-slide {
+    width: 170px;
   }
 }
 @media (min-width: 936px) and (max-width: 1143px) {
@@ -621,6 +625,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .category-dailypush-cotentBox {
     height: 90%;
   }
+
+  .game_slider.swiper-cover .swiper-slide {
+    width: 220px;
+  }
 }
 @media (min-width: 1384px) and (max-width: 1543px) {
   .game_slider .swiper-slide {
@@ -656,6 +664,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 70%;
+  }
+
+  .game_slider.swiper-cover .swiper-slide {
+    width: 240px;
   }
 }
 @media (min-width: 1544px) and (max-width: 1863px) {

@@ -6227,6 +6227,42 @@ i {
 .section_randomRem .container {
   padding-left: 10px !important;
   padding-right: 10px !important;
+  margin: 0 auto;
+}
+@media (min-width: 640px) {
+  .section_randomRem .container {
+    max-width: 500px;
+  }
+}
+@media (min-width: 712px) {
+  .section_randomRem .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 936px) {
+  .section_randomRem .container {
+    max-width: 650px;
+  }
+}
+@media (min-width: 1144px) {
+  .section_randomRem .container {
+    max-width: 780px;
+  }
+}
+@media (min-width: 1384px) {
+  .section_randomRem .container {
+    max-width: 860px;
+  }
+}
+@media (min-width: 1544px) {
+  .section_randomRem .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1920px) {
+  .section_randomRem .container {
+    max-width: 1020px;
+  }
 }
 .section_randomRem:before {
   display: block;
@@ -6237,11 +6273,6 @@ i {
   right: 0;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(40.62%, rgba(255, 255, 255, 0)), color-stop(40.63%, #03206B), color-stop(97.92%, rgba(15, 43, 115, 0)));
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40.62%, #03206B 40.63%, rgba(15, 43, 115, 0) 97.92%);
-}
-.section_randomRem .game_wrapper {
-  max-width: 1000px;
-  margin: 0 auto;
-  overflow: hidden;
 }
 .section_randomRem .swiper-cover {
   padding-bottom: 100px;
@@ -6615,7 +6646,7 @@ i {
     padding-bottom: 0px;
   }
   .game-area.overflow-hidden .categoryPage > .container {
-    padding-bottom: 100px;
+    padding-bottom: 88px;
   }
   .game-area.overflow-hidden .container.category-dailypush {
     padding-bottom: 20px;
