@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 6);
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 8);
 
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
@@ -103,8 +103,8 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
         store.createIndex('GameCategoryCode', ['GameCategoryCode', 'SortIndex'], { unique: false, multiEntry: false });
         store.createIndex('GameCategorySubCode', ['GameCategoryCode', 'GameCategorySubCode', 'SortIndex'], { unique: false, multiEntry: false });
         store.createIndex('SearchKeyWord', "Tags", { unique: false, multiEntry: true }); //搜尋關鍵字使用
-        store.createIndex('PersonalFavo', 'FavoTimeStamp', { unique: false, multiEntry: false });
-        store.createIndex('PersonalPlayed', 'PlayedTimeStamp', { unique: false, multiEntry: false });
+        store.createIndex('PersonalFavo', ['IsFavo', 'FavoTimeStamp'], { unique: false, multiEntry: false });
+        store.createIndex('PersonalPlayed', ['IsPlayed', 'PlayedTimeStamp'], { unique: false, multiEntry: false });
         //store.createIndex('ShowTags', 'ShowTags', { unique: false, multiEntry: true }); //顯性標籤
 
         categoryStore = db.createObjectStore("GameCategory", { keyPath: ['GameBrand', 'GameCategoryCode'], autoIncrement: false });
@@ -446,6 +446,8 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                         RTPInfo: gameCodeItem.RTPInfo,
                                         IsHot: gameCodeItem.IsHot,
                                         IsNew: gameCodeItem.IsNew,
+                                        IsFavo: 0,
+                                        IsPlayed: 0,
                                         SortIndex: gameCodeItem.SortIndex,
                                         Tags: tags,
                                         Language: gameCodeItem.Language,
