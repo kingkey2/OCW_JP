@@ -168,15 +168,15 @@
         }
             .s-btn-more:hover {
                 background-color: #ddd;
-                border: 1ps solid #666;
+                border: 1px solid #666;
             }
             .s-btn-more:active {
                 background-color: #ddd;
-                border: 1ps solid #666;
+                border: 1px solid #666;
             }
             .s-btn-more:visited {
                 background-color: #ddd;
-                border: 1ps solid #666;
+                border: 1px solid #666;
                 color: #777;
             }
     </style>

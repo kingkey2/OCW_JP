@@ -285,7 +285,7 @@
 
                             categName = category.CategoryName.replace('@', '').replace('#', '');
                    
-                            if (iframeWidth < 936) {
+                            if (WebInfo.DeviceType==1) {
                                 textlink = '';
                             } else {
                                 textlink = `<a class="text-link">
@@ -461,7 +461,7 @@
                         btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
                     }
 
-                    if (iframeWidth < 936) {
+                    if (WebInfo.DeviceType == 1) {
                         titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')">`;
                         btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     } else {
@@ -562,7 +562,7 @@
 
 
 
-            if (iframeWidth < 936) {
+            if (WebInfo.DeviceType == 1) {
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
 
                 gameitemlink = `<span class="game-item-link"></span>`;
@@ -1037,9 +1037,9 @@
                 break;
             case "resize":
 
-                if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
-                    resetCategory(selectedCategoryCode);
-                }
+                //if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
+                //    resetCategory(selectedCategoryCode);
+                //}
 
                 break;
             case "RefreshPersonalFavo":

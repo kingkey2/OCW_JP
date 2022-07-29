@@ -357,7 +357,7 @@
                             RTP = '--';
                         }
 
-                        if (iframeWidth < 936) {
+                        if (WebInfo.DeviceType == 1) {
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                             btnplay = '<button type="button" class="btn btn-play">';
                             gameitemlink = `<span class="game-item-link"></span>`;
@@ -555,7 +555,7 @@
                                         RTP = '--';
                                     }
 
-                                    if (iframeWidth < 936) {
+                                    if (WebInfo.DeviceType == 1) {
                                         GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                                         btnplay = '<button type="button" class="btn btn-play">';
                                         gameitemlink = `<span class="game-item-link"></span>`;
@@ -657,7 +657,7 @@
 
                             categName = category.CategoryName.replace('@', '').replace('#', '');
                             gameBrand = category.Datas[0].GameBrand;
-                            if (iframeWidth < 936) {
+                            if (WebInfo.DeviceType == 1) {
                                 textlink = '';
                             } else {
                                 textlink = `<a class="text-link">
@@ -865,10 +865,10 @@
 
                 break;
             case "resize":
-                if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
-                    //updateGameList();
-                    refreshFavoGame();
-                }
+                //if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
+                //    //updateGameList();
+                //    refreshFavoGame();
+                //}
 
                 break;
             case "RefreshPersonalFavo":
