@@ -362,6 +362,7 @@
                 if (event.target.result) {
                     var data = event.target.result;
                     data.FavoTimeStamp = new Date().getTime();
+                    data.IsFavo = true;
                     objectStore.put(data);
 
                     if (cb) {
@@ -397,6 +398,7 @@
                 if (event.target.result) {
                     var data = event.target.result;
                     data.FavoTimeStamp = new Date().getTime();
+                    data.IsFavo = true;
                     objectStore.put(data);
 
                     if (cb) {
@@ -430,6 +432,7 @@
                 if (event.target.result) {
                     var data = event.target.result;
                     data.FavoTimeStamp = null;
+                    data.IsFavo = false;
                     objectStore.put(data);
 
                     if (cb) {
@@ -458,10 +461,11 @@
             var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("PersonalFavo");
+            var range = IDBKeyRange.bound([true, 0], [true, 2000000000000])
             var isDataExist = false;
 
             //var count = index.count();
-            index.openCursor(null, "prev").onsuccess = function (event) {
+            index.openCursor(range, "prev").onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cb) {
@@ -498,16 +502,18 @@
             var transaction = IndexedDB.transaction(['GameCodes'], 'readwrite');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("PersonalPlayed");
+            var range = IDBKeyRange.bound([true, 0], [true, 2000000000000])
 
-            index.count().onsuccess = function (event) {
+            index.count(range).onsuccess = function (event) {
                 var count = event.target.result;
 
                 if (count >= 20) {
-                    index.openCursor().onsuccess = function (event) {
+                    index.openCursor(range).onsuccess = function (event) {
                         var cursor = event.target.result;
                         if (cursor) {
                             var data = cursor.value;
                             data.PlayedTimeStamp = null;
+                            data.IsPlayed = false;
                             objectStore.put(data);
                         }
                     };
@@ -517,6 +523,7 @@
                     if (event.target.result) {
                         var data = event.target.result;
                         data.PlayedTimeStamp = new Date().getTime();
+                        data.IsPlayed = true;
                         objectStore.put(data);
 
                         if (cb) {
@@ -550,6 +557,7 @@
                 if (event.target.result) {
                     var data = event.target.result;
                     data.PlayedTimeStamp = null;
+                    data.IsPlayed = false;
                     objectStore.put(data);
 
                     if (cb) {
@@ -578,10 +586,11 @@
             var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
             var index = objectStore.index("PersonalPlayed");
+            var range = IDBKeyRange.bound([true, 0], [true, 2000000000000])
             var isDataExist = false;
 
             //var count = index.count();
-            index.openCursor(null, "prev").onsuccess = function (event) {
+            index.openCursor(range, "prev").onsuccess = function (event) {
                 var cursor = event.target.result;
                 if (cursor) {
                     if (cb) {
