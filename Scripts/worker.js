@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 7);
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 8);
 
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
@@ -446,8 +446,8 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                         RTPInfo: gameCodeItem.RTPInfo,
                                         IsHot: gameCodeItem.IsHot,
                                         IsNew: gameCodeItem.IsNew,
-                                        IsFavo: false,
-                                        IsPlayed: false,
+                                        IsFavo: 0,
+                                        IsPlayed: 0,
                                         SortIndex: gameCodeItem.SortIndex,
                                         Tags: tags,
                                         Language: gameCodeItem.Language,
