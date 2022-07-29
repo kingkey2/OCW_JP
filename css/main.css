@@ -6413,7 +6413,10 @@ i {
   top: 0;
 }
 .game-item-group .game-item .action .btn-like:not(.added).desktop:hover {
-  color: #fff;
+  color: #ff0000;
+}
+.game-item-group .game-item .action .btn-like:not(.added).desktop:hover .icon-m-favorite:before {
+  content: "b";
 }
 .game-item-group .game-item .action .btn-like.added {
   color: #ff0000;
