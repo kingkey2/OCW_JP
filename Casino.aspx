@@ -20,8 +20,7 @@
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
-    <script src="Scripts/jquery-3.3.1.min.js"></script>
-    <script src="Scripts/lozad.min.js"></script>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>    
     <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
     <style>
@@ -169,7 +168,11 @@
 
         new Swiper(".GameItemGroup0_" + categoryName, {
             slidesPerView: "auto",
-            lazy: true,
+            lazy: {
+                loadPrevNextAmount: 8,
+                checkInView: true,
+                enabled: true,
+            },
             freeMode: true,
             navigation: {
                 nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
@@ -541,7 +544,7 @@
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}">
+                                        <img class="gameimg" src="${imgsrc}">
                                     </div>
                              </div>
                              <div class="game-item-info">
@@ -558,7 +561,7 @@
                                 <div class="game-item-img">
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}">
+                                        <img class="gameimg" src="${imgsrc}">
                                     </div>
                                 </div>
  
@@ -1463,7 +1466,7 @@
                                     <div class="game-item-inner">
                                         <span class="game-item-link"></span>
                                         <div class="img-wrap">
-                                            <img class="gameimg lozad" src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
+                                            <img class="gameimg" src="http://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PG/PC/JPN/101.png">
                                         </div>
                                     </div>
                                     <div class="game-item-info">
@@ -1509,7 +1512,7 @@
                 <div class="game-item-inner">
                     <span class="game-item-link"></span>
                     <div class="img-wrap">
-                        <img class="gameimg lozad" src="">
+                        <img class="gameimg" src="">
                     </div>
                 </div>
                 <div class="game-item-info">
