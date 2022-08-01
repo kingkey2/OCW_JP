@@ -283,20 +283,20 @@
                             setSwiper("Home");
                         })
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                            window.parent.location.href = "index.aspx";
-                        });
+                        Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
+                            setSwiper("Home");
+                        })
                     }
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                        window.parent.location.href = "index.aspx";
-                    });
+                    Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
+                        setSwiper("Home");
+                    })
                 }
             }
             else {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                    window.parent.location.href = "index.aspx";
-                });
+                Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
+                    setSwiper("Home");
+                })
             }
 
         });
