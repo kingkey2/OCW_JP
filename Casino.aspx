@@ -285,7 +285,7 @@
 
                             categName = category.CategoryName.replace('@', '').replace('#', '');
                    
-                            if (iframeWidth < 936) {
+                            if (WebInfo.DeviceType==1) {
                                 textlink = '';
                             } else {
                                 textlink = `<a class="text-link">
@@ -456,12 +456,20 @@
                     }
 
                     if (gameItem.FavoTimeStamp != null) {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        }
                     } else {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        }
                     }
 
-                    if (iframeWidth < 936) {
+                    if (WebInfo.DeviceType == 1) {
                         titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')">`;
                         btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     } else {
@@ -562,7 +570,7 @@
 
 
 
-            if (iframeWidth < 936) {
+            if (WebInfo.DeviceType == 1) {
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
 
                 gameitemlink = `<span class="game-item-link"></span>`;
@@ -649,9 +657,19 @@
 
                 if (!jquerydoc.hasClass('addedGameProp')) {
                     if (favoTimeStamp != null) {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
+                        }
+                       
                     } else {
-                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        if (WebInfo.DeviceType == 1) {
+                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        } else {
+                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                        }
+                       
                     }
                     // onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" 
                     //<!-- 判斷分類 加入class=> slot/live/etc/elec-->
@@ -1037,9 +1055,9 @@
                 break;
             case "resize":
 
-                if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
-                    resetCategory(selectedCategoryCode);
-                }
+                //if ((iframeWidth > param && param < 936) || (iframeWidth < param && param > 936)) {
+                //    resetCategory(selectedCategoryCode);
+                //}
 
                 break;
             case "RefreshPersonalFavo":

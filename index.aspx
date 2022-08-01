@@ -168,15 +168,15 @@
         }
             .s-btn-more:hover {
                 background-color: #ddd;
-                border: 1ps solid #666;
+                border: 1px solid #666;
             }
             .s-btn-more:active {
                 background-color: #ddd;
-                border: 1ps solid #666;
+                border: 1px solid #666;
             }
             .s-btn-more:visited {
                 background-color: #ddd;
-                border: 1ps solid #666;
+                border: 1px solid #666;
                 color: #777;
             }
     </style>
@@ -350,18 +350,6 @@
 
     function API_RefreshPersonalFavo(gameCode, isAdded) {
         notifyWindowEvent("RefreshPersonalFavo", { GameCode: gameCode, IsAdded: isAdded });
-        
-        var selector = "." + ("GameCode_" + gameCode + ".btn-like").replace(".", "\\.");
-
-        if (isAdded) {
-            if (!$("#alertSearchContent " + selector).hasClass("added")) {
-                $("#alertSearchContent " + selector).addClass("added");
-            }
-        } else {
-            if ($("#alertSearchContent " + selector).hasClass("added")) {
-                $("#alertSearchContent " + selector).removeClass("added");
-            }
-        }
     }
 
     function API_RefreshPersonalPlayed(gameCode, isAdded) {
@@ -1711,13 +1699,16 @@
 
                         var likebtn = GI.querySelector(".btn-like");
 
+                        if (EWinWebInfo.DeviceType == 0) {
+                            $(likebtn).addClass("desktop");
+                        }
+
                         if (gameItem.FavoTimeStamp) {
+                         
                             $(likebtn).addClass("added");
                         } else {
                             $(likebtn).removeClass("added");
                         }
-
-                        $(likebtn).addClass("GameCode_" + gameItem.GameCode);
 
                         likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
 
@@ -1745,7 +1736,7 @@
             }
         };
         this.rem = function () {
-            if (SearchDom.children().find(".group"+showMoreClickCount).length > 0) {
+            if (SearchDom.children().find(".group" + showMoreClickCount).length > 0) {
                 SearchDom.children().find(".group" + showMoreClickCount).show();
             }
 
@@ -1843,8 +1834,6 @@
         this.searchGameByBrandAndGameCategory = function (gameBrand, gameCategoryName) {
             //待修正
             let o;
-            let strSeleBrandText = SearchDom.find(".brandSeleCount");
-            let allGameBrandLength = $("#alertSearch").find("input[name='button-brandExchange']").length;
 
             SearchDom.modal('show');
             SearchDom.find("#div_SearchGameCategory").show();
@@ -1854,7 +1843,6 @@
 
             if (SearchDom.find('#searchIcon_' + gameBrand).length > 0) {
                 SearchDom.find('#searchIcon_' + gameBrand).prop("checked", true);
-                strSeleBrandText.text(` 1 / ${allGameBrandLength} `);
             }
 
             SearchDom.find("#seleGameCategory").empty();
