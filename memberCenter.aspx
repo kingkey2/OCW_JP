@@ -655,7 +655,7 @@
                                             </ul>
                                             <div class="dailylogin-bouns-amount">
                                                 <span class="amount-title language_replace">累積獎金</span>
-                                                <span class="bouns-amount"></span>
+                                                <span class="bouns-amount">0</span>
                                             </div>
                                         </div>
                                     </div>
