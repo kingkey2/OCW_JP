@@ -125,19 +125,20 @@
             slidesPerView: "auto",
             freeMode: true,
             // enabled: false,
+            allowTouchMove: false,
             watchSlidesProgress: false,
         });
 
         var heroIndex = new Swiper("#hero-slider", {
             loop: true,
             slidesPerView: 1,
-            effect: "fade",
+            // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
-            autoplay: {
-                delay: 10000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-            },
+            // autoplay: {
+            //     delay: 10000,
+            //     disableOnInteraction: false,
+            //     pauseOnMouseEnter: true
+            // },
             // pagination: {
             //     el: ".swiper-pagination",
             //     clickable: true,
@@ -973,8 +974,7 @@
     <main class="innerMain">
         <section class="section-wrap hero">
             <div class="swiper hero_slider swiper_container round-arrow" id="hero-slider">
-                <div class="swiper-wrapper">
-                    
+                <div class="swiper-wrapper">                    
                     <div class="swiper-slide">
                         <div class="hero-item" >
                             <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
@@ -1029,8 +1029,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-mask"></div>
                 </div>
+                <div class="swiper-mask"></div>
                 <%--
                 <div class="container">
                     <div class="swiper-pagination"></div>

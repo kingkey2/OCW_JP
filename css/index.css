@@ -89,7 +89,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   z-index: 2;
 }
 .hero_slider .swiper-slide-active .img-wrap:before {
-  content: "";
   background: url(../../images/index/hero-mask-2.svg) center bottom no-repeat;
   width: 100%;
   height: 100%;
