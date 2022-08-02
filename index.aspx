@@ -2254,7 +2254,17 @@
                             <div class="row">
                                 <div class="logo-item">
                                     <div class="img-crop">
+                                        <img src="images/logo/footer/logo-eWIN.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
                                         <img src="images/logo/footer/logo-microgaming.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="images/logo/footer/logo-kgs.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
