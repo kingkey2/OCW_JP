@@ -83,6 +83,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   bottom: -1px;
   z-index: 1;
   background-size: cover;
+  pointer-events: none;
   display: none;
 }
 .hero_slider .swiper-slide-active {
