@@ -1013,8 +1013,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                    
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item" >
                             <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
