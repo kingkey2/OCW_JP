@@ -946,7 +946,7 @@
 .progress-line .progress-step:first-child:before {
   display: none;
 }
-.progress-line .progress-step:after {
+/*.progress-line .progress-step:after {
   position: absolute;
   top: -2.5em;
   left: 50%;
@@ -959,7 +959,7 @@
 }
 .progress-line .progress-step:last-child:after {
   content: "Finish";
-}
+}*/
 .progress-line .progress-step-item {
   margin: 0 auto;
 }
