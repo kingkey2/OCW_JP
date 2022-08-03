@@ -525,15 +525,19 @@
                 <div class="progress-container progress-line">
                     <div class="progress-step cur">
                         <div class="progress-step-item"></div>
+                          <span class="progressline-step language_replace">step1</span>
                     </div>
                     <div class="progress-step cur">
                         <div class="progress-step-item"></div>
+                          <span class="progressline-step language_replace">step2</span>
                     </div>
                     <div class="progress-step">
                         <div class="progress-step-item"></div>
+                          <span class="progressline-step language_replace">step3</span>
                     </div>
                     <div class="progress-step">
                         <div class="progress-step-item"></div>
+                          <span class="progressline-step language_replace">Finish</span>
                     </div>
                 </div>
                 <div class="text-wrap progress-title" style="display: none">
