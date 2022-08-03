@@ -163,12 +163,11 @@
                                     if (wallet.PointValue > 100) {
                                         RecordDom = c.getTemplate("tmpPrize1");
 
-                                        c.setClassText(RecordDom, "pointval", null, PointValue);
                                     } else {
                                         RecordDom = c.getTemplate("tmpPrize0");
                                     }
                                 } else {
-                                        RecordDom = c.getTemplate("tmpPrize0");
+                                    RecordDom = c.getTemplate("tmpPrize0");
                                 }
 
                                 let DomBtn = RecordDom.querySelector(".bouns-get");
@@ -187,6 +186,7 @@
                                     c.setClassText(RecordDom, "day_e", null, CreateDate.toString("dd"));
                                 }
                                 c.setClassText(RecordDom, "title", null, Collect.PromotionTitle);
+                                c.setClassText(RecordDom, "pointval", null, PointValue);
                                 $(RecordDom).attr("data-collectid", Collect.CollectID);
                                 $(RecordDom).attr("data-val", PointValue);
 
@@ -470,7 +470,7 @@
                     </div>
                 </div>
                 <!-- 獎金Button - 可領取 -->
-                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace">領取</span></button>
+                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace pointval">領取</span></button>
             </div>
         </figure>
     </div>
