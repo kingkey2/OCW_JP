@@ -134,11 +134,11 @@
             slidesPerView: 1,
             // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
-            // autoplay: {
-            //     delay: 10000,
-            //     disableOnInteraction: false,
-            //     pauseOnMouseEnter: true
-            // },
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
             // pagination: {
             //     el: ".swiper-pagination",
             //     clickable: true,
@@ -973,7 +973,7 @@
 <body class="innerBody">
     <main class="innerMain">
         <section class="section-wrap hero">
-            <div class="swiper hero_slider swiper_container round-arrow" id="hero-slider">
+            <div class="swiper hero_slider swiper-container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">                    
                     <div class="swiper-slide">
                         <div class="hero-item" >
