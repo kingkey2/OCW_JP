@@ -83,13 +83,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   bottom: -1px;
   z-index: 1;
   background-size: cover;
+  pointer-events: none;
   display: none;
 }
 .hero_slider .swiper-slide-active {
   z-index: 2;
 }
 .hero_slider .swiper-slide-active .img-wrap:before {
-  content: "";
   background: url(../../images/index/hero-mask-2.svg) center bottom no-repeat;
   width: 100%;
   height: 100%;

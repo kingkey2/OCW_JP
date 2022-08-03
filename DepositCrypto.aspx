@@ -16,7 +16,17 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
-
+    <style>
+        .progressline-step {
+             position: absolute;
+             top: -2.5em;
+             left: 50%;
+             -webkit-transform: translateX(-50%);
+             transform: translateX(-50%);
+             font-size: 0.8125em;
+             color: rgba(44, 45, 58, 0.5);
+        }
+    </style>
 </head>
 
 <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
@@ -812,15 +822,19 @@
                 <div class="progress-container progress-line">
                     <div class="progress-step cur">
                         <div class="progress-step-item"></div>
+                        <span class="progressline-step language_replace">step1</span>
                     </div>
                     <div class="progress-step cur">
                         <div class="progress-step-item"></div>
+                        <span class="progressline-step language_replace">step2</span>
                     </div>
                     <div class="progress-step">
                         <div class="progress-step-item"></div>
+                        <span class="progressline-step language_replace">step3</span>
                     </div>
                     <div class="progress-step">
                         <div class="progress-step-item"></div>
+                        <span class="progressline-step language_replace">Finish</span>
                     </div>
                 </div>
                 <div class="text-wrap progress-title" style="display: none">
