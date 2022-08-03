@@ -27,6 +27,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .hero_slider .hero-item-box.desktop {
   display: none !important;
 }
+.hero_slider .hero-item-link {
+  position: absolute;
+  margin: auto;
+  height: 100%;
+  width: 5100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  z-index: 1;
+}
 .hero_slider .img-wrap {
   position: relative;
   padding-bottom: 36.4583333333%;
@@ -76,14 +87,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .hero_slider .swiper-mask {
   background: url(../../images/index/hero-mask-2.svg) center bottom no-repeat;
   width: 100%;
-  height: 100%;
+  height: 30%;
   position: absolute;
   left: 0;
   right: 0;
   bottom: -1px;
-  z-index: 1;
+  z-index: 2;
   background-size: cover;
-  pointer-events: none;
   display: none;
 }
 .hero_slider .swiper-slide-active {
@@ -148,17 +158,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           transform: scale(1.35);
   -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.hero-item-href {
-  position: absolute;
-  margin: auto;
-  height: 60%;
-  width: 50%;
-  top: 5%;
-  left: 25%;
-  cursor: pointer;
-  z-index: 99999;
 }
 
 .thumb-wrapper {
@@ -874,10 +873,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .section_publicize .publicize_bottom_inner .bulletin_inner {
     margin-top: 0;
-  }
-
-  .game-area.overflow-hidden > .container {
-    padding-bottom: 100px;
   }
 }
 @media (min-width: 936px) and (max-width: 1383px) {
