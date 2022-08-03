@@ -977,7 +977,7 @@
                 <div class="swiper-wrapper">                    
                     <div class="swiper-slide">
                         <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
                             </div>
@@ -990,7 +990,7 @@
                     </div>                   
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -1003,7 +1003,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
@@ -1016,8 +1016,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
-                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
+                            <!-- <a class="hero-item-link " onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b5-m.jpg" alt="">
                             </div>
