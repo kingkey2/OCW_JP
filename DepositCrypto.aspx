@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
     <style>
-        .progressline-step {
+        /* .progressline-step {
              position: absolute;
              top: -2.5em;
              left: 50%;
@@ -25,7 +25,9 @@
              transform: translateX(-50%);
              font-size: 0.8125em;
              color: rgba(44, 45, 58, 0.5);
-        }
+             width: 100px;
+             text-align: center;
+        } */
     </style>
 </head>
 

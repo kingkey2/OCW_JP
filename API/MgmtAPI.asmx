@@ -473,6 +473,86 @@ public class MgmtAPI : System.Web.Services.WebService {
         return R;
     }
 
+    [WebMethod]
+    public APIResult SetSevenDateBonusForConsole(string password) {
+        APIResult R = new APIResult() { Result = enumResult.ERR };
+        if (CheckPassword(password)) {
+            EWin.OCW.OCW OCWAPI = new EWin.OCW.OCW();
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            EWin.OCW.SeventDateBonusResult ret = new EWin.OCW.SeventDateBonusResult();
+            EWin.Lobby.APIResult ret_AddPromotionCollect = new EWin.Lobby.APIResult();
+            List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+            string description;
+            string LoginAccount;
+            string JoinActivityCycle;
+            string PromotionCollectKey;
+            string strReport;
+            DateTime currentTime = DateTime.Now;
+            DateTime start;
+            DateTime end;
+            decimal BonusValue = 0;
+            decimal ThresholdValue = 0;
+            decimal OneBonus = 1000;
+            decimal AttendanceBonus = 3000;
+
+            start = currentTime.AddDays(-7); //上禮拜5
+            end = currentTime; 
+
+            JoinActivityCycle = start.ToString("yyyy/MM/dd") + "-" + end.ToString("yyyy/MM/dd");
+            description = "Act003";
+
+            ret = OCWAPI.GetSummaryDateByDateForSeventDateBonus(GetToken(), start.ToString("yyyy/MM/dd"), end.ToString("yyyy/MM/dd"));
+
+            if (ret.ResultState == EWin.OCW.enumResultState.OK) {
+                foreach (var item in ret.SeventDateBonusList) {
+                    BonusValue = 0;
+                    if (item.Count > 0) {
+                        PropertySets = new List<EWin.Lobby.PropertySet>();
+                        ret_AddPromotionCollect = new EWin.Lobby.APIResult();
+                        strReport = string.Empty;
+
+                        LoginAccount = item.LoginAccount;
+                        PromotionCollectKey = description + "_" + LoginAccount + "_" + start.ToString("yyyy/MM/dd") + "_" + end.ToString("yyyy/MM/dd");
+
+                        BonusValue = item.Count * OneBonus;
+
+                        if (item.Count == 7) {
+                            BonusValue += AttendanceBonus;
+                        }
+
+                        ThresholdValue = BonusValue * 20;
+
+                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
+                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
+
+                        ret_AddPromotionCollect = lobbyAPI.AddPromotionCollect(GetToken(), PromotionCollectKey, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+
+                        if (ret_AddPromotionCollect.Result == EWin.Lobby.enumResult.OK) {
+                            R.Result = enumResult.OK;
+                            strReport = "LoginAccount : " + LoginAccount + ",Action : AddPromotionCollect Succ \r\n";
+                            ReportSystem.SevenDateBonusForConsole.CreateSevenDateBonusForConsoleHistory(currentTime.ToString("yyyy-MM-dd"), strReport);
+
+                            EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, ThresholdValue, BonusValue);
+                        } else {
+                            strReport = "LoginAccount : " + LoginAccount + ",Action : AddPromotionCollect Err, ErrMessage : " + ret_AddPromotionCollect.Message + " \r\n";
+                            ReportSystem.SevenDateBonusForConsole.CreateSevenDateBonusForConsoleHistory(currentTime.ToString("yyyy-MM-dd"), strReport);
+                        }
+
+                    }
+                }
+            } else {
+                strReport = "Action : GetSummaryDateByDateForSeventDateBonus Err, ErrMessage : " + ret.Message + " \r\n";
+                ReportSystem.SevenDateBonusForConsole.CreateSevenDateBonusForConsoleHistory(currentTime.ToString("yyyy-MM-dd"), strReport);
+            }
+
+        } else {
+            SetResultException(R, "InvalidPassword");
+        }
+
+        return R;
+
+    }
+
     //[WebMethod]
     //public void AddUserAccountPromotionCollect(string password, string LoginAccount, string ThresholdValue, string BonusValue, string ActivityName, int CollectAreaType) {
 
