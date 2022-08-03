@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
 </head>
-
-<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
-<script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"></script>
 <script src="Scripts/OutSrc/js/script.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>

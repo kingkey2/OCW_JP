@@ -21,12 +21,12 @@
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />   
     <link href="css/footer-new.css" rel="stylesheet" />
 </head>
-<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
-<script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
-<script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script type="text/javascript" src="/Scripts/DateExtension.js"></script>

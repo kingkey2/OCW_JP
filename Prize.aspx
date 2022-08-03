@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/activity.css">
-    <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
-    <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script type="text/javascript" src="Scripts/DateExtension.js"></script>

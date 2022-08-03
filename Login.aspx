@@ -158,7 +158,7 @@
 <%--<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
 <script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="Scripts/OutSrc/js/script.js"></script>--%>
-<script src="Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
