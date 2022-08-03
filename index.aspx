@@ -148,6 +148,8 @@
     <link rel="shortcut icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?20220627">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="stylesheet" />
+
     <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="ja-jp" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="zh-cn" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
@@ -201,7 +203,8 @@
 <script type="text/javascript" src="Scripts/popper.min.js"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+<%--<script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>--%>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>

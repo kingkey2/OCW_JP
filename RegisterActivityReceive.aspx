@@ -12,10 +12,11 @@
     <link rel="stylesheet" href="css/icons.css" type="text/css" />
     <link rel="stylesheet" href="css/global.css" type="text/css" />
     <link rel="stylesheet" href="css/manual.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="stylesheet" />
 
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/js/bootstrap.min.js"></script>
 <script src="Scripts/OutSrc/js/wallet.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
