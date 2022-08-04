@@ -290,6 +290,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  white-space: nowrap;
 }
 .category-dailypush-cotentBox .intro {
   display: -webkit-box;
