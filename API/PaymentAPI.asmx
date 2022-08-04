@@ -2003,6 +2003,9 @@ public class PaymentAPI : System.Web.Services.WebService
         string Token = GetToken();
         Newtonsoft.Json.Linq.JObject BankDatas = new Newtonsoft.Json.Linq.JObject();
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+        System.Data.DataTable PaymentMethodDT;
+        decimal ProviderHandingFeeRate;
+        int ProviderHandingFeeAmount;
 
         if (string.IsNullOrEmpty(BankCard))
         {
@@ -2039,6 +2042,16 @@ public class PaymentAPI : System.Web.Services.WebService
 
                     if (TempCryptoData != null)
                     {
+                        PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(TempCryptoData.PaymentMethodID);
+                        if (!(PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0))
+                        {
+                            SetResultException(R, "PaymentMethodNotExist");
+                            return R;
+                        }
+
+                        ProviderHandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["ProviderHandingFeeRate"];
+                        ProviderHandingFeeAmount = (int)PaymentMethodDT.Rows[0]["ProviderHandingFeeAmount"];
+
                         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
                         EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
                         EWin.Lobby.ThresholdInfo thresholdInfo;
@@ -2075,10 +2088,11 @@ public class PaymentAPI : System.Web.Services.WebService
                                         BankName = BankName,
                                         BranchName = BankBranchCode,
                                         BankNumber = BankCard,
-                                        AccountName=BankCardName,
-                                        AmountMax=9999999999,
-                                        BankCardGUID=Guid.NewGuid().ToString("N"),
-                                        Description=""
+                                        AccountName = BankCardName,
+                                        AmountMax = 9999999999,
+                                        BankCardGUID = Guid.NewGuid().ToString("N"),
+                                        Description = "",
+                                        TaxFeeValue = (TempCryptoData.Amount*ProviderHandingFeeRate)+ProviderHandingFeeAmount
                                     };
                                     paymentDetailBankCards.Add(paymentDetailWallet);
                                     paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
@@ -3262,6 +3276,8 @@ public class PaymentAPI : System.Web.Services.WebService
         public decimal HandingFeeRate { get; set; }
         public int HandingFeeAmount { get; set; }
         public decimal ReceiveTotalAmount { get; set; }
+        public int ProviderHandingFeeAmount { get; set; }
+        public decimal ProviderHandingFeeRate { get; set; }
         public decimal ThresholdValue { get; set; }
         public decimal ThresholdRate { get; set; }
         public int ExpireSecond { get; set; }
