@@ -239,7 +239,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   right: 0;
   width: 50%;
   max-width: 300px;
-  min-width: 190px;
+  min-width: 200px;
   height: 100%;
   min-height: 173px;
   color: #fff;
@@ -268,9 +268,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   font-size: 0.875rem;
   font-weight: 300;
 }
@@ -278,6 +275,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-size: 1.125rem;
   margin-bottom: 0.6rem;
   font-weight: 500;
+  min-height: 2.2rem;
 }
 .category-dailypush-cotentBox .gamecategory {
   border: solid 1px #fff;
@@ -294,6 +292,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex-pack: center;
           justify-content: center;
   white-space: nowrap;
+}
+.category-dailypush-cotentBox .gamebrand {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.625rem;
 }
 .category-dailypush-cotentBox .intro {
   display: -webkit-box;
@@ -848,5 +854,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .tab-game .icon-favo-tt::before {
     -webkit-mask-image: url(../images/icon/ico-favo-tt-m.svg);
     mask-image: url(../images/icon/ico-favo-tt-m.svg);
+  }
+}
+@media screen and (max-width: 320px) {
+  .category-dailypush-cotentBox {
+    min-width: 150px;
+    max-width: 160px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
