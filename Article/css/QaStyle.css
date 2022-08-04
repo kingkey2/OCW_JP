@@ -30,6 +30,7 @@
     border-top-right-radius: 0.25rem;
     white-space: nowrap;
 }
+
 .nav-link:focus, .nav-link:hover{
   color: #009FE8;
 }
