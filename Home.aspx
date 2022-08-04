@@ -338,7 +338,7 @@
                     var imgsrc;
                     var gameName;
                     var _gameCategoryCode;
-                    if (gameItem) {
+                    if (gameItem && gameItem.GameStatus == 0) {
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                         if (gameItem.FavoTimeStamp != null) {
@@ -546,7 +546,7 @@
                                     })
                                 });
 
-                                if (gameItem) {
+                                if (gameItem && gameItem.GameStatus == 0) {
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                     if (gameItem.FavoTimeStamp != null) {

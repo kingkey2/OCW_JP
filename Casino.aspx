@@ -276,7 +276,7 @@
                                     })
                                 });
 
-                                if (gameItem) {
+                                if (gameItem && gameItem.GameStatus==0) {
                                     createGameItem(gameItem, showType, function (stringGameItem) {
                                         gameBrand = gameItem.GameBrand;
                                         gameItems += stringGameItem;
