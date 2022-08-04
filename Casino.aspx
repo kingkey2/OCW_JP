@@ -82,6 +82,7 @@
             GameBrand: "BNG",
             Location: "GameList_Hot",
             MobileSrc: "/images/lobby/dailypush-hot-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
             BackgroundColor: "#121a16"
         },
@@ -90,6 +91,7 @@
             GameBrand: "PNG",
             Location: "GameList_Slot",
             MobileSrc: "/images/lobby/dailypush-slot-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-slot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-slot-001.jpg",
             BackgroundColor: "#3f2e56"
         },
@@ -98,6 +100,7 @@
             GameBrand: "EVO",
             Location: "GameList_Live",
             MobileSrc: "/images/lobby/dailypush-live-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-live-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-live-001.jpg",
             BackgroundColor: "#010101"
         },
@@ -106,6 +109,7 @@
             GameBrand: "BTI",
             Location: "GameList_Other",
             MobileSrc: "/images/lobby/dailypush-bti-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-bti-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-bti-001.jpg",
             BackgroundColor: "#f66f13"
         },
@@ -114,6 +118,7 @@
             GameBrand: "MG",
             Location: "GameList_Brand",
             MobileSrc: "/images/lobby/dailypush-brand-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-brand-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-brand-002.jpg",
             BackgroundColor: "#4c1802"
         },
@@ -122,6 +127,7 @@
             GameBrand: "EVO",
             Location: "GameList_Favo",
             MobileSrc: "/images/lobby/dailypush-favo-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-favo-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-favo-001.jpg",
             BackgroundColor: "#352c1d"
         }
@@ -528,6 +534,11 @@
                             <div class="img-box mobile">
                                 <div class="img-wrap">
                                     <img src="${headerGameData.MobileSrc}" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box pad">
+                                <div class="img-wrap">
+                                    <img src="${headerGameData.PadSrc}" alt="">
                                 </div>
                             </div>
                             <div class="img-box desktop">

@@ -128,6 +128,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .hero_slider_lobby .hero-item-box.mobile {
   display: inherit !important;
 }
+.hero_slider_lobby .hero-item-box.pad {
+  display: none !important;
+}
 .hero_slider_lobby .hero-item-box.desktop {
   display: none !important;
 }
@@ -531,8 +534,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .category-dailypush-img .mobile {
     display: none;
   }
-  .category-dailypush-img .desktop {
+  .category-dailypush-img.pad {
     display: inherit;
+  }
+  .category-dailypush-img .desktop {
+    display: none;
   }
   .category-dailypush-img img {
     -o-object-position: 100% 0;
@@ -735,6 +741,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 73%;
+  }
+
+  .category-dailypush-img.pad {
+    display: none;
+  }
+  .category-dailypush-img .desktop {
+    display: inherit;
   }
 }
 @media (min-width: 1920px) {
