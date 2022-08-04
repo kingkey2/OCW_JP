@@ -98,7 +98,6 @@
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
         $("#amount").val(amount);
 
-
         $("#ExchangeVal").text(Math.ceil(amount));
     }
 
