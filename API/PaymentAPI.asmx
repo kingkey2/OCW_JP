@@ -2049,8 +2049,8 @@ public class PaymentAPI : System.Web.Services.WebService
                             return R;
                         }
 
-                        ProviderHandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["ProviderHandingFeeRate"];
-                        ProviderHandingFeeAmount = (int)PaymentMethodDT.Rows[0]["ProviderHandingFeeAmount"];
+                        //ProviderHandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["ProviderHandingFeeRate"];
+                        //ProviderHandingFeeAmount = (int)PaymentMethodDT.Rows[0]["ProviderHandingFeeAmount"];
 
                         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
                         EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
@@ -2091,8 +2091,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                         AccountName = BankCardName,
                                         AmountMax = 9999999999,
                                         BankCardGUID = Guid.NewGuid().ToString("N"),
-                                        Description = "",
-                                        TaxFeeValue = (TempCryptoData.Amount*ProviderHandingFeeRate)+ProviderHandingFeeAmount
+                                        Description = ""
+                                        //TaxFeeValue = (TempCryptoData.Amount*ProviderHandingFeeRate)+ProviderHandingFeeAmount
                                     };
                                     paymentDetailBankCards.Add(paymentDetailWallet);
                                     paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
