@@ -53,6 +53,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 0;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  will-change: transform;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
@@ -813,35 +814,35 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     mask-image: url(../images/icon/ico-all-tt-m.svg);
   }
   .tab-game .icon-hot-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-hot-tt-m.svg);
-    mask-image: url(../images/icon/ico-hot-tt-m.svg);
+    -webkit-mask-image: url(../images/icon/ico-hot-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-hot-tt-jp-m.svg);
   }
   .tab-game .icon-etc-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-etc-tt-m.svg);
-    mask-image: url(../images/icon/ico-etc-tt-m.svg);
+    -webkit-mask-image: url(../images/icon/ico-etc-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-etc-tt-jp-m.svg);
+  }
+  .tab-game .icon-live-tt::before {
+    -webkit-mask-image: url(../images/icon/ico-live-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-live-tt-jp-m.svg);
+  }
+  .tab-game .icon-slot-tt::before {
+    -webkit-mask-image: url(../images/icon/ico-slot-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-slot-tt-jp-m.svg);
+  }
+  .tab-game .icon-brand-tt::before {
+    -webkit-mask-image: url(../images/icon/ico-brand-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-brand-tt-jp-m.svg);
   }
   .tab-game .icon-elec-tt::before {
     -webkit-mask-image: url(../images/icon/ico-elec-tt-m.svg);
     mask-image: url(../images/icon/ico-elec-tt-m.svg);
   }
-  .tab-game .icon-live-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-live-tt-m.svg);
-    mask-image: url(../images/icon/ico-live-tt-m.svg);
-  }
   .tab-game .icon-poker-tt::before {
     -webkit-mask-image: url(../images/icon/ico-poker-tt-m.svg);
     mask-image: url(../images/icon/ico-poker-tt-m.svg);
   }
-  .tab-game .icon-slot-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-slot-tt-m.svg);
-    mask-image: url(../images/icon/ico-slot-tt-m.svg);
-  }
   .tab-game .icon-favo-tt::before {
     -webkit-mask-image: url(../images/icon/ico-favo-tt-m.svg);
     mask-image: url(../images/icon/ico-favo-tt-m.svg);
-  }
-  .tab-game .icon-brand-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-brand-tt-m.svg);
-    mask-image: url(../images/icon/ico-brand-tt-m.svg);
   }
 }

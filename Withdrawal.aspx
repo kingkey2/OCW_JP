@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="stylesheet" />
        <style>
         .tempCard {
         cursor:pointer;
@@ -32,10 +33,10 @@
         }
     </style>
 </head>
-
-<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="Scripts/OutSrc/js/wallet.js"></script>
-<script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>

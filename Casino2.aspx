@@ -14,16 +14,17 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/lobby.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="stylesheet" />
     <!--===========JS========-->
     <script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
     <%--<script type="text/javascript" src="/Scripts/UIControl.js"></script>--%>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
-    <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
-    <script src="Scripts/jquery-3.3.1.min.js"></script>
-    <script src="Scripts/lozad.min.js"></script>
-    <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
     <style>
         .title-showAll:hover {
             cursor: pointer;
