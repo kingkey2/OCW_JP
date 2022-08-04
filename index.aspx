@@ -148,9 +148,7 @@
     <link rel="shortcut icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?20220627">
-    <%--<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="stylesheet" />--%>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch"  as="style"onload="this.rel = 'stylesheet'"/>
-    
+
     <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="ja-jp" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="zh-cn" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
@@ -182,6 +180,7 @@
                 border: 1px solid #666;
                 color: #777;
             }
+
     </style>
 </head>
 <% if (EWinWeb.IsTestSite == false)
@@ -196,8 +195,8 @@
     gtag('config', 'G-097DC2GB6H');
 </script>
 <% } %>
-<script
-    src="https://code.jquery.com/jquery-2.2.4.js"
+<script 
+  src="https://code.jquery.com/jquery-2.2.4.js"
     integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
