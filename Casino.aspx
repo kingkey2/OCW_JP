@@ -183,43 +183,86 @@
     }
 
     function setSwiper(categoryName) {
+        if (WebInfo.DeviceType == 0) {
+            new Swiper(".GameItemGroup0_" + categoryName, {
+                slidesPerView: "auto",
+                lazy: true,
+                freeMode: true,
+                allowTouchMove: false,
+                navigation: {
+                    nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
+                },
+                breakpoints: {
 
-        new Swiper(".GameItemGroup0_" + categoryName, {
-            slidesPerView: "auto",
-            lazy: true,
-            freeMode: true,
-            navigation: {
-                nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
-                prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
-            },
-            breakpoints: {
-
-                936: {
-                    freeMode: false,
-                    slidesPerGroup: 6, //index:992px
-                },
-                1144: {
-                    slidesPerGroup: 7, //index:1200px
-                    allowTouchMove: false, //拖曳
-                },
-                1384: {
-                    slidesPerGroup: 7, //index:1440px
-                    allowTouchMove: false,
-                },
-                1544: {
-                    slidesPerGroup: 7, //index:1600px
-                    allowTouchMove: false,
-                },
-                1864: {
-                    slidesPerGroup: 8, //index:1920px
-                    allowTouchMove: false,
-                },
-                1920: {
-                    slidesPerGroup: 8, //index:1920px up
-                    allowTouchMove: false,
+                    936: {
+                        freeMode: false,
+                        //slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            new Swiper(".GameItemGroup0_" + categoryName, {
+                slidesPerView: "auto",
+                lazy: true,
+                freeMode: true,
+                allowTouchMove: true,
+                navigation: {
+                    nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
+                },
+                breakpoints: {
+
+                    936: {
+                        freeMode: false,
+                        //slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    }
+                }
+            });
+        }
+
+      
+
         new Swiper('.GameItemGroup1_' + categoryName, {
             effect: "coverflow",
             grabCursor: true,
@@ -626,16 +669,22 @@
 
             if (WebInfo.DeviceType == 1) {
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-
                 gameitemlink = `<span class="game-item-link"></span>`;
                 gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
                 //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
             } else {
-                gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                if (iframeWidth < 936) {
+                    gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                } else {
+                    gameitemmobilepopup = '';
+                }
+         
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                 gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
 
             }
+
+         
 
             imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
 
