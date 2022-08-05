@@ -848,7 +848,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     for (int j = 0; j < GameOrderList.Count; j++) {
                         if (k[i].Date == GameOrderList[j].SummaryDate) {
                             k[i].TotalValidBetValue = GameOrderList[j].TotalValidBetValue;
-                            if (GameOrderList[j].TotalValidBetValue > 5000 || GameOrderList[j].TotalValidBetValue == 5000) {
+                            if (GameOrderList[j].TotalValidBetValue > 20000 || GameOrderList[j].TotalValidBetValue == 20000) {
                                 k[i].Status = 1;
                             }
                         }
