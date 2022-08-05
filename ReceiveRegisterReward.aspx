@@ -62,7 +62,6 @@
     <link rel="stylesheet" href="css/icons.css" type="text/css" />
     <link rel="stylesheet" href="css/global.css" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="stylesheet" />
     <script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script src="../src/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
