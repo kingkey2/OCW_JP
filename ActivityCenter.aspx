@@ -134,28 +134,34 @@
         if (url) {
             switch (type) {
                 case 1:
-                    $('#ModalDeposit .activity-popup-detail-inner').load(url);
-                    $('#ModalDeposit').modal('show');
+                    $('#ModalDeposit .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalDeposit').modal('show');
+                    });
                     break;
                 case 2:
-                    $('#ModalRegister .activity-popup-detail-inner').load(url);
-                    $('#ModalRegister').modal('show');
+                    $('#ModalRegister .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalRegister').modal('show');
+                    });
                     break;
                 case 3:
-                    $('#ModalDailylogin .activity-popup-detail-inner').load(url);
-                    $('#ModalDailylogin').modal('show');
+                    $('#ModalDailylogin .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalDailylogin').modal('show');
+                    });
                     break;
                 case 4:
-                    $('#ModalPP1 .activity-popup-detail-inner').load(url);
-                    $('#ModalPP1').modal('show');
+                    $('#ModalPP1 .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalPP1').modal('show');
+                    });
                     break;
                 case 5:
-                    $('#ModalPP2 .activity-popup-detail-inner').load(url);
-                    $('#ModalPP2').modal('show');
+                    $('#ModalPP2 .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalPP2').modal('show');
+                    });
                     break;
                 case 6:
-                    $('#Modalbng2 .activity-popup-detail-inner').load(url);
-                    $('#Modalbng2').modal('show');
+                    $('#Modalbng2 .activity-popup-detail-inner').load(url, function () {
+                        $('#Modalbng2').modal('show');
+                    });
                     break;
                 case 7:
                     window.open(url);
@@ -163,7 +169,7 @@
                 default:
                     break;
             }
-           
+
         }
     }
 
@@ -413,7 +419,7 @@
                 </div>
                 <div class="modal-body">
                     <article class="activity-popup-detail-wrapper">
-                        <div class="activity-popup-detail-inner">
+                        <div class="activity-popup-detail-inner" >
                         </div>
                     </article>
                 </div>
