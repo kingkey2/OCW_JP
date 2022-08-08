@@ -149,8 +149,8 @@
             if (success) {
                 if (o.Result == 0) {
                     if (o.CollectList.length > 0) {
-                        for (var i = 0; i < o.CollectList.length; i++) {
                             let RecordDom;
+                        for (var i = 0; i < o.CollectList.length; i++) {
                             let Collect = o.CollectList[i];
                             let collectAreaType = Collect.CollectAreaType;
 
@@ -244,6 +244,44 @@
 
                                 ParentMain.appendChild(RecordDom);
                             }
+                        }
+
+                        //新增當週期7日登入可領取的禮物箱
+                        if (collectareatype == 2) {
+
+                            window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
+                                let PointValue = 0;
+                                if (e) {
+                                    let k = 0;
+                                    for (var i = 0; i < e.length; i++) {
+                                        if (e[i].Status == 1) {
+                                            k++;
+                                        }
+                                    }
+
+                                    if (k == 7) {
+                                        PointValue = 10000;
+                                    } else {
+                                        PointValue = k * 1000;
+                                    }
+
+                                    if (PointValue > 0) {
+                                        RecordDom = c.getTemplate("tmpPrize1");
+                                        let ExpireDate = Date.parse(e[e.length - 1].Date);
+
+                                        c.setClassText(RecordDom, "year_c", null, ExpireDate.toString("yyyy"));
+                                        c.setClassText(RecordDom, "month_c", null, ExpireDate.toString("MM"));
+                                        c.setClassText(RecordDom, "day_c", null, ExpireDate.toString("dd") + "~");
+                                        c.setClassText(RecordDom, "title", null, "金曜日のプレゼント");
+                                        c.setClassText(RecordDom, "pointval", null, PointValue);
+
+                                        $(RecordDom).find(".date-period-end").hide();
+                                        $(RecordDom).find(".prize-status").hide();
+
+                                        ParentMain.prepend(RecordDom);
+                                    }
+                                }
+                            });
                         }
                         
                         if ($("#div_Prize").children().length == 0) {
