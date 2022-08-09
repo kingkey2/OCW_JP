@@ -270,20 +270,7 @@
 	<p align="center" style="color: #003DD6;font-size: 1rem; margin-top: 1rem;">※STEP4 ~ 5 金曜日~木曜日</p>
     -->
 	<!--活動內容-->
-<!-- 設定 Swiper -->
-<script>
-    var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 1,
-    autoplay: {
-        delay: 1500,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    });
-</script>
+
     <!-- 圖片輪播 Swiper-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
     <div class="swiper mySwiper" style="text-align: center;">
@@ -293,11 +280,24 @@
           <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step03.jpg" alt=""></div>
           <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step04.jpg" alt=""></div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        <!-- <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> -->
         <div class="swiper-pagination"></div>
       </div>
-      
+      <!-- 設定 Swiper -->
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            });
+        </script>
 
 
 
