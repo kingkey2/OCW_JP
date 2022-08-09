@@ -81,9 +81,9 @@
 	<section class="section-wrap">
 
 	<p class="act-title">デイリーミッションキャンペーン機能実装！女神様のご命令で、この狛犬大吉が勤勉なマハラジャ全会員に豊かなデイリーギフトマネーをプレゼントするぞ！</p>
-	<!--活動期間-->
-	<h3>【 キャンペーン期間 】</h3>
-	<!--每日登入顯示區域-->
+	<!--活動期間
+	<h3>【 キャンペーン期間 】</h3>-->
+	<!--每日登入顯示區域
 			<div class="calendar-dailylogin">
 				<div class="calendar-item-container">
 					<div class="calendar-head week">
@@ -107,7 +107,7 @@
 						</div>
 					</div>
                     <div class="calendar-body day">
-                        <!-- 列 -->
+                        
                         <div class="body-item got">
                             <div class="body-item-link">
                             </div>
@@ -143,7 +143,7 @@
                             </div>
                             <div class="date">7</div>
                         </div>
-                        <!-- 列 -->
+                        
                         <div class="body-item">
                             <div class="body-item-link">
                             </div>
@@ -179,7 +179,7 @@
                             </div>
                             <div class="date">14</div>
                         </div>
-                        <!-- 列 -->
+                        
                         <div class="body-item">
                             <div class="body-item-link">
                             </div>
@@ -215,7 +215,7 @@
                             </div>
                             <div class="date">21</div>
                         </div>
-                        <!-- 列 -->
+                        
                         <div class="body-item">
                             <div class="body-item-link">
                             </div>
@@ -252,9 +252,9 @@
                             <div class="date">28</div>
                         </div>
                     </div>
-			</div>
+			</div>-->
 
-	<!--活動流程-->
+	<!--活動流程
 	<h3>【 デイリーミッションの流れ 】</h3>
 	<ul class="day-login">
 			<li><a href="#" target="_self"><img src="/Activity/Act003/CenterPage/img/step01.png" alt="" width=""
@@ -267,8 +267,41 @@
 						height=""></a></li>
 		</ul>
 	<div style="clear: both;"></div>
-		<p align="center" style="color: #003DD6;font-size: 1rem; margin-top: 1rem;">※STEP4 ~ 5 金曜日~木曜日</p>
+	<p align="center" style="color: #003DD6;font-size: 1rem; margin-top: 1rem;">※STEP4 ~ 5 金曜日~木曜日</p>
+    -->
 	<!--活動內容-->
+<!-- 設定 Swiper -->
+<script>
+    var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    autoplay: {
+        delay: 1500,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    });
+</script>
+    <!-- 圖片輪播 Swiper-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+    <div class="swiper mySwiper" style="text-align: center;">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step01.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step02.gif" alt=""></div>
+          <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step03.jpg" alt=""></div>
+          <div class="swiper-slide"><img src="/Activity/Act003/CenterPage/img/step04.jpg" alt=""></div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+      
+
+
+
+
 	<h3>【 ルール説明 】</h3>
 		<p>1.本キャンペーンの周期は「金曜日から次の木曜日まで」。</p>
 		<p>2. デイリーミッションをクリアすれば、一日につき1,000ギフトマネーが貯まれます。七日皆勤すれば、さらに3,000ギフトマネーが貯まります。</p>
