@@ -51,7 +51,7 @@
         if (self == top) {
             window.parent.location.href = "index.aspx";
         }
-
+        
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         PaymentClient = window.parent.API_GetPaymentAPI();

@@ -122,7 +122,7 @@
                     $("#divThrehold").addClass("lacking");
                 }
 
-                $("#idThrehold").text(new BigNumber(thresholdInfo.ThresholdValue).toFormat());
+                $("#idThrehold").text(new BigNumber(thresholdInfo.ThresholdValue).toFixed(2));
             } else {
                 $("#idThrehold").text("0");
                 $("#divThrehold").addClass("enough");

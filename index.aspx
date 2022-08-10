@@ -240,7 +240,7 @@
         UserInfo: null,
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
-        DeviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 1 : 0,
+        DeviceType: getOS(),
         IsOpenGame: false
     };
 
@@ -292,6 +292,36 @@
 
         return selectedCurrency;
     }
+
+    function getOS() {
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
+
+        if (os.isAndroid || os.isPhone) {
+            return 1;
+        } else if (os.isTablet) {
+            return 1;
+        } else if (os.isPc) {
+            return 0;
+        }
+    };
+
+   
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
     function API_GetGameLang(lang, GameCode, cb) {

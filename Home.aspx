@@ -337,7 +337,7 @@
                     var imgsrc;
                     var gameName;
                     var _gameCategoryCode;
-                    if (gameItem) {
+                    if (gameItem && gameItem.GameStatus == 0) {
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                         if (gameItem.FavoTimeStamp != null) {
@@ -376,7 +376,12 @@
                             gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
                             //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                         } else {
-                            gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                            if (iframeWidth < 936) {
+                                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                            } else {
+                                gameitemmobilepopup = '';
+                            }
+
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                             gameitemlink = '<span class="game-item-link"></span>';
                             btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
@@ -545,7 +550,7 @@
                                     })
                                 });
 
-                                if (gameItem) {
+                                if (gameItem && gameItem.GameStatus == 0) {
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                     if (gameItem.FavoTimeStamp != null) {
@@ -583,7 +588,12 @@
                                         gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode }')"></span>`;
                                         //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                                     } else {
-                                        gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                                        if (iframeWidth < 936) {
+                                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                                        } else {
+                                            gameitemmobilepopup = '';
+                                        }
+                                   
                                         GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                                         gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
                                         btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
