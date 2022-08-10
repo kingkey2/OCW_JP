@@ -33,7 +33,7 @@
     function closeGame(DeviceType) {
         switch (DeviceType) {
             case 0:
-                window.parent.CloseGameFrame();
+                window.top.CloseGameFrame();
                 break;
             case 1:
                 window.location.href = "about:blank";
@@ -43,7 +43,7 @@
                 document.getElementById("btnClose").click();
                 break;
             default:
-                window.parent.CloseGameFrame();
+                window.top.CloseGameFrame();
                 break;
         }
     }
