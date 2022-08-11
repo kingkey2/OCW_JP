@@ -2237,7 +2237,7 @@
             <div class="btn-wrapper">
                 <div class="btn btn-game-close" onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
             </div>
-            <iframe id="GameIFramePage" class="divGameFrame" name="mainiframe"></iframe>
+            <iframe id="GameIFramePage" class="divGameFrame" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock"></iframe>
         </div>
     </div>
     <!-- 滿版遊戲介面 end-->
