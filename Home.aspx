@@ -745,87 +745,177 @@
     }
 
     function setSwiperBySelector(selector) {
-        new Swiper(selector, {
-            slidesPerView: "auto",
-            // loop:true,
-            // slidesPerGroup: 2,
-            // loopedSlides: 8,
-            lazy: true,
-            freeMode: true,
-            navigation: {
-                nextEl: selector + " .swiper-button-next",
-                prevEl: selector + " .swiper-button-prev",
-            },
-            breakpoints: {
+        if (WebInfo.DeviceType == 0) {
+            new Swiper(selector, {
+                slidesPerView: "auto",
+                allowTouchMove: false,
+                // loop:true,
+                // slidesPerGroup: 2,
+                // loopedSlides: 8,
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: selector + " .swiper-button-next",
+                    prevEl: selector + " .swiper-button-prev",
+                },
+                breakpoints: {
 
-                936: {
-                    freeMode: false,
-                    slidesPerGroup: 6, //index:992px
+                    936: {
+                        freeMode: false,
+                        //slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    },
+                }
+            });
+        } else {
+            new Swiper(selector, {
+                slidesPerView: "auto",
+                allowTouchMove: true,
+                // loop:true,
+                // slidesPerGroup: 2,
+                // loopedSlides: 8,
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: selector + " .swiper-button-next",
+                    prevEl: selector + " .swiper-button-prev",
                 },
-                1144: {
-                    slidesPerGroup: 7, //index:1200px
-                    allowTouchMove: false, //拖曳
-                },
-                1384: {
-                    slidesPerGroup: 7, //index:1440px
-                    allowTouchMove: false,
-                },
-                1544: {
-                    slidesPerGroup: 7, //index:1600px
-                    allowTouchMove: false,
-                },
-                1864: {
-                    slidesPerGroup: 8, //index:1920px
-                    allowTouchMove: false,
-                },
-                1920: {
-                    slidesPerGroup: 8, //index:1920px up
-                    allowTouchMove: false,
-                },
-            }
-        });
+                breakpoints: {
+
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    },
+                }
+            });
+        }
+        
     }
 
     function setSwiper(categoryName) {
-        new Swiper(".GameItemGroup_" + categoryName, {
-            slidesPerView: "auto",
-            // loop:true,
-            // slidesPerGroup: 2,
-            // loopedSlides: 8,
-            lazy: true,
-            freeMode: true,
-            navigation: {
-                nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
-                prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
-            },
-            breakpoints: {
+        if (WebInfo.DeviceType == 0) {
+            new Swiper(".GameItemGroup_" + categoryName, {
+                slidesPerView: "auto",
+                allowTouchMove: false,
+                // loop:true,
+                // slidesPerGroup: 2,
+                // loopedSlides: 8,
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
+                },
+                breakpoints: {
 
-                936: {
-                    freeMode: false,
-                    slidesPerGroup: 6, //index:992px
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        allowTouchMove: false,
+                    },
+                }
+            });
+        } else {
+            new Swiper(".GameItemGroup_" + categoryName, {
+                slidesPerView: "auto",
+                allowTouchMove: true,
+                // loop:true,
+                // slidesPerGroup: 2,
+                // loopedSlides: 8,
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
                 },
-                1144: {
-                    slidesPerGroup: 7, //index:1200px
-                    allowTouchMove: false, //拖曳
-                },
-                1384: {
-                    slidesPerGroup: 7, //index:1440px
-                    allowTouchMove: false,
-                },
-                1544: {
-                    slidesPerGroup: 7, //index:1600px
-                    allowTouchMove: false,
-                },
-                1864: {
-                    slidesPerGroup: 8, //index:1920px
-                    allowTouchMove: false,
-                },
-                1920: {
-                    slidesPerGroup: 8, //index:1920px up
-                    allowTouchMove: false,
-                },
-            }
-        });
+                breakpoints: {
+
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    },
+                }
+            });
+        }
+ 
     }
 
     function setBulletinBoard() {
