@@ -267,7 +267,7 @@
 
                                     if (PointValue > 0) {
                                         RecordDom = c.getTemplate("tmpPrize1");
-                                        let ExpireDate = Date.parse(e[e.length - 1].Date);
+                                        let ExpireDate = Date.parse(e[e.length - 1].Date).addDays(1);
 
                                         c.setClassText(RecordDom, "year_c", null, ExpireDate.toString("yyyy"));
                                         c.setClassText(RecordDom, "month_c", null, ExpireDate.toString("MM"));

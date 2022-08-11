@@ -293,7 +293,7 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="images/activity/activity-03-m.jpg">
+                                        <img class="" src="Activity/Act003/CenterPage/img/activity-popup-b-m-01.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
@@ -418,7 +418,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx', false)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx', false)">開始洗碼</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -446,13 +446,13 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">前往入金</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide language_replace" disabled>前往入金</button>
                 </div>
             </div>
         </div>
@@ -477,10 +477,10 @@
                     <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide language_replace" disabled>參加活動</button>
                 </div>
             </div>
         </div>
@@ -505,10 +505,10 @@
                     <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide language_replace" disabled>參加活動</button>
                 </div>
             </div>
         </div>
@@ -530,7 +530,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(4)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(4)">前往遊玩</button>
                 </div>
             </div>
         </div>
@@ -552,7 +552,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(5)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(5)">前往遊玩</button>
                 </div>
             </div>
         </div>
