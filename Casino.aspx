@@ -198,7 +198,7 @@
 
                     936: {
                         freeMode: false,
-                        //slidesPerGroup: 6, //index:992px
+                        slidesPerGroup: 6, //index:992px
                     },
                     1144: {
                         slidesPerGroup: 7, //index:1200px
@@ -236,7 +236,7 @@
 
                     936: {
                         freeMode: false,
-                        //slidesPerGroup: 6, //index:992px
+                        slidesPerGroup: 6, //index:992px
                     },
                     1144: {
                         slidesPerGroup: 7, //index:1200px
@@ -875,6 +875,7 @@
                 switch (lobbyGame.Location) {
                     case 'GameList_Hot':
                         $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        $(RecordDom).addClass('active');
                         break;
                     case 'GameList_Favo':
                         $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
@@ -1297,7 +1298,7 @@
             </div>
         </div>
         <!-- 各分類-單一遊戲推薦區 -->
-        <section class="section-category-dailypush" style="display:none;">
+         <%--    <section class="section-category-dailypush" style="display:none;">
             <div class="container">                
                 <!-- hot -->
                 <div class="category-dailypush-wrapper hot">
@@ -1416,7 +1417,6 @@
                         </div>
                     </div>
                 </div>             
-                <!-- OTHER -->   
                 <div class="category-dailypush-wrapper other">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #3a3227;">
@@ -1446,7 +1446,6 @@
                                 </div>
                                 <div class="action">
                                     <button class="btn btn-play"><span class="language_replace">進入遊戲</span></button>
-                                    <!-- 加入最愛 class=>added-->
                                     <button type="button" class="btn-like btn btn-round">
                                         <i class="icon icon-m-favorite"></i>
                                     </button>
@@ -1455,7 +1454,6 @@
                         </div>
                     </div>
                 </div>             
-                <!-- FAVO -->   
                 <div class="category-dailypush-wrapper favo">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #352c1d;">
@@ -1494,7 +1492,6 @@
                         </div>
                     </div>
                 </div>             
-                <!-- BRAND -->   
                 <div class="category-dailypush-wrapper brand">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #4c1802;">
@@ -1534,7 +1531,7 @@
                     </div>
                 </div>             
             </div>
-        </section>
+        </section>--%>
          <section class="game-area overflow-hidden">
             <div id="gameAreas">
                  
@@ -1627,7 +1624,7 @@
             </div> 
          </section>
          <!-- 遊戲-隨機推薦-->
-         <section class="section-wrap section_randomRem" style="display:none;">
+        <%-- <section class="section-wrap section_randomRem" style="display:none;">
             <div class="container-fluid">
                 <div class="game_wrapper">
                     <div class="sec-title-container">
@@ -1654,7 +1651,7 @@
                     </div>
                 </div>
              </div>
-        </section>
+        </section>--%>
 
     </main>
 
@@ -1664,6 +1661,108 @@
                 <span class="title language_replace CategName"></span></span>
         </li>
     </div>
+ <%--   <div id="testdiv">
+        <div class="container category-dailypush">
+                                     <section class="section-category-dailypush" onclick="window.parent.openGame('BNG', '242','タイガー ジャングル')">
+                 <div class="category-dailypush-wrapper hot">
+                    <div class="category-dailypush-inner">
+                        <div class="category-dailypush-img" style="background-color: #121a16;">
+                            <div class="img-box mobile">
+                                <div class="img-wrap">
+                                    <img src="/images/lobby/dailypush-hot-M-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box pad">
+                                <div class="img-wrap">
+                                    <img src="/images/lobby/dailypush-hot-MD-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box desktop">
+                                <div class="img-wrap">
+                                    <img src="/images/lobby/dailypush-hot-001.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-dailypush-cotentBox">
+                            <div class="category-dailypush-cotent">
+                                <h2 class="title language_replace">本日一押し厳選</h2>
+                                <div class="info">
+                                    <h3 class="gamename language_replace">タイガー ジャングル</h3>
+                                    <div class="detail">
+                                        <span class="gamebrand">ブーンゴー</span>
+                                        <span class="gamecategory">スロット</span>
+                                    </div>
+                                </div>
+                                <div class="intro language_replace is-hide">
+                                    遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                                </div>
+                                <div class="action">
+                                    <button class="btn btn-play" onclick="window.parent.openGame('BNG', '242','タイガー ジャングル')"><span class="language_replace">ゲームへ</span></button>
+                                    <!-- 加入最愛 class=>added-->
+                                    <button type="button" class="btn-like desktop gameCode_BNG.242 btn btn-round" onclick="favBtnClcik('BNG.242')">
+                                        <i class="icon icon-m-favorite"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         </section>
+        </div>
+    </div>
+    <div id="testdiv2" class="container">
+     <section class="section-wrap section-levelUp">
+                                                <div class="game_wrapper">
+                                                <div class="sec-title-container">
+                                                <div class="sec-title-wrapper">
+                                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i>
+                                                    <span class="language_replace title CategName langkey">ジュラシック・パーク!モンスタースロット</span>
+                                                </h3>
+                                                </div>
+                                                </div>
+                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_GameList_Hot data-showtype=0 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode">
+                                                <div class="swiper-wrapper GameItemGroupContent" aria-live="polite">
+                                                <div class="swiper-slide gameid_3891 swiper-slide-active" role="group" aria-label="1 / 10">
+                                                    <div class="swiper-slide gameid_6502"> <div class="game-item"><div class="game-item-inner"><div class="game-item-focus">    <div class="game-item-img">        <span class="game-item-link" onclick="window.parent.openGame('BBIN', '1204','ニンジャ マスター')" onmouseover="appendGameProp('BBIN','ニンジャ マスター','96.44','6502','BBIN.1204',1,'Slot','1204')"></span>        <div class="img-wrap">            <img class="gameimg lozad" src="https://ewin.dev.mts.idv.tw/Files/GamePlatformPic/BBIN/PC/JPN/1204.png"></div></div></div></div> </div></div>
+                                                </div>
+                                                </div>
+                                                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-aa260d7b0a7e6195" aria-disabled="false"></div>
+                                                <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-aa260d7b0a7e6195" aria-disabled="true"></div>
+                                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                                                </div>
+                                                </section>
+    </div>
+
+    <div id="testdiv3">
+        <section class="section-wrap section_randomRem">
+                                                    <div class="container">
+                                                        <div class="game_wrapper">
+                                                            <div class="sec-title-container">
+                                                                <div class="sec-title-wrapper">
+                                                                </div>
+                                                            </div>
+                                                            <div class="game_slider swiper_container round-arrow swiper-cover GameItemGroup1_GameList_Hot swiper-container-coverflow swiper-container-3d swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events" style="cursor: grab;">
+                                                                <div class="swiper-wrapper GameItemGroupContent" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1470px, 0px, 0px);">
+                                                                
+                                                                <div class="swiper-slide gameid_849 swiper-slide-duplicate" style="transition-duration: 0ms; transform: translate3d(0px, 0px, -5700px) rotateX(0deg) rotateY(-380deg) scale(1); z-index: -18;">
+                        <div class="game-item addedGameProp">
+                            <div class="game-item-inner">
+                                
+                                    <span class="game-item-link" onclick="window.parent.openGame('PP', 'vswaysrhino','巨大なサイ Megaways')" onmouseover="appendGameProp('PP','巨大なサイ Megaways','96.58','849','PP.vswaysrhino',2,'Slot','vswaysrhino')"></span>
+                                    <div class="img-wrap">
+                                        <img class="gameimg lozad" src="https://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PP/PC/JPN/vswaysrhino.png">
+                                    </div>
+                             </div>
+                             <div class="game-item-info">
+                               <h3 class="game-item-name">巨大なサイ Megaways</h3>
+                             </div>
+                           </div>
+                        <div class="swiper-slide-shadow-left" style="opacity: 0; transition-duration: 0ms;"></div><div class="swiper-slide-shadow-right" style="opacity: 19; transition-duration: 0ms;"></div></div></div>
+                                                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+    </div>--%>
     <%--推薦遊戲--%>
     <div id="temCategArea2" class="is-hide">
         <section class="section-wrap section_randomRem">
