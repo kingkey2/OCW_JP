@@ -972,9 +972,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
     padding-right: 1.3rem;
-  }
-
-  .way-payment-wrapper {
     padding-top: 0;
   }
   .way-payment-inner {
@@ -998,7 +995,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .way-payment-img .img-crop {
     width: 100%;
     height: 100%;
-    background: url(../images/theme/girl-crypto.png) left top no-repeat;
+    background: url(../images/theme/girl-crypto-2.png) left top no-repeat;
   }
   .way-payment-content {
     position: relative;
