@@ -339,8 +339,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-color: #4288C9;
   background-position: center center;
   border-radius: 20px;
-  height: 115px;
-  height: calc(0.2857142857 * (100vw - 20px));
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -361,6 +359,84 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-image: url(../images/theme/bg_dog.svg);
   background-position: center center;
   opacity: 0.4;
+}
+.way-payment-inner {
+  height: calc(0.2857142857 * (100vw - 20px));
+}
+@media (min-width: 375px) {
+  .way-payment-inner {
+    height: calc(0.2857142857 * (100vw - 20px));
+  }
+}
+@media (min-width: 576px) {
+  .way-payment-inner {
+    height: 147.4285714286px;
+  }
+}
+@media (min-width: 640px) {
+  .way-payment-inner {
+    height: 165.7142857143px;
+  }
+}
+@media (min-width: 712px) {
+  .way-payment-inner {
+    height: 169.1428571429px;
+  }
+}
+@media (min-width: 768px) {
+  .way-payment-inner {
+    height: 169.1428571429px;
+  }
+}
+@media (min-width: 936px) {
+  .way-payment-inner {
+    height: 217.1428571429px;
+  }
+}
+@media (min-width: 992px) {
+  .way-payment-inner {
+    height: 233.1428571429px;
+  }
+}
+@media (min-width: 1144px) {
+  .way-payment-inner {
+    height: 276.5714285714px;
+  }
+}
+@media (min-width: 1200px) {
+  .way-payment-inner {
+    height: 292.5714285714px;
+  }
+}
+@media (min-width: 1384px) {
+  .way-payment-inner {
+    height: 345.1428571429px;
+  }
+}
+@media (min-width: 1440px) {
+  .way-payment-inner {
+    height: 361.1428571429px;
+  }
+}
+@media (min-width: 1544px) {
+  .way-payment-inner {
+    height: 390.8571428571px;
+  }
+}
+@media (min-width: 1600px) {
+  .way-payment-inner {
+    height: 406.8571428571px;
+  }
+}
+@media (min-width: 1864px) {
+  .way-payment-inner {
+    height: 405.7142857143px;
+  }
+}
+@media (min-width: 1920px) {
+  .way-payment-inner {
+    height: 405.7142857143px;
+  }
 }
 .way-payment-img {
   position: relative;
@@ -403,6 +479,81 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .way-payment-detail .title {
   font-size: calc(0.0642857143 * (100vw - 20px));
+}
+@media (min-width: 375px) {
+  .way-payment-detail .title {
+    font-size: calc(0.0642857143 * (100vw - 20px));
+  }
+}
+@media (min-width: 576px) {
+  .way-payment-detail .title {
+    font-size: 33.1714285714px;
+  }
+}
+@media (min-width: 640px) {
+  .way-payment-detail .title {
+    font-size: 37.2857142857px;
+  }
+}
+@media (min-width: 712px) {
+  .way-payment-detail .title {
+    font-size: 38.0571428571px;
+  }
+}
+@media (min-width: 768px) {
+  .way-payment-detail .title {
+    font-size: 38.0571428571px;
+  }
+}
+@media (min-width: 936px) {
+  .way-payment-detail .title {
+    font-size: 48.8571428571px;
+  }
+}
+@media (min-width: 992px) {
+  .way-payment-detail .title {
+    font-size: 52.4571428571px;
+  }
+}
+@media (min-width: 1144px) {
+  .way-payment-detail .title {
+    font-size: 62.2285714286px;
+  }
+}
+@media (min-width: 1200px) {
+  .way-payment-detail .title {
+    font-size: 65.8285714286px;
+  }
+}
+@media (min-width: 1384px) {
+  .way-payment-detail .title {
+    font-size: 77.6571428571px;
+  }
+}
+@media (min-width: 1440px) {
+  .way-payment-detail .title {
+    font-size: 81.2571428571px;
+  }
+}
+@media (min-width: 1544px) {
+  .way-payment-detail .title {
+    font-size: 87.9428571429px;
+  }
+}
+@media (min-width: 1600px) {
+  .way-payment-detail .title {
+    font-size: 91.5428571429px;
+  }
+}
+@media (min-width: 1864px) {
+  .way-payment-detail .title {
+    font-size: 91.2857142857px;
+  }
+}
+@media (min-width: 1920px) {
+  .way-payment-detail .title {
+    font-size: 91.2857142857px;
+  }
 }
 .way-payment-detail .desc {
   margin: 0;
@@ -642,9 +793,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 28.5714285714%;
   }
 
-  .way-payment-inner {
-    height: calc(0.2285714286 * (100vw - 20px));
-  }
   .way-payment-img {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 45.4285714286%;
@@ -824,9 +972,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
     padding-right: 1.3rem;
-  }
-
-  .way-payment-wrapper {
     padding-top: 0;
   }
   .way-payment-inner {
@@ -850,7 +995,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .way-payment-img .img-crop {
     width: 100%;
     height: 100%;
-    background: url(../images/theme/girl-crypto.png) left top no-repeat;
+    background: url(../images/theme/girl-crypto-2.png) left top no-repeat;
   }
   .way-payment-content {
     position: relative;
