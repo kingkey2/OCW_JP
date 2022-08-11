@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*=================== fonts ====================*/
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
@@ -259,11 +260,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .section_publicize .publicize_bottom_inner .bulletin .sec-title-container {
   margin-bottom: 1.25rem;
+  cursor: pointer;
 }
 .section_publicize .publicize_bottom_inner .bulletin .sec-title-container .icon {
   width: 1.5625rem;
   height: 1.5625rem;
   margin-right: 0.5rem;
+}
+.section_publicize .publicize_bottom_inner .bulletin .sec-title-container:hover {
+  color: #008fd1;
 }
 .section_publicize .publicize_bottom_inner .bulletin_inner {
   -webkit-box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.25);
@@ -277,7 +282,61 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-size: 1.25rem;
   font-weight: bold;
 }
-.section_publicize .publicize_bottom_inner .bulletin_list .item {
+.section_publicize .publicize_bottom_inner .bulletin_list {
+  overflow-y: auto;
+  height: 11.5rem;
+  /* scroll 樣式 -- IE，Edge不適用   */
+  scrollbar-face-color: rgba(61, 182, 255, 0.8);
+  scrollbar-arrow-color: #444;
+  scrollbar-track-color: #ececec;
+  scrollbar-shadow-color: rgba(61, 182, 255, 0.8);
+  scrollbar-highlight-color: rgba(61, 182, 255, 0.8);
+  scrollbar-3dlight-color: rgba(61, 182, 255, 0.8);
+  scrollbar-darkshadow-Color: rgba(61, 182, 255, 0.8);
+  /* scroll 樣式 -- Firefox Scrollbar  */
+  scrollbar-width: none;
+  scrollbar-color: rgba(173, 181, 189, 0.8) transparent;
+  /* scroll 樣式 -- chrome   */
+}
+@media (min-width: 576px) {
+  .section_publicize .publicize_bottom_inner .bulletin_list {
+    scrollbar-width: thin;
+  }
+}
+.section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar {
+  background-color: #ececec;
+  width: 0px;
+}
+@media (min-width: 768px) {
+  .section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar {
+    width: 5px;
+  }
+}
+@media (min-width: 992px) {
+  .section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+.section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0);
+  box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0);
+  background-color: #ececec;
+  border-radius: 5px;
+}
+.section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar-thumb {
+  background-color: rgba(61, 182, 255, 0.8);
+  border-radius: 5px;
+}
+.section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar-thumb:active, .section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar-thumb:hover {
+  background: #3DB6FF;
+}
+.section_publicize .bulletin-login {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+
+.bulletin_list .item {
   margin-bottom: 0.8rem;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -286,10 +345,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -ms-flexbox;
   display: flex;
 }
-.section_publicize .publicize_bottom_inner .bulletin_list .item:nth-child(5) ~ .item {
-  display: none;
-}
-.section_publicize .publicize_bottom_inner .bulletin_list .item:before {
+.bulletin_list .item:before {
   content: "";
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -299,7 +355,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   border-radius: 0.5px;
   background-color: #008fd1;
 }
-.section_publicize .publicize_bottom_inner .bulletin_list .item .date {
+.bulletin_list .item .date {
   font-weight: 600;
   margin-left: 0.5rem;
   margin-right: 1rem;
@@ -308,7 +364,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
-.section_publicize .publicize_bottom_inner .bulletin_list .item .info {
+.bulletin_list .item .info {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -317,14 +373,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  cursor: pointer;
 }
-.section_publicize .publicize_bottom_inner .bulletin_list .item .info:hover {
+.bulletin_list .item .info:hover {
   color: #008fd1;
-}
-.section_publicize .bulletin-login {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 100%;
-          flex: 0 0 100%;
 }
 
 .way-payment-wrapper {

@@ -1204,7 +1204,7 @@
                         <div class="publicize-wrap bulletin-login">
                             <div class="item bulletin">                                
                                 <div class="bulletin_inner">
-                                    <div class="sec-title-container">
+                                    <div class="sec-title-container" data-toggle="modal" data-target="#popupBulletinList">
                                         <div class="sec-title-wrapper">
                                             <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
                                         </div>
@@ -1288,7 +1288,7 @@
             <!-- <div> -->
             <li class="item">
                 <span class="date CreateDate"></span>
-                <span class="info BulletinTitle" style="cursor: pointer"></span>
+                <span class="info BulletinTitle"></span>
             </li>
             <!-- </div> -->
         </div>
@@ -1458,6 +1458,39 @@
                     <img src="images/Q_A.svg">
                 </div>
             </a>
+        </div>
+    </div>
+
+    <!-- 最新公告-總列表 -->
+    <div class="modal fade no-footer popupBulletinList" id="popupBulletinList" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">                    
+                    <h5 class="alert_Title language_replace">最新公告</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="-wrapper">
+                        <ul class="bulletin_list" id="">
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
