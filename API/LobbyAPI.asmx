@@ -815,7 +815,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
             if (week > 4) {
                 start = currentTime.AddDays(5 - week);        //這禮拜5
-                end = currentTime;
+                end = currentTime.AddDays(4 - week + 7);
             } else {
                 start = currentTime.AddDays(5 - week - 7); //上禮拜5
                 end = currentTime.AddDays(4 - week);  //這禮拜4
