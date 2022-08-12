@@ -1066,7 +1066,6 @@
             </section>
         </div>
     </main>
-    <footer class="footer"></footer>
 
     <!-- 存款 -->
     <div id="tmpPayment_D" style="display: none">
