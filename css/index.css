@@ -335,6 +335,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
 }
+.section_publicize .bulletin-login .btn-more {
+  font-size: 0.8125rem;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: 300;
+  color: #009FE8 !important;
+}
+.section_publicize .bulletin-login .btn-more:hover {
+  background-color: #009FE8;
+  color: #fff !important;
+}
 
 .bulletin_list .item {
   margin-bottom: 0.8rem;

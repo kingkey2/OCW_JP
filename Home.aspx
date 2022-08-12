@@ -1204,10 +1204,11 @@
                         <div class="publicize-wrap bulletin-login">
                             <div class="item bulletin">                                
                                 <div class="bulletin_inner">
-                                    <div class="sec-title-container" data-toggle="modal" data-target="#popupBulletinList">
+                                    <div class="sec-title-container sec-col-2" data-toggle="modal" data-target="#popupBulletinList">
                                         <div class="sec-title-wrapper">
                                             <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
                                         </div>
+                                        <span class="btn btn-more btn-outline-main language_replace ">查看更多</span>
                                     </div>
                                     <ul class="bulletin_list" id="idBulletinBoardContent">
                                     </ul>
