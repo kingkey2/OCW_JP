@@ -284,7 +284,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .section_publicize .publicize_bottom_inner .bulletin_list {
   overflow-y: auto;
-  height: 11.5rem;
+  height: 12.25rem;
   /* scroll 樣式 -- IE，Edge不適用   */
   scrollbar-face-color: rgba(61, 182, 255, 0.8);
   scrollbar-arrow-color: #444;
@@ -305,7 +305,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar {
   background-color: #ececec;
-  width: 0px;
+  width: 3px;
 }
 @media (min-width: 768px) {
   .section_publicize .publicize_bottom_inner .bulletin_list::-webkit-scrollbar {
