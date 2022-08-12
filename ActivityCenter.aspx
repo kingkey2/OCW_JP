@@ -169,7 +169,7 @@
                 default:
                     break;
             }
-           
+
         }
     }
 
@@ -419,7 +419,7 @@
                 </div>
                 <div class="modal-body">
                     <article class="activity-popup-detail-wrapper">
-                        <div class="activity-popup-detail-inner">
+                        <div class="activity-popup-detail-inner" >
                         </div>
                     </article>
                 </div>
