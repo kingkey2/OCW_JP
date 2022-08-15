@@ -443,52 +443,52 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 712px) {
   .way-payment-inner {
-    height: 169.1428571429px;
+    height: 172px;
   }
 }
 @media (min-width: 768px) {
   .way-payment-inner {
-    height: 169.1428571429px;
+    height: 172px;
   }
 }
 @media (min-width: 936px) {
   .way-payment-inner {
-    height: 217.1428571429px;
+    height: 220px;
   }
 }
 @media (min-width: 992px) {
   .way-payment-inner {
-    height: 233.1428571429px;
+    height: 236px;
   }
 }
 @media (min-width: 1144px) {
   .way-payment-inner {
-    height: 276.5714285714px;
+    height: 279.4285714286px;
   }
 }
 @media (min-width: 1200px) {
   .way-payment-inner {
-    height: 292.5714285714px;
+    height: 295.4285714286px;
   }
 }
 @media (min-width: 1384px) {
   .way-payment-inner {
-    height: 345.1428571429px;
+    height: 348px;
   }
 }
 @media (min-width: 1440px) {
   .way-payment-inner {
-    height: 361.1428571429px;
+    height: 364px;
   }
 }
 @media (min-width: 1544px) {
   .way-payment-inner {
-    height: 390.8571428571px;
+    height: 393.7142857143px;
   }
 }
 @media (min-width: 1600px) {
   .way-payment-inner {
-    height: 406.8571428571px;
+    height: 409.7142857143px;
   }
 }
 @media (min-width: 1864px) {
@@ -560,52 +560,52 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 @media (min-width: 712px) {
   .way-payment-detail .title {
-    font-size: 38.0571428571px;
+    font-size: 38.7px;
   }
 }
 @media (min-width: 768px) {
   .way-payment-detail .title {
-    font-size: 38.0571428571px;
+    font-size: 38.7px;
   }
 }
 @media (min-width: 936px) {
   .way-payment-detail .title {
-    font-size: 48.8571428571px;
+    font-size: 49.5px;
   }
 }
 @media (min-width: 992px) {
   .way-payment-detail .title {
-    font-size: 52.4571428571px;
+    font-size: 53.1px;
   }
 }
 @media (min-width: 1144px) {
   .way-payment-detail .title {
-    font-size: 62.2285714286px;
+    font-size: 62.8714285714px;
   }
 }
 @media (min-width: 1200px) {
   .way-payment-detail .title {
-    font-size: 65.8285714286px;
+    font-size: 66.4714285714px;
   }
 }
 @media (min-width: 1384px) {
   .way-payment-detail .title {
-    font-size: 77.6571428571px;
+    font-size: 78.3px;
   }
 }
 @media (min-width: 1440px) {
   .way-payment-detail .title {
-    font-size: 81.2571428571px;
+    font-size: 81.9px;
   }
 }
 @media (min-width: 1544px) {
   .way-payment-detail .title {
-    font-size: 87.9428571429px;
+    font-size: 88.5857142857px;
   }
 }
 @media (min-width: 1600px) {
   .way-payment-detail .title {
-    font-size: 91.5428571429px;
+    font-size: 92.1857142857px;
   }
 }
 @media (min-width: 1864px) {

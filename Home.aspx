@@ -1077,7 +1077,7 @@
             <div class="swiper hero_slider swiper-container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">                    
                     <div class="swiper-slide">
-                        <div class="hero-item" >
+                        <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
@@ -1159,8 +1159,46 @@
                </div>
            </div>
         </section>
-        <!--  -->
+         <!-- 推薦遊戲 -->
+         <section class="section_recommand section-wrap">
+            <div class="container">
+                <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
+                    </div>
+                    <%--
+                    <a class="text-link" href="casino.html">
+                        <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
+                    </a>
+                    --%>
+                </div>
+                <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
+                </div>
+            </div>
+        </section>
 
+        <!-- 大廳入口 + 自定義分類 + 活動中心-->
+        <div class="TEST">
+            <div class="container">
+                <section class="section-lobbyEntrance section-wrap">
+                    <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
+                        <img src="images/index/lobby-entrance.jpg" alt="">
+                    </div>
+                </section>
+                <!-- 自定義分類 -->
+                <section class="game-area section-wrap  overflow-hidden">
+                <div class="" id="gameAreas"></div>
+                </section>  
+                <section class="section-ActivityEntrance section-wrap">
+                    <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
+                        <img src="images/index/lobby-entrance.jpg" alt="">
+                    </div>
+                </section>
+            </div>
+        </div>
+             
+        
+        
         <section class="section_publicize section-wrap">
             <div class="container">
                 <%--
@@ -1175,7 +1213,7 @@
                     </div>
                 </div>
                 --%>
-                
+                <!-- 入出金說明 + 最新公告 + 會員簽到進度顯示 -->
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
                         <!-- 入出金說明 -->
@@ -1202,18 +1240,6 @@
                         </div>
                         <!-- 最新公告 + 會員簽到進度顯示-->
                         <div class="publicize-wrap bulletin-login">
-                            <div class="item bulletin">                                
-                                <div class="bulletin_inner">
-                                    <div class="sec-title-container sec-col-2" data-toggle="modal" data-target="#popupBulletinList">
-                                        <div class="sec-title-wrapper">
-                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
-                                        </div>
-                                        <span class="btn btn-more btn-outline-main language_replace ">查看更多</span>
-                                    </div>
-                                    <ul class="bulletin_list" id="idBulletinBoardContent">
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
                                 <div class="activity-dailylogin-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
@@ -1257,30 +1283,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="item bulletin">                                
+                                <div class="bulletin_inner">
+                                    <div class="sec-title-container sec-col-2" data-toggle="modal" data-target="#popupBulletinList">
+                                        <div class="sec-title-wrapper">
+                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
+                                        </div>
+                                        <span class="btn btn-more btn-outline-main language_replace ">查看更多</span>
+                                    </div>
+                                    <ul class="bulletin_list" id="idBulletinBoardContent">
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- 推薦遊戲 -->
-        <section class="section_recommand section-wrap">
-            <div class="container">
-                <div class="sec-title-container">
-                    <div class="sec-title-wrapper">
-                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
-                    </div>
-                    <%--
-                    <a class="text-link" href="casino.html">
-                        <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
-                    </a>
-                    --%>
-                </div>
-                <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
-                </div>
-            </div>
-        </section>
-        <section class="game-area section-wrap  overflow-hidden">
-            <div class="container" id="gameAreas"></div>
         </section>
     </main>
 
