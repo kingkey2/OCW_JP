@@ -166,6 +166,11 @@
                 case 7:
                     window.open(url);
                     break;
+                case 8:
+                $('#ModalNERT .activity-popup-detail-inner').load(url, function () {
+                    $('#ModalNERT').modal('show');
+                });
+                break;    
                 default:
                     break;
             }
@@ -197,6 +202,10 @@
             case 6:
                 $('#Modalbng2').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory("BNG", "Slot");
+                break;
+            case 8:
+                $('#ModalNERT').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Slot");
                 break;
         }
     }
@@ -237,7 +246,7 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/event/ne-rt/08222022/index-jp.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(8,'/Activity/event/ne-rt/08222022/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -534,6 +543,28 @@
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide language_replace" disabled>參加活動</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade footer-center" id="ModalNERT" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace">TEST</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(8)">前往遊玩</button>
                 </div>
             </div>
         </div>
