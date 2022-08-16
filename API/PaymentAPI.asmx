@@ -191,7 +191,6 @@ public class PaymentAPI : System.Web.Services.WebService
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData PaymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
 
-
         RedisCache.SessionContext.SIDInfo SI;
         string PaymentMethodName;
         string PaymentCode;
@@ -1047,6 +1046,9 @@ public class PaymentAPI : System.Web.Services.WebService
         string ReceiveCurrencyType;
         string Decription = "";
         dynamic o = null;
+        decimal JPYRate=0;
+        System.Data.DataTable DT;
+        EWin.Payment.PaymentDetailInheritsBase[] p;
         //一般入金與JKC入金
         string Type;
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
@@ -1116,8 +1118,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                 BonusRate = activityDepositResult.Data.BonusRate,
                                 BonusValue = activityDepositResult.Data.BonusValue,
                                 ThresholdRate = activityDepositResult.Data.ThresholdRate,
-                                ThresholdValue = activityDepositResult.Data.ThresholdValue
-                                ,
+                                ThresholdValue = activityDepositResult.Data.ThresholdValue,
                                 JoinActivityCycle = activityDepositResult.Data.JoinActivityCycle == null ? "1" : activityDepositResult.Data.JoinActivityCycle,
                                 CollectAreaType = activityDepositResult.Data.CollectAreaType == null ? "1" : activityDepositResult.Data.CollectAreaType
                             };
@@ -1144,8 +1145,75 @@ public class PaymentAPI : System.Web.Services.WebService
 
                     EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
                     EWin.Payment.PaymentResult paymentResult;
+                    List<EWin.Payment.PaymentDetailBankCard> paymentDetailBankCards = new List<EWin.Payment.PaymentDetailBankCard>();
+                    List<EWin.Payment.PaymentDetailWallet> paymentDetailWallets = new List<EWin.Payment.PaymentDetailWallet>();
+                    EWin.Payment.PaymentDetailBankCard paymentDetailBankCard = new EWin.Payment.PaymentDetailBankCard()
+                    {
+                        DetailType = EWin.Payment.enumDetailType.Bankcard,
+                        Status = EWin.Payment.enumBankCardStatus.None,
+                        BankCardType = EWin.Payment.enumBankCardType.UserAccountBankCard,
+                        BankCode = "",
+                        BankName = "",
+                        BranchName = "",
+                        BankNumber = "",
+                        AccountName = "",
+                        AmountMax = 9999999999,
+                        BankCardGUID = Guid.NewGuid().ToString("N"),
+                        Description = "",
+                        CashAmount = 0,
+                        TaxFeeValue = 0
+                        //TaxFeeValue = (TempCryptoData.Amount*ProviderHandingFeeRate)+ProviderHandingFeeAmount
+                    };
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
+                    if (Type == "EPayJKC")
+                    {
+                        DT = RedisCache.PaymentMethod.GetPaymentMethodByCategory("EPAYJKC");
+                        var MultiCurrencyInfo = (string)DT.Select("PaymentCategoryCode='" + "EPAYJKC" + "'")[0]["MultiCurrencyInfo"];
+                        Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
+                        for (int i = 0; i < MultiCurrency.Count; i++)
+                        {
+                            if ((string)MultiCurrency[i]["Currency"] == "JPY")
+                            {
+                                JPYRate = (decimal)MultiCurrency[i]["Rate"];
+                            }
+                        }
+                        paymentDetailBankCard.CashAmount = JPYRate * TempCommonData.Amount;
+                        paymentDetailBankCard.TaxFeeValue = (JPYRate * TempCommonData.Amount) * TempCommonData.ProviderHandingFeeRate;
+                        p = new EWin.Payment.PaymentDetailInheritsBase[2];
+
+                        for (int i = 0; i < TempCommonData.PaymentCryptoDetailList.Count; i++)
+                        {
+                            if (TempCommonData.PaymentCryptoDetailList[i].TokenCurrencyType == "JKC")
+                            {
+                                EWin.Payment.PaymentDetailWallet paymentDetailWallet = new EWin.Payment.PaymentDetailWallet()
+                                {
+                                    DetailType = EWin.Payment.enumDetailType.BitCoinWallet,
+                                    WalletType = (EWin.Payment.enumWalletType)TempCommonData.WalletType,
+                                    Status = EWin.Payment.enumDetailWalletStatus.DetailCreated,
+                                    ToWalletAddress = "",
+                                    TokenName = TempCommonData.PaymentCryptoDetailList[i].TokenCurrencyType,
+                                    TokenContractAddress = TempCommonData.PaymentCryptoDetailList[i].TokenContractAddress,
+                                    TokenAmount = TempCommonData.PaymentCryptoDetailList[i].ReceiveAmount
+                                };
+                                p[0] = paymentDetailWallet;
+                            }
+
+                        }
+
+                        p[1] = paymentDetailBankCard;
+                    }
+                    else
+                    {
+                        paymentDetailBankCard.CashAmount = TempCommonData.Amount;
+                        paymentDetailBankCard.TaxFeeValue = TempCommonData.Amount * TempCommonData.ProviderHandingFeeRate;
+
+                        p = new EWin.Payment.PaymentDetailInheritsBase[1];
+                        p[0] = paymentDetailBankCard;
+
+
+                    }
+
+                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, p);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -1370,8 +1438,7 @@ public class PaymentAPI : System.Web.Services.WebService
     public PaymentCommonResult CreateEPayJKCDeposit(string WebSID, string GUID, decimal Amount, int PaymentMethodID, string DepositName)
     {
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
-        PaymentCommonData paymentCommonData = new PaymentCommonData() { };
-
+        PaymentCommonData paymentCommonData = new PaymentCommonData() { PaymentCryptoDetailList = new List<CryptoDetail>() };
         RedisCache.SessionContext.SIDInfo SI;
         string PaymentMethodName;
         string PaymentCode;
@@ -1427,7 +1494,6 @@ public class PaymentAPI : System.Web.Services.WebService
                                     if (!string.IsNullOrEmpty(MultiCurrencyInfo))
                                     {
                                         Newtonsoft.Json.Linq.JArray MultiCurrency = Newtonsoft.Json.Linq.JArray.Parse(MultiCurrencyInfo);
-                                        paymentCommonData.PaymentCryptoDetailList = new List<CryptoDetail>();
                                         foreach (var item in MultiCurrency)
                                         {
                                             string TokenCurrency;
@@ -1438,7 +1504,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                                 DecimalPlaces = 2;
                                             }
                                             TokenCurrency = item["Currency"].ToString();
-                                            ExchangeRate = 0;
+                                            ExchangeRate = 1;
 
                                             PartialRate = (decimal)item["Rate"];
 
@@ -1454,7 +1520,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                                     if (jo.TryGetValue("price", out JToken))
                                                     {
                                                         JKCRate = 1 / (decimal.Parse(JToken.ToString()) / 3000);
-
+                                                        ExchangeRate = JKCRate;
                                                         JKCDepositAmount = decimal.Round(PartialRate * Amount * JKCRate, 2);
 
                                                     }
@@ -1553,6 +1619,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                         paymentCommonData.ThresholdRate = ThresholdRate;
                                         paymentCommonData.ThresholdValue = Amount * ThresholdRate;
                                         paymentCommonData.ToInfo = DepositName;
+                                        paymentCommonData.ProviderHandingFeeRate=(decimal)PaymentMethodDT.Rows[0]["ProviderHandingFeeRate"];
+                                        paymentCommonData.ProviderHandingFeeAmount=(int)PaymentMethodDT.Rows[0]["ProviderHandingFeeAmount"];
                                         paymentCommonData.FromInfo = "";
                                         paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
 
@@ -1722,6 +1790,8 @@ public class PaymentAPI : System.Web.Services.WebService
                                     paymentCommonData.ThresholdRate = ThresholdRate;
                                     paymentCommonData.ThresholdValue = Amount * ThresholdRate;
                                     paymentCommonData.ToInfo = DepositName;
+                                    paymentCommonData.ProviderHandingFeeRate=(decimal)PaymentMethodDT.Rows[0]["ProviderHandingFeeRate"];
+                                    paymentCommonData.ProviderHandingFeeAmount=(int)PaymentMethodDT.Rows[0]["ProviderHandingFeeAmount"];
                                     paymentCommonData.FromInfo = "";
                                     paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
 

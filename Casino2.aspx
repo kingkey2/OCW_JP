@@ -134,12 +134,21 @@
         }
     ];
 
+    var pages_docHeight = [];
+
     function showSearchGameModel() {
         window.parent.API_ShowSearchGameModel();
     }
 
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
+    }
+
+    function findLastIndex(array, searchKey, searchValue) {
+        var index = array.slice().reverse().findIndex(x => x[searchKey] === searchValue);
+        var count = array.length - 1
+        var finalIndex = index >= 0 ? count - index : index;
+        return finalIndex;
     }
 
     function selGameCategory(categoryCode, doc) {
@@ -304,9 +313,40 @@
                 var addContainStart = false;
                 var addContainMiddle = false;
                 var addContainEnd = false;
+                var docs = {
+                    "Name": categoryName,
+                    "Datas":[]
+                };
+                var doc = {};
+                var heights = 0;
+                //最上方滑動banner
+                doc = {};
+                doc.Type = "Top banner";
+                doc.heights = heights;
+                doc.height = $('.section-slider_lobby.hero').outerHeight(true);
+                docs.Datas.push(doc);
+                heights = FloatAdd(heights, $('.section-slider_lobby.hero').outerHeight(true));
+
+              
+                //分類切換按鈕
+                doc = {};
+                doc.Type = "tab game";
+                doc.heights = heights;
+                doc.height = $('.tab-game').outerHeight(true);
+                docs.Datas.push(doc);
+                heights = FloatAdd(heights, $('.tab-game').outerHeight(true));
+                //單一遊戲分類
+                doc = {};
+                doc.Type = "one game banner";
+                doc.heights = heights;
+                doc.height = 394;
+                docs.Datas.push(doc);
+                heights = FloatAdd(heights, 394);
+
                 for (var i = 0; i < lobbyGame.Categories.length; i++) {
                     category = lobbyGame.Categories[i];
                     if (category) {
+               
                         var showType = category.ShowType;
                         var game_wrapper = "";
                         if (category.Datas.length > 0) {
@@ -317,6 +357,8 @@
                             category.Datas = category.Datas.sort(function (a, b) {
                                 return b.SortIndex - a.SortIndex;
                             });
+
+
 
                             for (var ii = 0; ii < category.Datas.length; ii++) {
                                 var o = category.Datas[ii];
@@ -346,22 +388,64 @@
 
                             if (showType == 0) {
                                 if (!addContainStart) {
+                                    doc = {};
+                                    doc.Type = "container Top";
+                                    doc.heights = heights;
+                                    doc.height = 25;
+                                    //分類高度+container margin-top
+                                    docs.Datas.push(doc);
+                                    heights = FloatAdd(heights, 25);
                                     addContainStart = true;
                                     addContainEnd = false;
                                 }
 
+                                doc = {};
+                                doc.Type = "0";
+                                doc.heights = heights;
+                                doc.height = 315.812;
+                                docs.Datas.push(doc);
+                                heights = FloatAdd(heights, 315.812);
                                 game_wrapper = '<div class="game_wrapper">';
                             } else if (showType == 1) {
                                 if (!addContainStart) {
+                                    doc = {};
+                                    doc.Type = "container Top";
+                                    doc.heights = heights;
+                                    doc.height = 25;
+                                    docs.Datas.push(doc);
+                                    heights += 25;
+
                                     addContainStart = true;
                                     addContainEnd = false;
                                 }
+                                doc = {};
+                                doc.Type = "1";
+                                doc.heights = heights;
+                                doc.height = 281.812;
+                                docs.Datas.push(doc);
+                                heights = FloatAdd(heights, 281.812);
                                 game_wrapper = '<div class="game_wrapper">';
                             } else if (showType == 2) {
                                 addContainEnd = true;
+                                if (addContainEnd) {
+                                    doc = {};
+                                    doc.Type = "container button";
+                                    doc.heights = heights;
+                                    doc.height = 100;
+                                    docs.Datas.push(doc);
+                                    heights = FloatAdd(heights, 100);
+                                }
+
+                                doc = {};
+                                doc.Type = "2";
+                                doc.heights = heights;
+                                doc.height = 428;
+                                docs.Datas.push(doc);
+                                heights = FloatAdd(heights, 428);
                                 addContainStart = false;
                                 addContainMiddle = false;
                             }
+
                             if (showType == 0) {
                                 if (Location == "GameList_Brand") {
                                     categArea = `<section class="section-wrap section-levelUp">
@@ -478,13 +562,19 @@
                                     categAreas += categArea;
                                 }
                             }
-
-
-
                         }
                     }
                 }
+                if (docs.Datas[docs.Datas.length-1].height<350) {
+                    doc = {};
+                    doc.Type = "container button";
+                    doc.heights = heights;
+                    doc.height = 100;
+                    docs.Datas.push(doc);
+                    heights = FloatAdd(heights, 100);
+                }
 
+                pages_docHeight.push(docs);
                 var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="display:none;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
@@ -1062,19 +1152,36 @@
 
     }
 
-    function testscroll() {
-        //上方滑動視窗
-        $('.section-slider_lobby.hero').outerHeight(true);
-        //選擇分類視窗
-        $('.tab-game').outerHeight(true);
-        //底下廠牌介紹
-        $('.footer-container').outerHeight(true);
-        //一般版型
-        $('.section-wrap.section-levelUp').eq(0).outerHeight(true);
+    $(window).scroll(function () {
+        var windowHeight = $(window).height();
+        var scrollY = $('.innerHtml').scrollTop();
 
-        $('.gameRanking').eq(0).outerHeight(true);
-        $('.section_randomRem').eq(0).outerHeight(true);
-    }
+        if (pages_docHeight) {
+            for (var i = 0; i < pages_docHeight[0].Datas.length; i++) {
+                var data = pages_docHeight[0].Datas[i];
+             
+                if (scrollY <= data.heights && data.heights <= (windowHeight + scrollY)) {
+                    pages_docHeight[0].Datas[i].showType = 0;
+                } else {
+                    pages_docHeight[0].Datas[i].showType = 1;
+                }
+            }
+
+            var firstIndex = pages_docHeight[0].Datas.findIndex(function (o) {
+                return o.showType == 0;
+            });
+            var lastIndex = findLastIndex(pages_docHeight[0].Datas, "showType", 0);
+         
+            if (firstIndex != -1 && (firstIndex-1>=0)) {
+                pages_docHeight[0].Datas[firstIndex-1].showType = 0;
+            }
+
+            if (lastIndex != -1 && (lastIndex + 1 <= pages_docHeight[0].Datas.length-1)) {
+                pages_docHeight[0].Datas[lastIndex + 1].showType = 0;
+            }
+        }
+         
+    });
 
     function init() {
         if (self == top) {
@@ -1113,30 +1220,22 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
-
-                //console.log("getCompanyGameCode start", new Date().toISOString());
                 getCompanyGameCode();
-                //console.log("getCompanyGameCode end", new Date().toISOString());
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
                 });
             }
-
-
         });
     }
 
     function getCompanyGameCode() {
-        //console.log("GetCompanyGameCodeThree start", new Date().toISOString());
         p.GetCompanyGameCodeThree(Math.uuid(), "GameList", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.LobbyGameList.length > 0) {
                         LobbyGameList = o.LobbyGameList;
-                        //console.log("updateGameCode start", new Date().toISOString());
                         updateGameCode();
-                        //console.log("updateGameCode end", new Date().toISOString());
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                             window.parent.location.href = "index.aspx";
@@ -1205,8 +1304,43 @@
         }
     }
 
-    window.onload = init;
+    // 浮點數相加
+    function FloatAdd(arg1, arg2) {
+        var r1, r2, m;
+        try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+        try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
+        m = Math.pow(10, Math.max(r1, r2));
+        return (FloatMul(arg1, m) + FloatMul(arg2, m)) / m;
+    }
+    // 浮點數相減
+    function FloatSubtraction(arg1, arg2) {
+        var r1, r2, m, n;
+        try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+        try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+        m = Math.pow(10, Math.max(r1, r2));
+        n = (r1 >= r2) ? r1 : r2;
+        return ((arg1 * m - arg2 * m) / m).toFixed(n);
+    }
+    // 浮點數相乘
+    function FloatMul(arg1, arg2) {
+        var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+        try { m += s1.split(".")[1].length; } catch (e) { }
+        try { m += s2.split(".")[1].length; } catch (e) { }
+        return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+    }
+    // 浮點數相除
+    function FloatDiv(arg1, arg2) {
+        var t1 = 0, t2 = 0, r1, r2;
+        try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
+        try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+        with (Math) {
+            r1 = Number(arg1.toString().replace(".", ""))
+            r2 = Number(arg2.toString().replace(".", ""))
+            return (r1 / r2) * pow(10, t2 - t1);
+        }
+    }
 
+    window.onload = init;
 
 </script>
 
@@ -1215,19 +1349,6 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    <!-- <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=6')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/bng/bng2207/img/gameroom-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/bng/bng2207/img/gameroom-l.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')"></a>
@@ -1297,7 +1418,7 @@
                 <div class="swiper-pagination"></div>
             </div>
         </section>
-        <div class="tab-game">
+        <div class="tab-game" style="position:initial !important;">
             <div class="tab-inner">
                 <div class="tab-search" onclick="showSearchGameModel()">
                     <img src="images/icon/ico-search-dog-tt.svg" alt=""><span class="title language_replace">找遊戲</span>
