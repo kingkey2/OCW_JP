@@ -1260,8 +1260,13 @@
                                     <div class="dailylogin-bouns-wrapper">
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
-                                                <h3 class="title">
-                                                    <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                <div class="sec-title">
+                                                    <h3 class="title">
+                                                        <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                        <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                            <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
+                                                </div>
+                                                
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item">
