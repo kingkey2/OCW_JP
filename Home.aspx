@@ -1227,12 +1227,7 @@
                     <div class="publicize_bottom_inner">
                         <!-- 入出金說明 -->
                         <div class="publicize-wrap way-payment-wrapper">
-                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
-                                <%--
-                                <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
-                                <img src="images/index/way-payment.png" class="desktop" alt="">
-                                --%>
-                                
+                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('record','Article/guide_CashQa_jp.html', true)">
                                 <div class="way-payment-img">
                                     <div class="img-crop">
                                         <img src="images/theme/girl-half.png" class="mobile" alt="">

@@ -2025,8 +2025,10 @@
                     </div>
                 </div>
                 <div class="container-fluid navbar__content">
-                    <!--MENU BUTTON -->
+                    <!--MENU BUTTON -->                    
                     <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                         <!-- 通知小紅點-手機版時加入 -->
+                        <span class="notify-dot"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -2065,7 +2067,10 @@
                                             <span class="title language_replace">活動中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
+
                                         <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                            <!-- 通知小紅點 -->
+                                            <span class="notify-dot"></span>
                                             <i class="icon icon-mask icon-prize"></i>
                                             <span class="title language_replace">領獎中心</span></a>
                                     </li>
@@ -2086,7 +2091,7 @@
                                     </li>
                                     <li class="nav-item submenu dropdown" onclick="API_ShowContactUs()">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-word"></i>
+                                            <i class="icon icon-mask icon-line"></i>
                                             <span class="title language_replace">聯絡客服</span></a>
                                     </li>
                                 </ul>
@@ -2183,8 +2188,8 @@
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
-                                                            <!-- 未完成存款訂單小紅點 -->
-                                                            <%--<span class="notify"><span class="notify-dot"></span></span>--%>
+                                                            <!-- 未完成存款訂單-通知小紅點 -->
+                                                            <%--<span class="notify-dot"></span>--%>
                                                             <img src="images/ico/coin-Ocoin.png" alt="">
                                                         </span>
                                                         <span class="balance-info">
