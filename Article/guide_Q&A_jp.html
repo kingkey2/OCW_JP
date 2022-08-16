@@ -37,6 +37,10 @@
         /**
 * Script to toggle and enable search
 */
+        if (self != top) {
+            window.parent.API_LoadingStart();
+        }
+
         (function () {
 
             document.addEventListener("DOMContentLoaded", init);
@@ -45,6 +49,7 @@
              * Initiate script
              */
             function init() {
+                window.parent.API_LoadingEnd();
                 //if (document.URL.includes('WithdrawQ&A')) {
                 //    $('#nav-PopularArticles-tab').trigger("click");
                 //    $('#withdrawQA').trigger("click");
@@ -86,6 +91,7 @@
              * Initiate script
              */
             function init() {
+                window.parent.API_LoadingEnd();
 
                 elems['buttons'] = document.getElementsByClassName("showmore");
 
@@ -157,6 +163,7 @@
             document.addEventListener("DOMContentLoaded", init);
 
             function init() {
+                window.parent.API_LoadingEnd();
 
                 elems['sticky'] = document.getElementById("sticky");
                 elems['breakpoint'] = document.getElementById("stickyBreakpoint");
@@ -208,6 +215,7 @@
                 // Add listeners
                 checkPassiveSupport();
                 window.addEventListener("scroll", sticky, passiveSupport ? { passive: true } : false);
+
             }
 
             /**
@@ -1081,7 +1089,7 @@
             </div>
         </section>
     </div>
-    <footer class="footer_area footer overflow-hidden"></footer>
+
     <div class="float_SideBar">
 
         <div class="customer-service" onclick="window.parent.showContactUs()" style="display: none;">
@@ -1109,7 +1117,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
-    <script src='js/main.js'></script>
+    <!--<script src='js/main.js'></script>-->
     <script>
         function getCookie(name) {
             var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');

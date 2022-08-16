@@ -1077,7 +1077,7 @@
             <div class="swiper hero_slider swiper-container round-arrow" id="hero-slider">
                 <div class="swiper-wrapper">                    
                     <div class="swiper-slide">
-                        <div class="hero-item" >
+                        <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
@@ -1159,10 +1159,57 @@
                </div>
            </div>
         </section>
-        <!--  -->
 
+         <!-- 推薦遊戲 -->
+         <section class="section_recommand section-wrap">
+            <div class="container">
+                <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
+                    </div>
+                    <%--
+                    <a class="text-link" href="casino.html">
+                        <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
+                    </a>
+                    --%>
+                </div>
+                <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
+                </div>
+            </div>
+        </section>
+
+        <!-- 遊戲大廳入口 + 自定義分類 + 活動中心-->
+        <div class="entrance_Game_wrapper">
+            <div class="entrance_Game_inner container">
+                <!-- 遊戲大廳入口 -->
+                <section class="section-lobbyEntrance section-wrap">
+                    <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
+                        <img src="images/index/lobby-entrance.jpg" alt="">
+                    </div>
+                </section>
+                <!-- 自定義分類 -->
+                <section class="game-area section-wrap overflow-hidden">
+                   <div class="" id="gameAreas"></div>
+                </section>  
+
+                 <!-- 活動中心 -->
+                 <section class="section-activityCenter section-wrap">
+                    <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                        <div class="activity-center-inner">
+                            <div class="activity-center-content">
+                                <div class="title language_replace">活動中心</div>
+                                <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
+                            </div>
+                        </div>
+                    </div>
+                 </section>                
+            </div>
+        </div>
+        
+        
         <section class="section_publicize section-wrap">
             <div class="container">
+                <!-- writer + vTuber -->
                 <%--
                 <div class="publicize_wrapper publicize_top">
                     <div class="publicize_top_inner">
@@ -1175,17 +1222,12 @@
                     </div>
                 </div>
                 --%>
-                
+                <!-- 入出金說明 + 最新公告 + 會員簽到進度顯示 -->
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
                         <!-- 入出金說明 -->
                         <div class="publicize-wrap way-payment-wrapper">
-                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
-                                <%--
-                                <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
-                                <img src="images/index/way-payment.png" class="desktop" alt="">
-                                --%>
-                                
+                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('record','Article/guide_CashQa_jp.html', true)">
                                 <div class="way-payment-img">
                                     <div class="img-crop">
                                         <img src="images/theme/girl-half.png" class="mobile" alt="">
@@ -1202,17 +1244,6 @@
                         </div>
                         <!-- 最新公告 + 會員簽到進度顯示-->
                         <div class="publicize-wrap bulletin-login">
-                            <div class="item bulletin">                                
-                                <div class="bulletin_inner">
-                                    <div class="sec-title-container">
-                                        <div class="sec-title-wrapper">
-                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
-                                        </div>
-                                    </div>
-                                    <ul class="bulletin_list" id="idBulletinBoardContent">
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
                                 <div class="activity-dailylogin-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
@@ -1224,8 +1255,13 @@
                                     <div class="dailylogin-bouns-wrapper">
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
-                                                <h3 class="title">
-                                                    <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                <div class="sec-title">
+                                                    <h3 class="title">
+                                                        <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                        <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                            <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
+                                                </div>
+                                                
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item">
@@ -1256,30 +1292,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="item bulletin">                                
+                                <div class="bulletin_inner">
+                                    <div class="sec-title-container sec-col-2" data-toggle="modal" data-target="#popupBulletinList">
+                                        <div class="sec-title-wrapper">
+                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
+                                        </div>
+                                        <span class="btn btn-more btn-outline-main language_replace ">查看更多</span>
+                                    </div>
+                                    <ul class="bulletin_list" id="idBulletinBoardContent">
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- 推薦遊戲 -->
-        <section class="section_recommand section-wrap">
-            <div class="container">
-                <div class="sec-title-container">
-                    <div class="sec-title-wrapper">
-                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
-                    </div>
-                    <%--
-                    <a class="text-link" href="casino.html">
-                        <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
-                    </a>
-                    --%>
-                </div>
-                <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
-                </div>
-            </div>
-        </section>
-        <section class="game-area section-wrap  overflow-hidden">
-            <div class="container" id="gameAreas"></div>
         </section>
     </main>
 
@@ -1288,7 +1316,7 @@
             <!-- <div> -->
             <li class="item">
                 <span class="date CreateDate"></span>
-                <span class="info BulletinTitle" style="cursor: pointer"></span>
+                <span class="info BulletinTitle"></span>
             </li>
             <!-- </div> -->
         </div>
@@ -1458,6 +1486,39 @@
                     <img src="images/Q_A.svg">
                 </div>
             </a>
+        </div>
+    </div>
+
+    <!-- 最新公告-總列表 -->
+    <div class="modal fade no-footer popupBulletinList" id="popupBulletinList" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">                    
+                    <h5 class="alert_Title language_replace">最新公告</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="-wrapper">
+                        <ul class="bulletin_list" id="">
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

@@ -721,7 +721,7 @@
             </div>
         </div>
     </main>
-    <footer class="footer"></footer>
+
     <!-- Modal - Game Info for Mobile Device-->
     <div class="modal fade no-footer popupGameInfo " id="popupGameInfo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">

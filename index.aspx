@@ -994,12 +994,12 @@
 
             if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
                 if (EWinWebInfo.DeviceType == 1) {
-                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                 } else {
-                    GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href);
+                    GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
             } else {
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
             }
         }
     }
@@ -2025,8 +2025,10 @@
                     </div>
                 </div>
                 <div class="container-fluid navbar__content">
-                    <!--MENU BUTTON -->
+                    <!--MENU BUTTON -->                    
                     <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                         <!-- 通知小紅點-手機版時加入 -->
+                        <span class="notify-dot"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -2065,7 +2067,10 @@
                                             <span class="title language_replace">活動中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
+
                                         <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                            <!-- 通知小紅點 -->
+                                            <span class="notify-dot"></span>
                                             <i class="icon icon-mask icon-prize"></i>
                                             <span class="title language_replace">領獎中心</span></a>
                                     </li>
@@ -2086,7 +2091,7 @@
                                     </li>
                                     <li class="nav-item submenu dropdown" onclick="API_ShowContactUs()">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-word"></i>
+                                            <i class="icon icon-mask icon-line"></i>
                                             <span class="title language_replace">聯絡客服</span></a>
                                     </li>
                                 </ul>
@@ -2183,8 +2188,8 @@
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
-                                                            <!-- 未完成存款訂單小紅點 -->
-                                                            <%--<span class="notify"><span class="notify-dot"></span></span>--%>
+                                                            <!-- 未完成存款訂單-通知小紅點 -->
+                                                            <%--<span class="notify-dot"></span>--%>
                                                             <img src="images/ico/coin-Ocoin.png" alt="">
                                                         </span>
                                                         <span class="balance-info">
@@ -2288,117 +2293,117 @@
                             <div class="row">
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-eWIN.png" alt="">
+                                        <img src="/images/logo/footer/logo-eWIN.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-microgaming.png" alt="">
+                                        <img src="/images/logo/footer/logo-microgaming.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-kgs.png" alt="">
+                                        <img src="/images/logo/footer/logo-kgs.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-bbin.png" alt="">
+                                        <img src="/images/logo/footer/logo-bbin.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-gmw.png" alt="">
+                                        <img src="/images/logo/footer/logo-gmw.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-cq9.png" alt="">
+                                        <img src="/images/logo/footer/logo-cq9.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-red-tiger.png" alt="">
+                                        <img src="/images/logo/footer/logo-red-tiger.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-evo.png" alt="">
+                                        <img src="/images/logo/footer/logo-evo.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-bco.png" alt="">
+                                        <img src="/images/logo/footer/logo-bco.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-cg.png" alt="">
+                                        <img src="/images/logo/footer/logo-cg.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-playngo.png" alt="">
+                                        <img src="/images/logo/footer/logo-playngo.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-pg.png" alt="">
+                                        <img src="/images/logo/footer/logo-pg.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-netent.png" alt="">
+                                        <img src="/images/logo/footer/logo-netent.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-kx.png" alt="">
+                                        <img src="/images/logo/footer/logo-kx.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-evops.png" alt="">
+                                        <img src="/images/logo/footer/logo-evops.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-bti.png" alt="">
+                                        <img src="/images/logo/footer/logo-bti.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-zeus.png" alt="">
+                                        <img src="/images/logo/footer/logo-zeus.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-biggaming.png" alt="">
+                                        <img src="/images/logo/footer/logo-biggaming.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-play.png" alt="">
+                                        <img src="/images/logo/footer/logo-play.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-h.png" alt="">
+                                        <img src="/images/logo/footer/logo-h.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-va.png" alt="">
+                                        <img src="/images/logo/footer/logo-va.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-pagcor.png" alt="">
+                                        <img src="/images/logo/footer/logo-pagcor.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-mishuha.png" alt="">
+                                        <img src="/images/logo/footer/logo-mishuha.png" alt="">
                                     </div>
                                 </div>
                             </div>
