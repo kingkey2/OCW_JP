@@ -275,7 +275,7 @@
     function API_SearchGameByBrand(gameBrand) {
         return SearchControll.searchGameByBrand(gameBrand);
     }
-
+    
     function API_GetPaymentAPI() {
         return paymentClient;
     }
@@ -1615,13 +1615,14 @@
                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                     lobbyClient.KeepSID(EWinWebInfo.SID, guid, function (success, o) {
                         if (success == true) {
-                            if (o.ResultCode == 0) {
+                            if (o.Result == 0) {
                                 needCheckLogin = true;
-                                LobbyClient.GetPromotionCollectAvailable(WebInfo.SID, Math.uuid(), function (success, o) {
-                                    if (success) {
-                                        if (o.Result == 0) {
-                                            if (o.CollectList.length > 0) {
+                                lobbyClient.GetPromotionCollectAvailable(WebInfo.SID, Math.uuid(), function (success2, o2) {
+                                    if (success2) {
+                                        if (o2.Result == 0) {
+                                            if (o2.CollectList.length > 0) {
                                                 if (EWinWebInfo.DeviceType == 0) {
+                                                    $('#navbar_toggler')
                                                     $('.PC-notify-dot').css('diplay:block');
                                                 } else {
                                                     $('.mobile-notify-dot').css('diplay:block');
