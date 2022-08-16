@@ -205,7 +205,7 @@
                 break;
             case 8:
                 $('#ModalNERT').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Slot");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory("NE", "Slot");                
                 break;
         }
     }
