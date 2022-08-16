@@ -1159,6 +1159,7 @@
                </div>
            </div>
         </section>
+
          <!-- 推薦遊戲 -->
          <section class="section_recommand section-wrap">
             <div class="container">
@@ -1177,30 +1178,38 @@
             </div>
         </section>
 
-        <!-- 大廳入口 + 自定義分類 + 活動中心-->
-        <div class="TEST">
-            <div class="container">
+        <!-- 遊戲大廳入口 + 自定義分類 + 活動中心-->
+        <div class="entrance_Game_wrapper">
+            <div class="entrance_Game_inner container">
+                <!-- 遊戲大廳入口 -->
                 <section class="section-lobbyEntrance section-wrap">
                     <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
                         <img src="images/index/lobby-entrance.jpg" alt="">
                     </div>
                 </section>
                 <!-- 自定義分類 -->
-                <section class="game-area section-wrap  overflow-hidden">
-                <div class="" id="gameAreas"></div>
+                <section class="game-area section-wrap overflow-hidden">
+                   <div class="" id="gameAreas"></div>
                 </section>  
-                <section class="section-ActivityEntrance section-wrap">
-                    <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
-                        <img src="images/index/lobby-entrance.jpg" alt="">
+
+                 <!-- 活動中心 -->
+                 <section class="section-activityCenter section-wrap">
+                    <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                        <div class="activity-center-inner">
+                            <div class="activity-center-content">
+                                <div class="title language_replace">活動中心</div>
+                                <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
+                            </div>
+                        </div>
                     </div>
-                </section>
+                 </section>                
             </div>
         </div>
-             
         
         
         <section class="section_publicize section-wrap">
             <div class="container">
+                <!-- writer + vTuber -->
                 <%--
                 <div class="publicize_wrapper publicize_top">
                     <div class="publicize_top_inner">

@@ -624,7 +624,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .section_recommand {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .recommend-list {
   margin-left: -10px;
@@ -635,6 +635,111 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .recommend-list .box-item-img {
   width: 120px;
+}
+
+.entrance_Game_wrapper {
+  position: relative;
+}
+.entrance_Game_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+.entrance_Game_inner .game-area {
+  width: 100%;
+}
+
+.section-lobbyEntrance {
+  width: 100%;
+  cursor: pointer;
+}
+.section-lobbyEntrance-wrapper {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.section-lobbyEntrance-wrapper img {
+  width: 100%;
+}
+
+.section-activityCenter {
+  width: 100%;
+}
+
+.activity-center-wrapper {
+  position: relative;
+}
+.activity-center-wrapper.lable-new .activity-center-inner::after {
+  content: "NEW";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  position: absolute;
+  top: -20px;
+  left: -60px;
+  width: 150px;
+  height: 75px;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  background-position: center center;
+  background: -webkit-gradient(linear, left top, right top, from(#A50000), to(#FF0000));
+  background: linear-gradient(90deg, #A50000 0%, #FF0000 100%);
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  color: #fff;
+  font-size: 1.25rem;
+  z-index: 1;
+}
+.activity-center-wrapper .title {
+  font-size: 1.625rem;
+  color: #fff;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+}
+.activity-center-wrapper .btn-activity-in {
+  background-color: #0081bb;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: bold;
+  border-radius: 30px;
+  width: 100%;
+}
+.activity-center-content {
+  position: absolute;
+  bottom: 10px;
+}
+.activity-center-inner {
+  background-image: url(../images/member/bg_activity.svg), -webkit-gradient(linear, left top, left bottom, from(#45C5FF), to(#005DE8));
+  background-image: url(../images/member/bg_activity.svg), linear-gradient(180deg, #45C5FF 0%, #005DE8 100%);
+  background-position: 100% 120%, center center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto 100px, auto;
+  cursor: pointer;
+  min-height: 120px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 10px;
+}
+.activity-center-inner::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/theme/bg_dog_white.png);
+  background-position: center center;
+  opacity: 0.3;
 }
 
 .activity-dailylogin-wrapper {
@@ -954,6 +1059,30 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .game_slider .swiper-slide {
     width: 18.1818181818%;
+  }
+}
+@media (min-width: 768px) {
+  .section-lobbyEntrance {
+    width: 50%;
+    -webkit-box-ordinal-group: -1;
+        -ms-flex-order: -2;
+            order: -2;
+    padding-right: 10px;
+  }
+
+  .section-activityCenter {
+    width: 50%;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+    padding-left: 10px;
+  }
+
+  .activity-center-wrapper {
+    height: 100%;
+  }
+  .activity-center-inner {
+    height: 100%;
   }
 }
 @media (min-width: 936px) {
