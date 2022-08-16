@@ -2047,7 +2047,7 @@
                     <!--MENU BUTTON -->                    
                     <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
                          <!-- 通知小紅點-手機版時加入 -->
-                        <span class="notify-dot mobile-notify-dot" style="display:none;"></span>
+                        <div class="notify-dot mobile-notify-dot" style="display:none;"></div>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
