@@ -1617,6 +1617,25 @@
                         if (success == true) {
                             if (o.ResultCode == 0) {
                                 needCheckLogin = true;
+                                LobbyClient.GetPromotionCollectAvailable(WebInfo.SID, Math.uuid(), function (success, o) {
+                                    if (success) {
+                                        if (o.Result == 0) {
+                                            if (o.CollectList.length > 0) {
+                                                if (EWinWebInfo.DeviceType == 0) {
+                                                    $('.PC-notify-dot').css('diplay:block');
+                                                } else {
+                                                    $('.mobile-notify-dot').css('diplay:block');
+                                                }
+                                            }
+                                        } else {
+                                            $('.PC-notify-dot').css('diplay:none');
+                                            $('.mobile-notify-dot').css('diplay:none');
+                                        }
+                                    } else {
+                                        $('.PC-notify-dot').css('diplay:none');
+                                        $('.mobile-notify-dot').css('diplay:none');
+                                    }
+                                });
                             } else {
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                                     lobbyClient.GetWebSiteMaintainStatus(function (success, o1) {
@@ -2028,7 +2047,7 @@
                     <!--MENU BUTTON -->                    
                     <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
                          <!-- 通知小紅點-手機版時加入 -->
-                        <span class="notify-dot"></span>
+                        <span class="notify-dot mobile-notify-dot" style="display:none;"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -2070,7 +2089,7 @@
 
                                         <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
                                             <!-- 通知小紅點 -->
-                                            <span class="notify-dot"></span>
+                                            <span class="notify-dot PC-notify-dot" style="display:none;"></span>
                                             <i class="icon icon-mask icon-prize"></i>
                                             <span class="title language_replace">領獎中心</span></a>
                                     </li>
