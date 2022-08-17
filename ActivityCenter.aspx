@@ -357,7 +357,7 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">毎日5000ローリングのミッションを達成し、最大10,000 Ocoin獲得できる！</div>
+                                            <div class="desc language_replace">毎日20,000ローリングのミッションを達成し、最大10,000 Ocoin獲得できる！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(1)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->

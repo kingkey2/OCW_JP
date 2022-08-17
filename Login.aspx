@@ -60,16 +60,17 @@
                     EwinCallBackUrl =  "https://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
                 }
                 else {
-                     EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+                    EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
                 }
-              
+
                 Response.SetCookie(new HttpCookie("RecoverToken", LoginAPIResult.RecoverToken) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("LoginAccount", LoginAccount) { Expires = System.DateTime.Parse("2038/12/31") });
                 Response.SetCookie(new HttpCookie("SID", WebSID));
                 Response.SetCookie(new HttpCookie("CT", LoginAPIResult.CT));
-                Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+                //Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(LoginAPIResult.CT) + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
 
                 //Response.Redirect("RefreshParent.aspx?index.aspx");
+                Response.Redirect("RefreshParent.aspx?index.aspx?CT="+ HttpUtility.UrlEncode(LoginAPIResult.CT) +"&GoEwinLogin=1");
                 //DT = RedisCache.UserAccountFingerprint.GetUserAccountFingerprint(LoginAccount);
 
                 //if (DT != null && DT.Rows.Count > 0) {

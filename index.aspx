@@ -14,6 +14,7 @@
     string CT = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
+    int GoEwinLogin=0;
     string Version = EWinWeb.Version;
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
@@ -24,6 +25,21 @@
 
     if (string.IsNullOrEmpty(Request["CT"]) == false)
         CT = Request["CT"];
+
+    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false) {
+        GoEwinLogin = int.Parse(Request["GoEwinLogin"]);
+    }
+
+    if (GoEwinLogin == 1) {
+        string EwinCallBackUrl;
+
+        if (CodingControl.GetIsHttps()) {
+            EwinCallBackUrl = "https://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+        } else {
+            EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+        }
+        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" +   HttpUtility.UrlEncode(CT)   + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+    }
 
     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
 
