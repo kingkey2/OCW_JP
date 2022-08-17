@@ -81,6 +81,9 @@
                         case "6":
                             GoActivityDetail(6, '/Activity/event/bng/bng2207/index.html');
                             break;
+                        case "8":
+                            GoActivityDetail(8, '/Activity/event/ne-rt/08222022/index-jp.html');
+                            break;
                     }
                 }
 
@@ -166,6 +169,11 @@
                 case 7:
                     window.open(url);
                     break;
+                case 8:
+                $('#ModalNERT .activity-popup-detail-inner').load(url, function () {
+                    $('#ModalNERT').modal('show');
+                });
+                break;    
                 default:
                     break;
             }
@@ -188,15 +196,19 @@
                 break;
             case 4:
                 $('#ModalPP1').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Slot");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
                 break;
             case 5:
                 $('#ModalPP2').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Live");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
                 break;
             case 6:
                 $('#Modalbng2').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("BNG", "Slot");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["BNG"], "Slot");
+                break;
+            case 8:
+                $('#ModalNERT').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"], "Slot");                
                 break;
         }
     }
@@ -236,6 +248,25 @@
                 </div>
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(8,'/Activity/event/ne-rt/08222022/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/ne-rt/08222022/img/img-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大135,000のギフトマネーが貰えるよ！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
                                 <!-- 活動連結 -->
@@ -515,6 +546,28 @@
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide language_replace" disabled>參加活動</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade footer-center" id="ModalNERT" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace">ボーナス爆弾キャンペーン</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(8)">前往遊玩</button>
                 </div>
             </div>
         </div>

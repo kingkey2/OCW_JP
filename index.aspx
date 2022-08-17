@@ -1949,9 +1949,12 @@
                 $(v).prop("checked", false);
             });
 
-            if (SearchDom.find('#searchIcon_' + gameBrand).length > 0) {
-                SearchDom.find('#searchIcon_' + gameBrand).prop("checked", true);
+            for (var i = 0; i < gameBrand.length; i++) {
+                if (SearchDom.find('#searchIcon_' + gameBrand[i]).length > 0) {
+                    SearchDom.find('#searchIcon_' + gameBrand[i]).prop("checked", true);
+                }
             }
+
 
             SearchDom.find("#seleGameCategory").empty();
             o = new Option(mlp.getLanguageKey("全部"), "All");
@@ -1965,7 +1968,7 @@
             SearchDom.find('#alertSearchKeyWord').val('');
             SearchDom.find("#seleGameCategory").val(gameCategoryName);
 
-            SearchSelf.searchGameList(gameBrand);
+            SearchSelf.searchGameList();
         }
 
         //openFullSearch
