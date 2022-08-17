@@ -1109,6 +1109,7 @@
                     EWinWebInfo.UserLogined = true;
                     EWinWebInfo.UserInfo = o;
 
+                    getPromotionCollectAvailable();
                     if (cb)
                         cb(true);
                 } else {
@@ -1430,12 +1431,24 @@
         var headermenu = $('.header_menu');
 
         //主選單收合
+      
         navbartoggler.click(function () {
             verticalmenu.toggleClass('navbar-show');
             headermenu.toggleClass('show');
             if (navbartoggler.attr("aria-expanded") == "false") {
                 navbartoggler.attr("aria-expanded", "true");
+
+                if (EWinWebInfo.DeviceType == 1) {
+                    $('.PC-notify-dot').css('display', 'block');
+                    $('.mobile-notify-dot').css('display', 'none');
+                }
+            } else {
+                if (EWinWebInfo.DeviceType == 1) {
+                    $('.PC-notify-dot').css('display', 'none');
+                    $('.mobile-notify-dot').css('display', 'block');
+                }
             }
+
         });
         $('.header_area .mask_overlay').click(function () {
             verticalmenu.removeClass('navbar-show');
@@ -1443,6 +1456,10 @@
             headermenu.find(".navbarMenu").removeClass('show');
             if (navbartoggler.attr("aria-expanded") == "true") {
                 navbartoggler.attr("aria-expanded", "false");
+                if (EWinWebInfo.DeviceType == 1) {
+                    $('.PC-notify-dot').css('display', 'none');
+                    $('.mobile-notify-dot').css('display', 'block');
+                }
             }
         });
     }
@@ -1617,26 +1634,7 @@
                         if (success == true) {
                             if (o.Result == 0) {
                                 needCheckLogin = true;
-                                lobbyClient.GetPromotionCollectAvailable(WebInfo.SID, Math.uuid(), function (success2, o2) {
-                                    if (success2) {
-                                        if (o2.Result == 0) {
-                                            if (o2.CollectList.length > 0) {
-                                                if (EWinWebInfo.DeviceType == 0) {
-                                                    $('#navbar_toggler')
-                                                    $('.PC-notify-dot').css('diplay:block');
-                                                } else {
-                                                    $('.mobile-notify-dot').css('diplay:block');
-                                                }
-                                            }
-                                        } else {
-                                            $('.PC-notify-dot').css('diplay:none');
-                                            $('.mobile-notify-dot').css('diplay:none');
-                                        }
-                                    } else {
-                                        $('.PC-notify-dot').css('diplay:none');
-                                        $('.mobile-notify-dot').css('diplay:none');
-                                    }
-                                });
+                                getPromotionCollectAvailable();
                             } else {
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                                     lobbyClient.GetWebSiteMaintainStatus(function (success, o1) {
@@ -1683,6 +1681,62 @@
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
         //resize();
+    }
+
+    function getPromotionCollectAvailable() {
+        lobbyClient.GetPromotionCollectAvailable(EWinWebInfo.SID, Math.uuid(), function (success2, o2) {
+            if (success2) {
+                if (o2.Result == 0) {
+                    if (o2.CollectList.length > 0) {
+                        var boolCheck = false;
+                        let wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType);
+                        for (var i = 0; i < o2.CollectList.length; i++) {
+                            let Collect = o2.CollectList[i];
+                            let collectAreaType = Collect.CollectAreaType;
+                            if (collectAreaType == 2) {
+                                boolCheck = true;
+                                break;
+                            }
+
+                            if (collectAreaType == 1) {
+                                if (wallet.PointValue <= 100) {
+                                    boolCheck = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (boolCheck) {
+                            if (EWinWebInfo.DeviceType == 0) {
+                                $('.PC-notify-dot').css('display', 'block');
+                            } else {
+                                var navbartoggler = $('.navbar-toggler');
+                                if (navbartoggler.attr("aria-expanded") == "true") {
+                                    $('.PC-notify-dot').css('display', 'block');
+                                    $('.mobile-notify-dot').css('display', 'none');
+                                } else if (navbartoggler.attr("aria-expanded") == "false") {
+                                    $('.PC-notify-dot').css('display', 'none');
+                                    $('.mobile-notify-dot').css('display', 'block');
+                                }
+                            }
+                        } else {
+                            $('.PC-notify-dot').css('display', 'none');
+                            $('.mobile-notify-dot').css('display', 'none');
+                        }
+
+                    } else {
+                        $('.PC-notify-dot').css('display', 'none');
+                        $('.mobile-notify-dot').css('display', 'none');
+                    }
+                } else {
+                    $('.PC-notify-dot').css('display', 'none');
+                    $('.mobile-notify-dot').css('display', 'none');
+                }
+            } else {
+                $('.PC-notify-dot').css('display', 'none');
+                $('.mobile-notify-dot').css('display', 'none');
+            }
+        });
     }
 
     function reportWindowSize() {
