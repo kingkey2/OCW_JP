@@ -127,13 +127,16 @@
         });
     }
 
-    function GoActivityDetail(type,url) {
+    function GoActivityDetail(type, url) {
         event.stopPropagation();
         //001 入金
         //002 註冊
         //003 7日
         //004 PP-slot
         //005 pp-live
+        let title;
+        let btnText;
+
         if (url) {
             switch (type) {
                 case 1:
@@ -152,32 +155,32 @@
                     });
                     break;
                 case 4:
-                    $('#ModalPP1 .activity-popup-detail-inner').load(url, function () {
-                        $('#ModalPP1').modal('show');
-                    });
+                    title = "スロットトーナメントおよび現金配布";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    $("#TempModal .btnGoActivity").show();
+                    showPopup(type, title, btnText, url);
                     break;
                 case 5:
-                    $('#ModalPP2 .activity-popup-detail-inner').load(url, function () {
-                        $('#ModalPP2').modal('show');
-                    });
+                    title = "夏のウィークリートーナメント-ライブカジノ";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    $("#TempModal .btnGoActivity").show();
+                    showPopup(type, title, btnText, url);
                     break;
                 case 6:
-                    $('#Modalbng2 .activity-popup-detail-inner').load(url, function () {
-                        $('#Modalbng2').modal('show');
-                    });
-                    break;
-                case 7:
-                    window.open(url);
+                    title = "BNG周年祝い勝利レースプレゼント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    $("#TempModal .btnGoActivity").hide();
+                    showPopup(type, title, btnText, url);
                     break;
                 case 8:
-                $('#ModalNERT .activity-popup-detail-inner').load(url, function () {
-                    $('#ModalNERT').modal('show');
-                });
-                break;    
+                    title = "ボーナス爆弾キャンペーン";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    $("#TempModal .btnGoActivity").show();
+                    showPopup(type, title, btnText, url);
+                    break;
                 default:
                     break;
             }
-
         }
     }
 
@@ -195,22 +198,35 @@
                 window.parent.API_LoadPage('', 'Prize.aspx');
                 break;
             case 4:
-                $('#ModalPP1').modal('hide');
+                $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
                 break;
             case 5:
-                $('#ModalPP2').modal('hide');
+                $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
                 break;
             case 6:
-                $('#Modalbng2').modal('hide');
+                $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["BNG"], "Slot");
                 break;
             case 8:
-                $('#ModalNERT').modal('hide');
+                $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"], "Slot");                
                 break;
         }
+    }
+
+    function showPopup(type, title, btnText, url) {
+        $("#TempModal .btnGoActivity").text(btnText);
+        $("#TempModal .modal-title").text(title);
+
+        $("#TempModal .btnGoActivity").click(function () {
+            activityBtnClick(type);
+        })
+
+        $('#TempModal .activity-popup-detail-inner').load(url, function () {
+            $('#TempModal').modal('show');
+        });
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -365,7 +381,7 @@
                         </figure>
 
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(7,'/Activity/event/bng/bng2207-2/index.html')">
+                            <div class="activity-item-inner" onclick="window.open('/Activity/event/bng/bng2207-2/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -634,6 +650,28 @@
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(6)">參加活動</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade footer-center" id="TempModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-primary language_replace btnGoActivity" onclick="activityBtnClick(6)">參加活動</button> 
                 </div>
             </div>
         </div>
