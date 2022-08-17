@@ -136,7 +136,7 @@
         //005 pp-live
         let title;
         let btnText;
-        let activityIsEnd;
+        let popupBtnHide;
 
         if (url) {
             switch (type) {
@@ -158,26 +158,26 @@
                 case 4:
                     title = "スロットトーナメントおよび現金配布";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    activityIsEnd = 0;
-                    showPopup(type, title, btnText, url, activityIsEnd);
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 case 5:
                     title = "夏のウィークリートーナメント-ライブカジノ";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    activityIsEnd = 0;
-                    showPopup(type, title, btnText, url, activityIsEnd);
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 case 6:
                     title = "BNG周年祝い勝利レースプレゼント";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    activityIsEnd = 1;
-                    showPopup(type, title, btnText, url, activityIsEnd);
+                    popupBtnHide = 1;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 case 8:
                     title = "ボーナス爆弾キャンペーン";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    activityIsEnd = 0;
-                    showPopup(type, title, btnText, url, activityIsEnd);
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 default:
                     break;
@@ -217,11 +217,11 @@
         }
     }
 
-    function showPopup(type, title, btnText, url, activityIsEnd) {
+    function showPopup(type, title, btnText, url, popupBtnHide) {
         $("#TempModal .btnGoActivity").text(btnText);
         $("#TempModal .modal-title").text(title);
 
-        if (activityIsEnd == 1) {
+        if (popupBtnHide == 1) {
             $("#TempModal .btnGoActivity").hide();
         } else {
             $("#TempModal .btnGoActivity").show();
