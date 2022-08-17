@@ -255,9 +255,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-.section_publicize .publicize_bottom_inner .bulletin {
-  margin-bottom: 20px;
-}
 .section_publicize .publicize_bottom_inner .bulletin .sec-title-container {
   margin-bottom: 1.25rem;
   cursor: pointer;
@@ -392,7 +389,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .way-payment-wrapper {
   cursor: pointer;
-  padding-top: 50px;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
@@ -705,7 +701,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   font-weight: bold;
 }
 .activity-center-wrapper .btn-activity-in {
-  background-color: #0081bb;
+  background-color: #00b0ff;
   color: #fff;
   font-size: 1.125rem;
   font-weight: bold;
@@ -747,7 +743,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .dailylogin-bouns-wrapper {
-  margin-top: 35px;
+  margin-bottom: 25px;
   cursor: pointer;
 }
 .dailylogin-bouns-inner {
@@ -1513,6 +1509,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .sec-title-wrapper .sec-title {
     font-size: 1.21875rem;
+  }
+}
+@media screen and (max-width: 935px) {
+  .way-payment-wrapper {
+    margin-bottom: 20px;
   }
 }
 @media screen and (max-width: 375px) {
