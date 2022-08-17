@@ -3023,7 +3023,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="game-info-mobile-wrapper">
-                        <div class="game-item">
+                        <div class="game-item crownLevel-1">
                             <div class="game-item-inner">
                                 <div class="game-item-focus">
                                     <div class="game-item-img">
