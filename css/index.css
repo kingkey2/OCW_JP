@@ -763,12 +763,30 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 .dailylogin-bouns-content .dailylogin-bouns-QA {
   font-size: 0.75rem;
   color: #A5A5A5;
   cursor: pointer;
   color: #fff;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 60px;
+          flex: 0 0 60px;
+}
+.dailylogin-bouns-content .dailylogin-bouns-QA .icon-mask {
+  margin-right: 0;
+}
+.dailylogin-bouns-content .dailylogin-bouns-QA .icon-mask:before {
+  background-color: #fff;
+}
+.dailylogin-bouns-content .btn-QA-dailylogin-bouns {
+  width: 26px;
+  height: 26px;
+  margin-right: 0.3rem;
 }
 .dailylogin-bouns-content .title {
   position: relative;
@@ -1470,9 +1488,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: end;
-        -ms-flex-align: end;
-            align-items: flex-end;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: 100%;
   }
   .dailylogin-bouns-content .title:before {
     height: 60px;
@@ -1494,8 +1513,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .dailylogin-bouns-content .title .name {
     position: relative;
     z-index: 1;
-    padding-left: 10px;
-    font-size: 1.5rem;
+    padding-left: 0px;
+    font-size: 1.25rem;
   }
   .dailylogin-bouns-list {
     width: 100%;
