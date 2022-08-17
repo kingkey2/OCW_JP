@@ -691,7 +691,7 @@
 
             if (showType == 2) {
                 GI = `${GItitle}
-                        <div class="game-item">
+                        <div class="game-item crownLevel-1">
                             <div class="game-item-inner">
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
@@ -706,7 +706,7 @@
                         </div>`;
             } else {
                 GI = `${GItitle}
-                        <div class="game-item">
+                        <div class="game-item crownLevel-1">
                             <div class="game-item-inner">
                             ${gameitemmobilepopup}
                             <div class="game-item-focus">

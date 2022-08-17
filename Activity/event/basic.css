@@ -15,28 +15,36 @@
 .section-act-wrap p{
     font-size: 1rem;
     line-height: 1.5;
-    color: #555;   
+    color: #555;
+    font-weight: 300;   
 }
 
 .section-act-content{
     padding-left: 1rem;
-
 }
 
 
 .act-title{
     width: 100%;
-    margin: 10px auto!important;
+    margin: 10px auto;
     color: #0185FF!important;
     font-size: 1em;
     font-weight: bold;
+    margin-bottom: 2rem;
+}
+.act-intro{
+    padding: 0 10px;
+    margin-bottom: 2rem;
 }
 .act-title2{
-    width: 100%;
-    margin: 10px auto!important;
+    /* width: 100%; */
+    /* margin: 10px auto; */
+    width: auto !important;
     color: #AC580B!important;
     font-size: 1em;
     font-weight: bold;
+    margin: 10px 0 !important;
+    
 }
 .act-subtitle{
     font-size: 1.2em;
