@@ -85,7 +85,8 @@
             MobileSrc: "/images/lobby/dailypush-hot-M-001.jpg",
             PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
-            BackgroundColor: "#121a16"
+            BackgroundColor: "#121a16",
+            CrownLevel: "crownLevel-1"
         },
         {
             GameCode: "PNG.moonprincess",
@@ -572,7 +573,7 @@
 
                     var docString = `<div class="container category-dailypush">
                                      ${titleobj}
-                 <div class="category-dailypush-wrapper ${type}">
+                 <div class="category-dailypush-wrapper ${type} ${headerGameData.CrownLevel} ">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: ${headerGameData.BackgroundColor};">
                             <div class="img-box mobile">
