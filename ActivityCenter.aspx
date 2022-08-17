@@ -81,6 +81,9 @@
                         case "6":
                             GoActivityDetail(6, '/Activity/event/bng/bng2207/index.html');
                             break;
+                        case "8":
+                            GoActivityDetail(8, '/Activity/event/ne-rt/08222022/index-jp.html');
+                            break;
                     }
                 }
 
@@ -205,7 +208,7 @@
                 break;
             case 8:
                 $('#ModalNERT').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("NE", "Slot");                
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"], "Slot");                
                 break;
         }
     }
@@ -552,7 +555,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">TEST</h5>
+                    <h5 class="modal-title language_replace">ボーナス爆弾キャンペーン</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
