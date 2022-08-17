@@ -196,15 +196,15 @@
                 break;
             case 4:
                 $('#ModalPP1').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Slot");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
                 break;
             case 5:
                 $('#ModalPP2').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Live");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
                 break;
             case 6:
                 $('#Modalbng2').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("BNG", "Slot");
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["BNG"], "Slot");
                 break;
             case 8:
                 $('#ModalNERT').modal('hide');
