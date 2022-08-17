@@ -136,6 +136,7 @@
         //005 pp-live
         let title;
         let btnText;
+        let activityIsEnd;
 
         if (url) {
             switch (type) {
@@ -157,26 +158,26 @@
                 case 4:
                     title = "スロットトーナメントおよび現金配布";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    $("#TempModal .btnGoActivity").show();
-                    showPopup(type, title, btnText, url);
+                    activityIsEnd = 0;
+                    showPopup(type, title, btnText, url, activityIsEnd);
                     break;
                 case 5:
                     title = "夏のウィークリートーナメント-ライブカジノ";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    $("#TempModal .btnGoActivity").show();
-                    showPopup(type, title, btnText, url);
+                    activityIsEnd = 0;
+                    showPopup(type, title, btnText, url, activityIsEnd);
                     break;
                 case 6:
                     title = "BNG周年祝い勝利レースプレゼント";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    $("#TempModal .btnGoActivity").hide();
-                    showPopup(type, title, btnText, url);
+                    activityIsEnd = 1;
+                    showPopup(type, title, btnText, url, activityIsEnd);
                     break;
                 case 8:
                     title = "ボーナス爆弾キャンペーン";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    $("#TempModal .btnGoActivity").show();
-                    showPopup(type, title, btnText, url);
+                    activityIsEnd = 0;
+                    showPopup(type, title, btnText, url, activityIsEnd);
                     break;
                 default:
                     break;
@@ -216,13 +217,18 @@
         }
     }
 
-    function showPopup(type, title, btnText, url) {
+    function showPopup(type, title, btnText, url, activityIsEnd) {
         $("#TempModal .btnGoActivity").text(btnText);
         $("#TempModal .modal-title").text(title);
 
-        $("#TempModal .btnGoActivity").click(function () {
-            activityBtnClick(type);
-        })
+        if (activityIsEnd == 1) {
+            $("#TempModal .btnGoActivity").hide();
+        } else {
+            $("#TempModal .btnGoActivity").show();
+            $("#TempModal .btnGoActivity").click(function () {
+                activityBtnClick(type);
+            })
+        }
 
         $('#TempModal .activity-popup-detail-inner').load(url, function () {
             $('#TempModal').modal('show');
