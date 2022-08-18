@@ -1209,8 +1209,6 @@ public class PaymentAPI : System.Web.Services.WebService
 
                         p = new EWin.Payment.PaymentDetailInheritsBase[1];
                         p[0] = paymentDetailBankCard;
-
-
                     }
 
                     paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, p);
@@ -1522,15 +1520,12 @@ public class PaymentAPI : System.Web.Services.WebService
                                                         JKCRate = 1 / (decimal.Parse(JToken.ToString()) / 3000);
                                                         ExchangeRate = JKCRate;
                                                         JKCDepositAmount = decimal.Round(PartialRate * Amount * JKCRate, 2);
-
                                                     }
                                                     else
                                                     {
                                                         SetResultException(R, "InvalidCryptoExchangeRate");
                                                         return R;
                                                     }
-
-
                                                 }
                                                 else
                                                 {

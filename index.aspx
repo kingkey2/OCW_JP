@@ -533,7 +533,7 @@
     }
 
     function API_SendSerivceMail(subject, body, email) {
-        lobbyClient.SendCSMail(EWinWebInfo.SID, Math.uuid(), email, subject, body, function (success, o) {
+        lobbyClient.SendCSMail(Math.uuid(), email, subject, body, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("已成功通知客服，將回信至您輸入或註冊的信箱"));
@@ -563,13 +563,7 @@
     }
 
     function API_ShowContactUs() {
-        if (!EWinWebInfo.UserLogined) {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
-                API_LoadPage("Login", "Login.aspx");
-            }, null);
-        } else {
             return showContactUs();
-        }
     }
 
     function API_NonCloseShowMessageOK(title, msg, cbOK) {
@@ -918,11 +912,15 @@
     function sendContactUs() {
         var contactUsDom = document.querySelector(".inbox_customerService");
         var subjectText = contactUsDom.querySelector(".contectUs_Subject").value;
-        var emailText = contactUsDom.querySelector(".contectUs_Eamil").value;
+        var emailText = contactUsDom.querySelector(".contectUs_Eamil").value.trim();
         var bodyText = contactUsDom.querySelector(".contectUs_Body").value;
         var NickName = contactUsDom.querySelector(".contectUs_NickName").value;
         var Phone = contactUsDom.querySelector(".contectUs_Phone").value;
 
+        if (emailText=="") {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入回覆信箱"));
+        }
+        
         API_SendSerivceMail(subjectText, "ニックネーム：" + NickName + "<br/>" + "携帯電話：" + Phone + "<br/>" + bodyText, emailText);
     }
     //#region Game
