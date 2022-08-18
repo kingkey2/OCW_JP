@@ -1523,9 +1523,9 @@
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
 
-        if (window.localStorage.getItem("Lang")) {
-            EWinWebInfo.Lang = window.localStorage.getItem("Lang");
-        }
+        //if (window.localStorage.getItem("Lang")) {
+        //    EWinWebInfo.Lang = window.localStorage.getItem("Lang");
+        //}
         
         //console.log("initByArt start", new Date().toISOString());
         initByArt();
@@ -2305,7 +2305,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item lang_wrapper submenu dropdown">
+                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display:none">
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
