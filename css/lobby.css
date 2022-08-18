@@ -217,6 +217,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .category-dailypush-wrapper.crownLevel-1 .title::after {
   background-image: url(../images/icon/ico-crown-dog-star-1.svg);
 }
+.category-dailypush-wrapper.crownLevel-1.crown-Payout .title::after {
+  background-image: url(../images/icon/ico-crown-dog-star-1-payout.svg);
+}
+.category-dailypush-wrapper.crownLevel-1.crown-Multiplier .title::after {
+  background-image: url(../images/icon/ico-crown-dog-star-1-multiplier.svg);
+}
+.category-dailypush-wrapper.crownLevel-1.crown-Spin .title::after {
+  background-image: url(../images/icon/ico-crown-dog-star-1-spin.svg);
+}
 .category-dailypush-inner {
   position: relative;
   display: -webkit-box;
