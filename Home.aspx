@@ -1232,8 +1232,8 @@
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
                         <!-- 入出金說明 -->
-                        <div class="publicize-wrap way-payment-wrapper">
-                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('record','Article/guide_CashQa_jp.html', true)">
+                        <div class="publicize-wrap way-payment-wrapper">                         
+                            <div class="item way-payment-inner" onclick="window.top.API_LoadPage('','Article/guide_CashQa_jp.html')">
                                 <div class="way-payment-img">
                                     <div class="img-crop">
                                         <img src="images/theme/girl-half.png" class="mobile" alt="">
