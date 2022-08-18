@@ -1210,10 +1210,9 @@
                         </div>
                     </div>
                  </section>                
-            </div>
+            </div>           
         </div>
-        
-        
+
         <section class="section_publicize section-wrap">
             <div class="container">
                 <!-- writer + vTuber -->
