@@ -212,12 +212,13 @@
                 break;
             case 8:
                 $('#TempModal').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"], "Slot");                
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"]);                
                 break;
         }
     }
 
     function showPopup(type, title, btnText, url, popupBtnHide) {
+        $("#TempModal .btnGoActivity").unbind();
         $("#TempModal .btnGoActivity").text(btnText);
         $("#TempModal .modal-title").text(title);
 
@@ -226,6 +227,7 @@
         } else {
             $("#TempModal .btnGoActivity").show();
             $("#TempModal .btnGoActivity").click(function () {
+                event.stopPropagation();
                 activityBtnClick(type);
             })
         }
@@ -561,7 +563,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                     <button type="button" class="btn btn-primary language_replace btnGoActivity" onclick="activityBtnClick(6)">參加活動</button> 
+                     <button type="button" class="btn btn-primary language_replace btnGoActivity">參加活動</button> 
                 </div>
             </div>
         </div>
