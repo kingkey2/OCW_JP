@@ -192,7 +192,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .category-dailypush {
   cursor: pointer;
 }
-.category-dailypush-wrapper.crownLevel-1 .title {
+.category-dailypush-wrapper[class*=crownLevel-] .title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -200,11 +200,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex-align: end;
           align-items: flex-end;
 }
-.category-dailypush-wrapper.crownLevel-1 .title::after {
-  margin-left: 10px;
+.category-dailypush-wrapper[class*=crownLevel-] .title::after {
+  margin-left: 4px;
   content: "";
   display: inline-block;
-  width: 50px;
+  width: 70px;
   height: 50px;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -213,9 +213,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   transition: -webkit-transform 0.45s ease-in-out;
   transition: transform 0.45s ease-in-out;
   transition: transform 0.45s ease-in-out, -webkit-transform 0.45s ease-in-out;
-  -webkit-transform: translate(0, 0) scale(1, 1);
-          transform: translate(0, 0) scale(1, 1);
-  z-index: 3;
+}
+.category-dailypush-wrapper.crownLevel-1 .title::after {
   background-image: url(../images/icon/ico-crown-dog-star-1.svg);
 }
 .category-dailypush-inner {
@@ -301,7 +300,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 300;
 }
 .category-dailypush-cotentBox .gamename {
@@ -555,11 +554,11 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-pack: start;
         -ms-flex-pack: start;
             justify-content: flex-start;
-    aspect-ratio: 288/65;
+    aspect-ratio: 288/100;
   }
   .category-dailypush-img img {
-    -o-object-fit: contain;
-       object-fit: contain;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
   .category-dailypush-img .mobile {
     display: none;
@@ -584,6 +583,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 170px;
   }
 
+  .category-dailypush-inner {
+    aspect-ratio: 288/80;
+  }
   .category-dailypush-img .pad {
     display: none;
   }
@@ -629,6 +631,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .game_slider.swiper-cover .swiper-slide {
     width: 200px;
+  }
+
+  .category-dailypush-inner {
+    aspect-ratio: 288/65;
+  }
+  .category-dailypush-img img {
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .category-dailypush-wrapper[class*=crownLevel-] .title::after {
+    width: 90px;
   }
 }
 @media (min-width: 1144px) and (max-width: 1383px) {
