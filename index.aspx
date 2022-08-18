@@ -1799,6 +1799,7 @@
 
                         var RTP = "--";
                         var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                        lang_gamename = lang_gamename.replace("'", "");
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
                         }
@@ -1809,8 +1810,8 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         let GI1 = $(GI);
-                        //var GI_a = GI.querySelector(".btn-play");
                         GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                        
                         GI1.addClass("group" + parseInt(gameItemCount / 60));
                         gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
@@ -1871,7 +1872,7 @@
             }
         }
 
-        this.searchGameChange = function () {
+        this.searchGameChange = function (cb) {
             var keyWord = SearchDom.find('#alertSearchKeyWord').val().trim();
             var arrayGameBrand = [];
             let strSeleBrandText = SearchDom.find(".brandSeleCount");
@@ -1913,7 +1914,9 @@
                                 seleGameCategory.append(o);
                             }
                         }, function (data) { //endcallback
-
+                            if (cb) {
+                                cb();
+                            }
                         }
                     );
                 }
@@ -1970,21 +1973,23 @@
                     SearchDom.find('#searchIcon_' + gameBrand[i]).prop("checked", true);
                 }
             }
-
+            
 
             SearchDom.find("#seleGameCategory").empty();
             o = new Option(mlp.getLanguageKey("全部"), "All");
             SearchDom.find("#seleGameCategory").append(o);
+            SearchDom.find("#seleGameCategory").val("All");
 
             if (gameCategoryName) {
                 o = new Option(mlp.getLanguageKey(gameCategoryName), gameCategoryName);
                 SearchDom.find("#seleGameCategory").append(o);
+                SearchDom.find("#seleGameCategory").val(gameCategoryName);
             }
 
             SearchDom.find('#alertSearchKeyWord').val('');
-            SearchDom.find("#seleGameCategory").val(gameCategoryName);
 
             SearchSelf.searchGameList();
+            
         }
 
         //openFullSearch
