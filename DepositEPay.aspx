@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,9 +20,11 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+   
 </head>
-<script src="Scripts/OutSrc/lib/jquery/jquery.min.js"></script>
-<script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
@@ -49,7 +51,7 @@
         if (self == top) {
             window.parent.location.href = "index.aspx";
         }
-
+        
         WebInfo = window.parent.API_GetWebInfo();
         lang = window.parent.API_GetLang();
         PaymentClient = window.parent.API_GetPaymentAPI();
@@ -96,7 +98,6 @@
         $("input[name=amount]").prop("checked", false);
         var amount = $("#amount").val().replace(/[^\-?\d.]/g, '');
         $("#amount").val(amount);
-
 
         $("#ExchangeVal").text(Math.ceil(amount));
     }
@@ -412,15 +413,19 @@
                 <div class="progress-container progress-line">
                     <div class="progress-step cur">
                         <div class="progress-step-item"></div>
+                        <span class="progressline-step language_replace">step1</span>
                     </div>
                     <div class="progress-step cur">
                         <div class="progress-step-item"></div>
+                        <span class="progressline-step language_replace">step2</span>
                     </div>
                     <div class="progress-step">
                         <div class="progress-step-item"></div>
+                        <span class="progressline-step language_replace">step3</span>
                     </div>
                     <div class="progress-step">
                         <div class="progress-step-item"></div>
+                        <span class="progressline-step language_replace">Finish</span>
                     </div>
                 </div>
 

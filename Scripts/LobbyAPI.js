@@ -362,12 +362,11 @@
         });
     };
 
-    this.SendCSMail = function (WebSID, GUID, EMail, Topic, SendBody, cb) {
+    this.SendCSMail = function (GUID, EMail, Topic, SendBody, cb) {
         var url = APIUrl + "/SendCSMail";
         var postData;
 
         postData = {
-            WebSID: WebSID,
             GUID: GUID,
             EMail: EMail,
             Topic: Topic,

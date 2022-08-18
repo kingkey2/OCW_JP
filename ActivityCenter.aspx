@@ -15,9 +15,11 @@
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/activity.css">
-    <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
@@ -79,6 +81,9 @@
                         case "6":
                             GoActivityDetail(6, '/Activity/event/bng/bng2207/index.html');
                             break;
+                        case "8":
+                            GoActivityDetail(8, '/Activity/event/ne-rt/08222022/index-jp.html');
+                            break;
                     }
                 }
 
@@ -122,46 +127,61 @@
         });
     }
 
-    function GoActivityDetail(type,url) {
+    function GoActivityDetail(type, url) {
         event.stopPropagation();
         //001 入金
         //002 註冊
         //003 7日
         //004 PP-slot
         //005 pp-live
+        let title;
+        let btnText;
+        let popupBtnHide;
+
         if (url) {
             switch (type) {
                 case 1:
-                    $('#ModalDeposit .activity-popup-detail-inner').load(url);
-                    $('#ModalDeposit').modal('show');
+                    $('#ModalDeposit .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalDeposit').modal('show');
+                    });
                     break;
                 case 2:
-                    $('#ModalRegister .activity-popup-detail-inner').load(url);
-                    $('#ModalRegister').modal('show');
+                    $('#ModalRegister .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalRegister').modal('show');
+                    });
                     break;
                 case 3:
-                    $('#ModalDailylogin .activity-popup-detail-inner').load(url);
-                    $('#ModalDailylogin').modal('show');
+                    $('#ModalDailylogin .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalDailylogin').modal('show');
+                    });
                     break;
                 case 4:
-                    $('#ModalPP1 .activity-popup-detail-inner').load(url);
-                    $('#ModalPP1').modal('show');
+                    title = "スロットトーナメントおよび現金配布";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 case 5:
-                    $('#ModalPP2 .activity-popup-detail-inner').load(url);
-                    $('#ModalPP2').modal('show');
+                    title = "夏のウィークリートーナメント-ライブカジノ";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 case 6:
-                    $('#Modalbng2 .activity-popup-detail-inner').load(url);
-                    $('#Modalbng2').modal('show');
+                    title = "BNG周年祝い勝利レースプレゼント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 1;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
-                case 7:
-                    window.open(url);
+                case 8:
+                    title = "ボーナス爆弾キャンペーン";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 default:
                     break;
             }
-           
         }
     }
 
@@ -179,18 +199,42 @@
                 window.parent.API_LoadPage('', 'Prize.aspx');
                 break;
             case 4:
-                $('#ModalPP1').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Slot");
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
                 break;
             case 5:
-                $('#ModalPP2').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("PP", "Live");
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
                 break;
             case 6:
-                $('#Modalbng2').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory("BNG", "Slot");
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["BNG"], "Slot");
+                break;
+            case 8:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"]);                
                 break;
         }
+    }
+
+    function showPopup(type, title, btnText, url, popupBtnHide) {
+        $("#TempModal .btnGoActivity").unbind();
+        $("#TempModal .btnGoActivity").text(btnText);
+        $("#TempModal .modal-title").text(title);
+
+        if (popupBtnHide == 1) {
+            $("#TempModal .btnGoActivity").hide();
+        } else {
+            $("#TempModal .btnGoActivity").show();
+            $("#TempModal .btnGoActivity").click(function () {
+                event.stopPropagation();
+                activityBtnClick(type);
+            })
+        }
+
+        $('#TempModal .activity-popup-detail-inner').load(url, function () {
+            $('#TempModal').modal('show');
+        });
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -228,6 +272,25 @@
                 </div>
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(8,'/Activity/event/ne-rt/08222022/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/ne-rt/08222022/img/img-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大135,000のギフトマネーが貰えるよ！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
                                 <!-- 活動連結 -->
@@ -291,12 +354,12 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="images/activity/activity-03-m.jpg">
+                                        <img class="" src="Activity/Act003/CenterPage/img/activity-popup-b-m-01.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">毎日5000ローリングのミッションを達成し、最大10,000 Ocoin獲得できる！</div>
+                                            <div class="desc language_replace">毎日20,000ローリングのミッションを達成し、最大10,000 Ocoin獲得できる！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(1)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
@@ -326,7 +389,7 @@
                         </figure>
 
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(7,'/Activity/event/bng/bng2207-2/index.html')">
+                            <div class="activity-item-inner" onclick="window.open('/Activity/event/bng/bng2207-2/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -411,12 +474,12 @@
                 </div>
                 <div class="modal-body">
                     <article class="activity-popup-detail-wrapper">
-                        <div class="activity-popup-detail-inner">
+                        <div class="activity-popup-detail-inner" >
                         </div>
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx', false)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx', false)">開始洗碼</button>
 
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
@@ -444,13 +507,13 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">前往入金</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide language_replace" disabled>前往入金</button>
                 </div>
             </div>
         </div>
@@ -475,20 +538,20 @@
                     <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
 
                     <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
+                    <button type="button" class="btn btn-secondary is-hide language_replace" disabled>參加活動</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal - ModalDeposit-->
-    <div class="modal fade footer-center" id="ModalBNG" tabindex="-1" aria-hidden="true">
+
+    <div class="modal fade footer-center" id="TempModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">金熱門！</h5>
+                    <h5 class="modal-title language_replace"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -500,79 +563,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
-
-                    <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
-
-                    <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade footer-center" id="ModalPP1" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title language_replace">スロットトーナメントおよび現金配布</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <article class="activity-popup-detail-wrapper">
-                        <div class="activity-popup-detail-inner">
-                        </div>
-                    </article>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(4)">參加活動</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade footer-center" id="ModalPP2" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title language_replace">夏のウィークリートーナメント-ライブカジノ</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <article class="activity-popup-detail-wrapper">
-                        <div class="activity-popup-detail-inner">
-                        </div>
-                    </article>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(5)">參加活動</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade footer-center" id="Modalbng2" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title language_replace">BNG周年祝い勝利レースプレゼント</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <article class="activity-popup-detail-wrapper">
-                        <div class="activity-popup-detail-inner">
-                        </div>
-                    </article>
-                </div>
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-primary language_replace" onclick="activityBtnClick(6)">參加活動</button> -->
+                     <button type="button" class="btn btn-primary language_replace btnGoActivity">參加活動</button> 
                 </div>
             </div>
         </div>

@@ -492,8 +492,6 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
                                             console.log("SyncContinue");
                                             //console.log(syncData);
-
-
                                             objectSyncStore.put(syncData);
                                         }
                                     } catch (e) {

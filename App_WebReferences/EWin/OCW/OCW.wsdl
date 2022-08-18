@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="TestAPI">
@@ -304,10 +304,47 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetSummaryDateByDateForSeventDateBonus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSummaryDateByDateForSeventDateBonusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSummaryDateByDateForSeventDateBonusResult" type="tns:SeventDateBonusResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SeventDateBonusResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SeventDateBonusList" type="tns:ArrayOfSeventDateBonus" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSeventDateBonus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SeventDateBonus" nillable="true" type="tns:SeventDateBonus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SeventDateBonus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="CompanyWalletDepositResult" nillable="true" type="tns:CompanyWalletDepositResult" />
       <s:element name="ParentUserAccountInfoResult" nillable="true" type="tns:ParentUserAccountInfoResult" />
       <s:element name="CompanyWalletResult" nillable="true" type="tns:CompanyWalletResult" />
+      <s:element name="SeventDateBonusResult" nillable="true" type="tns:SeventDateBonusResult" />
     </s:schema>
   </wsdl:types>
   <wsdl:message name="TestAPISoapIn">
@@ -381,6 +418,12 @@
   </wsdl:message>
   <wsdl:message name="UpdateUserAccountSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateUserAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSummaryDateByDateForSeventDateBonusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSummaryDateByDateForSeventDateBonus" />
+  </wsdl:message>
+  <wsdl:message name="GetSummaryDateByDateForSeventDateBonusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSummaryDateByDateForSeventDateBonusResponse" />
   </wsdl:message>
   <wsdl:message name="TestAPIHttpGetIn" />
   <wsdl:message name="TestAPIHttpGetOut">
@@ -464,6 +507,14 @@
   <wsdl:message name="CreateBigEagleHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetSummaryDateByDateForSeventDateBonusHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSummaryDateByDateForSeventDateBonusHttpGetOut">
+    <wsdl:part name="Body" element="tns:SeventDateBonusResult" />
+  </wsdl:message>
   <wsdl:message name="TestAPIHttpPostIn" />
   <wsdl:message name="TestAPIHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
@@ -546,6 +597,14 @@
   <wsdl:message name="CreateBigEagleHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="GetSummaryDateByDateForSeventDateBonusHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSummaryDateByDateForSeventDateBonusHttpPostOut">
+    <wsdl:part name="Body" element="tns:SeventDateBonusResult" />
+  </wsdl:message>
   <wsdl:portType name="OCWSoap">
     <wsdl:operation name="TestAPI">
       <wsdl:input message="tns:TestAPISoapIn" />
@@ -595,6 +654,10 @@
       <wsdl:input message="tns:UpdateUserAccountSoapIn" />
       <wsdl:output message="tns:UpdateUserAccountSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetSummaryDateByDateForSeventDateBonus">
+      <wsdl:input message="tns:GetSummaryDateByDateForSeventDateBonusSoapIn" />
+      <wsdl:output message="tns:GetSummaryDateByDateForSeventDateBonusSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="OCWHttpGet">
     <wsdl:operation name="TestAPI">
@@ -637,6 +700,10 @@
       <wsdl:input message="tns:CreateBigEagleHttpGetIn" />
       <wsdl:output message="tns:CreateBigEagleHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetSummaryDateByDateForSeventDateBonus">
+      <wsdl:input message="tns:GetSummaryDateByDateForSeventDateBonusHttpGetIn" />
+      <wsdl:output message="tns:GetSummaryDateByDateForSeventDateBonusHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="OCWHttpPost">
     <wsdl:operation name="TestAPI">
@@ -678,6 +745,10 @@
     <wsdl:operation name="CreateBigEagle">
       <wsdl:input message="tns:CreateBigEagleHttpPostIn" />
       <wsdl:output message="tns:CreateBigEagleHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSummaryDateByDateForSeventDateBonus">
+      <wsdl:input message="tns:GetSummaryDateByDateForSeventDateBonusHttpPostIn" />
+      <wsdl:output message="tns:GetSummaryDateByDateForSeventDateBonusHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OCWSoap" type="tns:OCWSoap">
@@ -783,6 +854,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateUserAccount">
       <soap:operation soapAction="http://tempuri.org/UpdateUserAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSummaryDateByDateForSeventDateBonus">
+      <soap:operation soapAction="http://tempuri.org/GetSummaryDateByDateForSeventDateBonus" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -901,6 +981,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSummaryDateByDateForSeventDateBonus">
+      <soap12:operation soapAction="http://tempuri.org/GetSummaryDateByDateForSeventDateBonus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OCWHttpGet" type="tns:OCWHttpGet">
     <http:binding verb="GET" />
@@ -994,6 +1083,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSummaryDateByDateForSeventDateBonus">
+      <http:operation location="/GetSummaryDateByDateForSeventDateBonus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="OCWHttpPost" type="tns:OCWHttpPost">
     <http:binding verb="POST" />
@@ -1080,6 +1178,15 @@
     </wsdl:operation>
     <wsdl:operation name="CreateBigEagle">
       <http:operation location="/CreateBigEagle" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSummaryDateByDateForSeventDateBonus">
+      <http:operation location="/GetSummaryDateByDateForSeventDateBonus" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

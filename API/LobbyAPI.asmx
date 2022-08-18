@@ -473,20 +473,22 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
     }
 
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public CompanyGameCodeResult GetCompanyGameCode(string GUID,string GameCode) {
-    //    CompanyGameCodeResult R = new CompanyGameCodeResult() { Result= EWin.Lobby.enumResult.ERR };
-    //    System.Data.DataTable DT;
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public CompanyGameCodeResult GetCompanyGameCode(string GUID, string GameCode)
+    {
+        CompanyGameCodeResult R = new CompanyGameCodeResult() { Result = EWin.Lobby.enumResult.ERR };
+        System.Data.DataTable DT;
 
-    //    DT= RedisCache.CompanyGameCode.GetCompanyGameCode(GameCode.Split('.').First(),GameCode);
-    //    if (DT!=null&&DT.Rows.Count>0) {
-    //        R.Result = EWin.Lobby.enumResult.OK;
-    //        R.Data=DT.ToList<CompanyGameCode>().First();
-    //    }
+        DT = RedisCache.CompanyGameCode.GetCompanyGameCode(GameCode.Split('.').First(), GameCode);
+        if (DT != null && DT.Rows.Count > 0)
+        {
+            R.Result = EWin.Lobby.enumResult.OK;
+            R.Data = DT.ToList<CompanyGameCode>().First();
+        }
 
-    //    return R;
-    //}
+        return R;
+    }
 
 
     [WebMethod]
@@ -815,7 +817,7 @@ public class LobbyAPI : System.Web.Services.WebService {
 
             if (week > 4) {
                 start = currentTime.AddDays(5 - week);        //這禮拜5
-                end = currentTime;
+                end = currentTime.AddDays(4 - week + 7);
             } else {
                 start = currentTime.AddDays(5 - week - 7); //上禮拜5
                 end = currentTime.AddDays(4 - week);  //這禮拜4
@@ -848,7 +850,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                     for (int j = 0; j < GameOrderList.Count; j++) {
                         if (k[i].Date == GameOrderList[j].SummaryDate) {
                             k[i].TotalValidBetValue = GameOrderList[j].TotalValidBetValue;
-                            if (GameOrderList[j].TotalValidBetValue > 5000 || GameOrderList[j].TotalValidBetValue == 5000) {
+                            if (GameOrderList[j].TotalValidBetValue > 20000 || GameOrderList[j].TotalValidBetValue == 20000) {
                                 k[i].Status = 1;
                             }
                         }
@@ -950,75 +952,63 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public EWin.Lobby.APIResult SendCSMail(string WebSID, string GUID, string EMail, string Topic, string SendBody) {
+    public EWin.Lobby.APIResult SendCSMail(string GUID, string EMail, string Topic, string SendBody) {
         EWin.Lobby.APIResult R;
 
-        RedisCache.SessionContext.SIDInfo SI;
+        if (string.IsNullOrEmpty(Topic) == false && string.IsNullOrEmpty(SendBody) == false) {
+            string returnMail = EMail;
+            string returnLoginAccount = EMail;
+            string apiURL = "https://mail.surenotifyapi.com/v1/messages";
+            string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
+            //string subjectString = String.Format("問題分類：{0},回覆信箱：{1}", Topic, returnMail);
+            //string bodyString = String.Format("問題分類：{0}\r\n"
+            //                        + "問題內容：{1}\r\n"
+            //                        + "回覆信箱：{2}\r\n"
+            //                        + "相關帳號：{3}\r\n"
+            //                        + "詢問時間：{4}\r\n"
+            //                        , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
+            string subjectString = String.Format("お問い合わせ類型：{0},お返事のメールアドレス：{1}", Topic, returnMail);
+            string bodyString = String.Format("お問い合わせ類型：{0}\r\n"
+                                    + "お問い合わせ内容：{1}\r\n"
+                                    + "お返事のメールアドレス：{2}\r\n"
+                                    + "アカウント：{3}\r\n"
+                                    + "お問い合わせ時間：{4}\r\n"
+                                    , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
 
-        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+            /*
+            お問い合わせ類型:
+            お問い合わせ内容:
+            お返事のメールアドレス:
+            アカウント:
+            お問い合わせ時間:
+            */
 
-        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID) || string.IsNullOrEmpty(EMail) == false) {
-            if (string.IsNullOrEmpty(Topic) == false && string.IsNullOrEmpty(SendBody) == false) {
-                string returnMail = string.IsNullOrEmpty(EMail) ? SI.LoginAccount : EMail;
-                string returnLoginAccount = string.IsNullOrEmpty(SI.LoginAccount) ? "" : SI.LoginAccount;
-                string apiURL = "https://mail.surenotifyapi.com/v1/messages";
-                string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-                //string subjectString = String.Format("問題分類：{0},回覆信箱：{1}", Topic, returnMail);
-                //string bodyString = String.Format("問題分類：{0}\r\n"
-                //                        + "問題內容：{1}\r\n"
-                //                        + "回覆信箱：{2}\r\n"
-                //                        + "相關帳號：{3}\r\n"
-                //                        + "詢問時間：{4}\r\n"
-                //                        , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
-                string subjectString = String.Format("お問い合わせ類型：{0},お返事のメールアドレス：{1}", Topic, returnMail);
-                string bodyString = String.Format("お問い合わせ類型：{0}\r\n"
-                                        + "お問い合わせ内容：{1}\r\n"
-                                        + "お返事のメールアドレス：{2}\r\n"
-                                        + "アカウント：{3}\r\n"
-                                        + "お問い合わせ時間：{4}\r\n"
-                                        , Topic, SendBody, returnMail, returnLoginAccount, DateTime.Now);
+            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
 
-                /*
-                お問い合わせ類型:
-                お問い合わせ内容:
-                お返事のメールアドレス:
-                アカウント:
-                お問い合わせ時間:
-                */
+            objBody.Add("subject", subjectString);
+            objBody.Add("fromName", "edm@casino-maharaja.com");
+            objBody.Add("fromAddress", "edm@casino-maharaja.com");
+            objBody.Add("content", bodyString);
 
-                Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
-                Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
-                Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
+            objRecipients.Add("name", "service@casino-maharaja.com");
+            objRecipients.Add("address", "service@casino-maharaja.com");
+            aryRecipients.Add(objRecipients);
 
-                objBody.Add("subject", subjectString);
-                objBody.Add("fromName", "edm@casino-maharaja.com");
-                objBody.Add("fromAddress", "edm@casino-maharaja.com");
-                objBody.Add("content", bodyString);
+            objBody.Add("recipients", aryRecipients);
 
-                objRecipients.Add("name", "service@casino-maharaja.com");
-                objRecipients.Add("address", "service@casino-maharaja.com");
-                aryRecipients.Add(objRecipients);
+            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
 
-                objBody.Add("recipients", aryRecipients);
-
-                CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
-
-                R = new EWin.Lobby.APIResult() {
-                    Result = EWin.Lobby.enumResult.OK,
-                    Message = "",
-                    GUID = GUID
-                };
-            } else {
-                R = new EWin.Lobby.APIResult() {
-                    Result = EWin.Lobby.enumResult.ERR,
-                    Message = "SubjectOrSendBodyIsEmpty",
-                    GUID = GUID
-                };
-            }
+            R = new EWin.Lobby.APIResult() {
+                Result = EWin.Lobby.enumResult.OK,
+                Message = "",
+                GUID = GUID
+            };
         } else {
             R = new EWin.Lobby.APIResult() {
                 Result = EWin.Lobby.enumResult.ERR,
-                Message = "EMailNotFind",
+                Message = "SubjectOrSendBodyIsEmpty",
                 GUID = GUID
             };
         }

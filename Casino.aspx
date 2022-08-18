@@ -14,16 +14,18 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/lobby.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     <!--===========JS========-->
     <script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
     <%--<script type="text/javascript" src="/Scripts/UIControl.js"></script>--%>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
-    <script src="Scripts/jquery-3.3.1.min.js"></script>
-    <script src="Scripts/lozad.min.js"></script>
-    <script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
+    
     <style>
         .title-showAll:hover {
             cursor: pointer;
@@ -81,14 +83,17 @@
             GameBrand: "BNG",
             Location: "GameList_Hot",
             MobileSrc: "/images/lobby/dailypush-hot-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
-            BackgroundColor:"#121a16"
+            BackgroundColor: "#121a16",
+            CrownLevel: "crownLevel-1 crown-Payout"
         },
         {
             GameCode: "PNG.moonprincess",
             GameBrand: "PNG",
             Location: "GameList_Slot",
             MobileSrc: "/images/lobby/dailypush-slot-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-slot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-slot-001.jpg",
             BackgroundColor: "#3f2e56"
         },
@@ -97,6 +102,7 @@
             GameBrand: "EVO",
             Location: "GameList_Live",
             MobileSrc: "/images/lobby/dailypush-live-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-live-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-live-001.jpg",
             BackgroundColor: "#010101"
         },
@@ -105,6 +111,7 @@
             GameBrand: "BTI",
             Location: "GameList_Other",
             MobileSrc: "/images/lobby/dailypush-bti-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-bti-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-bti-001.jpg",
             BackgroundColor: "#f66f13"
         },
@@ -113,6 +120,7 @@
             GameBrand: "MG",
             Location: "GameList_Brand",
             MobileSrc: "/images/lobby/dailypush-brand-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-brand-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-brand-002.jpg",
             BackgroundColor: "#4c1802"
         },
@@ -121,6 +129,7 @@
             GameBrand: "EVO",
             Location: "GameList_Favo",
             MobileSrc: "/images/lobby/dailypush-favo-M-001.jpg",
+            PadSrc: "/images/lobby/dailypush-favo-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-favo-001.jpg",
             BackgroundColor: "#352c1d"
         }
@@ -176,43 +185,86 @@
     }
 
     function setSwiper(categoryName) {
+        if (WebInfo.DeviceType == 0) {
+            new Swiper(".GameItemGroup0_" + categoryName, {
+                slidesPerView: "auto",
+                lazy: true,
+                freeMode: true,
+                allowTouchMove: false,
+                navigation: {
+                    nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
+                },
+                breakpoints: {
 
-        new Swiper(".GameItemGroup0_" + categoryName, {
-            slidesPerView: "auto",
-            lazy: true,
-            freeMode: true,
-            navigation: {
-                nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
-                prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
-            },
-            breakpoints: {
-
-                936: {
-                    freeMode: false,
-                    slidesPerGroup: 6, //index:992px
-                },
-                1144: {
-                    slidesPerGroup: 7, //index:1200px
-                    allowTouchMove: false, //拖曳
-                },
-                1384: {
-                    slidesPerGroup: 7, //index:1440px
-                    allowTouchMove: false,
-                },
-                1544: {
-                    slidesPerGroup: 7, //index:1600px
-                    allowTouchMove: false,
-                },
-                1864: {
-                    slidesPerGroup: 8, //index:1920px
-                    allowTouchMove: false,
-                },
-                1920: {
-                    slidesPerGroup: 8, //index:1920px up
-                    allowTouchMove: false,
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            new Swiper(".GameItemGroup0_" + categoryName, {
+                slidesPerView: "auto",
+                lazy: true,
+                freeMode: true,
+                allowTouchMove: true,
+                navigation: {
+                    nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
+                },
+                breakpoints: {
+
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    }
+                }
+            });
+        }
+
+      
+
         new Swiper('.GameItemGroup1_' + categoryName, {
             effect: "coverflow",
             grabCursor: true,
@@ -275,7 +327,7 @@
                                     })
                                 });
 
-                                if (gameItem) {
+                                if (gameItem && gameItem.GameStatus==0) {
                                     createGameItem(gameItem, showType, function (stringGameItem) {
                                         gameBrand = gameItem.GameBrand;
                                         gameItems += stringGameItem;
@@ -284,8 +336,8 @@
                             }
 
                             categName = category.CategoryName.replace('@', '').replace('#', '');
-                   
-                            if (WebInfo.DeviceType==1) {
+
+                            if (WebInfo.DeviceType == 1) {
                                 textlink = '';
                             } else {
                                 textlink = `<a class="text-link">
@@ -305,30 +357,13 @@
                                     addContainStart = true;
                                     addContainEnd = false;
                                 }
-                                game_wrapper = '<div class="game_wrapper gameRanking">';
+                                game_wrapper = '<div class="game_wrapper">';
                             } else if (showType == 2) {
                                 addContainEnd = true;
                                 addContainStart = false;
                                 addContainMiddle = false;
                             }
-          
-                            if (showType == 2) {
-                                categArea = `<section class="section-wrap section_randomRem">
-                                                    <div class="container">
-                                                        <div class="game_wrapper">
-                                                            <div class="sec-title-container">
-                                                                <div class="sec-title-wrapper">
-                                                                </div>
-                                                            </div>
-                                                            <div class="game_slider swiper_container round-arrow swiper-cover GameItemGroup1_${Location}">
-                                                                <div class="swiper-wrapper GameItemGroupContent">
-                                                                ${gameItems}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>`;
-                            } else {
+                            if (showType == 0) {
                                 if (Location == "GameList_Brand") {
                                     categArea = `<section class="section-wrap section-levelUp">
                                                     ${game_wrapper}
@@ -370,6 +405,65 @@
                                                 </div>
                                                 </section>`;
                                 }
+                            } else if (showType == 1) {
+                                if (Location == "GameList_Brand") {
+                                    categArea = `<section class="section-wrap section-levelUp gameRanking">
+                                                    ${game_wrapper}
+                                                    <div class="sec-title-container">
+                                                    <div class="sec-title-wrapper">
+                                                    <h3 class="sec-title"><i class="icon icon-mask icon-star"></i>
+                                                    <span class="language_replace title CategName langkey" onclick="window.parent.API_SearchGameByBrand('${gameBrand}')">${mlp.getLanguageKey(categName)}</span>
+                                                    </h3>
+                                                    </div>
+                                                    ${textlink}
+                                                    </div>
+                                                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
+                                                    <div class="swiper-wrapper GameItemGroupContent">
+                                                    ${gameItems}
+                                                    </div>
+                                                    <div class="swiper-button-next"></div>
+                                                    <div class="swiper-button-prev"></div>
+                                                    </div>
+                                                    </div>
+                                                    </section>`;
+                                }
+                                else {
+                                    categArea = `<section class="section-wrap section-levelUp gameRanking">
+                                                ${game_wrapper}
+                                                <div class="sec-title-container">
+                                                <div class="sec-title-wrapper">
+                                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i>
+                                                    <span class="language_replace title CategName langkey">${mlp.getLanguageKey(categName)}</span>
+                                                </h3>
+                                                </div>
+                                                </div>
+                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
+                                                <div class="swiper-wrapper GameItemGroupContent">
+                                                ${gameItems}
+                                                </div>
+                                                <div class="swiper-button-next"></div>
+                                                <div class="swiper-button-prev"></div>
+                                                </div>
+                                                </div>
+                                                </section>`;
+                                }
+                            }
+                            else if (showType == 2) {
+                                categArea = `<section class="section-wrap section_randomRem">
+                                                    <div class="container">
+                                                        <div class="game_wrapper">
+                                                            <div class="sec-title-container">
+                                                                <div class="sec-title-wrapper">
+                                                                </div>
+                                                            </div>
+                                                            <div class="game_slider swiper_container round-arrow swiper-cover GameItemGroup1_${Location}">
+                                                                <div class="swiper-wrapper GameItemGroupContent">
+                                                                ${gameItems}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>`;
                             }
 
                             if (addContainMiddle) {
@@ -380,14 +474,14 @@
                                     categAreas += '<div class="container"> ' + categArea;
                                 } else if (addContainEnd) {
                                     addContainMiddle = false;
-                                    categAreas += '</div>'+categArea;
+                                    categAreas += '</div>' + categArea;
                                 } else {
                                     categAreas += categArea;
                                 }
                             }
 
-                           
-                        
+
+
                         }
                     }
                 }
@@ -396,15 +490,15 @@
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
-                    categoryDiv.append(categAreas);                   
-                    $('#gameAreas').append(categoryDiv);                   
+                    categoryDiv.append(categAreas);
+                    $('#gameAreas').append(categoryDiv);
                     cb();
                 });
             }
         }
     }
 
-    function createHeaderGame(Location,cb) {
+    function createHeaderGame(Location, cb) {
         var type = "";
         var btnlike = "";
         var btnplay = "";
@@ -479,12 +573,17 @@
 
                     var docString = `<div class="container category-dailypush">
                                      ${titleobj}
-                 <div class="category-dailypush-wrapper ${type}">
+                 <div class="category-dailypush-wrapper ${type} ${headerGameData.CrownLevel} ">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: ${headerGameData.BackgroundColor};">
                             <div class="img-box mobile">
                                 <div class="img-wrap">
                                     <img src="${headerGameData.MobileSrc}" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box pad">
+                                <div class="img-wrap">
+                                    <img src="${headerGameData.PadSrc}" alt="">
                                 </div>
                             </div>
                             <div class="img-box desktop">
@@ -500,7 +599,7 @@
                                     <h3 class="gamename language_replace">${gameName}</h3>
                                     <div class="detail">
                                         <span class="gamebrand">${mlp.getLanguageKey(gameItem.GameBrand)}</span >
-                                        <span class="gamecategory">${gameItem.GameCategoryCode}</span>
+                                        <span class="gamecategory">${mlp.getLanguageKey(gameItem.GameCategoryCode)}</span>
                                     </div>
                                 </div>
                                 <div class="intro language_replace is-hide">
@@ -572,22 +671,30 @@
 
             if (WebInfo.DeviceType == 1) {
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-
                 gameitemlink = `<span class="game-item-link"></span>`;
-                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode }')"></span>`;
+                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
                 //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
             } else {
-                gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                if (iframeWidth < 936) {
+                    gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                } else {
+                    gameitemmobilepopup = '';
+                }
+         
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                 gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
 
             }
 
-            imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+         
 
+            imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+            //三冠王 
+            // 等級crownLevel-1/crownLevel-2/crownLevel-3
+            // 類別crown-Payout派彩/crown-Multiplier倍率/crown-Spin轉數
             if (showType == 2) {
                 GI = `${GItitle}
-                        <div class="game-item">
+                        <div class="game-item crownLevel-1 crown-Spin">
                             <div class="game-item-inner">
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
@@ -602,7 +709,7 @@
                         </div>`;
             } else {
                 GI = `${GItitle}
-                        <div class="game-item">
+                        <div class="game-item crownLevel-1 crown-Spin">
                             <div class="game-item-inner">
                             ${gameitemmobilepopup}
                             <div class="game-item-focus">
@@ -625,14 +732,14 @@
         }
     }
 
-    function appendGameProp(gameBrand, gameLangName, RTP, gameID, gameCode, showType, gameCategoryCode,gameName) {
+    function appendGameProp(gameBrand, gameLangName, RTP, gameID, gameCode, showType, gameCategoryCode, gameName) {
 
         var doc = event.currentTarget;
         var jquerydoc = $(doc).parent().parent().eq(0);
         var btnlike;
         var gameProp;
         var _gameCategoryCode;
-   
+
         const promise = new Promise((resolve, reject) => {
             GCB.GetByGameCode(gameCode, (gameItem) => {
                 resolve(gameItem.FavoTimeStamp);
@@ -640,41 +747,41 @@
         });
         promise.then((favoTimeStamp) => {
 
-                switch (gameCategoryCode) {
-                    case "Electron":
-                        _gameCategoryCode = "elec";
-                        break;
-                    case "Live":
-                        _gameCategoryCode = "live";
-                        break;
-                    case "Slot":
-                        _gameCategoryCode = "slot";
-                        break;
-                    default:
-                        _gameCategoryCode = "etc";
-                        break;
-                }
+            switch (gameCategoryCode) {
+                case "Electron":
+                    _gameCategoryCode = "elec";
+                    break;
+                case "Live":
+                    _gameCategoryCode = "live";
+                    break;
+                case "Slot":
+                    _gameCategoryCode = "slot";
+                    break;
+                default:
+                    _gameCategoryCode = "etc";
+                    break;
+            }
 
-                if (!jquerydoc.hasClass('addedGameProp')) {
-                    if (favoTimeStamp != null) {
-                        if (WebInfo.DeviceType == 1) {
-                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
-                        } else {
-                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
-                        }
-                       
+            if (!jquerydoc.hasClass('addedGameProp')) {
+                if (favoTimeStamp != null) {
+                    if (WebInfo.DeviceType == 1) {
+                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
                     } else {
-                        if (WebInfo.DeviceType == 1) {
-                            btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
-                        } else {
-                            btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
-                        }
-                       
+                        btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round added" onclick="favBtnClcik('${gameCode}')">`;
                     }
-                    // onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" 
-                    //<!-- 判斷分類 加入class=> slot/live/etc/elec-->
-                    if (showType != 2) {
-                        gameProp = `<div class="game-item-info-detail open" onclick="window.parent.openGame('${gameBrand}','${gameName}','${gameLangName}')">
+
+                } else {
+                    if (WebInfo.DeviceType == 1) {
+                        btnlike = `<button type="button" class="btn-like gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                    } else {
+                        btnlike = `<button type="button" class="btn-like desktop gameCode_${gameCode} btn btn-round" onclick="favBtnClcik('${gameCode}')">`;
+                    }
+
+                }
+                // onclick="' + "window.parent.openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" 
+                //<!-- 判斷分類 加入class=> slot/live/etc/elec-->
+                if (showType != 2) {
+                    gameProp = `<div class="game-item-info-detail open" onclick="window.parent.openGame('${gameBrand}','${gameName}','${gameLangName}')">
                                 <div class="game-item-info-detail-wrapper">
                                     <div class="game-item-info-detail-moreInfo">
                                         <ul class="moreInfo-item-wrapper">
@@ -720,10 +827,10 @@
                                 </div>
                             </div>`;
 
-                        jquerydoc.append(gameProp);
-                    }
-                    jquerydoc.addClass('addedGameProp');
+                    jquerydoc.append(gameProp);
                 }
+                jquerydoc.addClass('addedGameProp');
+            }
 
         });
     };
@@ -771,6 +878,7 @@
                 switch (lobbyGame.Location) {
                     case 'GameList_Hot':
                         $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
+                        $(RecordDom).addClass('active');
                         break;
                     case 'GameList_Favo':
                         $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
@@ -1081,7 +1189,7 @@
                 //if (!initCreatedGameList) {                                     
                 //updateGameList();
                 //}
-               
+
                 break;
         }
     }
@@ -1109,6 +1217,32 @@
                             </div>
                         </div>
                     </div> -->
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=9')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/crown-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/crown.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=8')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/slider-ne-rt-s.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/slider-ne-rt.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=4')"></a>
@@ -1193,7 +1327,7 @@
             </div>
         </div>
         <!-- 各分類-單一遊戲推薦區 -->
-        <section class="section-category-dailypush" style="display:none;">
+         <%--    <section class="section-category-dailypush" style="display:none;">
             <div class="container">                
                 <!-- hot -->
                 <div class="category-dailypush-wrapper hot">
@@ -1312,7 +1446,6 @@
                         </div>
                     </div>
                 </div>             
-                <!-- OTHER -->   
                 <div class="category-dailypush-wrapper other">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #3a3227;">
@@ -1342,7 +1475,6 @@
                                 </div>
                                 <div class="action">
                                     <button class="btn btn-play"><span class="language_replace">進入遊戲</span></button>
-                                    <!-- 加入最愛 class=>added-->
                                     <button type="button" class="btn-like btn btn-round">
                                         <i class="icon icon-m-favorite"></i>
                                     </button>
@@ -1351,7 +1483,6 @@
                         </div>
                     </div>
                 </div>             
-                <!-- FAVO -->   
                 <div class="category-dailypush-wrapper favo">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #352c1d;">
@@ -1390,7 +1521,6 @@
                         </div>
                     </div>
                 </div>             
-                <!-- BRAND -->   
                 <div class="category-dailypush-wrapper brand">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #4c1802;">
@@ -1430,7 +1560,7 @@
                     </div>
                 </div>             
             </div>
-        </section>
+        </section>--%>
          <section class="game-area overflow-hidden">
             <div id="gameAreas">
                  
@@ -1523,7 +1653,7 @@
             </div> 
          </section>
          <!-- 遊戲-隨機推薦-->
-         <section class="section-wrap section_randomRem" style="display:none;">
+        <%-- <section class="section-wrap section_randomRem" style="display:none;">
             <div class="container-fluid">
                 <div class="game_wrapper">
                     <div class="sec-title-container">
@@ -1550,7 +1680,7 @@
                     </div>
                 </div>
              </div>
-        </section>
+        </section>--%>
 
     </main>
 
@@ -1560,6 +1690,108 @@
                 <span class="title language_replace CategName"></span></span>
         </li>
     </div>
+ <%--   <div id="testdiv">
+        <div class="container category-dailypush">
+                                     <section class="section-category-dailypush" onclick="window.parent.openGame('BNG', '242','タイガー ジャングル')">
+                 <div class="category-dailypush-wrapper hot">
+                    <div class="category-dailypush-inner">
+                        <div class="category-dailypush-img" style="background-color: #121a16;">
+                            <div class="img-box mobile">
+                                <div class="img-wrap">
+                                    <img src="/images/lobby/dailypush-hot-M-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box pad">
+                                <div class="img-wrap">
+                                    <img src="/images/lobby/dailypush-hot-MD-001.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="img-box desktop">
+                                <div class="img-wrap">
+                                    <img src="/images/lobby/dailypush-hot-001.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-dailypush-cotentBox">
+                            <div class="category-dailypush-cotent">
+                                <h2 class="title language_replace">本日一押し厳選</h2>
+                                <div class="info">
+                                    <h3 class="gamename language_replace">タイガー ジャングル</h3>
+                                    <div class="detail">
+                                        <span class="gamebrand">ブーンゴー</span>
+                                        <span class="gamecategory">スロット</span>
+                                    </div>
+                                </div>
+                                <div class="intro language_replace is-hide">
+                                    遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                                </div>
+                                <div class="action">
+                                    <button class="btn btn-play" onclick="window.parent.openGame('BNG', '242','タイガー ジャングル')"><span class="language_replace">ゲームへ</span></button>
+                                    <!-- 加入最愛 class=>added-->
+                                    <button type="button" class="btn-like desktop gameCode_BNG.242 btn btn-round" onclick="favBtnClcik('BNG.242')">
+                                        <i class="icon icon-m-favorite"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         </section>
+        </div>
+    </div>
+    <div id="testdiv2" class="container">
+     <section class="section-wrap section-levelUp">
+                                                <div class="game_wrapper">
+                                                <div class="sec-title-container">
+                                                <div class="sec-title-wrapper">
+                                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i>
+                                                    <span class="language_replace title CategName langkey">ジュラシック・パーク!モンスタースロット</span>
+                                                </h3>
+                                                </div>
+                                                </div>
+                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_GameList_Hot data-showtype=0 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode">
+                                                <div class="swiper-wrapper GameItemGroupContent" aria-live="polite">
+                                                <div class="swiper-slide gameid_3891 swiper-slide-active" role="group" aria-label="1 / 10">
+                                                    <div class="swiper-slide gameid_6502"> <div class="game-item"><div class="game-item-inner"><div class="game-item-focus">    <div class="game-item-img">        <span class="game-item-link" onclick="window.parent.openGame('BBIN', '1204','ニンジャ マスター')" onmouseover="appendGameProp('BBIN','ニンジャ マスター','96.44','6502','BBIN.1204',1,'Slot','1204')"></span>        <div class="img-wrap">            <img class="gameimg lozad" src="https://ewin.dev.mts.idv.tw/Files/GamePlatformPic/BBIN/PC/JPN/1204.png"></div></div></div></div> </div></div>
+                                                </div>
+                                                </div>
+                                                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-aa260d7b0a7e6195" aria-disabled="false"></div>
+                                                <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-aa260d7b0a7e6195" aria-disabled="true"></div>
+                                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                                                </div>
+                                                </section>
+    </div>
+
+    <div id="testdiv3">
+        <section class="section-wrap section_randomRem">
+                                                    <div class="container">
+                                                        <div class="game_wrapper">
+                                                            <div class="sec-title-container">
+                                                                <div class="sec-title-wrapper">
+                                                                </div>
+                                                            </div>
+                                                            <div class="game_slider swiper_container round-arrow swiper-cover GameItemGroup1_GameList_Hot swiper-container-coverflow swiper-container-3d swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events" style="cursor: grab;">
+                                                                <div class="swiper-wrapper GameItemGroupContent" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(-1470px, 0px, 0px);">
+                                                                
+                                                                <div class="swiper-slide gameid_849 swiper-slide-duplicate" style="transition-duration: 0ms; transform: translate3d(0px, 0px, -5700px) rotateX(0deg) rotateY(-380deg) scale(1); z-index: -18;">
+                        <div class="game-item addedGameProp">
+                            <div class="game-item-inner">
+                                
+                                    <span class="game-item-link" onclick="window.parent.openGame('PP', 'vswaysrhino','巨大なサイ Megaways')" onmouseover="appendGameProp('PP','巨大なサイ Megaways','96.58','849','PP.vswaysrhino',2,'Slot','vswaysrhino')"></span>
+                                    <div class="img-wrap">
+                                        <img class="gameimg lozad" src="https://ewin.dev.mts.idv.tw/Files/GamePlatformPic/PP/PC/JPN/vswaysrhino.png">
+                                    </div>
+                             </div>
+                             <div class="game-item-info">
+                               <h3 class="game-item-name">巨大なサイ Megaways</h3>
+                             </div>
+                           </div>
+                        <div class="swiper-slide-shadow-left" style="opacity: 0; transition-duration: 0ms;"></div><div class="swiper-slide-shadow-right" style="opacity: 19; transition-duration: 0ms;"></div></div></div>
+                                                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+    </div>--%>
     <%--推薦遊戲--%>
     <div id="temCategArea2" class="is-hide">
         <section class="section-wrap section_randomRem">

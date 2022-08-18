@@ -53,6 +53,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 0;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  will-change: transform;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
@@ -127,6 +128,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .hero_slider_lobby .hero-item-box.mobile {
   display: inherit !important;
 }
+.hero_slider_lobby .hero-item-box.pad {
+  display: none !important;
+}
 .hero_slider_lobby .hero-item-box.desktop {
   display: none !important;
 }
@@ -188,6 +192,40 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .category-dailypush {
   cursor: pointer;
 }
+.category-dailypush-wrapper[class*=crownLevel-] .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+.category-dailypush-wrapper[class*=crownLevel-] .title::after {
+  margin-left: 4px;
+  content: "";
+  display: inline-block;
+  width: 70px;
+  height: 50px;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  -webkit-transition: -webkit-transform 0.45s ease-in-out;
+  transition: -webkit-transform 0.45s ease-in-out;
+  transition: transform 0.45s ease-in-out;
+  transition: transform 0.45s ease-in-out, -webkit-transform 0.45s ease-in-out;
+}
+.category-dailypush-wrapper.crownLevel-1 .title::after {
+  background-image: url(../images/icon/ico-crown-dog-star-1.svg);
+}
+.category-dailypush-wrapper.crownLevel-1.crown-Payout .title::after {
+  background-image: url(../images/icon/ico-crown-dog-star-1-payout.svg);
+}
+.category-dailypush-wrapper.crownLevel-1.crown-Multiplier .title::after {
+  background-image: url(../images/icon/ico-crown-dog-star-1-multiplier.svg);
+}
+.category-dailypush-wrapper.crownLevel-1.crown-Spin .title::after {
+  background-image: url(../images/icon/ico-crown-dog-star-1-spin.svg);
+}
 .category-dailypush-inner {
   position: relative;
   display: -webkit-box;
@@ -229,6 +267,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 100%;
   height: 100%;
 }
+.category-dailypush-img .pad {
+  display: none;
+}
 .category-dailypush-img .desktop {
   display: none;
 }
@@ -238,9 +279,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   right: 0;
   width: 50%;
   max-width: 300px;
-  min-width: 190px;
-  height: 100%;
-  min-height: 173px;
+  min-width: 200px;
+  height: 90%;
+  max-height: 250px;
+  min-height: 180px;
   color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -267,10 +309,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 300;
 }
 .category-dailypush-cotentBox .gamename {
@@ -289,6 +328,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  white-space: nowrap;
 }
 .category-dailypush-cotentBox .intro {
   display: -webkit-box;
@@ -520,17 +563,20 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     -webkit-box-pack: start;
         -ms-flex-pack: start;
             justify-content: flex-start;
-    aspect-ratio: 288/65;
+    aspect-ratio: 288/100;
   }
   .category-dailypush-img img {
-    -o-object-fit: contain;
-       object-fit: contain;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
   .category-dailypush-img .mobile {
     display: none;
   }
-  .category-dailypush-img .desktop {
+  .category-dailypush-img .pad {
     display: inherit;
+  }
+  .category-dailypush-img .desktop {
+    display: none;
   }
   .category-dailypush-img img {
     -o-object-position: 100% 0;
@@ -544,6 +590,16 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
   .game_slider.swiper-cover .swiper-slide {
     width: 170px;
+  }
+
+  .category-dailypush-inner {
+    aspect-ratio: 288/80;
+  }
+  .category-dailypush-img .pad {
+    display: none;
+  }
+  .category-dailypush-img .desktop {
+    display: inherit;
   }
 }
 @media (min-width: 936px) and (max-width: 1143px) {
@@ -585,6 +641,17 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .game_slider.swiper-cover .swiper-slide {
     width: 200px;
   }
+
+  .category-dailypush-inner {
+    aspect-ratio: 288/65;
+  }
+  .category-dailypush-img img {
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .category-dailypush-wrapper[class*=crownLevel-] .title::after {
+    width: 90px;
+  }
 }
 @media (min-width: 1144px) and (max-width: 1383px) {
   .game_slider .swiper-slide {
@@ -620,10 +687,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   }
   .hero_slider_lobby .swiper-slide {
     max-width: 66%;
-  }
-
-  .category-dailypush-cotentBox {
-    height: 90%;
   }
 
   .game_slider.swiper-cover .swiper-slide {
@@ -813,35 +876,57 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     mask-image: url(../images/icon/ico-all-tt-m.svg);
   }
   .tab-game .icon-hot-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-hot-tt-m.svg);
-    mask-image: url(../images/icon/ico-hot-tt-m.svg);
+    -webkit-mask-image: url(../images/icon/ico-hot-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-hot-tt-jp-m.svg);
   }
   .tab-game .icon-etc-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-etc-tt-m.svg);
-    mask-image: url(../images/icon/ico-etc-tt-m.svg);
+    -webkit-mask-image: url(../images/icon/ico-etc-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-etc-tt-jp-m.svg);
+  }
+  .tab-game .icon-live-tt::before {
+    -webkit-mask-image: url(../images/icon/ico-live-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-live-tt-jp-m.svg);
+  }
+  .tab-game .icon-slot-tt::before {
+    -webkit-mask-image: url(../images/icon/ico-slot-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-slot-tt-jp-m.svg);
+  }
+  .tab-game .icon-brand-tt::before {
+    -webkit-mask-image: url(../images/icon/ico-brand-tt-jp-m.svg);
+    mask-image: url(../images/icon/ico-brand-tt-jp-m.svg);
   }
   .tab-game .icon-elec-tt::before {
     -webkit-mask-image: url(../images/icon/ico-elec-tt-m.svg);
     mask-image: url(../images/icon/ico-elec-tt-m.svg);
   }
-  .tab-game .icon-live-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-live-tt-m.svg);
-    mask-image: url(../images/icon/ico-live-tt-m.svg);
-  }
   .tab-game .icon-poker-tt::before {
     -webkit-mask-image: url(../images/icon/ico-poker-tt-m.svg);
     mask-image: url(../images/icon/ico-poker-tt-m.svg);
-  }
-  .tab-game .icon-slot-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-slot-tt-m.svg);
-    mask-image: url(../images/icon/ico-slot-tt-m.svg);
   }
   .tab-game .icon-favo-tt::before {
     -webkit-mask-image: url(../images/icon/ico-favo-tt-m.svg);
     mask-image: url(../images/icon/ico-favo-tt-m.svg);
   }
-  .tab-game .icon-brand-tt::before {
-    -webkit-mask-image: url(../images/icon/ico-brand-tt-m.svg);
-    mask-image: url(../images/icon/ico-brand-tt-m.svg);
+}
+@media (max-width: 575px) {
+  .gamename {
+    min-height: 2.2rem;
+  }
+
+  .gamebrand {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.625rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .category-dailypush-cotentBox {
+    min-width: 150px;
+    max-width: 160px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }

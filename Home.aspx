@@ -31,16 +31,16 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css?a=2">
     <link rel="stylesheet" href="css/index.css?a=1">
-
-    <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
-    <script src="Scripts/lozad.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
         <style>
         .title-showAll:hover {
             cursor: pointer;
@@ -49,6 +49,7 @@
         .game-item-info-detail{
             cursor: pointer;
         }
+
 
     </style>
 </head>
@@ -125,16 +126,17 @@
             slidesPerView: "auto",
             freeMode: true,
             // enabled: false,
+            allowTouchMove: false,
             watchSlidesProgress: false,
         });
 
         var heroIndex = new Swiper("#hero-slider", {
             loop: true,
             slidesPerView: 1,
-            effect: "fade",
+            // effect: "fade",
             speed: 1000, //Duration of transition between slides (in ms)
             autoplay: {
-                delay: 10000,
+                delay: 4000,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true
             },
@@ -283,20 +285,20 @@
                             setSwiper("Home");
                         })
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                            window.parent.location.href = "index.aspx";
-                        });
+                        Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
+                            setSwiper("Home");
+                        })
                     }
                 } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                        window.parent.location.href = "index.aspx";
-                    });
+                    Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
+                        setSwiper("Home");
+                    })
                 }
             }
             else {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
-                    window.parent.location.href = "index.aspx";
-                });
+                Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
+                    setSwiper("Home");
+                })
             }
 
         });
@@ -335,7 +337,7 @@
                     var imgsrc;
                     var gameName;
                     var _gameCategoryCode;
-                    if (gameItem) {
+                    if (gameItem && gameItem.GameStatus == 0) {
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                         if (gameItem.FavoTimeStamp != null) {
@@ -374,7 +376,12 @@
                             gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
                             //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                         } else {
-                            gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                            if (iframeWidth < 936) {
+                                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                            } else {
+                                gameitemmobilepopup = '';
+                            }
+
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                             gameitemlink = '<span class="game-item-link"></span>';
                             btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
@@ -543,18 +550,18 @@
                                     })
                                 });
 
-                                if (gameItem) {
+                                if (gameItem && gameItem.GameStatus == 0) {
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                     if (gameItem.FavoTimeStamp != null) {
                                         if (WebInfo.DeviceType == 0) {
-                                            btnlike = `<button type="button" desktop class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn desktop btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         } else {
                                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         }
                                     } else {
                                         if (WebInfo.DeviceType == 0) {
-                                            btnlike = `<button type="button" desktop class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                                            btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn desktop btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         } else {
                                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         }
@@ -581,7 +588,12 @@
                                         gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode }')"></span>`;
                                         //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
                                     } else {
-                                        gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
+                                        if (iframeWidth < 936) {
+                                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                                        } else {
+                                            gameitemmobilepopup = '';
+                                        }
+                                   
                                         GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                                         gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
                                         btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
@@ -733,87 +745,177 @@
     }
 
     function setSwiperBySelector(selector) {
-        new Swiper(selector, {
-            slidesPerView: "auto",
-            // loop:true,
-            // slidesPerGroup: 2,
-            // loopedSlides: 8,
-            lazy: true,
-            freeMode: true,
-            navigation: {
-                nextEl: selector + " .swiper-button-next",
-                prevEl: selector + " .swiper-button-prev",
-            },
-            breakpoints: {
+        if (WebInfo.DeviceType == 0) {
+            new Swiper(selector, {
+                slidesPerView: "auto",
+                allowTouchMove: false,
+                // loop:true,
+                // slidesPerGroup: 2,
+                // loopedSlides: 8,
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: selector + " .swiper-button-next",
+                    prevEl: selector + " .swiper-button-prev",
+                },
+                breakpoints: {
 
-                936: {
-                    freeMode: false,
-                    slidesPerGroup: 6, //index:992px
+                    936: {
+                        freeMode: false,
+                        //slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    },
+                }
+            });
+        } else {
+            new Swiper(selector, {
+                slidesPerView: "auto",
+                allowTouchMove: true,
+                // loop:true,
+                // slidesPerGroup: 2,
+                // loopedSlides: 8,
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: selector + " .swiper-button-next",
+                    prevEl: selector + " .swiper-button-prev",
                 },
-                1144: {
-                    slidesPerGroup: 7, //index:1200px
-                    allowTouchMove: false, //拖曳
-                },
-                1384: {
-                    slidesPerGroup: 7, //index:1440px
-                    allowTouchMove: false,
-                },
-                1544: {
-                    slidesPerGroup: 7, //index:1600px
-                    allowTouchMove: false,
-                },
-                1864: {
-                    slidesPerGroup: 8, //index:1920px
-                    allowTouchMove: false,
-                },
-                1920: {
-                    slidesPerGroup: 8, //index:1920px up
-                    allowTouchMove: false,
-                },
-            }
-        });
+                breakpoints: {
+
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    },
+                }
+            });
+        }
+        
     }
 
     function setSwiper(categoryName) {
-        new Swiper(".GameItemGroup_" + categoryName, {
-            slidesPerView: "auto",
-            // loop:true,
-            // slidesPerGroup: 2,
-            // loopedSlides: 8,
-            lazy: true,
-            freeMode: true,
-            navigation: {
-                nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
-                prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
-            },
-            breakpoints: {
+        if (WebInfo.DeviceType == 0) {
+            new Swiper(".GameItemGroup_" + categoryName, {
+                slidesPerView: "auto",
+                allowTouchMove: false,
+                // loop:true,
+                // slidesPerGroup: 2,
+                // loopedSlides: 8,
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
+                },
+                breakpoints: {
 
-                936: {
-                    freeMode: false,
-                    slidesPerGroup: 6, //index:992px
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        allowTouchMove: false,
+                    },
+                }
+            });
+        } else {
+            new Swiper(".GameItemGroup_" + categoryName, {
+                slidesPerView: "auto",
+                allowTouchMove: true,
+                // loop:true,
+                // slidesPerGroup: 2,
+                // loopedSlides: 8,
+                lazy: true,
+                freeMode: true,
+                navigation: {
+                    nextEl: ".GameItemGroup_" + categoryName + " .swiper-button-next",
+                    prevEl: ".GameItemGroup_" + categoryName + " .swiper-button-prev",
                 },
-                1144: {
-                    slidesPerGroup: 7, //index:1200px
-                    allowTouchMove: false, //拖曳
-                },
-                1384: {
-                    slidesPerGroup: 7, //index:1440px
-                    allowTouchMove: false,
-                },
-                1544: {
-                    slidesPerGroup: 7, //index:1600px
-                    allowTouchMove: false,
-                },
-                1864: {
-                    slidesPerGroup: 8, //index:1920px
-                    allowTouchMove: false,
-                },
-                1920: {
-                    slidesPerGroup: 8, //index:1920px up
-                    allowTouchMove: false,
-                },
-            }
-        });
+                breakpoints: {
+
+                    936: {
+                        freeMode: false,
+                        slidesPerGroup: 6, //index:992px
+                    },
+                    1144: {
+                        slidesPerGroup: 7, //index:1200px
+                        //allowTouchMove: false, //拖曳
+                    },
+                    1384: {
+                        slidesPerGroup: 7, //index:1440px
+                        //allowTouchMove: false,
+                    },
+                    1544: {
+                        slidesPerGroup: 7, //index:1600px
+                        //allowTouchMove: false,
+                    },
+                    1864: {
+                        slidesPerGroup: 8, //index:1920px
+                        //allowTouchMove: false,
+                    },
+                    1920: {
+                        slidesPerGroup: 8, //index:1920px up
+                        //allowTouchMove: false,
+                    },
+                }
+            });
+        }
+ 
     }
 
     function setBulletinBoard() {
@@ -822,25 +924,32 @@
             if (success) {
                 if (o.Result == 0) {
                     var ParentMain = document.getElementById("idBulletinBoardContent");
+                    var ParentMain2 = document.getElementById("idBulletinBoardContent2");
                     ParentMain.innerHTML = "";
+                    ParentMain2.innerHTML = "";
 
                     if (o.Datas.length > 0) {
                         var RecordDom;
+                        var RecordDom2;
                         //var numGameTotalValidBetValue = new BigNumber(0);
                         for (var i = 0; i < o.Datas.length; i++) {
                             var record = o.Datas[i];
 
                             RecordDom = c.getTemplate("idTempBulletinBoard");
+                            RecordDom2 = c.getTemplate("idTempBulletinBoard");
 
                             var recordDate = new Date(parseInt(record.CreateDate.replace(')/', '').replace('/Date(', '')));
                             var date = recordDate.getFullYear() + '.' + (recordDate.getMonth() + 1) + '.' + recordDate.getDate();
                             c.setClassText(RecordDom, "CreateDate", null, date);
                             c.setClassText(RecordDom, "BulletinTitle", null, record.BulletinTitle);
+                            c.setClassText(RecordDom2, "CreateDate", null, date);
+                            c.setClassText(RecordDom2, "BulletinTitle", null, record.BulletinTitle);
 
                             //RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinBoardID +"."+ record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
                             RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
+                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
                             ParentMain.appendChild(RecordDom);
-
+                            ParentMain2.appendChild(RecordDom2);
                         }
                     }
                 }
@@ -972,12 +1081,11 @@
 <body class="innerBody">
     <main class="innerMain">
         <section class="section-wrap hero">
-            <div class="swiper hero_slider swiper_container round-arrow" id="hero-slider">
-                <div class="swiper-wrapper">
-                    
+            <div class="swiper hero_slider swiper-container round-arrow" id="hero-slider">
+                <div class="swiper-wrapper">                    
                     <div class="swiper-slide">
-                        <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
+                        <div class="hero-item">
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg" alt="">
                             </div>
@@ -990,7 +1098,7 @@
                     </div>                   
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -1003,7 +1111,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
@@ -1013,12 +1121,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                    
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item" >
-                            <a class="hero-item-link hero-item-href" onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
-                            <!-- <a class="hero-item-link hero-item-href" onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
+                            <!-- <a class="hero-item-link " onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b5-m.jpg" alt="">
                             </div>
@@ -1029,8 +1136,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-mask"></div>
                 </div>
+                <div class="swiper-mask"></div>
                 <%--
                 <div class="container">
                     <div class="swiper-pagination"></div>
@@ -1059,10 +1166,56 @@
                </div>
            </div>
         </section>
-        <!--  -->
+
+         <!-- 推薦遊戲 -->
+         <section class="section_recommand section-wrap">
+            <div class="container">
+                <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
+                    </div>
+                    <%--
+                    <a class="text-link" href="casino.html">
+                        <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
+                    </a>
+                    --%>
+                </div>
+                <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
+                </div>
+            </div>
+        </section>
+
+        <!-- 遊戲大廳入口 + 自定義分類 + 活動中心-->
+        <div class="entrance_Game_wrapper">
+            <div class="entrance_Game_inner container">
+                <!-- 遊戲大廳入口 -->
+                <section class="section-lobbyEntrance section-wrap">
+                    <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
+                        <img src="images/index/lobby-entrance.jpg" alt="">
+                    </div>
+                </section>
+                <!-- 自定義分類 -->
+                <section class="game-area section-wrap overflow-hidden">
+                   <div class="" id="gameAreas"></div>
+                </section>  
+
+                 <!-- 活動中心 -->
+                 <section class="section-activityCenter section-wrap">
+                    <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                        <div class="activity-center-inner">
+                            <div class="activity-center-content">
+                                <div class="title language_replace">活動中心</div>
+                                <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
+                            </div>
+                        </div>
+                    </div>
+                 </section>                
+            </div>           
+        </div>
 
         <section class="section_publicize section-wrap">
             <div class="container">
+                <!-- writer + vTuber -->
                 <%--
                 <div class="publicize_wrapper publicize_top">
                     <div class="publicize_top_inner">
@@ -1075,17 +1228,12 @@
                     </div>
                 </div>
                 --%>
-                
+                <!-- 入出金說明 + 最新公告 + 會員簽到進度顯示 -->
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
                         <!-- 入出金說明 -->
                         <div class="publicize-wrap way-payment-wrapper">
-                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('','Deposit.aspx', true)">
-                                <%--
-                                <img src="images/index/way-payment-mobile.png" class="mobile" alt="">
-                                <img src="images/index/way-payment.png" class="desktop" alt="">
-                                --%>
-                                
+                            <div class="item way-payment-inner" onclick="window.parent.API_LoadPage('record','Article/guide_CashQa_jp.html', true)">
                                 <div class="way-payment-img">
                                     <div class="img-crop">
                                         <img src="images/theme/girl-half.png" class="mobile" alt="">
@@ -1102,17 +1250,6 @@
                         </div>
                         <!-- 最新公告 + 會員簽到進度顯示-->
                         <div class="publicize-wrap bulletin-login">
-                            <div class="item bulletin">                                
-                                <div class="bulletin_inner">
-                                    <div class="sec-title-container">
-                                        <div class="sec-title-wrapper">
-                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
-                                        </div>
-                                    </div>
-                                    <ul class="bulletin_list" id="idBulletinBoardContent">
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
                                 <div class="activity-dailylogin-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
@@ -1124,8 +1261,13 @@
                                     <div class="dailylogin-bouns-wrapper">
                                         <div class="dailylogin-bouns-inner">
                                             <div class="dailylogin-bouns-content">
-                                                <h3 class="title">
-                                                    <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                <div class="sec-title">
+                                                    <h3 class="title">
+                                                        <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                        <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                            <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
+                                                </div>
+                                                
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item">
@@ -1156,30 +1298,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="item bulletin">                                
+                                <div class="bulletin_inner">
+                                    <div class="sec-title-container sec-col-2" data-toggle="modal" data-target="#popupBulletinList">
+                                        <div class="sec-title-wrapper">
+                                            <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
+                                        </div>
+                                        <span class="btn btn-more btn-outline-main language_replace ">查看更多</span>
+                                    </div>
+                                    <ul class="bulletin_list" id="idBulletinBoardContent">
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- 推薦遊戲 -->
-        <section class="section_recommand section-wrap">
-            <div class="container">
-                <div class="sec-title-container">
-                    <div class="sec-title-wrapper">
-                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="title  language_replace CategoryName">推薦遊戲</span></h3>
-                    </div>
-                    <%--
-                    <a class="text-link" href="casino.html">
-                        <span class="language_replace">全部顯示</span><i class="icon arrow arrow-right"></i>
-                    </a>
-                    --%>
-                </div>
-                <div class="box-item-container recommend-list" id="ParentRecommendGameItem">
-                </div>
-            </div>
-        </section>
-        <section class="game-area section-wrap  overflow-hidden">
-            <div class="container" id="gameAreas"></div>
         </section>
     </main>
 
@@ -1188,7 +1322,7 @@
             <!-- <div> -->
             <li class="item">
                 <span class="date CreateDate"></span>
-                <span class="info BulletinTitle" style="cursor: pointer"></span>
+                <span class="info BulletinTitle"></span>
             </li>
             <!-- </div> -->
         </div>
@@ -1358,6 +1492,39 @@
                     <img src="images/Q_A.svg">
                 </div>
             </a>
+        </div>
+    </div>
+
+    <!-- 最新公告-總列表 -->
+    <div class="modal fade no-footer popupBulletinList" id="popupBulletinList" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">                    
+                    <h5 class="alert_Title language_replace">最新公告</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="-wrapper">
+                        <ul class="bulletin_list" id="idBulletinBoardContent2">
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

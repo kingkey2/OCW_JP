@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="HeartBeat">
@@ -30,6 +30,35 @@
           <s:enumeration value="ERR" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="AddUserAccountBrowserPageLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DeviceType" type="tns:enumDeviceType" />
+            <s:element minOccurs="0" maxOccurs="1" name="PageURL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserAgent" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DeviceGUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserIP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Refer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="enumDeviceType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unknow" />
+          <s:enumeration value="PC" />
+          <s:enumeration value="Mobile" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="AddUserAccountBrowserPageLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddUserAccountBrowserPageLogResult" type="tns:APIResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="SetExpireUserAccountPromotionByID">
         <s:complexType>
           <s:sequence>
@@ -155,6 +184,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ActionContent" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ExpireDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
           <s:element minOccurs="0" maxOccurs="1" name="CollectDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
         </s:sequence>
@@ -1731,6 +1761,12 @@
   <wsdl:message name="HeartBeatSoapOut">
     <wsdl:part name="parameters" element="tns:HeartBeatResponse" />
   </wsdl:message>
+  <wsdl:message name="AddUserAccountBrowserPageLogSoapIn">
+    <wsdl:part name="parameters" element="tns:AddUserAccountBrowserPageLog" />
+  </wsdl:message>
+  <wsdl:message name="AddUserAccountBrowserPageLogSoapOut">
+    <wsdl:part name="parameters" element="tns:AddUserAccountBrowserPageLogResponse" />
+  </wsdl:message>
   <wsdl:message name="SetExpireUserAccountPromotionByIDSoapIn">
     <wsdl:part name="parameters" element="tns:SetExpireUserAccountPromotionByID" />
   </wsdl:message>
@@ -2066,6 +2102,20 @@
     <wsdl:part name="Echo" type="s:string" />
   </wsdl:message>
   <wsdl:message name="HeartBeatHttpGetOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="AddUserAccountBrowserPageLogHttpGetIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="DeviceType" type="s:string" />
+    <wsdl:part name="PageURL" type="s:string" />
+    <wsdl:part name="UserAgent" type="s:string" />
+    <wsdl:part name="DeviceGUID" type="s:string" />
+    <wsdl:part name="UserIP" type="s:string" />
+    <wsdl:part name="Refer" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddUserAccountBrowserPageLogHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:message name="SetExpireUserAccountPromotionByIDHttpGetIn">
@@ -2568,6 +2618,20 @@
   <wsdl:message name="HeartBeatHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
+  <wsdl:message name="AddUserAccountBrowserPageLogHttpPostIn">
+    <wsdl:part name="Token" type="s:string" />
+    <wsdl:part name="SID" type="s:string" />
+    <wsdl:part name="GUID" type="s:string" />
+    <wsdl:part name="DeviceType" type="s:string" />
+    <wsdl:part name="PageURL" type="s:string" />
+    <wsdl:part name="UserAgent" type="s:string" />
+    <wsdl:part name="DeviceGUID" type="s:string" />
+    <wsdl:part name="UserIP" type="s:string" />
+    <wsdl:part name="Refer" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AddUserAccountBrowserPageLogHttpPostOut">
+    <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
   <wsdl:message name="SetExpireUserAccountPromotionByIDHttpPostIn">
     <wsdl:part name="Token" type="s:string" />
     <wsdl:part name="SID" type="s:string" />
@@ -3066,6 +3130,10 @@
       <wsdl:input message="tns:HeartBeatSoapIn" />
       <wsdl:output message="tns:HeartBeatSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="AddUserAccountBrowserPageLog">
+      <wsdl:input message="tns:AddUserAccountBrowserPageLogSoapIn" />
+      <wsdl:output message="tns:AddUserAccountBrowserPageLogSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="SetExpireUserAccountPromotionByID">
       <wsdl:input message="tns:SetExpireUserAccountPromotionByIDSoapIn" />
       <wsdl:output message="tns:SetExpireUserAccountPromotionByIDSoapOut" />
@@ -3292,6 +3360,10 @@
       <wsdl:input message="tns:HeartBeatHttpGetIn" />
       <wsdl:output message="tns:HeartBeatHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="AddUserAccountBrowserPageLog">
+      <wsdl:input message="tns:AddUserAccountBrowserPageLogHttpGetIn" />
+      <wsdl:output message="tns:AddUserAccountBrowserPageLogHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="SetExpireUserAccountPromotionByID">
       <wsdl:input message="tns:SetExpireUserAccountPromotionByIDHttpGetIn" />
       <wsdl:output message="tns:SetExpireUserAccountPromotionByIDHttpGetOut" />
@@ -3502,6 +3574,10 @@
       <wsdl:input message="tns:HeartBeatHttpPostIn" />
       <wsdl:output message="tns:HeartBeatHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="AddUserAccountBrowserPageLog">
+      <wsdl:input message="tns:AddUserAccountBrowserPageLogHttpPostIn" />
+      <wsdl:output message="tns:AddUserAccountBrowserPageLogHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="SetExpireUserAccountPromotionByID">
       <wsdl:input message="tns:SetExpireUserAccountPromotionByIDHttpPostIn" />
       <wsdl:output message="tns:SetExpireUserAccountPromotionByIDHttpPostOut" />
@@ -3711,6 +3787,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="HeartBeat">
       <soap:operation soapAction="http://tempuri.org/HeartBeat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserAccountBrowserPageLog">
+      <soap:operation soapAction="http://tempuri.org/AddUserAccountBrowserPageLog" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4225,6 +4310,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddUserAccountBrowserPageLog">
+      <soap12:operation soapAction="http://tempuri.org/AddUserAccountBrowserPageLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SetExpireUserAccountPromotionByID">
       <soap12:operation soapAction="http://tempuri.org/SetExpireUserAccountPromotionByID" style="document" />
       <wsdl:input>
@@ -4732,6 +4826,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddUserAccountBrowserPageLog">
+      <http:operation location="/AddUserAccountBrowserPageLog" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SetExpireUserAccountPromotionByID">
       <http:operation location="/SetExpireUserAccountPromotionByID" />
       <wsdl:input>
@@ -5196,6 +5299,15 @@
     <http:binding verb="POST" />
     <wsdl:operation name="HeartBeat">
       <http:operation location="/HeartBeat" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserAccountBrowserPageLog">
+      <http:operation location="/AddUserAccountBrowserPageLog" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

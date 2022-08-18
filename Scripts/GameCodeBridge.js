@@ -121,7 +121,7 @@
      * @param {string} GameCode    遊戲代碼
      * @param {Function} cb 找到資料時的cb, param => data, null時為無資料
      */
-    this.GetByGameCode = function (GameCode, cb) {
+    this.GetByGameCode2 = function (GameCode, cb) {
         var queue = (IndexedDB) => {
             var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
             var objectStore = transaction.objectStore('GameCodes');
@@ -147,7 +147,7 @@
         //}
     };
 
-    this.GetByGameCode2 = function (GameCode, cb) {
+    this.GetByGameCode = function (GameCode, cb) {
         if (GCBSelf.IsFirstLoaded) {
             var queue = (IndexedDB) => {
                 var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');

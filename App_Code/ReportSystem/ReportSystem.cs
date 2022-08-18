@@ -226,6 +226,16 @@ public static class ReportSystem {
         }
     }
 
+    public class SevenDateBonusForConsole {
+        public static void CreateSevenDateBonusForConsoleHistory(string SummaryDate, string Content) {
+            string Folder;
+            string Filename;
+            Folder = PrepareReportFolder("/SevenDateBonusHistory/BySummaryDate");
+            Filename = Folder + "\\" + SummaryDate + ".json";
+            AppendAllText(Filename, Content);
+        }
+    }
+
     private static string[] CheckAndGetJSONRecordByIDRange(string AllContent, string KeyField, long LimitValueBegin = -1, long LimitValueEnd = -1)
     {
         List<Newtonsoft.Json.Linq.JObject> ObjList = new List<Newtonsoft.Json.Linq.JObject>();

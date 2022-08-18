@@ -14,13 +14,14 @@
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/activity.css">
-    <script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="/Scripts/Common.js"></script>
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
-    <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script type="text/javascript" src="Scripts/DateExtension.js"></script>
@@ -148,8 +149,8 @@
             if (success) {
                 if (o.Result == 0) {
                     if (o.CollectList.length > 0) {
-                        for (var i = 0; i < o.CollectList.length; i++) {
                             let RecordDom;
+                        for (var i = 0; i < o.CollectList.length; i++) {
                             let Collect = o.CollectList[i];
                             let collectAreaType = Collect.CollectAreaType;
 
@@ -162,12 +163,11 @@
                                     if (wallet.PointValue > 100) {
                                         RecordDom = c.getTemplate("tmpPrize1");
 
-                                        c.setClassText(RecordDom, "pointval", null, PointValue);
                                     } else {
                                         RecordDom = c.getTemplate("tmpPrize0");
                                     }
                                 } else {
-                                        RecordDom = c.getTemplate("tmpPrize0");
+                                    RecordDom = c.getTemplate("tmpPrize0");
                                 }
 
                                 let DomBtn = RecordDom.querySelector(".bouns-get");
@@ -186,6 +186,7 @@
                                     c.setClassText(RecordDom, "day_e", null, CreateDate.toString("dd"));
                                 }
                                 c.setClassText(RecordDom, "title", null, Collect.PromotionTitle);
+                                c.setClassText(RecordDom, "pointval", null, PointValue);
                                 $(RecordDom).attr("data-collectid", Collect.CollectID);
                                 $(RecordDom).attr("data-val", PointValue);
 
@@ -243,6 +244,44 @@
 
                                 ParentMain.appendChild(RecordDom);
                             }
+                        }
+
+                        //新增當週期7日登入可領取的禮物箱
+                        if (collectareatype == 2) {
+
+                            window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
+                                let PointValue = 0;
+                                if (e) {
+                                    let k = 0;
+                                    for (var i = 0; i < e.length; i++) {
+                                        if (e[i].Status == 1) {
+                                            k++;
+                                        }
+                                    }
+
+                                    if (k == 7) {
+                                        PointValue = 10000;
+                                    } else {
+                                        PointValue = k * 1000;
+                                    }
+
+                                    if (PointValue > 0) {
+                                        RecordDom = c.getTemplate("tmpPrize1");
+                                        let ExpireDate = Date.parse(e[e.length - 1].Date).addDays(1);
+
+                                        c.setClassText(RecordDom, "year_c", null, ExpireDate.toString("yyyy"));
+                                        c.setClassText(RecordDom, "month_c", null, ExpireDate.toString("MM"));
+                                        c.setClassText(RecordDom, "day_c", null, ExpireDate.toString("dd") + "~");
+                                        c.setClassText(RecordDom, "title", null, "金曜日のプレゼント");
+                                        c.setClassText(RecordDom, "pointval", null, PointValue);
+
+                                        $(RecordDom).find(".date-period-end").hide();
+                                        $(RecordDom).find(".prize-status").hide();
+
+                                        ParentMain.prepend(RecordDom);
+                                    }
+                                }
+                            });
                         }
                         
                         if ($("#div_Prize").children().length == 0) {
@@ -469,7 +508,7 @@
                     </div>
                 </div>
                 <!-- 獎金Button - 可領取 -->
-                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace">領取</span></button>
+                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace pointval">領取</span></button>
             </div>
         </figure>
     </div>

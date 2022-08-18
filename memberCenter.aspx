@@ -23,16 +23,17 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
 
 </head>
-<script src="Scripts/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
-<script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
-<script src="Scripts/OutSrc/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
 <script>
 
     if (self != top) {
@@ -121,7 +122,7 @@
                     $("#divThrehold").addClass("lacking");
                 }
 
-                $("#idThrehold").text(new BigNumber(thresholdInfo.ThresholdValue).toFormat());
+                $("#idThrehold").text(new BigNumber(thresholdInfo.ThresholdValue).toFixed(2));
             } else {
                 $("#idThrehold").text("0");
                 $("#divThrehold").addClass("enough");
@@ -655,7 +656,7 @@
                                             </ul>
                                             <div class="dailylogin-bouns-amount">
                                                 <span class="amount-title language_replace">累積獎金</span>
-                                                <span class="bouns-amount"></span>
+                                                <span class="bouns-amount">0</span>
                                             </div>
                                         </div>
                                     </div>
@@ -720,7 +721,7 @@
             </div>
         </div>
     </main>
-    <footer class="footer"></footer>
+
     <!-- Modal - Game Info for Mobile Device-->
     <div class="modal fade no-footer popupGameInfo " id="popupGameInfo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">

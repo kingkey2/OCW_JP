@@ -14,6 +14,7 @@
     string CT = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
+    int GoEwinLogin=0;
     string Version = EWinWeb.Version;
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
@@ -24,6 +25,21 @@
 
     if (string.IsNullOrEmpty(Request["CT"]) == false)
         CT = Request["CT"];
+
+    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false) {
+        GoEwinLogin = int.Parse(Request["GoEwinLogin"]);
+    }
+
+    if (GoEwinLogin == 1) {
+        string EwinCallBackUrl;
+
+        if (CodingControl.GetIsHttps()) {
+            EwinCallBackUrl = "https://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+        } else {
+            EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
+        }
+        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" +   HttpUtility.UrlEncode(CT)   + "&KeepLogin=0"  + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+    }
 
     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
 
@@ -148,6 +164,8 @@
     <link rel="shortcut icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?20220627">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+
     <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="ja-jp" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="zh-cn" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
@@ -179,6 +197,7 @@
                 border: 1px solid #666;
                 color: #777;
             }
+
     </style>
 </head>
 <% if (EWinWeb.IsTestSite == false)
@@ -193,24 +212,25 @@
     gtag('config', 'G-097DC2GB6H');
 </script>
 <% } %>
-<script
-    src="https://code.jquery.com/jquery-2.2.4.js"
+<script 
+  src="https://code.jquery.com/jquery-2.2.4.js"
     integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="/Scripts/PaymentAPI.js?<%:Version%>"></script>
 <script type="text/javascript" src="Scripts/popper.min.js"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
-<script src="Scripts/jquery-3.3.1.min.js"></script>
-<script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+<%--<script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>--%>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
-<script src="Scripts/vendor/swiper/js/swiper-bundle.min.js"></script>
-<script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
-<script type="text/javascript" src="/Scripts/NoSleep.js"></script>
-<script src="Scripts/lozad.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
 <script type="text/javascript">
     //if (self != top) {
     //    window.parent.API_LoadingStart();
@@ -236,7 +256,7 @@
         UserInfo: null,
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
-        DeviceType: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 1 : 0,
+        DeviceType: getOS(),
         IsOpenGame: false
     };
 
@@ -271,7 +291,7 @@
     function API_SearchGameByBrand(gameBrand) {
         return SearchControll.searchGameByBrand(gameBrand);
     }
-
+    
     function API_GetPaymentAPI() {
         return paymentClient;
     }
@@ -288,6 +308,36 @@
 
         return selectedCurrency;
     }
+
+    function getOS() {
+        var os = function () {
+            var ua = navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid: isAndroid,
+                isPc: isPc
+            };
+        }();
+
+        if (os.isAndroid || os.isPhone) {
+            return 1;
+        } else if (os.isTablet) {
+            return 1;
+        } else if (os.isPc) {
+            return 0;
+        }
+    };
+
+   
 
     // type = 0 , data = gameCode ;  type = 1 , data = gameBrand 
     function API_GetGameLang(lang, GameCode, cb) {
@@ -960,12 +1010,12 @@
 
             if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
                 if (EWinWebInfo.DeviceType == 1) {
-                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                 } else {
-                    GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href);
+                    GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
             } else {
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
             }
         }
     }
@@ -1075,6 +1125,7 @@
                     EWinWebInfo.UserLogined = true;
                     EWinWebInfo.UserInfo = o;
 
+                    getPromotionCollectAvailable();
                     if (cb)
                         cb(true);
                 } else {
@@ -1396,12 +1447,24 @@
         var headermenu = $('.header_menu');
 
         //主選單收合
+      
         navbartoggler.click(function () {
             verticalmenu.toggleClass('navbar-show');
             headermenu.toggleClass('show');
             if (navbartoggler.attr("aria-expanded") == "false") {
                 navbartoggler.attr("aria-expanded", "true");
+
+                if (EWinWebInfo.DeviceType == 1) {
+                    $('.PC-notify-dot').css('display', 'block');
+                    $('.mobile-notify-dot').css('display', 'none');
+                }
+            } else {
+                if (EWinWebInfo.DeviceType == 1) {
+                    $('.PC-notify-dot').css('display', 'none');
+                    $('.mobile-notify-dot').css('display', 'block');
+                }
             }
+
         });
         $('.header_area .mask_overlay').click(function () {
             verticalmenu.removeClass('navbar-show');
@@ -1409,6 +1472,10 @@
             headermenu.find(".navbarMenu").removeClass('show');
             if (navbartoggler.attr("aria-expanded") == "true") {
                 navbartoggler.attr("aria-expanded", "false");
+                if (EWinWebInfo.DeviceType == 1) {
+                    $('.PC-notify-dot').css('display', 'none');
+                    $('.mobile-notify-dot').css('display', 'block');
+                }
             }
         });
     }
@@ -1456,9 +1523,9 @@
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
 
-        if (window.localStorage.getItem("Lang")) {
-            EWinWebInfo.Lang = window.localStorage.getItem("Lang");
-        }
+        //if (window.localStorage.getItem("Lang")) {
+        //    EWinWebInfo.Lang = window.localStorage.getItem("Lang");
+        //}
         
         //console.log("initByArt start", new Date().toISOString());
         initByArt();
@@ -1581,8 +1648,9 @@
                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                     lobbyClient.KeepSID(EWinWebInfo.SID, guid, function (success, o) {
                         if (success == true) {
-                            if (o.ResultCode == 0) {
+                            if (o.Result == 0) {
                                 needCheckLogin = true;
+                                getPromotionCollectAvailable();
                             } else {
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
                                     lobbyClient.GetWebSiteMaintainStatus(function (success, o1) {
@@ -1631,6 +1699,62 @@
         //resize();
     }
 
+    function getPromotionCollectAvailable() {
+        lobbyClient.GetPromotionCollectAvailable(EWinWebInfo.SID, Math.uuid(), function (success2, o2) {
+            if (success2) {
+                if (o2.Result == 0) {
+                    if (o2.CollectList.length > 0) {
+                        var boolCheck = false;
+                        let wallet = EWinWebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == EWinWebInfo.MainCurrencyType);
+                        for (var i = 0; i < o2.CollectList.length; i++) {
+                            let Collect = o2.CollectList[i];
+                            let collectAreaType = Collect.CollectAreaType;
+                            if (collectAreaType == 2) {
+                                boolCheck = true;
+                                break;
+                            }
+
+                            if (collectAreaType == 1) {
+                                if (wallet.PointValue <= 100) {
+                                    boolCheck = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (boolCheck) {
+                            if (EWinWebInfo.DeviceType == 0) {
+                                $('.PC-notify-dot').css('display', 'block');
+                            } else {
+                                var navbartoggler = $('.navbar-toggler');
+                                if (navbartoggler.attr("aria-expanded") == "true") {
+                                    $('.PC-notify-dot').css('display', 'block');
+                                    $('.mobile-notify-dot').css('display', 'none');
+                                } else if (navbartoggler.attr("aria-expanded") == "false") {
+                                    $('.PC-notify-dot').css('display', 'none');
+                                    $('.mobile-notify-dot').css('display', 'block');
+                                }
+                            }
+                        } else {
+                            $('.PC-notify-dot').css('display', 'none');
+                            $('.mobile-notify-dot').css('display', 'none');
+                        }
+
+                    } else {
+                        $('.PC-notify-dot').css('display', 'none');
+                        $('.mobile-notify-dot').css('display', 'none');
+                    }
+                } else {
+                    $('.PC-notify-dot').css('display', 'none');
+                    $('.mobile-notify-dot').css('display', 'none');
+                }
+            } else {
+                $('.PC-notify-dot').css('display', 'none');
+                $('.mobile-notify-dot').css('display', 'none');
+            }
+        });
+    }
+
     function reportWindowSize() {
         let iframewidth = $('#IFramePage').width();
 
@@ -1675,6 +1799,7 @@
 
                         var RTP = "--";
                         var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                        lang_gamename = lang_gamename.replace("'", "");
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
                         }
@@ -1685,8 +1810,8 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         let GI1 = $(GI);
-                        //var GI_a = GI.querySelector(".btn-play");
                         GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                        
                         GI1.addClass("group" + parseInt(gameItemCount / 60));
                         gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
@@ -1747,7 +1872,7 @@
             }
         }
 
-        this.searchGameChange = function () {
+        this.searchGameChange = function (cb) {
             var keyWord = SearchDom.find('#alertSearchKeyWord').val().trim();
             var arrayGameBrand = [];
             let strSeleBrandText = SearchDom.find(".brandSeleCount");
@@ -1789,7 +1914,9 @@
                                 seleGameCategory.append(o);
                             }
                         }, function (data) { //endcallback
-
+                            if (cb) {
+                                cb();
+                            }
                         }
                     );
                 }
@@ -1841,23 +1968,28 @@
                 $(v).prop("checked", false);
             });
 
-            if (SearchDom.find('#searchIcon_' + gameBrand).length > 0) {
-                SearchDom.find('#searchIcon_' + gameBrand).prop("checked", true);
+            for (var i = 0; i < gameBrand.length; i++) {
+                if (SearchDom.find('#searchIcon_' + gameBrand[i]).length > 0) {
+                    SearchDom.find('#searchIcon_' + gameBrand[i]).prop("checked", true);
+                }
             }
+            
 
             SearchDom.find("#seleGameCategory").empty();
             o = new Option(mlp.getLanguageKey("全部"), "All");
             SearchDom.find("#seleGameCategory").append(o);
+            SearchDom.find("#seleGameCategory").val("All");
 
             if (gameCategoryName) {
                 o = new Option(mlp.getLanguageKey(gameCategoryName), gameCategoryName);
                 SearchDom.find("#seleGameCategory").append(o);
+                SearchDom.find("#seleGameCategory").val(gameCategoryName);
             }
 
             SearchDom.find('#alertSearchKeyWord').val('');
-            SearchDom.find("#seleGameCategory").val(gameCategoryName);
 
-            SearchSelf.searchGameList(gameBrand);
+            SearchSelf.searchGameList();
+            
         }
 
         //openFullSearch
@@ -1991,8 +2123,10 @@
                     </div>
                 </div>
                 <div class="container-fluid navbar__content">
-                    <!--MENU BUTTON -->
+                    <!--MENU BUTTON -->                    
                     <button id="navbar_toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                         <!-- 通知小紅點-手機版時加入 -->
+                        <div class="notify-dot mobile-notify-dot" style="display:none;"></div>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -2031,7 +2165,10 @@
                                             <span class="title language_replace">活動中心</span></a>
                                     </li>
                                     <li class="nav-item submenu dropdown">
+
                                         <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                            <!-- 通知小紅點 -->
+                                            <span class="notify-dot PC-notify-dot" style="display:none;"></span>
                                             <i class="icon icon-mask icon-prize"></i>
                                             <span class="title language_replace">領獎中心</span></a>
                                     </li>
@@ -2050,10 +2187,11 @@
                                             <i class="icon icon-mask icon-QA"></i>
                                             <span class="title language_replace">Q&A</span></a>
                                     </li>
-                                    <li class="nav-item submenu dropdown" onclick="API_ShowContactUs()">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="window.open('https://lin.ee/KD05l9X')">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-word"></i>
-                                            <span class="title language_replace">聯絡客服</span></a>
+                                            <i class="icon icon-mask icon-line"></i>
+                                            <span class="title language_replace">Line</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -2072,16 +2210,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            <%-- <li class="nav-item navbarMenu__catagory">
-                                <ul class="catagory">
-                                    <li class="nav-item submenu dropdown"
-                                        onclick="window.open('https://lin.ee/KD05l9X')">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-line"></i>
-                                            <span class="title language_replace">Line</span></a>
-                                    </li>
-                                </ul>
-                            </li>--%>
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
                                 <a class="nav-link" onclick="API_Logout(true)">
                                     <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -2149,8 +2277,8 @@
                                                 <span class="balance-container">
                                                     <span class="balance-inner">
                                                         <span class="game-coin">
-                                                            <!-- 未完成存款訂單小紅點 -->
-                                                            <%--<span class="notify"><span class="notify-dot"></span></span>--%>
+                                                            <!-- 未完成存款訂單-通知小紅點 -->
+                                                            <%--<span class="notify-dot"></span>--%>
                                                             <img src="images/ico/coin-Ocoin.png" alt="">
                                                         </span>
                                                         <span class="balance-info">
@@ -2177,7 +2305,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item lang_wrapper submenu dropdown">
+                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display:none">
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
@@ -2203,7 +2331,7 @@
             <div class="btn-wrapper">
                 <div class="btn btn-game-close" onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
             </div>
-            <iframe id="GameIFramePage" class="divGameFrame" name="mainiframe"></iframe>
+            <iframe id="GameIFramePage" class="divGameFrame" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock"></iframe>
         </div>
     </div>
     <!-- 滿版遊戲介面 end-->
@@ -2254,107 +2382,117 @@
                             <div class="row">
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-microgaming.png" alt="">
+                                        <img src="/images/logo/footer/logo-eWIN.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-bbin.png" alt="">
+                                        <img src="/images/logo/footer/logo-microgaming.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-gmw.png" alt="">
+                                        <img src="/images/logo/footer/logo-kgs.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-cq9.png" alt="">
+                                        <img src="/images/logo/footer/logo-bbin.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-red-tiger.png" alt="">
+                                        <img src="/images/logo/footer/logo-gmw.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-evo.png" alt="">
+                                        <img src="/images/logo/footer/logo-cq9.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-bco.png" alt="">
+                                        <img src="/images/logo/footer/logo-red-tiger.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-cg.png" alt="">
+                                        <img src="/images/logo/footer/logo-evo.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-playngo.png" alt="">
+                                        <img src="/images/logo/footer/logo-bco.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-pg.png" alt="">
+                                        <img src="/images/logo/footer/logo-cg.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-netent.png" alt="">
+                                        <img src="/images/logo/footer/logo-playngo.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-kx.png" alt="">
+                                        <img src="/images/logo/footer/logo-pg.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-evops.png" alt="">
+                                        <img src="/images/logo/footer/logo-netent.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-bti.png" alt="">
+                                        <img src="/images/logo/footer/logo-kx.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-zeus.png" alt="">
+                                        <img src="/images/logo/footer/logo-evops.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-biggaming.png" alt="">
+                                        <img src="/images/logo/footer/logo-bti.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-play.png" alt="">
+                                        <img src="/images/logo/footer/logo-zeus.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-h.png" alt="">
+                                        <img src="/images/logo/footer/logo-biggaming.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-va.png" alt="">
+                                        <img src="/images/logo/footer/logo-play.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-pagcor.png" alt="">
+                                        <img src="/images/logo/footer/logo-h.png" alt="">
                                     </div>
                                 </div>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="images/logo/footer/logo-mishuha.png" alt="">
+                                        <img src="/images/logo/footer/logo-va.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-pagcor.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-mishuha.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -2823,7 +2961,7 @@
                             <div class="popup-detail-inner">
                                 <div class="popup-detail-content">
                                     <section class="section-wrap">
-                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情-</span></h6>
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情</span></h6>
                                         <div class="section-content">
                                             <p class="alertContact_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
                                         </div>
@@ -2906,7 +3044,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="game-info-mobile-wrapper">
-                        <div class="game-item">
+                        <!-- 三冠王 crownLevel-1/crownLevel-2-->
+                        <div class="game-item crownLevel-1 crown-Spin">
                             <div class="game-item-inner">
                                 <div class="game-item-focus">
                                     <div class="game-item-img">
