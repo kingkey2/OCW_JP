@@ -381,12 +381,21 @@
 				margin: 10px 0px 0 130px;
 			}
 		}
-
-
-
-
-		
 	</style>
+
+	<script>
+		
+		function goPage() {
+			if (document.URL.includes('CasinoPage')) {
+                window.top.API_LoadPage('Casino', 'Casino.aspx', false);
+			} else {
+                window.top.API_LoadPage('QA', '/Article/guide_Q&A_jp.html');
+			}
+		}
+		
+
+        window.onload = init;
+	</script>
 </head>
 
 <body class="innerBody">
@@ -396,7 +405,7 @@
 
 			<!-- 段落 --------------------->
 			<section class="cash-section-wrap wrapper">
-				<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('QA','/Article/guide_Q&A_jp.html')">↩︎
+				<div class="btn-back-cashQa" onclick="goPage()">↩︎
 					戻る</div>
 				<div class="activity-popup-detail-img">
 					<img src="images/crown/topBanner.jpg" class="desktop" alt="">
@@ -462,7 +471,7 @@
 
 			<!-- 段落 --------------------->
 			<section class="cash-section-wrap wrapper-phone">
-				<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('QA','/Article/guide_Q&A_jp.html')">↩︎
+				<div class="btn-back-cashQa" onclick="goPage()">↩︎
 					戻る</div>
 				<div class="activity-popup-detail-img">
 					<img src="images/crown/topBanner-phone.jpg" class="desktop" alt="">
@@ -530,7 +539,7 @@
 				
 			</section>
 
-			<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('QA','/Article/guide_Q&A_jp.html')">↩︎ 戻る
+			<div class="btn-back-cashQa" onclick="goPage()">↩︎ 戻る
 			</div>
 		</div>
 		<!-- 活動 內文 END ===================-->
