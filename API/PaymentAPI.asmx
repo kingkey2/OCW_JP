@@ -1522,15 +1522,12 @@ public class PaymentAPI : System.Web.Services.WebService
                                                         JKCRate = 1 / (decimal.Parse(JToken.ToString()) / 3000);
                                                         ExchangeRate = JKCRate;
                                                         JKCDepositAmount = decimal.Round(PartialRate * Amount * JKCRate, 2);
-
                                                     }
                                                     else
                                                     {
                                                         SetResultException(R, "InvalidCryptoExchangeRate");
                                                         return R;
                                                     }
-
-
                                                 }
                                                 else
                                                 {
