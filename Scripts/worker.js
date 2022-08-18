@@ -40,7 +40,20 @@ self.addEventListener('message', function (e) {
 var worker = function (WebUrl, Second, eWinGameItem, Version) {
     var workerSelf = this;
     var APIUrl = WebUrl;
-
+    var ChampionList = [
+        {
+            Name: "ビッグウィン",
+            Value:  1
+        },
+        {
+            Name: "最大倍率",
+            Value: 2
+        },
+        {
+            Name: "最大スピン数",
+            Value: 4
+        }
+    ]
 
     var callService = function (URL, postObject, timeoutMS, cb) {
         var xmlHttp = new XMLHttpRequest;
@@ -393,12 +406,18 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                     let gameCodeItem = o.GameCodeList[i];
                                     let tags = [];
                                     let temps = gameCodeItem.GameCodeCategory;
-
+                                    let ChampionType = 0;
                                     for (var ii = 0; ii < temps.length; ii++) {
                                         let index = temps[ii].CategoryName.indexOf("@")
                                         if (index != -1) {
                                             let tagValue = temps[ii].CategoryName.substring(index + 1).trim();
                                             tags.push(tagValue);
+
+                                            for (var iii = 0; iii < ChampionList.length; iii++) {
+                                                if (ChampionList[iii].Name == tagValue) {
+                                                    ChampionType = ChampionType | ChampionList[iii].Value;
+                                                }
+                                            }
                                         }
                                     }
 
@@ -448,6 +467,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
                                         IsNew: gameCodeItem.IsNew,
                                         IsFavo: 0,
                                         IsPlayed: 0,
+                                        ChampionType: ChampionType,
                                         SortIndex: gameCodeItem.SortIndex,
                                         Tags: tags,
                                         Language: gameCodeItem.Language,
