@@ -1209,8 +1209,6 @@ public class PaymentAPI : System.Web.Services.WebService
 
                         p = new EWin.Payment.PaymentDetailInheritsBase[1];
                         p[0] = paymentDetailBankCard;
-
-
                     }
 
                     paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, p);
