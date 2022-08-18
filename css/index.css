@@ -783,6 +783,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
       -ms-flex: 0 0 60px;
           flex: 0 0 60px;
   margin-left: 4px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.dailylogin-bouns-content .dailylogin-bouns-QA:hover {
+  color: #e83e8c;
+  font-size: 0.85rem;
 }
 .dailylogin-bouns-content .dailylogin-bouns-QA .icon-mask {
   margin-right: 0;
@@ -1086,8 +1092,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .dailylogin-bouns-content .dailylogin-bouns-QA {
     position: absolute;
     z-index: 1;
-    left: 45%;
-    bottom: 30px;
+    left: 50%;
+    bottom: 33px;
     color: inherit;
   }
   .dailylogin-bouns-content .btn-QA-dailylogin-bouns {
@@ -1395,7 +1401,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     width: 205.7142857143px;
   }
   .dailylogin-bouns-content .dailylogin-bouns-QA {
-    bottom: 40px;
+    bottom: 45px;
   }
 }
 @media (min-width: 1440px) {

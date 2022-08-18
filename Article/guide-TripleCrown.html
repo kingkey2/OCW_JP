@@ -382,7 +382,17 @@
 			}
 		}
 	</style>
-	
+
+	<script>
+		
+		function goPage() {
+			if (document.URL.includes('CasinoPage')) {
+                window.top.API_LoadPage('Casino', 'Casino.aspx', false);
+			} else {
+                window.top.API_LoadPage('QA', '/Article/guide_Q&A_jp.html');
+			}
+		}
+	</script>
 </head>
 
 <body class="innerBody">
@@ -392,7 +402,7 @@
 
 			<!-- 段落 --------------------->
 			<section class="cash-section-wrap wrapper">
-				<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Withdrawal','Withdrawal.aspx', true)">↩︎
+				<div class="btn-back-cashQa" onclick="goPage()">↩︎
 					戻る</div>
 				<div class="activity-popup-detail-img">
 					<img src="images/crown/topBanner.jpg" class="desktop" alt="">
@@ -457,9 +467,9 @@
 				
 			</section>
 
-			<!-- 段落 --------------------->
+			<!-- 段落 phone--------------------->
 			<section class="cash-section-wrap wrapper-phone">
-				<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Withdrawal','Withdrawal.aspx', true)">↩︎
+				<div class="btn-back-cashQa" onclick="goPage()">↩︎
 					戻る</div>
 				<div class="activity-popup-detail-img">
 					<img src="images/crown/topBanner-phone.jpg" class="desktop" alt="">
@@ -484,7 +494,7 @@
 					<ul>
 						<li>
 							<img src="images/crown/dog01.png" alt="">
-							<p style="width: 96%;">今週の最大スピン数ランキング一位<br>または過去の一位。</p>
+							<p style="width: 96%;">今週の最大スピン数<br>ランキング一位<br>または過去の一位。</p>
 						</li>
 						<li>
 							<img src="images/crown/dog02.png" alt="">
@@ -492,7 +502,7 @@
 						</li>
 						<li>
 							<img src="images/crown/dog03.png" alt="">
-							<p style="width: 100%;">今週のビッグウィンランキング一位<br>または過去の一位。</p>
+							<p style="width: 100%;">今週のビッグウィン<br>ランキング一位<br>または過去の一位。</p>
 						</li>
 
 					</ul>
@@ -508,11 +518,11 @@
 					<ul>
 						<li>
 							<img src="images/crown/dog04.png" alt="">
-							<p>二種類の一位を獲得したゲーム！</p>
+							<p>二種類の一位を<br>獲得したゲーム！</p>
 						</li>
 						<li>
 							<img src="images/crown/dog05.png" alt="">
-							<p>ビッグウィン、最大倍率、最大スピン数の一位を全部獲得した三冠王ゲーム！</p>
+							<p>ビッグウィン、最大倍率、<br>最大スピン数の一位を<br>全部獲得した三冠王ゲーム！</p>
 						</li>
 					</ul>
 					<div style="clear: both;"></div>
@@ -528,7 +538,7 @@
 				
 			</section>
 
-			<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Withdrawal','Withdrawal.aspx', true)">↩︎ 戻る
+			<div class="btn-back-cashQa" onclick="goPage()">↩︎ 戻る
 			</div>
 		</div>
 		<!-- 活動 內文 END ===================-->
