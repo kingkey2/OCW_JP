@@ -1086,8 +1086,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .dailylogin-bouns-content .dailylogin-bouns-QA {
     position: absolute;
     z-index: 1;
-    left: 45%;
-    bottom: 30px;
+    left: 50%;
+    bottom: 33px;
     color: inherit;
   }
   .dailylogin-bouns-content .btn-QA-dailylogin-bouns {
