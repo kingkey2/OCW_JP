@@ -517,8 +517,8 @@
         $('#alertSearch').modal('show');
     }
 
-    function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
-        return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode);
+    function API_MobileDeviceGameInfo(brandName, RTP, gameName, GameID, GameLangName, GameCategoryCode, ChampionType) {
+        return showMobileDeviceGameInfo(brandName, RTP, gameName, GameID, GameLangName, GameCategoryCode, ChampionType);
     }
 
     function API_ShowPartialHtml(title, pathName, isNeedLang, cbOK) {
@@ -800,7 +800,7 @@
     }
     //#endregion
 
-    function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID,GameLangName,GameCategoryCode) {
+    function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID, GameLangName, GameCategoryCode, ChampionType) {
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
         var gameiteminfodetail = popupMoblieGameInfo[0].querySelector(".game-item-info-detail.open");
         var gameitemlink = popupMoblieGameInfo[0].querySelector(".game-item-link");
@@ -811,7 +811,7 @@
         var favoriteGames = [];
         var gamecode = brandName + "." + gameName;
         var _gameCategoryCode;
-
+        var championData = checkChampionType(ChampionType);
         switch (GameCategoryCode) {
             case "Electron":
                 _gameCategoryCode = "elec";
@@ -827,13 +827,25 @@
                 break;
         }
 
+        var popupMoblieGameInfogameitem = $('#popupMoblieGameInfo-game-item');
+        popupMoblieGameInfogameitem.removeClass();
+        popupMoblieGameInfogameitem.addClass('game-item');
+        if (championData.crownLevel != "") {
+            popupMoblieGameInfogameitem.addClass(championData.crownLevel);
+        }
+
+        if (championData.championTypeStr != "") {
+            var datas = championData.championTypeStr.split(',');
+            for (var i = 0; i < datas.length; i++) {
+                popupMoblieGameInfogameitem.addClass(datas[i]);
+            }
+           
+        }
+
         popupMoblieGameInfo.find('.BrandName').text(brandName);
         popupMoblieGameInfo.find('.valueRTP').text(RTP);
         popupMoblieGameInfo.find('.GameID').text(GameID);
-        if (true) {
-
-        }
-    
+   
         moreInfoitemcategory.removeClass("slot");
         moreInfoitemcategory.removeClass("live");
         moreInfoitemcategory.removeClass("elec");
@@ -1758,6 +1770,43 @@
 
         notifyWindowEvent("resize", iframewidth);
 
+    }
+
+    function checkChampionType(championType) {
+        //三冠王 
+        // 等級crownLevel-1/crownLevel-2/crownLevel-3
+        // 類別crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4)
+
+        var date = {
+            championTypeStr: "",
+            crownLevel: ""
+        }
+        var count = 0;
+        if (championType != 0) {
+            if ((championType & 1) == 1) {
+                date.championTypeStr += "crown-Payout,"
+                count++;
+            }else
+            if ((championType & 2) == 2) {
+                date.championTypeStr += "crown-Multiplier,"
+                count++;
+            } else
+
+            if ((championType & 4) == 4) {
+                date.championTypeStr += "crown-Spin,"
+                count++;
+            }
+
+            if (date.championTypeStr.length > 0) {
+                date.championTypeStr = date.championTypeStr.substring(0, date.championTypeStr.length-1);
+            }
+
+            if (count == 1) { date.crownLevel = "crownLevel-1" }
+            else if (count == 2) { date.crownLevel = "crownLevel-2" }
+            else if (count == 3) { date.crownLevel = "crownLevel-3" }
+        }
+
+        return date;
     }
 
     //#region 搜尋彈出
@@ -3043,7 +3092,7 @@
                 <div class="modal-body">
                     <div class="game-info-mobile-wrapper">
                         <!-- 三冠王 crownLevel-1/crownLevel-2-->
-                        <div class="game-item crownLevel-1 crown-Spin">
+                        <div id="popupMoblieGameInfo-game-item" class="">
                             <div class="game-item-inner">
                                 <div class="game-item-focus">
                                     <div class="game-item-img">

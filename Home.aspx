@@ -268,6 +268,40 @@
         iframeWidth = document.body.scrollWidth;
     }
 
+    function checkChampionType(championType) {
+        //三冠王 
+        // 等級crownLevel-1/crownLevel-2/crownLevel-3
+        // 類別crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4)
+
+        var date = {
+            championTypeStr: "",
+            crownLevel: ""
+        }
+        var count = 0;
+        if (championType != 0) {
+            if ((championType & 1) == 1) {
+                date.championTypeStr += " crown-Payout "
+                count++;
+            } else
+            if ((championType & 2) == 2) {
+                date.championTypeStr += " crown-Multiplier "
+                count++;
+            } else
+
+            if ((championType & 4) == 4) {
+                date.championTypeStr += " crown-Spin "
+                count++;
+            }
+
+            if (count == 1) { date.crownLevel = "crownLevel-1" }
+            else if (count == 2) { date.crownLevel = "crownLevel-2" }
+            else if (count == 3) { date.crownLevel = "crownLevel-3" }
+        }
+
+
+        return date;
+    }
+
     function updateFourGame() {
         var ParentMain = document.getElementById("ParentRecommendGameItem");
         ParentMain.innerHTML = "";
@@ -338,6 +372,7 @@
                     var gameName;
                     var _gameCategoryCode;
                     if (gameItem && gameItem.GameStatus == 0) {
+                        var championData = checkChampionType(gameItem.ChampionType);
                         gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                         var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                         if (gameItem.FavoTimeStamp != null) {
@@ -373,11 +408,10 @@
                             GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                             btnplay = '<button type="button" class="btn btn-play">';
                             gameitemlink = `<span class="game-item-link"></span>`;
-                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
-                            //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}',${gameItem.ChampionType})"></span>`;
                         } else {
                             if (iframeWidth < 936) {
-                                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}',${gameItem.ChampionType})"></span>`;
                             } else {
                                 gameitemmobilepopup = '';
                             }
@@ -405,7 +439,7 @@
                         }
 
                         GI = `${GItitle}
-                                            <div class="game-item">
+                                            <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
                                                 <div class="game-item-inner">
                                                 ${gameitemmobilepopup}
                                                 <div class="game-item-focus">
@@ -551,6 +585,7 @@
                                 });
 
                                 if (gameItem && gameItem.GameStatus == 0) {
+                                    var championData = checkChampionType(gameItem.ChampionType);
                                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                                     var gameitemmobilepopup = '<span class="game-item-mobile-popup" data-toggle="modal"></span>';
                                     if (gameItem.FavoTimeStamp != null) {
@@ -585,11 +620,10 @@
                                         GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
                                         btnplay = '<button type="button" class="btn btn-play">';
                                         gameitemlink = `<span class="game-item-link"></span>`;
-                                        gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode }')"></span>`;
-                                        //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
+                                        gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}',${gameItem.ChampionType})"></span>`;
                                     } else {
                                         if (iframeWidth < 936) {
-                                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                                            gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}',${gameItem.ChampionType})"></span>`;
                                         } else {
                                             gameitemmobilepopup = '';
                                         }
@@ -617,7 +651,7 @@
                                     }
 
                                     GI = `${GItitle}
-                                            <div class="game-item">
+                                            <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
                                                 <div class="game-item-inner">
                                                 ${gameitemmobilepopup}
                                                 <div class="game-item-focus">

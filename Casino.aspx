@@ -85,8 +85,7 @@
             MobileSrc: "/images/lobby/dailypush-hot-M-001.jpg",
             PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
-            BackgroundColor: "#121a16",
-            CrownLevel: "crownLevel-1 crown-Payout"
+            BackgroundColor: "#121a16"
         },
         {
             GameCode: "PNG.moonprincess",
@@ -534,6 +533,7 @@
             });
             promise.then((gameItem) => {
                 if (gameItem) {
+                    var championData = checkChampionType(gameItem.ChampionType);
                     gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
                     gameCode = gameItem.GameCode;
                     var RTP = "";
@@ -564,8 +564,8 @@
                     }
 
                     if (WebInfo.DeviceType == 1) {
-                        titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')">`;
-                        btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
+                        titleobj = `<section class="section-category-dailypush" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}',${gameItem.ChampionType})">`;
+                        btnplay = `<button class="btn btn-play" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}',${gameItem.ChampionType})"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
                     } else {
                         titleobj = `<section class="section-category-dailypush" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                         btnplay = `<button class="btn btn-play" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')"><span class="language_replace">${mlp.getLanguageKey("進入遊戲")}</span></button>`;
@@ -573,7 +573,7 @@
 
                     var docString = `<div class="container category-dailypush">
                                      ${titleobj}
-                 <div class="category-dailypush-wrapper ${type} ${headerGameData.CrownLevel} ">
+                 <div class="category-dailypush-wrapper ${type} ${championData.crownLevel} ${championData.championTypeStr}">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: ${headerGameData.BackgroundColor};">
                             <div class="img-box mobile">
@@ -641,7 +641,12 @@
 
         if (gameItem) {
             gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+            //if (gameItem.ChampionType > 0) {
+            //    debugger;
+            //    console.log(gameItem);
+            //}
 
+            var championData = checkChampionType(gameItem.ChampionType);
             var RTP = "";
             if (gameItem.RTPInfo) {
                 var RtpInfoObj = JSON.parse(gameItem.RTPInfo);
@@ -672,11 +677,11 @@
             if (WebInfo.DeviceType == 1) {
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
                 gameitemlink = `<span class="game-item-link"></span>`;
-                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}',${gameItem.ChampionType})"></span>`;
                 //gameitemlink = `<span class="game-item-link" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID})"></span>`;
             } else {
                 if (iframeWidth < 936) {
-                    gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}')"></span>`;
+                    gameitemmobilepopup = `<span class="game-item-mobile-popup" data-toggle="modal" onclick="window.parent.API_MobileDeviceGameInfo('${gameItem.GameBrand}','${RTP}','${gameItem.GameName}',${gameItem.GameID},'${gameName}','${gameItem.GameCategoryCode}',${gameItem.ChampionType})"></span>`;
                 } else {
                     gameitemmobilepopup = '';
                 }
@@ -691,10 +696,10 @@
             imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
             //三冠王 
             // 等級crownLevel-1/crownLevel-2/crownLevel-3
-            // 類別crown-Payout派彩/crown-Multiplier倍率/crown-Spin轉數
+            // 類別crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4)
             if (showType == 2) {
                 GI = `${GItitle}
-                        <div class="game-item crownLevel-1 crown-Spin">
+                        <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
                             <div class="game-item-inner">
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
@@ -709,7 +714,7 @@
                         </div>`;
             } else {
                 GI = `${GItitle}
-                        <div class="game-item crownLevel-1 crown-Spin">
+                        <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
                             <div class="game-item-inner">
                             ${gameitemmobilepopup}
                             <div class="game-item-focus">
@@ -730,6 +735,39 @@
 
             cb(GI);
         }
+    }
+
+    function checkChampionType(championType) {
+       //三冠王 
+       // 等級crownLevel-1/crownLevel-2/crownLevel-3
+       // 類別crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4)
+
+        var date = {
+            championTypeStr: "",
+            crownLevel:""
+        }
+        var count = 0;
+        if (championType != 0) {
+            if ((championType & 1) == 1) {
+                date.championTypeStr += " crown-Payout "
+                count++;
+            }else
+            if ((championType & 2) == 2) {
+                date.championTypeStr += " crown-Multiplier "
+                count++;
+            } else
+            if ((championType & 4) == 4) {
+                date.championTypeStr += " crown-Spin "
+                count++;
+            }
+
+            if (count == 1) { date.crownLevel = "crownLevel-1" }
+            else if (count == 2) { date.crownLevel = "crownLevel-2" }
+            else if (count == 3) { date.crownLevel = "crownLevel-3" }
+        }
+
+      
+        return date;
     }
 
     function appendGameProp(gameBrand, gameLangName, RTP, gameID, gameCode, showType, gameCategoryCode, gameName) {
