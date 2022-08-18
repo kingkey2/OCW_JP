@@ -1521,9 +1521,9 @@
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
 
-        if (window.localStorage.getItem("Lang")) {
-            EWinWebInfo.Lang = window.localStorage.getItem("Lang");
-        }
+        //if (window.localStorage.getItem("Lang")) {
+        //    EWinWebInfo.Lang = window.localStorage.getItem("Lang");
+        //}
         
         //console.log("initByArt start", new Date().toISOString());
         initByArt();
@@ -1797,6 +1797,7 @@
 
                         var RTP = "--";
                         var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                        lang_gamename = lang_gamename.replace("'", "");
                         if (gameItem.RTPInfo) {
                             RTP = JSON.parse(gameItem.RTPInfo).RTP;
                         }
@@ -1807,8 +1808,8 @@
 
                         GI = c.getTemplate("tmpSearchGameItem");
                         let GI1 = $(GI);
-                        //var GI_a = GI.querySelector(".btn-play");
                         GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+                        
                         GI1.addClass("group" + parseInt(gameItemCount / 60));
                         gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
@@ -1869,7 +1870,7 @@
             }
         }
 
-        this.searchGameChange = function () {
+        this.searchGameChange = function (cb) {
             var keyWord = SearchDom.find('#alertSearchKeyWord').val().trim();
             var arrayGameBrand = [];
             let strSeleBrandText = SearchDom.find(".brandSeleCount");
@@ -1911,7 +1912,9 @@
                                 seleGameCategory.append(o);
                             }
                         }, function (data) { //endcallback
-
+                            if (cb) {
+                                cb();
+                            }
                         }
                     );
                 }
@@ -1968,21 +1971,23 @@
                     SearchDom.find('#searchIcon_' + gameBrand[i]).prop("checked", true);
                 }
             }
-
+            
 
             SearchDom.find("#seleGameCategory").empty();
             o = new Option(mlp.getLanguageKey("全部"), "All");
             SearchDom.find("#seleGameCategory").append(o);
+            SearchDom.find("#seleGameCategory").val("All");
 
             if (gameCategoryName) {
                 o = new Option(mlp.getLanguageKey(gameCategoryName), gameCategoryName);
                 SearchDom.find("#seleGameCategory").append(o);
+                SearchDom.find("#seleGameCategory").val(gameCategoryName);
             }
 
             SearchDom.find('#alertSearchKeyWord').val('');
-            SearchDom.find("#seleGameCategory").val(gameCategoryName);
 
             SearchSelf.searchGameList();
+            
         }
 
         //openFullSearch
@@ -2298,7 +2303,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item lang_wrapper submenu dropdown">
+                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display:none">
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
@@ -3038,7 +3043,7 @@
                 <div class="modal-body">
                     <div class="game-info-mobile-wrapper">
                         <!-- 三冠王 crownLevel-1/crownLevel-2-->
-                        <div class="game-item crownLevel-1">
+                        <div class="game-item crownLevel-1 crown-Spin">
                             <div class="game-item-inner">
                                 <div class="game-item-focus">
                                     <div class="game-item-img">

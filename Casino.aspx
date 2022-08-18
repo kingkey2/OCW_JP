@@ -86,7 +86,7 @@
             PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
             BackgroundColor: "#121a16",
-            CrownLevel: "crownLevel-1"
+            CrownLevel: "crownLevel-1 crown-Payout"
         },
         {
             GameCode: "PNG.moonprincess",
@@ -689,10 +689,12 @@
          
 
             imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
-
+            //三冠王 
+            // 等級crownLevel-1/crownLevel-2/crownLevel-3
+            // 類別crown-Payout派彩/crown-Multiplier倍率/crown-Spin轉數
             if (showType == 2) {
                 GI = `${GItitle}
-                        <div class="game-item crownLevel-1">
+                        <div class="game-item crownLevel-1 crown-Spin">
                             <div class="game-item-inner">
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
@@ -707,7 +709,7 @@
                         </div>`;
             } else {
                 GI = `${GItitle}
-                        <div class="game-item crownLevel-1">
+                        <div class="game-item crownLevel-1 crown-Spin">
                             <div class="game-item-inner">
                             ${gameitemmobilepopup}
                             <div class="game-item-focus">
@@ -1215,6 +1217,19 @@
                             </div>
                         </div>
                     </div> 
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=9')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/crown-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/crown.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=8')"></a>
