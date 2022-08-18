@@ -1210,10 +1210,9 @@
                         </div>
                     </div>
                  </section>                
-            </div>
+            </div>           
         </div>
-        
-        
+
         <section class="section_publicize section-wrap">
             <div class="container">
                 <!-- writer + vTuber -->
@@ -1266,7 +1265,7 @@
                                                     <h3 class="title">
                                                         <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
                                                         <span class="dailylogin-bouns-QA sec-title-intro-link">
-                                                            <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
+                                                            <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
                                                 </div>
                                                 
                                                 <ul class="dailylogin-bouns-list">
