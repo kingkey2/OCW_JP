@@ -592,21 +592,21 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <label class="form-check-label language_replace">E-mail將用於發送確認碼，請填寫正確的E-mail。</label></br>
+                                <label class=" language_replace">E-mail將用於發送確認碼，請填寫正確的E-mail。</label></br>
                                
-                                <label class="form-check-label language_replace">1.請先輸入正確E-mail。</label></br>
+                                <label class=" language_replace">1.請先輸入正確E-mail。</label></br>
 
-                                <label class="form-check-label language_replace">2.從註冊會員的畫面點擊發送驗證碼。</label></br>
+                                <label class=" language_replace">2.從註冊會員的畫面點擊發送驗證碼。</label></br>
                                
-                                <label class="form-check-label language_replace">3.驗證碼將會發送到您填寫的E-mail。</label></br>
+                                <label class=" language_replace">3.驗證碼將會發送到您填寫的E-mail。</label></br>
                                
-                                <label class="form-check-label language_replace">4.輸入驗證碼之後就可進行下一個步驟。</label></br>
+                                <label class=" language_replace">4.輸入驗證碼之後就可進行下一個步驟。</label></br>
                 
-                                <label class="form-check-label language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
+                                <label class=" language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
             
-                                <label class="form-check-label language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br>
+                                <label class=" language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br>
                            
-                                <label class="form-check-label language_replace">※為了能夠接收活動及獎金，請填寫正確的E-mail。</label></br>
+                                <label class=" language_replace">※為了能夠接收活動及獎金，請填寫正確的E-mail。</label></br>
                             </div>
                         </div>
                     </form>
@@ -973,7 +973,7 @@
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="CheckAge" name="eighteenCheck">
-                                <label class="form-check-label language_replace" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
+                                <label class=" language_replace" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
                             </div>
                         </div>
                         <div class="form-group rules-privacy text-small">
