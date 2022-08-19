@@ -1229,8 +1229,12 @@
                                 <img src="images/index/lobby-entrance.jpg" alt="">
                             </div>
                         </section>
-                        <!-- 活動中心 -->
-                        <section class="section-activityCenter section-wrap">
+                        <!-- 自定義分類 -->
+                        <section class="section-game-area section-wrap ">
+                            <div class="" id="gameAreas"></div>
+                        </section>
+                         <!-- 活動中心 -->
+                         <section class="section-activityCenter section-wrap">
                             <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
                                 <div class="activity-center-inner">
                                     <div class="activity-center-content">
@@ -1240,10 +1244,6 @@
                                 </div>
                             </div>
                         </section> 
-                        <!-- 自定義分類 -->
-                        <section class="section-wrap ">
-                            <div class="" id="gameAreas"></div>
-                        </section>
                 </div>
             </div>           
         </div>

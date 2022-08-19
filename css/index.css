@@ -662,6 +662,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 100%;
 }
 
+.section-game-area {
+  width: 100%;
+}
+
 .section-activityCenter {
   width: 100%;
 }
