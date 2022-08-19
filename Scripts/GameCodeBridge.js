@@ -172,6 +172,7 @@
                 if (success) {
                     if (o.Result == 0) {
                         let data = o.Data;
+                        data.ChampionType = 0;
                         data.FavoTimeStamp = null;
                         data.PlayedTimeStamp = null;
                         if (data.Language != "null") {
