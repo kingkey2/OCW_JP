@@ -686,7 +686,7 @@
                     gameitemmobilepopup = '';
                 }
          
-                GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
+                GItitle = `<div class="swiper-slide desktop ${'gameid_' + gameItem.GameID}">`;
                 gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
 
             }

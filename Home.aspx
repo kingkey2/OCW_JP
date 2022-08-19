@@ -416,7 +416,7 @@
                                 gameitemmobilepopup = '';
                             }
 
-                            GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
+                            GItitle = `<div class="swiper-slide desktop ${'gameCode_' + gameItem.GameCode}" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')">`;
                             gameitemlink = '<span class="game-item-link"></span>';
                             btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
                         }

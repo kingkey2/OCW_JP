@@ -396,6 +396,12 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   width: 130px;
 }
 
+@media screen and (max-width: 575px) {
+  .section-levelUp {
+    padding-left: 10px;
+  }
+}
+
 .game_slider .swiper-slide {
   padding-right: 10px;
   width: 31.25%;
