@@ -644,6 +644,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
+  padding: 0 10px;
 }
 .entrance_Game_inner .game-area {
   width: 100%;

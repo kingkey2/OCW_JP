@@ -628,7 +628,7 @@
                                             gameitemmobilepopup = '';
                                         }
                                    
-                                        GItitle = `<div class="swiper-slide ${'gameCode_' + gameItem.GameCode}">`;
+                                        GItitle = `<div class="swiper-slide desktop ${'gameCode_' + gameItem.GameCode}">`;
                                         gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
                                         btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
                                     }
@@ -1220,33 +1220,33 @@
         </section>
 
         <!-- 遊戲大廳入口 + 自定義分類 + 活動中心-->
-        <div class="entrance_Game_wrapper">
-            <div class="entrance_Game_inner container">
-                <!-- 遊戲大廳入口 -->
-                <section class="section-lobbyEntrance section-wrap">
-                    <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
-                        <img src="images/index/lobby-entrance.jpg" alt="">
-                    </div>
-                </section>
-                <!-- 自定義分類 -->
-                <section class="game-area section-wrap overflow-hidden">
-                   <div class="" id="gameAreas"></div>
-                </section>  
-
-                 <!-- 活動中心 -->
-                 <section class="section-activityCenter section-wrap">
-                    <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
-                        <div class="activity-center-inner">
-                            <div class="activity-center-content">
-                                <div class="title language_replace">活動中心</div>
-                                <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
+        <div class="entrance_Game_wrapper game-area overflow-hidden">
+            <div class="container">
+                <div class="entrance_Game_inner">                
+                        <!-- 遊戲大廳入口 -->
+                        <section class="section-lobbyEntrance section-wrap">
+                            <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
+                                <img src="images/index/lobby-entrance.jpg" alt="">
                             </div>
-                        </div>
-                    </div>
-                 </section>                
+                        </section>
+                        <!-- 活動中心 -->
+                        <section class="section-activityCenter section-wrap">
+                            <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                <div class="activity-center-inner">
+                                    <div class="activity-center-content">
+                                        <div class="title language_replace">活動中心</div>
+                                        <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section> 
+                        <!-- 自定義分類 -->
+                        <section class="section-wrap ">
+                            <div class="" id="gameAreas"></div>
+                        </section>
+                </div>
             </div>           
         </div>
-
         <section class="section_publicize section-wrap">
             <div class="container">
                 <!-- writer + vTuber -->
