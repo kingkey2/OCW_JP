@@ -435,7 +435,7 @@ public class SyncAPI : System.Web.Services.WebService
                                                         CompanyCategoryRow = CompanyCategoryDT.Select("CategoryName='" + companyCategoryTag.Trim() + "'");
                                                         if (CompanyCategoryRow.Length > 0)
                                                         {
-                                                            var GameCodeCategoryData=  companyGameCodeResult.GameCodeList[i].GameCodeCategory.Where(w => w.CategoryName == companyCategoryTag.Trim().Replace("#", "")).FirstOrDefault();
+                                                            var GameCodeCategoryData=  companyGameCodeResult.GameCodeList[i].GameCodeCategory.Where(w => w.CategoryName == companyCategoryTag.Trim()).FirstOrDefault();
                                                             if (GameCodeCategoryData!=null)
                                                             {
                                                                 SortIndex = GameCodeCategoryData.SortIndex;
