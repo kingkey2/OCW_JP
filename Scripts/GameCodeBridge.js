@@ -149,24 +149,57 @@
 
     this.GetByGameCode = function (GameCode, cb) {
         if (GCBSelf.IsFirstLoaded) {
-            var queue = (IndexedDB) => {
-                var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
-                var objectStore = transaction.objectStore('GameCodes');
+            try {
+                var queue = (IndexedDB) => {
+                    var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
+                    var objectStore = transaction.objectStore('GameCodes');
 
-                objectStore.get(GameCode).onsuccess = function (event) {
-                    if (cb) {
-                        if (event.target.result) {
-                            cb(event.target.result);
+                    objectStore.get(GameCode).onsuccess = function (event) {
+                        if (cb) {
+                            if (event.target.result) {
+                                cb(event.target.result);
+                            } else {
+                                cb(null);
+                            }
+                        }
+
+                        IndexedDB.close();
+                    };
+                };
+
+                GCBSelf.InitPromise.then(getDB).then(queue);
+            }
+            catch (e) {
+                console.log(e);
+                GCBSelf.GetCompanyGameCode(Math.uuid(), GameCode, function (success, o) {
+                    if (success) {
+                        if (o.Result == 0) {
+                            let data = o.Data;
+                            data.ChampionType = 0;
+                            data.FavoTimeStamp = null;
+                            data.PlayedTimeStamp = null;
+                            if (data.Language != "null") {
+                                data.Language = JSON.parse(data.Language);
+                            } else {
+                                data.Language = [];
+                            }
+
+                            if (data.Tags != "null") {
+                                data.Tags = JSON.parse(data.Language);
+                            } else {
+                                data.Tags = [];
+                            }
+
+                            cb(data);
                         } else {
                             cb(null);
                         }
+                    } else {
+                        cb(null);
                     }
-
-                    IndexedDB.close();
-                };
-            };
-
-            GCBSelf.InitPromise.then(getDB).then(queue);
+                });
+            }
+      
         } else {
             GCBSelf.GetCompanyGameCode(Math.uuid(), GameCode, function (success, o) {
                 if (success) {

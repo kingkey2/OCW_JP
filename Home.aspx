@@ -314,8 +314,15 @@
         p.GetCompanyGameCodeThree(Math.uuid(), "Home", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    if (o.LobbyGameList.length > 0) {            
-                        Promise.all([createCategory(o.LobbyGameList, "Home"), createPersonal(0, true), createPersonal(1, true)]).then(() => {
+                    if (o.LobbyGameList.length > 0) {
+                        var LobbyGameList = o.LobbyGameList;
+                        for (var i = 0; i < LobbyGameList.length; i++) {
+                            LobbyGameList[i].Categories.sort(function (a, b) {
+                                return b.SortIndex - a.SortIndex;
+                            });
+                        }
+
+                        Promise.all([createCategory(LobbyGameList, "Home"), createPersonal(0, true), createPersonal(1, true)]).then(() => {
                             setSwiper("Home");
                         })
                     } else {
@@ -567,6 +574,10 @@
                             var gameItems = "";
                             var categName;
                             var gameBrand;
+
+                            category.Datas = category.Datas.sort(function (a, b) {
+                                return b.SortIndex - a.SortIndex;
+                            });
 
                             for (var ii = 0; ii < category.Datas.length; ii++) {
                                 var o = category.Datas[ii];
