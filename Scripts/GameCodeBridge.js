@@ -148,6 +148,7 @@
     };
 
     this.GetByGameCode = function (GameCode, cb) {
+        //test
         if (GCBSelf.IsFirstLoaded) {
             var queue = (IndexedDB) => {
                 var transaction = IndexedDB.transaction(['GameCodes'], 'readonly');
