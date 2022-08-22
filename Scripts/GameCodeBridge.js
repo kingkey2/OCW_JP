@@ -148,6 +148,7 @@
     };
 
     this.GetByGameCode = function (GameCode, cb) {
+        //test
         if (GCBSelf.IsFirstLoaded) {
             try {
                 var queue = (IndexedDB) => {
