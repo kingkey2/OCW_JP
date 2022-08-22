@@ -1417,47 +1417,59 @@ public class LobbyAPI : System.Web.Services.WebService {
 
             if (PromotionCollectResult.Result == EWin.Lobby.enumResult.OK) {
                 var Collect = PromotionCollectResult.CollectList.Where(x => x.CollectID == CollectID).FirstOrDefault();
+                var UserInfoResult = lobbyAPI.GetUserInfo(Token, SI.EWinSID, GUID);
+                if (UserInfoResult.Result == EWin.Lobby.enumResult.OK) {
+                    var Wallet = UserInfoResult.WalletList[0];
 
-                if (Collect != null) {
-                    EWin.Lobby.APIResult CollecResult;
+                    decimal OldThresholdValue = 0.0M;
+                    if (UserInfoResult.ThresholdInfo.Length > 0) {
+                        OldThresholdValue = UserInfoResult.ThresholdInfo[0].ThresholdValue;
+                    }
 
-                    if (Collect.CollectAreaType == 2) {
-                        CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
+                    if (Collect != null) {
+                        EWin.Lobby.APIResult CollecResult;
 
-                        if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
+                        if (Collect.CollectAreaType == 2) {
 
-                            string JoinActivityCycle = "1";
-                            Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
+                            if (Wallet.PointValue < CollectLimit) {
+                                ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, "ResetCollettPromotion. CollectID=" + CollectID.ToString());
+                                var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
 
-                            if (actioncontent["ActionList"] != null) {
-                                Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+                                if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
 
-                                foreach (var item in actionlist) {
-                                    if (item["Field"].ToString() == "JoinActivityCycle") {
-                                        JoinActivityCycle = item["Value"].ToString();
-                                    }
+                                } else {
+                                    R.Result = EWin.Lobby.enumResult.ERR;
+                                    R.Message = "Reset Failure : " + ResetResult.Message;
+
+                                    ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
                                 }
                             }
 
-                            EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
+                            CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
-                            //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, 0, 0, 0);
-                            R.Result = EWin.Lobby.enumResult.OK;
-                        } else {
-                            R.Result = EWin.Lobby.enumResult.ERR;
-                            R.Message = "Collect Failure";
-                        }
-                    } else {
-                        var UserInfoResult = lobbyAPI.GetUserInfo(Token, SI.EWinSID, GUID);
+                            if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
 
-                        if (UserInfoResult.Result == EWin.Lobby.enumResult.OK) {
-                            var Wallet = UserInfoResult.WalletList[0];
+                                string JoinActivityCycle = "1";
+                                Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
 
-                            decimal OldThresholdValue = 0.0M;
-                            if (UserInfoResult.ThresholdInfo.Length > 0) {
-                                OldThresholdValue = UserInfoResult.ThresholdInfo[0].ThresholdValue;
+                                if (actioncontent["ActionList"] != null) {
+                                    Newtonsoft.Json.Linq.JArray actionlist = Newtonsoft.Json.Linq.JArray.Parse(actioncontent["ActionList"].ToString());
+
+                                    foreach (var item in actionlist) {
+                                        if (item["Field"].ToString() == "JoinActivityCycle") {
+                                            JoinActivityCycle = item["Value"].ToString();
+                                        }
+                                    }
+                                }
+
+                                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
+                                R.Result = EWin.Lobby.enumResult.OK;
+                            } else {
+                                lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, OldThresholdValue, "Undo ResetCollectPromotion. CollectID=" + CollectID.ToString(), true);
+                                R.Result = EWin.Lobby.enumResult.ERR;
+                                R.Message = "Collect Failure";
                             }
-
+                        } else {
                             if (Wallet.PointValue < CollectLimit) {
                                 ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, "ResetCollettPromotion. CollectID=" + CollectID.ToString());
                                 var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
@@ -1481,8 +1493,6 @@ public class LobbyAPI : System.Web.Services.WebService {
                                         }
 
                                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, JoinActivityCycle, 0, 0, 0);
-
-                                        //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(SI.LoginAccount, Collect.Description, 0, 0, 0);
                                         R.Result = EWin.Lobby.enumResult.OK;
                                     } else {
                                         lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, OldThresholdValue, "Undo ResetCollectPromotion. CollectID=" + CollectID.ToString(), true);
@@ -1503,16 +1513,18 @@ public class LobbyAPI : System.Web.Services.WebService {
 
                                 ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
                             }
-                        } else {
-                            R.Result = EWin.Lobby.enumResult.ERR;
-                            R.Message = UserInfoResult.Message;
 
-                            ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
                         }
+                    } else {
+                        R.Message = "Not Search CollectID";
+                        R.Result = EWin.Lobby.enumResult.ERR;
                     }
+
                 } else {
-                    R.Message = "Not Search CollectID";
                     R.Result = EWin.Lobby.enumResult.ERR;
+                    R.Message = UserInfoResult.Message;
+
+                    ReportSystem.UserAccountPromotionCollect.CreateUserAccountPromotionCollect(Token, SI.LoginAccount, EWinWeb.MainCurrencyType, R.Message);
                 }
             } else {
                 R.Message = "Not Search CollectID";

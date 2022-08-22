@@ -1457,21 +1457,24 @@
         var headermenu = $('.header_menu');
 
         //主選單收合
-      
+
         navbartoggler.click(function () {
             verticalmenu.toggleClass('navbar-show');
             headermenu.toggleClass('show');
             if (navbartoggler.attr("aria-expanded") == "false") {
                 navbartoggler.attr("aria-expanded", "true");
-
-                if (EWinWebInfo.DeviceType == 1) {
-                    $('.PC-notify-dot').css('display', 'block');
-                    $('.mobile-notify-dot').css('display', 'none');
+                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                    if (EWinWebInfo.DeviceType == 1) {
+                        $('.PC-notify-dot').css('display', 'block');
+                        $('.mobile-notify-dot').css('display', 'none');
+                    }
                 }
             } else {
-                if (EWinWebInfo.DeviceType == 1) {
-                    $('.PC-notify-dot').css('display', 'none');
-                    $('.mobile-notify-dot').css('display', 'block');
+                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                    if (EWinWebInfo.DeviceType == 1) {
+                        $('.PC-notify-dot').css('display', 'none');
+                        $('.mobile-notify-dot').css('display', 'block');
+                    }
                 }
             }
 
@@ -1482,9 +1485,11 @@
             headermenu.find(".navbarMenu").removeClass('show');
             if (navbartoggler.attr("aria-expanded") == "true") {
                 navbartoggler.attr("aria-expanded", "false");
-                if (EWinWebInfo.DeviceType == 1) {
-                    $('.PC-notify-dot').css('display', 'none');
-                    $('.mobile-notify-dot').css('display', 'block');
+                if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
+                    if (EWinWebInfo.DeviceType == 1) {
+                        $('.PC-notify-dot').css('display', 'none');
+                        $('.mobile-notify-dot').css('display', 'block');
+                    }
                 }
             }
         });
