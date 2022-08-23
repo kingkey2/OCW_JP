@@ -91,11 +91,21 @@
 
 .manual-container ul {
   margin: 1rem 0;
+  padding: 0;
 }
+
 
 .manual-container li {
   margin: 0.5rem 0;
 }
+
+.manual-container .manual-list{
+  /* width: 95%; */
+  /* margin: 0 auto;   */
+  padding-left: 10px;
+
+}
+
 
 
 .manual-container h2 {
