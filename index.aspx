@@ -122,6 +122,8 @@
     else
     {
         Lang = Request["Lang"];
+
+        Lang = Lang.ToUpper();
     }
 
 %>
@@ -1018,14 +1020,14 @@
 
             $('.headerGameName').text(gameLangName);
 
-            if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
+            if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
+                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
+            } else {
                 if (EWinWebInfo.DeviceType == 1) {
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                 } else {
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
-            } else {
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
             }
         }
     }
