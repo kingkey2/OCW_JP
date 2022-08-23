@@ -699,7 +699,7 @@
             // 類別crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4)
             if (showType == 2) {
                 GI = `${GItitle}
-                        <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
+                        <div class="game-item crownLevel-1 crown-Payout ${championData.crownLevel} ${championData.championTypeStr}">
                             <div class="game-item-inner">
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
@@ -714,7 +714,7 @@
                         </div>`;
             } else {
                 GI = `${GItitle}
-                        <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
+                        <div class="game-item crownLevel-1 crown-Payout ${championData.crownLevel} ${championData.championTypeStr}">
                             <div class="game-item-inner">
                             ${gameitemmobilepopup}
                             <div class="game-item-focus">
