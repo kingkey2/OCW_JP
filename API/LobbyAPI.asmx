@@ -24,7 +24,7 @@ public class LobbyAPI : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult HeartBeat(string GUID, string Echo) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-
+          //TEST
         return lobbyAPI.HeartBeat(GUID, Echo);
     }
 
