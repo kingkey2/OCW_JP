@@ -171,7 +171,6 @@
                 GCBSelf.InitPromise.then(getDB).then(queue);
             }
             catch (e) {
-                console.log(e);
                 GCBSelf.GetCompanyGameCode(Math.uuid(), GameCode, function (success, o) {
                     if (success) {
                         if (o.Result == 0) {
