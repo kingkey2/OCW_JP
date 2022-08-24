@@ -11,7 +11,7 @@
         window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
         window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 
-        myWorker = new Worker("/Scripts/worker.js?1");
+        myWorker = new Worker("/Scripts/worker.js");
 
         myWorker.postMessage({
             Cmd: "Init",
@@ -170,7 +170,6 @@
                 GCBSelf.InitPromise.then(getDB).then(queue);
             }
             catch (e) {
-                console.log(e);
                 GCBSelf.GetCompanyGameCode(Math.uuid(), GameCode, function (success, o) {
                     if (success) {
                         if (o.Result == 0) {
@@ -718,7 +717,7 @@
                 var range = IDBKeyRange.bound([GameBrand, GameCategorySubCode, 0], [GameCategoryCode, GameCategorySubCode, 99])
                 request = objectStore.index("GameCategorySubCode").openCursor(range, "prev");
             } else if (GameCategoryCode) {
-                var range = IDBKeyRange.bound([GameCategoryCode, 0], [GameCategoryCode, 99])
+                var range = IDBKeyRange.bound([GameCategoryCode, 0], [GameCategoryCode, 99]);
                 request = objectStore.index("GameCategoryCode").openCursor(range, "prev");
             } else if (SearchKeyWord) {
                 request = objectStore.index("SearchKeyWord").openCursor(SearchKeyWord.toLowerCase());

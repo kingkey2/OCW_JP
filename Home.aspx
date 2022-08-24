@@ -150,8 +150,7 @@
             // },
             thumbs: {
              swiper: swiper,
-            },
-
+            }
         });
        
         
@@ -280,16 +279,16 @@
         var count = 0;
         if (championType != 0) {
             if ((championType & 1) == 1) {
-                date.championTypeStr += " crown-Payout "
+                date.championTypeStr += " crown-Payout ";
                 count++;
             } else
             if ((championType & 2) == 2) {
-                date.championTypeStr += " crown-Multiplier "
+                date.championTypeStr += " crown-Multiplier ";
                 count++;
             } else
 
             if ((championType & 4) == 4) {
-                date.championTypeStr += " crown-Spin "
+                date.championTypeStr += " crown-Spin ";
                 count++;
             }
 
