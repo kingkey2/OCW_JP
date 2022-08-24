@@ -22,7 +22,6 @@
         SID = Request["SID"];
     }
 
-
     if (string.IsNullOrEmpty(Request["CT"]) == false)
         CT = Request["CT"];
 
@@ -261,7 +260,8 @@
         DeviceType: getOS(),
         IsOpenGame: false
     };
-
+    var Favos = [];
+    var isFirstLogined = false;
     var noSleep;
     var selectedWallet = null;
     var v = "<%=Version%>";
@@ -401,6 +401,28 @@
     }
 
     function API_RefreshPersonalFavo(gameCode, isAdded) {
+        if (!isAdded) {
+            var index = Favos.indexOf(gameCode);
+
+            if (index>-1) {
+                Favos.splice(index, 1);
+            }
+        } else if (isAdded) {
+            var index = Favos.indexOf(gameCode);
+
+            if (index == -1) {
+                Favos.push(gameCode);
+            }
+        }
+
+        lobbyClient.SetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), "Favo", JSON.stringify(Favos), function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    console.log("Append?:"+Favos);
+                }
+            }
+        });
+      
         notifyWindowEvent("RefreshPersonalFavo", { GameCode: gameCode, IsAdded: isAdded });
     }
 
@@ -1074,22 +1096,29 @@
     //#region FavoriteGames And MyGames
 
     function favBtnClick(gameCode) {
-        var btn = event.currentTarget;
-        event.stopPropagation();
+        if (EWinWebInfo.UserLogined) {
+            var btn = event.currentTarget;
+            event.stopPropagation();
 
-        if ($(btn).hasClass("added")) {
-            $(btn).removeClass("added");
-            GCB.RemoveFavo(gameCode, function () {
-                window.parent.API_RefreshPersonalFavo(gameCode, false);
-                //window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
-            });
+            if ($(btn).hasClass("added")) {
+                $(btn).removeClass("added");
+                GCB.RemoveFavo(gameCode, function () {
+                    window.parent.API_RefreshPersonalFavo(gameCode, false);
+                    //window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已移除我的最愛"));
+                });
+            } else {
+                $(btn).addClass("added");
+                GCB.AddFavo(gameCode, function () {
+                    window.parent.API_RefreshPersonalFavo(gameCode, true);
+                    //window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
+                });
+            }
         } else {
-            $(btn).addClass("added");
-            GCB.AddFavo(gameCode, function () {
-                window.parent.API_RefreshPersonalFavo(gameCode, true);
-                //window.parent.API_ShowMessageOK(mlp.getLanguageKey("我的最愛"), mlp.getLanguageKey("已加入我的最愛"));
-            });
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
+                API_LoadPage("Login", "Login.aspx");
+            }, null);
         }
+      
     }
 
     function setFavoriteGame(gameCode) {
@@ -1136,6 +1165,13 @@
                     EWinWebInfo.SID = SID;
                     EWinWebInfo.UserLogined = true;
                     EWinWebInfo.UserInfo = o;
+                    if (!isFirstLogined) {
+                        isFirstLogined = true;
+                        GCB.InitPromise.then(() => {
+                            setFavoToIndexDB();
+                        });
+                    }
+                  
 
                     getPromotionCollectAvailable();
                     if (cb)
@@ -1536,7 +1572,6 @@
             }
         );
 
-
         mlp = new multiLanguage(v);
         mlpByGameCode = new multiLanguage(v);
 
@@ -1714,6 +1749,52 @@
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
         //resize();
+    }
+
+     function setFavoToIndexDB() {
+        if (EWinWebInfo.UserLogined) {
+            lobbyClient.GetUserAccountProperty(EWinWebInfo.SID, Math.uuid(),"Favo",function (success, o) {
+                if (success) {
+                    if (o.Result == 0) {
+                        if (o.PropertyValue != "") {
+                            var datas = JSON.parse(o.PropertyValue);
+
+                            for (var i = 0; i < datas.length; i++) {
+                                if (!Favos.includes(datas[i])) {
+                                    Favos.push(datas[i]);
+                                }
+                            }
+                     
+                            for (var i = 0; i < datas.length; i++) {
+                                GCB.AddFavo(datas[i], function () {
+                                });
+                            }
+
+                            setFavoToDB();
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    function setFavoToDB() {
+        if (EWinWebInfo.UserLogined) {
+            GCB.GetFavo((gameItem) => {
+                if (!Favos.includes(gameItem.GameCode)) {
+                    Favos.push(gameItem.GameCode);
+                }
+            }, () => {
+                lobbyClient.SetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), "Favo", JSON.stringify(Favos), function (success, o) {
+                    if (success) {
+                        if (o.Result == 0) {
+                            console.log(Favos);
+                        }
+                    }
+                });
+            })
+   
+        }
     }
 
     function getPromotionCollectAvailable() {

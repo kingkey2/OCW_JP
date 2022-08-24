@@ -96,6 +96,53 @@
         });
     };
 
+    this.GetUserAccountProperty = function (WebSID, GUID, PropertyName, cb) {
+        var url = APIUrl + "/GetUserAccountProperty";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            PropertyName: PropertyName
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.SetUserAccountProperty = function (WebSID, GUID, PropertyName, PropertyValue ,cb) {
+        var url = APIUrl + "/SetUserAccountProperty";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            PropertyName: PropertyName,
+            PropertyValue: PropertyValue
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.AddUserBankCard = function (WebSID, GUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, Description, cb) {
         var url = APIUrl + "/AddUserBankCard";
         var postData;
