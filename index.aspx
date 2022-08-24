@@ -122,6 +122,8 @@
     else
     {
         Lang = Request["Lang"];
+
+        Lang = Lang.ToUpper();
     }
 
 %>
@@ -1018,14 +1020,14 @@
 
             $('.headerGameName').text(gameLangName);
 
-            if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
+            if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
+                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
+            } else {
                 if (EWinWebInfo.DeviceType == 1) {
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
                 } else {
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
-            } else {
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
             }
         }
     }
@@ -2408,9 +2410,16 @@
                         <li class="info-item col">
                             <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                         </li>
+                        <%--
                         <li class="info-item col">
                             <a onclick="window.parent.API_ShowContactUs()">
                                 <span class="language_replace">聯絡客服</span>
+                            </a>
+                        </li>
+                        --%>
+                        <li class="info-item col">
+                            <a id="Footer_ResponsibleGaming" onclick="window.parent.API_ShowPartialHtml('', 'ResponsibleGaming', true, null)">
+                                <span class="language_replace">負責任的賭博</span>
                             </a>
                         </li>
                         <li class="info-item col">

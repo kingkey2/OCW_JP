@@ -697,7 +697,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           transform: rotate(-45deg);
   color: #fff;
   font-size: 1.25rem;
-  z-index: 1;
 }
 .activity-center-wrapper .title {
   font-size: 1.625rem;

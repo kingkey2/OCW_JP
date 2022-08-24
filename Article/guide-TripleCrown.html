@@ -381,18 +381,12 @@
 				margin: 10px 0px 0 130px;
 			}
 		}
-	</style>
 
-	<script>
+
+
+
 		
-		function goPage() {
-			if (document.URL.includes('CasinoPage')) {
-                window.top.API_LoadPage('Casino', 'Casino.aspx', false);
-			} else {
-                window.top.API_LoadPage('QA', '/Article/guide_Q&A_jp.html');
-			}
-		}
-	</script>
+	</style>
 </head>
 
 <body class="innerBody">
@@ -402,7 +396,7 @@
 
 			<!-- 段落 --------------------->
 			<section class="cash-section-wrap wrapper">
-				<div class="btn-back-cashQa" onclick="goPage()">↩︎
+				<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Withdrawal','Withdrawal.aspx', true)">↩︎
 					戻る</div>
 				<div class="activity-popup-detail-img">
 					<img src="images/crown/topBanner.jpg" class="desktop" alt="">
@@ -458,8 +452,9 @@
 					
 				</div>
 				<div style="margin: 20px auto 0 auto;width: 440px;">
-					<video src="images/crown/crown.mp4" width="440" height="200" autoplay loop></video>
-					<!-- <img src="images/crown/dog06.png" alt="" width="100%"> -->
+					<video autoplay muted playsinline loop  width="375" height="200">
+                        <source src="images/crown/crown.mp4" type="video/mp4" />
+                    </video>
 					<div class="crown-footer">
 						<p>三冠王を獲得したゲームは珍しく、ビッグウィンの確率が高いので、ぜひお見逃しなく試してみてください！</p>
 					</div>
@@ -467,9 +462,9 @@
 				
 			</section>
 
-			<!-- 段落 phone--------------------->
+			<!-- 段落 --------------------->
 			<section class="cash-section-wrap wrapper-phone">
-				<div class="btn-back-cashQa" onclick="goPage()">↩︎
+				<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Withdrawal','Withdrawal.aspx', true)">↩︎
 					戻る</div>
 				<div class="activity-popup-detail-img">
 					<img src="images/crown/topBanner-phone.jpg" class="desktop" alt="">
@@ -494,15 +489,15 @@
 					<ul>
 						<li>
 							<img src="images/crown/dog01.png" alt="">
-							<p style="width: 96%;">今週の最大スピン数<br>ランキング一位<br>または過去の一位。</p>
+							<p style="width: 96%;">今週の最大スピン数ランキング一位または過去の一位。</p>
 						</li>
 						<li>
 							<img src="images/crown/dog02.png" alt="">
-							<p style="width: 96%;">今週の最大倍率<br>ランキング一位<br>または過去の一位。</p>
+							<p style="width: 96%;">今週の最大倍率<br>ランキング一位または過去の一位。</p>
 						</li>
 						<li>
 							<img src="images/crown/dog03.png" alt="">
-							<p style="width: 100%;">今週のビッグウィン<br>ランキング一位<br>または過去の一位。</p>
+							<p style="width: 100%;">今週のビッグウィンランキング一位<br>または過去の一位。</p>
 						</li>
 
 					</ul>
@@ -518,30 +513,28 @@
 					<ul>
 						<li>
 							<img src="images/crown/dog04.png" alt="">
-							<p>二種類の一位を<br>獲得したゲーム！</p>
+							<p>二種類の一位を獲得したゲーム！</p>
 						</li>
 						<li>
 							<img src="images/crown/dog05.png" alt="">
-							<p>ビッグウィン、最大倍率、<br>最大スピン数の一位を<br>全部獲得した三冠王ゲーム！</p>
+							<p>ビッグウィン、最大倍率、最大スピン数の一位を全部獲得した三冠王ゲーム！</p>
 						</li>
 					</ul>
 					<div style="clear: both;"></div>
 					
 				</div>
-                <div style="margin: 20px auto 0 auto;width: auto;">
-
-                    <video autoplay muted playsinline loop  width="375" height="200">
+				<div style="margin: 20px auto 0 auto;width: auto;">
+					<video autoplay muted playsinline loop  width="375" height="200">
                         <source src="images/crown/crown.mp4" type="video/mp4" />
                     </video>
-                    <!-- <img src="images/crown/dog06.png" alt="" width="100%"> -->
-                    <div class="crown-footer">
-                        <p>三冠王を獲得したゲームは珍しく、ビッグウィンの確率が高いので、ぜひお見逃しなく試してみてください！</p>
-                    </div>
-                </div>
+					<div class="crown-footer">
+						<p>三冠王を獲得したゲームは珍しく、ビッグウィンの確率が高いので、ぜひお見逃しなく試してみてください！</p>
+					</div>
+				</div>
 				
 			</section>
 
-			<div class="btn-back-cashQa" onclick="goPage()">↩︎ 戻る
+			<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Withdrawal','Withdrawal.aspx', true)">↩︎ 戻る
 			</div>
 		</div>
 		<!-- 活動 內文 END ===================-->
