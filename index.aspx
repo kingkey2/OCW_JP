@@ -1637,11 +1637,18 @@
 
             } else {
 
-                if (EWinWebInfo.UserLogined) {
-                    API_Casino();
+                if (EWinWebInfo.SID != "") {
+                    checkUserLogin(EWinWebInfo.SID, function () {
+                        if (EWinWebInfo.UserLogined) {
+                            API_Casino();
+                        } else {
+                            API_Home();
+                        }
+                    })
                 } else {
                     API_Home();
                 }
+
             }
             
             SearchControll = new searchControlInit("alertSearch");
