@@ -418,7 +418,6 @@
         lobbyClient.SetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), "Favo", JSON.stringify(Favos), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    console.log("Append?:"+Favos);
                 }
             }
         });
@@ -1788,7 +1787,6 @@
                 lobbyClient.SetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), "Favo", JSON.stringify(Favos), function (success, o) {
                     if (success) {
                         if (o.Result == 0) {
-                            console.log(Favos);
                         }
                     }
                 });

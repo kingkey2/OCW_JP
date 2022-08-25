@@ -83,7 +83,7 @@
       "BonusRate": 1
     },
     {
-      "PaymentCode": "NISSIN",
+      "PaymentCode": "EWINPAY",
       "ReceiveValueMaxLimit": 100000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
@@ -176,7 +176,7 @@
       "BonusRate": 0.5
     },
     {
-      "PaymentCode": "NISSIN",
+      "PaymentCode": "EWINPAY",
       "ReceiveValueMaxLimit": 100000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
@@ -269,7 +269,7 @@
       "BonusRate": 0.5
     },
     {
-      "PaymentCode": "NISSIN",
+      "PaymentCode": "EWINPAY",
       "ReceiveValueMaxLimit": 100000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
