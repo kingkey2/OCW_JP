@@ -1872,11 +1872,11 @@
             if ((championType & 1) == 1) {
                 date.championTypeStr += "crown-Payout,"
                 count++;
-            }else
+            }
             if ((championType & 2) == 2) {
                 date.championTypeStr += "crown-Multiplier,"
                 count++;
-            } else
+            } 
 
             if ((championType & 4) == 4) {
                 date.championTypeStr += "crown-Spin,"
@@ -1888,8 +1888,18 @@
             }
 
             if (count == 1) { date.crownLevel = "crownLevel-1" }
-            else if (count == 2) { date.crownLevel = "crownLevel-2" }
-            else if (count == 3) { date.crownLevel = "crownLevel-3" }
+            else if (count == 2) {
+                var championTypeStr = date.championTypeStr;
+                date.crownLevel = "crownLevel-2"
+                if (championTypeStr.includes("crown-Payout") && championTypeStr.includes("crown-Multiplier")) {
+                    date.championTypeStr = "crown-P-M";
+                } else if (championTypeStr.includes("crown-Payout") && championTypeStr.includes("crown-Spin")) {
+                    date.championTypeStr = "crown-P-S";
+                } else if (championTypeStr.includes("crown-Multiplier") && championTypeStr.includes("crown-Spin")) {
+                    data.championTypeStr = "crown-M-S";
+                }
+            }
+            else if (count == 3) { date.crownLevel = "crownLevel-3"; date.championTypeStr = ""; }
         }
 
         return date;

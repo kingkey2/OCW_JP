@@ -703,7 +703,7 @@
            */
             if (showType == 2) {
                 GI = `${GItitle}
-                        <div class="game-item crownLevel-2 crown-P-M ${championData.crownLevel} ${championData.championTypeStr}">
+                        <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
                             <div class="game-item-inner">
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
@@ -718,7 +718,7 @@
                         </div>`;
             } else {
                 GI = `${GItitle}
-                        <div class="game-item crownLevel-3 ${championData.crownLevel} ${championData.championTypeStr}">
+                        <div class="game-item ${championData.crownLevel} ${championData.championTypeStr}">
                             <div class="game-item-inner">
                             ${gameitemmobilepopup}
                             <div class="game-item-focus">
@@ -742,9 +742,15 @@
     }
 
     function checkChampionType(championType) {
-       //三冠王 
-       // 等級crownLevel-1/crownLevel-2/crownLevel-3
-       // 類別crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4)
+        /*  三冠王 ===========================
+             等級：crownLevel-1/
+             類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4)
+             ----------------------------------------------------------
+             等級：crownLevel-2
+             類別：crown-P-M 派彩+倍率 / crown-P-S 派彩+轉數 / crown-M-S 派彩+轉數
+             ----------------------------------------------------------
+             等級：crownLevel-3
+            */
 
         var date = {
             championTypeStr: "",
@@ -755,19 +761,31 @@
             if ((championType & 1) == 1) {
                 date.championTypeStr += " crown-Payout "
                 count++;
-            }else
+            }
+
             if ((championType & 2) == 2) {
                 date.championTypeStr += " crown-Multiplier "
                 count++;
-            } else
+            }
+
             if ((championType & 4) == 4) {
                 date.championTypeStr += " crown-Spin "
                 count++;
             }
 
             if (count == 1) { date.crownLevel = "crownLevel-1" }
-            else if (count == 2) { date.crownLevel = "crownLevel-2" }
-            else if (count == 3) { date.crownLevel = "crownLevel-3" }
+            else if (count == 2) {
+                var championTypeStr = date.championTypeStr;
+                date.crownLevel = "crownLevel-2"
+                if (championTypeStr.includes("crown-Payout") && championTypeStr.includes("crown-Multiplier")) {
+                    date.championTypeStr = "crown-P-M";
+                } else if (championTypeStr.includes("crown-Payout") && championTypeStr.includes("crown-Spin")) {
+                    date.championTypeStr = "crown-P-S";
+                } else if (championTypeStr.includes("crown-Multiplier") && championTypeStr.includes("crown-Spin")) {
+                    data.championTypeStr = "crown-M-S";
+                }
+            }
+            else if (count == 3) { date.crownLevel = "crownLevel-3"; date.championTypeStr = "";  }
         }
 
       
