@@ -692,12 +692,18 @@
          
 
             imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
-            //三冠王 
-            // 等級crownLevel-1/crownLevel-2/crownLevel-3
-            // 類別crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4)
+           /*  三冠王 ===========================
+            等級：crownLevel-1/
+            類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
+            ----------------------------------------------------------
+            等級：crownLevel-2
+            類別：crown-P-M 派彩+倍率 / crown-P-S 派彩+轉數 / crown-M-S 派彩+轉數
+            ----------------------------------------------------------
+            等級：crownLevel-3
+           */
             if (showType == 2) {
                 GI = `${GItitle}
-                        <div class="game-item crownLevel-1 crown-Payout ${championData.crownLevel} ${championData.championTypeStr}">
+                        <div class="game-item crownLevel-2 crown-P-M ${championData.crownLevel} ${championData.championTypeStr}">
                             <div class="game-item-inner">
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
@@ -712,7 +718,7 @@
                         </div>`;
             } else {
                 GI = `${GItitle}
-                        <div class="game-item crownLevel-1 crown-Payout ${championData.crownLevel} ${championData.championTypeStr}">
+                        <div class="game-item crownLevel-3 ${championData.crownLevel} ${championData.championTypeStr}">
                             <div class="game-item-inner">
                             ${gameitemmobilepopup}
                             <div class="game-item-focus">
