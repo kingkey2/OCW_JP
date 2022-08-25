@@ -1,6 +1,0 @@
-User-agent: Googlebot
-Disallow: /API/
-
-User-agent: *
-Disallow: /API/
-
