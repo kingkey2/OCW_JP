@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\API",
-    "\\App_WebReferences"
+    "\\App_Code",
+    "\\App_Code\\RedisCache",
+    "\\Scripts"
   ],
   "SelectedNode": "\\OCW_JP.sln",
   "PreviewInSolutionExplorer": false
