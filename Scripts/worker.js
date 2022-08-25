@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     //Params => data參數
     if (e.data) {
         if (e.data.Cmd == "Init") {
-            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 9);
+            wokerControl = new worker(e.data.Params[0], e.data.Params[1], e.data.Params[2], 11);
 
             //dataExist,true => indexedDB已經有資料，可不等同步直接使用
             wokerControl.OnInitSyncStart = function (dataExist) {
@@ -201,10 +201,14 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
             if (event.oldVersion == 0) {
                 InitDBSchema(event.target.result);
             } else {
-                db.deleteObjectStore("GameCodes");
-                db.deleteObjectStore("GameCategory");
-                //db.deleteObjectStore("SyncData");
-                db.deleteObjectStore("RealSearchKey");
+                try {
+                    db.deleteObjectStore("GameCodes");
+                    db.deleteObjectStore("GameCategory");
+                    db.deleteObjectStore("SyncData");
+                    db.deleteObjectStore("RealSearchKey");
+                } catch (e) {
+
+                }
                 InitDBSchema(event.target.result);
             }
         };

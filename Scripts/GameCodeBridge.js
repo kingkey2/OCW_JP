@@ -11,7 +11,7 @@
         window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
         window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 
-        myWorker = new Worker("/Scripts/worker.js?1");
+        myWorker = new Worker("/Scripts/worker.js?2");
 
         myWorker.postMessage({
             Cmd: "Init",
