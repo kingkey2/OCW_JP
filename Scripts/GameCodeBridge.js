@@ -996,7 +996,7 @@
                                                 break;
                                             }
 
-                                            if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(gameCodeItem.Tags[i])) {
+                                            if (targetSearch.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(targetSearch)) {
                                                 searchFlag = true;
                                                 break;
                                             }
@@ -1063,7 +1063,7 @@
                                                         break;
                                                     }
 
-                                                    if (SearchKeyWord.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(gameCodeItem.Tags[i])) {
+                                                    if (targetSearch.length >= 2 && gameCodeItem.Tags[i].toLowerCase().includes(targetSearch)) {
                                                         searchFlag = true;
                                                         break;
                                                     }

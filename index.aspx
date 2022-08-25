@@ -229,7 +229,7 @@
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
-<script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
+<script type="text/javascript" src="/Scripts/GameCodeBridge.js?1"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
 <script type="text/javascript">
