@@ -519,6 +519,11 @@
         API_LoadPage("Home", "Home.aspx");
     }
 
+    function API_Casino() {
+        //Game
+        API_LoadPage("Casino", "Casino.aspx");
+    }
+
     function API_Reload() {
         //Game
         window.location.reload();
@@ -1631,7 +1636,12 @@
                 API_LoadPage(loadPage, loadPage + ".aspx");
 
             } else {
-                API_Home();
+
+                if (EWinWebInfo.UserLogined) {
+                    API_Casino();
+                } else {
+                    API_Home();
+                }
             }
             
             SearchControll = new searchControlInit("alertSearch");
