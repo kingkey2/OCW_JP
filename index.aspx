@@ -2282,7 +2282,7 @@
                                     <li class="nav-item submenu dropdown"
                                         onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon icon-mask icon-all"></i>
+                                            <i class="icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
                                     </li>
                                 </ul>
@@ -2943,7 +2943,7 @@
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="alertPartialHtml" aria-hidden="true" id="alertPartialHtml">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title alertPartialHtml_Title">
