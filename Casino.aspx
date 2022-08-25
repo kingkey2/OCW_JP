@@ -782,7 +782,7 @@
                 } else if (championTypeStr.includes("crown-Payout") && championTypeStr.includes("crown-Spin")) {
                     date.championTypeStr = "crown-P-S";
                 } else if (championTypeStr.includes("crown-Multiplier") && championTypeStr.includes("crown-Spin")) {
-                    data.championTypeStr = "crown-M-S";
+                    date.championTypeStr = "crown-M-S";
                 }
             }
             else if (count == 3) { date.crownLevel = "crownLevel-3"; date.championTypeStr = "";  }
