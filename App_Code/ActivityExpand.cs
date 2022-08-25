@@ -338,6 +338,142 @@ public static class ActivityExpand {
 
             return R;
         }
+
+        public static ActivityCore.ActResult<ActivityCore.DepositActivity> OpenBonusDeposit_Loop(string DetailPath, decimal Amount, string PaymentCode, string LoginAccount) {
+            ActivityCore.ActResult<ActivityCore.DepositActivity> R = new ActivityCore.ActResult<ActivityCore.DepositActivity>() { Result = ActivityCore.enumActResult.ERR, Data = new ActivityCore.DepositActivity() };
+            JObject ActivityDetail;
+            System.Data.DataTable UserAccountTotalValueDT;
+            int DepositCount = 0;
+
+            ActivityDetail = GetActivityDetail(DetailPath);
+
+            UserAccountTotalValueDT = RedisCache.UserAccountEventSummary.GetUserAccountEventSummaryByLoginAccountAndActivityName(LoginAccount, ActivityDetail["Name"].ToString());
+
+            if (UserAccountTotalValueDT != null && UserAccountTotalValueDT.Rows.Count > 0) {
+                DepositCount = (int)UserAccountTotalValueDT.Rows[0]["JoinCount"];
+            } else {
+                DepositCount = 0;
+            }
+
+            if (ActivityDetail != null) {
+                DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
+                DateTime EndDate = DateTime.Parse(ActivityDetail["EndDate"].ToString());
+                bool IsPaymentCodeSupport = false;
+                decimal BonusRate = 0;
+                decimal ThresholdRate = 0;
+                decimal ReceiveValueMaxLimit = 0;
+
+                if ((int)ActivityDetail["State"] == 0) {
+                    if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
+                        if (DepositCount % 3 == 0) {
+                            foreach (var item in ActivityDetail["Rate1"]) {
+                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
+                                    IsPaymentCodeSupport = true;
+                                    BonusRate = (decimal)item["BonusRate"];
+                                    ThresholdRate = (decimal)item["ThresholdRate"];
+                                    ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+
+                                    break;
+                                }
+                            }
+
+                            if (IsPaymentCodeSupport) {
+                                R.Result = ActivityCore.enumActResult.OK;
+                                R.Data.Amount = Amount;
+                                R.Data.PaymentCode = PaymentCode;
+                                R.Data.BonusRate = BonusRate;
+                                R.Data.BonusValue = Amount * BonusRate;
+
+                                if (R.Data.BonusValue > ReceiveValueMaxLimit) {
+                                    R.Data.BonusValue = ReceiveValueMaxLimit;
+                                }
+
+                                R.Data.ThresholdRate = ThresholdRate;
+                                R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
+                                R.Data.Title = ActivityDetail["Title"].ToString();
+                                R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                                R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
+                                R.Data.JoinCount = 1;
+                            } else {
+                                SetResultException(R, "PaymentCodeNotSupport");
+                            }
+                        } else if (DepositCount % 3 == 1) {
+                            foreach (var item in ActivityDetail["Rate2"]) {
+                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
+                                    IsPaymentCodeSupport = true;
+                                    BonusRate = (decimal)item["BonusRate"];
+                                    ThresholdRate = (decimal)item["ThresholdRate"];
+                                    ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+
+                                    break;
+                                }
+                            }
+
+                            if (IsPaymentCodeSupport) {
+                                R.Result = ActivityCore.enumActResult.OK;
+                                R.Data.Amount = Amount;
+                                R.Data.PaymentCode = PaymentCode;
+                                R.Data.BonusRate = BonusRate;
+                                R.Data.BonusValue = Amount * BonusRate;
+
+                                if (R.Data.BonusValue > ReceiveValueMaxLimit) {
+                                    R.Data.BonusValue = ReceiveValueMaxLimit;
+                                }
+
+                                R.Data.ThresholdRate = ThresholdRate;
+                                R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
+                                R.Data.Title = ActivityDetail["Title"].ToString();
+                                R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                                R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
+                                R.Data.JoinCount = 2;
+                            } else {
+                                SetResultException(R, "PaymentCodeNotSupport");
+                            }
+                        } else {
+                            foreach (var item in ActivityDetail["Rate3"]) {
+                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
+                                    IsPaymentCodeSupport = true;
+                                    BonusRate = (decimal)item["BonusRate"];
+                                    ThresholdRate = (decimal)item["ThresholdRate"];
+                                    ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+
+                                    break;
+                                }
+                            }
+
+                            if (IsPaymentCodeSupport) {
+                                R.Result = ActivityCore.enumActResult.OK;
+                                R.Data.Amount = Amount;
+                                R.Data.PaymentCode = PaymentCode;
+                                R.Data.BonusRate = BonusRate;
+                                R.Data.BonusValue = Amount * BonusRate;
+
+                                if (R.Data.BonusValue > ReceiveValueMaxLimit) {
+                                    R.Data.BonusValue = ReceiveValueMaxLimit;
+                                }
+
+                                R.Data.ThresholdRate = ThresholdRate;
+                                R.Data.ThresholdValue = R.Data.BonusValue * ThresholdRate;
+                                R.Data.Title = ActivityDetail["Title"].ToString();
+                                R.Data.SubTitle = ActivityDetail["SubTitle"].ToString();
+                                R.Data.CollectAreaType = ActivityDetail["CollectAreaType"].ToString();
+                                R.Data.JoinCount = 3;
+                            } else {
+                                SetResultException(R, "PaymentCodeNotSupport");
+                            }
+                        }
+                    } else {
+                        SetResultException(R, "ActivityIsExpired");
+                    }
+                } else {
+                    SetResultException(R, "ActivityIsExpired");
+                }
+            } else {
+                SetResultException(R, "ActivityIsExpired");
+            }
+
+            return R;
+        }
     }
 
     public static class DepositJoinCheck {

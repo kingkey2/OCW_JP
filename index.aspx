@@ -229,7 +229,7 @@
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
-<script type="text/javascript" src="/Scripts/GameCodeBridge.js"></script>
+<script type="text/javascript" src="/Scripts/GameCodeBridge.js?1"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
 <script type="text/javascript">
@@ -517,6 +517,18 @@
     function API_Home() {
         //Game
         API_LoadPage("Home", "Home.aspx");
+    }
+
+    function API_Casino() {
+        //Game
+        API_LoadPage("Casino", "Casino.aspx");
+    }
+
+    function API_SetFavoToIndexDB(cb) {
+        //Game
+        GCB.InitPromise.then(() => {
+            setFavoToIndexDB(cb);
+        });
     }
 
     function API_Reload() {
@@ -1164,14 +1176,7 @@
                     EWinWebInfo.SID = SID;
                     EWinWebInfo.UserLogined = true;
                     EWinWebInfo.UserInfo = o;
-                    if (!isFirstLogined) {
-                        isFirstLogined = true;
-                        GCB.InitPromise.then(() => {
-                            setFavoToIndexDB();
-                        });
-                    }
-                  
-
+                 
                     getPromotionCollectAvailable();
                     if (cb)
                         cb(true);
@@ -1630,10 +1635,17 @@
                 history.replaceState(null, null, "?" + c.removeParameter("DstPage"));
                 API_LoadPage(loadPage, loadPage + ".aspx");
 
-            } else {
-                API_Home();
             }
-            
+            else {
+
+                if (EWinWebInfo.SID != "") {
+                    API_Casino();
+                } else {
+                    API_Home();
+                }
+
+            }
+
             SearchControll = new searchControlInit("alertSearch");
             
             //getCompanyGameCode();
@@ -1750,7 +1762,7 @@
         //resize();
     }
 
-     function setFavoToIndexDB() {
+     function setFavoToIndexDB(cb) {
         if (EWinWebInfo.UserLogined) {
             lobbyClient.GetUserAccountProperty(EWinWebInfo.SID, Math.uuid(),"Favo",function (success, o) {
                 if (success) {
@@ -1769,7 +1781,7 @@
                                 });
                             }
 
-                            setFavoToDB();
+                            setFavoToDB(cb);
                         }
                     }
                 }
@@ -1777,7 +1789,7 @@
         }
     }
 
-    function setFavoToDB() {
+    function setFavoToDB(cb) {
         if (EWinWebInfo.UserLogined) {
             GCB.GetFavo((gameItem) => {
                 if (!Favos.includes(gameItem.GameCode)) {
@@ -1787,6 +1799,7 @@
                 lobbyClient.SetUserAccountProperty(EWinWebInfo.SID, Math.uuid(), "Favo", JSON.stringify(Favos), function (success, o) {
                     if (success) {
                         if (o.Result == 0) {
+                            cb();
                         }
                     }
                 });
