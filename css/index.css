@@ -664,6 +664,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .section-game-area {
   width: 100%;
+  margin-top: 0.8rem;
 }
 
 .section-activityCenter {
@@ -893,11 +894,13 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .dailylogin-bouns-list .bouns-item:nth-child(1):before {
   background-image: url(../images/prize/icon-model-wizard.svg);
   padding-bottom: 150%;
+  top: 1.5px;
 }
 .dailylogin-bouns-list .bouns-item:nth-child(1):after {
   -webkit-mask-image: url(../images/prize/icon-model-wizard.svg);
   mask-image: url(../images/prize/icon-model-wizard.svg);
   padding-bottom: 150%;
+  bottom: -1.5px;
 }
 .dailylogin-bouns-list .bouns-item:nth-child(2):before {
   background-image: url(../images/prize/icon-model-warrior.svg);
@@ -1018,13 +1021,6 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 .game-area.overflow-hidden {
   padding-bottom: 0;
 }
-@media (min-width: 1024px) {
-  .game-area.overflow-hidden {
-    padding-top: 45px;
-    padding-bottom: 50px;
-  }
-}
-
 .game_slider .swiper-slide {
   padding-right: 10px;
   width: 31.25%;
@@ -1119,6 +1115,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
             flex: 1;
     max-width: 640px;
     right: 0;
+    top: 3px;
   }
   .dailylogin-bouns-list:after {
     display: -webkit-inline-box;
@@ -1411,14 +1408,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     background-size: contain;
   }
   .dailylogin-bouns-list .bouns-item .day {
-    top: 20px;
+    top: 0;
   }
   .dailylogin-bouns-content .title {
     height: 140px;
     width: 205.7142857143px;
   }
   .dailylogin-bouns-content .dailylogin-bouns-QA {
-    bottom: 45px;
+    bottom: 39px;
   }
 }
 @media (min-width: 1440px) {
@@ -1431,6 +1428,10 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .activity-center-wrapper.lable-new .activity-center-inner::after {
     -webkit-transform: rotate(-45deg) scale(1.5, 1.5);
             transform: rotate(-45deg) scale(1.5, 1.5);
+  }
+
+  .section_publicize .publicize_bottom {
+    margin-bottom: 80px;
   }
 }
 @media (min-width: 1384px) and (max-width: 1543px) {
@@ -1709,5 +1710,15 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     margin-bottom: 4px;
     width: 20px;
     height: 20px;
+  }
+}
+@media (any-hover: hover) {
+  .game-area.overflow-hidden > .container {
+    padding-bottom: 50px;
+  }
+}
+@media (any-hover: hover) and (min-width: 1440px) {
+  .game-area.overflow-hidden > .container {
+    padding-bottom: 30px;
   }
 }
