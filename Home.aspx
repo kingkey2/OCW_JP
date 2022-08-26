@@ -31,7 +31,7 @@
     <link href="css/basic.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css?a=2">
     <link rel="stylesheet" href="css/index.css?a=1">
-     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
@@ -41,16 +41,14 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
-        <style>
+    <style>
         .title-showAll:hover {
             cursor: pointer;
         }
 
-        .game-item-info-detail{
+        .game-item-info-detail {
             cursor: pointer;
         }
-
-
     </style>
 </head>
 <script type="text/javascript">
@@ -77,25 +75,25 @@
 
     var FourGames = [
         {
-            GameName: "43",
-            GameBrand: "KGS",
-            GameLangName: "KGS.43",
-            GameNameJP: "7PK",
-            Description: "７枚のトランプが自動的に配られて、当たりかはずれを待つ時がすごくワクワクします。"
+            GameName: "OnmologistEX",
+            GameBrand: "CG",
+            GameLangName: "CG.OnmologistEX",
+            GameNameJP: "陰陽師",
+            Description: "先月、最大スピン数が出たゲームです"
         },
         {
-            GameName: "moonprincess",
-            GameBrand: "PNG",
-            GameLangName: "PNG.moonprincess",
-            GameNameJP: "ムーン・プリンセス",
-            Description: "プレインゴーの知名度NO.1スロット。言わずと知れた高級キャバクラ！！"
+            GameName: "vs25goldparty",
+            GameBrand: "PP",
+            GameLangName: "PP.vs25goldparty",
+            GameNameJP: "ゴールドパーティ",
+            Description: "先月、最高倍率が出たゲームです。"
         },
         {
-            GameName: "242",
-            GameBrand: "BNG",
-            GameLangName: "BNG.242",
-            GameNameJP: "タイガー ジャングル",
-            Description: "ブーンゴーのタイガーシリーズの不動の人気チャンピオン、マハラジャのイチオシ！！"
+            GameName: "NinjaEX",
+            GameBrand: "CG",
+            GameLangName: "CG.NinjaEX",
+            GameNameJP: "新　サムライ",
+            Description: "大ヒット！ビッグウィンランキング一位を獲得したゲームです。"
         },
         {
             GameName: "LightningTable01",
@@ -122,7 +120,7 @@
     function initSwiper() {
         //HERO 
         var swiper = new Swiper(".thumbSwiper", {
-           
+
             slidesPerView: "auto",
             freeMode: true,
             // enabled: false,
@@ -149,11 +147,11 @@
             //     },
             // },
             thumbs: {
-             swiper: swiper,
+                swiper: swiper,
             }
         });
-       
-        
+
+
 
         // 推薦遊戲
         var gameRecommend = new Swiper("#game-recommend", {
@@ -195,7 +193,7 @@
             tempGI_img.onerror = new Function("setDefaultIcon('" + temp_gameItem.GameBrand + "', '" + temp_gameItem.GameName + "')");
         }
 
-       c.setClassText(tempGI, "gameName", null,  temp_gameItem.GameNameJP);
+        c.setClassText(tempGI, "gameName", null, temp_gameItem.GameNameJP);
 
         //if (temp_gameItem.GameLangName == "EWinGaming") {
         //    c.setClassText(tempGI, "gameName", null, mlp.getLanguageKey("EWinGaming"));
@@ -281,11 +279,11 @@
             if ((championType & 1) == 1) {
                 date.championTypeStr += " crown-Payout ";
                 count++;
-            } 
+            }
             if ((championType & 2) == 2) {
                 date.championTypeStr += " crown-Multiplier ";
                 count++;
-            } 
+            }
 
             if ((championType & 4) == 4) {
                 date.championTypeStr += " crown-Spin ";
@@ -318,7 +316,7 @@
             setFourGame(i);
         }
     }
-    
+
     function getCompanyGameCode() {
         p.GetCompanyGameCodeThree(Math.uuid(), "Home", function (success, o) {
             if (success) {
@@ -340,7 +338,7 @@
                         createPersonal(1, true).then(function () {
                             setSwiperBySelector(".GameItemGroup_PersonalFavo");
                         });
-                       
+
                         createCategory(LobbyGameList, "Home").then(function () {
                             setSwiper("Home");
                         });
@@ -425,14 +423,14 @@
                             } else {
                                 btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                             }
-                    
+
                         } else {
                             if (WebInfo.DeviceType == 0) {
                                 btnlike = `<button type="button" class="btn-like desktop gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                             } else {
                                 btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                             }
-                        
+
                         }
 
                         var RTP = "";
@@ -594,7 +592,7 @@
         });
     }
 
-    async function createCategory(LobbyGameList,categoryName) {
+    async function createCategory(LobbyGameList, categoryName) {
         if (LobbyGameList) {
 
             var lobbyGame = LobbyGameList.find(function (o) {
@@ -652,7 +650,7 @@
                                         } else {
                                             btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
                                         }
-                                        
+
                                     }
 
                                     var RTP = "";
@@ -679,7 +677,7 @@
                                         } else {
                                             gameitemmobilepopup = '';
                                         }
-                                   
+
                                         GItitle = `<div class="swiper-slide desktop ${'gameCode_' + gameItem.GameCode}">`;
                                         gameitemlink = '<span class="game-item-link" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '"></span>';
                                         btnplay = '<button type="button" class="btn btn-play" onclick="' + "window.parent.API_OpenGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + gameName + "')" + '">';
@@ -914,7 +912,7 @@
                 }
             });
         }
-        
+
     }
 
     function setSwiper(categoryName) {
@@ -1001,7 +999,7 @@
                 }
             });
         }
- 
+
     }
 
     function setBulletinBoard() {
@@ -1042,7 +1040,7 @@
             }
         });
     }
-     
+
     function setUserThisWeekLogined(UserThisWeekTotalValidBetValueData) {
         if (UserThisWeekTotalValidBetValueData) {
             let k = 0;
@@ -1101,7 +1099,7 @@
                     //    $(".GameItemGroup_PersonalFavo").css("display", "none");
                     //}
                 }
-               
+
                 createPersonal(0, false).then(function () {
                     setSwiperBySelector(".GameItemGroup_PersonalFavo");
                 });
@@ -1164,7 +1162,7 @@
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
                 window.parent.API_LoadPage("Login", "Login.aspx");
             }, null);
-        }           
+        }
     }
 
     window.onload = init;
@@ -1174,7 +1172,7 @@
     <main class="innerMain">
         <section class="section-wrap hero">
             <div class="swiper hero_slider swiper-container round-arrow" id="hero-slider">
-                <div class="swiper-wrapper">                    
+                <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
@@ -1187,7 +1185,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                   
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
@@ -1215,7 +1213,7 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="hero-item" >
+                        <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
                             <!-- <a class="hero-item-link " onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
                             <div class="hero-item-box mobile">
@@ -1238,9 +1236,9 @@
             <!-- 縮圖 ====================-->
             <div class="thumb-wrapper">
                 <div class="container">
-                    <div thumbsSlider="" class="thumbSwiper">
+                    <div thumbsslider="" class="thumbSwiper">
                         <div class="swiper-wrapper">
-                            
+
                             <div class="swiper-slide">
                                 <img src="images/banner/thumb-1.png" alt="">
                             </div>
@@ -1253,14 +1251,14 @@
                             <div class="swiper-slide">
                                 <img src="images/banner/thumb-4.png" alt="">
                             </div>
-                         </div>
+                        </div>
                     </div>
-               </div>
-           </div>
+                </div>
+            </div>
         </section>
 
-         <!-- 推薦遊戲 -->
-         <section class="section_recommand section-wrap">
+        <!-- 推薦遊戲 -->
+        <section class="section_recommand section-wrap">
             <div class="container">
                 <div class="sec-title-container">
                     <div class="sec-title-wrapper">
@@ -1280,40 +1278,37 @@
         <!-- 遊戲大廳入口 + 自定義分類 + 活動中心-->
         <div class="entrance_Game_wrapper game-area overflow-hidden">
             <div class="container">
-                <div class="entrance_Game_inner">                
-                        <!-- 遊戲大廳入口 -->
-                        <section class="section-lobbyEntrance section-wrap">
-                            <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
-                                <img src="images/index/lobby-entrance.jpg" alt="">
+                <div class="entrance_Game_inner">
+                    <!-- 遊戲大廳入口 -->
+                    <section class="section-lobbyEntrance section-wrap">
+                        <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
+                            <img src="images/index/lobby-entrance.jpg" alt="">
+                        </div>
+                    </section>
+                    <!-- 自定義分類 -->
+                    <section class="section-game-area section-wrap ">
+                        <div class="" id="gameAreas">
+                            <div id="favoArea">
                             </div>
-                        </section>
-                        <!-- 自定義分類 -->
-                        <section class="section-game-area section-wrap ">
-                            <div class="" id="gameAreas">
-                                <div id="favoArea">
-
-                                </div>
-                                <div id="recentArea">
-
-                                </div>
-                                <div id="categoryArea">
-
-                                </div>
+                            <div id="recentArea">
                             </div>
-                        </section>
-                         <!-- 活動中心 -->
-                         <section class="section-activityCenter section-wrap">
-                            <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
-                                <div class="activity-center-inner">
-                                    <div class="activity-center-content">
-                                        <div class="title language_replace">活動中心</div>
-                                        <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
-                                    </div>
+                            <div id="categoryArea">
+                            </div>
+                        </div>
+                    </section>
+                    <!-- 活動中心 -->
+                    <section class="section-activityCenter section-wrap">
+                        <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                            <div class="activity-center-inner">
+                                <div class="activity-center-content">
+                                    <div class="title language_replace">活動中心</div>
+                                    <div class="btn btn-activity-in"><span class="language_replace">參加</span></div>
                                 </div>
                             </div>
-                        </section> 
+                        </div>
+                    </section>
                 </div>
-            </div>           
+            </div>
         </div>
         <section class="section_publicize section-wrap">
             <div class="container">
@@ -1334,7 +1329,7 @@
                 <div class="publicize_wrapper publicize_bottom">
                     <div class="publicize_bottom_inner">
                         <!-- 入出金說明 -->
-                        <div class="publicize-wrap way-payment-wrapper">                         
+                        <div class="publicize-wrap way-payment-wrapper">
                             <div class="item way-payment-inner" onclick="window.top.API_LoadPage('','Article/guide_CashQa_jp.html')">
                                 <div class="way-payment-img">
                                     <div class="img-crop">
@@ -1347,7 +1342,7 @@
                                         <p class="desc language_replace">Deposit and Withdrawal Instructions</p>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <!-- 最新公告 + 會員簽到進度顯示-->
@@ -1366,10 +1361,10 @@
                                                 <div class="sec-title">
                                                     <h3 class="title">
                                                         <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
-                                                        <span class="dailylogin-bouns-QA sec-title-intro-link">
-                                                            <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
+                                                    <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                        <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
                                                 </div>
-                                                
+
                                                 <ul class="dailylogin-bouns-list">
                                                     <!-- 已領取 bouns => got-->
                                                     <li class="bouns-item">
@@ -1400,7 +1395,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="item bulletin">                                
+                            <div class="item bulletin">
                                 <div class="bulletin_inner">
                                     <div class="sec-title-container sec-col-2" data-toggle="modal" data-target="#popupBulletinList">
                                         <div class="sec-title-wrapper">
@@ -1601,7 +1596,7 @@
     <div class="modal fade no-footer popupBulletinList" id="popupBulletinList" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">                    
+                <div class="modal-header">
                     <h5 class="alert_Title language_replace">最新公告</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -1619,7 +1614,7 @@
                                 <span class="info">ゲームメンテナンスのお知らせでございます。</span>
                             </li>
                         </ul>
-                        
+
                     </div>
                 </div>
                 <div class="modal-footer">
