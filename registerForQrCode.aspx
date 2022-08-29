@@ -70,6 +70,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maharaja</title>
 
+    <meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
+    <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+    <meta property="og:site_name" content="マハラジャ" />
+
+    <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
+    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
+    <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+
+    <meta property="og:url" content="https://casino-maharaja.com/" />
+    <!--日文圖片-->
+    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
+    <meta property="og:type" content="website" />
+    <!-- Share image -->
+    <!--日文圖片-->
+    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
+    <link rel="shortcut icon" href="images/share_pic.png">
+
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
