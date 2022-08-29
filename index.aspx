@@ -169,7 +169,7 @@
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
     <link rel="shortcut icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
-    <link rel="stylesheet" href="css/main.css?20220627">
+    <link rel="stylesheet" href="css/main.css?3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
 
     <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
@@ -2318,6 +2318,12 @@
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="openGame('YS', 'Sumo', '')">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-sumo"></i>
+                                            <span class="title language_replace">相撲</span></a>
                                     </li>
                                 </ul>
                             </li>
