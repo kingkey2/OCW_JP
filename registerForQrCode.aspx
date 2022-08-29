@@ -619,6 +619,10 @@
         }
     }
 
+    function goIndex() {
+        window.open("<%=EWinWeb.CasinoWorldUrl%>/Index.aspx?PCode=" + pCode);
+    }
+
     //window.onloadstart = LoadingStart;
     window.onload = init;
 
@@ -651,7 +655,7 @@
             <!-- 註冊 -->
             <div id="idRegister" class="form-container">
                 <div class="img-register img-crop" style="border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
-                    <img src="images/register-banner.jpg" alt="">
+                    <img onclick="goIndex()" style="cursor:pointer" src="images/register-banner.jpg" alt="">
                 </div>
                 <div class="heading-title">
                     <h3 class="language_replace" style="font-size: 1.35em; text-align: center;">創建新帳號</h3>
