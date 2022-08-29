@@ -25,16 +25,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
-    
+
     <style>
         .title-showAll:hover {
             cursor: pointer;
         }
 
-        .game-item-info-detail{
+        .game-item-info-detail {
             cursor: pointer;
         }
-
     </style>
 </head>
 <%--<script type="text/javascript" src="/Scripts/Common.js?<%:Version%>"></script>
@@ -143,7 +142,7 @@
     function loginRecover() {
         window.location.href = "LoginRecover.aspx";
     }
- 
+
     function findLastIndex(array, searchKey, searchValue) {
         var index = array.slice().reverse().findIndex(x => x[searchKey] === searchValue);
         var count = array.length - 1
@@ -192,109 +191,213 @@
         window.document.documentElement.scrollTop = 0;
     }
 
-    function setSwiper(categoryName) {
-        if (WebInfo.DeviceType == 0) {
-            new Swiper(".GameItemGroup0_" + categoryName, {
-                slidesPerView: "auto",
-                lazy: true,
-                freeMode: true,
-                allowTouchMove: false,
-                navigation: {
-                    nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
-                    prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
-                },
-                breakpoints: {
+    function setSwiper(categoryName, categs) {
+        if (categs) {
+            for (var i = 0; i < categs.length; i++) {
+                if (WebInfo.DeviceType == 0) {
+                 
+                    new Swiper(".categIndex_" + categs[i].categIndex, {
+                        virtual: {
+                            slides: categs[i].gamedatas,
+                            addSlidesAfter: 3,
+                            addSlidesBefore: 1,
+                            renderSlide: function (slide, index) {
+                                return slide;
+                            }
+                        },
+                 
+                        lazy: true,
+                        freeMode: true,
+                        allowTouchMove: false,
+                        navigation: {
+                            nextEl: ".categIndex_" + categs[i].categIndex + " .swiper-button-next",
+                            prevEl: ".categIndex_" + categs[i].categIndex + " .swiper-button-prev",
+                        },
+                        breakpoints: {
 
-                    936: {
-                        freeMode: false,
-                        slidesPerGroup: 6, //index:992px
-                    },
-                    1144: {
-                        slidesPerGroup: 7, //index:1200px
-                        //allowTouchMove: false, //拖曳
-                    },
-                    1384: {
-                        slidesPerGroup: 7, //index:1440px
-                        //allowTouchMove: false,
-                    },
-                    1544: {
-                        slidesPerGroup: 7, //index:1600px
-                        //allowTouchMove: false,
-                    },
-                    1864: {
-                        slidesPerGroup: 8, //index:1920px
-                        //allowTouchMove: false,
-                    },
-                    1920: {
-                        slidesPerGroup: 8, //index:1920px up
-                        //allowTouchMove: false,
-                    }
+                            936: {
+                                freeMode: false,
+                                slidesPerView:5,
+                                slidesPerGroup: 6, //index:992px
+                            },
+                            1144: {
+                                slidesPerView: 5,
+                                slidesPerGroup: 7, //index:1200px
+                                //allowTouchMove: false, //拖曳
+                            },
+                            1384: {
+                                slidesPerView: 5,
+                                slidesPerGroup: 7, //index:1440px
+                                //allowTouchMove: false,
+                            },
+                            1544: {
+                                slidesPerView: 5,
+                                slidesPerGroup: 7, //index:1600px
+                                //allowTouchMove: false,
+                            },
+                            1864: {
+                                slidesPerView: 5,
+                                slidesPerGroup: 8, //index:1920px
+                                //allowTouchMove: false,
+                            },
+                            1920: {
+                                slidesPerView: 5,
+                                slidesPerGroup: 8, //index:1920px up
+                                //allowTouchMove: false,
+                            }
+                        }
+                    });
                 }
-            });
-        } else {
-            new Swiper(".GameItemGroup0_" + categoryName, {
-                slidesPerView: "auto",
-                lazy: true,
-                freeMode: true,
-                allowTouchMove: true,
-                navigation: {
-                    nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
-                    prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
-                },
-                breakpoints: {
+                else {
+                    new Swiper(".GameItemGroup0_" + categoryName, {
+                        slidesPerView: "auto",
+                        lazy: true,
+                        freeMode: true,
+                        allowTouchMove: true,
+                        navigation: {
+                            nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
+                            prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
+                        },
+                        breakpoints: {
 
-                    936: {
-                        freeMode: false,
-                        slidesPerGroup: 6, //index:992px
-                    },
-                    1144: {
-                        slidesPerGroup: 7, //index:1200px
-                        //allowTouchMove: false, //拖曳
-                    },
-                    1384: {
-                        slidesPerGroup: 7, //index:1440px
-                        //allowTouchMove: false,
-                    },
-                    1544: {
-                        slidesPerGroup: 7, //index:1600px
-                        //allowTouchMove: false,
-                    },
-                    1864: {
-                        slidesPerGroup: 8, //index:1920px
-                        //allowTouchMove: false,
-                    },
-                    1920: {
-                        slidesPerGroup: 8, //index:1920px up
-                        //allowTouchMove: false,
-                    }
+                            936: {
+                                freeMode: false,
+                                slidesPerGroup: 6, //index:992px
+                            },
+                            1144: {
+                                slidesPerGroup: 7, //index:1200px
+                                //allowTouchMove: false, //拖曳
+                            },
+                            1384: {
+                                slidesPerGroup: 7, //index:1440px
+                                //allowTouchMove: false,
+                            },
+                            1544: {
+                                slidesPerGroup: 7, //index:1600px
+                                //allowTouchMove: false,
+                            },
+                            1864: {
+                                slidesPerGroup: 8, //index:1920px
+                                //allowTouchMove: false,
+                            },
+                            1920: {
+                                slidesPerGroup: 8, //index:1920px up
+                                //allowTouchMove: false,
+                            }
+                        }
+                    });
                 }
-            });
-        }
-
-
-
-        new Swiper('.GameItemGroup1_' + categoryName, {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: "auto",
-            // slidesPerView: 5,
-            coverflowEffect: {
-                rotate: 20,
-                stretch: 0,
-                depth: 300,
-                modifier: 1,
-                slideShadows: true,
-            },
-            // pagination: {
-            //     el: ".swiper-pagination",
-            // },
-            loop: true,
-            autuplay: {
-                delay: 100,
-                disableOnInteraction: false,
             }
-        });
+            
+        } else {
+            if (WebInfo.DeviceType == 0) {
+
+                new Swiper(".GameItemGroup0_" + categoryName, {
+                    virtual: true,
+                    slidesPerView: "auto",
+                    lazy: true,
+                    freeMode: true,
+                    virtual: true,
+                    allowTouchMove: false,
+                    navigation: {
+                        nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
+                        prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
+                    },
+                    breakpoints: {
+
+                        936: {
+                            freeMode: false,
+                            slidesPerGroup: 6, //index:992px
+                        },
+                        1144: {
+                            slidesPerGroup: 7, //index:1200px
+                            //allowTouchMove: false, //拖曳
+                        },
+                        1384: {
+                            slidesPerGroup: 7, //index:1440px
+                            //allowTouchMove: false,
+                        },
+                        1544: {
+                            slidesPerGroup: 7, //index:1600px
+                            //allowTouchMove: false,
+                        },
+                        1864: {
+                            slidesPerGroup: 8, //index:1920px
+                            //allowTouchMove: false,
+                        },
+                        1920: {
+                            slidesPerGroup: 8, //index:1920px up
+                            //allowTouchMove: false,
+                        }
+                    }
+                });
+            }
+            else {
+                new Swiper(".GameItemGroup0_" + categoryName, {
+                    slidesPerView: "auto",
+                    lazy: true,
+                    freeMode: true,
+                    allowTouchMove: true,
+                    navigation: {
+                        nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
+                        prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
+                    },
+                    breakpoints: {
+
+                        936: {
+                            freeMode: false,
+                            slidesPerGroup: 6, //index:992px
+                        },
+                        1144: {
+                            slidesPerGroup: 7, //index:1200px
+                            //allowTouchMove: false, //拖曳
+                        },
+                        1384: {
+                            slidesPerGroup: 7, //index:1440px
+                            //allowTouchMove: false,
+                        },
+                        1544: {
+                            slidesPerGroup: 7, //index:1600px
+                            //allowTouchMove: false,
+                        },
+                        1864: {
+                            slidesPerGroup: 8, //index:1920px
+                            //allowTouchMove: false,
+                        },
+                        1920: {
+                            slidesPerGroup: 8, //index:1920px up
+                            //allowTouchMove: false,
+                        }
+                    }
+                });
+            }
+        }
+      
+
+
+
+        //new Swiper('.GameItemGroup1_' + categoryName, {
+        //    effect: "coverflow",
+        //    grabCursor: true,
+        //    centeredSlides: true,
+        //    slidesPerView: "auto",
+        //    // slidesPerView: 5,
+        //    coverflowEffect: {
+        //        rotate: 20,
+        //        stretch: 0,
+        //        depth: 300,
+        //        modifier: 1,
+        //        slideShadows: true,
+        //    },
+        //    // pagination: {
+        //    //     el: ".swiper-pagination",
+        //    // },
+        //    loop: true,
+        //    autuplay: {
+        //        delay: 100,
+        //        disableOnInteraction: false,
+        //    }
+        //});
 
     }
 
@@ -315,8 +418,11 @@
                 var addContainEnd = false;
                 var docs = {
                     "Name": categoryName,
-                    "Datas":[]
+                    "Datas": []
                 };
+
+                var categs = [];
+
                 var doc = {};
                 var heights = 0;
                 //最上方滑動banner
@@ -327,7 +433,7 @@
                 docs.Datas.push(doc);
                 heights = FloatAdd(heights, $('.section-slider_lobby.hero').outerHeight(true));
 
-              
+
                 //分類切換按鈕
                 doc = {};
                 doc.Type = "tab game";
@@ -346,7 +452,10 @@
                 for (var i = 0; i < lobbyGame.Categories.length; i++) {
                     category = lobbyGame.Categories[i];
                     if (category) {
-               
+                        var categ = {
+                            categIndex: i,
+                            gamedatas: []
+                        };
                         var showType = category.ShowType;
                         var game_wrapper = "";
                         if (category.Datas.length > 0) {
@@ -357,8 +466,6 @@
                             category.Datas = category.Datas.sort(function (a, b) {
                                 return b.SortIndex - a.SortIndex;
                             });
-
-
 
                             for (var ii = 0; ii < category.Datas.length; ii++) {
                                 var o = category.Datas[ii];
@@ -371,11 +478,13 @@
                                 if (gameItem && gameItem.GameStatus == 0) {
                                     createGameItem(gameItem, showType, function (stringGameItem) {
                                         gameBrand = gameItem.GameBrand;
-                                        gameItems += stringGameItem;
+                                        //gameItems += stringGameItem;
+                                        categ.gamedatas.push(stringGameItem);
                                     });
                                 }
                             }
 
+                            categs.push(categ);
                             categName = category.CategoryName.replace('@', '').replace('#', '');
 
                             if (WebInfo.DeviceType == 1) {
@@ -445,7 +554,7 @@
                                 addContainStart = false;
                                 addContainMiddle = false;
                             }
-
+                            
                             if (showType == 0) {
                                 if (Location == "GameList_Brand") {
                                     categArea = `<section class="section-wrap section-levelUp">
@@ -458,7 +567,7 @@
                                                     </div>
                                                     ${textlink}
                                                     </div>
-                                                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
+                                                    <div class="game_slider swiper_container categIndex_${categ.categIndex} gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
                                                     <div class="swiper-wrapper GameItemGroupContent">
                                                     ${gameItems}
                                                     </div>
@@ -478,7 +587,7 @@
                                                 </h3>
                                                 </div>
                                                 </div>
-                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
+                                                <div class="game_slider swiper_container categIndex_${categ.categIndex} gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
                                                 <div class="swiper-wrapper GameItemGroupContent">
                                                 ${gameItems}
                                                 </div>
@@ -500,7 +609,7 @@
                                                     </div>
                                                     ${textlink}
                                                     </div>
-                                                    <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
+                                                    <div class="game_slider swiper_container categIndex_${categ.categIndex} gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
                                                     <div class="swiper-wrapper GameItemGroupContent">
                                                     ${gameItems}
                                                     </div>
@@ -520,7 +629,7 @@
                                                 </h3>
                                                 </div>
                                                 </div>
-                                                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
+                                                <div class="game_slider swiper_container categIndex_${categ.categIndex} gameinfo-hover gameinfo-pack-bg round-arrow GameItemGroup0_${Location} data-showtype=${showType}">
                                                 <div class="swiper-wrapper GameItemGroupContent">
                                                 ${gameItems}
                                                 </div>
@@ -539,7 +648,7 @@
                                                                 <div class="sec-title-wrapper">
                                                                 </div>
                                                             </div>
-                                                            <div class="game_slider swiper_container round-arrow swiper-cover GameItemGroup1_${Location}">
+                                                            <div class="game_slider swiper_container categIndex_${categ.categIndex} round-arrow swiper-cover GameItemGroup1_${Location}">
                                                                 <div class="swiper-wrapper GameItemGroupContent">
                                                                 ${gameItems}
                                                                 </div>
@@ -565,7 +674,7 @@
                         }
                     }
                 }
-                if (docs.Datas[docs.Datas.length-1].height<350) {
+                if (docs.Datas[docs.Datas.length - 1].height < 350) {
                     doc = {};
                     doc.Type = "container button";
                     doc.heights = heights;
@@ -574,14 +683,13 @@
                     heights = FloatAdd(heights, 100);
                 }
 
-                pages_docHeight.push(docs);
                 var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage" style="display:none;"></div>');
                 //var categoryDiv = $('<div id="categoryPage_' + Location + '" class="categoryPage contain-disappear"></div>');
                 createHeaderGame(Location, function (headerGame) {
                     categoryDiv.append(headerGame);
                     categoryDiv.append(categAreas);
                     $('#gameAreas').append(categoryDiv);
-                    cb();
+                    cb(categs);
                 });
             }
         }
@@ -1119,7 +1227,7 @@
         idGameItemGroup.innerHTML = "";
 
         //console.log("createCategory start", new Date().toISOString());
-        createCategory(selectedCategoryCode, function () {
+        createCategory(selectedCategoryCode, function (categs) {
             //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
             $('#categoryPage_' + selectedCategoryCode).css('display', 'block');
 
@@ -1129,7 +1237,7 @@
 
 
             //console.log("setSwiper start", new Date().toISOString());
-            setSwiper(selectedCategoryCode);
+            setSwiper(selectedCategoryCode, categs);
             //console.log("setSwiper end", new Date().toISOString());
         });
         //console.log("createCategory end", new Date().toISOString());
@@ -1152,38 +1260,53 @@
 
     }
 
-    $(window).scroll(function () {
-        var windowHeight = $(window).height();
-        var scrollY = $('.innerHtml').scrollTop();
+    //$(window).scroll(function () {
+    //    var windowHeight = $(window).height();
+    //    var scrollY = $('.innerHtml').scrollTop();
 
-        if (pages_docHeight) {
-            for (var i = 0; i < pages_docHeight[0].Datas.length; i++) {
-                var data = pages_docHeight[0].Datas[i];
-             
-                if (scrollY <= data.heights && data.heights <= (windowHeight + scrollY)) {
-                    pages_docHeight[0].Datas[i].showType = 0;
-                } else {
-                    pages_docHeight[0].Datas[i].showType = 1;
-                }
-            }
+    //    if (pages_docHeight) {
+    //        for (var i = 0; i < pages_docHeight[0].Datas.length; i++) {
+    //            var data = pages_docHeight[0].Datas[i];
 
-            var firstIndex = pages_docHeight[0].Datas.findIndex(function (o) {
-                return o.showType == 0;
-            });
-            var lastIndex = findLastIndex(pages_docHeight[0].Datas, "showType", 0);
-         
-            if (firstIndex != -1 && (firstIndex-1>=0)) {
-                pages_docHeight[0].Datas[firstIndex-1].showType = 0;
-            }
+    //            if (scrollY <= data.heights && data.heights <= (windowHeight + scrollY)) {
+    //                pages_docHeight[0].Datas[i].showType = 0;
+    //            } else {
+    //                pages_docHeight[0].Datas[i].showType = 1;
+    //            }
+    //        }
 
-            if (lastIndex != -1 && (lastIndex + 1 <= pages_docHeight[0].Datas.length-1)) {
-                pages_docHeight[0].Datas[lastIndex + 1].showType = 0;
-            }
-        }
-         
-    });
+    //        var firstIndex = pages_docHeight[0].Datas.findIndex(function (o) {
+    //            return o.showType == 0;
+    //        });
+    //        var lastIndex = findLastIndex(pages_docHeight[0].Datas, "showType", 0);
+
+    //        if (firstIndex != -1 && (firstIndex - 1 >= 0)) {
+    //            pages_docHeight[0].Datas[firstIndex - 1].showType = 0;
+    //        }
+
+    //        if (lastIndex != -1 && (lastIndex + 1 <= pages_docHeight[0].Datas.length - 1)) {
+    //            pages_docHeight[0].Datas[lastIndex + 1].showType = 0;
+    //        }
+    //    }
+
+    //});
 
     function init() {
+
+        var mySwiper = new Swiper('.swiper-container2', {
+            virtual: {
+                slides: (function () {
+                    var slides = [];
+                    for (var i = 0; i <= 600; i++) {
+                        slides.push('Slide ' + (i + 1));
+                    }
+                    return slides;
+                }()),
+            },
+          
+            //或者 virtual: true,
+        });
+
         if (self == top) {
             window.parent.location.href = "index.aspx";
         }
@@ -1345,7 +1468,12 @@
 </script>
 
 <body class="innerBody">
+
     <main class="innerMain">
+    
+        <div class="swiper-container swiper-container2" style="width: 300px; height: 200px;">
+          
+        </div>
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
@@ -1418,7 +1546,7 @@
                 <div class="swiper-pagination"></div>
             </div>
         </section>
-        <div class="tab-game" style="position:initial !important;">
+        <div class="tab-game" style="position: initial !important;">
             <div class="tab-inner">
                 <div class="tab-search" onclick="showSearchGameModel()">
                     <img src="images/icon/ico-search-dog-tt.svg" alt=""><span class="title language_replace">找遊戲</span>
@@ -1433,8 +1561,8 @@
             </div>
         </div>
         <!-- 各分類-單一遊戲推薦區 -->
-        <section class="section-category-dailypush" style="display:none;">
-            <div class="container">                
+        <section class="section-category-dailypush" style="display: none;">
+            <div class="container">
                 <!-- hot -->
                 <div class="category-dailypush-wrapper hot">
                     <div class="category-dailypush-inner">
@@ -1513,7 +1641,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- LIVE -->   
+                <!-- LIVE -->
                 <div class="category-dailypush-wrapper live">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #010101;">
@@ -1551,8 +1679,8 @@
                             </div>
                         </div>
                     </div>
-                </div>             
-                <!-- OTHER -->   
+                </div>
+                <!-- OTHER -->
                 <div class="category-dailypush-wrapper other">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #3a3227;">
@@ -1590,8 +1718,8 @@
                             </div>
                         </div>
                     </div>
-                </div>             
-                <!-- FAVO -->   
+                </div>
+                <!-- FAVO -->
                 <div class="category-dailypush-wrapper favo">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #352c1d;">
@@ -1629,8 +1757,8 @@
                             </div>
                         </div>
                     </div>
-                </div>             
-                <!-- BRAND -->   
+                </div>
+                <!-- BRAND -->
                 <div class="category-dailypush-wrapper brand">
                     <div class="category-dailypush-inner">
                         <div class="category-dailypush-img" style="background-color: #4c1802;">
@@ -1668,23 +1796,22 @@
                             </div>
                         </div>
                     </div>
-                </div>             
+                </div>
             </div>
         </section>
-         <section class="game-area overflow-hidden">
+        <section class="game-area overflow-hidden">
             <div id="gameAreas">
-                 
-            </div>           
+            </div>
         </section>
-          <!-- 遊戲-排名區-新版 遊戲內容-->
-         <section class="game-area overflow-hidden" style="display:none">
+        <!-- 遊戲-排名區-新版 遊戲內容-->
+        <section class="game-area overflow-hidden" style="display: none">
             <div class="container">
-                <section class="section-wrap section-levelUp"> 
+                <section class="section-wrap section-levelUp">
                     <div class="game_wrapper gameRanking">
                         <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
-                        </div>
+                            <div class="sec-title-wrapper">
+                                <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
+                            </div>
                         </div>
                         <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow" id="idGameRanking">
                             <div class="swiper-wrapper">
@@ -1730,7 +1857,7 @@
                                                                     <div class="btn-s-wrapper">
                                                                         <button type="button" class="btn-thumbUp btn btn-round is-hide">
                                                                             <i class="icon icon-m-thumup"></i>
-                                                                        </button>                                                                       
+                                                                        </button>
                                                                         <button type="button" class="btn-like btn btn-round">
                                                                             <i class="icon icon-m-favorite"></i>
                                                                         </button>
@@ -1753,17 +1880,17 @@
                                             </div> -->
                                         </div>
                                     </div>
-                                </div>                   
+                                </div>
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
                     </div>
-            </section>
-            </div> 
-         </section>
-         <!-- 遊戲-隨機推薦-->
-         <section class="section-wrap section_randomRem" style="display:none;">
+                </section>
+            </div>
+        </section>
+        <!-- 遊戲-隨機推薦-->
+        <section class="section-wrap section_randomRem" style="display: none;">
             <div class="container-fluid">
                 <div class="game_wrapper">
                     <div class="sec-title-container">
@@ -1773,7 +1900,7 @@
                     </div>
                     <div class="game_slider swiper-container round-arrow swiper-cover GameItemGroup">
                         <div class="swiper-wrapper GameItemGroupContent">
-                           <div class="swiper-slide">
+                            <div class="swiper-slide">
                                 <div class="game-item">
                                     <div class="game-item-inner">
                                         <span class="game-item-link"></span>
@@ -1789,7 +1916,7 @@
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
         </section>
 
     </main>
@@ -1815,7 +1942,7 @@
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
         </section>
     </div>
     <div id="temGameItem2" class="is-hide">
@@ -1835,87 +1962,86 @@
     </div>
 
     <div id="temCategArea3" class="is-hide">
-         <section class="section-wrap section-levelUp"> 
-                    <div class="game_wrapper gameRanking">
-                        <div class="sec-title-container">
-                        <div class="sec-title-wrapper">
-                            <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
-                        </div>
-                        </div>
-                        <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow">
-                            <div class="swiper-wrapper">
-                    
-                            </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
+        <section class="section-wrap section-levelUp">
+            <div class="game_wrapper gameRanking">
+                <div class="sec-title-container">
+                    <div class="sec-title-wrapper">
+                        <h3 class="sec-title"><i class="icon icon-mask icon-star"></i><span class="">排名</span></h3>
                     </div>
-            </section>
+                </div>
+                <div class="game_slider swiper_container gameinfo-hover gameinfo-pack-bg round-arrow">
+                    <div class="swiper-wrapper">
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <div id="temGameItem3" class="is-hide">
-         <div class="swiper-slide">
-                                    <div class="game-item">
-                                        <div class="game-item-inner">
-                                            <span class="game-item-mobile-popup" data-toggle="modal"></span>
-                                            <div class="game-item-focus">
-                                                <div class="game-item-img">
-                                                    <span class="game-item-link"></span>
-                                                    <div class="img-wrap">
-                                                        <img src="">
-                                                    </div>
-                                                </div>
-                                                <div class="game-item-info-detail">
-                                                    <div class="game-item-info-detail-wrapper">
-                                                        <div class="game-item-info-detail-moreInfo">
-                                                            <ul class="moreInfo-item-wrapper">
-                                                                <li class="moreInfo-item brand">
-                                                                    <span class="title">メーカー</span>
-                                                                    <span class="value">PG</span>
-                                                                </li>
-                                                                <li class="moreInfo-item RTP">
-                                                                    <span class="title">RTP</span>
-                                                                    <span class="value number">96.66</span>
-                                                                </li>
-                                                                <li class="moreInfo-item gamecode">
-                                                                    <span class="title">NO.</span>
-                                                                    <span class="value number">00976</span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="game-item-info-detail-indicator">
-                                                            <div class="game-item-info-detail-indicator-inner">
-                                                                <div class="info">
-                                                                    <h3 class="game-item-name">バタフライブロッサム</h3>
-                                                                </div>
-                                                                <div class="action">
-                                                                    <div class="btn-s-wrapper">
-                                                                        <button type="button" class="btn-thumbUp btn btn-round">
-                                                                            <i class="icon icon-m-thumup"></i>
-                                                                        </button>
-                                                                        <button type="button" class="btn-like btn btn-round">
-                                                                            <i class="icon icon-m-favorite"></i>
-                                                                        </button>
-                                                                        <button type="button" class="btn-more btn btn-round">
-                                                                            <i class="arrow arrow-down"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                    <button type="button" class="btn btn-play">
-                                                                        <span class="language_replace">プレイ</span><i class="triangle"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+        <div class="swiper-slide">
+            <div class="game-item">
+                <div class="game-item-inner">
+                    <span class="game-item-mobile-popup" data-toggle="modal"></span>
+                    <div class="game-item-focus">
+                        <div class="game-item-img">
+                            <span class="game-item-link"></span>
+                            <div class="img-wrap">
+                                <img src="">
+                            </div>
+                        </div>
+                        <div class="game-item-info-detail">
+                            <div class="game-item-info-detail-wrapper">
+                                <div class="game-item-info-detail-moreInfo">
+                                    <ul class="moreInfo-item-wrapper">
+                                        <li class="moreInfo-item brand">
+                                            <span class="title">メーカー</span>
+                                            <span class="value">PG</span>
+                                        </li>
+                                        <li class="moreInfo-item RTP">
+                                            <span class="title">RTP</span>
+                                            <span class="value number">96.66</span>
+                                        </li>
+                                        <li class="moreInfo-item gamecode">
+                                            <span class="title">NO.</span>
+                                            <span class="value number">00976</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="game-item-info-detail-indicator">
+                                    <div class="game-item-info-detail-indicator-inner">
+                                        <div class="info">
+                                            <h3 class="game-item-name">バタフライブロッサム</h3>
+                                        </div>
+                                        <div class="action">
+                                            <div class="btn-s-wrapper">
+                                                <button type="button" class="btn-thumbUp btn btn-round">
+                                                    <i class="icon icon-m-thumup"></i>
+                                                </button>
+                                                <button type="button" class="btn-like btn btn-round">
+                                                    <i class="icon icon-m-favorite"></i>
+                                                </button>
+                                                <button type="button" class="btn-more btn btn-round">
+                                                    <i class="arrow arrow-down"></i>
+                                                </button>
                                             </div>
-                                            <!-- <div class="game-item-info">
+                                            <button type="button" class="btn btn-play">
+                                                <span class="language_replace">プレイ</span><i class="triangle"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="game-item-info">
                                                 <div class="game-item-info-inner">
                                                     <h3 class="game-item-name">バタフライブロッサム</h3>
                                                 </div>
                                             </div> -->
-                                        </div>
-                                    </div>
-                                </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script>
