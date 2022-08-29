@@ -650,12 +650,14 @@
 
             <!-- 註冊 -->
             <div id="idRegister" class="form-container">
-                <div class="heading-title">
-                    <h3 class="language_replace">創建新帳號</h3>
+                <div class="img-register img-crop" style="border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
+                    <img src="images/register-banner.jpg" alt="">
                 </div>
-
+                <div class="heading-title">
+                    <h3 class="language_replace" style="font-size: 1.35em; text-align: center;">創建新帳號</h3>
+                </div>
                 <!-- 步驟 -->
-                <div class="progress-container mb-4 pb-2">
+                <div class="progress-container mb-4 pb-2" style="justify-content: center;">
                     <div id="progressStep1" class="progress-step cur">
                         <div class="progress-step-item"></div>
                     </div>
