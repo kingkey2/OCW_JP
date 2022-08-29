@@ -12,6 +12,7 @@
     string Lang = "CHT";
     string SID = string.Empty;
     string CT = string.Empty;
+    string PCode = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin=0;
@@ -27,6 +28,10 @@
 
     if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false) {
         GoEwinLogin = int.Parse(Request["GoEwinLogin"]);
+    }
+
+    if (string.IsNullOrEmpty(Request["PCode"]) == false) {
+        PCode = Request["PCode"];
     }
 
     if (GoEwinLogin == 1) {
@@ -272,6 +277,7 @@
     var LobbyGameList = {};
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
+    var PCode = "<%=PCode%>";
 
     //#region TOP API
     function API_GetGCB() {
@@ -492,6 +498,12 @@
             }
         }
 
+        if (url == "Register.aspx") {
+            if (PCode != "") {
+                window.open("<%=EWinWeb.CasinoWorldUrl%>/registerForQrCode.aspx?P=" + PCode);
+            }
+        }
+
         var IFramePage = document.getElementById("IFramePage");
 
         if (IFramePage != null) {
@@ -504,6 +516,7 @@
                 //上一頁針對iframe的問題，只能將loading的function都放於頁面中
                 //API_LoadingStart(); 
                 //IFramePage.style.height = "0px";
+
                 IFramePage.src = url;
                 IFramePage.onload = null;
 
