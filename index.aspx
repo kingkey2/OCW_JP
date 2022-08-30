@@ -500,7 +500,7 @@
 
         if (url == "Register.aspx") {
             if (PCode != "") {
-                window.open("<%=EWinWeb.CasinoWorldUrl%>/registerForQrCode.aspx?P=" + PCode);
+                window.open("<%=EWinWeb.CasinoWorldUrl%>/registerForQrCode.aspx?P=" + PCode+"&IsFromIndex=1");
             }
         }
 

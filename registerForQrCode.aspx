@@ -8,6 +8,12 @@
     string Lang = "JPN";
     bool CreateBigEagle = false;
     string Version = EWinWeb.Version;
+    string IsFromIndex = string.Empty;
+
+    if (!string.IsNullOrEmpty(Request["IsFromIndex"])) {
+        IsFromIndex = Request["IsFromIndex"];
+    }
+
     if (string.IsNullOrEmpty(Request["Lang"])) {
         string userLang = CodingControl.GetDefaultLanguage();
 
@@ -113,6 +119,7 @@
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var CreateBigEagle = "<%=CreateBigEagle%>";
     var isSent = false;
+    var IsFromIndex= "<%=IsFromIndex%>";
 
     function startCountDown(duration) {
         isSent = true;
@@ -462,6 +469,11 @@
         lang="JPN"
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+
+            if (IsFromIndex != "1") {
+                window.location.href = "<%=EWinWeb.CasinoWorldUrl%>/Index.aspx?PCode=" + pCode;
+            }
+
             if (pCode) {
                 $("input[name=PersonCode]").val(pCode);
                 $("input[name=PersonCode]").prop('disabled', true);
@@ -672,7 +684,7 @@
             <!-- 註冊 -->
             <div id="idRegister" class="form-container">
                 <div class="img-register img-crop" style="border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
-                    <img onclick="goIndex()" style="cursor:pointer" src="images/register-banner.jpg" alt="">
+                    <img onclick="goIndex()" style="cursor:pointer" src="images/register-banner.jpg" alt="" id="img1">
                 </div>
                 <div class="heading-title">
                     <h3 class="language_replace" style="font-size: 1.35em; text-align: center;">創建新帳號</h3>
