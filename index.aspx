@@ -235,7 +235,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js?1"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>--%>
+<script type="text/javascript" src="/Scripts/NoSleep.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
 <script type="text/javascript">
     //if (self != top) {
@@ -500,7 +501,7 @@
 
         if (url == "Register.aspx") {
             if (PCode != "") {
-                window.open("<%=EWinWeb.CasinoWorldUrl%>/registerForQrCode.aspx?P=" + PCode);
+                window.open("<%=EWinWeb.CasinoWorldUrl%>/registerForQrCode.aspx?P=" + PCode+"&IsFromIndex=1");
             }
         }
 
@@ -1551,9 +1552,6 @@
     }
 
     function init() {
-
-        //console.log("init start", new Date().toISOString());
-
         if (navigator.webdriver == true) {
             return;
         }
@@ -1596,16 +1594,14 @@
         //    EWinWebInfo.Lang = window.localStorage.getItem("Lang");
         //}
         
-        //console.log("initByArt start", new Date().toISOString());
         initByArt();
-        //console.log("initByArt End", new Date().toISOString());
         switchLang(EWinWebInfo.Lang, false);
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
 
             if (EWinWebInfo.DeviceType == 1) {
                 //noSleep = new NoSleep();
-
+                //noSleep.disable();
                 //document.addEventListener('click', function enableNoSleep() {
                 //    document.removeEventListener('click', enableNoSleep, false);
                 //    noSleep.enable();

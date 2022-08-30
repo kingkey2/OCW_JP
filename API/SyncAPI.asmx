@@ -197,7 +197,7 @@ public class SyncAPI : System.Web.Services.WebService
         Dictionary<int, int> CategoryGameCodeCount = new Dictionary<int, int>();
 
         SettingData = EWinWeb.GetCompanyGameCodeSettingJObj();
-
+        
         if (CheckPassword(Key)) {
             CompanyCategoryDT = RedisCache.CompanyCategory.GetCompanyCategory();
 
@@ -420,6 +420,7 @@ public class SyncAPI : System.Web.Services.WebService
 
                                     if (companyGameCodeResult.GameCodeList[i].GameStatus == EWin.Lobby.enumGameCodeStatus.GameOpen)
                                     {
+                                        EWinWebDB.CompanyCategoryGameCode.DeleteCompanyCategoryGameCodeByGameCodeByCategoryType0(GameCode);
                                         if (!string.IsNullOrEmpty(companyGameCodeResult.GameCodeList[i].CompanyCategoryTag))
                                         {
                                             companyCategoryTags = companyGameCodeResult.GameCodeList[i].CompanyCategoryTag.Split(',');
@@ -427,7 +428,6 @@ public class SyncAPI : System.Web.Services.WebService
                                             {
                                                 foreach (var companyCategoryTag in companyCategoryTags)
                                                 {
-
                                                     //@隱性分類不顯示,故不處理
                                                     if (!companyCategoryTag.Trim().Contains("@"))
                                                     {
