@@ -108,7 +108,7 @@ public class CodingControl
     public static string GetEmailTemp2() {
         Stream myStream;
 
-        myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Html/temp1.html"), FileMode.Open);
+        myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Promo/ysport/ysport.html"), FileMode.Open);
 
         Encoding encode = System.Text.Encoding.GetEncoding("GB2312");
         StreamReader myStreamReader = new StreamReader(myStream, encode);

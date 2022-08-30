@@ -8,6 +8,12 @@
     string Lang = "JPN";
     bool CreateBigEagle = false;
     string Version = EWinWeb.Version;
+    string IsFromIndex = string.Empty;
+
+    if (!string.IsNullOrEmpty(Request["IsFromIndex"])) {
+        IsFromIndex = Request["IsFromIndex"];
+    }
+
     if (string.IsNullOrEmpty(Request["Lang"])) {
         string userLang = CodingControl.GetDefaultLanguage();
 
@@ -70,6 +76,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maharaja</title>
 
+    <meta name='keywords' content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
+    <meta name='description' content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+    <meta property="og:site_name" content="マハラジャ" />
+
+    <meta property="og:title" content="一番人気なオンラインカジノアミューズメント - マハラジャ" />
+    <meta property="og:Keyword" content="カジノ、スロット、アミューズメント、ゲーム、ギャンブル" />
+    <meta property="og:description" content="知名なオンラインゲームブランドを提携し、信頼価値もあるし、それにすぐ遊べることができます。お金の無駄遣いをせずに、今すぐサイトを登録して、ゲーム開始！" />
+
+    <meta property="og:url" content="https://casino-maharaja.com/" />
+    <!--日文圖片-->
+    <meta property="og:image" content="https://casino-maharaja.com/images/share_pic.png" />
+    <meta property="og:type" content="website" />
+    <!-- Share image -->
+    <!--日文圖片-->
+    <link rel="image_src" href="https://casino-maharaja.com/images/share_pic.png">
+    <link rel="shortcut icon" href="images/share_pic.png">
+
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
@@ -96,6 +119,7 @@
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var CreateBigEagle = "<%=CreateBigEagle%>";
     var isSent = false;
+    var IsFromIndex= "<%=IsFromIndex%>";
 
     function startCountDown(duration) {
         isSent = true;
@@ -445,6 +469,11 @@
         lang="JPN"
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+
+            if (IsFromIndex != "1") {
+                window.location.href = "<%=EWinWeb.CasinoWorldUrl%>/Index.aspx?PCode=" + pCode;
+            }
+
             if (pCode) {
                 $("input[name=PersonCode]").val(pCode);
                 $("input[name=PersonCode]").prop('disabled', true);
@@ -655,7 +684,7 @@
             <!-- 註冊 -->
             <div id="idRegister" class="form-container">
                 <div class="img-register img-crop" style="border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
-                    <img onclick="goIndex()" style="cursor:pointer" src="images/register-banner.jpg" alt="">
+                    <img onclick="goIndex()" style="cursor:pointer" src="images/register-banner.jpg" alt="" id="img1">
                 </div>
                 <div class="heading-title">
                     <h3 class="language_replace" style="font-size: 1.35em; text-align: center;">創建新帳號</h3>
