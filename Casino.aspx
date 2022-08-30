@@ -1098,22 +1098,16 @@
         iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
-
-        //console.log("createCategory start", new Date().toISOString());
+        
         createCategory(selectedCategoryCode, function () {
             //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
             $('#categoryPage_' + selectedCategoryCode).css('display', 'block');
 
             //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
-
-
-
-            //console.log("setSwiper start", new Date().toISOString());
+            
             setSwiper(selectedCategoryCode);
-            //console.log("setSwiper end", new Date().toISOString());
         });
-        //console.log("createCategory end", new Date().toISOString());
 
     }
 
@@ -1170,30 +1164,22 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
-
-                //console.log("getCompanyGameCode start", new Date().toISOString());
                 getCompanyGameCode();
-                //console.log("getCompanyGameCode end", new Date().toISOString());
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
                 });
             }
-
-
         });
     }
 
     function getCompanyGameCode() {
-        //console.log("GetCompanyGameCodeThree start", new Date().toISOString());
         p.GetCompanyGameCodeThree(Math.uuid(), "GameList", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.LobbyGameList.length > 0) {
                         LobbyGameList = o.LobbyGameList;
-                        //console.log("updateGameCode start", new Date().toISOString());
                         updateGameCode();
-                        //console.log("updateGameCode end", new Date().toISOString());
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                             window.parent.location.href = "index.aspx";
@@ -1212,7 +1198,6 @@
             }
 
         });
-        //console.log("GetCompanyGameCodeThree end", new Date().toISOString());
     }
 
     function setDefaultIcon(brand, name) {

@@ -599,33 +599,72 @@ public class MgmtAPI : System.Web.Services.WebService {
     //        SendMail("kevin@kingkey.com.tw", "1234", CodingControl.enumSendMailType.Register);
     //    }
     //}
-    
+
     [WebMethod]
     public void SendMail(string EMail) {
-        string Subject = string.Empty;
-        string SendBody = string.Empty;
-        string apiURL = "https://mail.surenotifyapi.com/v1/messages";
-        string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-        Subject = "Verify Code";
+        if (!string.IsNullOrEmpty(EMail)) {
+            string Subject = string.Empty;
+            string SendBody = string.Empty;
+            string apiURL = "https://mail.surenotifyapi.com/v1/messages";
+            string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
+            Subject = "Verify Code";
 
-        SendBody = CodingControl.GetEmailTemp2();
+            SendBody = CodingControl.GetEmailTemp2();
 
-        Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
-        Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
-        Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
+            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
 
-        objBody.Add("subject", Subject);
-        objBody.Add("fromName", "edm@casino-maharaja.com");
-        objBody.Add("fromAddress", "edm@casino-maharaja.com");
-        objBody.Add("content", SendBody);
+            objBody.Add("subject", Subject);
+            objBody.Add("fromName", "edm@casino-maharaja.com");
+            objBody.Add("fromAddress", "edm@casino-maharaja.com");
+            objBody.Add("content", SendBody);
 
-        objRecipients.Add("name", EMail);
-        objRecipients.Add("address", EMail);
-        aryRecipients.Add(objRecipients);
+            objRecipients.Add("name", EMail);
+            objRecipients.Add("address", EMail);
+            aryRecipients.Add(objRecipients);
 
-        objBody.Add("recipients", aryRecipients);
+            objBody.Add("recipients", aryRecipients);
 
-        CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
+            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
+        }
+    }
+
+    [WebMethod]
+    public void SendMailMult(string JsonStrEmail) {
+        if (!string.IsNullOrEmpty(JsonStrEmail)) {
+            string Subject = string.Empty;
+            string SendBody = string.Empty;
+            string apiURL = "https://mail.surenotifyapi.com/v1/messages";
+            string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
+            Subject = "Verify Code";
+
+            SendBody = CodingControl.GetEmailTemp2();
+
+            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
+
+            objBody.Add("subject", Subject);
+            objBody.Add("fromName", "edm@casino-maharaja.com");
+            objBody.Add("fromAddress", "edm@casino-maharaja.com");
+            objBody.Add("content", SendBody);
+
+            //var f = "['kevin@kingkey.com.tw','elma@kingkey.com.tw','tony800517@hotmail.com']";
+            var f = JsonStrEmail;
+            Newtonsoft.Json.Linq.JArray gg = Newtonsoft.Json.Linq.JArray.Parse(f);
+
+            for (int i = 0; i < gg.Count; i++) {
+                objRecipients = new Newtonsoft.Json.Linq.JObject();
+                objRecipients.Add("name", (string)gg[i]);
+                objRecipients.Add("address", (string)gg[i]);
+                aryRecipients.Add(objRecipients);
+            }
+
+            objBody.Add("recipients", aryRecipients);
+
+            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
+        }
     }
 
     private bool CheckPassword(string Hash) {
