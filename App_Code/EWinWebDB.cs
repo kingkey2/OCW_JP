@@ -331,6 +331,26 @@ public static class EWinWebDB {
 
             return DeleteCount;
         }
+
+        public static int DeleteCompanyCategoryGameCodeByGameCodeByCategoryType0(string GameCode)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int DeleteCount = 0;
+
+            SS = " DELETE CCGC"+
+                 " FROM CompanyCategoryGameCode CCGC"+
+                 " JOIN CompanyCategory CC"+
+                 " ON CCGC.forCompanyCategoryID = CC.CompanyCategoryID"+
+                 " WHERE GameCode = @GameCode AND CC.CategoryType = 0";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@GameCode", System.Data.SqlDbType.VarChar).Value = GameCode;
+            DeleteCount = Convert.ToInt32(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd));
+
+            return DeleteCount;
+        }
     }
 
     public static class JKCDeposit {
