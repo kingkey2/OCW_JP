@@ -194,211 +194,139 @@
     function setSwiper(categoryName, categs) {
         if (categs) {
             for (var i = 0; i < categs.length; i++) {
-                if (WebInfo.DeviceType == 0) {
-                 
-                    new Swiper(".categIndex_" + categs[i].categIndex, {
-                        virtual: {
-                            slides: categs[i].gamedatas,
-                            addSlidesAfter: 3,
-                            addSlidesBefore: 1,
-                            renderSlide: function (slide, index) {
-                                return slide;
-                            }
-                        },
-                 
-                        lazy: true,
-                        freeMode: true,
-                        allowTouchMove: false,
-                        navigation: {
-                            nextEl: ".categIndex_" + categs[i].categIndex + " .swiper-button-next",
-                            prevEl: ".categIndex_" + categs[i].categIndex + " .swiper-button-prev",
-                        },
-                        breakpoints: {
+                var categ = categs[i];
+                if (categ.showType == 0 || categ.showType == 1) {
+                    if (WebInfo.DeviceType == 0) {
+                        new Swiper(".categIndex_" + categ.categIndex, {
+                            virtual: {
+                                slides: categ.gamedatas,
+                                addSlidesAfter: 3,
+                                addSlidesBefore: 1,
+                                renderSlide: function (slide, index) {
+                                    return slide;
+                                }
+                            },
 
-                            936: {
-                                freeMode: false,
-                                slidesPerView:5,
-                                slidesPerGroup: 6, //index:992px
+                            lazy: true,
+                            freeMode: true,
+                            allowTouchMove: false,
+                            navigation: {
+                                nextEl: ".categIndex_" + categ.categIndex + " .swiper-button-next",
+                                prevEl: ".categIndex_" + categ.categIndex + " .swiper-button-prev",
                             },
-                            1144: {
-                                slidesPerView: 5,
-                                slidesPerGroup: 7, //index:1200px
-                                //allowTouchMove: false, //拖曳
-                            },
-                            1384: {
-                                slidesPerView: 5,
-                                slidesPerGroup: 7, //index:1440px
-                                //allowTouchMove: false,
-                            },
-                            1544: {
-                                slidesPerView: 5,
-                                slidesPerGroup: 7, //index:1600px
-                                //allowTouchMove: false,
-                            },
-                            1864: {
-                                slidesPerView: 5,
-                                slidesPerGroup: 8, //index:1920px
-                                //allowTouchMove: false,
-                            },
-                            1920: {
-                                slidesPerView: 5,
-                                slidesPerGroup: 8, //index:1920px up
-                                //allowTouchMove: false,
+                            breakpoints: {
+
+                                936: {
+                                    freeMode: false,
+                                    slidesPerView: 5,
+                                    slidesPerGroup: 6, //index:992px
+                                },
+                                1144: {
+                                    slidesPerView: 5,
+                                    slidesPerGroup: 7, //index:1200px
+                                    //allowTouchMove: false, //拖曳
+                                },
+                                1384: {
+                                    slidesPerView: 5,
+                                    slidesPerGroup: 7, //index:1440px
+                                    //allowTouchMove: false,
+                                },
+                                1544: {
+                                    slidesPerView: 5,
+                                    slidesPerGroup: 7, //index:1600px
+                                    //allowTouchMove: false,
+                                },
+                                1864: {
+                                    slidesPerView: 5,
+                                    slidesPerGroup: 8, //index:1920px
+                                    //allowTouchMove: false,
+                                },
+                                1920: {
+                                    slidesPerView: 5,
+                                    slidesPerGroup: 8, //index:1920px up
+                                    //allowTouchMove: false,
+                                }
                             }
-                        }
-                    });
-                }
-                else {
-                    new Swiper(".GameItemGroup0_" + categoryName, {
+                        });
+                    }
+                    else {
+                        new Swiper(".categIndex_" + categ.categIndex, {
+                            virtual: {
+                                slides: categ.gamedatas,
+                                addSlidesAfter: 3,
+                                addSlidesBefore: 1,
+                                renderSlide: function (slide, index) {
+                                    return slide;
+                                }
+                            },
+                            slidesPerView: "auto",
+                            lazy: true,
+                            freeMode: true,
+                            allowTouchMove: true,
+                            navigation: {
+                                nextEl: ".categIndex_" + categ.categIndex + " .swiper-button-next",
+                                prevEl: ".categIndex_" + categ.categIndex + " .swiper-button-prev",
+                            },
+                            breakpoints: {
+
+                                936: {
+                                    freeMode: false,
+                                    slidesPerGroup: 6, //index:992px
+                                },
+                                1144: {
+                                    slidesPerGroup: 7, //index:1200px
+                                    //allowTouchMove: false, //拖曳
+                                },
+                                1384: {
+                                    slidesPerGroup: 7, //index:1440px
+                                    //allowTouchMove: false,
+                                },
+                                1544: {
+                                    slidesPerGroup: 7, //index:1600px
+                                    //allowTouchMove: false,
+                                },
+                                1864: {
+                                    slidesPerGroup: 8, //index:1920px
+                                    //allowTouchMove: false,
+                                },
+                                1920: {
+                                    slidesPerGroup: 8, //index:1920px up
+                                    //allowTouchMove: false,
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    for (var ii = 0; ii < categ.gamedatas.length; ii++) {
+                        $(".categIndex_" + categ.categIndex + '>.GameItemGroupContent').append(categ.gamedatas[ii]);
+                    }
+
+                    new Swiper(".categIndex_" + categ.categIndex, {
+                        effect: "coverflow",
+                        grabCursor: true,
+                        centeredSlides: true,
                         slidesPerView: "auto",
-                        lazy: true,
-                        freeMode: true,
-                        allowTouchMove: true,
-                        navigation: {
-                            nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
-                            prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
+                        // slidesPerView: 5,
+                        coverflowEffect: {
+                            rotate: 20,
+                            stretch: 0,
+                            depth: 300,
+                            modifier: 1,
+                            slideShadows: true,
                         },
-                        breakpoints: {
-
-                            936: {
-                                freeMode: false,
-                                slidesPerGroup: 6, //index:992px
-                            },
-                            1144: {
-                                slidesPerGroup: 7, //index:1200px
-                                //allowTouchMove: false, //拖曳
-                            },
-                            1384: {
-                                slidesPerGroup: 7, //index:1440px
-                                //allowTouchMove: false,
-                            },
-                            1544: {
-                                slidesPerGroup: 7, //index:1600px
-                                //allowTouchMove: false,
-                            },
-                            1864: {
-                                slidesPerGroup: 8, //index:1920px
-                                //allowTouchMove: false,
-                            },
-                            1920: {
-                                slidesPerGroup: 8, //index:1920px up
-                                //allowTouchMove: false,
-                            }
+                        // pagination: {
+                        //     el: ".swiper-pagination",
+                        // },
+                        loop: true,
+                        autuplay: {
+                            delay: 100,
+                            disableOnInteraction: false,
                         }
                     });
+               
                 }
-            }
-            
-        } else {
-            if (WebInfo.DeviceType == 0) {
-
-                new Swiper(".GameItemGroup0_" + categoryName, {
-                    virtual: true,
-                    slidesPerView: "auto",
-                    lazy: true,
-                    freeMode: true,
-                    virtual: true,
-                    allowTouchMove: false,
-                    navigation: {
-                        nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
-                        prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
-                    },
-                    breakpoints: {
-
-                        936: {
-                            freeMode: false,
-                            slidesPerGroup: 6, //index:992px
-                        },
-                        1144: {
-                            slidesPerGroup: 7, //index:1200px
-                            //allowTouchMove: false, //拖曳
-                        },
-                        1384: {
-                            slidesPerGroup: 7, //index:1440px
-                            //allowTouchMove: false,
-                        },
-                        1544: {
-                            slidesPerGroup: 7, //index:1600px
-                            //allowTouchMove: false,
-                        },
-                        1864: {
-                            slidesPerGroup: 8, //index:1920px
-                            //allowTouchMove: false,
-                        },
-                        1920: {
-                            slidesPerGroup: 8, //index:1920px up
-                            //allowTouchMove: false,
-                        }
-                    }
-                });
-            }
-            else {
-                new Swiper(".GameItemGroup0_" + categoryName, {
-                    slidesPerView: "auto",
-                    lazy: true,
-                    freeMode: true,
-                    allowTouchMove: true,
-                    navigation: {
-                        nextEl: ".GameItemGroup0_" + categoryName + " .swiper-button-next",
-                        prevEl: ".GameItemGroup0_" + categoryName + " .swiper-button-prev",
-                    },
-                    breakpoints: {
-
-                        936: {
-                            freeMode: false,
-                            slidesPerGroup: 6, //index:992px
-                        },
-                        1144: {
-                            slidesPerGroup: 7, //index:1200px
-                            //allowTouchMove: false, //拖曳
-                        },
-                        1384: {
-                            slidesPerGroup: 7, //index:1440px
-                            //allowTouchMove: false,
-                        },
-                        1544: {
-                            slidesPerGroup: 7, //index:1600px
-                            //allowTouchMove: false,
-                        },
-                        1864: {
-                            slidesPerGroup: 8, //index:1920px
-                            //allowTouchMove: false,
-                        },
-                        1920: {
-                            slidesPerGroup: 8, //index:1920px up
-                            //allowTouchMove: false,
-                        }
-                    }
-                });
             }
         }
-      
-
-
-
-        //new Swiper('.GameItemGroup1_' + categoryName, {
-        //    effect: "coverflow",
-        //    grabCursor: true,
-        //    centeredSlides: true,
-        //    slidesPerView: "auto",
-        //    // slidesPerView: 5,
-        //    coverflowEffect: {
-        //        rotate: 20,
-        //        stretch: 0,
-        //        depth: 300,
-        //        modifier: 1,
-        //        slideShadows: true,
-        //    },
-        //    // pagination: {
-        //    //     el: ".swiper-pagination",
-        //    // },
-        //    loop: true,
-        //    autuplay: {
-        //        delay: 100,
-        //        disableOnInteraction: false,
-        //    }
-        //});
-
     }
 
     async function createCategory(categoryName, cb) {
@@ -458,6 +386,13 @@
                         };
                         var showType = category.ShowType;
                         var game_wrapper = "";
+
+                        var categ = {
+                            categIndex: i,
+                            gamedatas: [],
+                            showType: showType
+                        };
+
                         if (category.Datas.length > 0) {
                             var categArea;
                             var textlink;
@@ -835,9 +770,40 @@
         var imgsrc;
         var gameName;
         var gameItemInfo = "";
-
+        var _gameCategoryCode;
         if (gameItem) {
             gameName = gameItem.Language.find(x => x.LanguageCode == lang) ? gameItem.Language.find(x => x.LanguageCode == lang).DisplayText : "";
+
+            switch (gameItem.GameCategoryCode) {
+                case "Electron":
+                    _gameCategoryCode = "elec";
+                    break;
+                case "Live":
+                    _gameCategoryCode = "live";
+                    break;
+                case "Slot":
+                    _gameCategoryCode = "slot";
+                    break;
+                default:
+                    _gameCategoryCode = "etc";
+                    break;
+            }
+
+            if (gameItem.FavoTimeStamp != null) {
+                if (WebInfo.DeviceType == 1) {
+                    btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                } else {
+                    btnlike = `<button type="button" class="btn-like desktop gameCode_${gameItem.GameCode} btn btn-round added" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                }
+
+            } else {
+                if (WebInfo.DeviceType == 1) {
+                    btnlike = `<button type="button" class="btn-like gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                } else {
+                    btnlike = `<button type="button" class="btn-like desktop gameCode_${gameItem.GameCode} btn btn-round" onclick="favBtnClcik('${gameItem.GameCode}')">`;
+                }
+
+            }
 
             var RTP = "";
             if (gameItem.RTPInfo) {
@@ -879,7 +845,7 @@
                 }
 
                 GItitle = `<div class="swiper-slide ${'gameid_' + gameItem.GameID}">`;
-                gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')" onmouseover="appendGameProp('${gameItem.GameBrand}','${gameName}','${RTP}','${gameItem.GameID}','${gameItem.GameCode}',${showType},'${gameItem.GameCategoryCode}','${gameItem.GameName}')"></span>`;
+                gameitemlink = `<span class="game-item-link" onclick="window.parent.openGame('${gameItem.GameBrand}', '${gameItem.GameName}','${gameName}')"></span>`;
 
             }
 
@@ -914,7 +880,53 @@
                                         <img class="gameimg lozad" src="${imgsrc}">
                                     </div>
                                 </div>
- 
+
+<div class="game-item-info-detail open" onclick="window.parent.openGame('${gameItem.GameBrand}','${gameItem.GameName}','${gameName}')">
+                                <div class="game-item-info-detail-wrapper">
+                                    <div class="game-item-info-detail-moreInfo">
+                                        <ul class="moreInfo-item-wrapper">
+                                            <li class="moreInfo-item category ${_gameCategoryCode}">
+                                                <span class="value"><i class="icon icon-mask"></i></span>
+                                            </li>
+                                            <li class="moreInfo-item brand">
+                                                <span class="title language_replace">${mlp.getLanguageKey("廠牌")}</span>
+                                                <span class="value GameBrand">${gameItem.GameBrand}</span>
+                                            </li>
+                                            <li class="moreInfo-item RTP">
+                                                 <span class="title">RTP</span>
+                                                 <span class="value number valueRTP">${RTP}</span>
+                                            </li>
+                                            <li class="moreInfo-item gamecode">
+                                                 <span class="title">NO.</span>
+                                                 <span class="value number GameID">${gameItem.GameID}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="game-item-info-detail-indicator">
+                                        <div class="game-item-info-detail-indicator-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">${gameName}</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                    <button type="button" class="btn-thumbUp btn btn-round is-hide">
+                                                        <i class="icon icon-m-thumup"></i>
+                                                    </button>
+                                                     ${btnlike}
+                                                        <i class="icon icon-m-favorite"></i>
+                                                    </button>
+                                                    <!-- <button type="button" class="btn-more btn btn-round">
+                                                        <i class="arrow arrow-down"></i>
+                                                    </button> -->
+                                                </div>
+                                                <!-- <button type="button" class="btn btn-play">
+                                                    <span class="language_replace">???</span><i class="triangle"></i></button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             </div>
                             ${gameItemInfo}
                             </div>
@@ -956,7 +968,7 @@
                     _gameCategoryCode = "etc";
                     break;
             }
-
+        
             if (!jquerydoc.hasClass('addedGameProp')) {
                 if (favoTimeStamp != null) {
                     if (WebInfo.DeviceType == 1) {
