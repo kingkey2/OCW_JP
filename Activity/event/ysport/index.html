@@ -11,7 +11,10 @@
     <link rel="stylesheet" href="../../../css/basic.min.css">
     <style>
         /* td, tr, img  {line-height: 0;} */
-        .mobile {
+        .layer-1, .layer-2, .layer-3{
+            padding: 0 10px;
+        } 
+        .desktop {
             display: none;
         }
 
@@ -24,7 +27,9 @@
             width: 80px;
             height: 80px;
             color: #fff;
-            background-color: #298599;
+            
+            background-color: rgba(41, 132, 153, 0.784);
+            /* background-color: #298599; */
             display: inline-flex;
             justify-content: center;
             align-items: center;
@@ -33,6 +38,9 @@
             flex-flow: column wrap;
             font-size: 16px;
             font-weight: bold;
+            /* border-image: linear-gradient(to bottom right, #80FFF0 0%, #FFE600 100%);
+            border-image-slice: 1; */
+
         }
 
         .fixedBtn .btn {
@@ -76,6 +84,13 @@
             transform: rotate(45deg);
         }
 
+        .wrap-border{
+            border-radius: 15px;
+            border: solid 1px #fff;
+            padding: 0 10px;
+            padding-top: 10px;
+        }
+
         .kv-text {
             position: absolute;
             bottom: 0;
@@ -87,10 +102,10 @@
             overflow: hidden;
             display: flex;
             justify-content: center;
-            
+
         }
 
-        .kv-text .text{
+        .kv-text .text {
             position: relative;
             z-index: 1;
             padding: 7px 5px 0;
@@ -105,15 +120,11 @@
             right: 0;
             border-radius: 50%;
             background-color: #298599;
-            
+
             max-width: 480px;
             height: 480px;
-
-
             margin: 0 auto;
-
         }
-
 
 
         @media screen and (max-width: 425px) {
@@ -127,15 +138,7 @@
 
             .three-column img {
                 max-width: 280px !important;
-            }
-
-            .mobile {
-                display: block;
-            }
-
-            .desktop {
-                display: none;
-            }
+            }            
         }
 
         @media screen and (min-width: 426px) and (max-width: 620px) {
@@ -145,6 +148,24 @@
 
             .two-column .column {
                 max-width: 50% !important;
+            }
+        }
+
+        @media screen and (min-width: 620px) {
+            .mobile {
+                display: none;
+            }
+
+            .desktop {
+                display: block;
+            }
+
+            .text-crop {
+                text-align: center;
+            }
+            .text-crop .text-inlineblock {
+                display: block;
+                margin-bottom: 1rem;
             }
         }
     </style>
@@ -169,10 +190,9 @@
                                         <td class="one-column"
                                             style="line-height: 0;border-spacing:0; margin: 0 auto; padding: 0;"
                                             valign="top">
-                                            <a href="https://casino-maharaja.com/" target="_blank"
-                                                style="display:inline-block; width:100%;"><img
+                                           <img
                                                     src="images/ysport-logo.jpg" alt=""
-                                                    style="border-width:0;width:100%;height:auto;"></a>
+                                                    style="border-width:0;width:100%;height:auto;">
                                         </td>
                                     </tr>
                                 </table>
@@ -188,9 +208,12 @@
                                             <td valign="top" class="one-column"
                                                 style="border-spacing:0; margin: 0 auto; padding: 0; position: relative;">
                                                 <img src="images/ysport-kv-notext.jpg" alt=""
-                                                    style="border-width:0;width:100%;height:auto;">
-                                                <span class="kv-text" style=""><span class="text">Ysport とは?</span></span>
-                                                
+                                                    style="border-width:0;width:100%;height:auto;"  class="desktop">
+                                                <img src="images/edm-ysport-kv-s.jpg" alt=""
+                                                    style="border-width:0;width:100%;height:auto;" class="mobile">
+                                                <span class="kv-text" style=""><span class="text">Ysport
+                                                        とは?</span></span>
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -214,8 +237,9 @@
                                 <table width="100%" style="border-spacing:0; margin: 0px auto; padding: 0 25px;">
                                     <tr>
                                         <td align="center" style="padding-top: 25px;">
-                                            Ysportは操作が分かりやすくて、<span style="display: inline-block;">スポーツ試合を楽に楽しめるブックメーカーです。</span>
-                                            </td>
+                                            Ysportは操作が分かりやすくて、<span
+                                                style="display: inline-block;">スポーツ試合を楽に楽しめるブックメーカーです。</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td align="center">
@@ -231,26 +255,17 @@
                         <tr>
                             <td style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;">
                                 <table width="100%"
-                                    style="border-spacing:0; padding-top:10px; padding-bottom:10px; margin: 0 auto 25px">
+                                    style="border-spacing:0; padding-top:10px; padding-bottom:10px; margin: 0 auto 5px">
                                     <tbody>
                                         <tr>
-                                            <td colspan="2" align="center" style="padding: 10px 25px;">
-                                                <br>
-                                                <p style="font-size:24px; font-weight:bold; padding: 0 ; text-align: center; margin: 25px 0 15px;">
-                                                    Ysportにはどんなスポーツがありますか?</p>
-
-                                                <p style="">第1弾として、国技である『相撲』を盛大に<span style="display: inline-block;">開催します。</span></p>
-
-                                                <p style="">相撲は一回見ればはまる <span style="display: inline-block;">スポーツです。どんな選手でも、</span></p>
-
-                                                <p style="">神聖なる土俵に立つと全力を尽くして挑む表情にがらっと変わります。</p>
-                                                <p style="">その緊張感と迫力に匹敵するスポーツが少ないだろう！</p>
-                                                
-                                               
-                                                <span style="display: inline-block;"></span>
-                                                <span style="display: inline-block;"></span>
-                                                <span style="display: inline-block;"></span>
-                                                
+                                            <td colspan="2" align="" style="padding: 10px 25px;">
+                                                <p class="text-crop"><span
+                                                        class="text-inlineblock">第1弾として、国技である『相撲』を盛大に開催します。</span><span
+                                                        class="text-inlineblock">相撲は一回見ればはまるスポーツです。どんな選手でも、</span>
+                                                        <span  class="text-inlineblock">神聖なる土俵に立つと全力を尽くして挑む表情にがらっと変わります。</span>
+                                                        <span  class="text-inlineblock">その緊張感と迫力に匹敵するスポーツが少ないだろう！</span>
+                                                </p>
+                                                <p class="text-crop"></p>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -273,18 +288,23 @@
                             <td align="center" style="padding:0 25px;">
                                 <br>
                                 <table width="100%"
-                                    style="border-spacing:0; color:#ffffff; margin: 0px auto 35px; border-radius: 15px; padding: 15px 15px; border: solid 1px #ffff;">
+                                    style="border-spacing:0; color:#ffffff; margin: 0px auto 35px; ">
                                     <tr>
-                                        <td align="center"> <img src="images/edm-ysport-T1.png" alt=""
-                                                style="border-width:0;width:100%; height:auto; max-width: 150px;"></td>
+                                        <td align="center"> </td>
                                     </tr>
                                     <tr>
                                         <td align="center">
+                                            <div class="wrap-border">
+                                                <img src="images/edm-ysport-T1.png" alt=""
+                                                style="border-width:0;width:100%; height:auto; max-width: 150px;">
                                             <p
                                                 style="font-size:30px; font-weight:bold; text-align: center; margin: 5px 0;">
-                                                簡単な3ステップでボーナスを獲得</p>
-                                            <p style="font-size: 14px;">などの熱いスポーツ試合も続々と登場</p>
-                                            <p style="font-size: 14px;">します！ぜひお楽しみに！</p>
+                                                サッカー、野球、駅伝</p>
+                                            <p style="font-size: 14px;">などの熱いスポーツ試合も続々と登場します！</p>
+                                            <p style="font-size: 14px;">ぜひお楽しみに！</p>
+
+                                            </div>
+                                            
                                         </td>
                                     </tr>
                                 </table>
@@ -309,7 +329,7 @@
                         <!------------- Three-column ------------->
                         <tr>
                             <td class="three-column"
-                                style="padding-top:5px; padding-bottom:10px;padding-left:10px;padding-right:10px;text-align:center;font-size:0; background-color: #4FB0AA;">
+                                style="padding-top:15px; padding-bottom:30px;padding-left:10px;padding-right:10px;text-align:center;font-size:0; background-color: #4FB0AA;">
                                 <!--簡單三步驟一-->
                                 <!--[if (gte mso 9)|(IE)]>
                             <table width="100%" style="border-spacing:0;" >
@@ -452,7 +472,7 @@
                     <tbody style="">
                         <!--遊戲項目-->
                         <tr style="background-color: #479658;">
-                            <td style="padding:15px 25px">
+                            <td style="padding:30px 25px 15px">
                                 <table width="100%" style="border-spacing:0;">
                                     <tbody>
                                         <tr style="">
@@ -525,10 +545,13 @@
                                             </td>
                                         </tr>
                                         <tr style="">
-                                            <td class="" style="padding: 30px 0;">
-                                                <sapn class="btn" style="display: block; " data-toggle="modal"
-                                                    data-target="#popupInfo"><img src="images/edm-ysport-b-link.png"
-                                                        alt="" style="border-width:0;width:100%; height:auto;"></span>
+                                            <td class="" style="padding: 30px 0; text-align: center;">
+                                                <span class="btn mobile" style="">
+                                                    <a href=""><img src="images/edm-ysport-b-link-s.png" alt="" style="border-width:0;width:100%; height:auto;"></a>
+                                                </span>
+                                                <span class="btn desktop" style="">
+                                                    <a href=""><img src="images/edm-ysport-b-link.png" alt="" style="border-width:0;width:100%; height:auto;"></a>
+                                                </span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -546,8 +569,7 @@
                     style="border-spacing:0; color:#ffffff; margin:0; width:100%;max-width:650px; padding-top: 0px; padding-bottom: 0px;  background-color:#298599; border-collapse: collapse; padding: 0; font-size: 14px;">
                     <tbody style="">
                         <tr>
-                            <td style="font-size:12px; padding: 10px 0; text-align: center; ">Copyright © 2022 Ysport.
-                                All rights reserved.</td>
+                            <td style="font-size:12px; padding: 10px 0; text-align: center; ">Copyright © 2022 Ysport.All rights reserved.</td>
                         </tr>
                     </tbody>
                 </table>

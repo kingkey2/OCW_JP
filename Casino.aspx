@@ -1265,7 +1265,7 @@
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/sumo-pc.jpg" class="bg">
+                                    <img src="images/lobby/sumo-pc-2.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
