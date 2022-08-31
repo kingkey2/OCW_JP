@@ -510,7 +510,7 @@
                     <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">前往入金</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide language_replace" disabled>前往入金</button>
