@@ -601,13 +601,11 @@ public class MgmtAPI : System.Web.Services.WebService {
     //}
 
     [WebMethod]
-    public void SendMail(string EMail) {
+    public void SendMail(string EMail, string Subject) {
         if (!string.IsNullOrEmpty(EMail)) {
-            string Subject = string.Empty;
             string SendBody = string.Empty;
             string apiURL = "https://mail.surenotifyapi.com/v1/messages";
             string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-            Subject = "Verify Code";
 
             SendBody = CodingControl.GetEmailTemp2();
 
@@ -632,13 +630,11 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public void SendMailMult(string JsonStrEmail) {
+    public void SendMailMult(string JsonStrEmail, string Subject) {
         if (!string.IsNullOrEmpty(JsonStrEmail)) {
-            string Subject = string.Empty;
             string SendBody = string.Empty;
             string apiURL = "https://mail.surenotifyapi.com/v1/messages";
             string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-            Subject = "Verify Code";
 
             SendBody = CodingControl.GetEmailTemp2();
 
