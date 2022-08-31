@@ -196,6 +196,7 @@ var worker = function (WebUrl, Second, eWinGameItem, Version) {
 
         //版本號高於當前版本，觸發
         DBRequestLink.onupgradeneeded = function (event) {
+            let db = event.target.result;
             oldVersion = event.oldVersion;
             if (event.oldVersion == 0) {
                 InitDBSchema(event.target.result);

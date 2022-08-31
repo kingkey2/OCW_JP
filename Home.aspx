@@ -331,24 +331,52 @@
                             });
                         }
 
-                        Promise.all([createCategory(LobbyGameList, "Home"), createPersonal(0, true), createPersonal(1, true)]).then(() => {
-                            setSwiper("Home");
+                        window.parent.API_SetFavoToIndexDB(function () {
+                            createPersonal(0, true).then(function () {
+                                setSwiperBySelector(".GameItemGroup_PersonalFavo");
+                            });
                         })
+
+                        createPersonal(1, true).then(function () {
+                            setSwiperBySelector(".GameItemGroup_PersonalFavo");
+                        });
+                       
+                        createCategory(LobbyGameList, "Home").then(function () {
+                            setSwiper("Home");
+                        });
                     } else {
-                        Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
-                            setSwiper("Home");
+                        window.parent.API_SetFavoToIndexDB(function () {
+                            createPersonal(0, true).then(function () {
+                                setSwiperBySelector(".GameItemGroup_PersonalFavo");
+                            });
                         })
+
+                        createPersonal(1, true).then(function () {
+                            setSwiperBySelector(".GameItemGroup_PersonalFavo");
+                        });
                     }
                 } else {
-                    Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
-                        setSwiper("Home");
+                    window.parent.API_SetFavoToIndexDB(function () {
+                        createPersonal(0, true).then(function () {
+                            setSwiperBySelector(".GameItemGroup_PersonalFavo");
+                        });
                     })
+
+                    createPersonal(1, true).then(function () {
+                        setSwiperBySelector(".GameItemGroup_PersonalFavo");
+                    });
                 }
             }
             else {
-                Promise.all([createPersonal(0, true), createPersonal(1, true)]).then(() => {
-                    setSwiper("Home");
+                window.parent.API_SetFavoToIndexDB(function () {
+                    createPersonal(0, true).then(function () {
+                        setSwiperBySelector(".GameItemGroup_PersonalFavo");
+                    });
                 })
+
+                createPersonal(1, true).then(function () {
+                    setSwiperBySelector(".GameItemGroup_PersonalFavo");
+                });
             }
 
         });
@@ -547,7 +575,11 @@
                                              </div>
                                              </div>
                                              </section>`;
-                        $('#gameAreas').prepend(categArea);
+                        if (type == 0) {
+                            $('#favoArea').prepend(categArea);
+                        } else {
+                            $('#recentArea').prepend(categArea);
+                        }
                     } else {
                         if (isDataExist && gameItems) {
                             $('#categ_' + CategCode).show();
@@ -793,7 +825,7 @@
                     }
                 }
 
-                $('#gameAreas').append(categAreas);
+                $('#categoryArea').append(categAreas);
             }
         }
     }
@@ -1257,7 +1289,17 @@
                         </section>
                         <!-- 自定義分類 -->
                         <section class="section-game-area section-wrap ">
-                            <div class="" id="gameAreas"></div>
+                            <div class="" id="gameAreas">
+                                <div id="favoArea">
+
+                                </div>
+                                <div id="recentArea">
+
+                                </div>
+                                <div id="categoryArea">
+
+                                </div>
+                            </div>
                         </section>
                          <!-- 活動中心 -->
                          <section class="section-activityCenter section-wrap">
