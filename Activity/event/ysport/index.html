@@ -41,11 +41,11 @@
             background-color: #fff;
             width: 10px;
             height: 26px;
-            
+
             -webkit-box-pack: center;
             -ms-flex-pack: center;
             justify-content: center;
-          
+
             -ms-flex-item-align: center;
             -ms-grid-row-align: center;
             align-self: center;
@@ -75,6 +75,46 @@
             -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
         }
+
+        .kv-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            
+        }
+
+        .kv-text .text{
+            position: relative;
+            z-index: 1;
+            padding: 7px 5px 0;
+        }
+
+        .kv-text::before {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            border-radius: 50%;
+            background-color: #298599;
+            
+            max-width: 480px;
+            height: 480px;
+
+
+            margin: 0 auto;
+
+        }
+
+
 
         @media screen and (max-width: 425px) {
             .three-column .column {
@@ -146,9 +186,11 @@
                                     <tbody>
                                         <tr>
                                             <td valign="top" class="one-column"
-                                                style="border-spacing:0; margin: 0 auto; padding: 0;">
-                                                <img src="images/ysport-kv.jpg" alt=""
+                                                style="border-spacing:0; margin: 0 auto; padding: 0; position: relative;">
+                                                <img src="images/ysport-kv-notext.jpg" alt=""
                                                     style="border-width:0;width:100%;height:auto;">
+                                                <span class="kv-text" style=""><span class="text">Ysport とは?</span></span>
+                                                
                                             </td>
                                         </tr>
                                     </tbody>
@@ -171,8 +213,9 @@
                             <td align="center">
                                 <table width="100%" style="border-spacing:0; margin: 0px auto; padding: 0 25px;">
                                     <tr>
-                                        <td align="center" style="padding-top: 20px;">
-                                            Ysportは操作が分かりやすくて、スポーツ試合を楽に楽しめるブックメーカーです。</td>
+                                        <td align="center" style="padding-top: 25px;">
+                                            Ysportは操作が分かりやすくて、<span style="display: inline-block;">スポーツ試合を楽に楽しめるブックメーカーです。</span>
+                                            </td>
                                     </tr>
                                     <tr>
                                         <td align="center">
@@ -188,18 +231,26 @@
                         <tr>
                             <td style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;">
                                 <table width="100%"
-                                    style="border-spacing:0; padding-top:10px; padding-bottom:30px; margin: 0 auto">
+                                    style="border-spacing:0; padding-top:10px; padding-bottom:10px; margin: 0 auto 25px">
                                     <tbody>
                                         <tr>
                                             <td colspan="2" align="center" style="padding: 10px 25px;">
                                                 <br>
-                                                <p
-                                                    style="font-size:24px; font-weight:bold; padding: 0 ; text-align: center; margin: 0;">
+                                                <p style="font-size:24px; font-weight:bold; padding: 0 ; text-align: center; margin: 25px 0 15px;">
                                                     Ysportにはどんなスポーツがありますか?</p>
-                                                <p style="">第1弾として、国技である『相撲』を盛大に開催します。</p>
-                                                <p style="">相撲は一回見ればはまるスポーツです。どんな選手でも、</p>
+
+                                                <p style="">第1弾として、国技である『相撲』を盛大に<span style="display: inline-block;">開催します。</span></p>
+
+                                                <p style="">相撲は一回見ればはまる <span style="display: inline-block;">スポーツです。どんな選手でも、</span></p>
+
                                                 <p style="">神聖なる土俵に立つと全力を尽くして挑む表情にがらっと変わります。</p>
                                                 <p style="">その緊張感と迫力に匹敵するスポーツが少ないだろう！</p>
+                                                
+                                               
+                                                <span style="display: inline-block;"></span>
+                                                <span style="display: inline-block;"></span>
+                                                <span style="display: inline-block;"></span>
+                                                
                                             </td>
                                         </tr>
                                     </tbody>
