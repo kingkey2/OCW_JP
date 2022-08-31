@@ -41,6 +41,7 @@
     function init() {
         noSleep = new NoSleep();
         noSleep.disable();
+
         document.addEventListener('click', function enableNoSleep() {
             console.log("dddd");
             document.removeEventListener('click', enableNoSleep, false);
