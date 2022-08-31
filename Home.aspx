@@ -1167,11 +1167,11 @@
                         <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="images/banner/b2-m.jpg" alt="">
+                                <img src="images/banner/b2-m.jpg?1" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/banner/b2.jpg" class="bg">
+                                    <img src="images/banner/b2.jpg?1" class="bg">
                                 </div>
                             </div>
                         </div>

@@ -292,25 +292,6 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(8,'/Activity/event/ne-rt/08222022/index-jp.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/ne-rt/08222022/img/img-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大135,000のギフトマネーが貰えるよ！</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -320,7 +301,7 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">史上最大還元キャンペーン！方法問わず、毎回入金最大100,000 Ocoin還元</div>
+                                            <div class="desc language_replace">九月に新たな入金還元キャンペーン！受取りが超簡単！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
@@ -514,7 +495,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">情熱の八月バケイション！お得再開！</h5>
+                    <h5 class="modal-title language_replace">九月に新たな入金還元キャンペーン！受取りが超簡単！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
