@@ -85,7 +85,7 @@
                             GoActivityDetail(8, '/Activity/event/ne-rt/08222022/index-jp.html');
                             break;
                         case "9":
-                            GoActivityDetail(9, '/Activity/event/bng/09092022/index-jp.html');
+                            GoActivityDetail(9, '/Activity/event/bng/09092022moonfestival/index-jp.html');
                             break;
                     }
                 }
@@ -282,11 +282,11 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(9,'/Activity/event/bng/09092022/index-jp.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(9,'/Activity/event/bng/09092022moonfestival/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/bng/09092022/img/img-act.jpg">
+                                        <img src="Activity/event/bng/09092022moonfestival/img/img-act.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
