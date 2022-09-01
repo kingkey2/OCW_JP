@@ -4,6 +4,9 @@
     color: #666;
     font-family: 'Noto Sans JP', sans-serif!important;
 }
+.section-act-wrapper{
+    font-weight: 300;
+}
 .section-act-wrap{
     margin-bottom: 2.5rem;
 }
@@ -62,9 +65,37 @@
     width: 10px;
     height: 14px;
 }
+/* 注意事項 */
 .act-notice{
     color: #666;
 }
+
+.act-notice-list .act-notice-item{
+    text-indent: -1.2rem;
+    margin-bottom: 1rem;
+    margin-left: 1.2rem;
+}
+
+.act-game-list{
+    /* width: 90%; */
+    margin: 0 auto;
+    max-width: 660px;
+    margin-top: 20px;
+
+}
+
+.act-game-list .act-game-item{
+    margin-bottom: 10px;
+    cursor: pointer;
+    
+}
+.act-game-list .act-game-item .img-crop{
+    border-radius: 20px;
+    overflow: hidden;
+    display: inline-block;    
+}
+
+
 .mark-red{
     color: #940202;
     font-weight: bold;
