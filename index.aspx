@@ -226,7 +226,7 @@
 <script type="text/javascript" src="Scripts/popper.min.js"></script>
 <script type="text/javascript" src="/Scripts/LobbyAPI.js?<%:Version%>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 <%--<script src="Scripts/vendor/bootstrap/bootstrap.min.js"></script>--%>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -235,7 +235,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/GameCodeBridge.js?1"></script>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>--%>
 <script type="text/javascript" src="/Scripts/NoSleep.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
 <script type="text/javascript">
@@ -1047,7 +1046,7 @@
         if (alertSearch.css("display") == "block") {
             alertSearchCloseButton.click();
         }
-       
+
         if (!EWinWebInfo.UserLogined) {
 
             if (popupMoblieGameInfo) {
@@ -1072,6 +1071,9 @@
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
+
+                    //window.location.href = "/kevintest.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";
+
                 } else {
                     GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
                 }
@@ -1600,12 +1602,12 @@
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
 
             if (EWinWebInfo.DeviceType == 1) {
-                //noSleep = new NoSleep();
-                //noSleep.disable();
-                //document.addEventListener('click', function enableNoSleep() {
-                //    document.removeEventListener('click', enableNoSleep, false);
-                //    noSleep.enable();
-                //}, false);
+                noSleep = new NoSleep();
+                noSleep.disable();
+                document.addEventListener('click', function enableNoSleep() {
+                    document.removeEventListener('click', enableNoSleep, false);
+                    noSleep.enable();
+                }, false);
             }
 
             if (EWinWebInfo.DeviceType == 1) {
@@ -2315,12 +2317,12 @@
                                             <i class="icon icon-mask icon-all"></i>
                                             <span class="title language_replace">遊戲大廳</span></a>
                                     </li>
-                                    <li class="nav-item submenu dropdown"
+                                    <%--<li class="nav-item submenu dropdown"
                                         onclick="openGame('YS', 'Sumo', '')">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-sumo"></i>
                                             <span class="title language_replace">相撲</span></a>
-                                    </li>
+                                    </li>--%>
                                 </ul>
                             </li>
                             <li class="nav-item navbarMenu__catagory">

@@ -601,18 +601,17 @@ public class MgmtAPI : System.Web.Services.WebService {
     //}
 
     [WebMethod]
-    public void SendMail(string EMail) {
+    public void SendMail(string EMail, string Subject) {
         if (!string.IsNullOrEmpty(EMail)) {
-            string Subject = string.Empty;
             string SendBody = string.Empty;
             string apiURL = "https://mail.surenotifyapi.com/v1/messages";
             string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-            Subject = "Verify Code";
 
             SendBody = CodingControl.GetEmailTemp2();
 
             Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
             Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objVariables = new Newtonsoft.Json.Linq.JObject();
             Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
 
             objBody.Add("subject", Subject);
@@ -631,18 +630,17 @@ public class MgmtAPI : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public void SendMailMult(string JsonStrEmail) {
+    public void SendMailMult(string JsonStrEmail, string Subject) {
         if (!string.IsNullOrEmpty(JsonStrEmail)) {
-            string Subject = string.Empty;
             string SendBody = string.Empty;
             string apiURL = "https://mail.surenotifyapi.com/v1/messages";
             string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-            Subject = "Verify Code";
 
             SendBody = CodingControl.GetEmailTemp2();
 
             Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
             Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objVariables = new Newtonsoft.Json.Linq.JObject();
             Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
 
             objBody.Add("subject", Subject);
@@ -650,14 +648,20 @@ public class MgmtAPI : System.Web.Services.WebService {
             objBody.Add("fromAddress", "edm@casino-maharaja.com");
             objBody.Add("content", SendBody);
 
-            //var f = "['kevin@kingkey.com.tw','elma@kingkey.com.tw','tony800517@hotmail.com']";
+            //var f = "['kevin@kingkey.com.tw','tony800517@hotmail.com']";
             var f = JsonStrEmail;
             Newtonsoft.Json.Linq.JArray gg = Newtonsoft.Json.Linq.JArray.Parse(f);
 
             for (int i = 0; i < gg.Count; i++) {
                 objRecipients = new Newtonsoft.Json.Linq.JObject();
+                objVariables = new Newtonsoft.Json.Linq.JObject();
+
                 objRecipients.Add("name", (string)gg[i]);
                 objRecipients.Add("address", (string)gg[i]);
+                //寄信範本中使用 {{account}}，下列方式可在範本中做替換
+                objVariables.Add("account", (string)gg[i]);
+                objRecipients.Add("variables", objVariables);
+
                 aryRecipients.Add(objRecipients);
             }
 

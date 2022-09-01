@@ -24,20 +24,19 @@
       "Path": "2022_8/Act007.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "Act008",
+      "Path": "2022_9/Act008.json",
+      "MethodName": "OpenBonusDeposit_Loop",
+      "InfoMethodName": "OpenBonusDeposit_Loop"
+    },
+    {
+      "Name": "Act009",
+      "Path": "2022_9/Act009.json",
+      "MethodName": "OpenBonusDeposit_Loop",
+      "InfoMethodName": "OpenBonusDeposit_Loop"
     }
-    //,
-    //{
-    //  "Name": "Act008",
-    //  "Path": "2022_9/Act008.json",
-    //  "MethodName": "OpenBonusDeposit_Loop",
-    //  "InfoMethodName": "OpenBonusDeposit_Loop"
-    //},
-    //{
-    //  "Name": "Act009",
-    //  "Path": "2022_9/Act009.json",
-    //  "MethodName": "OpenBonusDeposit_Loop",
-    //  "InfoMethodName": "OpenBonusDeposit_Loop"
-    //}
   ],
   "ParentBonusAfterDeposit": [
     {
@@ -89,19 +88,18 @@
       "Path": "2022_8/Act007.json",
       "MethodName": "OpenBonusDeposit",
       "InfoMethodName": "OpenBonusDeposit"
+    },
+    {
+      "Name": "Act008",
+      "Path": "2022_9/Act008.json",
+      "MethodName": "OpenBonusDeposit_Loop",
+      "InfoMethodName": "OpenBonusDeposit_Loop"
+    },
+    {
+      "Name": "Act009",
+      "Path": "2022_9/Act009.json",
+      "MethodName": "OpenBonusDeposit_Loop",
+      "InfoMethodName": "OpenBonusDeposit_Loop"
     }
-    //,
-    //{
-    //  "Name": "Act008",
-    //  "Path": "2022_9/Act008.json",
-    //  "MethodName": "OpenBonusDeposit_Loop",
-    //  "InfoMethodName": "OpenBonusDeposit_Loop"
-    //},
-    //{
-    //  "Name": "Act009",
-    //  "Path": "2022_9/Act009.json",
-    //  "MethodName": "OpenBonusDeposit_Loop",
-    //  "InfoMethodName": "OpenBonusDeposit_Loop"
-    //}
   ]
 }

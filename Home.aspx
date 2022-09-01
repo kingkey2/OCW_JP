@@ -1165,13 +1165,26 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','#')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="images/banner/b2-m.jpg" alt="">
+                                <img src="images/banner/sumo-m.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/banner/b2.jpg" class="bg">
+                                    <img src="images/banner/sumo.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>                     
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/banner/b2-m.jpg?1" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/banner/b2.jpg?1" class="bg">
                                 </div>
                             </div>
                         </div>
@@ -1228,7 +1241,9 @@
                 <div class="container">
                     <div thumbsslider="" class="thumbSwiper">
                         <div class="swiper-wrapper">
-
+                            <div class="swiper-slide">
+                                <img src="images/banner/thumb-8.png" alt="">
+                            </div>
                             <div class="swiper-slide">
                                 <img src="images/banner/thumb-1.png" alt="">
                             </div>

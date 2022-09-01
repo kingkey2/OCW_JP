@@ -292,25 +292,6 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(8,'/Activity/event/ne-rt/08222022/index-jp.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/ne-rt/08222022/img/img-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大135,000のギフトマネーが貰えるよ！</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -529,7 +510,7 @@
                     <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">前往入金</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide language_replace" disabled>前往入金</button>
