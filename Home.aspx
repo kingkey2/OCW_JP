@@ -1165,7 +1165,7 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','#')"></a>
+                            <a class="hero-item-link " onclick="window.open('Activity/event/ysport/index.html')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/sumo-m.jpg" alt="">
                             </div>
