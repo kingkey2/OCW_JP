@@ -215,7 +215,7 @@
                                 prevEl: ".categIndex_" + categ.categIndex + " .swiper-button-prev",
                             },
                             breakpoints: {
-
+                                
                                 936: {
                                     freeMode: false,
                                     slidesPerView: 5,
