@@ -2,7 +2,7 @@
   "Name": "Act003",
   "State": 0,
   "StartDate": "2022/07/15 00:00:00",
-  "EndDate": "2099/07/01 00:00:00",
+  "EndDate": "2022/08/01 00:00:00",
   "OneDayBonus": 1000,
   "FullAttendance": 3000,
   "ThresholdRate": 20,
