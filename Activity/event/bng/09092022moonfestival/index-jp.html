@@ -86,9 +86,9 @@
         var SID = window.top.EWinWebInfo.SID;
         var btn = document.getElementById("btn1");
         if (SID != "") {
-            btn.setAttribute('href', "https://servicebooongo.com/bngevent/event?event=202209BR&lang=jp&currency=JPY&project=kingkey&player_token=OCOIN_" + window.top.EWinWebInfo.SID);
+            btn.setAttribute('href', "/OpenBNGActivity.aspx?SID=" + window.top.EWinWebInfo.SID);
         } else {
-            btn.setAttribute('href', "https://servicebooongo.com/bngevent/event?event=202209BR&lang=jp&currency=JPY&project=kingkey");
+            btn.setAttribute('href', "/OpenBNGActivity.aspx");
         }
     }
 
