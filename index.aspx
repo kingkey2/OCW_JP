@@ -1105,18 +1105,35 @@
             gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
         }
     }
-
+    //.divGameFrame{width:70vw;height:39.375vw;background-color:#09f}
     function CloseGameFrame() {
-        var IFramePage = document.getElementById("GameIFramePage");
-        IFramePage.src = "";
-        //非滿版遊戲介面
-        // $('#headerGameDetailContent').hide();
-        // $('#GameIFramePage').hide();
-        //非滿版遊戲介面 end
-
         //滿版遊戲介面
         $('#divGameFrame').css('display', 'none');
         //滿版遊戲介面 end
+        appendGameFrame();
+    }
+
+    function appendGameFrame() {
+        $("#divGameFrame").children().remove();
+        let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+        let w = vh * 16 / 9;
+
+        if (w > vw) {
+            w =  vw - 110;
+        } else if (Math.abs(vw - w) < 110) {
+            w = vw - 110;
+        }
+   
+        // class="divGameFrame"
+        let tmp = `<div class="divGameFrameWrapper">
+            <div class="btn-wrapper">
+                <div class="btn btn-game-close" onclick="CloseGameFrame()"><i class="icon icon-mask icon-error"></i></div>
+            </div>
+            <iframe id="GameIFramePage" style="width:${w}px;height:${vh}px;background-color:#09f" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock"></iframe>
+        </div>`;
+        $("#divGameFrame").append(tmp);
     }
     //#endregion
 
@@ -1658,7 +1675,8 @@
             }
 
             SearchControll = new searchControlInit("alertSearch");
-            
+
+            appendGameFrame();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
             //登入Check
