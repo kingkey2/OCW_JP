@@ -116,7 +116,7 @@
         {
             GameCode: "MG.429",
             GameBrand: "MG",
-            Location: "GameList_Brand",
+            Location: "GameList_Brand",ㄑ
             MobileSrc: "/images/lobby/dailypush-brand-M-001.jpg",
             PadSrc: "/images/lobby/dailypush-brand-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-brand-002.jpg",
@@ -215,7 +215,7 @@
                                 prevEl: ".categIndex_" + categ.categIndex + " .swiper-button-prev",
                             },
                             breakpoints: {
-
+                                
                                 936: {
                                     freeMode: false,
                                     slidesPerView: 5,
