@@ -307,7 +307,7 @@
         });
     };
 
-    this.ConfirmEPayDeposit = function (WebSID, GUID, OrderNumber, ActivityNames, Lang, cb) {
+    this.ConfirmEPayDeposit = function (WebSID, GUID, OrderNumber, ActivityNames, Lang, PaymentType, RequestType ,cb) {
         var url = APIUrl + "/ConfirmEPayDeposit";
         var postData;
 
@@ -316,8 +316,10 @@
             GUID: GUID,
             OrderNumber: OrderNumber,
             ActivityNames: ActivityNames,
-            Lang: Lang
-        };
+            Lang: Lang,
+            PaymentType: PaymentType,
+            RequestType: RequestType
+         };
 
         callService(url, postData, 10000, function (success, text) {
             if (success == true) {
