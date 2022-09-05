@@ -199,6 +199,23 @@
                         </a>
                         <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
+
+                    <!-- EPay -->
+                    <div class="card-item sd-03" id="idDepositEPayGASH">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGASH','DepositGASH.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">GASH</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center"> 
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
+                        </a>
+                    </div>
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">

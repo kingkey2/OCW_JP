@@ -329,7 +329,7 @@
     }
 
     function ConfirmPayPalDeposit() {
-        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang, function (success, o) {
+        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang,"EPay",0,function (success, o) {
             window.parent.API_LoadingEnd(1);
              if (success) {
                  if (o.Result == 0) {
