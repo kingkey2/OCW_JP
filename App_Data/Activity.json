@@ -70,6 +70,10 @@
       "InfoMethodName": "OpenIntroBonusToParent"
     },
     {
+      "Name": "Act006",
+      "Path": "2022_6/Act006.json"
+    },
+    {
       "Name": "Act008",
       "Path": "2022_9/Act008.json",
       "MethodName": "OpenBonusDeposit_Loop",
