@@ -77,11 +77,10 @@
                     });
                 }
             }
+            GetPaymentMethod();
+            startCountDown();
+            btn_NextStep();
         }, "PaymentAPI");
-
-        GetPaymentMethod();
-        startCountDown();
-        btn_NextStep();
 
         var EthWalletAddress = WebInfo.UserInfo.EthWalletAddress;
         var walletList = WebInfo.UserInfo.WalletList;
