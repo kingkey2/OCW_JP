@@ -43,7 +43,7 @@
                 }
             } else {
                 ResultObj.ResultCode = RecoverResult.enumResultCode.ERR;
-                ResultObj.Message = "LoginExpire:" + LoginResult.Message;
+                ResultObj.Message = "";
             }
         } else {
             ResultObj.ResultCode = RecoverResult.enumResultCode.ERR;

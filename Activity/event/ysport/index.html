@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="../../../css/basic.min.css">
     <style>
         /* td, tr, img  {line-height: 0;} */
-        .layer-1, .layer-2, .layer-3{
+        .layer-1, .layer-2, .layer-3 {
             padding: 0 10px;
-        } 
+        }
+
         .desktop {
             display: none;
         }
@@ -27,7 +28,6 @@
             width: 80px;
             height: 80px;
             color: #fff;
-            
             background-color: rgba(41, 132, 153, 0.784);
             /* background-color: #298599; */
             display: inline-flex;
@@ -40,31 +40,27 @@
             font-weight: bold;
             /* border-image: linear-gradient(to bottom right, #80FFF0 0%, #FFE600 100%);
             border-image-slice: 1; */
-            
         }
 
-        .fixedBtn .btn {
-            display: inline-flex;
-
-            background-color: #fff;
-            width: 10px;
-            height: 26px;
-
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-
-            -ms-flex-item-align: center;
-            -ms-grid-row-align: center;
-            align-self: center;
-            border-radius: 50%;
-            margin-bottom: 5px;
-        }
+            .fixedBtn .btn {
+                display: inline-flex;
+                background-color: #fff;
+                width: 10px;
+                height: 26px;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                -ms-flex-item-align: center;
+                -ms-grid-row-align: center;
+                align-self: center;
+                border-radius: 50%;
+                margin-bottom: 5px;
+            }
 
 
-        .fixedBtn .text::before {
-            content: '';
-        }
+            .fixedBtn .text::before {
+                content: '';
+            }
 
         .arrow {
             -webkit-transition: all 0.3s ease-out;
@@ -79,12 +75,12 @@
             transform-origin: center center;
         }
 
-        .arrow.arrow-right {
-            -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
-        }
+            .arrow.arrow-right {
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
 
-        .wrap-border{
+        .wrap-border {
             border-radius: 15px;
             border: solid 1px #fff;
             padding: 0 10px;
@@ -102,29 +98,27 @@
             overflow: hidden;
             display: flex;
             justify-content: center;
-
         }
 
-        .kv-text .text {
-            position: relative;
-            z-index: 1;
-            padding: 7px 5px 0;
-        }
+            .kv-text .text {
+                position: relative;
+                z-index: 1;
+                padding: 7px 5px 0;
+            }
 
-        .kv-text::before {
-            content: '';
-            display: inline-block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            border-radius: 50%;
-            background-color: #298599;
-
-            max-width: 480px;
-            height: 480px;
-            margin: 0 auto;
-        }
+            .kv-text::before {
+                content: '';
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                border-radius: 50%;
+                background-color: #298599;
+                max-width: 480px;
+                height: 480px;
+                margin: 0 auto;
+            }
 
 
         @media screen and (max-width: 425px) {
@@ -138,7 +132,7 @@
 
             .three-column img {
                 max-width: 280px !important;
-            }            
+            }
         }
 
         @media screen and (min-width: 426px) and (max-width: 620px) {
@@ -163,14 +157,20 @@
             .text-crop {
                 text-align: center;
             }
-            .text-crop .text-inlineblock {
-                display: block;
-                margin-bottom: 1rem;
-            }
+
+                .text-crop .text-inlineblock {
+                    display: block;
+                    margin-bottom: 1rem;
+                }
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script>
+        function openGameUrl() {
+            window.open("/OpenSumoGame.aspx");
+        }
+    </script>
 </head>
 
 <body
@@ -545,7 +545,7 @@
                                             </td>
                                         </tr>
                                         <tr style="">
-                                            <td class="" style="padding: 30px 0; text-align: center;">
+                                            <td class="" style="padding: 30px 0; text-align: center;" onclick="openGameUrl()">
                                                 <span class="btn mobile" style="">
                                                     <a href="" data-toggle="modal" data-target="#popupInfo"><img src="images/edm-ysport-b-link-s.png" alt="" style="border-width:0;width:100%; height:auto;"></a>
                                                 </span>
@@ -576,30 +576,12 @@
             </div>
         </div>
     </div>
-    <div class="fixedBtn" data-toggle="modal" data-target="#popupInfo">
+    <div class="fixedBtn" onclick="openGameUrl()">
         <span class="btn btn-round"> <i class="icon arrow arrow-right"></i></span>
         <span class="text">プレイ</span>
     </div>
 
-    <div class="modal fade no-footer popupGameInfo" id="popupInfo" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="content">
-                        9月場所は9/11に開催します。ベットはまもなくスタート！
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                </div>
-            </div>
-        </div>
-    </div>
+  
 </body>
 
 </html>
