@@ -588,7 +588,8 @@ public static class ActivityExpand {
                                     ThresholdValue = (decimal)ActivityDetail["Parent"]["ThresholdValue"],
                                     LoginAccount = LoginAccount,
                                     ParentLoginAccount = ocwResult.ParentLoginAccount,
-                                    ActivityName = ActivityDetail["Name"].ToString()
+                                    ActivityName = ActivityDetail["Name"].ToString(),
+                                    CollectAreaType = ActivityDetail["CollectAreaType"].ToString()
                                 };
 
                                 R.Data = RetData;
