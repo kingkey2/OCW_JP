@@ -2411,12 +2411,13 @@
                                     </li>
                                 </ul>
                             </li>
-                              <li class="nav-item navbarMenu__catagory">
+                              <li class="nav-item navbarMenu__catagory nav-lang">
                                 <ul class="catagory">
-                                    <li class="nav-item submenu dropdown"
+                                    <li class="nav-item submenu dropdown "
                                         onclick="showLangProp()">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-QA"></i>
+                                            <!-- icon-flag-JP/icon-flag-ZH 切換-->
+                                            <i class="icon icon-mask icon-flag-JP"></i>
                                             <span class="title language_replace">語言選擇</span></a>
                                     </li>
                                  
