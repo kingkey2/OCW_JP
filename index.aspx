@@ -2417,7 +2417,7 @@
                                         onclick="showLangProp()">
                                         <a class="nav-link">
                                             <i class="icon icon-mask icon-QA"></i>
-                                            <span class="title language_replace">請選擇語言</span></a>
+                                            <span class="title language_replace">語言選擇</span></a>
                                     </li>
                                  
                                 </ul>
@@ -2517,7 +2517,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" >
+                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display:none;" >
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
