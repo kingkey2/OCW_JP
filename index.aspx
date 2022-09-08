@@ -776,6 +776,16 @@
         }
     }
 
+    function showLangProp() {
+        if (EWinWebInfo.Lang=='JPN') {
+            $('.lang-popup-list').eq(0).find('input').eq(0).prop("checked", true);
+        } else {
+            $('.lang-popup-list').eq(0).find('input').eq(1).prop("checked", true);
+        }
+        
+        $('#ModalLanguage').modal('show');
+    }
+
     function nonCloseShowMessageOK(title, message, cbOK) {
         var nonCloseDom = $("#nonClose_alertContact");
         if (nonCloseDom.attr("aria-hidden") == 'true') {
@@ -2404,9 +2414,9 @@
                               <li class="nav-item navbarMenu__catagory">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown"
-                                        onclick="$('#ModalLanguage').modal('show')">
+                                        onclick="showLangProp()">
                                         <a class="nav-link">
-                                            <i class="icon icon-mask icon-deposit"></i>
+                                            <i class="icon icon-mask icon-QA"></i>
                                             <span class="title language_replace">請選擇語言</span></a>
                                     </li>
                                  
@@ -2507,7 +2517,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display:none">
+                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" >
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
