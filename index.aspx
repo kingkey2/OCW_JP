@@ -952,9 +952,9 @@
             }
 
             divMessageBoxTitle.innerHTML = title;
-            $(divMessageBoxContent).load(realPath);
-
-            modal.toggle();
+            $(divMessageBoxContent).load(realPath, function () {
+                modal.toggle();
+            });
         }
     }
 
@@ -2399,6 +2399,17 @@
                                             <i class="icon icon-mask icon-withdarw"></i>
                                             <span class="title language_replace">出款</span></a>
                                     </li>
+                                </ul>
+                            </li>
+                              <li class="nav-item navbarMenu__catagory">
+                                <ul class="catagory">
+                                    <li class="nav-item submenu dropdown"
+                                        onclick="$('#ModalLanguage').modal('show')">
+                                        <a class="nav-link">
+                                            <i class="icon icon-mask icon-deposit"></i>
+                                            <span class="title language_replace">請選擇語言</span></a>
+                                    </li>
+                                 
                                 </ul>
                             </li>
                             <li class="nav-item submenu dropdown" id="idLogoutItem">
