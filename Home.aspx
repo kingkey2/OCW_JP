@@ -230,13 +230,13 @@
             if (p != null) {
 
                 window.parent.API_LoadingEnd();
-                
+
                 getCompanyGameCode();
 
                 if (FourGames) {
                     updateFourGame();
                 }
-                
+
                 window.parent.API_GetUserThisWeekTotalValidBetValue(function (e) {
                     setUserThisWeekLogined(e);
                 })
@@ -247,9 +247,9 @@
                 });
             }
         });
-        
+
         initSwiper();
-        
+
         setBulletinBoard();
 
         iframeWidth = document.body.scrollWidth;
@@ -1175,7 +1175,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                     
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
@@ -1366,7 +1366,7 @@
                                                 <div class="sec-title">
                                                     <h3 class="title">
                                                         <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
-                                                    <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                        <span class="dailylogin-bouns-QA sec-title-intro-link">
                                                         <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
                                                 </div>
 
