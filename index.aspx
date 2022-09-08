@@ -2497,7 +2497,7 @@
                                                         <img src="images/avatar/avater-2.png" alt=""></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
-                                            <li class="register">
+                                            <li class="register" style="display:block !important">
                                                 <button class="btn-register btn " type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
                                             </li>
                                         </ul>
