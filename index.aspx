@@ -777,6 +777,7 @@
     }
 
     function showLangProp() {
+
         if (EWinWebInfo.Lang=='JPN') {
             $('.lang-popup-list').eq(0).find('input').eq(0).prop("checked", true);
         } else {
@@ -1380,26 +1381,38 @@
         var LangText;
         $("#btn_switchlang").children().remove();
 
+        if ($('#langIcon').hasClass('icon-flag-JP')) {
+            $('#langIcon').removeClass('icon-flag-JP');
+        }
+
+        if ($('#langIcon').hasClass('icon-flag-ZH')) {
+            $('#langIcon').removeClass('icon-flag-ZH');
+        }
         switch (Lang) {
             case "JPN":
                 LangText = "日本語";
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
+                $('#langIcon').addClass('icon-flag-JP');
                 break;
             case "CHT":
                 LangText = "繁體中文";
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
+                $('#langIcon').addClass('icon-flag-ZH');
                 break;
             case "ENG":
                 LangText = "日本語";
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
+                $('#langIcon').addClass('icon-flag-JP');
                 break;
             case "CHS":
                 LangText = "簡體中文";
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-ZH"></i>`);
+                $('#langIcon').addClass('icon-flag-ZH');
                 break;
             default:
                 LangText = "日本語";
                 $("#btn_switchlang").append(`<i class="icon icon-mask icon-flag-JP"></i>`);
+                $('#langIcon').addClass('icon-flag-JP');
                 break;
         }
 
@@ -1625,6 +1638,12 @@
         
         initByArt();
         switchLang(EWinWebInfo.Lang, false);
+        
+        if (EWinWebInfo.Lang == "JPN") {
+            $('#langIcon').addClass('icon-flag-JP');
+        } else {
+            $('#langIcon').addClass('icon-flag-ZH');
+        }
 
         mlp.loadLanguage(EWinWebInfo.Lang, function () {
 
@@ -2417,7 +2436,7 @@
                                         onclick="showLangProp()">
                                         <a class="nav-link">
                                             <!-- icon-flag-JP/icon-flag-ZH 切換-->
-                                            <i class="icon icon-mask icon-flag-JP"></i>
+                                            <i id="langIcon" class="icon icon-mask"></i>
                                             <span class="title language_replace">語言選擇</span></a>
                                     </li>
                                  
