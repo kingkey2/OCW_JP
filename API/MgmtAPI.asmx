@@ -654,13 +654,13 @@ public class MgmtAPI : System.Web.Services.WebService {
 
             for (int i = 0; i < gg.Count; i++) {
                 objRecipients = new Newtonsoft.Json.Linq.JObject();
-                objVariables = new Newtonsoft.Json.Linq.JObject();
+                //objVariables = new Newtonsoft.Json.Linq.JObject();
 
                 objRecipients.Add("name", (string)gg[i]);
                 objRecipients.Add("address", (string)gg[i]);
                 //寄信範本中使用 {{account}}，下列方式可在範本中做替換
-                objVariables.Add("account", (string)gg[i]);
-                objRecipients.Add("variables", objVariables);
+                //objVariables.Add("account", (string)gg[i]);
+                //objRecipients.Add("variables", objVariables);
 
                 aryRecipients.Add(objRecipients);
             }
