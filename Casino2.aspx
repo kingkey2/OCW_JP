@@ -323,7 +323,7 @@
                             disableOnInteraction: false,
                         }
                     });
-               
+
                 }
             }
         }
@@ -489,7 +489,7 @@
                                 addContainStart = false;
                                 addContainMiddle = false;
                             }
-                            
+
                             if (showType == 0) {
                                 if (Location == "GameList_Brand") {
                                     categArea = `<section class="section-wrap section-levelUp">
@@ -735,7 +735,7 @@
                                     </div>
                                 </div>
                                 <div class="intro language_replace is-hide">
-                                    遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹遊戲介紹
+                             
                                 </div>
                                 <div class="action">
                                     ${btnplay}
@@ -968,7 +968,7 @@
                     _gameCategoryCode = "etc";
                     break;
             }
-        
+
             if (!jquerydoc.hasClass('addedGameProp')) {
                 if (favoTimeStamp != null) {
                     if (WebInfo.DeviceType == 1) {
@@ -1315,7 +1315,7 @@
                     return slides;
                 }()),
             },
-          
+
             //或者 virtual: true,
         });
 
@@ -1482,9 +1482,8 @@
 <body class="innerBody">
 
     <main class="innerMain">
-    
+
         <div class="swiper-container swiper-container2" style="width: 300px; height: 200px;">
-          
         </div>
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">

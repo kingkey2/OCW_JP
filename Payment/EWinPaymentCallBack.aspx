@@ -100,7 +100,7 @@
                                                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
                                                         lobbyAPI.AddPromotionCollect(Token, PromotionCollectKey, activityData.ParentLoginAccount, EWinWeb.MainCurrencyType, int.Parse(CollectAreaType), 90, description, PropertySets.ToArray());
-                                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(activityData.ParentLoginAccount, description, JoinActivityCycle, 1, 0, 0);
+                                                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(BodyObj.LoginAccount, description, JoinActivityCycle, 1, 0, 0);
                                                     }
 
                                                     if (string.IsNullOrEmpty(TotalErrorMsg)) {

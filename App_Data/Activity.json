@@ -14,18 +14,6 @@
       "InfoMethodName": "OpenBonusDeposit"
     },
     {
-      "Name": "Act003",
-      "Path": "2022_6/Act003.json",
-      "MethodName": "OpenBonusSevenDaysDeposit",
-      "InfoMethodName": "OpenBonusSevenDaysDeposit"
-    },
-    {
-      "Name": "Act007",
-      "Path": "2022_8/Act007.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
       "Name": "Act008",
       "Path": "2022_9/Act008.json",
       "MethodName": "OpenBonusDeposit_Loop",
@@ -68,14 +56,12 @@
       "InfoMethodName": "RegisterBouns"
     },
     {
-      "Name": "Act003",
-      "Path": "2022_6/Act003.json",
-      "MethodName": "OpenBonusSevenDaysDeposit",
-      "InfoMethodName": "OpenBonusSevenDaysDeposit"
-    },
-    {
       "Name": "BS001",
       "Path": "BackendSend/BS001.json"
+    },
+    {
+      "Name": "Act003",
+      "Path": "2022_6/Act003.json"
     },
     {
       "Name": "Act005",
@@ -84,10 +70,8 @@
       "InfoMethodName": "OpenIntroBonusToParent"
     },
     {
-      "Name": "Act007",
-      "Path": "2022_8/Act007.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
+      "Name": "Act006",
+      "Path": "2022_6/Act006.json"
     },
     {
       "Name": "Act008",

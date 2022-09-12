@@ -230,13 +230,13 @@
             if (p != null) {
 
                 window.parent.API_LoadingEnd();
-                
+
                 getCompanyGameCode();
 
                 if (FourGames) {
                     updateFourGame();
                 }
-                
+
                 window.parent.API_GetUserThisWeekTotalValidBetValue(function (e) {
                     setUserThisWeekLogined(e);
                 })
@@ -247,9 +247,9 @@
                 });
             }
         });
-        
+
         initSwiper();
-        
+
         setBulletinBoard();
 
         iframeWidth = document.body.scrollWidth;
@@ -598,7 +598,7 @@
                     if (category) {
 
                         if (category.Datas.length > 0) {
-                            var categArea;
+                            var categArea="";
                             var textlink;
                             var gameItems = "";
                             var categName;
@@ -770,8 +770,10 @@
                                             </a>`;
                             }
 
-                            if (category.SortIndex >= 90) {
-                                categArea = ` <section class="section-wrap section-levelUp">
+                            if (gameItems != "") {
+
+                                if (category.SortIndex >= 90) {
+                                    categArea = ` <section class="section-wrap section-levelUp">
                                               <div class="game_wrapper">
                                               <div class="sec-title-container">
                                               <div class="sec-title-wrapper">
@@ -788,8 +790,8 @@
                                               </div>
                                               </div>
                                               </section>`;
-                            } else {
-                                categArea = ` <section class="section-wrap section-levelUp">
+                                } else {
+                                    categArea = ` <section class="section-wrap section-levelUp">
                                              <div class="game_wrapper">
                                              <div class="sec-title-container">
                                              <div class="sec-title-wrapper">
@@ -805,8 +807,9 @@
                                              </div>
                                              </div>
                                              </section>`;
-
+                                }
                             }
+
 
                             categAreas += categArea;
                         }
@@ -1175,7 +1178,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                     
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
@@ -1366,7 +1369,7 @@
                                                 <div class="sec-title">
                                                     <h3 class="title">
                                                         <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
-                                                    <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                        <span class="dailylogin-bouns-QA sec-title-intro-link">
                                                         <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
                                                 </div>
 
