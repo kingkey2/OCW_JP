@@ -598,7 +598,7 @@
                     if (category) {
 
                         if (category.Datas.length > 0) {
-                            var categArea;
+                            var categArea="";
                             var textlink;
                             var gameItems = "";
                             var categName;
@@ -770,8 +770,10 @@
                                             </a>`;
                             }
 
-                            if (category.SortIndex >= 90) {
-                                categArea = ` <section class="section-wrap section-levelUp">
+                            if (gameItems != "") {
+
+                                if (category.SortIndex >= 90) {
+                                    categArea = ` <section class="section-wrap section-levelUp">
                                               <div class="game_wrapper">
                                               <div class="sec-title-container">
                                               <div class="sec-title-wrapper">
@@ -788,8 +790,8 @@
                                               </div>
                                               </div>
                                               </section>`;
-                            } else {
-                                categArea = ` <section class="section-wrap section-levelUp">
+                                } else {
+                                    categArea = ` <section class="section-wrap section-levelUp">
                                              <div class="game_wrapper">
                                              <div class="sec-title-container">
                                              <div class="sec-title-wrapper">
@@ -805,8 +807,9 @@
                                              </div>
                                              </div>
                                              </section>`;
-
+                                }
                             }
+
 
                             categAreas += categArea;
                         }
