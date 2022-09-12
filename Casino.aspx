@@ -1314,7 +1314,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
+                  <%--  <div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
@@ -1326,7 +1326,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->
