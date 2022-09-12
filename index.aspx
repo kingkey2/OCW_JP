@@ -2842,8 +2842,6 @@
                 </div>
                 <%--<div class="loader-text language_replace">正在加載...</div>--%>
             </div>
-
-
         </div>
         <div class="loader-backdrop is-show"></div>
     </div>
@@ -2885,81 +2883,90 @@
                         </div>
 
                         <ul class="nav navbar-nav menu_nav no-gutters">
-                            <li class="nav-item navbarMenu__catagory">
-                                <ul class="catagory">
-                                    <li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-all"></i>
-                                            <span class="title language_replace">遊戲大廳</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown"
-                                        onclick="openGame('YS', 'Sumo', '')">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-sumo"></i>
-                                            <span class="title language_replace">相撲</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item navbarMenu__catagory">
-                                <ul class="catagory">
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
-                                            <i class="icon icon-mask icon-people"></i>
-                                            <span class="title language_replace">會員中心</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
-                                            <i class="icon icon-mask icon-loudspeaker"></i>
-                                            <span class="title language_replace">活動中心</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
+                            <ul class="menu_nav_top">
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-all"></i>
+                                                <span class="title language_replace">遊戲大廳</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="openGame('YS', 'Sumo', '')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-sumo"></i>
+                                                <span class="title language_replace">相撲</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
+                                                <i class="icon icon-mask icon-people"></i>
+                                                <span class="title language_replace">會員中心</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
+                                                <i class="icon icon-mask icon-loudspeaker"></i>
+                                                <span class="title language_replace">活動中心</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown">
+    
+                                            <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                                <!-- 通知小紅點 -->
+                                                <span class="notify-dot PC-notify-dot" style="display:none;"></span>
+                                                <i class="icon icon-mask icon-prize"></i>
+                                                <span class="title language_replace">領獎中心</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
+                                                <i class="icon icon-mask icon-calendar"></i>
+                                                <span class="title language_replace">履歷記錄</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-QA"></i>
+                                                <span class="title language_replace">Q&A</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="window.open('https://lin.ee/KD05l9X')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-line"></i>
+                                                <span class="title language_replace">Line</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-deposit"></i>
+                                                <span class="title language_replace">存款</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-withdarw"></i>
+                                                <span class="title language_replace">出款</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item submenu dropdown" id="idLogoutItem">
+                                    <a class="nav-link" onclick="API_Logout(true)">
+                                        <!-- <i class="icon icon2020-ico-login"></i> -->
+                                        <i class="icon icon-mask icon-logout"></i>
+                                        <span class="language_replace" langkey="登出">登出</span></a>
+                                </li>
 
-                                        <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
-                                            <!-- 通知小紅點 -->
-                                            <span class="notify-dot PC-notify-dot" style="display:none;"></span>
-                                            <i class="icon icon-mask icon-prize"></i>
-                                            <span class="title language_replace">領獎中心</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown">
-                                        <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
-                                            <i class="icon icon-mask icon-calendar"></i>
-                                            <span class="title language_replace">履歷記錄</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item navbarMenu__catagory">
-                                <ul class="catagory">
-                                    <li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-QA"></i>
-                                            <span class="title language_replace">Q&A</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown"
-                                        onclick="window.open('https://lin.ee/KD05l9X')">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-line"></i>
-                                            <span class="title language_replace">Line</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item navbarMenu__catagory">
-                                <ul class="catagory">
-                                    <li class="nav-item submenu dropdown"
-                                        onclick="API_LoadPage('Deposit','Deposit.aspx', true)">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-deposit"></i>
-                                            <span class="title language_replace">存款</span></a>
-                                    </li>
-                                    <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
-                                        <a class="nav-link">
-                                            <i class="icon icon-mask icon-withdarw"></i>
-                                            <span class="title language_replace">出款</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                              <li class="nav-item navbarMenu__catagory nav-lang">
+                            </ul>
+                            <li class="nav-item navbarMenu__catagory nav-lang">
                                 <ul class="catagory">
                                     <li class="nav-item submenu dropdown "
                                         onclick="showLangProp()">
@@ -2970,12 +2977,6 @@
                                     </li>
                                  
                                 </ul>
-                            </li>
-                            <li class="nav-item submenu dropdown" id="idLogoutItem">
-                                <a class="nav-link" onclick="API_Logout(true)">
-                                    <!-- <i class="icon icon2020-ico-login"></i> -->
-                                    <i class="icon icon-mask icon-logout"></i>
-                                    <span class="language_replace" langkey="登出">登出</span></a>
                             </li>
                         </ul>
                     </div>
