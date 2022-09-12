@@ -392,7 +392,14 @@
     function API_Logout(isRefresh) {
         EWinWebInfo.UserInfo = null;
         EWinWebInfo.UserLogined = false;
-        window.sessionStorage.clear();
+
+        for (var i = 0; i < Object.keys(window.sessionStorage).length; i++) {
+            var sessionStorageKeys = Object.keys(window.sessionStorage)[i];
+            if (sessionStorageKeys != 'OpenGameBeforeLogin') {
+                window.sessionStorage.removeItem(sessionStorageKeys);
+            } 
+        }
+      
         delCookie("RecoverToken");
         delCookie("LoginAccount");
         delCookie("CT");
@@ -1602,9 +1609,15 @@
             }
 
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
-                window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify({ GameBrand: gameBrand, GameName: gameName, GameLangName: gameLangName }));
-                API_LoadPage("Login", "Login.aspx");                
+                var gameData = {
+                    GameBrand: gameBrand,
+                    GameName: gameName,
+                    GameLangName: gameLangName
+                }
+                window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
+                API_LoadPage("Login", "Login.aspx");
             }, null);
+
         } else {
             EWinWebInfo.IsOpenGame = true;
             GCB.AddPlayed(gameBrand + "." + gameName, function (success) {
@@ -2232,13 +2245,11 @@
 
             }
             else {
-
                 if (EWinWebInfo.SID != "") {
                     API_Casino();
                 } else {
                     API_Home();
                 }
-
             }
 
             SearchControll = new searchControlInit("alertSearch");
@@ -2268,7 +2279,7 @@
                                         if (openGameBeforeLoginStr) {                                            
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
-                                            window.sessionStorage.removeItem("SrcPage");
+                                            window.sessionStorage.removeItem("OpenGameBeforeLogin");
                                             openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
                                         } else {
                                             var srcPage = window.sessionStorage.getItem("SrcPage");
