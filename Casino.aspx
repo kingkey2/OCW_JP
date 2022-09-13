@@ -308,7 +308,7 @@
                         var showType = category.ShowType;
                         var game_wrapper = "";
                         if (category.Datas.length > 0) {
-                            var categArea;
+                            var categArea="";
                             var textlink;
                             var gameItems = "";
 
@@ -360,9 +360,11 @@
                                 addContainStart = false;
                                 addContainMiddle = false;
                             }
-                            if (showType == 0) {
-                                if (Location == "GameList_Brand") {
-                                    categArea = `<section class="section-wrap section-levelUp">
+
+                            if (gameItems!="") {
+                                if (showType == 0) {
+                                    if (Location == "GameList_Brand") {
+                                        categArea = `<section class="section-wrap section-levelUp">
                                                     ${game_wrapper}
                                                     <div class="sec-title-container">
                                                     <div class="sec-title-wrapper">
@@ -381,9 +383,9 @@
                                                     </div>
                                                     </div>
                                                     </section>`;
-                                }
-                                else {
-                                    categArea = `<section class="section-wrap section-levelUp">
+                                    }
+                                    else {
+                                        categArea = `<section class="section-wrap section-levelUp">
                                                 ${game_wrapper}
                                                 <div class="sec-title-container">
                                                 <div class="sec-title-wrapper">
@@ -401,10 +403,10 @@
                                                 </div>
                                                 </div>
                                                 </section>`;
-                                }
-                            } else if (showType == 1) {
-                                if (Location == "GameList_Brand") {
-                                    categArea = `<section class="section-wrap section-levelUp gameRanking">
+                                    }
+                                } else if (showType == 1) {
+                                    if (Location == "GameList_Brand") {
+                                        categArea = `<section class="section-wrap section-levelUp gameRanking">
                                                     ${game_wrapper}
                                                     <div class="sec-title-container">
                                                     <div class="sec-title-wrapper">
@@ -423,9 +425,9 @@
                                                     </div>
                                                     </div>
                                                     </section>`;
-                                }
-                                else {
-                                    categArea = `<section class="section-wrap section-levelUp gameRanking">
+                                    }
+                                    else {
+                                        categArea = `<section class="section-wrap section-levelUp gameRanking">
                                                 ${game_wrapper}
                                                 <div class="sec-title-container">
                                                 <div class="sec-title-wrapper">
@@ -443,10 +445,10 @@
                                                 </div>
                                                 </div>
                                                 </section>`;
+                                    }
                                 }
-                            }
-                            else if (showType == 2) {
-                                categArea = `<section class="section-wrap section_randomRem">
+                                else if (showType == 2) {
+                                    categArea = `<section class="section-wrap section_randomRem">
                                                     <div class="container">
                                                         <div class="game_wrapper">
                                                             <div class="sec-title-container">
@@ -461,7 +463,10 @@
                                                         </div>
                                                     </div>
                                                 </section>`;
+                                }
                             }
+
+                         
 
                             if (addContainMiddle) {
                                 categAreas += categArea;
@@ -1309,7 +1314,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
+                  <%--  <div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
@@ -1321,7 +1326,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->

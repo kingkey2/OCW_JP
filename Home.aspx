@@ -598,7 +598,7 @@
                     if (category) {
 
                         if (category.Datas.length > 0) {
-                            var categArea;
+                            var categArea="";
                             var textlink;
                             var gameItems = "";
                             var categName;
@@ -770,8 +770,10 @@
                                             </a>`;
                             }
 
-                            if (category.SortIndex >= 90) {
-                                categArea = ` <section class="section-wrap section-levelUp">
+                            if (gameItems != "") {
+
+                                if (category.SortIndex >= 90) {
+                                    categArea = ` <section class="section-wrap section-levelUp">
                                               <div class="game_wrapper">
                                               <div class="sec-title-container">
                                               <div class="sec-title-wrapper">
@@ -788,8 +790,8 @@
                                               </div>
                                               </div>
                                               </section>`;
-                            } else {
-                                categArea = ` <section class="section-wrap section-levelUp">
+                                } else {
+                                    categArea = ` <section class="section-wrap section-levelUp">
                                              <div class="game_wrapper">
                                              <div class="sec-title-container">
                                              <div class="sec-title-wrapper">
@@ -805,8 +807,9 @@
                                              </div>
                                              </div>
                                              </section>`;
-
+                                }
                             }
+
 
                             categAreas += categArea;
                         }
@@ -1215,7 +1218,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
+                  <%--  <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html', true)"></a>
                             <!-- <a class="hero-item-link " onclick="API_LoadPage('ActMishuha','/Activity/ActMishuha/index.html')"></a> -->
@@ -1228,7 +1231,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
                 <div class="swiper-mask"></div>
                 <%--
@@ -1253,9 +1256,9 @@
                             <div class="swiper-slide">
                                 <img src="images/banner/thumb-3.png" alt="">
                             </div>
-                            <div class="swiper-slide">
+                         <%--   <div class="swiper-slide">
                                 <img src="images/banner/thumb-4.png" alt="">
-                            </div>
+                            </div>--%>
                         </div>
                     </div>
                 </div>
