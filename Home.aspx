@@ -78,7 +78,7 @@
             GameName: "OnmologistEX",
             GameBrand: "CG",
             GameLangName: "CG.OnmologistEX",
-            GameNameJP: "陰陽師",
+            GameNameJP: "オンミョウジ",
             Description: "先月、最大スピン数が出たゲームです"
         },
         {
@@ -92,7 +92,7 @@
             GameName: "NinjaEX",
             GameBrand: "CG",
             GameLangName: "CG.NinjaEX",
-            GameNameJP: "新　サムライ",
+            GameNameJP: "ニンジャウォーリアー",
             Description: "大ヒット！ビッグウィンランキング一位を獲得したゲームです。"
         },
         {
