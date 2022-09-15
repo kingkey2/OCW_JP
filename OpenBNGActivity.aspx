@@ -4,13 +4,14 @@
 
     RedisCache.SessionContext.SIDInfo SI;
     string SID = Request["SID"];
+    string Event = Request["event"];
 
     SI = RedisCache.SessionContext.GetSIDInfo(SID);
 
     if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-       Response.Redirect("https://servicebooongo.com/bngevent/event?event=202209BR&lang=jp&currency=JPY&project=kingkey&player_token=OCOIN_"+SI.EWinSID);
+       Response.Redirect("https://servicebooongo.com/bngevent/event?event="+Event+"&lang=jp&currency=JPY&project=kingkey&player_token=OCOIN_"+SI.EWinSID);
     } else {
-       Response.Redirect("https://servicebooongo.com/bngevent/event?event=202209BR&lang=jp&currency=JPY&project=kingkey");
+       Response.Redirect("https://servicebooongo.com/bngevent/event?event="+Event+"&lang=jp&currency=JPY&project=kingkey");
     }
 %>
 <!doctype html>
