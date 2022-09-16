@@ -4,7 +4,7 @@
     string PaymentSerial = Request["PaymentSerial"];
     string OrderDate = Request["OrderDate"];
     string Amount = Request["Amount"];
-    string Version=EWinWeb.Version;
+    string Version = EWinWeb.Version;
 %>
 
 <!DOCTYPE html>
@@ -34,7 +34,7 @@
     var lang;
     var v ="<%:Version%>";
     function init() {
-         //if (window.localStorage.getItem("Lang")) {
+        //if (window.localStorage.getItem("Lang")) {
         //    lang = window.localStorage.getItem("Lang");
         //} else {
         //    lang = "CHT";
@@ -43,8 +43,8 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
 
-        },"PaymentAPI");
-        
+        }, "PaymentAPI");
+
         $("#amount").text(Amount);
         $("#tranID").text(TranID);
         $("#tranDate").text(TranDate);
@@ -84,7 +84,7 @@
 
                 <div class="progress-title text-wrap">
                     <!-- <p data-deposite="step2">輸入存款金額</p> -->
-                    <p data-deposite="step2" class="language_replace">完成</p>
+                    <p data-deposite="step2" class="language_replace">存款失敗</p>
                 </div>
 
                 <div class="split-layout-container">
@@ -105,7 +105,7 @@
                                         <p class="transaction_resultTitle"><span class="language_replace">存款失敗</span></p>
                                         <p class="transaction_resultDesc"><span class="language_replace">本次存款並未完成!</span></p>
                                     </div>
-                                    <div class="transaction_notice is-hide" style="text-align:center">
+                                    <div class="transaction_notice is-hide" style="text-align: center">
                                         <div class="transaction_currency">
                                             <span class="transaction_amountTitle"><span class="language_replace">訂單編號</span></span>
                                             <div class="transaction_currencyAmount" id="tranID"></div>
@@ -125,7 +125,7 @@
                                     <ul class="notice">
                                         <p class="language_replace">交易失敗提示：</p>
 
-                                        <li class="item-notice language_replace">信用卡或PayPal：
+                                        <li class="item-notice language_replace"><span class="language_replace">信用卡或PayPal：</span>
                                         <ul class="sub">
                                             <li class="item language_replace">銀行的檢核過程可能遇到問題，可嘗試重新進行交易。</li>
 
@@ -135,7 +135,7 @@
                                         </ul>
 
                                         </li>
-                                        <li class="item-notice language_replace">虛擬貨幣：
+                                        <li class="item-notice language_replace"><span class="language_replace">虛擬貨幣：</span>
                                         <ul class="sub">
                                             <li class="item language_replace">交易所的錢包餘額不足。</li>
                                             <li class="item language_replace">網路異常或不穩定。</li>
@@ -204,8 +204,8 @@
             </div>
         </div>
     </div>
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="../src/js/wallet.js"></script>
 
