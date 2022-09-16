@@ -13,6 +13,7 @@
     string SID = string.Empty;
     string CT = string.Empty;
     string PCode = string.Empty;
+    string PageType = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
@@ -34,6 +35,11 @@
     if (string.IsNullOrEmpty(Request["PCode"]) == false)
     {
         PCode = Request["PCode"];
+    }
+
+     if (string.IsNullOrEmpty(Request["PageType"]) == false)
+    {
+        PageType = Request["PageType"];
     }
 
     if (GoEwinLogin == 1)
@@ -286,7 +292,7 @@
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
     var PCode = "<%=PCode%>";
-
+    var PageType = "<%=PageType%>";
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -2205,6 +2211,16 @@
                     document.removeEventListener('click', enableNoSleep, false);
                     noSleep.enable();
                 }, false);
+            }
+
+            if (PageType != null && PageType != "" && PageType == "OpenSumo") {
+                var gameData = {
+                    GameBrand: "YS",
+                    GameName: "Sumo",
+                    GameLangName: mlp.getLanguageKey("相撲")
+                }
+                window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
+                API_LoadPage("Login", "Login.aspx");
             }
 
             if (EWinWebInfo.DeviceType == 1) {
