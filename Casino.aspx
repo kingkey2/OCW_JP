@@ -1301,6 +1301,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=9')"></a>
