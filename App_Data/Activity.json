@@ -60,6 +60,14 @@
       "Path": "BackendSend/BS001.json"
     },
     {
+      "Name": "BS002",
+      "Path": "BackendSend/BS002.json"
+    },
+    {
+      "Name": "BS003",
+      "Path": "BackendSend/BS003.json"
+    },
+    {
       "Name": "Act003",
       "Path": "2022_6/Act003.json"
     },

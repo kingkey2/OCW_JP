@@ -68,9 +68,9 @@
         var SID = window.top.EWinWebInfo.SID;
         var btn = document.getElementById("btn1");
         if (SID != "") {
-            btn.setAttribute('href', "/OpenBNGActivity.aspx?SID=" + window.top.EWinWebInfo.SID);
+            btn.setAttribute('href', "/OpenBNGActivity.aspx?SID=" + window.top.EWinWebInfo.SID + "&event=202209BH");
         } else {
-            btn.setAttribute('href', "/OpenBNGActivity.aspx");
+            btn.setAttribute('href', "/OpenBNGActivity.aspx?event=202209BH");
         }
     }
 

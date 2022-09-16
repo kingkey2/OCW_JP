@@ -1303,19 +1303,6 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=9')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/slider-BNG-MoonFestival-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/slider-BNG-MoonFestival.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=8')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/slider-ne-rt-s.jpg" alt="">

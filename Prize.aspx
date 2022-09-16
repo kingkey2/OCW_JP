@@ -498,10 +498,10 @@
                         <figcaption class="title language_replace">ゴールドヒット！ゴールドヒット！ ゴールドヒット！</figcaption>
                         <div class="date-period language_replace">
                             <span class="date-period-start">
-                                <span class="year year_c">2022</span><span class="month month_c">04</span><span class="day day_c">04</span>
+                                <span class="year year_c"></span><span class="month month_c"></span><span class="day day_c"></span>
                             </span>
                             <span class="date-period-end">
-                                <span class="year year_e">2022</span><span class="month month_e">06</span><span class="day day_c">06</span>
+                                <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
                             </span>
                         </div>
                         <span class="prize-status text-primary language_replace">可領取</span>
@@ -527,7 +527,7 @@
                         <figcaption class="title language_replace"></figcaption>
                         <div class="date-period language_replace">
                             <span class="date-period-start">
-                                <span class="year year_c">2022</span><span class="month month_c">04</span><span class="day day_c">04</span>
+                                <span class="year year_c"></span><span class="month month_c"></span><span class="day day_c"></span>
                             </span>
                             <span class="date-period-end">
                                 <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
