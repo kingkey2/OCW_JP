@@ -308,7 +308,7 @@
                         var showType = category.ShowType;
                         var game_wrapper = "";
                         if (category.Datas.length > 0) {
-                            var categArea;
+                            var categArea="";
                             var textlink;
                             var gameItems = "";
 
@@ -360,9 +360,11 @@
                                 addContainStart = false;
                                 addContainMiddle = false;
                             }
-                            if (showType == 0) {
-                                if (Location == "GameList_Brand") {
-                                    categArea = `<section class="section-wrap section-levelUp">
+
+                            if (gameItems!="") {
+                                if (showType == 0) {
+                                    if (Location == "GameList_Brand") {
+                                        categArea = `<section class="section-wrap section-levelUp">
                                                     ${game_wrapper}
                                                     <div class="sec-title-container">
                                                     <div class="sec-title-wrapper">
@@ -381,9 +383,9 @@
                                                     </div>
                                                     </div>
                                                     </section>`;
-                                }
-                                else {
-                                    categArea = `<section class="section-wrap section-levelUp">
+                                    }
+                                    else {
+                                        categArea = `<section class="section-wrap section-levelUp">
                                                 ${game_wrapper}
                                                 <div class="sec-title-container">
                                                 <div class="sec-title-wrapper">
@@ -401,10 +403,10 @@
                                                 </div>
                                                 </div>
                                                 </section>`;
-                                }
-                            } else if (showType == 1) {
-                                if (Location == "GameList_Brand") {
-                                    categArea = `<section class="section-wrap section-levelUp gameRanking">
+                                    }
+                                } else if (showType == 1) {
+                                    if (Location == "GameList_Brand") {
+                                        categArea = `<section class="section-wrap section-levelUp gameRanking">
                                                     ${game_wrapper}
                                                     <div class="sec-title-container">
                                                     <div class="sec-title-wrapper">
@@ -423,9 +425,9 @@
                                                     </div>
                                                     </div>
                                                     </section>`;
-                                }
-                                else {
-                                    categArea = `<section class="section-wrap section-levelUp gameRanking">
+                                    }
+                                    else {
+                                        categArea = `<section class="section-wrap section-levelUp gameRanking">
                                                 ${game_wrapper}
                                                 <div class="sec-title-container">
                                                 <div class="sec-title-wrapper">
@@ -443,10 +445,10 @@
                                                 </div>
                                                 </div>
                                                 </section>`;
+                                    }
                                 }
-                            }
-                            else if (showType == 2) {
-                                categArea = `<section class="section-wrap section_randomRem">
+                                else if (showType == 2) {
+                                    categArea = `<section class="section-wrap section_randomRem">
                                                     <div class="container">
                                                         <div class="game_wrapper">
                                                             <div class="sec-title-container">
@@ -461,7 +463,10 @@
                                                         </div>
                                                     </div>
                                                 </section>`;
+                                }
                             }
+
+                         
 
                             if (addContainMiddle) {
                                 categAreas += categArea;
@@ -1098,22 +1103,16 @@
         iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";
-
-        //console.log("createCategory start", new Date().toISOString());
+        
         createCategory(selectedCategoryCode, function () {
             //$('#idGameItemTitle .tab-item').eq(0).addClass('active');
             $('#categoryPage_' + selectedCategoryCode).css('display', 'block');
 
             //$('#categoryPage_' + selectedCategoryCode).removeClass('contain-disappear');
             //$('#categoryPage_' + selectedCategoryCode).css('overflow-y', 'hidden');
-
-
-
-            //console.log("setSwiper start", new Date().toISOString());
+            
             setSwiper(selectedCategoryCode);
-            //console.log("setSwiper end", new Date().toISOString());
         });
-        //console.log("createCategory end", new Date().toISOString());
 
     }
 
@@ -1170,30 +1169,22 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             if (p != null) {
-
-                //console.log("getCompanyGameCode start", new Date().toISOString());
                 getCompanyGameCode();
-                //console.log("getCompanyGameCode end", new Date().toISOString());
             } else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                     window.parent.location.href = "index.aspx";
                 });
             }
-
-
         });
     }
 
     function getCompanyGameCode() {
-        //console.log("GetCompanyGameCodeThree start", new Date().toISOString());
         p.GetCompanyGameCodeThree(Math.uuid(), "GameList", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.LobbyGameList.length > 0) {
                         LobbyGameList = o.LobbyGameList;
-                        //console.log("updateGameCode start", new Date().toISOString());
                         updateGameCode();
-                        //console.log("updateGameCode end", new Date().toISOString());
                     } else {
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
                             window.parent.location.href = "index.aspx";
@@ -1212,7 +1203,6 @@
             }
 
         });
-        //console.log("GetCompanyGameCodeThree end", new Date().toISOString());
     }
 
     function setDefaultIcon(brand, name) {
@@ -1271,7 +1261,33 @@
     <main class="innerMain">
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
-                <div class="swiper-wrapper">   
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.open('Activity/event/ysport/index.html')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/sumo-mobie.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/sumo-pc-2.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=10')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/slider-BNG-220919BH-s.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/slider-BNG-220919BH.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','/Article/guide-TripleCrown.html?Page=CasinoPage')"></a>
@@ -1285,6 +1301,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=8')"></a>
@@ -1298,8 +1315,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="swiper-slide">
+                  <%--  <div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
@@ -1311,7 +1327,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->

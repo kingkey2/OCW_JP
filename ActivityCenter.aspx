@@ -84,6 +84,12 @@
                         case "8":
                             GoActivityDetail(8, '/Activity/event/ne-rt/08222022/index-jp.html');
                             break;
+                        case "9":
+                            GoActivityDetail(9, '/Activity/event/bng/09092022moonfestival/index-jp.html');
+                            break;
+                        case "10":
+                            GoActivityDetail(10, '/Activity/event/bng/bng220919BH/index-jp.html');
+                            break;
                     }
                 }
 
@@ -109,13 +115,6 @@
                                 }
                                 $('#ModalRegister .btn-primary').addClass('is-hide');
 
-                            } else if (o.Datas[i].ActivityName == 'Act001') {
-                                if (o.Datas[i].CollectCount == o.Datas[i].JoinCount) {
-                                    $('#ModalDeposit .btn-secondary').removeClass('is-hide');  
-                                } else {
-                                    $('#ModalDeposit .btn-full-sub').removeClass('is-hide');
-                                }
-                                $('#ModalDeposit .btn-primary').addClass('is-hide');
                             }
                         }
                     } else {
@@ -179,6 +178,18 @@
                     popupBtnHide = 0;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
+                case 9:
+                    title = "ブンーゴー中秋の名月";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 1;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                break;    
+                case 10:
+                    title = "BNGまほう怪盗トーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 1;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                break;    
                 default:
                     break;
             }
@@ -273,6 +284,26 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
                         <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(10,'/Activity/event/bng/bng220919BH/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng220919BH/img/img-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">キャンペーン期間中にブン―ゴーの対象ゲームをプレイすれば、最大160,000のギフトマネーがもらえる！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        
+                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(8,'/Activity/event/ne-rt/08222022/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -345,6 +376,25 @@
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(3)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(9,'/Activity/event/bng/09092022moonfestival/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/09092022moonfestival/img/img-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">ブンーゴーの対象ゲームをプレイすれば、最大360,000のギフトマネーがもらえる！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
                                         <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
@@ -451,8 +501,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">參加活動</button>
-
+   
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
@@ -507,13 +556,8 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
-
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">前往入金</button>
-
-                    <!--獎勵不可領取-->
-                    <button type="button" class="btn btn-secondary is-hide language_replace" disabled>前往入金</button>
+                    <button type="button" class="btn btn-full-sub language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
                 </div>
             </div>
         </div>
