@@ -78,7 +78,7 @@
             GameName: "OnmologistEX",
             GameBrand: "CG",
             GameLangName: "CG.OnmologistEX",
-            GameNameJP: "陰陽師",
+            GameNameJP: "オンミョウジ",
             Description: "先月、最大スピン数が出たゲームです"
         },
         {
@@ -92,7 +92,7 @@
             GameName: "NinjaEX",
             GameBrand: "CG",
             GameLangName: "CG.NinjaEX",
-            GameNameJP: "新　サムライ",
+            GameNameJP: "ニンジャウォーリアー",
             Description: "大ヒット！ビッグウィンランキング一位を獲得したゲームです。"
         },
         {
@@ -103,17 +103,17 @@
             Description: "0から36まで37スポットのヨーロピアンタイプルーレットだが、毎回ランダムに発生する演出で配当が 50倍〜500倍GETできる！"
         },
         {
-            GameName: "89",
-            GameBrand: "PG",
-            GameLangName: "PG.89",
-            GameNameJP: "ラッキー・ネコ",
-            Description: "最高32400のマルチウェイ！最高倍率はなんと10万倍だ！熱い！"
-        }, {
             GameName: "EWinGaming",
             GameBrand: "EWin",
             GameLangName: "EWinGaming",
             GameNameJP: "EWinゲーミング",
             Description: "元祖ライブバカラ新しいサービス初めました！"
+        }, {
+            GameName: "Sumo",
+            GameBrand: "YS",
+            GameLangName: "YS.Sumo",
+            GameNameJP: "相撲",
+            Description: "大相撲がY sportで大登場！是非世界初のブックメーカー楽しんで下さい。"
         }
     ];
 

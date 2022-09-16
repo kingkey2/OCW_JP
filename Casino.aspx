@@ -1277,6 +1277,19 @@
                     </div> 
                     <div class="swiper-slide">
                         <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=10')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/slider-BNG-220919BH-s.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/slider-BNG-220919BH.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','/Article/guide-TripleCrown.html?Page=CasinoPage')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/crown-m.jpg" alt="">
@@ -1284,19 +1297,6 @@
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
                                     <img src="images/lobby/crown.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=9')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/slider-BNG-MoonFestival-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/slider-BNG-MoonFestival.jpg" class="bg">
                                 </div>
                             </div>
                         </div>

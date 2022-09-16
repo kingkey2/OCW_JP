@@ -1033,7 +1033,7 @@ public class LobbyAPI : System.Web.Services.WebService {
             Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
 
             objBody.Add("subject", subjectString);
-            objBody.Add("fromName", "edm@casino-maharaja.com");
+            objBody.Add("fromName", "マハラジャ");
             objBody.Add("fromAddress", "edm@casino-maharaja.com");
             objBody.Add("content", bodyString);
 
@@ -1222,7 +1222,7 @@ public class LobbyAPI : System.Web.Services.WebService {
             Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
 
             objBody.Add("subject", Subject);
-            objBody.Add("fromName", "edm@casino-maharaja.com");
+            objBody.Add("fromName", "マハラジャ");
             objBody.Add("fromAddress", "edm@casino-maharaja.com");
             objBody.Add("content", SendBody);
 
@@ -1259,7 +1259,7 @@ public class LobbyAPI : System.Web.Services.WebService {
             Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
 
             objBody.Add("subject", Subject);
-            objBody.Add("fromName", "edm@casino-maharaja.com");
+            objBody.Add("fromName", "マハラジャ");
             objBody.Add("fromAddress", "edm@casino-maharaja.com");
             objBody.Add("content", SendBody);
 
