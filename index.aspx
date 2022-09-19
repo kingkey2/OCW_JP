@@ -2213,16 +2213,6 @@
                 }, false);
             }
 
-            if (PageType != null && PageType != "" && PageType == "OpenSumo") {
-                var gameData = {
-                    GameBrand: "YS",
-                    GameName: "Sumo",
-                    GameLangName: mlp.getLanguageKey("相撲")
-                }
-                window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
-                API_LoadPage("Login", "Login.aspx");
-            }
-
             if (EWinWebInfo.DeviceType == 1) {
                 // $(".searchFilter-item").eq(0).css("flex-grow", "0");
                 // $(".searchFilter-item").eq(0).css("flex-shrink","0");
@@ -2264,7 +2254,20 @@
                 if (EWinWebInfo.SID != "") {
                     API_Casino();
                 } else {
-                    API_Home();
+                    if (PageType != null && PageType != "" && PageType == "OpenSumo") {
+                        var gameData = {
+                            GameBrand: "YS",
+                            GameName: "Sumo",
+                            GameLangName: mlp.getLanguageKey("相撲")
+                        }
+
+                        window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
+                        clearUrlParams();
+                        API_LoadPage("Login", "Login.aspx");
+                    } else {
+                        API_Home();
+                    }
+                    
                 }
             }
 
@@ -2296,7 +2299,9 @@
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
-                                            openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("開始遊戲"), function () {
+                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                            });
                                         } else {
                                             var srcPage = window.sessionStorage.getItem("SrcPage");
 
@@ -2393,6 +2398,12 @@
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
         //resize();
+    }
+
+    function clearUrlParams() {
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+        }
     }
 
     function setFavoToIndexDB(cb) {
