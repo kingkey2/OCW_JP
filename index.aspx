@@ -13,6 +13,7 @@
     string SID = string.Empty;
     string CT = string.Empty;
     string PCode = string.Empty;
+    string PageType = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
@@ -34,6 +35,11 @@
     if (string.IsNullOrEmpty(Request["PCode"]) == false)
     {
         PCode = Request["PCode"];
+    }
+
+     if (string.IsNullOrEmpty(Request["PageType"]) == false)
+    {
+        PageType = Request["PageType"];
     }
 
     if (GoEwinLogin == 1)
@@ -286,7 +292,7 @@
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
     var PCode = "<%=PCode%>";
-
+    var PageType = "<%=PageType%>";
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -2248,7 +2254,20 @@
                 if (EWinWebInfo.SID != "") {
                     API_Casino();
                 } else {
-                    API_Home();
+                    if (PageType != null && PageType != "" && PageType == "OpenSumo") {
+                        var gameData = {
+                            GameBrand: "YS",
+                            GameName: "Sumo",
+                            GameLangName: mlp.getLanguageKey("相撲")
+                        }
+
+                        window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
+                        clearUrlParams();
+                        API_LoadPage("Login", "Login.aspx");
+                    } else {
+                        API_Home();
+                    }
+                    
                 }
             }
 
@@ -2280,7 +2299,9 @@
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
-                                            openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("開始遊戲"), function () {
+                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                            });
                                         } else {
                                             var srcPage = window.sessionStorage.getItem("SrcPage");
 
@@ -2377,6 +2398,12 @@
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
         //resize();
+    }
+
+    function clearUrlParams() {
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+        }
     }
 
     function setFavoToIndexDB(cb) {
@@ -3146,7 +3173,7 @@
                 <div class="container">
                     <ul class="company-info row">
                         <li class="info-item col">
-                            <a id="Footer_About" onclick="window.parent.API_ShowPartialHtml('', 'About', false, null)"><span class="language_replace">關於我們</span></a>
+                           <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                         </li>
                         <%--
                         <li class="info-item col">
