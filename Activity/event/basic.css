@@ -168,7 +168,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .table-winners-wrapper .winner .icon-win{
-  max-width: 45px;
+  max-width: 55px;
   display: inline-flex;
 
 }
@@ -201,7 +201,8 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 
 .table-winners-list .title.win {
-  padding-top: 20px;
+  padding-top: 25px !important;
+  padding-bottom: 10px !important;
 }
 
 
@@ -243,6 +244,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   .table-winners-list .item:last-of-type{
     border-bottom-right-radius: 15px;
   }
+
   .table-winners-list .item:last-of-type .title{
     border-top-right-radius: 15px;
   }
@@ -251,7 +253,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
   }
-
+  .table-winners-list .item:only-of-type .item-col{
+     padding-top: 15px;
+     padding-bottom: 15px;
+     border-bottom: solid 1px rgba(204, 204, 204, 0.25);
+  }
+  .table-winners-list .item:only-of-type .item-col:last-child {
+    border: none;
+  }
 
   .table-winners-list .item:last-child {
     border: none;
