@@ -89,6 +89,10 @@
                             break;
                         case "10":
                             GoActivityDetail(10, '/Activity/event/bng/bng220919BH/index-jp.html');
+                        case "11":
+                            GoActivityDetail(11, '/Activity/event/pp202209-1/index-jp.html');
+                        case "12":
+                            GoActivityDetail(12, '/Activity/event/pp202209-2/index-jp.html');
                             break;
                     }
                 }
@@ -190,6 +194,18 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                 break;    
+                case 11:
+                    title = "ライブカジノウィークリー トーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
+                case 12:
+                    title = "スロットトーナメントとキャッシュ ドロップ";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
                 default:
                     break;
             }
@@ -224,6 +240,14 @@
             case 8:
                 $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"]);                
+                break;
+            case 11:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
+                break;
+            case 12:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
                 break;
         }
     }
