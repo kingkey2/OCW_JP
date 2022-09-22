@@ -2987,7 +2987,7 @@
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
+                                            onclick="API_LoadPage('QA','/Article/guide_Q&A.html')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-QA"></i>
                                                 <span class="title language_replace">Q&A</span></a>

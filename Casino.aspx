@@ -1277,7 +1277,7 @@
                     </div> 
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=11')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/pp202209-1/img/pp-liveJp-s.jpg" alt="">
                             </div>
@@ -1290,7 +1290,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=12')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/pp202209-2/img/pp-slotJp-s.jpg" alt="">
                             </div>
