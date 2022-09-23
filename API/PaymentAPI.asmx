@@ -1647,7 +1647,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
 
 
-                                        InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, paymentCommonData.PaymentType, 0, paymentCommonData.LoginAccount, paymentCommonData.Amount, paymentCommonData.HandingFeeRate, paymentCommonData.HandingFeeAmount, paymentCommonData.ThresholdRate, paymentCommonData.ThresholdValue, paymentCommonData.PaymentMethodID, paymentCommonData.FromInfo, paymentCommonData.ToInfo, Newtonsoft.Json.JsonConvert.SerializeObject(paymentCommonData.PaymentCryptoDetailList), paymentCommonData.ExpireSecond);
+                                        InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, paymentCommonData.PaymentType, 1, paymentCommonData.LoginAccount, paymentCommonData.Amount, paymentCommonData.HandingFeeRate, paymentCommonData.HandingFeeAmount, paymentCommonData.ThresholdRate, paymentCommonData.ThresholdValue, paymentCommonData.PaymentMethodID, paymentCommonData.FromInfo, paymentCommonData.ToInfo, Newtonsoft.Json.JsonConvert.SerializeObject(paymentCommonData.PaymentCryptoDetailList), paymentCommonData.ExpireSecond);
 
                                         if (InsertRet == 1)
                                         {
@@ -1818,7 +1818,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     paymentCommonData.CreateDate = DateTime.Now.ToString("yyyy/MM/dd hh:mm");
 
 
-                                    InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, paymentCommonData.PaymentType, 0, paymentCommonData.LoginAccount, paymentCommonData.Amount, paymentCommonData.HandingFeeRate, paymentCommonData.HandingFeeAmount, paymentCommonData.ThresholdRate, paymentCommonData.ThresholdValue, paymentCommonData.PaymentMethodID, paymentCommonData.FromInfo, paymentCommonData.ToInfo, "", paymentCommonData.ExpireSecond);
+                                    InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, paymentCommonData.PaymentType,1, paymentCommonData.LoginAccount, paymentCommonData.Amount, paymentCommonData.HandingFeeRate, paymentCommonData.HandingFeeAmount, paymentCommonData.ThresholdRate, paymentCommonData.ThresholdValue, paymentCommonData.PaymentMethodID, paymentCommonData.FromInfo, paymentCommonData.ToInfo, "", paymentCommonData.ExpireSecond);
 
                                     if (InsertRet == 1)
                                     {
@@ -2244,7 +2244,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             }
                             else
                             {
-                                SetResultException(R, "CurrencyNotFound");
+                                SetResultException(R, "ThresholdLimit");
                             }
                         }
                         else
