@@ -88,18 +88,26 @@
         if (WebInfo.UserInfo.ExtraData) {
             var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
             for (var i = 0; i < ExtraData.length; i++) {
-                if (ExtraData[i].Name == "Birthday") {
-                    var Birthdays = ExtraData[i].Value.split('/');
-                    $("#idBornYear").val(Birthdays[0]);
-                    $("#idBornMonth").val(Birthdays[1]);
-                    $("#idBornDay").val(Birthdays[2]);
-                }
+                //if (ExtraData[i].Name == "Birthday") {
+                //    var Birthdays = ExtraData[i].Value.split('/');
+                //    $("#idBornYear").val(Birthdays[0]);
+                //    $("#idBornMonth").val(Birthdays[1]);
+                //    $("#idBornDay").val(Birthdays[2]);
+                //}
 
                 if (ExtraData[i].Name == "UserGetMail") {
                     $("#check_UserGetMail").prop("checked", ExtraData[i].Value);
                 }
             }
         }
+        // var Birthdays = ExtraData[i].Value.split('/');
+        if (WebInfo.UserInfo.Birthday != undefined && WebInfo.UserInfo.Birthday != "") {
+            var Birthdays = WebInfo.UserInfo.Birthday.split('-');
+            $("#idBornYear").val(Birthdays[0]);
+            $("#idBornMonth").val(Birthdays[1]);
+            $("#idBornDay").val(Birthdays[2]);
+        }
+
         $("#Address").val(WebInfo.UserInfo.ContactAddress == undefined ? "" : WebInfo.UserInfo.ContactAddress);
         //$("#idAmount").text(new BigNumber(WebInfo.UserInfo.WalletList.find(x => x.CurrencyType == window.parent.API_GetCurrency()).PointValue).toFormat());
 
