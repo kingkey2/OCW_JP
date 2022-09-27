@@ -14,7 +14,7 @@
   "Rate1": [
     {
       "PaymentCode": "EWINPAY",
-      "ReceiveValueMaxLimit": 50000,
+      "ReceiveValueMaxLimit": 100000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
       "BonusRate": 1
@@ -23,7 +23,7 @@
   "Rate2": [
     {
       "PaymentCode": "EWINPAY",
-      "ReceiveValueMaxLimit": 50000,
+      "ReceiveValueMaxLimit": 100000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
       "BonusRate": 0.5
@@ -32,10 +32,10 @@
   "Rate3": [
     {
       "PaymentCode": "EWINPAY",
-      "ReceiveValueMaxLimit": 50000,
+      "ReceiveValueMaxLimit": 100000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
-      "BonusRate": 0.5
+      "BonusRate": 0.3
     }
   ]
 }
