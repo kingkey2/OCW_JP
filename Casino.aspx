@@ -1262,7 +1262,7 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                    <%--<div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.open('Activity/event/ysport/index.html')"></a>
                             <div class="hero-item-box mobile">
@@ -1274,7 +1274,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div> --%>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=11')"></a>
