@@ -89,10 +89,13 @@
                             break;
                         case "10":
                             GoActivityDetail(10, '/Activity/event/bng/bng220919BH/index-jp.html');
+                            break;
                         case "11":
                             GoActivityDetail(11, '/Activity/event/pp202209-1/index-jp.html');
+                            break;
                         case "12":
                             GoActivityDetail(12, '/Activity/event/pp202209-2/index-jp.html');
+                            break;
                         case "13":
                             GoActivityDetail(13, '/Activity/event/bng/bng221003MR/index-jp.html');
                             break;
@@ -189,13 +192,13 @@
                     btnText = mlp.getLanguageKey("前往遊玩");
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
-                break;    
+                    break;    
                 case 10:
                     title = "BNGまほう怪盗トーナメント";
                     btnText = mlp.getLanguageKey("前往遊玩");
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
-                break;    
+                    break;    
                 case 11:
                     title = "ライブカジノウィークリー トーナメント";
                     btnText = mlp.getLanguageKey("前往遊玩");
@@ -315,12 +318,12 @@
                 </div>
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
-                        <figure class="activity-item" style="display: none;">
+                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(13,'/Activity/event/bng/bng221003MR/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/pp202209-1/img/img-liveJp-act.jpg">
+                                        <img src="Activity/event/bng/bng221003MR/img/img-act.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
