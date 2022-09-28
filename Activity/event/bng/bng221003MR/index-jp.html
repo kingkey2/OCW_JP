@@ -51,7 +51,7 @@
         <!--活動規則-->
         <section class="section-act-wrap">
             <p class="btn-wrap">
-                <a id="" href="https://servicebooongo.com/bngevent/event?event=202210MR&lang=jp&currency=JPY"
+                <a id="btn1" href="https://servicebooongo.com/bngevent/event?event=202210MR&lang=jp&currency=JPY"
                    class="act-Button" target="_blank">キャンペーン詳細及びルール説明</a>
             </p>
         </section>
@@ -100,9 +100,9 @@
         var SID = window.top.EWinWebInfo.SID;
         var btn = document.getElementById("btn1");
         if (SID != "") {
-            btn.setAttribute('href', "/OpenBNGActivity.aspx?SID=" + window.top.EWinWebInfo.SID +"&event=202209BR");
+            btn.setAttribute('href', "/OpenBNGActivity.aspx?SID=" + window.top.EWinWebInfo.SID +"&event=202210MR");
         } else {
-            btn.setAttribute('href', "/OpenBNGActivity.aspx?event=202209BR");
+            btn.setAttribute('href', "/OpenBNGActivity.aspx?event=202210MR");
         }
     }
 
