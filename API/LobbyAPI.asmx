@@ -24,7 +24,7 @@ public class LobbyAPI : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult HeartBeat(string GUID, string Echo) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-          //TEST
+        //TEST
         return lobbyAPI.HeartBeat(GUID, Echo);
     }
 
@@ -136,7 +136,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         }
     }
 
-        
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.UserAccountPropertyResult GetUserAccountProperty(string WebSID, string GUID, string PropertyName) {
@@ -159,7 +159,7 @@ public class LobbyAPI : System.Web.Services.WebService {
     }
 
 
-        
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult SetUserAccountProperty(string WebSID, string GUID, string PropertyName,string PropertyValue) {
@@ -1617,7 +1617,14 @@ public class LobbyAPI : System.Web.Services.WebService {
                         var obj_ActionContent = Newtonsoft.Json.Linq.JObject.Parse(PC.ActionContent);
 
                         List<OcwActionContentSet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<OcwActionContentSet>>(obj_ActionContent["ActionList"].ToString());
-                        PC.PointValue = decimal.Parse(actions.Where(x => x.Field == "PointValue").FirstOrDefault().Value);
+
+                        PC.PointValue = 0;
+
+                        for (int i = 0; i < actions.Count; i++) {
+                            if (actions[i].Field == "PointValue") {
+                                PC.PointValue = decimal.Parse(actions[i].Value);
+                            }
+                        }
                     }
 
                     if (!string.IsNullOrEmpty(PC.Description)) {
@@ -1626,6 +1633,10 @@ public class LobbyAPI : System.Web.Services.WebService {
                         if (getTitleResult.Result == ActivityCore.enumActResult.OK) {
                             PC.PromotionTitle = getTitleResult.Data.Title;
                         }
+
+                        //if (string.IsNullOrEmpty(PC.PromotionTitle)) {
+                        //        PC.PromotionTitle = PC.Description;
+                        //}
                     }
 
                     collectList.Add(PC);
@@ -1683,7 +1694,14 @@ public class LobbyAPI : System.Web.Services.WebService {
                         var obj_ActionContent = Newtonsoft.Json.Linq.JObject.Parse(PC.ActionContent);
 
                         List<OcwActionContentSet> actions = Newtonsoft.Json.JsonConvert.DeserializeObject<List<OcwActionContentSet>>(obj_ActionContent["ActionList"].ToString());
-                        PC.PointValue = decimal.Parse(actions.Where(x => x.Field == "PointValue").FirstOrDefault().Value);
+
+                        PC.PointValue = 0;
+
+                        for (int i = 0; i < actions.Count; i++) {
+                            if (actions[i].Field == "PointValue") {
+                                PC.PointValue = decimal.Parse(actions[i].Value);
+                            }
+                        }
                     }
 
                     if (!string.IsNullOrEmpty(PC.Description)) {
@@ -1692,6 +1710,10 @@ public class LobbyAPI : System.Web.Services.WebService {
                         if (getTitleResult.Result == ActivityCore.enumActResult.OK) {
                             PC.PromotionTitle = getTitleResult.Data.Title;
                         }
+
+                        //if (string.IsNullOrEmpty(PC.PromotionTitle)) {
+                        //    PC.PromotionTitle = PC.Description;
+                        //}
                     }
 
                     collectList.Add(PC);
