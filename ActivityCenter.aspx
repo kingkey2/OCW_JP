@@ -99,6 +99,9 @@
                         case "13":
                             GoActivityDetail(13, '/Activity/event/bng/bng221003MR/index-jp.html');
                             break;
+                        case "14":
+                            GoActivityDetail(14, '/Activity/event/ne-rt/202210/index-jp.html');
+                            break;
                     }
                 }
 
@@ -211,10 +214,10 @@
                     popupBtnHide = 0;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
-                case 13:
-                    title = "ブンーゴー秋がもたらす幸運レース";
+                case 14:
+                    title = "HELLOWIN";
                     btnText = mlp.getLanguageKey("前往遊玩");
-                    popupBtnHide = 1;
+                    popupBtnHide = 0;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 default:
@@ -259,6 +262,10 @@
             case 12:
                 $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
+                break;
+            case 14:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"]);
                 break;
         }
     }
@@ -318,6 +325,26 @@
                 </div>
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(14,'/Activity/event/ne-rt/202210/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/ne-rt/202210/img/JP-img-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大130,000のギフトマネーが貰えるよ！
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(13,'/Activity/event/bng/bng221003MR/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -386,7 +413,7 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">九月に新たな入金還元キャンペーン！受取りが超簡単！</div>
+                                            <div class="desc language_replace">銀行振込の還元上限は2倍で、最大100,000 Ocoin！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->

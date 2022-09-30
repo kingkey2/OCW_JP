@@ -1262,19 +1262,19 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    <%--<div class="swiper-slide">
+                    <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.open('Activity/event/ysport/index.html')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=14')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="images/lobby/sumo-mobie.jpg" alt="">
+                                <img src="Activity/event/ne-rt/202210/img/Jp-img-phone.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/sumo-pc-2.jpg" class="bg">
+                                    <img src="Activity/event/ne-rt/202210/img/Jp-img-pc.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
-                    </div> --%>
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=13')"></a>
