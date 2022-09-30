@@ -214,6 +214,12 @@
                     popupBtnHide = 0;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
+                case 13:
+                    title = "ブンーゴー秋がもたらす幸運レース";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 1;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
                 case 14:
                     title = "HELLOWIN";
                     btnText = mlp.getLanguageKey("前往遊玩");
@@ -659,7 +665,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">九月に新たな入金還元キャンペーン！受取りが超簡単！</h5>
+                    <h5 class="modal-title language_replace">大好評の入金還元プラン復活！しかも銀行振込は2倍！</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
