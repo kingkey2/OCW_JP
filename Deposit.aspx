@@ -137,7 +137,7 @@
                         </a>
                     </div>
                     <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" style="">
+                    <div class="card-item sd-02 is-hide" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -185,7 +185,7 @@
                     </div>
 
                     <!-- EPay -->
-                    <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">                   
+                    <div class="card-item tempCard is-hide" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">                   
                         <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -201,7 +201,7 @@
                     </div>
 
                     <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositEPayGASH">
+                <%--    <div class="card-item sd-03" id="idDepositEPayGASH">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGASH','DepositGASH.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -215,7 +215,7 @@
                             </div>
                             <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
                         </a>
-                    </div>
+                    </div>--%>
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">
