@@ -299,7 +299,7 @@
                 R = 1 / price;
             }
         }
-        console.log(currency, R);
+
         //if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
         //    if (currency == "JKC") {
         //        price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
