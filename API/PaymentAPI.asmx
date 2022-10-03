@@ -1480,7 +1480,7 @@ public class PaymentAPI : System.Web.Services.WebService
         int ExpireSecond;
         int DecimalPlaces;
         APIResult ExchangeRateFromNomics;
-        Newtonsoft.Json.Linq.JArray jsonExchangeRateFromNomics;
+        Newtonsoft.Json.Linq.JObject jsonExchangeRateFromNomics;
         System.Data.DataTable PaymentMethodDT;
 
 
@@ -1539,12 +1539,13 @@ public class PaymentAPI : System.Web.Services.WebService
 
                                                 if (ExchangeRateFromNomics.Result == enumResult.OK)
                                                 {
-                                                    jsonExchangeRateFromNomics = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(ExchangeRateFromNomics.Message);
-                                                    Newtonsoft.Json.Linq.JObject jo = jsonExchangeRateFromNomics.Children<Newtonsoft.Json.Linq.JObject>().FirstOrDefault(o => o["currency"] != null && o["currency"].ToString() == "ETH");
-                                                    Newtonsoft.Json.Linq.JToken JToken;
-                                                    if (jo.TryGetValue("price", out JToken))
+                                                    jsonExchangeRateFromNomics = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(ExchangeRateFromNomics.Message);
+                                                    Newtonsoft.Json.Linq.JToken  ETHRate;
+                                                   
+
+                                                    if (jsonExchangeRateFromNomics.TryGetValue("ETH", out ETHRate))
                                                     {
-                                                        JKCRate = 1 / (decimal.Parse(JToken.ToString()) / 3000);
+                                                        JKCRate = 1 / (decimal.Parse(ETHRate.ToString()) / 3000);
                                                         ExchangeRate = JKCRate;
                                                         JKCDepositAmount = decimal.Round(PartialRate * Amount * JKCRate, 2);
                                                     }
@@ -3112,7 +3113,7 @@ public class PaymentAPI : System.Web.Services.WebService
 
             if (string.IsNullOrEmpty(RedisReturn))
             {
-                strCryptoExchangeRateFromNomics = CryptoExpand.GetAllCryptoExchangeRate();
+                strCryptoExchangeRateFromNomics = CryptoExpand.GetAllCryptoExchangeRateFromKucoin();
                 if (!string.IsNullOrEmpty(strCryptoExchangeRateFromNomics))
                 {
                     RedisCache.CryptoExchangeRate.UpdateCryptoExchangeRate(strCryptoExchangeRateFromNomics);

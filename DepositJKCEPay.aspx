@@ -301,9 +301,9 @@
         var R = 0;
         var price;
 
-        if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
+        if (NomicsExchangeRate) {
             if (currency == "JKC") {
-                price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
+                price = NomicsExchangeRate["ETH"];
                 R = 1 / (price / 3000);
             } else if(currency == "JPY"){
                 R = 1;

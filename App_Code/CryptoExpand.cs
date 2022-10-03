@@ -73,16 +73,16 @@ public static class CryptoExpand
         return ExchangeRate;
     }
 
-    public static string GetAllCryptoExchangeRate() {
-        Newtonsoft.Json.Linq.JArray CryptoArrays;
+    //public static string GetAllCryptoExchangeRate() {
+    //    Newtonsoft.Json.Linq.JArray CryptoArrays;
 
-        string BasicTradeUrl = "https://api.nomics.com/v1/currencies/ticker?key=df6c6e3b0b12a416d08079b30118c78a7a07e403&ids=HLN,USDT,USDC,XRP,BTC,ETH&interval=1d,30d&convert=" + EWinWeb.ConvertCurrencyType + "&per-page=100&page=1";
+    //    string BasicTradeUrl = "https://api.nomics.com/v1/currencies/ticker?key=df6c6e3b0b12a416d08079b30118c78a7a07e403&ids=HLN,USDT,USDC,XRP,BTC,ETH&interval=1d,30d&convert=" + EWinWeb.ConvertCurrencyType + "&per-page=100&page=1";
 
-        var ReturnBodyStr = CodingControl.GetWebJSONContent(BasicTradeUrl);
-        CryptoArrays = JArray.Parse(ReturnBodyStr.ToString());
+    //    var ReturnBodyStr = CodingControl.GetWebJSONContent(BasicTradeUrl);
+    //    CryptoArrays = JArray.Parse(ReturnBodyStr.ToString());
 
-        return CryptoArrays.ToString();
-    }
+    //    return CryptoArrays.ToString();
+    //}
 
     public static string GetAllCryptoExchangeRateFromKucoin() {
 
