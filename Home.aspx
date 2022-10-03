@@ -75,45 +75,45 @@
 
     var FourGames = [
         {
-            GameName: "OnmologistEX",
-            GameBrand: "CG",
-            GameLangName: "CG.OnmologistEX",
-            GameNameJP: "オンミョウジ",
-            Description: "先月、最大スピン数が出たゲームです"
+            GameName: "178",
+            GameBrand: "BNG",
+            GameLangName: "BNG.178",
+            GameNameJP: "タイガーズゴールド",
+            Description: "黄金の虎がテーマとなっていて、ジャックポット搭載機種です。スピン中にボーナスシンボルが6つ以上出現するとボーナスゲームが発動！その中でジャックポットシンボルが出現すると一攫千金を獲得できます。"
         },
         {
-            GameName: "vs25goldparty",
+            GameName: "reactoonztwo",
+            GameBrand: "PNG",
+            GameLangName: "PNG.reactoonztwo",
+            GameNameJP: "リアクトゥーンズ2",
+            Description: "面白い仕掛け満載で、ディズニー映画のようなカワイイキャラクターが高配当を出してくれるスロットといえばリアクトゥーンズです。"
+        },
+        {
+            GameName: "58",
+            GameBrand: "PG",
+            GameLangName: "PG.58",
+            GameNameJP: "ヴァンパイアズチャーム",
+            Description: "魅惑的なイラスト及びランダムから中央メイン枠の抽選で大当たりを引き起こす、最高脅威的な20000倍。"
+        },
+        {
+            GameName: "vswaysjkrdrop",
             GameBrand: "PP",
-            GameLangName: "PP.vs25goldparty",
-            GameNameJP: "ゴールドパーティ",
-            Description: "先月、最高倍率が出たゲームです。"
+            GameLangName: "PP.vswaysjkrdrop",
+            GameNameJP: "トロピカルティキ",
+            Description: "新感覚スロットゲーム、当選累積型で、当たればどんどん来い来い抽選継続します。最高3000倍のビックウィンも熱い。"
         },
         {
-            GameName: "NinjaEX",
-            GameBrand: "CG",
-            GameLangName: "CG.NinjaEX",
-            GameNameJP: "ニンジャウォーリアー",
-            Description: "大ヒット！ビッグウィンランキング一位を獲得したゲームです。"
-        },
-        {
-            GameName: "LightningTable01",
+            GameName: "o4qh4xwgrtwdhxyn",
             GameBrand: "EVO",
-            GameLangName: "EVO.LightningTable01",
-            GameNameJP: "ライトニング ルーレット",
-            Description: "0から36まで37スポットのヨーロピアンタイプルーレットだが、毎回ランダムに発生する演出で配当が 50倍〜500倍GETできる！"
-        },
-        {
+            GameLangName: "EVO.o4qh4xwgrtwdhxyn",
+            GameNameJP: "バカラスクイーズ",
+            Description: "ではバカラの醍醐味である”絞り”に力を入れているのが特徴です。カードの端をめくりながら少しずつ見せる行為でゲームの緊張感が異なります。ライブカジノに特化し、カメラ設定にこだわり。"
+        }, {
             GameName: "EWinGaming",
             GameBrand: "EWin",
             GameLangName: "EWinGaming",
             GameNameJP: "EWinゲーミング",
             Description: "元祖ライブバカラ新しいサービス初めました！"
-        }, {
-            GameName: "Sumo",
-            GameBrand: "YS",
-            GameLangName: "YS.Sumo",
-            GameNameJP: "相撲",
-            Description: "大相撲がY sportで大登場！是非世界初のブックメーカー楽しんで下さい。"
         }
     ];
 
