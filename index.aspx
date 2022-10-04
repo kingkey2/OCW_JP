@@ -2949,12 +2949,12 @@
                                                 <i class="icon icon-mask icon-all"></i>
                                                 <span class="title language_replace">遊戲大廳</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown"
+                                    <%--    <li class="nav-item submenu dropdown"
                                             onclick="openGame('YS', 'Sumo', '')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-sumo"></i>
                                                 <span class="title language_replace">相撲</span></a>
-                                        </li>
+                                        </li>--%>
                                     </ul>
                                 </li>
                                 <li class="nav-item navbarMenu__catagory">
