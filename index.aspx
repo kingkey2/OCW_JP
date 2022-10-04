@@ -2071,7 +2071,7 @@
                 orgin = orgin + "_jp";
                 break;
             case "CHT":
-                break;
+                break; 
             case "ENG":
                 orgin = orgin + "_jp";
                 break;
@@ -3203,6 +3203,27 @@
                             </a>
                         </li>--%>
                     </ul>
+                    <div class="payment-supplier">
+                        <div class="logo">
+                            <div class="row">
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-iwallet.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-nissinpay.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-bank.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="partner">
                         <div class="logo">
                             <div class="row">
@@ -3314,7 +3335,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="company-detail">
                         <div class="company-license">
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
@@ -3324,8 +3344,6 @@
                             <p class="address language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
                         </div>
                     </div>
-
-
                     <div class="footer-copyright">
                         <p class="language_replace">Copyright © 2022 マハラジャ. All Rights Reserved.</p>
                     </div>
