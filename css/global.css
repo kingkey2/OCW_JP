@@ -265,6 +265,10 @@ img[src=""], img:not([src]) {
   color: #ff0066 !important;
 }
 
+.text-gray {
+  color: rgba(44, 45, 58, 0.75);
+}
+
 .text-bolder {
   font-weight: 500;
 }
@@ -4742,9 +4746,9 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 .btn-full-stress {
   background-color: rgb(232, 62, 140) !important;
 }
-.btn-QA-transaction {
-  width: 20px;
-  height: 20px;
+.btn-Q-mark {
+  width: 24px;
+  height: 24px;
   display: inline-flex;
   padding: 7px;
   white-space: normal;
@@ -4780,5 +4784,21 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 
 .registerWay-popup-list .item .title{
   font-size: 1.5rem;
+}
+
+.LineOfficialQrcode{
+  margin: 10px auto;
+  text-align: center;
+}
+
+.LineOfficialQrcode .QrCode {
+  margin: 15px auto;
+  max-width: 200px;
+  /* height: 250px; */
+  border: #cdcdcd 1px solid;
+}
+
+.LineOfficialQrcode .QrCode img{
+  max-width: 100%;
 
 }
