@@ -429,6 +429,24 @@
                                             </div>
                                         </div>                                        
                                     </div>
+                                    <div class="data-item password">
+                                        <div class="data-item-title">
+                                            <label class="title">
+                                                <i class="icon icon-mask icon-verify"></i>
+                                                <span class="title-name language_replace">認證狀態</span>
+                                                <span class="btn btn-Q-mark btn-full-stress btn-round" data-toggle="modal" data-target="#ModalRegisterWay"><i class="icon icon-mask icon-question"></i></span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <p class="">
+                                                <span id="idOldPasswordErrorIcon" class="label fail"><i class="icon icon-mask icon-error"></i></span>
+                                            </p>
+                                            <p class="">
+                                                <span id="idOldPasswordSuccessIcon" class="label success"><i class="icon icon-mask icon-check"></i></span>
+                                            </p>
+                                           
+                                        </div>                                        
+                                    </div>
                                   
                                     <div class="data-item mobile">
                                         <div class="data-item-title">
