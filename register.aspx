@@ -523,6 +523,9 @@
                     <div class="heading-title">
                         <h3 class="language_replace">創建新帳號</h3>
                     </div>
+                    <span class="sec-title-intro-link ml-2" data-toggle="modal" data-target="#ModalRegisterWay">
+                        <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
+                    </span>
                 </div>
 
                 <!-- 步驟 -->
@@ -546,10 +549,7 @@
                             <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
                                 <span class="tab-item-link">
                                     <span class="title language_replace">完整註冊</span>
-                                    <span class="sec-title-intro-link ml-2" data-toggle="modal" data-target="#ModalRegisterWay">
-                                        <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
-                                    </span>
-                            </span> 
+                                </span> 
                             </li>
                             <li class="tab-slide"></li>
                         </ul>
@@ -566,21 +566,16 @@
                                 <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                             </div>
                         </div>
-                        <div class="btn-container" id="divSendValidateCodeBtn">
+                        <div class="btn-container register" id="divSendValidateCodeBtn">
                             <button type="button" class="btn btn-primary btn-ValidateCode" onclick="onBtnSendValidateCode()" id="btnSendValidateCode">
                                 <span class="language_replace">傳送驗證碼</span>
                             </button>
                         </div>
                         <div class="form-group">
-                            <div class="form-check text-s">
-                                <label class=" language_replace">E-mail將用於發送確認碼，請填寫正確的E-mail。</label></br>
-                                <label class=" language_replace">1.請先輸入正確E-mail。</label></br>
-                                <label class=" language_replace">2.從註冊會員的畫面點擊發送驗證碼。</label></br>
-                                <label class=" language_replace">3.驗證碼將會發送到您填寫的E-mail。</label></br>
-                                <label class=" language_replace">4.輸入驗證碼之後就可進行下一個步驟。</label></br>
-                                <label class=" language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
-                                <label class=" language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br>
-                                <label class=" language_replace">※為了能夠接收活動及獎金，請填寫正確的E-mail。</label></br>
+                            <div class="text-s text-indent">
+                                <label class=" language_replace">E-mail驗證相關說明：</label></br>
+                                <label class=" language_replace">1.輸入信箱後點擊『傳送驗證碼』後，驗證碼將會發送到您填寫的E-mail。</label></br>
+                                <label class=" language_replace">2.將驗證碼回填於下方輸入框內。</label></br>
                             </div>
                         </div>
                         
@@ -623,8 +618,7 @@
                                     <span class="language_replace">下一步</span>
                                 </button>
                             </div>
-                        </div>
-                       
+                        </div>                       
                     </form>
                 </div>
 
@@ -990,11 +984,11 @@
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="CheckAge" name="eighteenCheck">
-                                <label class=" language_replace" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
+                                <label class=" language_replace text-s" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
                             </div>
                         </div>
                         <div class="form-group rules-privacy text-small">
-                            <p class="language_replace">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
+                            <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
                         </div>
 
                         <div class="btn-container">
@@ -1054,11 +1048,14 @@
                 <div class="modal-body">
                     <div class="registerWay-popup-wrapper">
                         <ul class="registerWay-popup-list">
-                            <h3 class="">簡易註冊與完整註冊</h3>
-                            <p>簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!</p>                            
-                            <h3 class="">簡易註冊後如何升級完整會員?</h3>
-                            <p> 於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
-                            
+                            <li class="item">
+                            <h3 class="title">簡易註冊與完整註冊</h3>
+                            <p class="desc">簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!</p>  
+                            </li>
+                            <li class="item">
+                                <h3 class="title">簡易註冊後如何升級完整會員?</h3>
+                                <p class="desc">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                            </li>
                         </ul>
                     </div>
                 </div>

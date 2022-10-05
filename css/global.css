@@ -246,8 +246,19 @@ img[src=""], img:not([src]) {
   font-size: 0.8125em;
 }
 
+.text-note.text-indent > *{
+  text-indent: -0.8125em;
+  margin-left: 0.8125em;
+}
+
+
 .text-s {
   font-size: 0.875rem;
+}
+
+.text-s.text-indent > *{
+  text-indent: -0.875rem;
+  margin-left:  0.875rem;
 }
 
 .text-primary {
@@ -4548,6 +4559,11 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   }
 }
 
+/* 新註冊頁 */
+.sign-container .form-group + .btn-container.register{
+   padding-bottom: 30px;
+}
+
 .tab-scroller {
   width: 100%;
   overflow-x: hidden;
@@ -4652,7 +4668,8 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   width: 100%;
   max-width: 640px;
   margin: 0.6rem auto;
-  background-color: rgba(133, 133, 133, 0.85);
+  /* background-color: rgba(133, 133, 133, 0.85); */
+  background-color: rgba(137, 153, 167, 0.15);
   border-radius: 30px;
   margin-bottom: 30px;
 }
@@ -4662,20 +4679,29 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   /* background-color: rgb(69, 197, 255); */
 }
 .tab-primary.tab-scroller .tab-item {
-  color: white;
+  /* color: white; */
   z-index: 1;
   position: relative;
   transition: all 0.35s linear 0s;
 }
 
+.tab-primary.tab-scroller .tab-item .title{
+    padding: 0.25em 0;
+    /* text-align: center; */
+    font-size: 0.9125em;
+}
+
 .tab-primary.tab-scroller .tab-slide {  
   background-color: rgb(69, 197, 255);
+  background-color: #2C2D3A;
   border-radius: 30px;
+  -webkit-box-shadow: 0 4px 12px -4px rgb(137 153 167 / 50%);
+  box-shadow: 0 4px 12px -4px rgb(137 153 167 / 50%);
 }
 
 .sec-title-wrapper{
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .icon-mask {
@@ -4737,4 +4763,22 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 
 .sec-title-container .btn .icon-mask::before {
   background-color: rgb(255, 255, 255);
+}
+
+/* 簡易註冊與完整註冊 Popup*/
+.registerWay-popup-wrapper{
+  font-weight: 300;
+}
+
+.registerWay-popup-list{
+
+}
+
+.registerWay-popup-list .item{
+  margin-bottom: 25px;
+}
+
+.registerWay-popup-list .item .title{
+  font-size: 1.5rem;
+
 }
