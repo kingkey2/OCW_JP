@@ -789,6 +789,10 @@ input.month:read-only, input.day:read-only {
 .verify-result.fail {
   color: #C30D23;
 }
+.verify-result .icon-mask {
+  width: 24px;
+  height: 24px;
+}
 
 .verify-desc {
   margin: 0 6px;
