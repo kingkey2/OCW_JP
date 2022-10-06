@@ -832,7 +832,7 @@
     
 
     <!-- Modal Complete Register -->
-    <div class="modal fade footer-center" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true" style="display: ;">
+    <div class="modal fade footer-center" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -865,9 +865,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md">
-                                        <label class="form-title">
-                                            姓
-                                            <span class="form-title-note language_replace">(羅馬字)</span></label>
+                                        <label class="form-title">姓<span class="form-title-note language_replace">(羅馬字)</span></label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
                                             <div class="invalid-feedback language_replace">提示</div>
