@@ -3221,6 +3221,11 @@
                                         <img src="/images/logo/footer/logo-bank.png" alt="">
                                     </div>
                                 </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-paypal.png" alt="">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
