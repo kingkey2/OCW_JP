@@ -987,32 +987,32 @@
         </div>
     </div>
 
-    <!-- Modal Verify Tip -->
-    <div class="modal fade footer-center" id="ModalVerify" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+   <!-- Modal Verify Tip -->
+   <div class="modal fade footer-center" id="ModalVerify" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="Verify-popup-wrapper popup-tip">
+                    <ul class="Verify-popup-list">
+                        <li class="item">
+                            <h3 class="title language_replace">為何需要認證?</h3>
+                            <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若為完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
+                        </li>
+                        <li class="item">
+                            <h3 class="title language_replace">如何進行認證?</h3>
+                            <p class="desc language_replace">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                        </li>
+                    </ul>
                 </div>
-                <div class="modal-body">
-                    <div class="Verify-popup-wrapper">
-                        <ul class="Verify-popup-list">
-                            <li class="item">
-                                <h3 class="title language_replace">為何需要認證</h3>
-                                <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若為完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
-                            </li>
-                            <li class="item">
-                                <h3 class="title language_replace">如何進行認證?</h3>
-                                <p class="desc language_replace">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
+   </div>
+   
 </body>
 </html>

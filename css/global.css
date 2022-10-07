@@ -1508,12 +1508,14 @@ select.custom-style:focus {
   padding: 0px 0 0;
   background: #fff;
   background: url(../images/bg_Footer.jpg) center bottom no-repeat;
-  background-size: cover;
+  background-size: cover
 }
+
 .footer-container .container {
   border-top: 1px solid #E4E4E4;
-  padding-top: 1.2rem;
+  padding-top: 1.2rem
 }
+
 .footer-inner {
   margin: 0 auto;
   width: 100%;
@@ -1522,66 +1524,79 @@ select.custom-style:focus {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: rgba(0, 0, 0, 0.6);
+  -ms-flex-align: center;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.6)
 }
+
 .footer-inner .footer-wrapper {
   padding: 0 10px;
-  margin: 0 auto;
+  margin: 0 auto
 }
-.footer-inner .partner {
+
+.footer-inner .partner,
+.footer-inner .payment-supplier {
   width: 100%;
-  margin: 20px 0;
+  margin: 20px 0
 }
-.footer-inner .partner .logo-item {
+
+.footer-inner .partner .logo-item,
+.footer-inner .payment-supplier .logo-item {
   width: 25%;
   padding: 0 15px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center
 }
-.footer-inner .partner .logo-item .img-crop {
+
+.footer-inner .partner .logo-item .img-crop,
+.footer-inner .payment-supplier .logo-item .img-crop {
   max-width: 65px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center
 }
-.footer-inner .partner .logo-item img {
+
+.footer-inner .partner .logo-item img,
+.footer-inner .payment-supplier .logo-item img {
   width: 100%;
   -webkit-filter: grayscale(100%);
-          filter: grayscale(100%);
+  filter: grayscale(100%)
 }
-.footer-inner .partner .logo-item:hover img {
+
+.footer-inner .partner .logo-item:hover img,
+.footer-inner .payment-supplier .logo-item:hover img {
   -webkit-filter: unset;
-          filter: unset;
+  filter: unset
 }
+
 .footer-inner .company-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   font-size: 0.8125rem;
-  width: 100%;
+  width: 100%
 }
+
 .footer-inner .company-info .info-item {
   padding: 8px 8px;
   cursor: pointer;
@@ -1589,72 +1604,81 @@ select.custom-style:focus {
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -ms-flex: 1;
+  flex: 1
 }
+
 .footer-inner .company-info .info-item:hover {
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.8)
 }
+
 .footer-inner .company-detail {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap
 }
+
 .footer-inner .company-license {
   -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin-bottom: 1rem;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-bottom: 1rem
 }
+
 .footer-inner .company-address {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   font-size: 0.9375rem;
   width: 100%;
-  padding: 10px 10px;
+  padding: 10px 10px
 }
+
 .footer-inner .company-address .name {
   margin-right: 2rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 500
 }
+
 .footer-copyright {
   width: 100%;
   padding-top: 10px;
   margin-top: 5px;
-  padding-bottom: 10px;
+  padding-bottom: 10px
 }
+
 .footer-copyright p {
   margin: 0;
   text-align: center;
-  font-size: 0.8125em;
+  font-size: 0.8125em
 }
 @media (min-width: 375px) {
-  .footer-inner .partner .logo-item {
-    width: 20%;
+  .footer-inner .partner .logo-item,
+  .footer-inner .payment-supplier .logo-item {
+    width: 20%
   }
 }
 @media (min-width: 640px) {
-  .footer-inner .partner .logo-item {
-    width: 12.5%;
+  .footer-inner .partner .logo-item,
+  .footer-inner .payment-supplier .logo-item {
+    width: 12.5%
   }
   .footer-inner .company-license {
     -webkit-box-flex: 0;
@@ -1671,8 +1695,9 @@ select.custom-style:focus {
   }
 }
 @media (min-width: 1144px) {
-  .footer-inner .partner .logo-item {
-    width: 10%;
+  .footer-inner .partner .logo-item,
+  .footer-inner .payment-supplier .logo-item {
+    width: 10%
   }
   .footer-inner .company-license {
     -webkit-box-flex: 0;
@@ -2644,7 +2669,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
       align-self: flex-start;
 }
 .sign-container .heading-title {
-  margin: 0 0 2em;
+  margin: 0 0 1.5em;
 }
 .sign-container .heading-title h3 {
   font-size: 1.5em;
@@ -4568,6 +4593,14 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
    padding-bottom: 30px;
 }
 
+.tab-register{
+  position: sticky;
+  top: 0;
+  z-index: 11;
+  background-color: #fff;
+  padding: 5px 0 5px;
+}
+
 .tab-scroller {
   width: 100%;
   overflow-x: hidden;
@@ -4675,7 +4708,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   /* background-color: rgba(133, 133, 133, 0.85); */
   background-color: rgba(137, 153, 167, 0.15);
   border-radius: 30px;
-  margin-bottom: 30px;
+  /* margin-bottom: 20px; */
 }
 
 .tab-primary.tab-scroller .tab-item.active {
@@ -4770,7 +4803,7 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 }
 
 /* 簡易註冊與完整註冊 Popup*/
-.registerWay-popup-wrapper{
+/* .registerWay-popup-wrapper{
   font-weight: 300;
 }
 
@@ -4784,7 +4817,23 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
 
 .registerWay-popup-list .item .title{
   font-size: 1.5rem;
+} */
+.text-bold{
+	font-weight: 500;	
 }
+.popup-tip {
+  font-weight: 300
+}
+
+.popup-tip .item {
+  margin-bottom: 45px
+}
+
+.popup-tip .item .title {
+  font-size: 1.125rem
+}
+
+
 
 .LineOfficialQrcode{
   margin: 10px auto;
