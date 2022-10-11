@@ -94,6 +94,10 @@
       "Path": "BackendSend/BS005.json"
     },
     {
+      "Name": "BS006",
+      "Path": "BackendSend/BS006.json"
+    },
+    {
       "Name": "Act003",
       "Path": "2022_6/Act003.json"
     },
