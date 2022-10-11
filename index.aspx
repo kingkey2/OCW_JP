@@ -223,7 +223,7 @@
 <% if (EWinWeb.IsTestSite == false)
     { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRNSR38PQ7"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
