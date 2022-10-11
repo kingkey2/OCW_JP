@@ -396,26 +396,7 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(13,'/Activity/event/bng/bng221003MR/index-jp.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/bng/bng221003MR/img/img-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">ブンーゴーの対象ゲームをプレイすれば、最大360,000のギフトマネーがもらえる！
-                                            </div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
+                        
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(11,'/Activity/event/pp202209-1/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -506,6 +487,26 @@
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(3)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(13,'/Activity/event/bng/bng221003MR/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng221003MR/img/img-act-end.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">ブンーゴーの対象ゲームをプレイすれば、最大360,000のギフトマネーがもらえる！
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
                                         <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
