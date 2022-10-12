@@ -77,6 +77,10 @@
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
             cb(false);
             return;
+        } else if (idLoginAccount.value.indexOf('+') > 0) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+            cb(false);
+            return;
         } else {
             if (!IsEmail(idLoginAccount.value)) {
                 window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確信箱"));
@@ -300,6 +304,7 @@
         form2.reportValidity();
 
         if (form2.checkValidity()) {
+            var LoginAccount = document.getElementById("idLoginAccount").value;
             var LoginPassword = document.getElementById("idLoginPassword").value;
             var ParentPersonCode = form2.PersonCode.value;
             var PhonePrefix = document.getElementById("idPhonePrefix").value
@@ -311,6 +316,11 @@
 
             if (PhonePrefix.substring(0, 1) == "+") {
                 PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
+            }
+
+            if (LoginAccount.indexOf('+') > 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+                return false;
             }
 
             var PS = [
@@ -325,7 +335,7 @@
                 { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
             ];
 
-            p.CreateAccount(Math.uuid(), document.getElementById("idLoginAccount").value, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
+            p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
                 if (success) {
                     if (o.Result == 0) {
                         sendThanksMail();
