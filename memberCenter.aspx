@@ -722,7 +722,7 @@
                                             </div>
                                             <div class="promo-content">
                                                 <h4 class="title language_replace">顧客活用的介紹推廣頁②（柏青哥愛好者）</h4>
-                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl1()">
+                                                <button type="button" class="btn btn-full-main" onclick="copyActivityUrl1()">
                                                     <i class="icon icon-mask icon-copy"></i><span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>
@@ -741,7 +741,7 @@
                                             </div>
                                             <div class="promo-content">
                                                 <h4 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h4>
-                                                <button type="button" class="btn btn-outline-primary btn-link" onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
+                                                <button type="button" class="btn btn-full-main" onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
                                                     <span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>

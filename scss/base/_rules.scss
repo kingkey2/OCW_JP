@@ -46,6 +46,10 @@ body {
 	// font-feature-settings: "liga" 1, "dlig" 1;
 }
 
+html{
+	scroll-behavior: smooth;
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
 	margin-bottom: 0;
 	font-weight: 400;
@@ -668,7 +672,9 @@ textarea, input, button, select{
 }
 
 .btn-full-stress{
-	background-color: #e83e8c !important;
+	// background-color: #e83e8c !important;
+	// background-color: #E7211A !important;
+	background-color: $button-full-stress-background !important;
 }
 
 .btn-full-stress-2{
@@ -921,7 +927,8 @@ hr{
 	&-container{
         
 		//IMPORTANT!!! button/fieldset/legend NOT SUPPORT FLEXBOX 
-		display: flex;	
+		display: flex;
+		flex-flow: row wrap;	
 
 		justify-content: space-between;
 		align-items: center;
@@ -974,7 +981,8 @@ hr{
 		.sec_link{
 			.btn{				
 				&:hover{
-					background-color: #369AD6;
+					// background-color: #369AD6;
+					background-color: $sec-link-btn-hover-backgroundColor;
 				}
 			}
 		}
@@ -1011,9 +1019,11 @@ hr{
 				display: inline-block;
 				margin: 0 0.5em 0 0;
 				vertical-align: bottom;
-				width: 3px;
-				height: 1em;
-				background-color: #45C5FF;
+				width: 5px;
+				height: font-resize(24px);
+				// background-color: #45C5FF;
+				background-color: $sec-title-deco-backgroundColor;
+
 				border-radius: 2px;
 			}
 		}
@@ -1458,8 +1468,6 @@ hr{
 		.section-content{
 
 		}
-		
-
 	}
 
 }
@@ -1474,10 +1482,12 @@ hr{
 	width: 100%;
 	height: 100vh;
 	overflow: hidden;
-	z-index: 9999;
-	// background-color: rgba(#2c2c2c, 0.75);
-	background-color: rgba(#00aeff, 1);
+	z-index: 9999;	
 	text-align: center;
+	// background-color: rgba(#00aeff, 1);
+	// background-color: rgba(#2fb4c9, 1);
+	background-color: $loader-background;
+	
   }
   
   .loader-text {

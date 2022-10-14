@@ -12,6 +12,26 @@
         // padding-right: 20px;
     }
 }
+.sec-input{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    .form-group{
+        // margin-right: 15px;
+    }
+    .btn{
+        width: 100%;
+        min-width: 180px;
+        max-width: 360px;
+        display: block;
+        margin: 0 auto;
+    }
+
+}
 
 .sec-title-record{
     .date_text{
@@ -536,6 +556,7 @@
         position: relative;
         padding-left: 20px;
         transition: all 0.3s ease;
+        border-radius: 10px;
 
         
         &:hover {            
@@ -855,7 +876,216 @@
 
     }
 
+}
 
+
+// 推廌會員管理
+.sec-report-agentDownline{  
+
+    @media screen and (max-width:breakpoints_BS4(smg))  {
+        .sec-number{
+            justify-content: space-between;
+
+        }
+
+    }
+}
+
+.agentDownline-member{
+
+    &-list{
+        display: flex;
+        flex-flow: row wrap;
+
+        .icon{
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            background-color: #EDEDED;
+            padding: 2px;
+            margin-right: 0.4rem;
+        }
+        .icon-mask:before {
+            // background-color: #00B0FF;
+            background-color: $agentDownline-member-mask-icon-backgroundColor;
+        }
+
+        .member-item{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;            
+
+            &.agent{                
+                .icon-mask:before {
+                    // background-color: #FF6396;
+                    background-color: $agentDownline-agent-mask-icon-backgroundColor;
+                }
+            }
+        }
+
+        .member-inner{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            border-bottom: solid 1px rgba(#000, .1);
+            padding: 0.8rem;
+        }
+    }
+
+    @include media-breakpoint-up(md){
+        &-list{
+            .member-item{
+                width: 50%;
+            }
+        }
+
+    }
+    @include media-breakpoint-up(lg){
+        &-list{
+            .member-item{
+                width: 33.33%;
+            }
+        }
+
+    }
+
+}
+
+// 代理報表 PC 版
+.section-agentDownline-report{
+    .table-desktop{
+        display: none;
+    }
+
+    .record-table-container{
+        padding-left: 0 !important;
+    }
+
+    @include media-breakpoint-up(lg){
+        .table-desktop{
+            display: table;
+        }
+
+    }
+
+}
+
+// 代理報表 MOBILE 版
+
+.record-agentDownline{
+
+    font-weight: 300;
+
+    .icon{
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        background-color: #EDEDED;
+        padding: 2px;
+        margin-right: 0.4rem;
+    }
+
+    .icon-mask.icon-people:before {
+        // background-color: #00B0FF;
+        background-color: $agentDownline-member-mask-icon-backgroundColor;
+    }
+
+    .icon-mask:before {
+        background-color: #808080;        
+    }
+
+    .date-period{
+        text-align: center;
+        .year{
+            display: block;
+        }
+        .month:before{
+            content: none;
+        }
+    }
+    .record-table-item{
+        &.agent{
+            .icon-mask.icon-people:before {
+                // background-color: #FF6396;
+                background-color: $agentDownline-agent-mask-icon-backgroundColor;
+            }
+            .record-table-cell.td-date{
+                // background-color: #FFEAF1;
+                background-color: $agentDownline-agent-td-stress-backgroundColor;
+            }
+        }     
+
+    }
+
+    .record-table-tab{
+        padding-left: 0;
+    }    
+
+    .record-table-cell{
+        display: inline-flex;
+        align-items: center;
+
+       
+        &.td-date{
+            flex: 0 0 60px;
+            // background-color: #DFF5FF;
+            background-color: $agentDownline-member-td-stress-backgroundColor;
+            font-weight: 500;
+            justify-content: center;
+
+            .date-end:before{
+                content: "|";
+                display: block;
+                text-align: center;
+
+            }
+        }
+
+        &.td-commission{
+            flex: 0 0 100%;
+
+            display: flex;
+            justify-content: space-between;
+
+            .data{
+                font-size: font-resize(25px);
+                font-weight: 500;
+            }            
+        }
+    }
+
+    .record-table-wrapper{      
+        flex: 1;
+        display: flex;    
+        flex-flow: row wrap;    
+        justify-content: space-between;    
+        align-items: center;
+    }
+
+    .td-wrapper{
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    @include media-breakpoint-up(smd){
+
+        .record-table-cell{
+            
+            &.td-project{
+                align-items: flex-start;
+            }
+
+            &.td-commission{
+                flex: 1;
+                display: flex;
+                flex-flow: column wrap;
+                align-items: flex-end;
+            }
+        }      
+
+    }
 
 }
 
@@ -1247,6 +1477,11 @@
         &-title-wrapper{           
             // font-size: font-resize(20px);
         }
+   }
+
+   //代理報表 TAB
+   .tab-report-wrapper{
+       display: none;
    }
 
 }
