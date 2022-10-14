@@ -17,7 +17,7 @@
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
-    string Version = EWinWeb.Version;
+    string Version = EWinWeb.Version; 
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
     {
