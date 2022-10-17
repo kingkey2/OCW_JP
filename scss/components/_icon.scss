@@ -85,7 +85,6 @@ $icon-url:"../image/product/icon_menu_";
 
 }
 
-
 .ico-close {
     background-image: url(../images/theme/dark/icon/icon_close.svg);
 }
@@ -342,6 +341,12 @@ $icon-url:"../image/product/icon_menu_";
       mask-image: url(../images/icon/ico-poker.svg) ;
     }
   }
+  &.icon-live{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-live.svg) ;
+      mask-image: url(../images/icon/ico-live.svg) ;
+    }
+  }
   &.icon-real{
     &::before{
       -webkit-mask-image: url(../images/icon/ico-real.svg) ;
@@ -376,6 +381,12 @@ $icon-url:"../image/product/icon_menu_";
     &::before{
       -webkit-mask-image: url(../images/icon/ico-etc.svg) ;
       mask-image: url(../images/icon/ico-etc.svg) ;
+    }
+  }
+  &.icon-instruction{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-instruction.svg) ;
+      mask-image: url(../images/icon/ico-instruction.svg) ;
     }
   }
 
@@ -468,6 +479,18 @@ $icon-url:"../image/product/icon_menu_";
     &::before{
       -webkit-mask-image: url(../images/icon/ico-calendar.svg) ;
       mask-image: url(../images/icon/ico-calendar.svg) ;
+    }
+  }
+  &.icon-favo{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-favo.svg) ;
+      mask-image: url(../images/icon/ico-favo.svg) ;
+    }
+  }
+  &.icon-announce{
+    &::before{
+      -webkit-mask-image: url(../images/icon/ico-announce.svg) ;
+      mask-image: url(../images/icon/ico-announce.svg) ;
     }
   }
   &.icon-prize{
