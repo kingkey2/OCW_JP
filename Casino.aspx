@@ -79,31 +79,31 @@
 
     var HeaderGames = [
         {
-            GameCode: "BNG.242",
-            GameBrand: "BNG",
+            GameCode: "CQ9.179",
+            GameBrand: "CQ9",
             Location: "GameList_Hot",
             MobileSrc: "/images/lobby/dailypush-hot-M-001.jpg",
             PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
-            BackgroundColor: "#121a16"
+            BackgroundColor: "#000000"
         },
         {
-            GameCode: "PNG.moonprincess",
-            GameBrand: "PNG",
+            GameCode: "PG.57",
+            GameBrand: "PG",
             Location: "GameList_Slot",
             MobileSrc: "/images/lobby/dailypush-slot-M-001.jpg",
             PadSrc: "/images/lobby/dailypush-slot-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-slot-001.jpg",
-            BackgroundColor: "#3f2e56"
+            BackgroundColor: "#000000"
         },
         {
-            GameCode: "EVO.LightningTable01",
+            GameCode: "EVO.GonzoTH000000001",
             GameBrand: "EVO",
             Location: "GameList_Live",
             MobileSrc: "/images/lobby/dailypush-live-M-001.jpg",
             PadSrc: "/images/lobby/dailypush-live-MD-001.jpg",
             DesktopSrc: "/images/lobby/dailypush-live-001.jpg",
-            BackgroundColor: "#010101"
+            BackgroundColor: "#352c1c"
         },
         {
             GameCode: "BTI.Sport",
@@ -1262,7 +1262,7 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                    <!-- <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=15')"></a>
                             <div class="hero-item-box mobile">
@@ -1274,7 +1274,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=14')"></a>

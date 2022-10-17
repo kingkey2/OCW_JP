@@ -360,22 +360,7 @@
 
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group">
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(15,'/Activity/event/bng/bng202210GreenChilli/index-jp.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/bng/bng202210GreenChilli/img/img-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <div class="desc language_replace">ブンーゴーの対象ゲーム（グリーンチリ）をプレイすれば、最大160,000のギフトマネーがもらえる！</div>
-                                        </div>                                     
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
+                        
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(14,'/Activity/event/ne-rt/202210/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -492,6 +477,22 @@
                                 </div>
                             </div>
                         </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(15,'/Activity/event/bng/bng202210GreenChilli/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng202210GreenChilli/img/img-act-end.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">ブンーゴーの対象ゲーム（グリーンチリ）をプレイすれば、最大160,000のギフトマネーがもらえる！</div>
+                                        </div>                                     
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure> 
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(13,'/Activity/event/bng/bng221003MR/index-jp.html')">
                                 <!-- 活動連結 -->
