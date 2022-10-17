@@ -951,7 +951,7 @@
 
             //熱門
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Hot" });
-            if (lobbyGame.Location.includes("GameList")) {
+            if (lobbyGame&&lobbyGame.Location.includes("GameList")) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
@@ -977,13 +977,18 @@
                         break;
                     default:
                 }
+
+                if (selectedCategoryCode == lobbyGame.Location) {
+                    $(RecordDom).addClass('active');
+                }
+
                 RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                 idGameItemTitle.appendChild(RecordDom);
             }
 
             //老虎雞
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Slot" });
-            if (lobbyGame.Location.includes("GameList")) {
+            if (lobbyGame &&lobbyGame.Location.includes("GameList")) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
@@ -1008,12 +1013,17 @@
                         break;
                     default:
                 }
+
+                if (selectedCategoryCode == lobbyGame.Location) {
+                    $(RecordDom).addClass('active');
+                }
+
                 RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                 idGameItemTitle.appendChild(RecordDom);
             }
             //真人
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Live" });
-            if (lobbyGame.Location.includes("GameList")) {
+            if (lobbyGame &&lobbyGame.Location.includes("GameList")) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
@@ -1038,12 +1048,17 @@
                         break;
                     default:
                 }
+
+                if (selectedCategoryCode == lobbyGame.Location) {
+                    $(RecordDom).addClass('active');
+                }
+
                 RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                 idGameItemTitle.appendChild(RecordDom);
             }
             //其他
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Other" });
-            if (lobbyGame.Location.includes("GameList")) {
+            if (lobbyGame &&lobbyGame.Location.includes("GameList")) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
@@ -1068,12 +1083,17 @@
                         break;
                     default:
                 }
+
+                if (selectedCategoryCode == lobbyGame.Location) {
+                    $(RecordDom).addClass('active');
+                }
+
                 RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                 idGameItemTitle.appendChild(RecordDom);
             }
             //廠牌
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Brand" });
-            if (lobbyGame.Location.includes("GameList")) {
+            if (lobbyGame &&lobbyGame.Location.includes("GameList")) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
@@ -1098,6 +1118,11 @@
                         break;
                     default:
                 }
+
+                if (selectedCategoryCode == lobbyGame.Location) {
+                    $(RecordDom).addClass('active');
+                }
+
                 RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
                 idGameItemTitle.appendChild(RecordDom);
             }
