@@ -2,6 +2,12 @@
 
 <%
     string Version = EWinWeb.Version;
+
+    string selectedCategory ="GameList_Hot";
+
+    if (string.IsNullOrEmpty(Request["selectedCategory"]) == false) {
+        selectedCategory = Request["selectedCategory"];
+    }
 %>
 <!doctype html>
 <html class="innerHtml">
@@ -67,6 +73,7 @@
     var v = "";
     var GCB;
     var iframeWidth;
+    var selectedCategoryCode="<%=selectedCategory %>";
     var selectedCategoryCode;
     var categoryDatas = [];
     var tmpCategory_GameList_All = "";
@@ -1099,7 +1106,7 @@
             $('#idGameItemTitle').append('<div class="tab-slide"></div>');
         }
 
-        selectedCategoryCode = "GameList_Hot";
+        //selectedCategoryCode = "GameList_Hot";
         iframeWidth = window.innerWidth;
         var idGameItemGroup = document.getElementById("gameAreas");
         idGameItemGroup.innerHTML = "";

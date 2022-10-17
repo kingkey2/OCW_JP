@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/member.css" type="text/css" />
     --%>
 
-    
+
     <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
     <link href="css/basic.min.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
 <script>
 
     if (self != top) {
@@ -85,7 +85,7 @@
         $("#RealName").val(WebInfo.UserInfo.RealName);
         $("#Email").val(WebInfo.UserInfo.EMail == undefined ? "" : WebInfo.UserInfo.EMail);
         $("#PhoneNumber").val(WebInfo.UserInfo.ContactPhonePrefix + " " + WebInfo.UserInfo.ContactPhoneNumber);
-        let IsFullRegistration = 0; 
+        let IsFullRegistration = 0;
         if (WebInfo.UserInfo.ExtraData) {
             var ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
             for (var i = 0; i < ExtraData.length; i++) {
@@ -347,7 +347,7 @@
         //alert("Copied the text: " + copyText.value);
     }
 
-function AdjustDate() {
+    function AdjustDate() {
         var idBornYear = document.getElementById("idBornYear1");
         var idBornMonth = document.getElementById("idBornMonth1");
         var idBornDate = document.getElementById("idBornDate");
@@ -435,8 +435,9 @@ function AdjustDate() {
             "Birthday": year + "/" + month + "/" + date,
             "ExtraData": strExtraData
         }
-
+        window.parent.API_LoadingStart();
         p.UpdateUserAccount(WebInfo.SID, Math.uuid(), data, function (success, o) {
+            window.parent.API_LoadingEnd(1);
             if (success) {
                 if (o.Result == 0) {
                     $("#CertificationForm").hide();
@@ -511,12 +512,14 @@ function AdjustDate() {
                                             </label>
                                         </div>
                                         <div class="data-item-content">
-                                            <input type="number" min="1920" max="2300" class="custom-input-edit year" id="idBornYear" value="" readonly> / 
-                                            <input type="number" min="1" max="12" class="custom-input-edit month" id="idBornMonth" value="" readonly> / 
-                                            <input type="number" min="1" max="31"  class="custom-input-edit day" id="idBornDay" value="" readonly>
+                                            <input type="number" min="1920" max="2300" class="custom-input-edit year" id="idBornYear" value="" readonly>
+                                            / 
+                                            <input type="number" min="1" max="12" class="custom-input-edit month" id="idBornMonth" value="" readonly>
+                                            / 
+                                            <input type="number" min="1" max="31" class="custom-input-edit day" id="idBornDay" value="" readonly>
                                         </div>
                                     </div>
-                                    
+
                                     <%--<div class="data-item password" style="display: none;">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -527,7 +530,7 @@ function AdjustDate() {
                                         <div class="data-item-content">
                                             <input type="password" class="custom-input-edit" id="idOldPassword" value="">
                                         </div>
-                                    </div>--%>                                   
+                                    </div>--%>
                                     <div class="data-item password">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -541,7 +544,7 @@ function AdjustDate() {
                                             </div>
                                             <div class="password-real">
                                                 <div id="idOldPasswordGroup" class="data-item-form-group is-hide">
-                                                    <input type="password" class="form-control" id="idOldPassword" value="" language_replace="placeholder" placeholder="請輸入舊密碼" >
+                                                    <input type="password" class="form-control" id="idOldPassword" value="" language_replace="placeholder" placeholder="請輸入舊密碼">
                                                     <label for="" class="form-label"><span class="language_replace">請輸入舊密碼</span></label>
                                                     <span id="idOldPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
                                                     <span id="idOldPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
@@ -552,10 +555,10 @@ function AdjustDate() {
                                                     <label for="" class="form-label"><span class="language_replace">請輸入新密碼</span></label>
                                                     <span id="idNewPasswordSuccessIcon" class="label success is-hide"><i class="icon icon-mask icon-check"></i></span>
                                                     <span id="idNewPasswordErrorIcon" class="label fail is-hide"><i class="icon icon-mask icon-error"></i></span>
-                                                    <p class="notice is-hide" id="NewPasswordErrorMessage"></p>                                                 
-                                                </div>                                                
+                                                    <p class="notice is-hide" id="NewPasswordErrorMessage"></p>
+                                                </div>
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </div>
                                     <div class="data-item verify">
                                         <div class="data-item-title">
@@ -568,9 +571,9 @@ function AdjustDate() {
                                         <div class="data-item-content">
                                             <div class="verify-item">
                                                 <!-- 尚未認證 -->
-                                                <span class="verify-result fail" id="IsFullRegistration0" style="display:none">
+                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: none">
                                                     <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
-                                                    <span class="verify-desc language_replace">尚未認證</span>  
+                                                    <span class="verify-desc language_replace">尚未認證</span>
                                                     <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
                                                         <span class="title language_replace">進行認證</span>
                                                         <i class="icon icon-mask icon-pencile"></i>
@@ -578,15 +581,15 @@ function AdjustDate() {
                                                 </span>
 
                                                 <!-- 認證完成 -->
-                                                <span class="verify-result success" id="IsFullRegistration1" style="display:none">
+                                                <span class="verify-result success" id="IsFullRegistration1" style="display: none">
                                                     <span class="label success"><i class="icon icon-mask icon-check"></i></span>
                                                     <span class="verify-desc language_replace">認證完成</span>
                                                 </span>
-                                               
+
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </div>
-                                  
+
                                     <div class="data-item mobile">
                                         <div class="data-item-title">
                                             <label class="title">
@@ -614,7 +617,7 @@ function AdjustDate() {
                                             <input type="text" class="custom-input-edit" id="Email" value="" readonly>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="data-item-group">
                                         <%--
                                         <div class="data-item home" id="divAddress">
@@ -703,7 +706,7 @@ function AdjustDate() {
                                                         <!-- 入金 Button -->
                                                         <span class="btn btn-deposit btn-full-stress btn-round"><i class="icon icon-add"></i></span>
                                                     </div>
-                                                </div>                                            
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- 履歷紀錄 -->
@@ -728,16 +731,17 @@ function AdjustDate() {
                                             <div class="limit-wrapper">
                                                 <div class="limit-status">
                                                     <span class="title language_replace">錢包</span>
-                                                    <div>  
+                                                    <div>
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span></div>                                               
-                                                </div>        
+                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>
+                                                    </div>
+                                                </div>
                                                 <div class="limit-amount">
                                                     <span class="title language_replace">出金限制</span>
                                                     <span class="value" id="idThrehold"></span>
-                                                </div> 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -767,7 +771,7 @@ function AdjustDate() {
 
                         <!-- 會員簽到進度顯示 + 活動中心 + 獎金中心 -->
                         <section class="section-member-activity">
-                             <!-- 活動中心 + 獎金中心 -->
+                            <!-- 活動中心 + 獎金中心 -->
                             <div class="activity-record-wrapper">
                                 <!-- 活動中心 -->
                                 <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
@@ -778,7 +782,7 @@ function AdjustDate() {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- 獎金中心 -->
                                 <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','/Guide/prize.html')">
                                     <div class="prize-center-inner">
@@ -788,8 +792,8 @@ function AdjustDate() {
 
                             </div>
 
-                             <!-- 會員簽到進度顯示 -->
-                             <div class="activity-dailylogin-wrapper">
+                            <!-- 會員簽到進度顯示 -->
+                            <div class="activity-dailylogin-wrapper">
                                 <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
@@ -834,7 +838,7 @@ function AdjustDate() {
                                 <div class="sec-title-wrapper">
                                     <h3 class="sec-title title-deco"><span class="language_replace">熱門活動</span></h3>
                                 </div>
-                            </div>                           
+                            </div>
                             <div class="activity-promo-content">
                                 <ul class="activity-promo-list">
                                     <li class="promo-item">
@@ -869,7 +873,8 @@ function AdjustDate() {
                                             </div>
                                             <div class="promo-content">
                                                 <h4 class="title language_replace">お客様活用、紹介ランディングページその①（主婦）</h4>
-                                                <button type="button" class="btn btn-full-main" onclick="copyActivityUrl()"><i class="icon icon-mask icon-copy"></i>
+                                                <button type="button" class="btn btn-full-main" onclick="copyActivityUrl()">
+                                                    <i class="icon icon-mask icon-copy"></i>
                                                     <span class="language_replace">複製活動連結</span>
                                                 </button>
                                             </div>
@@ -957,7 +962,7 @@ function AdjustDate() {
             </div>
         </div>
     </div>
-    
+
 
     <!-- Modal Complete Register -->
     <div class="modal fade footer-center" id="ModalRegisterComplete" tabindex="-1" aria-hidden="true">
@@ -965,8 +970,9 @@ function AdjustDate() {
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="sec-title-container">
-                        <h5 class="modal-title language_replace">進行資料認證</h5><span class="btn btn-Q-mark btn-round ml-2" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
-                    </div>                    
+                        <h5 class="modal-title language_replace">進行資料認證</h5>
+                        <span class="btn btn-Q-mark btn-round ml-2" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose1">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1040,26 +1046,26 @@ function AdjustDate() {
                                             </select>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
 
                             </div>
                             <div class="wrapper_center">
                                 <button class="btn btn-full-main btn-roundcorner" type="button" onclick="Certification()">
                                     <span class="language_replace">確認</span>
                                 </button>
-                            </div>            
+                            </div>
                         </form>
 
                         <div class="verifyResult-wrapper">
 
                             <!-- 認證成功 -->
-                            <div class="resultShow success" id="CertificationSucc" style="display:none">
+                            <div class="resultShow success" id="CertificationSucc" style="display: none">
                                 <div class="verifyResult-inner">
                                     <div class="verify_resultShow">
                                         <div class="verify_resultDisplay">
                                             <div class="icon-symbol"></div>
                                         </div>
-                                        <p class="verify_resultTitle"><span class="language_replace" >認證完成</span></p>
+                                        <p class="verify_resultTitle"><span class="language_replace">認證完成</span></p>
                                     </div>
                                 </div>
                                 <div class="verify_detail">
@@ -1074,17 +1080,17 @@ function AdjustDate() {
                                     <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
                                         <span class="language_replace">確認</span>
                                     </button>
-                                </div>   
+                                </div>
                             </div>
 
                             <!-- 認證失敗 -->
-                            <div class="resultShow fail" id="CertificationFail" style="display:none">
+                            <div class="resultShow fail" id="CertificationFail" style="display: none">
                                 <div class="verifyResult-inner">
                                     <div class="verify_resultShow">
                                         <div class="verify_resultDisplay">
                                             <div class="icon-symbol"></div>
                                         </div>
-                                        <p class="verify_resultTitle"><span class="language_replace" >認證失敗</span></p>
+                                        <p class="verify_resultTitle"><span class="language_replace">認證失敗</span></p>
                                     </div>
                                 </div>
                                 <div class="verify_detail">
@@ -1095,7 +1101,7 @@ function AdjustDate() {
                                         </div>
                                     </div>
                                 </div>
-                               <%-- <div class="wrapper_center">
+                                <%-- <div class="wrapper_center">
                                     <button class="btn btn-gray btn-roundcorner" type="button" onclick="">
                                         <span class="language_replace">取消</span>
                                     </button>
@@ -1107,10 +1113,10 @@ function AdjustDate() {
                                     <button class="btn btn-full-main btn-roundcorner" type="button" onclick="closeCertification()">
                                         <span class="language_replace">確認</span>
                                     </button>
-                                </div>   
+                                </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <%--<div class="modal-footer">
@@ -1120,32 +1126,32 @@ function AdjustDate() {
         </div>
     </div>
 
-   <!-- Modal Verify Tip -->
-   <div class="modal fade footer-center" id="ModalVerify" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="Verify-popup-wrapper popup-tip">
-                    <ul class="Verify-popup-list">
-                        <li class="item">
-                            <h3 class="title language_replace">為何需要認證?</h3>
-                            <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若為完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
-                        </li>
-                        <li class="item">
-                            <h3 class="title language_replace">如何進行認證?</h3>
-                            <p class="desc language_replace">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
-                        </li>
-                    </ul>
+    <!-- Modal Verify Tip -->
+    <div class="modal fade footer-center" id="ModalVerify" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="Verify-popup-wrapper popup-tip">
+                        <ul class="Verify-popup-list">
+                            <li class="item">
+                                <h3 class="title language_replace">為何需要認證?</h3>
+                                <p class="desc language_replace">認證需要您填入您實際的姓名，以證明為帳號之所有者，未來於出入金時的證明。因此若為完成認證，則無法使用出入金等部分功能，也無法享有領取獎勵的權益。</p>
+                            </li>
+                            <li class="item">
+                                <h3 class="title language_replace">如何進行認證?</h3>
+                                <p class="desc language_replace">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-   </div>
-   
+
 </body>
 </html>
