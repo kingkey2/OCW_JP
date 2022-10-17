@@ -218,6 +218,49 @@
             border: 1px solid #666;
             color: #777;
         }
+
+        .bulletin_list .item {
+            margin-bottom: 0.8rem;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+                .bulletin_list .item:before {
+                    content: "";
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                    width: 3px;
+                    height: 1rem;
+                    border-radius: 0.5px;
+                    background-color: #008fd1;
+                }
+                .bulletin_list .item .date {
+                    font-weight: 600;
+                    margin-left: 0.5rem;
+                    margin-right: 1rem;
+                    width: 5rem;
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                }
+                .bulletin_list .item .info {
+                    -webkit-box-flex: 1;
+                    -ms-flex: 1;
+                    flex: 1;
+                    display: -webkit-box;
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+        .bulletin_list .item .info:hover {
+            color: #008fd1;
+        }
     </style>
 </head>
 <% if (EWinWeb.IsTestSite == false)
@@ -771,9 +814,68 @@
         }
     }
 
+    function setBulletinBoard() {
+        var GUID = Math.uuid();
+        lobbyClient.GetBulletinBoard(GUID, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    var ParentMain2 = document.getElementById("idBulletinBoardContent2");
+                    ParentMain2.innerHTML = "";
+
+                    if (o.Datas.length > 0) {
+                        var RecordDom;
+                        var RecordDom2;
+               
+                        for (var i = 0; i < o.Datas.length; i++) {
+                            var record = o.Datas[i];
+
+                            RecordDom2 = c.getTemplate("idTempBulletinBoard");
+
+                            var recordDate = new Date(parseInt(record.CreateDate.replace(')/', '').replace('/Date(', '')));
+                            var date = recordDate.getFullYear() + '.' + (recordDate.getMonth() + 1) + '.' + recordDate.getDate();
+                            c.setClassText(RecordDom2, "CreateDate", null, date);
+                            c.setClassText(RecordDom2, "BulletinTitle", null, record.BulletinTitle);
+
+                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
+         
+                            ParentMain2.appendChild(RecordDom2);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     function showBoardMsg(title, message, time) {
         if ($("#alertBoardMsg").attr("aria-hidden") == 'true') {
+            $("#popupBulletinList").modal("hide");
             var divMessageBox = document.getElementById("alertBoardMsg");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
+            var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
+            var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
+            var divMessageBoxContent = divMessageBox.querySelector(".alert_Text");
+            var modal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+
+            if (divMessageBox != null) {
+                modal.show();
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        modal.hide();
+                    }
+                }
+
+                divMessageBoxTitle.innerHTML = title;
+                divMessageBoTime.innerHTML = time;
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
+
+    function showBoardMsg1(title, message, time) {
+        if ($("#alertBoardMsg1").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertBoardMsg1");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
             var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
             var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
@@ -806,6 +908,10 @@
         }
         
         $('#ModalLanguage').modal('show');
+    }
+
+    function showBulletinBoard() {
+           $("#popupBulletinList").modal("show");
     }
 
     function nonCloseShowMessageOK(title, message, cbOK) {
@@ -2273,6 +2379,8 @@
 
             SearchControll = new searchControlInit("alertSearch");
 
+            setBulletinBoard();
+
             appendGameFrame();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
@@ -2876,6 +2984,99 @@
 
     //#endregion
 
+    function showFavoPlayed() {
+
+        if (!EWinWebInfo.UserLogined) {
+            showMessageOK(mlp.getLanguageKey("尚未登入"), mlp.getLanguageKey("請先登入"), function () {
+                API_LoadPage("Login", "Login.aspx");
+            });
+            return;
+        }
+
+        setFavoPlayeditem(0);
+        setFavoPlayeditem(1);
+        $("#alertFavoPlayed").modal("show")
+    }
+
+    function setFavoPlayeditem(type) {
+        
+        var lang = EWinWebInfo.Lang;
+        var alertSearchContent;
+
+        switch (type) {
+            case 0:
+                alertSearchContent = $('#alertFavoContent');
+                break;
+            case 1:
+                alertSearchContent = $('#alertPlayedContent');
+                break;
+            default:
+                alertSearchContent = $('#alertFavoContent');
+                break;
+        }
+
+        alertSearchContent.empty();
+
+        GCB.GetPersonal(type,
+            function (gameItem) {
+
+                var RTP = "--";
+                var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                lang_gamename = lang_gamename.replace("'", "");
+                if (gameItem.RTPInfo) {
+                    RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                }
+
+                if (RTP == "0") {
+                    RTP = "--";
+                }
+
+                GI = c.getTemplate("tmpSearchGameItem");
+                let GI1 = $(GI);
+                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+
+                var GI_img = GI.querySelector(".gameimg");
+                if (GI_img != null) {
+                    GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                    var el = GI_img;
+                    var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                    observer.observe();
+                }
+
+                var likebtn = GI.querySelector(".btn-like");
+
+                if (EWinWebInfo.DeviceType == 0) {
+                    $(likebtn).addClass("desktop");
+                }
+
+                if (gameItem.FavoTimeStamp) {
+
+                    $(likebtn).addClass("added");
+                } else {
+                    $(likebtn).removeClass("added");
+                }
+
+                likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
+
+                GI1.find(".gameName").text(lang_gamename);
+                GI1.find(".BrandName").text(mlp.getLanguageKey(gameItem.GameBrand));
+                GI1.find(".valueRTP").text(RTP);
+                GI1.find(".valueID").text(gameItem.GameID);
+                GI1.find(".GameCategoryCode").text(mlp.getLanguageKey(gameItem.GameCategoryCode));
+
+                alertSearchContent.append(GI);
+
+            }, function (data) {
+
+            }
+        )
+    }
+
+    function alertBoardMsgClose() {
+        $("#alertBoardMsg").modal("hide");
+        $("#popupBulletinList").modal("show");
+    }
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -2960,22 +3161,22 @@
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
-                                            onclick="">
+                                             onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-slot"></i>
                                                 <span class="title language_replace">老虎機</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Live', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-live"></i>
                                                 <span class="title language_replace">真人</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                        <li class="nav-item submenu dropdown" onclick="openGame('BTI', 'Sport', '')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-sport"></i>
                                                 <span class="title language_replace">體育</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Withdrawal','Withdrawal.aspx', true)">
+                                        <li class="nav-item submenu dropdown" onclick="showFavoPlayed()">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-favo"></i>
                                                 <span class="title language_replace">我的最愛</span></a>
@@ -2996,7 +3197,7 @@
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="">
+                                            onclick="window.top.API_LoadPage('','Article/guide_CashQa_jp.html')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-instruction"></i>
                                                 <span class="title language_replace">出入金手順</span></a>
@@ -3034,7 +3235,7 @@
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
                                             onclick="">
-                                            <a class="nav-link">
+                                            <a class="nav-link" onclick="showBulletinBoard()">
                                                 <i class="icon icon-mask icon-announce"></i>
                                                 <span class="title language_replace">公告</span></a>
                                         </li>
@@ -3521,6 +3722,47 @@
             </div>
         </div>
     </div>--%>
+    
+    <!-- 我的最愛/遊玩過的遊戲 PoPup-->
+    <div class="modal fade no-footer alertSearchTemp" id="alertFavoPlayed" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-header-container">
+                        <!-- <h5 class="modal-title">我是logo</h5> -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            id="alertFavoPlayedCloseButton">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertFavoContent">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-search-wrapper">
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertPlayedContent">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Modal Search 品牌-LOGO版-->
@@ -3867,6 +4109,50 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="alert_Title"></div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <article class="popup-detail-wrapper">
+                            <div class="popup-detail-inner">
+                                <div class="popup-detail-content">
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告時間</span></h6>
+                                        <div class="section-content">
+                                            <div class="alert_Time"></div>
+                                        </div>
+                                    </section>
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情</span></h6>
+                                        <div class="section-content">
+                                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                                        </div>
+                                    </section>
+                                </div>
+
+                            </div>
+                        </article>
+                        <!-- <i class="icon-error_outline primary"></i>
+                        <div class="language_replace">公告時間：</div>
+                        <div class="alert_Time"></div>
+                        <div class="text-wrap">
+                            <div class="language_replace">公告詳情：</div>
+                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container"onclick="alertBoardMsgClose()">
+                        <button type="button" class="alert_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertBoardMsg1" aria-hidden="true" id="alertBoardMsg1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="alert_Title"></div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -3910,6 +4196,48 @@
         </div>
     </div>
 
+    <div class="modal fade no-footer popupBulletinList" id="popupBulletinList" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="alert_Title language_replace">最新公告</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="-wrapper">
+                        <ul class="bulletin_list" id="idBulletinBoardContent2">
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tmpBulletinBoardModel" style="display: none;">
+        <div id="idTempBulletinBoard" style="display: none;">
+            <!-- <div> -->
+            <li class="item" style="cursor:pointer">
+                <span class="date CreateDate"></span>
+                <span class="info BulletinTitle"></span>
+            </li>
+            <!-- </div> -->
+        </div>
+    </div>
 
     <div class="modal fade no-footer popupGameInfo" id="popupMoblieGameInfo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">

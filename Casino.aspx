@@ -958,7 +958,6 @@
                 switch (lobbyGame.Location) {
                     case 'GameList_Hot':
                         $(RecordDom).find('.CategIcon').addClass('icon-hot-tt');
-                        $(RecordDom).addClass('active');
                         break;
                     case 'GameList_Favo':
                         $(RecordDom).find('.CategIcon').addClass('icon-favo-tt');
