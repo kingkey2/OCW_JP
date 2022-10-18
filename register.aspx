@@ -123,6 +123,9 @@
         } else if (idLoginPassword.value.length < 6) {
             window.parent.showMessageOK("", mlp.getLanguageKey("登入密碼需大於6位"));
             return false;
+        } else if (idLoginPassword.value.length > 20) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("登入密碼需小於20位"));
+            return false;
         } else if (!rules.test(idLoginPassword.value)) {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
             return false;
@@ -240,6 +243,11 @@
                 window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
                 return false;
             }
+
+            if (!CheckPassword()) {
+                return false;
+            }
+
             //full registration
             if ($("#li_register2").hasClass("active")) {
                 PS = [
