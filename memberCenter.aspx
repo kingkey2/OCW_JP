@@ -999,14 +999,14 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md">
-                                        <label class="form-title language_replace">姓(羅馬字)</label>
+                                        <label class="form-title language_replace">姓</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" id="Name1" name="Name1">
                                             <div class="invalid-feedback language_replace">提示</div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md">
-                                        <label class="form-title language_replace">名(羅馬字)</label>
+                                        <label class="form-title language_replace">名</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" id="Name2" name="Name2">
                                             <div class="invalid-feedback language_replace">提示</div>
@@ -1144,7 +1144,7 @@
                             </li>
                             <li class="item">
                                 <h3 class="title language_replace">如何進行認證?</h3>
-                                <p class="desc language_replace">於會員中心按下<span class="text-bold">『進行認證』</span>之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                                <p class="desc language_replace">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
                             </li>
                         </ul>
                     </div>
