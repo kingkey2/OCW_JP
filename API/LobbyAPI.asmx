@@ -1083,11 +1083,12 @@ public class LobbyAPI : System.Web.Services.WebService {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
         EWin.Lobby.ValidateCodeResult validateCodeResult;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
+        string MailSubject = "確認コード";
 
         validateCodeResult = lobbyAPI.SetValidateCodeOnlyNumber(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber);
 
         if (validateCodeResult.Result == EWin.Lobby.enumResult.OK) {
-            R = SendMail(EMail, validateCodeResult.ValidateCode, R, SendMailType);
+            R = SendMail(EMail, validateCodeResult.ValidateCode, R, SendMailType, MailSubject);
         } else {
             R.Result = validateCodeResult.Result;
             R.Message = validateCodeResult.Message;
@@ -1207,12 +1208,10 @@ public class LobbyAPI : System.Web.Services.WebService {
     //    return result;
     //}
 
-    private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType) {
-        string Subject = string.Empty;
+    private EWin.Lobby.APIResult SendMail(string EMail, string ValidateCode, EWin.Lobby.APIResult result, CodingControl.enumSendMailType SendMailType, string Subject) {
         string SendBody = string.Empty;
         string apiURL = "https://mail.surenotifyapi.com/v1/messages";
         string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
-        Subject = "Verify Code";
 
         SendBody = CodingControl.GetEmailTemp(EMail, ValidateCode, SendMailType);
 
@@ -1287,6 +1286,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         EWin.Lobby.ValidateCodeResult validateCodeResult;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
         string ValidateCode = string.Empty;
+        string MailSubject = string.Empty;
         TelPhoneNormalize telPhoneNormalize = new TelPhoneNormalize(ContactPhonePrefix, ContactPhoneNumber);
         if (telPhoneNormalize != null) {
             ContactPhonePrefix = telPhoneNormalize.PhonePrefix;
@@ -1295,19 +1295,24 @@ public class LobbyAPI : System.Web.Services.WebService {
 
         switch (SendMailType) {
             case CodingControl.enumSendMailType.Register:
+                MailSubject = "確認コード";
                 validateCodeResult = lobbyAPI.SetValidateCodeOnlyNumber(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber);
                 if (validateCodeResult.Result == EWin.Lobby.enumResult.OK) {
                     ValidateCode = validateCodeResult.ValidateCode;
                 }
                 break;
             case CodingControl.enumSendMailType.ForgetPassword:
+                MailSubject = "確認コード";
                 validateCodeResult = lobbyAPI.SetValidateCodeOnlyNumber(GetToken(), GUID, ValidateType, EMail, ContactPhonePrefix, ContactPhoneNumber);
                 if (validateCodeResult.Result == EWin.Lobby.enumResult.OK) {
                     ValidateCode = validateCodeResult.ValidateCode;
                 }
                 break;
             case CodingControl.enumSendMailType.ThanksLetter:
-
+                MailSubject = "マハラジャへようこそ";
+                break;
+            default:
+                MailSubject = "確認コード";
                 break;
         }
 
@@ -1316,7 +1321,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 if (SendMailType == CodingControl.enumSendMailType.RegisterReceiveReward) {
                     R = SendRegisterReceiveRewardMail(EMail, R, ReceiveRegisterRewardURL);
                 } else {
-                    R = SendMail(EMail, ValidateCode, R, SendMailType);
+                    R = SendMail(EMail, ValidateCode, R, SendMailType, MailSubject);
                 }
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:

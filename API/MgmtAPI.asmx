@@ -601,13 +601,28 @@ public class MgmtAPI : System.Web.Services.WebService {
     //}
 
     [WebMethod]
-    public void SendMail(string EMail, string Subject) {
+    public void SendMail(string EMail, string Subject, int MailType) {
         if (!string.IsNullOrEmpty(EMail)) {
             string SendBody = string.Empty;
             string apiURL = "https://mail.surenotifyapi.com/v1/messages";
             string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
 
-            SendBody = CodingControl.GetEmailTemp2();
+            //SendBody = CodingControl.GetEmailTemp2();
+
+            switch (MailType) {
+                case 0:
+                    SendBody = CodingControl.GetEmailTemp(EMail, "1234", CodingControl.enumSendMailType.Register);
+                    break;
+                case 1:
+                    SendBody = CodingControl.GetEmailTemp(EMail, "1234", CodingControl.enumSendMailType.ForgetPassword);
+                    break;
+                case 2:
+                    SendBody = CodingControl.GetEmailTemp(EMail, "1234", CodingControl.enumSendMailType.ThanksLetter);
+                    break;
+                default:
+                    SendBody = CodingControl.GetEmailTemp(EMail, "1234", CodingControl.enumSendMailType.Register);
+                    break;
+            }
 
             Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
             Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
