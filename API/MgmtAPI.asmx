@@ -686,6 +686,35 @@ public class MgmtAPI : System.Web.Services.WebService {
         }
     }
 
+    [WebMethod]
+    public void SendKYCMail(string EMail) {
+        if (!string.IsNullOrEmpty(EMail)) {
+            string SendBody = string.Empty;
+            string apiURL = "https://mail.surenotifyapi.com/v1/messages";
+            string apiKey = "NDAyODgxNDM4MGJiZTViMjAxODBkYjZjMmRjYzA3NDgtMTY1NDE0Mzc1NC0x";
+
+            SendBody = CodingControl.GetKYCEmailTemp();
+
+            Newtonsoft.Json.Linq.JObject objBody = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objRecipients = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JObject objVariables = new Newtonsoft.Json.Linq.JObject();
+            Newtonsoft.Json.Linq.JArray aryRecipients = new Newtonsoft.Json.Linq.JArray();
+
+            objBody.Add("subject", "出金審査のお知らせ");
+            objBody.Add("fromName", "マハラジャ");
+            objBody.Add("fromAddress", "edm@casino-maharaja.com");
+            objBody.Add("content", SendBody);
+
+            objRecipients.Add("name", EMail);
+            objRecipients.Add("address", EMail);
+            aryRecipients.Add(objRecipients);
+
+            objBody.Add("recipients", aryRecipients);
+
+            CodingControl.GetWebTextContent(apiURL, "POST", objBody.ToString(), "x-api-key:" + apiKey, "application/json", System.Text.Encoding.UTF8);
+        }
+    }
+
     private bool CheckPassword(string Hash) {
         string key = EWinWeb.PrivateKey;
 

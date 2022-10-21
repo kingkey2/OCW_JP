@@ -118,6 +118,19 @@ public class CodingControl
         return strhtml;
     }
 
+    public static string GetKYCEmailTemp() {
+        Stream myStream;
+
+        myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Html/KYCMail.html"), FileMode.Open);
+
+        Encoding encode = System.Text.Encoding.GetEncoding("GB2312");
+        StreamReader myStreamReader = new StreamReader(myStream, encode);
+        string strhtml = myStreamReader.ReadToEnd();
+        myStream.Close();
+
+        return strhtml;
+    }
+
     public static string GetRegisterReceiveRewardEmailTemp(string LoginAccount, string URL) {
         Stream myStream;
         myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Html/RegisterReceiveReward.html"), FileMode.Open);
