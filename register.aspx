@@ -588,6 +588,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="btn-container mb-3" id="">
+                            <button type="button" class="btn btn-primary btn-ValidateCode" onclick="" id="">
+                                <span class="language_replace">傳送簡訊驗證碼</span>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-title language_replace">驗證碼</label>
+                            <div class="input-group">
+                                <input id="" name="" type="text" class="form-control custom-style" onkeyup="()"  language_replace="placeholder" placeholder="請輸入簡訊驗證碼">
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                                 <label class="form-title language_replace">姓</label>

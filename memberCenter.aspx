@@ -997,6 +997,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="wrapper_center mt-1 mb-3">
+                                    <button type="button" class="btn btn-outline-main btn-roundcorner" onclick="" style="max-width: 200px;">
+                                        <span class="language_replace">傳送簡訊驗證碼</span>
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-title language_replace">驗證碼</label>
+                                    <div class="input-group">
+                                        <input id="" name="" type="text" class="form-control custom-style" onkeyup="()"  language_replace="placeholder" placeholder="請輸入簡訊驗證碼">
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <div class="form-group col-md">
                                         <label class="form-title language_replace">姓</label>
