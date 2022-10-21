@@ -70,9 +70,25 @@
                     window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
                         window.parent.API_Reload();
                     });
+                } else {
+                  showWithdrawlPrecautions();
                 }
             }
+
         }, "PaymentAPI");
+    }
+
+    function showWithdrawlPrecautions() {
+        window.top.API_ShowMessageOK("", `<p>マハラジャの会員様、お世話になっております。ライセンスの規制により、2022年10月19日から出金するにはご本人様確認のため、身分証明（KYC）の送付が必要となります。</p> </br>
+<p style='margin:0'>本人確認書類（顔写真付き）</p> </br>
+<p style='margin:0'>-運転免許証／運転経歴証明書</p> </br>
+<p style='margin:0'>-写真付き住民基本台帳カード</p> </br>
+<p style='margin:0'>-パスポート</p> </br>
+<p style='margin:0'>-マイナンバーカード</p> </br>
+<p style='margin:0'>-在留カード／特別永住者証明書</p> </br>
+<p style='margin:0'>上記のいずれか一つが必要となります。パスポートは写真付きのページのご提出、その他は書類の両面の提出をお願いいたします。</p> </br>
+<p style='margin:0'>審査がスムーズにできるように、タイトルやメール内容に必ずマハラジャでのアカウント情報（メール、電話番号）を記入し、書類と共に下記のサポートメールにお送りお願いいたします。</p> </br>
+<p style='margin:0'>サポートメール：service@casino-maharaja.com</p> </br>`);
     }
 
     function API_showMessageOK(title, message, cbOK) {
