@@ -43,6 +43,31 @@
         });
     };
 
+    this.GetPaymentMethodByPaymentCode = function (WebSID, GUID, PaymentCategoryCode, PaymentType, PaymentCode, cb) {
+        var url = APIUrl + "/GetPaymentMethodByPaymentCode";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            PaymentCategoryCode: PaymentCategoryCode,
+            PaymentType: PaymentType,
+            PaymentCode: PaymentCode
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetClosePayment = function (WebSID, GUID, startDate, endDate, cb) {
         var url = APIUrl + "/GetClosePayment";
         var postData;
@@ -393,6 +418,30 @@
             GUID: GUID,
             Amount: Amount,
             PaymentMethodID: PaymentMethodID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
+    this.ConfirmTigerPayWithdrawal = function (WebSID, GUID, OrderNumber, TigerPayAccount, cb) {
+        var url = APIUrl + "/ConfirmTigerPayWithdrawal";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            OrderNumber: OrderNumber,
+            TigerPayAccount: TigerPayAccount
         };
 
         callService(url, postData, 10000, function (success, text) {

@@ -84,7 +84,6 @@
                 }
             }
             GetPaymentMethod();
-            GetEPayBankSelect();
         },"PaymentAPI");
 
     
@@ -156,7 +155,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPay", 1,"EWINPAY", function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPay", 1,"TigerPay", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
@@ -168,37 +167,6 @@
                     }
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("貨幣未設定匯率"), function () {
-                        window.parent.API_Home();
-                    });
-                }
-            }
-            else {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
-                    window.parent.API_Home();
-                });
-            }
-
-        })
-    }
-
-    function GetEPayBankSelect() {
-        PaymentClient.GetEPayBankSelect(WebInfo.SID, Math.uuid(), "Nissin", function (success, o) {
-            if (success) {
-                if (o.Result == 0) {
-                    o.Datas = JSON.parse(o.Datas);
-                    if (o.Datas.length > 0) {
-                        var strSelectBank= mlp.getLanguageKey("選擇銀行");
-                        $('#SearchBank').append(`<option class="title" value="-1" selected="">${strSelectBank}</option>`);
-                        for (var i = 0; i < o.Datas.length; i++) {
-                            $('#SearchBank').append(`<option class="searchFilter-option" value="${o.Datas[i].BankName}">${o.Datas[i].BankName}</option>`);
-                        }
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
-                            window.parent.API_Home();
-                        });
-                    }
-                } else {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未設定銀行列表"), function () {
                         window.parent.API_Home();
                     });
                 }
@@ -245,18 +213,6 @@
 
     }
 
-    function bankcardCheck() {
-        var baankCard = $("#bankCard").val().replace(/[^\-?\d.]/g, '')
-        $("#bankCard").val(baankCard);
-
-    }
-
-    function bankBranchCodeCheck() {
-        var bankBranchCode = $("#bankBranchCode").val().replace(/[^\-?\d.]/g, '')
-        $("#bankBranchCode").val(bankBranchCode);
-
-    }
-
     function setPaymentAmount() {
         for (var i = 0; i < PaymentMethod.length; i++) {
             let PaymentName = PaymentMethod[i]["PaymentName"];
@@ -284,77 +240,11 @@
 
     //建立訂單
     function CreateEPayWithdrawal() {
-        var bankCard = $("#bankCard").val().trim();
-        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-        var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
-        var bankName = $("#SearchBank").val();
-        var bankBranchCode = $("#bankBranchCode").val().trim();
-        if ($("#amount").val().trim() == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入金額"), function () { });
+        var tigerPayAccount = $("#TigerPayAccount").val().trim();
+        if (tigerPayAccount == '') {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入 TigerPay 帳戶"), function () { });
             window.parent.API_LoadingEnd(1);
             return false;
-        }
-
-        if (bankCard == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入卡號"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-        if (bankCard.length != 7) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("卡號只能輸入7位數"), function () { });
-            $("#bankCard").focus();
-            $("#bankCard").css('border-color', 'red');
-            window.parent.API_LoadingEnd(1);
-            return false;
-        } else {
-            $("#bankCard").css('border-color', '');
-        }
-
-        if (bankCardNameFirst == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-        if (check_pKatakana(bankCardNameFirst)) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-        if (bankCardNameSecond == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-        if (check_pKatakana(bankCardNameSecond)) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-        if (bankName== '-1') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未選擇銀行"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-        if (bankBranchCode == '') {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("尚未輸入分行代碼"), function () { });
-            window.parent.API_LoadingEnd(1);
-            return false;
-        }
-
-        if (bankBranchCode.length != 3) {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("分行碼只能輸入3位數"), function () { });
-            $("#bankBranchCode").focus();
-            $("#bankBranchCode").css('border-color', 'red');
-            window.parent.API_LoadingEnd(1);
-            return false;
-        } else {
-            $("#bankBranchCode").css('border-color', '');
         }
 
         if(!$('#CheckAward').prop("checked")){
@@ -363,7 +253,6 @@
             return false;
         }
 
-        var bankCardName=bankCardNameFirst+"　"+bankCardNameSecond;
         var amount = parseFloat($("#amount").val().trim());
     
         var wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
@@ -392,14 +281,11 @@
 
                                     if (o.Result == 0) {
                                         $("#depositdetail .Amount").text(BigNumber(data.Amount).toFormat());
-                                        //$("#depositdetail .OrderNumber").text(data.OrderNumber);
                                         $("#depositdetail .PaymentMethodName").text(mlp.getLanguageKey(data.PaymentMethodName));
+                                        //$("#depositdetail .OrderNumber").text(data.OrderNumber);
+                                        $("#depositdetail .TigerPayAccount").text(tigerPayAccount);
                                         $("#depositdetail .EWinCryptoWalletType").text("JPY");
-                                        $("#depositdetail .bankCardName").text(bankCardName);
-                                        $("#depositdetail .bankCard").text(bankCard);
-                                        $("#depositdetail .bankName").text(bankName);
-                                        $("#depositdetail .bankBranchCode").text(bankBranchCode);
-                                        
+                                     
                                         if (data.PaymentCryptoDetailList != null) {
                                             var depositdetail = document.getElementsByClassName("Collectionitem")[0];
                                             for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
@@ -461,19 +347,11 @@
         $('.progress-step:nth-child(3)').addClass('cur');
     }
 
-    function goBankPage() {
-        window.open('https://www.jp-bank.japanpost.jp/kojin/sokin/furikomi/kouza/kj_sk_fm_kz_1.html');
-    }
     //完成訂單
     function ConfirmEPayWithdrawal() {
-        var bankCard = $("#bankCard").val().trim();
-        var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-        var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
-        var bankCardName=bankCardNameFirst+"　"+bankCardNameSecond;
-        var bankName = $("#SearchBank").val();
-        var bankBranchCode = $("#bankBranchCode").val().trim();
+        var TigerPayAccount = $("#TigerPayAccount").val();
 
-        PaymentClient.ConfirmEPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, bankCard, bankCardName, bankName, bankBranchCode, function (success, o) {
+        PaymentClient.ConfirmTigerPayWithdrawal(WebInfo.SID, Math.uuid(), OrderNumber, TigerPayAccount, function (success, o) {
             if (success) {
                 window.parent.API_LoadingEnd(1);
                 if (o.Result == 0) {
@@ -678,49 +556,13 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                 <div class="form-group mb-3">
-                                    <label class="form-title language_replace">輸入卡號</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCard" language_replace="placeholder" placeholder="請輸入卡號" onkeyup="bankcardCheck()" />
-                                        <div class="invalid-feedback language_replace">提示</div>
-                                    </div>
-                                    <label onClick="goBankPage()" class="bankUrl text-s language_replace mt-1">郵帳銀行請參考此處</label>
-                                </div>
                                 <div class="form-group depositLastName mb-2">
-                                    <label class="form-title language_replace">輸入持卡人姓名</label>
+                                    <label class="form-title language_replace">輸入TigerPay帳戶</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="請填寫片假名的姓" />
+                                        <input type="text" class="form-control custom-style" id="TigerPayAccount" language_replace="placeholder" placeholder="請輸入TigerPay帳戶" />
                                     </div>
                                 </div>
-                                <div class="form-group depositFirstName">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCardNameSecond" language_replace="placeholder" placeholder="請填寫片假名的名">
-                                    </div>                            
-                                </div>
-                                <div class="form-group mt-4 mb-0">
-                                    <label class="form-title language_replace" >選擇銀行</label>
-                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
-                                    <select class="custom-select mb-4" id="SearchBank" style=""></select> 
-                                </div>
-                                
-                                <!-- 舊的 測試無誤時刪除-->
-                                <%--
-                                <div class="language_replace mt-4 mb-0" >
-                                    <label class="language_replace" style="font-size: 1rem;">選擇銀行</label>
-                                    <div class="searchFilter-item input-group game-brand" id="div_SearchGameCode"></div>
-                                 </div>
-                                 <select class="custom-select mb-4" id="SearchBank" style=""></select>                                   
-                               </select>
-                               --%>
-                                  
-                            <div class="form-group">
-                                <label class="form-title language_replace">輸入分行代碼</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style" id="bankBranchCode"
-                                        language_replace="placeholder" placeholder="請輸入分行代碼" onkeyup="bankBranchCodeCheck()" />
 
-                                </div>
-                            </div>
                             <div class="form-group award-take-check">
                                 <div class="form-check">
                                     <label for="CheckAward">
@@ -749,10 +591,10 @@
                     <div class="main-panel cryptopanel" data-deposite="step2">
                        
                         <div class="box-item-container">                           
-                               <div class="card-item-intro">
+                         <%--      <div class="card-item-intro">
                                    <div class="img-crop"><img src="/images/CASHCARD.png"></div>
                                   
-                              </div>
+                              </div>--%>
                                <!-- 溫馨提醒 -->
                             <div class="notice-container mt-4 mt-md-5 mb-2">
                                 <div class="notice-item">
@@ -834,25 +676,13 @@
                                         <i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>     
                                     </li>
                                     <li class="item">
+                                        <h6 class="title language_replace">TigerPay帳戶</h6>
+                                        <span class="data TigerPayAccount"></span>
+                                    </li>
+                                    <li class="item">
                                         <h6 class="title language_replace">支付方式</h6>
                                         <span class="data PaymentMethodName"></span>
                                     </li>
-                                    <li class="item">
-                                        <h6 class="title language_replace">持卡人姓名</h6>
-                                        <span class="data bankCardName"></span>
-                                    </li>
-                                    <li class="item">
-                                        <h6 class="title language_replace">卡號</h6>
-                                        <span class="data bankCard"></span>
-                                    </li>
-                                     <li class="item">
-                                        <h6 class="title language_replace">銀行</h6>
-                                        <span class="data bankName"></span>
-                                    </li>  
-                                     <li class="item">
-                                        <h6 class="title language_replace">分行代碼</h6>
-                                        <span class="data bankBranchCode"></span>
-                                    </li>   
                                 </ul>
                             </div>
                         </div>
