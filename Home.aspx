@@ -255,6 +255,12 @@
         iframeWidth = document.body.scrollWidth;
     }
 
+    function setDefaultIcon(brand, name) {
+        var img = event.currentTarget;
+        img.onerror = null;
+        img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + WebInfo.Lang + "/" + name + ".png";
+    }
+
     function checkChampionType(championType) {
         //三冠王 
         // 等級crownLevel-1/crownLevel-2/crownLevel-3
@@ -1023,8 +1029,8 @@
                             c.setClassText(RecordDom2, "BulletinTitle", null, record.BulletinTitle);
 
                             //RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinBoardID +"."+ record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
-                            RecordDom.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
-                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
+                            RecordDom.onclick = new Function("window.parent.showBoardMsg1('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
+                            RecordDom2.onclick = new Function("window.parent.showBoardMsg1('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
                             ParentMain.appendChild(RecordDom);
                             ParentMain2.appendChild(RecordDom2);
                         }
@@ -1405,7 +1411,7 @@
                             </div>
                             <div class="item bulletin">
                                 <div class="bulletin_inner">
-                                    <div class="sec-title-container sec-col-2" data-toggle="modal" data-target="#popupBulletinList">
+                                    <div class="sec-title-container sec-col-2" onclick="window.parent.showBulletinBoard()">
                                         <div class="sec-title-wrapper">
                                             <h2 class="sec-title"><i class="icon icon-mask icon-dialog"></i><span class="title language_replace">最新公告</span></h2>
                                         </div>
