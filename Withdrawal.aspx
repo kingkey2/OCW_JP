@@ -240,6 +240,22 @@
                         </a>
                            <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
+                         <!-- EPay -->
+                    <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalTigerPay.aspx')">
+                        <a class="card-item-link ">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">TigerPay</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center">
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                </div>
+                            </div>
+                        </a>
+                           <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
+                    </div>
                 </div>
                 <!-- 出款紀錄 -->
                 <div class="notice-container mt-5">

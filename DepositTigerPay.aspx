@@ -120,7 +120,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPAY", 0, "EWINPAY", function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPAY", 0, "TigerPay", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
@@ -154,43 +154,13 @@
     function CreatePayPalDeposit() {
         if ($("#amount").val() != '') {
             var amount = parseFloat($("#amount").val());
-            var depositName;
             var paymentID = PaymentMethod[0]["PaymentMethodID"];
-            var bankCardNameFirst = $("#bankCardNameFirst").val().trim();
-            var bankCardNameSecond = $("#bankCardNameSecond").val().trim();
 
-            if (bankCardNameFirst == '') {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
-                window.parent.API_LoadingEnd(1);
-                return false;
-            }
-
-            if (check_pKatakana(bankCardNameFirst)) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
-                window.parent.API_LoadingEnd(1);
-                return false;
-            }
-            
-
-            if (bankCardNameSecond == '') {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
-                window.parent.API_LoadingEnd(1);
-                return false;
-            }
-
-            if (check_pKatakana(bankCardNameSecond)) {
-                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
-                window.parent.API_LoadingEnd(1);
-                return false;
-            }
-
-            depositName = bankCardNameFirst + "　" + bankCardNameSecond;
-
-            PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, depositName, function (success, o) {
+            PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, '', function (success, o) {
                 if (success) {
                     let data = o.Data;
                     if (o.Result == 0) {
-                        $("#depositdetail .DepositName").text(data.ToInfo);
+      
                         $("#depositdetail .Amount").text(new BigNumber(data.Amount).toFormat());
                         $("#depositdetail .TotalAmount").text(new BigNumber(data.Amount).toFormat());
                         $("#depositdetail .OrderNumber").text(data.OrderNumber);
@@ -330,12 +300,14 @@
     }
 
     function ConfirmPayPalDeposit() {
-        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang,"EPay",0,function (success, o) {
+        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang,"TigerPay",1,function (success, o) {
             window.parent.API_LoadingEnd(1);
              if (success) {
                  if (o.Result == 0) {
-                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
-                        window.open(o.Message);
+                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
+                         var data = o.Data;
+                         data.ToInfo= "TigerPay";
+                        window.open(`/Payment/EPay/EPAYSendPayment.aspx?amount=${data.Amount}&paymentCode=${data.PaymentCode}&webSID=${WebInfo.SID}&orderNumber=${data.PaymentSerial}&UserName=${data.ToInfo}&Type=TigerPay`, "_blank");
                     });
 
                     setExpireSecond();
@@ -512,17 +484,7 @@
                                         <div class="invalid-feedback language_replace">提示</div>
                                     </div>
                                 </div>
-                                <div class="form-group depositLastName mb-2">
-                                    <label class="form-title language_replace" >請正確填寫存款人之姓名</label>
-                                    <div class="input-group">                                       
-                                        <input type="text" class="form-control custom-style" id="bankCardNameFirst" language_replace="placeholder" placeholder="請填寫片假名的姓">
-                                    </div>                            
-                                </div>
-                                <div class="form-group depositFirstName">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control custom-style" id="bankCardNameSecond" language_replace="placeholder" placeholder="請填寫片假名的名">
-                                    </div>                            
-                                </div>
+                               
                                 <!-- 換算金額(日元) -->
                                 <div class="form-group ">
                                     <div class="input-group inputlike-box-group">
