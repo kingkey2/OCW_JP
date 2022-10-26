@@ -1361,7 +1361,7 @@
                     </div> -->
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=14')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=14')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/ne-rt/202210/img/Jp-img-phone.jpg" alt="">
                             </div>
@@ -1387,7 +1387,7 @@
                     </div> -->
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=11')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=11')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/pp202209-1/img/pp-liveJp-s.jpg" alt="">
                             </div>
@@ -1400,7 +1400,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=12')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=12')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/pp202209-2/img/pp-slotJp-s.jpg" alt="">
                             </div>
@@ -1414,7 +1414,7 @@
                     
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','/Article/guide-TripleCrown.html?Page=CasinoPage')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','/Article/guide-TripleCrown.html?Page=CasinoPage')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/crown-m.jpg" alt="">
                             </div>

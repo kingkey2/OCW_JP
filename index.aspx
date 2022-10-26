@@ -14,6 +14,7 @@
     string CT = string.Empty;
     string PCode = string.Empty;
     string PageType = string.Empty;
+    string GCode = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
@@ -40,6 +41,11 @@
      if (string.IsNullOrEmpty(Request["PageType"]) == false)
     {
         PageType = Request["PageType"];
+    }
+
+    if (string.IsNullOrEmpty(Request["GCode"]) == false)
+    {
+        GCode = Request["GCode"];
     }
 
     if (GoEwinLogin == 1)
@@ -337,6 +343,7 @@
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
     var PCode = "<%=PCode%>";
+    var GCode = "<%=GCode%>";
     var PageType = "<%=PageType%>";
     //#region TOP API
     function API_GetGCB() {
@@ -594,7 +601,7 @@
                 //IFramePage.style.height = "0px";
 
                 IFramePage.src = url;
-                IFramePage.onload = null;
+                IFramePage.onload = addOrUpdateQueryInWindow("page", title);
 
 
                 //IFramePage.
@@ -2411,6 +2418,21 @@
             appendGameFrame();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
+
+            if (GCode != "") {
+                if (GCode.includes(".")) {
+                    let k = GCode.split(".");
+
+                    if (k.length == 2) {
+                        let GameBrand = k[0];
+                        let GameName = k[1];
+                        API_GetGameLang(EWinWebInfo.Lang, GCode, (function (langText) {
+                            API_OpenGame(GameBrand, GameName, langText);
+                        }))
+                    }
+                }
+            }
+
             //登入Check
             window.setTimeout(function () {
                 lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
@@ -3104,6 +3126,41 @@
         $("#popupBulletinList").modal("show");
     }
 
+    //#region URL
+    function getQueryInURL(param = '') {
+        let result;
+        try {
+            result = new URL(window.location.href).searchParams.get(param)
+            return result
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    
+    function addOrUpdateQueryInWindow(key, value, type = 'pushState') {
+        let url = location.href;
+
+        if (!url.includes('?')) {
+            url = `${url}?${key}=${value}`;
+        } else {
+            if (!url.includes(key)) {
+                url = `${url}&${key}=${value}`;
+            } else {
+                let re = `(\\?|&|\#)${key}([^&|^#]*)(&|$|#)`;
+                url = url.replace(new RegExp(re), '$1' + key + '=' + value + '$3');
+            }
+        }
+
+        if (type === 'location') {
+            location.href = url;
+        }
+
+        if (type === 'pushState') {
+            history.pushState({}, 0, url);
+        }
+    }
+    //#endregion
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -3224,7 +3281,7 @@
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="window.top.API_LoadPage('','Article/guide_CashQa_jp.html')">
+                                            onclick="window.top.API_LoadPage('guide_CashQa_jp','Article/guide_CashQa_jp.html')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-instruction"></i>
                                                 <span class="title language_replace">出入金手順</span></a>
@@ -3239,13 +3296,13 @@
                                                 <span class="title language_replace">會員中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
-                                            <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
+                                            <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                                 <i class="icon icon-mask icon-loudspeaker"></i>
                                                 <span class="title language_replace">活動中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
     
-                                            <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                            <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
                                                 <span class="notify-dot PC-notify-dot" style="display:none;"></span>
                                                 <i class="icon icon-mask icon-prize"></i>

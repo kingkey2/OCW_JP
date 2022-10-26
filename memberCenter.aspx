@@ -883,7 +883,7 @@
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>
+                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('guide_Rolling','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>
                                                     </div>
                                                 </div>
                                                 <div class="limit-amount">
@@ -922,7 +922,7 @@
                             <!-- 活動中心 + 獎金中心 -->
                             <div class="activity-record-wrapper">
                                 <!-- 活動中心 -->
-                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                     <div class="activity-center-inner">
                                         <div class="activity-center-content">
                                             <div class="title language_replace">活動中心</div>
@@ -932,7 +932,7 @@
                                 </div>
 
                                 <!-- 獎金中心 -->
-                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','/Guide/prize.html')">
+                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('prize','/Guide/prize.html')">
                                     <div class="prize-center-inner">
                                         <div class="title language_replace">禮物盒說明</div>
                                     </div>
@@ -942,7 +942,7 @@
 
                             <!-- 會員簽到進度顯示 -->
                             <div class="activity-dailylogin-wrapper">
-                                <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
+                                <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=3')">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
                                             <h3 class="title">
