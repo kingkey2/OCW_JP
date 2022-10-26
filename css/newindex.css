@@ -2,7 +2,7 @@
 /* animation =================================
 animation:name duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
 .font_size_0, .section1 .content_area .word h1 {
-  font-size: 4.4rem;
+  font-size: 4.375rem;
 }
 
 .font_size_1, .section7 .content_area .word h1, .section5 h1, .section4 h1, .section3 h1 {
@@ -35,6 +35,24 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 
 .font_size_7, .section6 .dialogue_wrap a, .video_intro a, .video_intro p {
   font-size: 0.875rem;
+}
+
+.font_bold {
+  font-weight: bold;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.relative {
+  position: relative;
+}
+
+.overflow_X, .section, body {
+  overflow-x: hidden;
 }
 
 .drop-shadow-img, .section4 .girlhead, .section2 .content_area .section2_girl img, .section1 .content_area .img_diamond, .section1 .content_area .img_card, .section1 .content_area .img_dice, .section1 .content_area .img_chip_red, .section1 .content_area .main_dog, .section1 .content_area .main_girl {
@@ -107,28 +125,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
             transform: scaleX(1);
   }
 }
-.font_bold {
-  font-weight: bold;
-}
-
 .animate-float, .section7 .content_area .img_diamond, .section7 .content_area .img_card, .section7 .content_area .img_dice, .section7 .content_area .img_chip_yellow, .section7 .content_area .img_chip_red, .section7 .content_area .img_chip_blue, .section7 .content_area .img_777, .section1 .content_area .img_diamond, .section1 .content_area .img_card, .section1 .content_area .img_dice, .section1 .content_area .img_chip_yellow, .section1 .content_area .img_chip_red, .section1 .content_area .img_chip_blue, .section1 .content_area .img_777 {
   -webkit-animation: float 4s ease-in-out infinite;
           animation: float 4s ease-in-out infinite;
-}
-
-.mx_auto, .section2 .content_area .title_area, .section1 .content_area {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.relative {
-  position: relative;
 }
 
 .bg_gradient_pink, .section7 .content_area .word h1 span span, .section5 .events .special .header, .section5 h1 span span, .section1 .content_area .word h1 span span {
@@ -179,6 +178,14 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   margin: 0 auto;
 }
 
+body {
+  width: 100vw;
+}
+
+.section {
+  width: 100%;
+}
+
 .section1 {
   width: 100%;
   height: 80vh;
@@ -189,9 +196,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   background-size: cover;
 }
 .section1 .content_area {
-  width: 1100px;
   height: 100%;
-  position: relative;
   z-index: 1;
 }
 .section1 .content_area .main_girl {
@@ -341,8 +346,9 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .section1 .content_area .word .join {
   display: inline-block;
-  width: 250px;
-  height: 56px;
+  width: auto;
+  height: auto;
+  padding: 0 5%;
   font-weight: bold;
   line-height: 52px;
   background: #FFFFFF;
@@ -447,6 +453,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  margin: 0 auto;
   top: -100px;
   margin: 0 auto;
   background: #FBFBFB;
@@ -578,7 +585,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
 }
 .section3 h1 {
   line-height: 1.25;
-  margin: 5% 0 4% 0;
+  margin: 5% 6px 4% 6px;
   font-weight: bold;
 }
 .section3 h1 span {
@@ -1600,7 +1607,7 @@ stream {
 }
 .section7 .content_area .word h1 {
   line-height: 1.25;
-  margin: 0 0 4% 0;
+  margin: 0 6px 4% 6px;
   font-weight: bold;
 }
 .section7 .content_area .word h1 span {
@@ -1734,4 +1741,74 @@ stream {
   opacity: 0.7;
   -webkit-filter: blur(1px);
           filter: blur(1px);
+}
+
+@media screen and (max-width: 1024px) {
+  .font_size_0, .section1 .content_area .word h1 {
+    font-size: 4rem;
+  }
+
+  .font_size_1, .section3 h1, .section4 h1, .section5 h1, .section7 .content_area .word h1 {
+    font-size: 3.5rem;
+  }
+
+  .font_size_2, .section1 .content_area .word h2, .section3 ul li .circlerap b {
+    font-size: 2.5rem;
+  }
+
+  .font_size_3, .section2 .content_area .title_area .section2_title, .section5 p b {
+    font-size: 2rem;
+  }
+
+  .font_size_4_2, .section4 h2 {
+    font-size: 1.875rem;
+  }
+
+  .font_size_4, .section1 .content_area .medal_area .medal .medal_content b, .section6 .Character_area .Character_wrap .Character h3 {
+    font-size: 1.5rem;
+  }
+
+  .font_size_5, .section1 .content_area .word .join, .section2 .content_area ul li p, .section3 .join, .section4 .gametyle li, .section5 p, .section5 .events .single_event .header span, .section6 .top_area p, .section6 .Character_area .Character_wrap .Character p, .section7 .content_area .word .join {
+    font-size: 1rem;
+  }
+
+  .font_size_6, .section3 ul li .circlerap p, .section6 .dialogue_wrap .dialogue_content .say {
+    font-size: 1rem;
+  }
+
+  .font_size_7, .video_intro p, .video_intro a, .section6 .dialogue_wrap a {
+    font-size: 0.875rem;
+  }
+
+  .content_area {
+    width: 90vw;
+    position: relative;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin: 0 auto;
+  }
+
+  .section1 .content_area .main_girl {
+    left: -10%;
+  }
+  .section1 .content_area .medal_area {
+    right: -3%;
+    top: 70px;
+  }
+  .section1 .content_area .join {
+    line-height: 46px;
+  }
+
+  .section2 .content_area .title_area {
+    width: 100%;
+  }
 }
