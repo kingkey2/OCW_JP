@@ -990,11 +990,19 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
 
@@ -1026,11 +1034,19 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
             //真人
@@ -1061,11 +1077,19 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
             //其他
@@ -1096,16 +1120,24 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
             //廠牌
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Brand" });
-            if (lobbyGame &&lobbyGame.Location.includes("GameList")) {
+            if (lobbyGame && lobbyGame.Location.includes("GameList")) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
@@ -1131,11 +1163,19 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
 
