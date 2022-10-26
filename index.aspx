@@ -262,6 +262,8 @@
             color: #008fd1;
         }
     </style>
+    
+   <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
 <% if (EWinWeb.IsTestSite == false)
     { %>
@@ -4496,6 +4498,7 @@
             </label>
         </li>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

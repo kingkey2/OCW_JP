@@ -31,6 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
     
     <style>
         .title-showAll:hover {
@@ -54,7 +55,19 @@
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
 <script src="Scripts/theme.js"></script>--%>
 <%--<script src="Scripts/OutSrc/js/games.js"></script>--%>
+    
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
 
 <script type="text/javascript">      
     if (self != top) {
@@ -2013,6 +2026,7 @@
                                     </div>
                                 </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 <script>
      // 遊戲排名 TEST
