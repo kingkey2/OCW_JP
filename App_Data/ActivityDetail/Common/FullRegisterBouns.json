@@ -5,7 +5,7 @@
   "EndDate": "2062/05/31 00:00:00",
   "Self": {
     "BonusValue": 1000,
-    "ThresholdValue": 30000
+    "ThresholdValue": 20000
   },
   "Parent": {
 
