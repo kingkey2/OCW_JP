@@ -279,6 +279,7 @@
             });
         });
 
+        setLoginType(LoginType);
         CreateLoginValidateCode();
     }
 
@@ -491,7 +492,7 @@
                         <input type="hidden" name="FingerPrint" value="" />
                         <input type="hidden" name="UserAgent" value="" />
                         <input type="hidden" name="LoginGUID" value="" />
-                        <input id="idLoginType" type="hidden" name="LoginType" value="1" />
+                        <input id="idLoginType" type="hidden" name="LoginType" value="0" />
                         <div id="idMailLoginGroup" class="form-group">
                             <label class="form-title language_replace">信箱</label>
                             <div class="input-group">
