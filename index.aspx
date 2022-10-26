@@ -568,6 +568,16 @@
             }
         }
 
+        if (url == "Deposit.aspx") {
+            let IsFullRegistration = API_GetUserIsFullRegistration();
+
+            if (IsFullRegistration == 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("您尚未完成認證，即將前往認證頁面"), function () {
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx?needShowRegister=1', true);
+                });
+            }
+        }
+
         var IFramePage = document.getElementById("IFramePage");
 
         if (IFramePage != null) {
