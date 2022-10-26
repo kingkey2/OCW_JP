@@ -2335,7 +2335,7 @@
 
         initByArt();
         switchLang(EWinWebInfo.Lang, false);
-        
+
         if (EWinWebInfo.Lang == "JPN") {
             $('#langIcon').addClass('icon-flag-JP');
         } else {
@@ -2407,7 +2407,7 @@
                     } else {
                         API_Home();
                     }
-                    
+
                 }
             }
 
@@ -2418,20 +2418,6 @@
             appendGameFrame();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
-
-            if (GCode != "") {
-                if (GCode.includes(".")) {
-                    let k = GCode.split(".");
-
-                    if (k.length == 2) {
-                        let GameBrand = k[0];
-                        let GameName = k[1];
-                        API_GetGameLang(EWinWebInfo.Lang, GCode, (function (langText) {
-                            API_OpenGame(GameBrand, GameName, langText);
-                        }))
-                    }
-                }
-            }
 
             //登入Check
             window.setTimeout(function () {
@@ -2451,8 +2437,8 @@
                                     } else {
                                         //Check登入前狀態
                                         var openGameBeforeLoginStr = window.sessionStorage.getItem("OpenGameBeforeLogin");
-                                        
-                                        if (openGameBeforeLoginStr) {                                            
+
+                                        if (openGameBeforeLoginStr) {
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
@@ -2466,7 +2452,7 @@
                                                 window.sessionStorage.removeItem("SrcPage");
                                                 API_LoadPage("SrcPage", srcPage, true);
                                             }
-                                        }                                        
+                                        }
                                     }
 
                                     notifyWindowEvent("IndexFirstLoad", logined);
@@ -2549,6 +2535,33 @@
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
+
+            GCB.InitPromise.then(() => {
+                checkUserLogin(EWinWebInfo.SID, function () {
+                    updateBaseInfo();
+                    if (GCode != "") {
+                        if (GCode.includes(".")) {
+                            let k = GCode.split(".");
+
+                            if (k.length == 2) {
+                                GCB.GetByGameCode(GCode, (GameCodeItem) => {
+                                    if (GameCodeItem && GameCodeItem.GameStatus == 0) {
+                                        var langText = null;
+
+                                        langText = GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                                        
+                                        clearUrlParams();
+
+                                        API_OpenGame(GameCodeItem.GameBrand, GameCodeItem.GameName, langText);
+
+                                    }
+
+                                });
+                            }
+                        }
+                    }
+                });
+            });
         });
 
         API_changeAvatarImg(getCookie("selectAvatar"));
