@@ -51,6 +51,7 @@
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
+    var IsFullRegistration = 0;
 
     function init() {
         if (self == top) {
@@ -61,20 +62,28 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
-            if (IsOpenTime == "N") {
-                window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
-                    window.parent.API_Reload();
+
+            IsFullRegistration = window.parent.API_GetUserIsFullRegistration();
+
+            if (IsFullRegistration == 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("您尚未完成認證，即將前往認證頁面"), function () {
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx?needShowRegister=1', true);
                 });
             } else {
-                if (IsWithdrawlTemporaryMaintenance == "Y") {
-                    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
+                if (IsOpenTime == "N") {
+                    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
                         window.parent.API_Reload();
                     });
                 } else {
-                  showWithdrawlPrecautions();
+                    if (IsWithdrawlTemporaryMaintenance == "Y") {
+                        window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
+                            window.parent.API_Reload();
+                        });
+                    } else {
+                        showWithdrawlPrecautions();
+                    }
                 }
             }
-
         }, "PaymentAPI");
     }
 

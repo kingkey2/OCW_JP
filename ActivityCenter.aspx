@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/activity.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
@@ -70,7 +70,7 @@
                             GoActivityDetail(2, '/Activity/Act002/CenterPage/index.html');
                             break;
                         case "3":
-                            GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')
+                            GoActivityDetail(3, '/Activity/Act003/CenterPage/index.html')
                             break;
                         case "4":
                             GoActivityDetail(4, '/Activity/event/pp-1/index-jp.html');
@@ -124,7 +124,7 @@
                         for (var i = 0; i < o.Datas.length; i++) {
                             if (o.Datas[i].ActivityName == 'RegisterBouns') {
                                 if (o.Datas[i].CollectCount == o.Datas[i].JoinCount) {
-                                    $('#ModalRegister .btn-secondary').removeClass('is-hide');    
+                                    $('#ModalRegister .btn-secondary').removeClass('is-hide');
                                 } else {
                                     $('#ModalRegister .btn-full-sub').removeClass('is-hide');
                                 }
@@ -198,13 +198,13 @@
                     btnText = mlp.getLanguageKey("前往遊玩");
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
-                    break;    
+                    break;
                 case 10:
                     title = "BNGまほう怪盗トーナメント";
                     btnText = mlp.getLanguageKey("前往遊玩");
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
-                    break;    
+                    break;
                 case 11:
                     title = "ライブカジノウィークリー トーナメント";
                     btnText = mlp.getLanguageKey("前往遊玩");
@@ -268,7 +268,7 @@
                 break;
             case 8:
                 $('#TempModal').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"]);                
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE", "RT"]);
                 break;
             case 11:
                 $('#TempModal').modal('hide');
@@ -280,7 +280,7 @@
                 break;
             case 14:
                 $('#TempModal').modal('hide');
-                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE","RT"]);
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE", "RT"]);
                 break;
         }
     }
@@ -303,6 +303,19 @@
         $('#TempModal .activity-popup-detail-inner').load(url, function () {
             $('#TempModal').modal('show');
         });
+    }
+
+    function ChangeActivity(type) {
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        $("#li_activity" + type).addClass("active");
+
+        if (type == 0) {
+            $("#divProcessing").show();
+            $("#divFinish").hide();
+        } else {
+            $("#divFinish").show();
+            $("#divProcessing").hide();
+        }
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -338,16 +351,16 @@
                         <h1 class="sec-title title-deco"><span class="language_replace">活動</span></h1>
                     </div>
                 </div>
-                <nav class="tab-activity is-hide">
+                <nav class="tab-activity">
                     <div class="tab-scroller tab-2">
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content" id="idTabActivityList">
-                                <li class="tab-item act-running active">
+                                <li class="tab-item act-running active" id="li_activity0" onclick="ChangeActivity(0)">
                                     <span class="tab-item-link">
                                         <span class="title language_replace">進行中</span>
                                     </span>
                                 </li>
-                                <li class="tab-item act-finish">
+                                <li class="tab-item act-finish" id="li_activity1" onclick="ChangeActivity(1)">
                                     <span class="tab-item-link">
                                         <span class="title language_replace">已結束</span>
                                     </span>
@@ -359,8 +372,8 @@
                 </nav>
 
                 <section class="section-wrap section-activity">
-                    <div class="activity-item-group">
-                        
+                    <div class="activity-item-group" id="divProcessing">
+
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(14,'/Activity/event/ne-rt/202210/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -371,7 +384,8 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大130,000のギフトマネーが貰えるよ！
+                                            <div class="desc language_replace">
+                                                ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大130,000のギフトマネーが貰えるよ！
                                             </div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
@@ -381,7 +395,7 @@
                                 </div>
                             </div>
                         </figure>
-                        
+
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(11,'/Activity/event/pp202209-1/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -438,9 +452,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </figure>                        
+                        </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner"  onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -477,6 +491,8 @@
                                 </div>
                             </div>
                         </figure>
+                    </div>
+                    <div class="activity-item-group" id="divFinish" style="display: none">
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(15,'/Activity/event/bng/bng202210GreenChilli/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -487,12 +503,12 @@
                                     <div class="info">
                                         <div class="detail">
                                             <div class="desc language_replace">ブンーゴーの対象ゲーム（グリーンチリ）をプレイすれば、最大160,000のギフトマネーがもらえる！</div>
-                                        </div>                                     
+                                        </div>
                                         <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
-                        </figure> 
+                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(13,'/Activity/event/bng/bng221003MR/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -503,7 +519,8 @@
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">ブンーゴーの対象ゲームをプレイすれば、最大360,000のギフトマネーがもらえる！
+                                            <div class="desc language_replace">
+                                                ブンーゴーの対象ゲームをプレイすれば、最大360,000のギフトマネーがもらえる！
                                             </div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
@@ -571,7 +588,7 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">                           
+                            <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -582,13 +599,13 @@
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
                                             <div class="desc language_replace">プラグマティックプレイの対象ゲームをプレイし、高いポジションを争い、高額ギフトマネー＆サプライズ賞を獲得！</div>
                                         </div>
-                                       <!-- 活動詳情 Popup-->
-                                       <!-- <button type="button" onclick="activityBtnClick(4)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                       <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(4)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
-                        </figure>                        
+                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(5,'/Activity/event/pp-2/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -628,7 +645,7 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')">                           
+                            <div class="activity-item-inner" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
@@ -639,9 +656,9 @@
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
                                             <div class="desc language_replace">この狛犬大吉と一緒にBNGの周年記念キャンペーンに参加するぞ！対象ゲームで100ラウンドベットして、ポイントの高い人はボーナスが多くもらえるぞ！</div>
                                         </div>
-                                       <!-- 活動詳情 Popup-->
-                                       <!-- <button type="button" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                       <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -651,7 +668,7 @@
             </div>
         </div>
     </main>
-    
+
     <!-- Modal -->
     <div class="modal fade footer-center" id="ModalTest" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -669,7 +686,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-   
+
                     <!--獎勵可領取-->
                     <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
 
@@ -691,7 +708,7 @@
                 </div>
                 <div class="modal-body">
                     <article class="activity-popup-detail-wrapper">
-                        <div class="activity-popup-detail-inner" >
+                        <div class="activity-popup-detail-inner">
                         </div>
                     </article>
                 </div>
@@ -775,7 +792,7 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                     <button type="button" class="btn btn-primary language_replace btnGoActivity">參加活動</button> 
+                    <button type="button" class="btn btn-primary language_replace btnGoActivity">參加活動</button>
                 </div>
             </div>
         </div>

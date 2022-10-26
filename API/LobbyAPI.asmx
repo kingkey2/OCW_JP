@@ -389,28 +389,37 @@ public class LobbyAPI : System.Web.Services.WebService {
         R = lobbyAPI.CreateAccount(GetToken(), GUID, LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS);
 
         if (R.Result == EWin.Lobby.enumResult.OK) {
-            var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
-            if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
-                List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+            foreach (EWin.Lobby.PropertySet EachPS in PS) {
+                if (EachPS.Name.ToUpper() == "IsFullRegistration".ToUpper()) {
+                    int IsFullRegistration = int.Parse(EachPS.Value);
 
-                foreach (var activityData in GetRegisterResult.Data) {
+                    if (IsFullRegistration == 1) {
+                        var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
 
-                    string description = activityData.ActivityName;
-                    string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+                        if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
+                            List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
 
-                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
-                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
-                    PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+                            foreach (var activityData in GetRegisterResult.Data) {
 
-                    lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
-                    EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
-                    //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, activityData.ThresholdValue, activityData.BonusValue);
+                                string description = activityData.ActivityName;
+                                string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
 
+                                //PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue2", Value = activityData.ThresholdValue.ToString() });
+                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
+                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+                                PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+                                //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, activityData.ThresholdValue, activityData.BonusValue);
+
+                            }
+                        }
+                    }
                 }
             }
         }
-
         return R;
     }
 
@@ -1445,6 +1454,54 @@ public class LobbyAPI : System.Web.Services.WebService {
 
             if (OcwAPIResult.ResultState == EWin.OCW.enumResultState.OK) {
                 R.Result = EWin.Lobby.enumResult.OK;
+            } else {
+                R.Message = OcwAPIResult.Message;
+                R.Result = EWin.Lobby.enumResult.ERR;
+            }
+        } else {
+            R.Message = "InvalidWebSID";
+            R.Result = EWin.Lobby.enumResult.ERR;
+        }
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.APIResult RegistrationUserAccount(string WebSID, string GUID, EWin.OCW.UserAccount UserInfo, string LoginAccount) {
+        EWin.Lobby.APIResult R = new EWin.Lobby.APIResult();
+        EWin.OCW.APIResult OcwAPIResult = new EWin.OCW.APIResult();
+        EWin.OCW.OCW OCWAPI = new EWin.OCW.OCW();
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            OcwAPIResult = OCWAPI.UpdateUserAccount(GetToken(), SI.EWinSID, GUID, UserInfo);
+
+            if (OcwAPIResult.ResultState == EWin.OCW.enumResultState.OK) {
+                R.Result = EWin.Lobby.enumResult.OK;
+
+                var GetRegisterResult = ActivityCore.GetRegisterResult(LoginAccount);
+
+                if (GetRegisterResult.Result == ActivityCore.enumActResult.OK) {
+                    List<EWin.Lobby.PropertySet> PropertySets = new List<EWin.Lobby.PropertySet>();
+
+                    foreach (var activityData in GetRegisterResult.Data) {
+
+                        string description = activityData.ActivityName;
+                        string JoinActivityCycle = activityData.JoinActivityCycle == null ? "1" : activityData.JoinActivityCycle;
+
+                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = activityData.ThresholdValue.ToString() });
+                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
+                        PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
+
+                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+
+                    }
+                }
+
             } else {
                 R.Message = OcwAPIResult.Message;
                 R.Result = EWin.Lobby.enumResult.ERR;
