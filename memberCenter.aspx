@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" %>
 
-<% string Version = EWinWeb.Version; %>
+<% 
+    string Version = EWinWeb.Version;
+    string needShowRegister = "0";
+
+    if (string.IsNullOrEmpty(Request["needShowRegister"]) == false) {
+        needShowRegister = Request["needShowRegister"];
+    }
+
+%>
 
 <!DOCTYPE html>
 <html>
@@ -48,6 +56,7 @@
     var BackCardInfo = null;
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var v = "<%:Version%>";
+    var needShowRegister = "<%:needShowRegister%>";
     var swiper;
     var isSent_Phone = false;
 
@@ -315,6 +324,10 @@
                 window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
                     setUserThisWeekLogined(e);
                 });
+
+                if (needShowRegister == "1") {
+                    $("#ModalRegisterComplete").modal('show');
+                }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
@@ -449,7 +462,7 @@
                             "ExtraData": strExtraData
                         }
                         window.parent.API_LoadingStart();
-                        p.UpdateUserAccount(WebInfo.SID, Math.uuid(), data, function (success, o) {
+                        p.RegistrationUserAccount(WebInfo.SID, Math.uuid(), data, WebInfo.UserInfo.LoginAccount, function (success, o) {
                             window.parent.API_LoadingEnd(1);
                             if (success) {
                                 if (o.Result == 0) {

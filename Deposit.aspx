@@ -37,6 +37,7 @@
     var WebInfo;
     var lang;
     var mlp;
+    var IsFullRegistration = 0;
     var v = "<%:Version%>";
 
     function init() {
@@ -47,10 +48,18 @@
 
         WebInfo = window.parent.API_GetWebInfo();
 
+
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
+
+            IsFullRegistration = window.parent.API_GetUserIsFullRegistration();
+            if (IsFullRegistration == 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("您尚未完成認證，即將前往認證頁面"), function () {
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx?needShowRegister=1', true);
+                });
+            }
         }, "PaymentAPI");
     }
 

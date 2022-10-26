@@ -738,6 +738,21 @@
     function API_OpenGame(GameBrand, GameName, LangName) {
         openGame(GameBrand, GameName, LangName);
     }
+
+    function API_GetUserIsFullRegistration() {
+        let IsFullRegistration = 0;
+
+        if (EWinWebInfo.UserInfo.ExtraData) {
+            let ExtraData = JSON.parse(EWinWebInfo.UserInfo.ExtraData);
+            for (var i = 0; i < ExtraData.length; i++) {
+                if (ExtraData[i].Name == "IsFullRegistration") {
+                    IsFullRegistration = ExtraData[i].Value;
+                }
+            }
+        }
+
+        return IsFullRegistration;
+    }
     //#endregion
 
     //#region Alert

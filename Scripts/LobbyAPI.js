@@ -1354,6 +1354,30 @@
         });
     };
 
+    this.RegistrationUserAccount = function (WebSID, GUID, UserInfo, LoginAccount, cb) {
+        var url = APIUrl + "/RegistrationUserAccount";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            UserInfo: UserInfo,
+            LoginAccount: LoginAccount
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetUserTwoMonthSummaryData = function (WebSID, GUID, cb) {
         var url = APIUrl + "/GetUserTwoMonthSummaryData";
         var postData;
