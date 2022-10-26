@@ -1797,7 +1797,11 @@ stream {
     margin: 0 auto;
   }
 
+  .section1 {
+    height: 75vh;
+  }
   .section1 .content_area .main_girl {
+    top: 12%;
     left: -10%;
   }
   .section1 .content_area .medal_area {
