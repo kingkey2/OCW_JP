@@ -210,11 +210,11 @@
                     </div>
 
                     <!-- EPay -->
-                <%--    <div class="card-item sd-03" id="idDepositEPayGASH">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGASH','DepositGASH.aspx')">
+                    <div class="card-item sd-03" id="idDepositTigerPay">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositTigerPay','DepositTigerPay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
-                                    <span class="language_replace">GASH</span>
+                                    <span class="language_replace">TigerPay</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
                                 <div class="logo vertical-center text-center"> 
@@ -224,7 +224,7 @@
                             </div>
                             <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
                         </a>
-                    </div>--%>
+                    </div>
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">

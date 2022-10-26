@@ -336,7 +336,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByCategory(WebInfo.SID, Math.uuid(), "EPAYJKC", 0, function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPAYJKC", 0, "JKCCASH", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
