@@ -3276,6 +3276,12 @@
                                                 <i class="icon icon-mask icon-line"></i>
                                                 <span class="title language_replace">Line</span></a>
                                         </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('texthome','/newhome.html')" style="display:none;">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-QA"></i>
+                                                <span class="title language_replace">Q&A</span></a>
+                                        </li>
                                         
                                     </ul>
                                 </li>
