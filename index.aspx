@@ -37,6 +37,10 @@
         PCode = Request["PCode"];
     }
 
+    if (string.IsNullOrEmpty(Request["p"]) == false) {
+        PCode = Request["p"];
+    }
+
     if (string.IsNullOrEmpty(Request["PageType"]) == false) {
         PageType = Request["PageType"];
     }
