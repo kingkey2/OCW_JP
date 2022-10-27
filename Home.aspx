@@ -1200,7 +1200,7 @@
                     </div>--%>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=1')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=1')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b2-m.jpg?1" alt="">
                             </div>
@@ -1213,7 +1213,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=2')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=2')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b1-m.jpg" alt="">
                             </div>
@@ -1226,7 +1226,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')"></a>
+                            <a class="hero-item-link " onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=3')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/banner/b3-m.jpg" alt="">
                             </div>
@@ -1308,7 +1308,7 @@
                 <div class="entrance_Game_inner">
                     <!-- 遊戲大廳入口 -->
                     <section class="section-lobbyEntrance section-wrap">
-                        <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('','Casino.aspx')">
+                        <div class="section-lobbyEntrance-wrapper" onclick="window.parent.API_LoadPage('Casino','Casino.aspx')">
                             <img src="images/index/lobby-entrance.jpg" alt="">
                         </div>
                     </section>
@@ -1325,7 +1325,7 @@
                     </section>
                     <!-- 活動中心 -->
                     <section class="section-activityCenter section-wrap">
-                        <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                        <div class="activity-center-wrapper lable-new" onclick="window.top.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                             <div class="activity-center-inner">
                                 <div class="activity-center-content">
                                     <div class="title language_replace">活動中心</div>
@@ -1357,7 +1357,7 @@
                     <div class="publicize_bottom_inner">
                         <!-- 入出金說明 -->
                         <div class="publicize-wrap way-payment-wrapper">
-                            <div class="item way-payment-inner" onclick="window.top.API_LoadPage('','Article/guide_CashQa_jp.html')">
+                            <div class="item way-payment-inner" onclick="window.top.API_LoadPage('guide_CashQa_jp','Article/guide_CashQa_jp.html')">
                                 <div class="way-payment-img">
                                     <div class="img-crop">
                                         <img src="images/theme/girl-half.png" class="mobile" alt="">
@@ -1376,7 +1376,7 @@
                         <div class="publicize-wrap bulletin-login">
                             <div class="item daily-login">
                                 <!-- 會員簽到進度顯示 -->
-                                <div class="activity-dailylogin-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
+                                <div class="activity-dailylogin-wrapper" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=3')">
                                     <%--
                                     <div class="coming-soon-text">
                                         2022/7/8 イベントスタート

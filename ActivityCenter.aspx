@@ -357,7 +357,7 @@
             <div class="container">
                 <div class="sec-title-container sec-title-activity">
                     <!-- 領獎中心 link-->
-                    <a class="btn btn-link btn-prize" onclick="window.parent.API_LoadPage('','Prize.aspx', true)">
+                    <a class="btn btn-link btn-prize" onclick="window.parent.API_LoadPage('Prize','Prize.aspx', true)">
                         <span class="title language_replace">前往領獎中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
@@ -701,7 +701,7 @@
                 <div class="modal-footer">
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
@@ -729,7 +729,7 @@
                     <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx', false)">開始洗碼</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
@@ -777,10 +777,10 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">參加活動</button>
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide language_replace" disabled>參加活動</button>

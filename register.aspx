@@ -401,7 +401,7 @@
                                     sendThanksMail();
                                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
                                         document.getElementById("idRegister").classList.add("is-hide");
-                                        document.getElementById("contentFinish").classList.remove("is-hide");
+                                        window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
                                     });
                                 } else {
                                     window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
@@ -474,7 +474,7 @@
                     sendThanksMail();
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
                         document.getElementById("idRegister").classList.add("is-hide");
-                        document.getElementById("contentFinish").classList.remove("is-hide");
+                        window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
                     });
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
