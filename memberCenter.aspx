@@ -710,7 +710,7 @@
                                     </div>
                                     <div class="data-item verify">
                                         <div class="data-item-title">
-                                            <label class="title">
+                                            <label class="title mb-3">
                                                 <i class="icon icon-mask icon-verify"></i>
                                                 <span class="title-name language_replace">認證狀態</span>
                                                 <span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
@@ -719,13 +719,14 @@
                                         <div class="data-item-content">
                                             <div class="verify-item">
                                                 <!-- 尚未認證 -->
-                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: none">
+                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: ">
                                                     <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
                                                     <span class="verify-desc language_replace">尚未認證</span>
                                                     <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
                                                         <span class="title language_replace">進行認證</span>
                                                         <i class="icon icon-mask icon-pencile"></i>
                                                     </button>
+                                                    <p class="notice language_replace mt-2 text-primary">*完成會員認證可領取 1000gift</p>
                                                 </span>
 
                                                 <!-- 認證完成 -->
@@ -733,7 +734,6 @@
                                                     <span class="label success"><i class="icon icon-mask icon-check"></i></span>
                                                     <span class="verify-desc language_replace">認證完成</span>
                                                 </span>
-
                                             </div>
                                         </div>
                                     </div>

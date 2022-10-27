@@ -928,6 +928,10 @@ input.month:read-only, input.day:read-only {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -942,6 +946,10 @@ input.month:read-only, input.day:read-only {
 .verify-result .icon-mask {
   width: 24px;
   height: 24px;
+}
+.verify-result .notice {
+  width: 100%;
+  padding-left: 30px;
 }
 
 .verify-desc {

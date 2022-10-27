@@ -1575,6 +1575,7 @@ input{
 
 .verify-result{
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
 
     .label{
@@ -1589,6 +1590,13 @@ input{
     .icon-mask{
         width: 24px;
         height: 24px;
+    }
+
+    .notice{
+        width: 100%;
+        // color: #268fff;
+        padding-left: 30px;
+        
     }
 }
 .verify-desc{
