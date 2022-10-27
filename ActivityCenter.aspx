@@ -394,7 +394,7 @@
                 </nav>
 
                 <section class="section-wrap section-activity">
-                    <div class="activity-item-group">
+                    <div class="activity-item-group" id="divProcessing">
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(16,'/Activity/event/bng/bng202210SP/index-jp.html')">
                                 <!-- 活動連結 -->
