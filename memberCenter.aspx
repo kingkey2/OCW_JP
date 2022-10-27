@@ -1136,6 +1136,10 @@
                                             <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
                                             <div class="invalid-feedback language_replace">請輸入國碼</div>
                                         </div>
+                                        <div class="custom-input-focus-tip">
+                                            <span class="">!</span>
+                                            <p class="notice language_replace">請填寫真實姓名供後續身份認證時驗證</p>
+                                        </div>
                                     </div>
                                     <div class="form-group col">
                                         <label class="form-title language_replace">手機電話號碼</label>
