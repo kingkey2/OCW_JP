@@ -1575,6 +1575,7 @@ input{
 
 .verify-result{
     display: flex;
+    flex-flow: row wrap;
     align-items: center;
 
     .label{
@@ -1590,10 +1591,108 @@ input{
         width: 24px;
         height: 24px;
     }
+
+    .notice{
+        width: 100%;
+        // color: #268fff;
+        padding-left: 30px;
+        
+    }
 }
-.verify-desc{
-    margin: 0 6px;
+
+.form-input-focus-tip{
+    input.custom-style{
+        &:focus{
+            ~ .custom-input-focus-tip{
+                opacity: 1;
+                transform: translateY(0%);
+            }
+        }
+    }
+
+}
+
+.custom-input-focus-tip{
+    background-color: #fff;
    
+    padding: 5px;
+    border-radius: 6px;
+    // font-weight: 300;
+
+    position: absolute;
+    top: 110%;
+    z-index: 99;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+
+
+
+    // box-shadow: 0 0 3px 0 rgba(#3DB6FF, 1);
+    // filter: drop-shadow(0px -1px 3px rgba(#3DB6FF, 1));    
+    border: solid 1px #3DB6FF;
+    // color: #0166a4;
+
+    filter: drop-shadow(0px -1px 1px rgba(#e83e8c, 1));
+    border: solid 1px #e83e8c;
+    // color: #e83e8c;
+
+    .text{
+        margin-left: 4px;
+    }
+    .icon-warn{
+        // margin-top: 3px;
+        color: #e83e8c;
+        &:before {
+            border: solid 1.5px #e83e8c;
+        }
+       
+    }
+
+    &:after{
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 5px 10px 5px;
+        border-color: transparent transparent #fff transparent;
+        // filter: drop-shadow(0 0 10px #3DB6FF);
+        // filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.7));
+        
+    }
+}
+
+
+.icon-warn{
+    &:before {
+        content: "!";  
+        display: inline-flex;
+        width: font-resize(16px);
+        height: font-resize(16px);
+        // color: #ff8282;
+        
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        border: solid 1.5px #007bff;
+        
+        font-size:font-resize(10px);
+        font-weight: 700;
+
+        padding: 0.1875rem;
+        
+        margin-right: 0.125rem;
+        padding: 2px;
+    }
+}
+
+.verify-desc{
+    margin: 0 6px;   
 }
 
 .btn-verify{

@@ -31,6 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
     
     <style>
         .title-showAll:hover {
@@ -54,7 +55,19 @@
 <script src="Scripts/OutSrc/lib/swiper/js/swiper-bundle.min.js"></script>
 <script src="Scripts/theme.js"></script>--%>
 <%--<script src="Scripts/OutSrc/js/games.js"></script>--%>
+    
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
 
 <script type="text/javascript">      
     if (self != top) {
@@ -977,11 +990,19 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
 
@@ -1013,11 +1034,19 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
             //真人
@@ -1048,11 +1077,19 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
             //其他
@@ -1083,16 +1120,24 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
             //廠牌
             var lobbyGame = LobbyGameList.find(function (o) { return o.Location == "GameList_Brand" });
-            if (lobbyGame &&lobbyGame.Location.includes("GameList")) {
+            if (lobbyGame && lobbyGame.Location.includes("GameList")) {
                 RecordDom = c.getTemplate("temCategItem");
                 c.setClassText(RecordDom, "CategName", null, mlp.getLanguageKey(lobbyGame.Location));
                 $(RecordDom).find('.CategName').attr('langkey', lobbyGame.Location);
@@ -1118,11 +1163,19 @@
                     default:
                 }
 
-                if (selectedCategoryCode == lobbyGame.Location) {
-                    $(RecordDom).addClass('active');
-                }
+                if (WebInfo.DeviceType == 1) {
+                    RecordDom.ontouchend = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
 
-                RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                } else {
+                    RecordDom.onclick = new Function("selGameCategory('" + lobbyGame.Location + "',this)");
+
+                    if (selectedCategoryCode == lobbyGame.Location) {
+                        $(RecordDom).addClass('active');
+                    }
+                }
                 idGameItemTitle.appendChild(RecordDom);
             }
 
@@ -1293,22 +1346,23 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    <!-- <div class="swiper-slide">
+                    
+                    <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=15')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=16')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="images/lobby/slider-BNG-202210GC-s.jpg" alt="">
+                                <img src="images/lobby/slider-BNG-202210SP-s.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/slider-BNG-202210GC.jpg" class="bg">
+                                    <img src="images/lobby/slider-BNG-202210SP.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=14')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=14')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/ne-rt/202210/img/Jp-img-phone.jpg" alt="">
                             </div>
@@ -1334,7 +1388,7 @@
                     </div> -->
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=11')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=11')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/pp202209-1/img/pp-liveJp-s.jpg" alt="">
                             </div>
@@ -1347,7 +1401,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=12')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=12')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/pp202209-2/img/pp-slotJp-s.jpg" alt="">
                             </div>
@@ -1361,7 +1415,7 @@
                     
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','/Article/guide-TripleCrown.html?Page=CasinoPage')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','/Article/guide-TripleCrown.html?Page=CasinoPage')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/crown-m.jpg" alt="">
                             </div>
@@ -2013,6 +2067,7 @@
                                     </div>
                                 </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 <script>
      // 遊戲排名 TEST

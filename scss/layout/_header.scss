@@ -690,10 +690,9 @@
     }
 
     .btn-register {
-        // background: linear-gradient(90deg, #E62162 5.73%, #E84E8B 50.96%, #FF9CC3 100%);
+        // background: linear-gradient(90deg, #E62162 5.73%, #E84E8B 50.96%, #FF9CC3 100%);       
         @include bg-gradient(90deg, $header-btn-register-backgroundColor);
-
-        color: #fff;
+        color: #fff;      
 
     }
 

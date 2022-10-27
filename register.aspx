@@ -16,7 +16,20 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -388,7 +401,7 @@
                                     sendThanksMail();
                                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
                                         document.getElementById("idRegister").classList.add("is-hide");
-                                        document.getElementById("contentFinish").classList.remove("is-hide");
+                                        window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
                                     });
                                 } else {
                                     window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
@@ -461,7 +474,7 @@
                     sendThanksMail();
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
                         document.getElementById("idRegister").classList.add("is-hide");
-                        document.getElementById("contentFinish").classList.remove("is-hide");
+                        window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
                     });
                 } else {
                     window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
@@ -795,18 +808,28 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md">
+                            <div class="form-group col-md form-input-focus-tip">
                                 <label class="form-title language_replace">姓</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
+                                    <div class="custom-input-focus-tip">
+                                        <div class="notice align-items-start">
+                                            <span class="icon-warn"></span>
+                                            <span class="text language_replace">請填寫真實姓名供後續身份認證時驗證</span></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md">
+                            <div class="form-group col-md form-input-focus-tip">
                                 <label class="form-title language_replace">名</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
+                                    <div class="custom-input-focus-tip">
+                                        <div class="notice align-items-start">
+                                            <span class="icon-warn"></span>
+                                            <span class="text language_replace">請填寫真實姓名供後續身份認證時驗證</span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -944,6 +967,7 @@
             </div>
         </div>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

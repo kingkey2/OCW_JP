@@ -24,7 +24,20 @@
     <script type="text/javascript" src="/Scripts/UIControl.js"></script>
     <script type="text/javascript" src="/Scripts/MultiLanguage.js"></script>
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -103,7 +116,10 @@
                             GoActivityDetail(14, '/Activity/event/ne-rt/202210/index-jp.html');
                             break;
                         case "15":
-                            GoActivityDetail(13, '/Activity/event/bng/bng202210GreenChilli/index-jp.html');
+                            GoActivityDetail(15, '/Activity/event/bng/bng202210GreenChilli/index-jp.html');
+                            break;
+                        case "16":
+                            GoActivityDetail(16, '/Activity/event/bng/bng202210SP/index-jp.html');
                             break;
                     }
                 }
@@ -235,6 +251,12 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
+                case 16:
+                    title = "タイトル：ブーンゴー宝石怪盗チャレンジ";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 1;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
                 default:
                     break;
             }
@@ -344,7 +366,7 @@
             <div class="container">
                 <div class="sec-title-container sec-title-activity">
                     <!-- 領獎中心 link-->
-                    <a class="btn btn-link btn-prize" onclick="window.parent.API_LoadPage('','Prize.aspx', true)">
+                    <a class="btn btn-link btn-prize" onclick="window.parent.API_LoadPage('Prize','Prize.aspx', true)">
                         <span class="title language_replace">前往領獎中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
@@ -373,7 +395,23 @@
 
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
-
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(16,'/Activity/event/bng/bng202210SP/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng202210SP/img/img-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">ブンーゴーの対象ゲーム（スティッキーピギー）をプレイすれば、最大160,000のギフトマネーがもらえる！</div>
+                                        </div>                                     
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure> 
+                        
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(14,'/Activity/event/ne-rt/202210/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -688,7 +726,7 @@
                 <div class="modal-footer">
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
@@ -716,7 +754,7 @@
                     <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Casino', 'Casino.aspx', false)">開始洗碼</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('','Prize.aspx')">領取獎勵</button>
+                    <button type="button" class="btn btn-full-sub is-hide" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">領取獎勵</button>
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide" disabled>領取獎勵</button>
@@ -764,10 +802,10 @@
                     </article>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
+                    <button type="button" class="btn btn-primary language_replace" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">參加活動</button>
 
                     <!--獎勵可領取-->
-                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('','Prize.aspx')">參加活動</button>
+                    <button type="button" class="btn btn-full-sub is-hide language_replace" onclick="window.parent.API_LoadPage('Prize','Prize.aspx')">參加活動</button>
 
                     <!--獎勵不可領取-->
                     <button type="button" class="btn btn-secondary is-hide language_replace" disabled>參加活動</button>
@@ -797,6 +835,7 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 
 </html>

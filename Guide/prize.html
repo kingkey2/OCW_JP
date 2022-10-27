@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="../css/main.css">
 	<link rel="stylesheet" href="../Article/CSS/QaStyle.css">
 	<style>
-
+		
 		.wrapper{
 			width: 100%;
 			max-width: 960px;
@@ -30,8 +30,9 @@
 			margin-bottom: 50px;
 		}
 		.cash-section-wrap p{
-			width: 90%;
-			margin: 10 auto;
+			width: 95%;
+			margin: 10px auto;
+			padding-left: 25px;
 		}
 		.cash-wrap-title{
 			font-size: 1.125rem;
@@ -107,6 +108,10 @@
 			width: 100%;
 
 		}
+		.table-explain-left{
+			text-align: left;
+			width: 50%;
+		}
 		.table-explain-center{
 			text-align: center;
 			width: 50%;
@@ -124,6 +129,7 @@
 			background-color: #FFE19F;
 			border-radius: 15px;
 			padding: 20px 30px;
+			
 		}
 		.talk-area{
 			width: 80%;
@@ -149,7 +155,9 @@
 		.font-red{
 			color: red;
 		}
-		
+		.dot{
+			font-size: 20px;
+		}
 	
 		/* Small devices (portrait tablets and large phones, 600px and up) */
 		@media screen and (min-width: 600px) {
@@ -163,6 +171,7 @@
 	
 		/* Extra small devices (phones, 600px and down) */
 		@media screen and (max-width: 599px) {
+			p{text-align: left;}
 			.wrapper{
 				display: none;
 			}
@@ -170,6 +179,15 @@
 				text-align: center;
 				display: block;
 			}	
+			.wrapper-phone p{
+				width: 90%;
+				margin: 10px auto;
+			}	
+			.cash-wrap-title-phone img{
+				width: 3px;
+				height: 15px;
+				margin-right: 10px;
+			}
 		}
 	
 	</style>
@@ -181,7 +199,7 @@
 
 	<!-- 段落 --------------------->
 	<section class="cash-section-wrap wrapper">
-		<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('','Prize.aspx', true)">↩︎ 戻る</div>
+		<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Prize','Prize.aspx', true)">↩︎ 戻る</div>
 		
                 <div style="clear: both;"></div>
 		<div class="activity-popup-detail-img">
@@ -228,7 +246,7 @@
 			</tr>
 
 			<tr>
-				<td class="table-explain-td table-explain-center">受取期間：キャンペーン条件を達成してから90日間（イベントにより元金と同時受取りの場合でもボーナスは90日間後消去されますのでそれ以前にご使用下さい）。出金するとなくなります</td>
+				<td class="table-explain-td table-explain-left">受取期間：キャンペーン条件を達成してから90日間（イベントにより元金と同時受取りの場合でもボーナスは90日間後消去されますのでそれ以前にご使用下さい）。出金するとなくなります</td>
 
 				<td class="table-explain-td table-explain-center">受取期間：キャンペーン条件を達成してから90日間</td>
 			</tr>
@@ -239,7 +257,15 @@
 				<td class="table-explain-td-bg2">ギフトマネーは頼もしい一人前の大吉が自分の力で生成し、キャンペーンを通して、プレイヤーに差し上げるものなので、受け取りに四葉のボーナスのような制限がありません。ただ、柴犬に変身した大吉は一日18時間もねてるので、大金を一気に生成することができなく、金額は四葉ほどではありません。その辺はどうかご了承ください。</td>
 			</tr>
 		</table>
-
+		<h3 class="cash-wrap-title"><img src="img/cash-title-img.png" class="cash-title-img">ボーナス利用規約</h3>
+		<p>1. 賭け条件が満たされる前に入金または出金が行われた場合、ボーナスは没収されます。</p>
+		<p>2. ボーナス使用禁止のゲーム：スクラッチカード、プログレッシブジャックポットゲーム、プログレッシブ機能のあるスロットゲーム、 シック・ボー、プントバンコ、ブラッドサカーズ、ブラッドサッカーズ2Ⅱ、デッドオアアライブ2、デッドオアアライブ、ミニルーレット、キノ、ビデオブラックジャック、スポーツベット、Ysport大相撲。</p>
+		<p>3. 一度に利用できるボーナスは1つのみです。</p>
+		<p>4. 以下のような行為はボーナスの不正利用とみなされ、勝利金の没収やアカウントの閉鎖につながる可能性があります。</p>
+		<p style="margin-right: 0px;"><span class="dot">•</span> イコールマージンベット、ゼロリスクベット、ローマージンベット</p>
+		<p style="margin-right: 0px;"><span class="dot">•</span> ソフトウェアの操作、抜け穴の悪用、その他の技術的な不正行為、またはその他の意図的な不正行為に相当する行為</p>
+		<p style="margin-right: 0px;"><span class="dot">•</span> ベットの結果に関わらず利益を得ることを最終目的として、同じベッティングマーケット内でプレイヤーまたはプレイヤーグループが一連の矛盾したベットを行った形跡がある場合。</p>
+		<p style="margin-right: 0px;"><span class="dot">•</span> 2ティアベット</p>
 		<h3 class="cash-wrap-title"><img src="img/cash-title-img.png" class="cash-title-img">よくある質問</h3>
 		<div class="talk-area">
 			<p align="left"><img src="img/talk-001.png" alt=""></p>
@@ -301,11 +327,11 @@
 			</tr>
 
 			<tr>
-				<td class="table-explain-td table-explain-center">受取期間：キャンペーン条件を達成してから90日間（イベントにより元金と同時受取りの場合でもボーナスは90日間後消去されますのでそれ以前にご使用下さい）。出金するとなくなります</td>
+				<td class="table-explain-td table-explain-left">受取期間：キャンペーン条件を達成してから90日間（イベントにより元金と同時受取りの場合でもボーナスは90日間後消去されますのでそれ以前にご使用下さい）。出金するとなくなります</td>
 			</tr>
 
 			<tr>
-				<td class="table-explain-td-bg">ボーナスは修行の一環として、不定期にキャンペーンを通してプレイヤーに配らせるためにオオヤマツミノカミが生成し四葉に預けるものです。しかし、四葉はまだまだ修業中なので、受け取るには少し制限があります。<span class="font-red">しかも「出金」したら、受け取っていないボーナスはドジな四葉にすべてクリアされるので</span>、お気をつけください。</td>
+				<td class="table-explain-td-bg table-explain-left">ボーナスは修行の一環として、不定期にキャンペーンを通してプレイヤーに配らせるためにオオヤマツミノカミが生成し四葉に預けるものです。しかし、四葉はまだまだ修業中なので、受け取るには少し制限があります。<span class="font-red">しかも「出金」したら、受け取っていないボーナスはドジな四葉にすべてクリアされるので</span>、お気をつけください。</td>
 			</tr>
 		</table>
 
@@ -320,10 +346,19 @@
 			</tr>
 
 			<tr>
-                <td class="table-explain-td-bg2">ギフトマネーは頼もしい一人前の大吉が自分の力で生成し、キャンペーンを通して、プレイヤーに差し上げるものなので、受け取りに四葉のボーナスのような制限がありません。ただ、柴犬に変身した大吉は一日18時間もねてるので、大金を一気に生成することができなく、金額は四葉ほどではありません。その辺はどうかご了承ください。</td>
+                <td class="table-explain-td-bg2 table-explain-left">ギフトマネーは頼もしい一人前の大吉が自分の力で生成し、キャンペーンを通して、プレイヤーに差し上げるものなので、受け取りに四葉のボーナスのような制限がありません。ただ、柴犬に変身した大吉は一日18時間もねてるので、大金を一気に生成することができなく、金額は四葉ほどではありません。その辺はどうかご了承ください。</td>
 			</tr>
 		</table>
 
+		<h3 class="cash-wrap-title-phone"><img src="img/cash-title-img.png" class="cash-title-img-phone">ボーナス利用規約</h3>
+		<p>1. 賭け条件が満たされる前に入金または出金が行われた場合、ボーナスは没収されます。</p>
+		<p>2. ボーナス使用禁止のゲーム：スクラッチカード、プログレッシブジャックポットゲーム、プログレッシブ機能のあるスロットゲーム、 シック・ボー、プントバンコ、ブラッドサカーズ、ブラッドサッカーズ2Ⅱ、デッドオアアライブ2、デッドオアアライブ、ミニルーレット、キノ、ビデオブラックジャック、スポーツベット、Ysport大相撲。</p>
+		<p>3. 一度に利用できるボーナスは1つのみです。</p>
+		<p>4. 以下のような行為はボーナスの不正利用とみなされ、勝利金の没収やアカウントの閉鎖につながる可能性があります。</p>
+		<p style="margin-right: 0px;"><span class="dot">•</span> イコールマージンベット、ゼロリスクベット、ローマージンベット</p>
+		<p style="margin-right: 0px;"><span class="dot">•</span> ソフトウェアの操作、抜け穴の悪用、その他の技術的な不正行為、またはその他の意図的な不正行為に相当する行為</p>
+		<p style="margin-right: 0px;"><span class="dot">•</span> ベットの結果に関わらず利益を得ることを最終目的として、同じベッティングマーケット内でプレイヤーまたはプレイヤーグループが一連の矛盾したベットを行った形跡がある場合。</p>
+		<p style="margin-right: 0px;"><span class="dot">•</span> 2ティアベット</p>
 		<h3 class="cash-wrap-title-phone"><img src="img/cash-title-img.png" class="cash-title-img-phone">よくある質問</h3>
 		<div class="talk-area-phone">
 			<p align="left"><img src="img/talk-001-phone.png" alt=""></p>
@@ -342,7 +377,9 @@
 			<p align="right"><img src="img/talk-014-phone.png" alt=""></p>
 		</div>
 	</section>
-	<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('','Prize.aspx', true)">↩︎ 戻る</div>
+
+	<div class="btn-back-cashQa" onclick="window.top.API_LoadPage('Prize','Prize.aspx', true)">↩︎ 戻る</div>
+
 </div>
 <!-- 活動 內文 END ===================-->
 </div>

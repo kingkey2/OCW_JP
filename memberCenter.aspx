@@ -32,8 +32,21 @@
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -697,7 +710,7 @@
                                     </div>
                                     <div class="data-item verify">
                                         <div class="data-item-title">
-                                            <label class="title">
+                                            <label class="title mb-3">
                                                 <i class="icon icon-mask icon-verify"></i>
                                                 <span class="title-name language_replace">認證狀態</span>
                                                 <span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
@@ -706,13 +719,14 @@
                                         <div class="data-item-content">
                                             <div class="verify-item">
                                                 <!-- 尚未認證 -->
-                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: none">
+                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: ">
                                                     <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
                                                     <span class="verify-desc language_replace">尚未認證</span>
                                                     <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
                                                         <span class="title language_replace">進行認證</span>
                                                         <i class="icon icon-mask icon-pencile"></i>
                                                     </button>
+                                                    <p class="notice language_replace mt-2 text-primary">*完成會員認證可領取 1000gift</p>
                                                 </span>
 
                                                 <!-- 認證完成 -->
@@ -720,7 +734,6 @@
                                                     <span class="label success"><i class="icon icon-mask icon-check"></i></span>
                                                     <span class="verify-desc language_replace">認證完成</span>
                                                 </span>
-
                                             </div>
                                         </div>
                                     </div>
@@ -870,7 +883,7 @@
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>
+                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('guide_Rolling','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>
                                                     </div>
                                                 </div>
                                                 <div class="limit-amount">
@@ -909,7 +922,7 @@
                             <!-- 活動中心 + 獎金中心 -->
                             <div class="activity-record-wrapper">
                                 <!-- 活動中心 -->
-                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                     <div class="activity-center-inner">
                                         <div class="activity-center-content">
                                             <div class="title language_replace">活動中心</div>
@@ -919,7 +932,7 @@
                                 </div>
 
                                 <!-- 獎金中心 -->
-                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','/Guide/prize.html')">
+                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('prize','/Guide/prize.html')">
                                     <div class="prize-center-inner">
                                         <div class="title language_replace">禮物盒說明</div>
                                     </div>
@@ -929,7 +942,7 @@
 
                             <!-- 會員簽到進度顯示 -->
                             <div class="activity-dailylogin-wrapper">
-                                <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
+                                <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=3')">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
                                             <h3 class="title">
@@ -1122,7 +1135,7 @@
                                         <div class="input-group">
                                             <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
                                             <div class="invalid-feedback language_replace">請輸入國碼</div>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                     <div class="form-group col">
                                         <label class="form-title language_replace">手機電話號碼</label>
@@ -1144,18 +1157,28 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md">
+                                    <div class="form-group col-md form-input-focus-tip">
                                         <label class="form-title language_replace">姓</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" id="Name1" name="Name1">
                                             <div class="invalid-feedback language_replace">提示</div>
+                                            <div class="custom-input-focus-tip">
+                                                <div class="notice align-items-start">
+                                                    <span class="icon-warn"></span>
+                                                    <span class="text language_replace">請填寫真實姓名供後續身份認證時驗證</span></div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md">
+                                    <div class="form-group col-md form-input-focus-tip">
                                         <label class="form-title language_replace">名</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" id="Name2" name="Name2">
                                             <div class="invalid-feedback language_replace">提示</div>
+                                            <div class="custom-input-focus-tip">
+                                                <div class="notice align-items-start">
+                                                    <span class="icon-warn"></span>
+                                                    <span class="text language_replace">請填寫真實姓名供後續身份認證時驗證</span></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1298,6 +1321,7 @@
             </div>
         </div>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

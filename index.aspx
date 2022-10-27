@@ -14,10 +14,12 @@
     string CT = string.Empty;
     string PCode = string.Empty;
     string PageType = string.Empty;
+    string GCode = string.Empty;
+    string Page = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
-    string Version = EWinWeb.Version; 
+    string Version = EWinWeb.Version;
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
     {
@@ -27,19 +29,24 @@
     if (string.IsNullOrEmpty(Request["CT"]) == false)
         CT = Request["CT"];
 
-    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false) {
         GoEwinLogin = int.Parse(Request["GoEwinLogin"]);
     }
 
-    if (string.IsNullOrEmpty(Request["PCode"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["PCode"]) == false) {
         PCode = Request["PCode"];
     }
 
-     if (string.IsNullOrEmpty(Request["PageType"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["PageType"]) == false) {
         PageType = Request["PageType"];
+    }
+
+    if (string.IsNullOrEmpty(Request["GCode"]) == false) {
+        GCode = Request["GCode"];
+    }
+
+    if (string.IsNullOrEmpty(Request["page"]) == false) {
+        Page = Request["page"];
     }
 
     if (GoEwinLogin == 1)
@@ -65,78 +72,43 @@
 
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
-    if (string.IsNullOrEmpty(Request["Lang"]))
-    {
+    if (string.IsNullOrEmpty(Request["Lang"])) {
         string userLang = CodingControl.GetDefaultLanguage();
 
-        if (userLang.ToUpper() == "zh-TW".ToUpper())
-        {
+        if (userLang.ToUpper() == "zh-TW".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-HK".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-HK".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-MO".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-MO".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHT".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHT".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHS".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHS".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-SG".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-SG".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CN".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CN".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "en-US".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-US".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en-CA".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-CA".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en-PH".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-PH".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KR".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KR".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KP".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KP".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ja".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ja".ToUpper()) {
             Lang = "JPN";
-        }
-        else { Lang = "JPN"; }
-    }
-    else
-    {
+        } else { Lang = "JPN"; }
+    } else {
         Lang = Request["Lang"];
 
         Lang = Lang.ToUpper();
@@ -262,6 +234,8 @@
             color: #008fd1;
         }
     </style>
+    
+   <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
 <% if (EWinWeb.IsTestSite == false)
     { %>
@@ -335,6 +309,8 @@
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
     var PCode = "<%=PCode%>";
+    var GCode = "<%=GCode%>";
+    var Page = "<%=Page%>";
     var PageType = "<%=PageType%>";
     //#region TOP API
     function API_GetGCB() {
@@ -592,7 +568,7 @@
                 //IFramePage.style.height = "0px";
 
                 IFramePage.src = url;
-                IFramePage.onload = null;
+                IFramePage.onload = addOrUpdateQueryInWindow("page", title);
 
 
                 //IFramePage.
@@ -2326,7 +2302,7 @@
 
         initByArt();
         switchLang(EWinWebInfo.Lang, false);
-        
+
         if (EWinWebInfo.Lang == "JPN") {
             $('#langIcon').addClass('icon-flag-JP');
         } else {
@@ -2382,23 +2358,30 @@
 
             }
             else {
-                if (EWinWebInfo.SID != "") {
-                    API_Casino();
-                } else {
-                    if (PageType != null && PageType != "" && PageType == "OpenSumo") {
-                        var gameData = {
-                            GameBrand: "YS",
-                            GameName: "Sumo",
-                            GameLangName: mlp.getLanguageKey("相撲")
-                        }
-
-                        window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
-                        clearUrlParams();
-                        API_LoadPage("Login", "Login.aspx");
+                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter")) {
+                    if (Page == "QA") {
+                        API_LoadPage('QA', '/Article/guide_Q&A.html')
                     } else {
-                        API_Home();
+                        API_LoadPage(Page, Page + ".aspx");
                     }
-                    
+                } else {
+                    if (EWinWebInfo.SID != "") {
+                        API_Casino();
+                    } else {
+                        if (PageType != null && PageType != "" && PageType == "OpenSumo") {
+                            var gameData = {
+                                GameBrand: "YS",
+                                GameName: "Sumo",
+                                GameLangName: mlp.getLanguageKey("相撲")
+                            }
+
+                            window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
+                            clearUrlParams();
+                            API_LoadPage("Login", "Login.aspx");
+                        } else {
+                            API_Home();
+                        }
+                    }
                 }
             }
 
@@ -2409,6 +2392,7 @@
             appendGameFrame();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
+
             //登入Check
             window.setTimeout(function () {
                 lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
@@ -2427,8 +2411,8 @@
                                     } else {
                                         //Check登入前狀態
                                         var openGameBeforeLoginStr = window.sessionStorage.getItem("OpenGameBeforeLogin");
-                                        
-                                        if (openGameBeforeLoginStr) {                                            
+
+                                        if (openGameBeforeLoginStr) {
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
@@ -2442,7 +2426,7 @@
                                                 window.sessionStorage.removeItem("SrcPage");
                                                 API_LoadPage("SrcPage", srcPage, true);
                                             }
-                                        }                                        
+                                        }
                                     }
 
                                     notifyWindowEvent("IndexFirstLoad", logined);
@@ -2525,6 +2509,33 @@
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
+
+            GCB.InitPromise.then(() => {
+                checkUserLogin(EWinWebInfo.SID, function () {
+                    updateBaseInfo();
+                    if (GCode != "") {
+                        if (GCode.includes(".")) {
+                            let k = GCode.split(".");
+
+                            if (k.length == 2) {
+                                GCB.GetByGameCode(GCode, (GameCodeItem) => {
+                                    if (GameCodeItem && GameCodeItem.GameStatus == 0) {
+                                        var langText = null;
+
+                                        langText = GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                                        
+                                        clearUrlParams();
+
+                                        API_OpenGame(GameCodeItem.GameBrand, GameCodeItem.GameName, langText);
+
+                                    }
+
+                                });
+                            }
+                        }
+                    }
+                });
+            });
         });
 
         API_changeAvatarImg(getCookie("selectAvatar"));
@@ -3102,6 +3113,41 @@
         $("#popupBulletinList").modal("show");
     }
 
+    //#region URL
+    function getQueryInURL(param = '') {
+        let result;
+        try {
+            result = new URL(window.location.href).searchParams.get(param)
+            return result
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    
+    function addOrUpdateQueryInWindow(key, value, type = 'pushState') {
+        let url = location.href;
+
+        if (!url.includes('?')) {
+            url = `${url}?${key}=${value}`;
+        } else {
+            if (!url.includes(key)) {
+                url = `${url}&${key}=${value}`;
+            } else {
+                let re = `(\\?|&|\#)${key}([^&|^#]*)(&|$|#)`;
+                url = url.replace(new RegExp(re), '$1' + key + '=' + value + '$3');
+            }
+        }
+
+        if (type === 'location') {
+            location.href = url;
+        }
+
+        if (type === 'pushState') {
+            history.pushState({}, 0, url);
+        }
+    }
+    //#endregion
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -3222,7 +3268,7 @@
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="window.top.API_LoadPage('','Article/guide_CashQa_jp.html')">
+                                            onclick="window.top.API_LoadPage('guide_CashQa_jp','Article/guide_CashQa_jp.html')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-instruction"></i>
                                                 <span class="title language_replace">出入金手順</span></a>
@@ -3237,13 +3283,13 @@
                                                 <span class="title language_replace">會員中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
-                                            <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
+                                            <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                                 <i class="icon icon-mask icon-loudspeaker"></i>
                                                 <span class="title language_replace">活動中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
     
-                                            <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                            <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
                                                 <span class="notify-dot PC-notify-dot" style="display:none;"></span>
                                                 <i class="icon icon-mask icon-prize"></i>
@@ -3606,6 +3652,11 @@
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-va.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-mishuha.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -4496,6 +4547,7 @@
             </label>
         </li>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>
