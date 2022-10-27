@@ -4851,3 +4851,83 @@ i.icon-logo-hln, i.icon-casinoworld-logo-hln {
   max-width: 100%;
 
 }
+
+
+/* INPUT FOUCS TIP ===============*/
+.form-input-focus-tip input.custom-style:focus ~ .custom-input-focus-tip {
+  opacity: 1;
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
+}
+
+.custom-input-focus-tip {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  top: 110%;
+  z-index: 99;
+  opacity: 0;
+  -webkit-transform: translateY(-10px);
+          transform: translateY(-10px);
+  pointer-events: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border: solid 1px #3DB6FF;
+  -webkit-filter: drop-shadow(0px -1px 1px #e83e8c);
+          filter: drop-shadow(0px -1px 1px #e83e8c);
+  border: solid 1px #e83e8c;
+}
+.custom-input-focus-tip .text {
+  margin-left: 4px;
+}
+.custom-input-focus-tip .icon-warn {
+  color: #e83e8c;
+}
+.custom-input-focus-tip .icon-warn:before {
+  border: solid 1.5px #e83e8c;
+}
+.custom-input-focus-tip:after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 10px 5px;
+  border-color: transparent transparent #fff transparent;
+}
+
+.icon-warn:before {
+  content: "!";
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 50%;
+  border: solid 1.5px #007bff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.1875rem;
+  margin-right: 0.125rem;
+  padding: 2px;
+}
+
+.notice {
+  margin: 5px 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 0.75rem;
+}
