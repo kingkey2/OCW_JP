@@ -3577,6 +3577,11 @@
                                         <img src="/images/logo/footer/logo-va.png" alt="">
                                     </div>
                                 </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-mishuha.png" alt="">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

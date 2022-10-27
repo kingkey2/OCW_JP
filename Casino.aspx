@@ -1293,19 +1293,20 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    <!-- <div class="swiper-slide">
+                    
+                    <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=15')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=16')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="images/lobby/slider-BNG-202210GC-s.jpg" alt="">
+                                <img src="images/lobby/slider-BNG-202210SP-s.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/slider-BNG-202210GC.jpg" class="bg">
+                                    <img src="images/lobby/slider-BNG-202210SP.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=14')"></a>
