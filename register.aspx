@@ -16,7 +16,20 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -39,6 +52,7 @@
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var v ="<%:Version%>";
     var isSent = false;
+    var isSent_Phone = false;
     var LoginAccount;
 
     function BackHome() {
@@ -67,7 +81,25 @@
         }, 1000);
     }
 
-    function CheckAccountPhoneExist(cb) {
+    function startCountDown_Phone(duration) {
+        isSent_Phone = true;
+        let secondsRemaining = duration;
+
+        let countInterval = setInterval(function () {
+            let BtnSend = document.getElementById("divSendValidateCodeBtn_Phone");
+            
+            BtnSend.querySelector("span").innerText = secondsRemaining + "s"
+
+            secondsRemaining = secondsRemaining - 1;
+            if (secondsRemaining < 0) {
+                clearInterval(countInterval);
+                SetBtnSend();
+            };
+
+        }, 1000);
+    }
+
+    function CheckMailExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
 
         if (idLoginAccount.value == "") {
@@ -99,6 +131,54 @@
         });
     }
 
+    function CheckPhoneExist(cb) {
+        var PhonePrefix = document.getElementById("idPhonePrefix").value;
+        var PhoneNumber = document.getElementById("idPhoneNumber").value;
+
+        if (PhonePrefix.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+            cb(false);
+            return;
+        } else if (PhoneNumber.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
+            cb(false);
+            return;
+        } else {
+            var phoneValue = idPhonePrefix.value + idPhoneNumber.value;
+            var phoneObj;
+
+            try {
+                phoneObj = PhoneNumberUtil.parse(phoneValue);
+
+                var type = PhoneNumberUtil.getNumberType(phoneObj);
+
+                if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話格式有誤"));
+                    cb(false);
+                    return;
+                }
+            } catch (e) {
+
+                window.parent.showMessageOK("", mlp.getLanguageKey("電話格式有誤"));
+
+                cb(false);
+                return;
+            }
+        }
+
+        p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
+            if (success) {
+                if (o.Result != 0) {
+                    cb(true);
+                } else {
+                    cb(false);
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                }
+            }
+
+        });
+    }
+
     function CheckUserAccountExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
 
@@ -116,7 +196,9 @@
 
     function CheckPassword() {
         var idLoginPassword = document.getElementById("idLoginPassword");
-        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')
+        var idLoginCheckPassword = document.getElementById("idLoginCheckPassword");
+        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$');
+
         if (idLoginPassword.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
             return false;
@@ -129,6 +211,9 @@
         } else if (!rules.test(idLoginPassword.value)) {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
             return false;
+        } else if (idLoginPassword.value.trim() != idLoginCheckPassword.value.trim()) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("確認密碼與登入密碼不符"));
+            return false;
         }
 
         return true;
@@ -136,7 +221,7 @@
 
     function onBtnSendValidateCode() {
         if (isSent == false) {
-            CheckAccountPhoneExist(function (check) {
+            CheckMailExist(function (check) {
                 if (check) {
                     window.top.API_ShowLoading();
                     p.SetUserMail(Math.uuid(), 0, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
@@ -160,10 +245,42 @@
         }
     }
 
+    function onBtnSendValidateCode_Phone() {
+        if (isSent_Phone == false) {
+            CheckPhoneExist(function (check) {
+                if (check) {
+                    window.top.API_ShowLoading();
+                    p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                        window.top.API_CloseLoading();
+                        if (success) {
+                            if (o.Result != 0) {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
+                            } else {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
+
+                                startCountDown_Phone(120);
+                            }
+                        }
+                    });
+                } else {
+                    
+                }
+            });
+        } else {
+            window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
+        }
+    }
+
     function SetBtnSend() {
         let BtnSend = document.getElementById("divSendValidateCodeBtn");
         BtnSend.querySelector("span").innerText = mlp.getLanguageKey("傳送驗證碼");
         isSent = false;
+    }
+
+    function SetBtnSend_Phone() {
+        let BtnSend = document.getElementById("divSendValidateCodeBtn_Phone");
+        BtnSend.querySelector("span").innerText = mlp.getLanguageKey("傳送驗證碼");
+        isSent_Phone = false;
     }
 
     function onBtnUserRegisterStep1() {
@@ -185,115 +302,198 @@
     }
 
     function onBtnUserRegisterStep2() {
+        //完整註冊
+        if ($("#li_register2").hasClass("active")) {
+            FullRegistrationCreateUser();
+        } else {
+            SimpleRegistrationCreateUser();
+        }
+    }
+
+     //完整註冊
+    function FullRegistrationCreateUser() {
+
+        if ($("#idValidateCode_Phone").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
+        } else {
+            p.CheckValidateCode(Math.uuid(), 1, "", $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), $("#idValidateCode_Phone").val(), function (success, o) {
+                if (success) {
+                    if (o.Result != 0) {
+                        window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
+                    } else {
+                        var form2 = document.getElementById("registerStep2");
+                        var CurrencyList = WebInfo.RegisterCurrencyType;
+
+                        let nowYear = new Date().getFullYear();
+
+                        if (form2.Name1.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入姓"));
+                            return;
+                        } else if (form2.Name2.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
+                            return;
+                        } else if (form2.BornYear.value.length != 4) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (parseInt(form2.BornYear.value) < 1900) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (parseInt(form2.BornYear.value) > nowYear) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (form2.PhonePrefix.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+                            return;
+                        } else if (form2.PhoneNumber.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
+                            return;
+                        } else if (form2.ValidateCode_Phone.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
+                            return;
+                        }
+
+                        if ($("#NickName").val() == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入暱稱"));
+                            return;
+                        }
+
+                        if (!$("#CheckAge").prop("checked")) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請確認已年滿20歲"));
+                            return;
+                        }
+                        var LoginAccount = document.getElementById("idLoginAccount").value;
+                        var LoginPassword = document.getElementById("idLoginPassword").value;
+                        var ParentPersonCode = $("#PersonCode").val();
+                        var PhonePrefix = document.getElementById("idPhonePrefix").value;
+                        var PhoneNumber = document.getElementById("idPhoneNumber").value;
+                        var PS;
+
+                        if (typeof (ParentPersonCode) == "string") {
+                            ParentPersonCode = ParentPersonCode.trim();
+                        }
+
+                        if (PhonePrefix.substring(0, 1) == "+") {
+                            PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
+                        }
+
+                        if (LoginAccount.indexOf('+') > 0) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+                            return false;
+                        }
+
+                        if (!CheckPassword()) {
+                            return false;
+                        }
+
+                        PS = [
+                            { Name: "IsFullRegistration", Value: 1 },
+                            { Name: "RealName", Value: $("#NickName").val() },
+                            { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
+                            { Name: "ContactPhonePrefix", Value: PhonePrefix },
+                            { Name: "ContactPhoneNumber", Value: PhoneNumber },
+                            { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+                            { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
+                        ];
+
+                        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
+                            if (success) {
+                                if (o.Result == 0) {
+                                    sendThanksMail();
+                                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
+                                        document.getElementById("idRegister").classList.add("is-hide");
+                                        window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
+                                    });
+                                } else {
+                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                                        window.parent.API_LoadPage("Register", "Register.aspx")
+                                    });
+                                }
+                            } else {
+                                if (o == "Timeout") {
+                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                                        window.parent.API_LoadPage("Register", "Register.aspx")
+                                    });
+                                } else {
+                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
+                                        window.parent.API_LoadPage("Register", "Register.aspx")
+                                    });
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
+                }
+            });
+        }
+    }
+     //簡易註冊
+    function SimpleRegistrationCreateUser() {
         var form2 = document.getElementById("registerStep2");
         var CurrencyList = WebInfo.RegisterCurrencyType;
 
-        initValid(form2);
-
         let nowYear = new Date().getFullYear();
-        //完整註冊
-        if ($("#li_register2").hasClass("active")) {
-            if (form2.Name1.value == "") {
-                form2.Name1.setCustomValidity(mlp.getLanguageKey("請輸入姓"));
-            } else if (form2.Name2.value == "") {
-                form2.Name2.setCustomValidity(mlp.getLanguageKey("請輸入名"));
-            } else if (form2.BornYear.value.length != 4) {
-                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
-            } else if (parseInt(form2.BornYear.value) < 1900) {
-                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
-            } else if (parseInt(form2.BornYear.value) > nowYear) {
-                form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
-            } else if (form2.PhonePrefix.value == "") {
-                form2.PhonePrefix.setCustomValidity(mlp.getLanguageKey("請輸入國碼"));
-            } else if (form2.PhoneNumber.value == "") {
-                form2.PhoneNumber.setCustomValidity(mlp.getLanguageKey("請輸入正確電話"));
-            } 
-        }
-
 
         if ($("#NickName").val() == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入暱稱"));
             return;
-        } 
+        }
 
         if (!$("#CheckAge").prop("checked")) {
             window.parent.showMessageOK("", mlp.getLanguageKey("請確認已年滿20歲"));
             return;
         }
 
-        form2.reportValidity();
+        var LoginAccount = document.getElementById("idLoginAccount").value;
+        var LoginPassword = document.getElementById("idLoginPassword").value;
+        var ParentPersonCode = $("#PersonCode").val();
+        var PS;
 
-        if (form2.checkValidity()) {
-            var LoginAccount = document.getElementById("idLoginAccount").value;
-            var LoginPassword = document.getElementById("idLoginPassword").value;
-            var ParentPersonCode = $("#PersonCode").val();
-            var PhonePrefix = document.getElementById("idPhonePrefix").value;
-            var PhoneNumber = document.getElementById("idPhoneNumber").value;
-            var PS;
-
-            if (typeof (ParentPersonCode) == "string") {
-                ParentPersonCode = ParentPersonCode.trim();
-            }
-
-            if (PhonePrefix.substring(0, 1) == "+") {
-                PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
-            }
-
-            if (LoginAccount.indexOf('+') > 0) {
-                window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
-                return false;
-            }
-
-            if (!CheckPassword()) {
-                return false;
-            }
-
-            //full registration
-            if ($("#li_register2").hasClass("active")) {
-                PS = [
-                    { Name: "IsFullRegistration", Value: 1 },
-                    { Name: "RealName", Value: $("#NickName").val() },
-                    { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
-                    { Name: "ContactPhonePrefix", Value: PhonePrefix },
-                    { Name: "ContactPhoneNumber", Value: PhoneNumber },
-                    { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
-                    { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
-                ];
-            } else {
-                PS = [
-                    { Name: "IsFullRegistration", Value: 0 },
-                    { Name: "RealName", Value: $("#NickName").val() },
-                    { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
-                ];
-            }
-
-            p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
-                if (success) {
-                    if (o.Result == 0) {
-                        sendThanksMail();
-                        //sendReceiveRegisterRewardMail();
-                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
-                            document.getElementById("idRegister").classList.add("is-hide");
-                            document.getElementById("contentFinish").classList.remove("is-hide");
-                        });
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
-                            window.parent.API_LoadPage("Register", "Register.aspx")
-                        });
-                    }
-                } else {
-                    if (o == "Timeout") {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
-                            window.parent.API_LoadPage("Register", "Register.aspx")
-                        });
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
-                            window.parent.API_LoadPage("Register", "Register.aspx")
-                        });
-                    }
-                }
-            });
+        if (typeof (ParentPersonCode) == "string") {
+            ParentPersonCode = ParentPersonCode.trim();
         }
+
+        if (LoginAccount.indexOf('+') > 0) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+            return false;
+        }
+
+        if (!CheckPassword()) {
+            return false;
+        }
+
+        PS = [
+            { Name: "IsFullRegistration", Value: 0 },
+            { Name: "RealName", Value: $("#NickName").val() },
+            { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+        ];
+
+        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    sendThanksMail();
+                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
+                        document.getElementById("idRegister").classList.add("is-hide");
+                        window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
+                    });
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                        window.parent.API_LoadPage("Register", "Register.aspx")
+                    });
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                        window.parent.API_LoadPage("Register", "Register.aspx")
+                    });
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
+                        window.parent.API_LoadPage("Register", "Register.aspx")
+                    });
+                }
+            }
+        });
+
     }
 
     function updateBaseInfo() {
@@ -444,6 +644,14 @@
         }
     }
 
+    function CheckValidateCode_Phone() {
+        if ($("#idValidateCode_Phone").val() == "") {
+            $("#btnSendValidateCode_Phone").removeAttr("disabled");
+        } else {
+            $("#btnSendValidateCode_Phone").attr("disabled", "disabled");
+        }
+    }
+
     function ChangeRegister(registertype) {
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_register" + registertype).addClass("active");
@@ -588,15 +796,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-container mb-3" id="">
-                            <button type="button" class="btn btn-primary btn-ValidateCode" onclick="" id="">
+                        <div class="btn-container mb-3" id="divSendValidateCodeBtn_Phone">
+                            <button type="button" class="btn btn-primary btn-ValidateCode" onclick="onBtnSendValidateCode_Phone()" id="btnSendValidateCode_Phone">
                                 <span class="language_replace">傳送簡訊驗證碼</span>
                             </button>
                         </div>
                         <div class="form-group">
                             <label class="form-title language_replace">驗證碼</label>
                             <div class="input-group">
-                                <input id="" name="" type="text" class="form-control custom-style" onkeyup="()"  language_replace="placeholder" placeholder="請輸入簡訊驗證碼">
+                                <input id="idValidateCode_Phone" name="ValidateCode_Phone" type="text" class="form-control custom-style" onkeyup="CheckValidateCode_Phone()"  >
                             </div>
                         </div>
                         <div class="form-row">
@@ -749,6 +957,7 @@
             </div>
         </div>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

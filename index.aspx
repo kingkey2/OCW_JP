@@ -14,6 +14,7 @@
     string CT = string.Empty;
     string PCode = string.Empty;
     string PageType = string.Empty;
+    string GCode = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
@@ -40,6 +41,11 @@
      if (string.IsNullOrEmpty(Request["PageType"]) == false)
     {
         PageType = Request["PageType"];
+    }
+
+    if (string.IsNullOrEmpty(Request["GCode"]) == false)
+    {
+        GCode = Request["GCode"];
     }
 
     if (GoEwinLogin == 1)
@@ -262,6 +268,8 @@
             color: #008fd1;
         }
     </style>
+    
+   <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
 <% if (EWinWeb.IsTestSite == false)
     { %>
@@ -335,6 +343,7 @@
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
     var PCode = "<%=PCode%>";
+    var GCode = "<%=GCode%>";
     var PageType = "<%=PageType%>";
     //#region TOP API
     function API_GetGCB() {
@@ -568,6 +577,16 @@
             }
         }
 
+        if (url == "Deposit.aspx") {
+            let IsFullRegistration = API_GetUserIsFullRegistration();
+
+            if (IsFullRegistration == 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("您尚未完成認證，即將前往認證頁面"), function () {
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx?needShowRegister=1', true);
+                });
+            }
+        }
+
         var IFramePage = document.getElementById("IFramePage");
 
         if (IFramePage != null) {
@@ -582,7 +601,7 @@
                 //IFramePage.style.height = "0px";
 
                 IFramePage.src = url;
-                IFramePage.onload = null;
+                IFramePage.onload = addOrUpdateQueryInWindow("page", title);
 
 
                 //IFramePage.
@@ -737,6 +756,21 @@
 
     function API_OpenGame(GameBrand, GameName, LangName) {
         openGame(GameBrand, GameName, LangName);
+    }
+
+    function API_GetUserIsFullRegistration() {
+        let IsFullRegistration = 0;
+
+        if (EWinWebInfo.UserInfo.ExtraData) {
+            let ExtraData = JSON.parse(EWinWebInfo.UserInfo.ExtraData);
+            for (var i = 0; i < ExtraData.length; i++) {
+                if (ExtraData[i].Name == "IsFullRegistration") {
+                    IsFullRegistration = ExtraData[i].Value;
+                }
+            }
+        }
+
+        return IsFullRegistration;
     }
     //#endregion
 
@@ -2301,7 +2335,7 @@
 
         initByArt();
         switchLang(EWinWebInfo.Lang, false);
-        
+
         if (EWinWebInfo.Lang == "JPN") {
             $('#langIcon').addClass('icon-flag-JP');
         } else {
@@ -2373,7 +2407,7 @@
                     } else {
                         API_Home();
                     }
-                    
+
                 }
             }
 
@@ -2384,6 +2418,7 @@
             appendGameFrame();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
+
             //登入Check
             window.setTimeout(function () {
                 lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
@@ -2402,8 +2437,8 @@
                                     } else {
                                         //Check登入前狀態
                                         var openGameBeforeLoginStr = window.sessionStorage.getItem("OpenGameBeforeLogin");
-                                        
-                                        if (openGameBeforeLoginStr) {                                            
+
+                                        if (openGameBeforeLoginStr) {
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
                                             window.sessionStorage.removeItem("OpenGameBeforeLogin");
@@ -2417,7 +2452,7 @@
                                                 window.sessionStorage.removeItem("SrcPage");
                                                 API_LoadPage("SrcPage", srcPage, true);
                                             }
-                                        }                                        
+                                        }
                                     }
 
                                     notifyWindowEvent("IndexFirstLoad", logined);
@@ -2500,6 +2535,33 @@
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
+
+            GCB.InitPromise.then(() => {
+                checkUserLogin(EWinWebInfo.SID, function () {
+                    updateBaseInfo();
+                    if (GCode != "") {
+                        if (GCode.includes(".")) {
+                            let k = GCode.split(".");
+
+                            if (k.length == 2) {
+                                GCB.GetByGameCode(GCode, (GameCodeItem) => {
+                                    if (GameCodeItem && GameCodeItem.GameStatus == 0) {
+                                        var langText = null;
+
+                                        langText = GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                                        
+                                        clearUrlParams();
+
+                                        API_OpenGame(GameCodeItem.GameBrand, GameCodeItem.GameName, langText);
+
+                                    }
+
+                                });
+                            }
+                        }
+                    }
+                });
+            });
         });
 
         API_changeAvatarImg(getCookie("selectAvatar"));
@@ -3077,6 +3139,41 @@
         $("#popupBulletinList").modal("show");
     }
 
+    //#region URL
+    function getQueryInURL(param = '') {
+        let result;
+        try {
+            result = new URL(window.location.href).searchParams.get(param)
+            return result
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    
+    function addOrUpdateQueryInWindow(key, value, type = 'pushState') {
+        let url = location.href;
+
+        if (!url.includes('?')) {
+            url = `${url}?${key}=${value}`;
+        } else {
+            if (!url.includes(key)) {
+                url = `${url}&${key}=${value}`;
+            } else {
+                let re = `(\\?|&|\#)${key}([^&|^#]*)(&|$|#)`;
+                url = url.replace(new RegExp(re), '$1' + key + '=' + value + '$3');
+            }
+        }
+
+        if (type === 'location') {
+            location.href = url;
+        }
+
+        if (type === 'pushState') {
+            history.pushState({}, 0, url);
+        }
+    }
+    //#endregion
+
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
@@ -3197,7 +3294,7 @@
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="window.top.API_LoadPage('','Article/guide_CashQa_jp.html')">
+                                            onclick="window.top.API_LoadPage('guide_CashQa_jp','Article/guide_CashQa_jp.html')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-instruction"></i>
                                                 <span class="title language_replace">出入金手順</span></a>
@@ -3212,13 +3309,13 @@
                                                 <span class="title language_replace">會員中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
-                                            <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
+                                            <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                                 <i class="icon icon-mask icon-loudspeaker"></i>
                                                 <span class="title language_replace">活動中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
     
-                                            <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
+                                            <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
                                                 <span class="notify-dot PC-notify-dot" style="display:none;"></span>
                                                 <i class="icon icon-mask icon-prize"></i>
@@ -3250,6 +3347,12 @@
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-line"></i>
                                                 <span class="title language_replace">Line</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('texthome','/newhome.html')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-QA"></i>
+                                                <span class="title language_replace">Q&A</span></a>
                                         </li>
                                         
                                     </ul>
@@ -4470,6 +4573,7 @@
             </label>
         </li>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

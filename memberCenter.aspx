@@ -1,6 +1,14 @@
 ﻿<%@ Page Language="C#" %>
 
-<% string Version = EWinWeb.Version; %>
+<% 
+    string Version = EWinWeb.Version;
+    string needShowRegister = "0";
+
+    if (string.IsNullOrEmpty(Request["needShowRegister"]) == false) {
+        needShowRegister = Request["needShowRegister"];
+    }
+
+%>
 
 <!DOCTYPE html>
 <html>
@@ -24,8 +32,21 @@
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="/Scripts/Common.js"></script>
 <script type="text/javascript" src="/Scripts/UIControl.js"></script>
@@ -34,6 +55,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/9.0.2/bignumber.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.1/swiper-bundle.min.js"></script>
+<script src="Scripts/OutSrc/js/script.js"></script>
+<script type="text/javascript" src="/Scripts/libphonenumber.js"></script>
 <script>
 
     if (self != top) {
@@ -44,8 +67,11 @@
     var p;
     var lang;
     var BackCardInfo = null;
+    var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var v = "<%:Version%>";
+    var needShowRegister = "<%:needShowRegister%>";
     var swiper;
+    var isSent_Phone = false;
 
     function copyText(tag) {
         var copyText = document.getElementById(tag);
@@ -311,6 +337,10 @@
                 window.top.API_GetUserThisWeekTotalValidBetValue(function (e) {
                     setUserThisWeekLogined(e);
                 });
+
+                if (needShowRegister == "1") {
+                    $("#ModalRegisterComplete").modal('show');
+                }
             }
             else {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路錯誤"), function () {
@@ -374,92 +404,210 @@
     }
 
     function Certification() {
-        var idBornYear = document.getElementById("idBornYear1");
-        var idBornMonth = document.getElementById("idBornMonth1");
-        var idBornDate = document.getElementById("idBornDate");
-        var PhonePrefix = document.getElementById("idPhonePrefix").value;
-        var PhoneNumber = document.getElementById("idPhoneNumber").value;
-        var Name1 = document.getElementById("Name1").value;
-        var Name2 = document.getElementById("Name2").value;
 
-        var year = idBornYear.value;
-        var month = parseInt(idBornMonth.value);
-        var date = parseInt(idBornDate.value);
-        let nowYear = new Date().getFullYear();
-        let strExtraData = "";
-
-        if (year.length != 4) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
-            return;
-        } else if (parseInt(year) < 1900) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
-            return;
-        } else if (parseInt(year) > nowYear) {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
-            return;
-        } else if (Name1 == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入姓"));
-            return;
-        } else if (Name2 == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
-            return;
-        } else if (PhonePrefix == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
-            return;
-        } else if (PhoneNumber == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
-            return;
-        }
-
-        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
-
-        if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
-            for (var i = 0; i < ExtraData.length; i++) {
-                if (ExtraData[i].Name == "IsFullRegistration") {
-                    ExtraData[i].Value = 1;
-                }
-            }
+        if ($("#idValidateCode_Phone").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
         } else {
-            ExtraData.push({
-                Name: 'IsFullRegistration', Value: 1
+            p.CheckValidateCode(Math.uuid(), 1, "", $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), $("#idValidateCode_Phone").val(), function (success, o) {
+                if (success) {
+                    if (o.Result != 0) {
+                        window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
+                    } else {
+                        var idBornYear = document.getElementById("idBornYear1");
+                        var idBornMonth = document.getElementById("idBornMonth1");
+                        var idBornDate = document.getElementById("idBornDate");
+                        var PhonePrefix = document.getElementById("idPhonePrefix").value;
+                        var PhoneNumber = document.getElementById("idPhoneNumber").value;
+                        var Name1 = document.getElementById("Name1").value;
+                        var Name2 = document.getElementById("Name2").value;
+
+                        var year = idBornYear.value;
+                        var month = parseInt(idBornMonth.value);
+                        var date = parseInt(idBornDate.value);
+                        let nowYear = new Date().getFullYear();
+                        let strExtraData = "";
+
+                        if (year.length != 4) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (parseInt(year) < 1900) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (parseInt(year) > nowYear) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (Name1 == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入姓"));
+                            return;
+                        } else if (Name2 == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
+                            return;
+                        } else if (PhonePrefix == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+                            return;
+                        } else if (PhoneNumber == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
+                            return;
+                        }
+
+                        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+
+                        if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
+                            for (var i = 0; i < ExtraData.length; i++) {
+                                if (ExtraData[i].Name == "IsFullRegistration") {
+                                    ExtraData[i].Value = 1;
+                                }
+                            }
+                        } else {
+                            ExtraData.push({
+                                Name: 'IsFullRegistration', Value: 1
+                            });
+                        }
+
+                        strExtraData = JSON.stringify(ExtraData);
+
+                        var data = {
+                            "OldPassword": "",
+                            "ContactPhonePrefix": PhonePrefix,
+                            "ContactPhoneNumber": PhoneNumber,
+                            "RealName": Name1 + Name2,
+                            "Birthday": year + "/" + month + "/" + date,
+                            "ExtraData": strExtraData
+                        }
+                        window.parent.API_LoadingStart();
+                        p.RegistrationUserAccount(WebInfo.SID, Math.uuid(), data, WebInfo.UserInfo.LoginAccount, function (success, o) {
+                            window.parent.API_LoadingEnd(1);
+                            if (success) {
+                                if (o.Result == 0) {
+                                    $("#IsFullRegistration0").hide();
+                                    $("#CertificationForm").hide();
+                                    $("#CertificationSucc").show();
+                                    $("#IsFullRegistration1").show();
+                                } else {
+                                    $("#CertificationForm").hide();
+                                    $("#CertificationFail").show();
+                                }
+                            } else {
+                                if (o == "Timeout") {
+                                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
+                                } else {
+                                    $("#CertificationForm").hide();
+                                    $("#CertificationFail").show();
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
+                }
             });
         }
-
-        strExtraData = JSON.stringify(ExtraData);
-
-        var data = {
-            "OldPassword": "",
-            "ContactPhonePrefix": PhonePrefix,
-            "ContactPhoneNumber": PhoneNumber,
-            "RealName": Name1 + Name2,
-            "Birthday": year + "/" + month + "/" + date,
-            "ExtraData": strExtraData
-        }
-        window.parent.API_LoadingStart();
-        p.UpdateUserAccount(WebInfo.SID, Math.uuid(), data, function (success, o) {
-            window.parent.API_LoadingEnd(1);
-            if (success) {
-                if (o.Result == 0) {
-                    $("#CertificationForm").hide();
-                    $("#CertificationSucc").show();
-                } else {
-                    $("#CertificationForm").hide();
-                    $("#CertificationFail").show();
-                }
-            } else {
-                if (o == "Timeout") {
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                } else {
-                    $("#CertificationForm").hide();
-                    $("#CertificationFail").show();
-                }
-            }
-        });
     }
 
     function closeCertification() {
         updateBaseInfo();
         $("#btn_PupLangClose1").click();
+    }
+
+    function onBtnSendValidateCode_Phone() {
+        if (isSent_Phone == false) {
+            CheckPhoneExist(function (check) {
+                if (check) {
+                    window.top.API_ShowLoading();
+                    p.SetUserMail(Math.uuid(), 1, 0, "", $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                        window.top.API_CloseLoading();
+                        if (success) {
+                            if (o.Result != 0) {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
+                            } else {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
+
+                                startCountDown_Phone(120);
+                            }
+                        }
+                    });
+                } else {
+
+                }
+            });
+        } else {
+            window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
+        }
+    }
+
+    function startCountDown_Phone(duration) {
+        isSent_Phone = true;
+        let secondsRemaining = duration;
+
+        let countInterval = setInterval(function () {
+            let BtnSend = document.getElementById("divSendValidateCodeBtn_Phone");
+            
+            BtnSend.querySelector("span").innerText = secondsRemaining + "s"
+
+            secondsRemaining = secondsRemaining - 1;
+            if (secondsRemaining < 0) {
+                clearInterval(countInterval);
+                SetBtnSend();
+            };
+
+        }, 1000);
+    }
+
+    function CheckPhoneExist(cb) {
+            var PhonePrefix = document.getElementById("idPhonePrefix").value;
+            var PhoneNumber = document.getElementById("idPhoneNumber").value;
+
+        if (PhonePrefix.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+            cb(false);
+            return;
+        } else if (PhoneNumber.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
+            cb(false);
+            return;
+        } else {
+            var phoneValue = idPhonePrefix.value + idPhoneNumber.value;
+            var phoneObj;
+
+            try {
+                phoneObj = PhoneNumberUtil.parse(phoneValue);
+
+                var type = PhoneNumberUtil.getNumberType(phoneObj);
+
+                if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話格式有誤"));
+                    cb(false);
+                    return;
+                }
+            } catch (e) {
+
+                window.parent.showMessageOK("", mlp.getLanguageKey("電話格式有誤"));
+
+                cb(false);
+                return;
+            }
+        }
+
+        p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
+            if (success) {
+                if (o.Result != 0) {
+                    cb(true);
+                } else {
+                    cb(false);
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                }
+            }
+
+        });
+    }
+
+    function onChangePhonePrefix() {
+        var value = event.currentTarget.value;
+        if (value && typeof (value) == "string" && value.length > 0) {
+            if (value[0] != "+") {
+                event.currentTarget.value = "+" + value;
+            }
+        }
     }
 
     window.onload = init;
@@ -735,7 +883,7 @@
                                                         <span class="value lacking language_replace">不可出金</span>
                                                         <span class="value enough language_replace">可出金</span>
                                                         <!-- 出金說明 -->
-                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>
+                                                        <span class="btn btn-QA-transaction btn-full-stress btn-round" onclick="window.parent.API_LoadPage('guide_Rolling','/Article/guide_Rolling.html')"><i class="icon icon-mask icon-question"></i></span>
                                                     </div>
                                                 </div>
                                                 <div class="limit-amount">
@@ -774,7 +922,7 @@
                             <!-- 活動中心 + 獎金中心 -->
                             <div class="activity-record-wrapper">
                                 <!-- 活動中心 -->
-                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('','ActivityCenter.aspx')">
+                                <div class="activity-center-wrapper" onclick="window.top.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                                     <div class="activity-center-inner">
                                         <div class="activity-center-content">
                                             <div class="title language_replace">活動中心</div>
@@ -784,7 +932,7 @@
                                 </div>
 
                                 <!-- 獎金中心 -->
-                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('','/Guide/prize.html')">
+                                <div class="prize-center-wrapper" onclick="window.top.API_LoadPage('prize','/Guide/prize.html')">
                                     <div class="prize-center-inner">
                                         <div class="title language_replace">禮物盒說明</div>
                                     </div>
@@ -794,7 +942,7 @@
 
                             <!-- 會員簽到進度顯示 -->
                             <div class="activity-dailylogin-wrapper">
-                                <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=3')">
+                                <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=3')">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
                                             <h3 class="title">
@@ -997,15 +1145,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="wrapper_center mt-1 mb-3">
-                                    <button type="button" class="btn btn-outline-main btn-roundcorner" onclick="" style="max-width: 200px;">
+                                <div class="wrapper_center mt-1 mb-3" id="divSendValidateCodeBtn_Phone">
+                                    <button type="button" class="btn btn-outline-main btn-roundcorner" onclick="onBtnSendValidateCode_Phone()" id="btnSendValidateCode_Phone" style="max-width: 200px;">
                                         <span class="language_replace">傳送簡訊驗證碼</span>
                                     </button>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-title language_replace">驗證碼</label>
                                     <div class="input-group">
-                                        <input id="" name="" type="text" class="form-control custom-style" onkeyup="()"  language_replace="placeholder" placeholder="請輸入簡訊驗證碼">
+                                        <input id="idValidateCode_Phone" name="ValidateCode_Phone" type="text" class="form-control custom-style">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -1163,6 +1311,7 @@
             </div>
         </div>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

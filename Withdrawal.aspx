@@ -32,7 +32,20 @@
             width: calc(100% - 20px);
         }
     </style>
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="Scripts/OutSrc/js/wallet.js"></script>
@@ -51,6 +64,7 @@
     var v = "<%:Version%>";
     var IsOpenTime = "<%:InOpenTime%>";
     var IsWithdrawlTemporaryMaintenance = "<%:IsWithdrawlTemporaryMaintenance%>";
+    var IsFullRegistration = 0;
 
     function init() {
         if (self == top) {
@@ -61,20 +75,28 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
-            if (IsOpenTime == "N") {
-                window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
-                    window.parent.API_Reload();
+
+            IsFullRegistration = window.parent.API_GetUserIsFullRegistration();
+
+            if (IsFullRegistration == 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("您尚未完成認證，即將前往認證頁面"), function () {
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx?needShowRegister=1', true);
                 });
             } else {
-                if (IsWithdrawlTemporaryMaintenance == "Y") {
-                    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
+                if (IsOpenTime == "N") {
+                    window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("NotInOpenTime"), function () {
                         window.parent.API_Reload();
                     });
                 } else {
-                  showWithdrawlPrecautions();
+                    if (IsWithdrawlTemporaryMaintenance == "Y") {
+                        window.parent.API_NonCloseShowMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("WithdrawlTemporaryMaintenance"), function () {
+                            window.parent.API_Reload();
+                        });
+                    } else {
+                        showWithdrawlPrecautions();
+                    }
                 }
             }
-
         }, "PaymentAPI");
     }
 
@@ -256,6 +278,22 @@
                         </a>
                            <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
+                         <!-- EPay -->
+                    <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalTigerPay.aspx')">
+                        <a class="card-item-link ">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">TigerPay</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center">
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
+                                </div>
+                            </div>
+                        </a>
+                           <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
+                    </div>
                 </div>
                 <!-- 出款紀錄 -->
                 <div class="notice-container mt-5">
@@ -294,5 +332,6 @@
 
         </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

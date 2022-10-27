@@ -17,10 +17,23 @@
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
     <style>
         
     </style>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="Scripts/OutSrc/js/wallet.js"></script>
@@ -37,6 +50,7 @@
     var WebInfo;
     var lang;
     var mlp;
+    var IsFullRegistration = 0;
     var v = "<%:Version%>";
 
     function init() {
@@ -47,10 +61,18 @@
 
         WebInfo = window.parent.API_GetWebInfo();
 
+
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
+
+            IsFullRegistration = window.parent.API_GetUserIsFullRegistration();
+            if (IsFullRegistration == 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("您尚未完成認證，即將前往認證頁面"), function () {
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx?needShowRegister=1', true);
+                });
+            }
         }, "PaymentAPI");
     }
 
@@ -201,11 +223,11 @@
                     </div>
 
                     <!-- EPay -->
-                <%--    <div class="card-item sd-03" id="idDepositEPayGASH">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGASH','DepositGASH.aspx')">
+                    <div class="card-item sd-03" id="idDepositTigerPay">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositTigerPay','DepositTigerPay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
-                                    <span class="language_replace">GASH</span>
+                                    <span class="language_replace">TigerPay</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
                                 <div class="logo vertical-center text-center"> 
@@ -215,7 +237,7 @@
                             </div>
                             <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
                         </a>
-                    </div>--%>
+                    </div>
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">
@@ -259,5 +281,6 @@
 
         </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>
