@@ -718,13 +718,13 @@
         $("#video_intro_down").click(function () {
             $(this).hide();
             $("#video_intro_up").show();
-            $(".video_intro p").addClass("allcontent");
+            $(".video_intro p.content_wrap").addClass("allcontent");
             return false;
         });
         $("#video_intro_up").click(function () {
             $(this).hide();
             $("#video_intro_down").show();
-            $(".video_intro p").removeClass("allcontent");
+            $(".video_intro p.content_wrap").removeClass("allcontent");
             return false;
         });
 
