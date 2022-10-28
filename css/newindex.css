@@ -1956,6 +1956,7 @@ stream {
     width: 90%;
     height: 90px;
     top: -90px;
+    margin: 0 5%;
   }
   .section2 .content_area ul {
     padding: 3% 0;
@@ -2331,6 +2332,418 @@ stream {
     width: 70%;
   }
 }
+@media screen and (max-width: 580px) {
+  .font_size_0, .section1 .content_area .word h1 {
+    font-size: 3rem;
+  }
+
+  .font_size_1, .section3 h1, .section4 h1, .section5 h1, .section7 .content_area .word h1 {
+    font-size: 2.25rem;
+  }
+
+  .font_size_2, .section1 .content_area .word h2, .section3 ul li .circlerap b {
+    font-size: 2rem;
+  }
+
+  .font_size_3, .section2 .content_area .title_area .section2_title, .section5 p b, .section6 .top_area h3 {
+    font-size: 1.5rem;
+  }
+
+  .font_size_4_2, .section4 h2 {
+    font-size: 1.125rem;
+  }
+
+  .font_size_4, .section1 .content_area .medal_area .medal .medal_content b, .section6 .Character_area .Character_wrap .Character h3 {
+    font-size: 1rem;
+  }
+
+  .font_size_5, .section1 .content_area .word .join, .section2 .content_area ul li .title p, .section3 .join, .section4 .gametyle li, .section5 p, .section5 .events .single_event .header span, .section6 .top_area p, .section6 .Character_area .Character_wrap .Character p, .section7 .content_area .word .join {
+    font-size: 0.875rem;
+  }
+
+  .font_size_6, .section2 .content_area .section2_girl span, .section3 ul li .circlerap p, .section6 .dialogue_wrap .dialogue_content .say {
+    font-size: 0.75rem;
+  }
+
+  .font_size_7, .video_intro p, .video_intro a, .section6 .dialogue_wrap a {
+    font-size: 0.75rem;
+  }
+
+  .section2 .content_area,
+.section3 .content_area,
+.section4 .content_area,
+.section5 .content_area,
+.section6 .content_area,
+.section7 .content_area {
+    width: 90vw !important;
+  }
+
+  .section1 {
+    height: 550px;
+  }
+  .section1 .content_area .main_girl {
+    top: 14%;
+    left: -29%;
+    width: 80%;
+  }
+  .section1 .content_area .main_dog {
+    width: 35%;
+    top: 68%;
+  }
+  .section1 .content_area .medal_area {
+    top: 3%;
+    right: calc(50% - 159px);
+  }
+  .section1 .content_area .medal_area .medal {
+    margin: 0 4px;
+  }
+  .section1 .content_area .medal_area .medal img {
+    width: 32px;
+  }
+  .section1 .content_area .medal_area .medal .medal_content {
+    margin: 0 -3px;
+  }
+  .section1 .content_area .medal_area .medal .medal_content span {
+    font-size: 0.6875rem;
+  }
+  .section1 .content_area .medal_area .medal .medal_content img {
+    width: 60px;
+  }
+  .section1 .content_area .medal_area .medal .medal_content p {
+    font-size: 2.5rem;
+  }
+  .section1 .content_area .medal_area .medal .medal_content .biger {
+    font-size: 1.5rem;
+    margin-top: 3px;
+    margin-bottom: 15px;
+  }
+  .section1 .content_area .medal_area .medal .medal_content b {
+    font-size: 1rem;
+  }
+  .section1 .content_area .word {
+    top: 40%;
+    width: 100%;
+  }
+  .section1 .content_area .word .join {
+    padding: 0 8%;
+    line-height: 42px;
+  }
+  .section1 .content_area .img_777 {
+    top: 27%;
+    width: 15%;
+    left: -7%;
+  }
+  .section1 .content_area .img_chip_red {
+    top: 54%;
+    left: 51%;
+  }
+  .section1 .content_area .img_chip_blue {
+    width: 16%;
+    left: 6%;
+    top: 73%;
+  }
+  .section1 .content_area .img_dice {
+    top: 79%;
+  }
+  .section1 .content_area .img_card {
+    top: 68%;
+    width: 26%;
+  }
+
+  .section2 .content_area {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .section2 .content_area .title_area {
+    height: 60px;
+    top: -60px;
+  }
+  .section2 .content_area .title_area .section2_title {
+    margin-bottom: 2%;
+  }
+  .section2 .content_area .section2_girl {
+    width: 45%;
+    top: -6%;
+    right: -20%;
+  }
+  .section2 .content_area .section2_girl span {
+    width: 80px;
+    height: 63px;
+    padding: 3%;
+    left: 0%;
+    top: -18px;
+    background-size: cover;
+  }
+  .section2 .content_area ul {
+    width: 100%;
+  }
+  .section2 .content_area ul li {
+    padding: 3% 31% 3% 3%;
+  }
+  .section2 .content_area ul li .img_icon {
+    width: 80px;
+    height: 80px;
+    padding: 20px;
+    margin: 0 3% 0 0;
+  }
+  .section2 .content_area ul li .img_icon img {
+    width: 40px;
+    height: 40px;
+  }
+  .section2 .content_area ul li .title h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1%;
+  }
+
+  .section3 {
+    padding: 25px 0;
+  }
+  .section3 .join {
+    padding: 3% 10%;
+    margin: 1% 0;
+  }
+  .section3 ul {
+    width: 100%;
+    padding: 14% 0 30%;
+  }
+  .section3 ul li {
+    height: 150px;
+  }
+  .section3 ul li .circlerap {
+    width: 80px;
+    height: 80px;
+    top: -40px;
+  }
+  .section3 .section3_girl {
+    width: 35%;
+    bottom: -25px;
+    right: -18%;
+  }
+
+  .section4 {
+    padding: 30px 0;
+  }
+  .section4 .girlhead {
+    width: 16%;
+    top: -90px;
+    left: -30px;
+  }
+  .section4 .allgame .gamesection .singlegame p {
+    width: 140px;
+  }
+  .section4 .video_intro {
+    width: 90vw;
+  }
+  .section4 .wrapSwiper {
+    width: 86vw;
+    padding: 0 0 40px 0;
+    margin: 20px auto 40px auto;
+  }
+  .section4 .swiper-button-next, .section4 .swiper-button-prev {
+    display: none;
+  }
+
+  .section5 p {
+    line-height: 1.6;
+    margin-bottom: 2%;
+  }
+  .section5 .events {
+    width: 100%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .section5 .events .single_event {
+    width: 100%;
+    margin: 0%;
+  }
+  .section5 .events .month {
+    margin-bottom: 4%;
+  }
+
+  .section6 .top_area {
+    min-height: 520px;
+    background-position: top right;
+    background-size: cover;
+  }
+  .section6 .top_area .section6_wave {
+    height: 70px;
+    background: url(../images/newindex/section6-wave-bg.svg) no-repeat bottom right;
+    background-size: 150%;
+    bottom: -1px;
+  }
+  .section6 .top_area .section6_wave img {
+    visibility: hidden;
+  }
+  .section6 .top_area h3 {
+    top: 3%;
+    left: 0;
+  }
+  .section6 .top_area p {
+    width: 100%;
+    top: 10%;
+    left: 0;
+    border-width: 1px;
+  }
+  .section6 .top_area .section6_girl {
+    width: 65%;
+    top: 255px;
+    left: -21%;
+  }
+  .section6 .Character_area .Character_wrap {
+    width: 90%;
+    margin: 20px 0 15px;
+  }
+  .section6 .Character_area .Character_wrap .Character {
+    width: 100%;
+    margin: 0;
+    padding: 4%;
+  }
+  .section6 .Character_area .Character_wrap .Character_girl {
+    margin-bottom: 14%;
+  }
+  .section6 .Character_area .Character_wrap .Character_girl div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .section6 .Character_area .Character_wrap .Character_girl div .-translate-x-6 {
+    --tw-translate-x:0;
+  }
+  .section6 .Character_area .Character_wrap .Character_girl div img {
+    width: 150px;
+    margin: -15% 0 5% 0;
+  }
+  .section6 .Character_area .Character_wrap .Character_dig div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .section6 .Character_area .Character_wrap .Character_dig div .-translate-x-6 {
+    --tw-translate-x:0;
+  }
+  .section6 .Character_area .Character_wrap .Character_dig div img {
+    width: 100px;
+    margin: -15% 0 5% 0;
+  }
+  .section6 .dialogue_wrap {
+    width: 90%;
+    margin-top: 25px;
+    background-size: 12%;
+  }
+  .section6 .dialogue_wrap .gd_head {
+    width: 30%;
+    top: -40px;
+  }
+  .section6 .dialogue_wrap .dialogue_content {
+    padding: 5% 2% 10% 2%;
+  }
+  .section6 .dialogue_wrap .dialogue_content .say {
+    margin: 2px 0;
+  }
+  .section6 .dialogue_wrap .dialogue_content .say img {
+    width: 50px;
+  }
+  .section6 .dialogue_wrap .dialogue_content .dog_say {
+    padding-left: 20%;
+  }
+  .section6 .dialogue_wrap .dialogue_content .girl_say {
+    padding-right: 20%;
+  }
+
+  .section7 {
+    height: 450px;
+  }
+  .section7 .section7_wave {
+    height: 80px;
+    background: url(../images/newindex/section7-wave-bg.svg) no-repeat top right;
+    background-size: 150%;
+    top: -1px;
+  }
+  .section7 .section7_wave img {
+    visibility: hidden;
+  }
+  .section7 .content_area {
+    height: 450px;
+  }
+  .section7 .content_area .word {
+    top: 42%;
+  }
+  .section7 .content_area .word h1 {
+    margin: 0 0 4% 0;
+  }
+  .section7 .content_area .word .join {
+    padding: 0 15px;
+    height: 48px;
+    line-height: 48px;
+  }
+  .section7 .content_area .section7_girl {
+    width: 70%;
+    left: -25%;
+  }
+  .section7 .content_area .img_777 {
+    bottom: -5%;
+  }
+  .section7 .content_area .img_777 img {
+    width: 50%;
+  }
+  .section7 .content_area .img_chip_blue img {
+    width: 60%;
+  }
+  .section7 .content_area .img_chip_red {
+    right: -17%;
+    bottom: 35%;
+  }
+  .section7 .content_area .img_chip_red img {
+    width: 60%;
+  }
+  .section7 .content_area .img_chip_yellow {
+    left: 13%;
+  }
+  .section7 .content_area .img_chip_yellow img {
+    width: 60%;
+  }
+  .section7 .content_area .img_dice {
+    left: -7%;
+    bottom: 28%;
+  }
+  .section7 .content_area .img_dice img {
+    width: 64%;
+  }
+  .section7 .content_area .img_card {
+    left: 44%;
+    bottom: 22%;
+  }
+  .section7 .content_area .img_card img {
+    width: 60%;
+  }
+  .section7 .content_area .img_diamond {
+    left: 80%;
+    bottom: 66%;
+  }
+  .section7 .content_area .img_diamond img {
+    width: 50%;
+  }
+}
 @media screen and (max-width: 450px) {
   .font_size_0, .section1 .content_area .word h1 {
     font-size: 2.5rem;
@@ -2371,8 +2784,10 @@ stream {
   .section2 .content_area,
 .section3 .content_area,
 .section4 .content_area,
-.section5 .content_area {
-    width: 90vw;
+.section5 .content_area,
+.section6 .content_area,
+.section7 .content_area {
+    width: 90vw !important;
   }
 
   .section1 {
@@ -2411,7 +2826,8 @@ stream {
   }
   .section1 .content_area .medal_area .medal .medal_content .biger {
     font-size: 1.5rem;
-    margin-bottom: 18px;
+    margin-top: 3px;
+    margin-bottom: 15px;
   }
   .section1 .content_area .medal_area .medal .medal_content b {
     font-size: 1rem;
@@ -2742,7 +3158,7 @@ stream {
   }
 
   .font_size_1, .section3 h1, .section4 h1, .section5 h1, .section7 .content_area .word h1 {
-    font-size: 1.5rem;
+    font-size: 1.625rem;
   }
 
   .font_size_2, .section1 .content_area .word h2, .section3 ul li .circlerap b {
@@ -2774,13 +3190,13 @@ stream {
   }
 
   .drop-shadow-text1 {
-    -webkit-filter: drop-shadow(4px 4px 0px rgba(0, 107, 159, 0.4));
-            filter: drop-shadow(4px 4px 0px rgba(0, 107, 159, 0.4));
+    -webkit-filter: drop-shadow(3px 3px 0px rgba(0, 107, 159, 0.4)) !important;
+            filter: drop-shadow(3px 3px 0px rgba(0, 107, 159, 0.4)) !important;
   }
 
   .drop-shadow-text2, .section6 .top_area h3 {
-    -webkit-filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.1));
-            filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.1));
+    -webkit-filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.1)) !important;
+            filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.1)) !important;
   }
 
   .section1 {
@@ -2834,6 +3250,11 @@ stream {
     width: 13%;
   }
 
+  .section2 .content_area .title_area {
+    height: 44px;
+    top: -44px;
+  }
+
   .section3 {
     padding: 20px 0;
   }
@@ -2858,6 +3279,9 @@ stream {
 
   .section4 {
     padding: 25px 0;
+  }
+  .section4 h2 {
+    font-size: 0.875rem;
   }
   .section4 .girlhead {
     width: 20%;
@@ -2888,13 +3312,19 @@ stream {
   }
   .section6 .top_area .section6_girl {
     width: 80%;
-    top: 288px;
+    top: 295px;
   }
   .section6 .Character_area .Character_wrap .Character h3 {
     margin-bottom: 6px;
   }
   .section6 .Character_area .Character_wrap .Character_girl {
     margin-bottom: 12%;
+  }
+  .section6 .Character_area .Character_wrap .Character_girl .girl_intro img {
+    width: 50%;
+  }
+  .section6 .Character_area .Character_wrap .Character_dig .girl_intro img {
+    width: 30%;
   }
   .section6 .dialogue_wrap {
     margin-top: 20px;
