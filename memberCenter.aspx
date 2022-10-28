@@ -476,13 +476,9 @@
                         }
                         window.parent.API_LoadingStart();
                         p.RegistrationUserAccount(WebInfo.SID, Math.uuid(), data, WebInfo.UserInfo.LoginAccount, function (success, o) {
-                            window.parent.API_LoadingEnd(1);
                             if (success) {
                                 if (o.Result == 0) {
-                                    $("#IsFullRegistration0").hide();
-                                    $("#CertificationForm").hide();
-                                    $("#CertificationSucc").show();
-                                    $("#IsFullRegistration1").show();
+                                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
                                 } else {
                                     $("#CertificationForm").hide();
                                     $("#CertificationFail").show();
@@ -554,8 +550,8 @@
     }
 
     function CheckPhoneExist(cb) {
-            var PhonePrefix = document.getElementById("idPhonePrefix").value;
-            var PhoneNumber = document.getElementById("idPhoneNumber").value;
+        var PhonePrefix = document.getElementById("idPhonePrefix").value;
+        var PhoneNumber = document.getElementById("idPhoneNumber").value;
 
         if (PhonePrefix.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
@@ -588,17 +584,21 @@
             }
         }
 
-        p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
-            if (success) {
-                if (o.Result != 0) {
-                    cb(true);
-                } else {
-                    cb(false);
-                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+        if (WebInfo.UserInfo.ContactPhoneNumber == "" || WebInfo.UserInfo.ContactPhonePrefix == "") {
+            p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
+                if (success) {
+                    if (o.Result != 0) {
+                        cb(true);
+                    } else {
+                        cb(false);
+                        window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                    }
                 }
-            }
 
-        });
+            });
+        } else {
+            cb(true);
+        }
     }
 
     function onChangePhonePrefix() {
@@ -719,7 +719,7 @@
                                         <div class="data-item-content">
                                             <div class="verify-item">
                                                 <!-- 尚未認證 -->
-                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: ">
+                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: none">
                                                     <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
                                                     <span class="verify-desc language_replace">尚未認證</span>
                                                     <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
@@ -945,8 +945,13 @@
                                 <div class="dailylogin-bouns-wrapper" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=3')">
                                     <div class="dailylogin-bouns-inner">
                                         <div class="dailylogin-bouns-content">
-                                            <h3 class="title">
-                                                <span class="name ">金曜日のプレゼント</span></h3>
+                                            <div class="sec-title">
+                                                <h3 class="title">
+                                                    <span class="name language_replace">金曜日の<span>プレゼント</span></span></h3>
+                                                    <span class="dailylogin-bouns-QA sec-title-intro-link">
+                                                    <span class="btn btn-QA-dailylogin-bouns btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="language_replace">説明</span></span>
+                                            </div>   
+
                                             <ul class="dailylogin-bouns-list">
                                                 <!-- 已領取 bouns => got-->
                                                 <li class="bouns-item ">
@@ -1160,7 +1165,7 @@
                                     <div class="form-group col-md form-input-focus-tip">
                                         <label class="form-title language_replace">姓</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" id="Name1" name="Name1">
+                                            <input type="text" class="form-control custom-style" id="Name1" name="Name1" language_replace="placeholder" placeholder="姓1">
                                             <div class="invalid-feedback language_replace">提示</div>
                                             <div class="custom-input-focus-tip">
                                                 <div class="notice align-items-start">
@@ -1172,7 +1177,7 @@
                                     <div class="form-group col-md form-input-focus-tip">
                                         <label class="form-title language_replace">名</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" id="Name2" name="Name2">
+                                            <input type="text" class="form-control custom-style" id="Name2" name="Name2" language_replace="placeholder" placeholder="名1">
                                             <div class="invalid-feedback language_replace">提示</div>
                                             <div class="custom-input-focus-tip">
                                                 <div class="notice align-items-start">

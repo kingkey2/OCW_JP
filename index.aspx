@@ -15,10 +15,11 @@
     string PCode = string.Empty;
     string PageType = string.Empty;
     string GCode = string.Empty;
+    string Page = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
-    string Version = EWinWeb.Version; 
+    string Version = EWinWeb.Version;
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
     {
@@ -28,24 +29,28 @@
     if (string.IsNullOrEmpty(Request["CT"]) == false)
         CT = Request["CT"];
 
-    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false) {
         GoEwinLogin = int.Parse(Request["GoEwinLogin"]);
     }
 
-    if (string.IsNullOrEmpty(Request["PCode"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["PCode"]) == false) {
         PCode = Request["PCode"];
     }
 
-     if (string.IsNullOrEmpty(Request["PageType"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["p"]) == false) {
+        PCode = Request["p"];
+    }
+
+    if (string.IsNullOrEmpty(Request["PageType"]) == false) {
         PageType = Request["PageType"];
     }
 
-    if (string.IsNullOrEmpty(Request["GCode"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["GCode"]) == false) {
         GCode = Request["GCode"];
+    }
+
+    if (string.IsNullOrEmpty(Request["page"]) == false) {
+        Page = Request["page"];
     }
 
     if (GoEwinLogin == 1)
@@ -71,78 +76,43 @@
 
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
-    if (string.IsNullOrEmpty(Request["Lang"]))
-    {
+    if (string.IsNullOrEmpty(Request["Lang"])) {
         string userLang = CodingControl.GetDefaultLanguage();
 
-        if (userLang.ToUpper() == "zh-TW".ToUpper())
-        {
+        if (userLang.ToUpper() == "zh-TW".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-HK".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-HK".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-MO".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-MO".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHT".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHT".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHS".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHS".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-SG".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-SG".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CN".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CN".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "en-US".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-US".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en-CA".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-CA".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en-PH".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-PH".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KR".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KR".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KP".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KP".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ja".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ja".ToUpper()) {
             Lang = "JPN";
-        }
-        else { Lang = "JPN"; }
-    }
-    else
-    {
+        } else { Lang = "JPN"; }
+    } else {
         Lang = Request["Lang"];
 
         Lang = Lang.ToUpper();
@@ -344,6 +314,7 @@
     var SearchControll;
     var PCode = "<%=PCode%>";
     var GCode = "<%=GCode%>";
+    var Page = "<%=Page%>";
     var PageType = "<%=PageType%>";
     //#region TOP API
     function API_GetGCB() {
@@ -2391,23 +2362,30 @@
 
             }
             else {
-                if (EWinWebInfo.SID != "") {
-                    API_Casino();
-                } else {
-                    if (PageType != null && PageType != "" && PageType == "OpenSumo") {
-                        var gameData = {
-                            GameBrand: "YS",
-                            GameName: "Sumo",
-                            GameLangName: mlp.getLanguageKey("相撲")
-                        }
-
-                        window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
-                        clearUrlParams();
-                        API_LoadPage("Login", "Login.aspx");
+                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter")) {
+                    if (Page == "QA") {
+                        API_LoadPage('QA', '/Article/guide_Q&A.html')
                     } else {
-                        API_Home();
+                        API_LoadPage(Page, Page + ".aspx");
                     }
+                } else {
+                    if (EWinWebInfo.SID != "") {
+                        API_Casino();
+                    } else {
+                        if (PageType != null && PageType != "" && PageType == "OpenSumo") {
+                            var gameData = {
+                                GameBrand: "YS",
+                                GameName: "Sumo",
+                                GameLangName: mlp.getLanguageKey("相撲")
+                            }
 
+                            window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
+                            clearUrlParams();
+                            API_LoadPage("Login", "Login.aspx");
+                        } else {
+                            API_Home();
+                        }
+                    }
                 }
             }
 
@@ -3242,22 +3220,6 @@
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-all"></i>
-                                                <span class="title language_replace">遊戲大廳</span></a>
-                                        </li>
-                                    <!-- <li class="nav-item submenu dropdown"
-                                            onclick="openGame('YS', 'Sumo', '')">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-sumo"></i>
-                                                <span class="title language_replace">相撲</span></a>
-                                        </li> -->
-                                    </ul>
-                                </li>
-                                <li class="nav-item navbarMenu__catagory">
-                                    <ul class="catagory">
-                                        <li class="nav-item submenu dropdown"
                                              onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-slot"></i>
@@ -3348,12 +3310,6 @@
                                                 <i class="icon icon-mask icon-line"></i>
                                                 <span class="title language_replace">Line</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('texthome','/newhome.html')">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-QA"></i>
-                                                <span class="title language_replace">Q&A</span></a>
-                                        </li>
                                         
                                     </ul>
                                 </li>
@@ -3383,7 +3339,7 @@
                     <!-- 頂部 NavBar -->
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
-                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Home','Home.aspx')">
+                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Casino','Casino.aspx')">
                             <div class="navbar-brand">
                                 <div class="logo"><a></a></div>
                             </div>
@@ -3549,11 +3505,11 @@
                     <div class="payment-supplier">
                         <div class="logo">
                             <div class="row">
-                                <div class="logo-item">
+                                <!-- <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-iwallet.png" alt="">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-nissinpay.png" alt="">
@@ -3920,7 +3876,8 @@
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
                                     language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
-                                <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                    <%--<label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                    --%>
                             </div>
                             <div class="wrapper_center action-outter">
                                 <button type="button" class="btn btn btn-outline-main btn-sm btn-reset-popup" onclick="SearchControll.searchGameChangeClear()">

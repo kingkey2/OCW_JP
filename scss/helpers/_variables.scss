@@ -45,7 +45,15 @@ $header-nav-link-text: color_main('white');
 $header-nav-link-background: rgba(color_main('black'), .65);
 
 $header-btn-login-backgroundColor: (color : (color_button('btn-main-1'), color_button('btn-main-2')));
-$header-btn-register-backgroundColor: (color : (color_button('btn-sub-1'), color_button('btn-sub-2')));
+
+$header-btn-register-backgroundColor: (   
+  color : (
+    color_button('btn-sub-3'),
+    color_button('btn-sub-1'),
+    color_button('btn-sub-2'),
+    ),   
+  positon : (5.73%, 50.96%, 100%,) 
+);
 
 
 $navbar-dropdown-submenu-background: color_main('theme-sub-a-1');
@@ -311,7 +319,7 @@ $member-dailylogin-bouns-mobile-backgroundColor: (
       color_memberCenter('dailylogin-bouns-mobile-background-1'),
       color_memberCenter('dailylogin-bouns-mobile-background-2'),
       ),   
-    positon : (0%, 100%) 
+    positon : (17.71%, 83.85%) 
 );
 
 $member-dailylogin-bouns-pc-backgroundColor: (   
