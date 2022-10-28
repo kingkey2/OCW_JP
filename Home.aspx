@@ -140,7 +140,7 @@
                             <span class="language_replace">1分鐘輕鬆！免費註冊</span>
                         </span>
                     </h2>
-                    <a class="join language_replace" onclick="window.parent.API_LoadPage('Register', 'Register.aspx')">立即註冊</a>
+                    <a class="join language_replace" style="cursor:pointer" onclick="window.parent.API_LoadPage('Register', 'Register.aspx')">立即註冊</a>
                 </div>
                 <div class="img_777" style="animation-delay: 0.6s">
                     <img src="images/newindex/777.svg" alt="">
@@ -209,7 +209,7 @@
                         <span class="language_replace">現在完成註冊並領取註冊獎勵！</span>
                     </span>
                 </h1>
-                <a class="join language_replace" onclick="window.parent.API_LoadPage('Register', 'Register.aspx')">立即註冊</a>
+                <a class="join language_replace" style="cursor:pointer" onclick="window.parent.API_LoadPage('Register', 'Register.aspx')">立即註冊</a>
                 <div class="section3_girl">
                     <img src="images/newindex/girl-summer.png" alt="">
                 </div>
@@ -681,7 +681,7 @@
                             <span class="language_replace">Maharaja獨創的獎勵制度，使用起來更加彈性！</span>
                         </span>
                     </h1>
-                    <a class="join language_replace" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', false)">了解更多關於獎金與禮金</a>
+                    <a class="join language_replace" style="cursor:pointer" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', false)">了解更多關於獎金與禮金</a>
                 </div>
                 <div class="section7_girl">
                     <img src="images/newindex/autumn-girl.png" alt="">

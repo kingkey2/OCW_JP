@@ -1326,10 +1326,10 @@ input.month:read-only, input.day:read-only {
     height: 40%;
     bottom: 53px;
     border-radius: 10px 10px 0 0;
-    background-color: #4288C9;
+    background-color: #E8F9FF;
     /* Old browsers */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(17.71%, #4288C9), color-stop(83.85%, #1D62A3));
-    background: linear-gradient(180deg, #4288C9 17.71%, #1D62A3 83.85%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(17.71%, #E8F9FF), color-stop(83.85%, #69C9FF));
+    background: linear-gradient(180deg, #E8F9FF 17.71%, #69C9FF 83.85%);
   }
   .dailylogin-bouns-content {
     -webkit-box-pack: justify;
@@ -1617,10 +1617,10 @@ input.month:read-only, input.day:read-only {
   .dailylogin-bouns-inner {
     padding: 50px 10px 10px;
     border-radius: 20px;
-    background-color: #FFFAC3;
+    background-color: #4288C9;
     /* Old browsers */
-    background: -webkit-gradient(linear, left top, left bottom, from(#FFFAC3), to(#FFDFD2));
-    background: linear-gradient(180deg, #FFFAC3 0%, #FFDFD2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(17.71%, #4288C9), color-stop(83.85%, #1D62A3));
+    background: linear-gradient(180deg, #4288C9 17.71%, #1D62A3 83.85%);
   }
   .dailylogin-bouns-content {
     background-color: #fff;
