@@ -476,13 +476,9 @@
                         }
                         window.parent.API_LoadingStart();
                         p.RegistrationUserAccount(WebInfo.SID, Math.uuid(), data, WebInfo.UserInfo.LoginAccount, function (success, o) {
-                            window.parent.API_LoadingEnd(1);
                             if (success) {
                                 if (o.Result == 0) {
-                                    $("#IsFullRegistration0").hide();
-                                    $("#CertificationForm").hide();
-                                    $("#CertificationSucc").show();
-                                    $("#IsFullRegistration1").show();
+                                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
                                 } else {
                                     $("#CertificationForm").hide();
                                     $("#CertificationFail").show();
@@ -554,8 +550,8 @@
     }
 
     function CheckPhoneExist(cb) {
-            var PhonePrefix = document.getElementById("idPhonePrefix").value;
-            var PhoneNumber = document.getElementById("idPhoneNumber").value;
+        var PhonePrefix = document.getElementById("idPhonePrefix").value;
+        var PhoneNumber = document.getElementById("idPhoneNumber").value;
 
         if (PhonePrefix.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
@@ -588,17 +584,21 @@
             }
         }
 
-        p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
-            if (success) {
-                if (o.Result != 0) {
-                    cb(true);
-                } else {
-                    cb(false);
-                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+        if (WebInfo.UserInfo.ContactPhoneNumber == "" || WebInfo.UserInfo.ContactPhonePrefix == "") {
+            p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
+                if (success) {
+                    if (o.Result != 0) {
+                        cb(true);
+                    } else {
+                        cb(false);
+                        window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
+                    }
                 }
-            }
 
-        });
+            });
+        } else {
+            cb(true);
+        }
     }
 
     function onChangePhonePrefix() {
@@ -719,7 +719,7 @@
                                         <div class="data-item-content">
                                             <div class="verify-item">
                                                 <!-- 尚未認證 -->
-                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: ">
+                                                <span class="verify-result fail" id="IsFullRegistration0" style="display: none">
                                                     <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
                                                     <span class="verify-desc language_replace">尚未認證</span>
                                                     <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalRegisterComplete">
