@@ -777,7 +777,7 @@
                                             <li><span class="language_replace">取款1次最少5500，最多50萬OCoin，1天次數最多3次。</span></li>
                                             <li><span class="language_replace">1天取款上限額度為100萬OCoin。</span></li>
                                             <li><span class="language_replace">申請出款後，依據您所選擇的金融機關不同，有可能下一個營業日才能到帳。</span></li>
-                                            <li><span class="language_replace">この部分の記入は銀行の振込名義と同じで有る事が必須に成ります。ご了承下さい。</span></li>
+                                            <li><span class="language_replace">此處填寫的全名必須與銀行的匯款人名稱（片假名）完全相同，敬請見諒。</span></li>
                                          </ul>  
                                     </div>
                                 </div>
