@@ -1346,7 +1346,20 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=17')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/mahaEvent/src/11month-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/mahaEvent/src/11month.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=16')"></a>
@@ -1440,7 +1453,7 @@
                             </div>
                         </div>
                     </div>--%>
-                    <div class="swiper-slide">
+                    <!-- <div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
@@ -1452,8 +1465,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
+                    </div> -->
+                    <%--<div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
@@ -1465,7 +1478,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>

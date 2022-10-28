@@ -4,6 +4,8 @@
     color: #666;
     font-family: 'Noto Sans JP', sans-serif!important;
 }
+
+
 h3{
     font-size: 1.2rem;
 }
@@ -34,11 +36,12 @@ h3{
     height: 14px;
 }
 .act-notice{
+    font-weight: 300!important;
     color: #666;
 }
 .mark-red{
     color: #940202!important;
-    font-weight: bold;
+    font-weight: 400;
 }
 .supermark-red{
     color: #fff!important;
@@ -48,4 +51,37 @@ h3{
     font-weight: bold;
     display: inline-block;
     border-radius: 10px;
+}
+
+.nisspay{
+    color: #fff!important;
+    background-color: #59B587;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    max-width: 665px;
+    margin: 10px auto;
+}
+.level-series{
+	display: block;
+    max-width: 600px;
+    margin: 10px auto;
+}
+.level-series2{
+	display: none;
+    max-width: 600px;
+    margin: 10px auto;
+}
+/* .level-series2 img{
+    width: 100%;
+} */
+
+@media (max-width:599px){
+	.level-series{
+	display: none;
+	}
+	.level-series2{
+		display: block;
+	}
 }
