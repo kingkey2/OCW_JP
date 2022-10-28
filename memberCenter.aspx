@@ -450,13 +450,21 @@
                             return;
                         }
 
-                        let ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+                        let ExtraData = [];
 
-                        if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
-                            for (var i = 0; i < ExtraData.length; i++) {
-                                if (ExtraData[i].Name == "IsFullRegistration") {
-                                    ExtraData[i].Value = 1;
+                        if (WebInfo.UserInfo.ExtraData) {
+                            ExtraData = JSON.parse(WebInfo.UserInfo.ExtraData);
+
+                            if (WebInfo.UserInfo.ExtraData.indexOf("IsFullRegistration") > 0) {
+                                for (var i = 0; i < ExtraData.length; i++) {
+                                    if (ExtraData[i].Name == "IsFullRegistration") {
+                                        ExtraData[i].Value = 1;
+                                    }
                                 }
+                            } else {
+                                ExtraData.push({
+                                    Name: 'IsFullRegistration', Value: 1
+                                });
                             }
                         } else {
                             ExtraData.push({
@@ -478,7 +486,9 @@
                         p.RegistrationUserAccount(WebInfo.SID, Math.uuid(), data, WebInfo.UserInfo.LoginAccount, function (success, o) {
                             if (success) {
                                 if (o.Result == 0) {
-                                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
+                                    window.top.API_RefreshUserInfo(function () {
+                                        window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx', true);
+                                    });
                                 } else {
                                     $("#CertificationForm").hide();
                                     $("#CertificationFail").show();
