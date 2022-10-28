@@ -3505,11 +3505,11 @@
                     <div class="payment-supplier">
                         <div class="logo">
                             <div class="row">
-                                <div class="logo-item">
+                                <!-- <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-iwallet.png" alt="">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-nissinpay.png" alt="">
@@ -3876,7 +3876,8 @@
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
                                     language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
-                                <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                    <%--<label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                    --%>
                             </div>
                             <div class="wrapper_center action-outter">
                                 <button type="button" class="btn btn btn-outline-main btn-sm btn-reset-popup" onclick="SearchControll.searchGameChangeClear()">
