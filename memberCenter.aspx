@@ -1165,7 +1165,7 @@
                                     <div class="form-group col-md form-input-focus-tip">
                                         <label class="form-title language_replace">姓</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" id="Name1" name="Name1">
+                                            <input type="text" class="form-control custom-style" id="Name1" name="Name1" language_replace="placeholder" placeholder="姓">
                                             <div class="invalid-feedback language_replace">提示</div>
                                             <div class="custom-input-focus-tip">
                                                 <div class="notice align-items-start">
@@ -1177,7 +1177,7 @@
                                     <div class="form-group col-md form-input-focus-tip">
                                         <label class="form-title language_replace">名</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" id="Name2" name="Name2">
+                                            <input type="text" class="form-control custom-style" id="Name2" name="Name2" language_replace="placeholder" placeholder="名">
                                             <div class="invalid-feedback language_replace">提示</div>
                                             <div class="custom-input-focus-tip">
                                                 <div class="notice align-items-start">
