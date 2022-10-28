@@ -522,8 +522,8 @@
                         <span class="language_replace">業界首創！MAHARAJA專屬活動</span>
                     </span>
                 </h1>
-                <p class="language_replace">完成每日洗碼任務可累計1,000禮金</p>
-                <p class="language_replace">七天全勤再加碼3,000, 最多每週可領10,000 禮金！！</p>
+                <p class="language_replace">每天完成洗碼可獲得1,000 Gift</p>
+                <p class="language_replace">且連續7天達成洗碼任務再加贈3000(Gift)</p>
                 <img src="images/newindex/7day.jpg" alt="">
                 <div class="events">
                     <div class="single_event month">
