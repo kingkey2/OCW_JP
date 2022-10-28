@@ -804,7 +804,7 @@
                                     姓
                                     <span class="form-title-note language_replace">(羅馬字)</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
+                                    <input type="text" class="form-control custom-style" language_replace="placeholder"  placeholder="請輸入姓" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
@@ -814,7 +814,7 @@
                                
                                     <span class="form-title-note language_replace">(羅馬字)</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
+                                    <input type="text" class="form-control custom-style" language_replace="placeholder"  placeholder="請輸入名" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
