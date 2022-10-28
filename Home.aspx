@@ -250,9 +250,6 @@
                     <img src="images/newindex/girl-head.png" alt=""></span>
                 <h1 class="language_replace">超過3000種以上的高人氣遊戲</h1>
                 <h2 class="language_replace">時下最流行的各式類型遊戲大集合！</h2>
-                <!-- <ul class="gametyle">
-                    <li>人気</li><li>スロット</li><li>ライブ</li><li>その他</li><li>プロバイダー</li>
-                </ul> -->
             </div>
             <div class="allgame">
                 <div class="gamesection" style="animation-duration: 60s;">
@@ -718,13 +715,13 @@
         $("#video_intro_down").click(function () {
             $(this).hide();
             $("#video_intro_up").show();
-            $(".video_intro p").addClass("allcontent");
+            $(".video_intro p.content_wrap").addClass("allcontent");
             return false;
         });
         $("#video_intro_up").click(function () {
             $(this).hide();
             $("#video_intro_down").show();
-            $(".video_intro p").removeClass("allcontent");
+            $(".video_intro p.content_wrap").removeClass("allcontent");
             return false;
         });
 
@@ -751,20 +748,6 @@
             },
         });
     </script>
-    <!-- <script>
-        var swiper = new Swiper(".mySwiper", {
-          cssMode: true,
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-          pagination: {
-            el: ".swiper-pagination",
-          },
-          mousewheel: true,
-          keyboard: true,
-        });
-      </script> -->
     <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>
