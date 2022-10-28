@@ -3505,11 +3505,11 @@
                     <div class="payment-supplier">
                         <div class="logo">
                             <div class="row">
-                                <div class="logo-item">
+                                <!-- <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-iwallet.png" alt="">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-nissinpay.png" alt="">
