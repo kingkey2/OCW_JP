@@ -37,6 +37,10 @@
         PCode = Request["PCode"];
     }
 
+    if (string.IsNullOrEmpty(Request["p"]) == false) {
+        PCode = Request["p"];
+    }
+
     if (string.IsNullOrEmpty(Request["PageType"]) == false) {
         PageType = Request["PageType"];
     }
@@ -3216,22 +3220,6 @@
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-all"></i>
-                                                <span class="title language_replace">遊戲大廳</span></a>
-                                        </li>
-                                    <!-- <li class="nav-item submenu dropdown"
-                                            onclick="openGame('YS', 'Sumo', '')">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-sumo"></i>
-                                                <span class="title language_replace">相撲</span></a>
-                                        </li> -->
-                                    </ul>
-                                </li>
-                                <li class="nav-item navbarMenu__catagory">
-                                    <ul class="catagory">
-                                        <li class="nav-item submenu dropdown"
                                              onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-slot"></i>
@@ -3321,12 +3309,6 @@
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-line"></i>
                                                 <span class="title language_replace">Line</span></a>
-                                        </li>
-                                        <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('texthome','/newhome.html')">
-                                            <a class="nav-link">
-                                                <i class="icon icon-mask icon-QA"></i>
-                                                <span class="title language_replace">Q&A</span></a>
                                         </li>
                                         
                                     </ul>
