@@ -841,7 +841,7 @@
                             c.setClassText(RecordDom2, "CreateDate", null, date);
                             c.setClassText(RecordDom2, "BulletinTitle", null, record.BulletinTitle);
 
-                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + recordDate.toString("yyyy/MM/dd") + "')");
+                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + date + "')");
          
                             ParentMain2.appendChild(RecordDom2);
                         }
