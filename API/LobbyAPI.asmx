@@ -1341,7 +1341,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 }
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:
-                string smsContent = "新規登録確認コード（" + ValidateCode + "）" + "\r\n" + "マハラジャをお選びいただき、ありがとうございます。";
+                string smsContent = "確認コード（" + ValidateCode + "）" + "\r\n" + "マハラジャをお選びいただき、ありがとうございます。";
                 R = SendSMS(GUID, "0", 0, ContactPhonePrefix + ContactPhoneNumber, smsContent);
                 break;
             default:
