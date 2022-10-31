@@ -505,7 +505,7 @@
                             <img src="images/newindex/video_logo1.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted>
+                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
                                         <source src="video/game_video1.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -518,7 +518,7 @@
                             <img src="images/newindex/video_logo2.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted>
+                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
                                         <source src="video/game_video2.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -531,7 +531,7 @@
                             <img src="images/newindex/video_logo3.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted>
+                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
                                         <source src="video/game_video3.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -544,7 +544,7 @@
                             <img src="images/newindex/video_logo4.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted>
+                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
                                         <source src="video/game_video4.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -557,7 +557,7 @@
                             <img src="images/newindex/video_logo5.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted>
+                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
                                         <source src="video/game_video5.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
