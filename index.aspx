@@ -66,7 +66,7 @@
         {
             EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
         }
-        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0"  + "&GPSPosition=1"+ "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
     }
 
     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
@@ -2380,7 +2380,7 @@
 
             }
             else {
-                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter")) {
+                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter" || Page == "registerFinish")) {
                     if (Page == "QA") {
                         API_LoadPage('QA', '/Article/guide_Q&A.html')
                     } else {

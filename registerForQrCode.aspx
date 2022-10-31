@@ -417,7 +417,8 @@
                                             if (success1) {
                                                 showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功"), function () {
                                                     document.getElementById("idRegister").classList.add("is-hide");
-                                                    document.getElementById("contentFinish").classList.remove("is-hide");
+                                                    window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
+                                                    window.location.href = "<%=EWinWeb.CasinoWorldUrl %>" + "/Index.aspx?page=registerFinish";
                                                 });
                                             } else {
                                                 showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
@@ -428,7 +429,7 @@
                                     } else {
                                         showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功"), function () {
                                             document.getElementById("idRegister").classList.add("is-hide");
-                                            document.getElementById("contentFinish").classList.remove("is-hide");
+                                            window.location.href = "<%=EWinWeb.CasinoWorldUrl %>" + "/Index.aspx?page=registerFinish";
                                         });
                                     }
                                 } else {
