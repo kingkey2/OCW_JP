@@ -1469,7 +1469,7 @@
                     </div>--%>
                     <!-- <div class="swiper-slide">
                         <div class="hero-item">
-                            <!-- <a class="hero-item-link" href="#"></a> -->
+                            <!-- <a class="hero-item-link" href="#"></a> 
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/evo-m.jpg" alt="">
                             </div>
