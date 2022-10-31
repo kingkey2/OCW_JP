@@ -20,6 +20,7 @@
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
     string Version = EWinWeb.Version;
+    string ImageUrl = EWinWeb.ImageUrl;
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
     {
@@ -299,7 +300,8 @@
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
         DeviceType: getOS(),
-        IsOpenGame: false
+        IsOpenGame: false,
+        ImageUrl: "<%=ImageUrl%>"
     };
     var Favos = [];
     var isFirstLogined = false;
