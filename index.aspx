@@ -157,6 +157,7 @@
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
     <link rel="shortcut icon" href="images/share_pic.png">
+    <link rel="apple-touch-icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
@@ -2379,7 +2380,7 @@
 
             }
             else {
-                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter")) {
+                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter" || Page == "registerFinish")) {
                     if (Page == "QA") {
                         API_LoadPage('QA', '/Article/guide_Q&A.html')
                     } else {
