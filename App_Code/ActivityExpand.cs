@@ -763,7 +763,7 @@ public static class ActivityExpand {
                     if (DateTime.Now >= StartDate && DateTime.Now < EndDate) {
                         ActivityName = (string)ActivityDetail["Name"];
 
-                        DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName);
+                        DT = EWinWebDB.UserAccountEventBonusHistory.GetBonusHistoryByLoginAccountActivityName(LoginAccount, ActivityName + "_IsFullRegisterBouns");
 
                         if (DT != null && DT.Rows.Count > 0) {
                             SetResultException(R, "ActivityIsAlreadyJoin");

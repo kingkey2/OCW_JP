@@ -2364,7 +2364,7 @@
 
             }
             else {
-                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter")) {
+                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter" || Page == "registerFinish")) {
                     if (Page == "QA") {
                         API_LoadPage('QA', '/Article/guide_Q&A.html')
                     } else {
