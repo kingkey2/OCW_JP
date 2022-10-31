@@ -121,6 +121,9 @@
                         case "16":
                             GoActivityDetail(16, '/Activity/event/bng/bng202210SP/index-jp.html');
                             break;
+                         case "17":
+                            GoActivityDetail(17, '/Activity/mahaEvent/11month.html');
+                            break;
                     }
                 }
 
@@ -257,6 +260,13 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
+                case 17:
+                    title = "方法問わず、当アカウント初入金100％還元!!";
+                    $('#ModalDeposit .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalDeposit').modal('show');
+                    });
+                    break;
+
                 default:
                     break;
             }
@@ -473,6 +483,25 @@
                             </div>
                         </figure>
                         <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(17,'/Activity/mahaEvent/11month.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="Activity/mahaEvent/src/11month-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">アカウント初入金に最大100,000 Ocoin還元</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -533,7 +562,7 @@
                     <div class="activity-item-group" id="divFinish" style="display: none">
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(15,'/Activity/event/bng/bng202210GreenChilli/index-jp.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img src="Activity/event/bng/bng202210GreenChilli/img/img-act-end.jpg">
@@ -549,7 +578,7 @@
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(13,'/Activity/event/bng/bng221003MR/index-jp.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img src="Activity/event/bng/bng221003MR/img/img-act-end.jpg">
@@ -570,7 +599,7 @@
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(10,'/Activity/event/bng/bng220919BH/index-jp.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img src="Activity/event/bng/bng220919BH/img/img-act-close.jpg">
@@ -589,7 +618,7 @@
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(8,'/Activity/event/ne-rt/08222022/index-jp.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img src="Activity/event/ne-rt/08222022/img/img-act.jpg">
@@ -608,7 +637,7 @@
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(9,'/Activity/event/bng/09092022moonfestival/index-jp.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img src="Activity/event/bng/09092022moonfestival/img/img-act-end.jpg">
@@ -627,7 +656,7 @@
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(4,'/Activity/event/pp-1/index-jp.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img src="Activity/event/pp-1/img/img-act.jpg" />
@@ -646,7 +675,7 @@
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(5,'/Activity/event/pp-2/index-jp.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img src="Activity/event/pp-2/img/img-live-act.jpg" />
@@ -665,7 +694,7 @@
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="window.open('/Activity/event/bng/bng2207-2/index.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img class="" src="images/activity/BNG-actionList-act.jpg">
@@ -684,7 +713,7 @@
                         </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(6,'/Activity/event/bng/bng2207/index.html')">
-                                <!-- 活動連結 -->
+                                <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
                                         <img src="Activity/event/bng/bng2207/img/actList-img.jpg" />
@@ -767,7 +796,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title language_replace">大好評の入金還元プラン復活！しかも銀行振込は2倍！</h5>
+                    <h5 class="modal-title language_replace">十一月限定入金キャンペーン</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -37,7 +37,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            return lobbyAPI.AddUserBankCard(GetToken(), SI.EWinSID, GUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, Description);
+            return lobbyAPI.AddUserBankCard(GetToken(), SI.EWinSID, GUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName,"","", Description);
         } else {
             var R = new EWin.Lobby.APIResult() {
                 Result = EWin.Lobby.enumResult.ERR,
@@ -211,7 +211,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            return lobbyAPI.UpdateUserBankCard(GetToken(), SI.EWinSID, GUID, BankCardGUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName, Description);
+            return lobbyAPI.UpdateUserBankCard(GetToken(), SI.EWinSID, GUID, BankCardGUID, CurrencyType, PaymentMethod, BankName, BranchName, BankNumber, AccountName,"","" ,Description);
         } else {
             var R = new EWin.Lobby.APIResult() {
                 Result = EWin.Lobby.enumResult.ERR,
@@ -1358,7 +1358,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { GUID = GUID, Result = EWin.Lobby.enumResult.ERR };
         string ValidateCode = string.Empty;
 
-        R = lobbyAPI.SendSMS(GetToken(), GUID, SMSTypeCode, RecvUserAccountID, ContactNumber, SendContent);
+        R = lobbyAPI.SendSMS(GetToken(), GUID, SMSTypeCode, RecvUserAccountID,"Maharaja" ,ContactNumber, SendContent);
 
         return R;
     }

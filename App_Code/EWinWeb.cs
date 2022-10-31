@@ -17,9 +17,11 @@ public static class EWinWeb {
     public static string Version = System.Configuration.ConfigurationManager.AppSettings["Version"];
     public static string APIKey = System.Configuration.ConfigurationManager.AppSettings["Key"];
     public static string PrivateKey = System.Configuration.ConfigurationManager.AppSettings["PrivateKey"];
+    public static string ImageUrl = System.Configuration.ConfigurationManager.AppSettings["ImageUrl"];
     public static string CompanyCode = System.Configuration.ConfigurationManager.AppSettings["CompanyCode"];
     public static string EWinUrl = System.Configuration.ConfigurationManager.AppSettings["EWinUrl"];
     public static string EWinAgentUrl = System.Configuration.ConfigurationManager.AppSettings["EWinAgentUrl"];
+    public static string ImageUrl = System.Configuration.ConfigurationManager.AppSettings["ImageUrl"];
     public static string MainCurrencyType = System.Configuration.ConfigurationManager.AppSettings["MainCurrencyType"];
     public static string ConvertCurrencyType = System.Configuration.ConfigurationManager.AppSettings["ConvertCurrencyType"];
     public static string RegisterCurrencyType = System.Configuration.ConfigurationManager.AppSettings["RegisterCurrencyType"];

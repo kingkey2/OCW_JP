@@ -716,7 +716,7 @@
 
          
 
-            imgsrc = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + WebInfo.Lang + "/" + gameItem.GameName + ".png";
+            imgsrc = `${WebInfo.ImageUrl}/${gameItem.GameBrand}/${WebInfo.Lang}/${gameItem.GameName}.png`;
            /*  三冠王 ===========================
             等級：crownLevel-1/
             類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
@@ -733,7 +733,7 @@
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
                                     </div>
                              </div>
                              <div class="game-item-info">
@@ -750,7 +750,7 @@
                                 <div class="game-item-img">
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
                                     </div>
                                 </div>
  
@@ -764,6 +764,20 @@
 
             cb(GI);
         }
+    }
+
+    function showDefauktGameIcon(GameBrand, GameName) {
+        var el = event.target;
+        el.onerror = showDefauktGameIcon2;
+        el.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/" + GameName + ".png";
+    }
+
+    function showDefauktGameIcon2() {
+
+        var el = event.target;
+        console.log(el.src);
+        el.onerror = null;
+        el.src = WebInfo.ImageUrl + "/default.png";
     }
 
     function checkChampionType(championType) {
@@ -1292,7 +1306,7 @@
     function setDefaultIcon(brand, name) {
         var img = event.currentTarget;
         img.onerror = null;
-        img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brand + "/PC/" + WebInfo.Lang + "/" + name + ".png";
+        img.src = `${WebInfo.ImageUrl}/${brand}/${WebInfo.Lang}/${name}.png`;
     }
 
     function EWinEventNotify(eventName, isDisplay, param) {
@@ -1346,7 +1360,20 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                    
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=17')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/mahaEvent/src/11month-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/mahaEvent/src/11month.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=16')"></a>
@@ -1440,7 +1467,7 @@
                             </div>
                         </div>
                     </div>--%>
-                    <div class="swiper-slide">
+                    <!-- <div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
@@ -1452,8 +1479,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
+                    </div> -->
+                    <%--<div class="swiper-slide">
                         <div class="hero-item">
                             <!-- <a class="hero-item-link" href="#"></a> -->
                             <div class="hero-item-box mobile">
@@ -1465,7 +1492,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
