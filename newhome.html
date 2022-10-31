@@ -5,6 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Maharaja</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="images/share_pic.png">
+        <link rel="apple-touch-icon" href="images/share_pic.png">
         <link href="Scripts/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet" />
         <link href="css/basic.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/main.css?a=2">
@@ -421,8 +423,21 @@
                             <img src="images/newindex/video_logo1.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video width="533" height="300" controls="" autoplay="autoplay" loop="loop" muted>
-                                        <source width="533" height="300" src="video/test.mp4" type="video/mp4" />
+                                    <video controls="" autoplay="autoplay" loop="loop" muted>
+                                        <source src="video/game_video1.mp4" type="video/mp4" />
+                                        <p>Your browser does not support the video tag.</p>
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div>
+                            <img src="images/newindex/video_logo2.png" class="videologo" alt="">
+                            <div class="relative aspect-video">
+                                <div>
+                                    <video controls="" autoplay="autoplay" loop="loop" muted>
+                                        <source src="video/game_video2.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
                                 </div>
@@ -434,8 +449,8 @@
                             <img src="images/newindex/video_logo3.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video width="533" height="300" controls="" autoplay="autoplay" loop="loop" muted>
-                                        <source width="533" height="300" src="video/test2.mp4" type="video/mp4" />
+                                    <video controls="" autoplay="autoplay" loop="loop" muted>
+                                        <source src="video/game_video3.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
                                 </div>
@@ -444,11 +459,11 @@
                       </div>
                       <div class="swiper-slide">
                         <div>
-                            <img src="images/newindex/video_logo3.png" class="videologo" alt="">
+                            <img src="images/newindex/video_logo4.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video width="533" height="300" controls="" autoplay="autoplay" loop="loop" muted>
-                                        <source width="533" height="300" src="video/test2.mp4" type="video/mp4" />
+                                    <video controls="" autoplay="autoplay" loop="loop" muted>
+                                        <source src="video/game_video4.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
                                 </div>
@@ -457,37 +472,20 @@
                       </div>
                       <div class="swiper-slide">
                         <div>
-                            <img src="images/newindex/game-logo.png" class="videologo" alt="">
+                            <img src="images/newindex/video_logo5.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <img src="images/newindex/game-video4.jpg" class="" alt="">
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="swiper-slide">
-                        <div>
-                            <img src="images/newindex/game-logo.png" class="videologo" alt="">
-                            <div class="relative aspect-video">
-                                <div>
-                                    <img src="images/newindex/game-video5.jpg" class="" alt="">
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="swiper-slide">
-                        <div>
-                            <img src="images/newindex/game-logo.png" class="videologo" alt="">
-                            <div class="relative aspect-video">
-                                <div>
-                                    <img src="images/newindex/game-video6.jpg" class="" alt="">
+                                    <video controls="" autoplay="autoplay" loop="loop" muted>
+                                        <source src="video/game_video5.mp4" type="video/mp4" />
+                                        <p>Your browser does not support the video tag.</p>
+                                    </video>
                                 </div>
                             </div>
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div> -->
+                    <div class="v-swiper-button-next"></div>
+                    <div class="v-swiper-button-prev"></div>
                     <div class="swiper-pagination"></div>
                   </div>
             </div>
@@ -687,26 +685,19 @@
     </script>
     <script>
         var swiper = new Swiper(".mySwiper", {
-          spaceBetween: 30,
+          spaceBetween: 60,
+          cssMode: true,
+          navigation: {
+            nextEl: ".v-swiper-button-next",
+            prevEl: ".v-swiper-button-prev",
+          },
           pagination: {
             el: ".swiper-pagination",
             clickable: true,
           },
-        });
-      </script>
-      <!-- <script>
-        var swiper = new Swiper(".mySwiper", {
-          cssMode: true,
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-          pagination: {
-            el: ".swiper-pagination",
-          },
           mousewheel: true,
           keyboard: true,
         });
-      </script> -->
+      </script>
 </body>
 </html>
