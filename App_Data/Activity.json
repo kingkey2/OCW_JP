@@ -31,7 +31,7 @@
   ],
   "Register": [
     {
-      "Name": "FullRegisterBouns",
+      "Name": "RegisterBouns",
       "Path": "Common/FullRegisterBouns.json",
       "MethodName": "RegisterBouns",
       "InfoMethodName": "RegisterBouns"
@@ -39,7 +39,7 @@
   ],
   "Keep": [
     {
-      "Name": "FullRegisterBouns",
+      "Name": "RegisterBouns",
       "Path": "Common/FullRegisterBouns.json",
       "MethodName": "RegisterBouns",
       "InfoMethodName": "RegisterBouns"
