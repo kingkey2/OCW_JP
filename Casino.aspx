@@ -733,7 +733,7 @@
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
                                     </div>
                              </div>
                              <div class="game-item-info">
@@ -750,7 +750,7 @@
                                 <div class="game-item-img">
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
                                     </div>
                                 </div>
  
@@ -764,6 +764,20 @@
 
             cb(GI);
         }
+    }
+
+    function showDefauktGameIcon(GameBrand, GameName) {
+        var el = event.target;
+        el.onerror = showDefauktGameIcon2;
+        el.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/" + GameName + ".png";
+    }
+
+    function showDefauktGameIcon2() {
+
+        var el = event.target;
+        console.log(el.src);
+        el.onerror = null;
+        el.src = WebInfo.ImageUrl + "/default.png";
     }
 
     function checkChampionType(championType) {

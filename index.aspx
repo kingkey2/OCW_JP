@@ -289,6 +289,7 @@
         EWinGameUrl: "<%=EWinWeb.EWinGameUrl %>",
         MainCurrencyType: "<%=EWinWeb.MainCurrencyType %>",
         RegisterCurrencyType: "<%=EWinWeb.RegisterCurrencyType %>",
+        ImageUrl: "<%=EWinWeb.ImageUrl %>",
         SID: "<%=SID%>",
         CT: "<%=CT%>",
         UserLogined: false,
@@ -1060,7 +1061,8 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
-            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
+            GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/${EWinWebInfo.Lang}/${gameName}.png`;
+            GI_img.onerror = new Function("showDefauktGameIcon('" + brandName + "', '" + gameName + "')");
             //var el = GI_img;
             //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
             //observer.observe();
@@ -1698,6 +1700,19 @@
             }
         }
     }
+
+    function showDefauktGameIcon(GameBrand, GameName) {
+        var el = event.target;
+        el.onerror = showDefauktGameIcon2;
+        el.src = "https://img.ewin888.com/" + GameBrand + "/ENG/" + GameName + ".png";
+    }
+
+    function showDefauktGameIcon2() {
+        var el = event.target;
+        el.onerror = null;
+        el.src = "https://img.ewin888.com/default.png";
+    }
+
 
     function setDefaultIcon(brand, name) {
         var img = event.currentTarget;
@@ -2764,7 +2779,9 @@
                         gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
-                            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                            GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${lang}/${gameItem.GameName}.png`;
+                            GI_img.onerror = new Function("showDefauktGameIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
+
                             var el = GI_img;
                             var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                             observer.observe();
@@ -2965,11 +2982,12 @@
                         let GBLDom;
                         let GBL_img;
 
-                        GBLDom = c.getTemplate("tmpSearchGameBrand");
-                        GBL_img = GBLDom.querySelector(".brandImg");
-                        $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
-                        GBL_img.src = `images/logo/default/logo-eWIN.svg`;
-                        ParentMain.append(GBLDom);
+                        //EWin Game Item
+                        //GBLDom = c.getTemplate("tmpSearchGameBrand");
+                        //GBL_img = GBLDom.querySelector(".brandImg");
+                        //$(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
+                        //GBL_img.src = `images/logo/default/logo-eWIN.svg`;
+                        //ParentMain.append(GBLDom);
 
                         for (var i = 0; i < o.GameBrandList.length; i++) {
                             let GBL = o.GameBrandList[i];
@@ -2980,7 +2998,10 @@
                                 $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_" + GBL.GameBrand);
 
                                 if (GBL.GameBrandState == 0) {
-                                    GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
+      
+                                    //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
+
+                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
                                 }
 
                                 ParentMain.append(GBLDom);
@@ -3077,7 +3098,8 @@
 
                 var GI_img = GI.querySelector(".gameimg");
                 if (GI_img != null) {
-                    GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                    GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/${lang}/${gameItem.GameName}.png`;
+                    GI_img.onerror = new Function("showDefauktGameIcon('" + gameItem.GameBrand + "', '" + gameItem.GameName + "')");
                     var el = GI_img;
                     var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                     observer.observe();
