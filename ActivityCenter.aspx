@@ -255,7 +255,7 @@
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 case 16:
-                    title = "タイトル：ブーンゴー宝石怪盗チャレンジ";
+                    title = "ブーンゴー宝石怪盗チャレンジ";
                     btnText = mlp.getLanguageKey("前往遊玩");
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
@@ -527,7 +527,7 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="Activity/act001/CenterPage/img/deposit-act-close.jpg">
+                                        <img src="Activity/Act001/CenterPage/img/deposit-act-close.jpg" />
                                     </div>
                                     <div class="info">
                                         <div class="detail">
@@ -546,7 +546,7 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/ne-rt/202210/img/JP-img-act-close.jpg">
+                                        <img src="Activity/event/ne-rt/202210/img/Jp-img-act-close.jpg" />
                                     </div>
                                     <div class="info">
                                         <div class="detail">
