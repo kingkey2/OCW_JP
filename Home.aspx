@@ -499,13 +499,15 @@
             </div>
             <div class="wrapSwiper">
                 <div class="swiper mySwiper">
+                    <div class="hi_dog"><img src="images/newindex/hi_dog.png" alt=""></div>
+                    <div class="hi_girl"><img src="images/newindex/girl-character.png" alt=""></div>
                     <div class="swiper-wrapper">
                       <div class="swiper-slide">
                         <div>
                             <img src="images/newindex/video_logo1.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
+                                    <video controls autoplay="autoplay" loop="loop" x5-video-player-type="h5" x5-video-player-fullscreen="false" muted playsinline webkit-playsinline>
                                         <source src="video/game_video1.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -518,7 +520,7 @@
                             <img src="images/newindex/video_logo2.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
+                                    <video controls autoplay="autoplay" loop="loop" x5-video-player-type="h5" x5-video-player-fullscreen="false" muted playsinline webkit-playsinline>
                                         <source src="video/game_video2.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -531,7 +533,7 @@
                             <img src="images/newindex/video_logo3.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
+                                    <video controls autoplay="autoplay" loop="loop" x5-video-player-type="h5" x5-video-player-fullscreen="false" muted playsinline webkit-playsinline>
                                         <source src="video/game_video3.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -544,7 +546,7 @@
                             <img src="images/newindex/video_logo4.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
+                                    <video controls autoplay="autoplay" loop="loop" x5-video-player-type="h5" x5-video-player-fullscreen="false" muted playsinline webkit-playsinline>
                                         <source src="video/game_video4.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -557,7 +559,7 @@
                             <img src="images/newindex/video_logo5.png" class="videologo" alt="">
                             <div class="relative aspect-video">
                                 <div>
-                                    <video controls autoplay="autoplay" loop="loop" muted playsinline>
+                                    <video controls autoplay="autoplay" loop="loop" x5-video-player-type="h5" x5-video-player-fullscreen="false" muted playsinline webkit-playsinline>
                                         <source src="video/game_video5.mp4" type="video/mp4" />
                                         <p>Your browser does not support the video tag.</p>
                                     </video>
@@ -814,18 +816,20 @@
     </script>
     <script>
         var swiper = new Swiper(".mySwiper", {
-          spaceBetween: 60,
-          cssMode: true,
-          navigation: {
-            nextEl: ".v-swiper-button-next",
-            prevEl: ".v-swiper-button-prev",
-          },
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-          mousewheel: true,
-          keyboard: true,
+            slidesPerView: 1,
+            spaceBetween: 50,
+            loop: true,
+            cssMode: true,
+            navigation: {
+                nextEl: ".v-swiper-button-next",
+                prevEl: ".v-swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            mousewheel: true,
+            keyboard: true,
         });
       </script>
     <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
