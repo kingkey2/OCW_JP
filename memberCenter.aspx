@@ -559,6 +559,12 @@
         }, 1000);
     }
 
+    function SetBtnSend() {
+        let BtnSend = document.getElementById("divSendValidateCodeBtn_Phone");
+        BtnSend.querySelector("span").innerText = mlp.getLanguageKey("傳送簡訊驗證碼");
+        isSent_Phone = false;
+    }
+
     function CheckPhoneExist(cb) {
         var PhonePrefix = document.getElementById("idPhonePrefix").value;
         var PhoneNumber = document.getElementById("idPhoneNumber").value;

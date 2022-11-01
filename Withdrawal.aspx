@@ -279,7 +279,7 @@
                            <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
                     </div>
                          <!-- EPay -->
-                    <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalTigerPay.aspx')">
+              <%--      <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalTigerPay.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -292,8 +292,8 @@
                                 </div>
                             </div>
                         </a>
-                           <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
-                    </div>
+                           <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">
+                    </div>--%>
                 </div>
                 <!-- 出款紀錄 -->
                 <div class="notice-container mt-5">

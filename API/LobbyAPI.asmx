@@ -410,8 +410,8 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
-                                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+                                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_IsFullRegistration", LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                                EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description + "_IsFullRegisterBouns", JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                                 //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, activityData.ThresholdValue, activityData.BonusValue);
 
                             }
@@ -1341,7 +1341,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                 }
                 break;
             case EWin.Lobby.enumValidateType.PhoneNumber:
-                string smsContent = "新規登録確認コード（" + ValidateCode + "）" + "\r\n" + "マハラジャをお選びいただき、ありがとうございます。";
+                string smsContent = "確認コード（" + ValidateCode + "）" + "\r\n" + "マハラジャをお選びいただき、ありがとうございます。";
                 R = SendSMS(GUID, "0", 0, ContactPhonePrefix + ContactPhoneNumber, smsContent);
                 break;
             default:
@@ -1496,8 +1496,8 @@ public class LobbyAPI : System.Web.Services.WebService {
                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
-                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
+                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_IsFullRegistration", LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                        EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description + "_IsFullRegisterBouns", JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
 
                     }
                 }

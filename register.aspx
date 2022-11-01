@@ -93,7 +93,7 @@
             secondsRemaining = secondsRemaining - 1;
             if (secondsRemaining < 0) {
                 clearInterval(countInterval);
-                SetBtnSend();
+                SetBtnSend_Phone();
             };
 
         }, 1000);
@@ -256,7 +256,7 @@
                             if (o.Result != 0) {
                                 window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
                             } else {
-                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
+                                window.parent.showMessageOK("", mlp.getLanguageKey("發送簡訊驗證碼成功"));
 
                                 startCountDown_Phone(120);
                             }
@@ -541,6 +541,12 @@
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+
+            if (pCode) {
+                $("input[name=PersonCode]").val(pCode);
+                $("input[name=PersonCode]").prop('disabled', true);
+            }
+
             window.parent.API_LoadingEnd(1);
         });
 
