@@ -935,10 +935,10 @@
     };
 
     function favBtnClcik(gameCode) {
+        var btn = event.currentTarget;
+        event.stopPropagation();
         if (WebInfo.UserLogined) {
-            var btn = event.currentTarget;
-            event.stopPropagation();
-
+           
             if ($(btn).hasClass("added")) {
                 $(btn).removeClass("added");
                 GCB.RemoveFavo(gameCode, function () {
@@ -953,7 +953,7 @@
                 });
             }
         } else {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
+            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
                 window.parent.API_LoadPage("Login", "Login.aspx");
             }, null);
         }
