@@ -548,7 +548,6 @@
 
         if (url == "Register.aspx") {
             if (PCode != "") {
-                <%--window.open("<%=EWinWeb.CasinoWorldUrl%>/registerForQrCode.aspx?P=" + PCode + "&IsFromIndex=1");--%>
                 url = 'Register.aspx?PCode=' + PCode;
             }
         }
