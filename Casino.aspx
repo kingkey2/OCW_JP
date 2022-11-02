@@ -716,7 +716,7 @@
 
          
 
-            imgsrc = `${WebInfo.ImageUrl}/${gameItem.GameBrand}/${WebInfo.Lang}/${gameItem.GameName}.png`;
+            imgsrc = `${WebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
            /*  三冠王 ===========================
             等級：crownLevel-1/
             類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
@@ -733,7 +733,7 @@
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon2()">
                                     </div>
                              </div>
                              <div class="game-item-info">
@@ -750,7 +750,7 @@
                                 <div class="game-item-img">
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon2()">
                                     </div>
                                 </div>
  
@@ -775,7 +775,6 @@
     function showDefauktGameIcon2() {
 
         var el = event.target;
-        console.log(el.src);
         el.onerror = null;
         el.src = WebInfo.ImageUrl + "/default.png";
     }
