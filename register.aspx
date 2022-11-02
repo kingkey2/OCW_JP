@@ -376,6 +376,10 @@
                             PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
                         }
 
+                        if (PhoneNumber.substring(0, 1) == "0") {
+                            PhoneNumber = PhoneNumber.substring(1, PhoneNumber.length);
+                        }
+
                         if (LoginAccount.indexOf('+') > 0) {
                             window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
                             return false;

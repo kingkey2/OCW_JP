@@ -474,6 +474,10 @@
 
                         strExtraData = JSON.stringify(ExtraData);
 
+                        if (PhoneNumber.substring(0, 1) == "0") {
+                            PhoneNumber = PhoneNumber.substring(1, PhoneNumber.length);
+                        }
+
                         var data = {
                             "OldPassword": "",
                             "ContactPhonePrefix": PhonePrefix,
