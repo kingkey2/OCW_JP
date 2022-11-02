@@ -820,6 +820,9 @@
             spaceBetween: 50,
             loop: true,
             cssMode: true,
+            keyboard: {
+                enabled: true,
+            },
             navigation: {
                 nextEl: ".v-swiper-button-next",
                 prevEl: ".v-swiper-button-prev",
