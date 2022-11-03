@@ -405,24 +405,6 @@
 
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(16,'/Activity/event/bng/bng202210SP/index-jp.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/bng/bng202210SP/img/img-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <div class="desc language_replace">ブンーゴーの対象ゲーム（スティッキーピギー）をプレイすれば、最大160,000のギフトマネーがもらえる！</div>
-                                        </div>                                     
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure> 
-                        
-                        
 
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(11,'/Activity/event/pp202209-1/index-jp.html')">
@@ -522,6 +504,22 @@
                         </figure>
                     </div>
                     <div class="activity-item-group" id="divFinish" style="display: none">
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(16,'/Activity/event/bng/bng202210SP/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng202210SP/img/img-act-close.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">ブンーゴーの対象ゲーム（スティッキーピギー）をプレイすれば、最大160,000のギフトマネーがもらえる！</div>
+                                        </div>                                     
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure> 
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(1,'/Activity/Act001/CenterPage/index.html')">
                                 <!-- 活動連結 -->
