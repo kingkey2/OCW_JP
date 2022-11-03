@@ -466,9 +466,26 @@
                                     Name: 'IsFullRegistration', Value: 1
                                 });
                             }
+                            
+                            if (WebInfo.UserInfo.ExtraData.indexOf("KYCRealName") > 0) {
+                                for (var i = 0; i < ExtraData.length; i++) {
+                                    if (ExtraData[i].Name == "KYCRealName") {
+                                        ExtraData[i].Value = Name1 + Name2;
+                                    }
+                                }
+                            } else {
+                                ExtraData.push({
+                                    Name: 'KYCRealName', Value: Name1 + Name2
+                                });
+                            }
+
+
                         } else {
                             ExtraData.push({
                                 Name: 'IsFullRegistration', Value: 1
+                            });
+                            ExtraData.push({
+                                Name: 'KYCRealName', Value: Name1 + Name2
                             });
                         }
 
@@ -482,7 +499,6 @@
                             "OldPassword": "",
                             "ContactPhonePrefix": PhonePrefix,
                             "ContactPhoneNumber": PhoneNumber,
-                            "RealName": Name1 + Name2,
                             "Birthday": year + "/" + month + "/" + date,
                             "ExtraData": strExtraData
                         }
