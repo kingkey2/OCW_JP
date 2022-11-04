@@ -266,6 +266,11 @@ ul {
 
 }
 
+// genieedmp.com 分析數據軟體 產生的 iframe
+iframe[src="javascript:document.open();document.close();"]{
+	display:none
+}
+
 
 @include media-breakpoint-down(smd){
 
