@@ -158,37 +158,6 @@
                             <img src="images/assets/card-surface/card-08.svg" class="card-item-bg">
                         </a>
                     </div>
-                    <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" style="">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span>Crypto Wallet</span>
-                                </div>
-                                <div class="title vertical-center">
-                                    <span class="language_replace">虛擬貨幣</span>
-                                </div>
-                                <!-- <div class="desc">
-                                    <b>30</b> € -  <b>5,000</b> € No Fee                                   
-                                </div> -->
-                                <div class="logo">
-                                    <i class="icon-logo-usdt"></i>
-                                    <!-- <i class="icon-logo-eth-o"></i> -->
-                                    <!-- <i class="icon-logo-nissin"></i> -->
-                                    <i class="icon-logo-eth"></i>
-                                    <i class="icon-logo-btc"></i>
-                                    
-                                    <!-- <i class="icon-logo-doge"></i> -->
-                                    <!-- <i class="icon-logo-tron"></i> -->
-                                </div>
-                                <!-- <div class="instructions-crypto">
-                                    <i class="icon-info_circle_outline"></i>
-                                    <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
-                                </div>                                -->
-                            </div>
-                            <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
-                        </a>
-                    </div>
                     <!-- EPay -->
                     <div class="card-item sd-03" id="idDepositEPay">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
@@ -205,39 +174,6 @@
                             <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
                         </a>
                     </div>
-
-                    <!-- EPay -->
-                    <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">                   
-                        <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span>マハラジャ</span> 
-                                </div>
-                                <div class="logo vertical-center">                                   
-                                    <img src="images/assets/card-surface/jkc-font.svg">                                   
-                                </div>
-                            </div>                           
-                            <img src="images/assets/card-surface/card-jkc.svg"  class="card-item-bg">
-                        </a>
-                        <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
-                    </div>
-
-                    <!-- EPay -->
-                <%--    <div class="card-item sd-03" id="idDepositTigerPay">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositTigerPay','DepositTigerPay.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">TigerPay</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
-                        </a>
-                    </div>--%>
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">

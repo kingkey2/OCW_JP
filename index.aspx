@@ -4172,7 +4172,7 @@
 
 
     <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertContactWithCheckBox" aria-hidden="true" id="alertContactWithCheckBox">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="alert_Title">xxxx</div>
