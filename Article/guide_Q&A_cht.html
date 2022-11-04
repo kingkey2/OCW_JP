@@ -721,7 +721,7 @@
                                                     <p class="language_replace">
                                                         禮金沒有領取限制，可隨時領取。
 
-                                                    </p><a class="language_replace text-link text-primary" href="/Guide/prize.html">領獎中心說明<i class="icon icon-mask icon-question"></i></a>
+                                                    </p><a class="language_replace text-link text-primary"  onclick="window.parent.API_LoadPage('QA','/Guide/prize.html?form=QA')">領獎中心說明<i class="icon icon-mask icon-question"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1242,7 +1242,9 @@
             if (window.parent != window.top) {
                 window.parent.location.href = "index.aspx";
             }
-            window.parent.API_LoadingEnd();
+            checkParams(function () {
+                window.parent.API_LoadingEnd();
+            });
         }
 
         function EWinEventNotify(eventName, isDisplay, param) {
@@ -1272,6 +1274,23 @@
 
                     window.parent.API_LoadPage("Article", orgin);
                     break;
+            }
+        }
+
+        function checkParams(cb) {
+            let queryString = window.location.search;
+            let urlParams;
+            let tag;
+            if (queryString != "") {
+                urlParams = new URLSearchParams(queryString);
+                tag = urlParams.get('tagID');
+
+                let k = document.getElementById(tag);
+                k.click();
+            }
+
+            if (cb) {
+                cb();
             }
         }
 
