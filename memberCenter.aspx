@@ -466,39 +466,19 @@
                                     Name: 'IsFullRegistration', Value: 1
                                 });
                             }
-                            
-                            if (WebInfo.UserInfo.ExtraData.indexOf("KYCRealName") > 0) {
-                                for (var i = 0; i < ExtraData.length; i++) {
-                                    if (ExtraData[i].Name == "KYCRealName") {
-                                        ExtraData[i].Value = Name1 + Name2;
-                                    }
-                                }
-                            } else {
-                                ExtraData.push({
-                                    Name: 'KYCRealName', Value: Name1 + Name2
-                                });
-                            }
-
-
                         } else {
                             ExtraData.push({
                                 Name: 'IsFullRegistration', Value: 1
-                            });
-                            ExtraData.push({
-                                Name: 'KYCRealName', Value: Name1 + Name2
                             });
                         }
 
                         strExtraData = JSON.stringify(ExtraData);
 
-                        if (PhoneNumber.substring(0, 1) == "0") {
-                            PhoneNumber = PhoneNumber.substring(1, PhoneNumber.length);
-                        }
-
                         var data = {
                             "OldPassword": "",
                             "ContactPhonePrefix": PhonePrefix,
                             "ContactPhoneNumber": PhoneNumber,
+                            "RealName": Name1 + Name2,
                             "Birthday": year + "/" + month + "/" + date,
                             "ExtraData": strExtraData
                         }
@@ -672,7 +652,7 @@
                                         <h1 class="sec-title title-deco"><span class="language_replace">會員中心</span></h1>
                                     </div>
                                     <!-- 資料更新 Button-->
-                                    <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
+                                    <!-- <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="btn btn-edit btn-full-main" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button> -->
                                 </legend>
 
                                 <!-- 當點擊 資料更新 Button時 text input可編輯的項目 會移除 readonly-->
@@ -720,6 +700,8 @@
                                             <label class="title">
                                                 <i class="icon icon-mask icon-lock-closed"></i>
                                                 <span class="title-name language_replace">密碼</span>
+                                                <!-- 資料更新 Button-->
+                                                <button id="updateUserAccountRemoveReadOnlyBtn" type="button" class="ChangePassword" onclick="updateUserAccountRemoveReadOnly()"><i class="icon icon-mask icon-pencile"></i></button>
                                             </label>
                                         </div>
                                         <div class="data-item-content">
@@ -742,13 +724,18 @@
                                                     <p class="notice is-hide" id="NewPasswordErrorMessage"></p>
                                                 </div>
                                             </div>
+                                            <div class="wrapper_center">
+                                                <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-gray is-hide"><span class="language_replace">取消</span></button>
+                                                <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-main is-hide"><span class="language_replace">確認</span></button>
+                                            </div>
                                         </div>
                                     </div>
+                                    <!-- 手機認證狀態 -->
                                     <div class="data-item verify">
                                         <div class="data-item-title">
                                             <label class="title mb-3">
-                                                <i class="icon icon-mask icon-verify"></i>
-                                                <span class="title-name language_replace">認證狀態</span>
+                                                <i class="icon icon-mask icon-verify2"></i>
+                                                <span class="title-name language_replace">手機認證狀態</span>
                                                 <span class="btn btn-Q-mark btn-round btn-sm" data-toggle="modal" data-target="#ModalVerify"><i class="icon icon-mask icon-question"></i></span>
                                             </label>
                                         </div>
@@ -773,6 +760,36 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- 實名認證狀態 -->
+                                    <%--<div class="data-item verify">
+                                        <div class="data-item-title">
+                                            <label class="title mb-3">
+                                                <i class="icon icon-mask icon-verify2"></i>
+                                                <span class="title-name language_replace">實名認證狀態</span>
+                                                <span class="btn btn-Q-mark btn-round btn-sm" onclick="window.parent.API_LoadPage('MemberCenter','/Guide/verified.html?form=MemberCenter', true)"><i class="icon icon-mask icon-question"></i></span>
+                                            </label>
+                                        </div>
+                                        <div class="data-item-content">
+                                            <div class="verify-item">
+                                                <!-- 尚未認證 -->
+                                                <span class="verify-result fail" id="IsKYCRegistration0">
+                                                    <span class="label fail"><i class="icon icon-mask icon-error"></i></span>
+                                                    <span class="verify-desc language_replace">尚未認證</span>
+                                                    <button type="button" class="btn btn-verify" data-toggle="modal" data-target="#ModalKYCComplete">
+                                                        <span class="title language_replace">進行認證</span>
+                                                        <i class="icon icon-mask icon-pencile"></i>
+                                                    </button>
+                                                </span>
+
+                                                <!-- 認證完成 -->
+                                                <span class="verify-result success" id="IsKYCRegistration1" style="display: none">
+                                                    <span class="label success"><i class="icon icon-mask icon-check"></i></span>
+                                                    <span class="verify-desc language_replace">認證完成</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>--%>
 
                                     <div class="data-item mobile">
                                         <div class="data-item-title">
@@ -834,10 +851,10 @@
                                         </div>
                                         --%>
 
-                                        <div class="wrapper_center">
+                                        <!-- <div class="wrapper_center">
                                             <button id="updateUserAccountCancelBtn" onclick="updateUserAccountReadOnly()" type="button" class="btn btn-confirm btn-gray is-hide"><span class="language_replace">取消</span></button>
                                             <button id="updateUserAccountBtn" onclick="updateUserAccount()" type="button" class="btn btn-confirm btn-full-main is-hide"><span class="language_replace">確認</span></button>
-                                        </div>
+                                        </div> -->
                                         <div class="data-item qrcode">
                                             <div class="data-item-title">
                                                 <label class="title">
@@ -1336,6 +1353,177 @@
         </div>
     </div>
 
+
+    <!-- KYC 實名認證 -->
+    <div class="modal fade footer-center" id="ModalKYCComplete" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable KYCmodal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="sec-title-container">
+                        <h5 class="modal-title language_replace">實名認證</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose1">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="KYCnote">
+                        <p>您可以上傳以下文件(擇一)</p>
+                        <ul>
+                            <li>駕照／駕駛經歷證明書</li>
+                            <li>附照片之住民基本台帳卡</li>
+                            <li>個人編號卡</li>
+                            <li>居留證或特別永住者證明書</li>
+                            <li>護照</li>
+                        </ul>
+                        <ol>
+                            <li>請確保證件無編輯、剪裁，清晰且無歪斜。</li>
+                            <li>請提出在有效時間內之文件。</li>
+                            <li>身份認證會按會員先後順序進行審核，在您提交文件後，我們將盡快完成審查。</li>
+                            <li>另外，即使未完成實名認證，您依然可以正常遊玩遊戲。</li>
+                        </ol>
+                    </div>
+                    <nav class="tab-kyc">
+                        <div class="tab-scroller tab-2">
+                            <div class="tab-scroller__area">
+                                <ul class="tab-scroller__content">
+                                    <li class="tab-item act-running active" id="li_KYC0" onclick="ChangeKYC(0)">
+                                        <span class="tab-item-link">
+                                            <span class="title language_replace" langkey="護照以外">護照以外</span>
+                                        </span>
+                                    </li>
+                                    <li class="tab-item act-finish" id="li_KYC1" onclick="ChangeKYC(1)">
+                                        <span class="tab-item-link">
+                                            <span class="title language_replace" langkey="護照">護照</span>
+                                        </span>
+                                    </li>
+                                    <div class="tab-slide"></div>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <section id="kyc_other" class="kyc_contentWrap">
+                        <div class="photoArea">
+                            <img src="images/member/ID_ok.png" alt="">
+                            <img src="images/member/ID_error.png" alt="">
+                        </div>
+                        <div class="uploadArea">
+                            <h3>護照以外上傳</h3>
+                            <div class="uploadWrap">
+                                <section class="SingleUpload">
+                                    <h4>正面</h4>
+                                    <form class="mb-3 dm-uploader" id="drag-and-drop-zone">
+                                        <div class="formRow">
+                                            <div class="preview">
+                                                <img src="images/member/upload.svg" alt="..." class="img-thumbnail">
+                                            </div>
+                                            <div class="Upload">
+                                                <div class="fromGroup">
+                                                <!-- <span>請在此上傳</span> -->
+                                                <span>需提供帶有照片的證件</span>
+                                                <!-- <input type="text" class="form-control" aria-describedby="fileHelp" placeholder="尚未上傳圖檔..." readonly="readonly"> -->
+                                                <div class="progress mb-2 d-none">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+                                                    0%
+                                                    </div>
+                                                </div>
+                                        
+                                                </div>
+                                                <div class="fromGroup">
+                                                <div role="button" class="btn btn-primary">
+                                                    <span>選擇檔案</span>
+                                                    <input type="file" title="Click to add Files">
+                                                </div>
+                                                <small class="status text-muted">選擇檔案或將檔案拖拉至此區域</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </section>
+                                <section class="SingleUpload">
+                                    <h4>背面</h4>
+                                    <form class="mb-3 dm-uploader" id="drag-and-drop-zone2">
+                                        <div class="formRow">
+                                            <div class="preview">
+                                                <img src="images/member/upload.svg" alt="..." class="img-thumbnail">
+                                            </div>
+                                            <div class="Upload">
+                                                <div class="fromGroup">
+                                                <!-- <span>請在此上傳</span> -->
+                                                <span>需提供帶有照片的證件</span>
+                                                <!-- <input type="text" class="form-control" aria-describedby="fileHelp" placeholder="尚未上傳圖檔..." readonly="readonly"> -->
+                                                <div class="progress mb-2 d-none">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+                                                    0%
+                                                    </div>
+                                                </div>
+                                        
+                                                </div>
+                                                <div class="fromGroup">
+                                                <div role="button" class="btn btn-primary">
+                                                    <span>選擇檔案</span>
+                                                    <input type="file" title="Click to add Files">
+                                                </div>
+                                                <small class="status text-muted">選擇檔案或將檔案拖拉至此區域</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="kyc_passport" class="kyc_contentWrap" style="display:none;">
+                        <div class="photoArea">
+                            <img src="images/member/passport_ok.png" alt="">
+                            <img src="images/member/passport_error.png" alt="">
+                        </div>
+                        <div class="uploadArea">
+                            <h3>護照上傳</h3>
+                            <div class="uploadWrap">
+                                <section class="SingleUpload">
+                                    <h4>正面</h4>
+                                    <form class="mb-3 dm-uploader" id="drag-and-drop-zone3">
+                                        <div class="formRow">
+                                            <div class="preview">
+                                                <img src="images/member/upload.svg" alt="..." class="img-thumbnail">
+                                            </div>
+                                            <div class="Upload">
+                                                <div class="fromGroup">
+                                                <!-- <span>請在此上傳</span> -->
+                                                <span>需提供帶有照片的證件</span>
+                                                <!-- <input type="text" class="form-control" aria-describedby="fileHelp" placeholder="尚未上傳圖檔..." readonly="readonly"> -->
+                                                <div class="progress mb-2 d-none">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0">
+                                                    0%
+                                                    </div>
+                                                </div>
+                                        
+                                                </div>
+                                                <div class="fromGroup">
+                                                <div role="button" class="btn btn-primary">
+                                                    <span>選擇檔案</span>
+                                                    <input type="file" title="Click to add Files">
+                                                </div>
+                                                <small class="status text-muted">選擇檔案或將檔案拖拉至此區域</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-gray">取消</button>
+                    <button type="button" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Verify Tip -->
     <div class="modal fade footer-center" id="ModalVerify" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -1364,5 +1552,42 @@
     </div>
     
     <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
+    <script type="text/javascript">
+        function ChangeKYC(type) {
+            $(".tab-scroller__content").find(".tab-item").removeClass("active");
+            $("#li_KYC" + type).addClass("active");
+
+            if (type == 0) {
+                $("#kyc_other").show();
+                $("#kyc_passport").hide();
+            } else {
+                $("#kyc_passport").show();
+                $("#kyc_other").hide();
+            }
+        }
+    </script>
+    <!-- 照片上傳 -->
+    <script src="Scripts/jquery.dm-uploader.min.js"></script>
+    <script src="Scripts/ui-main.js"></script>
+    <script src="Scripts/ui-single.js"></script>
+    <script src="Scripts/single-upload.js"></script>
+    <!-- 上傳照片 File item template -->
+    <script type="text/html" id="files-template">
+        <li class="media">
+          <div class="media-body mb-1">
+            <p class="mb-2">
+              <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+            </p>
+            <div class="progress mb-2">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+                role="progressbar"
+                style="width: 0%" 
+                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+            <hr class="mt-1 mb-1" />
+          </div>
+        </li>
+      </script>
 </body>
 </html>

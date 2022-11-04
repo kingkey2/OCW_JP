@@ -1141,6 +1141,108 @@
                     }
             }
          }
+         .crownLevel_3{
+            position: absolute;
+            top: 0;
+            left: -5px;
+            z-index: 20;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            @keyframes cat1 {
+                0% {
+                    transform: scale3d(1,0,1) translate(0, 40px);
+                }
+                20% {
+                    transform: scale3d(1,0,1) translate(0, 40px);
+                }
+                30% {
+                    transform: scale3d(1,1,1) translate(0, 0px);
+                }
+                33% {
+                    transform: scale3d(1,1,1) translate(0, 10px);
+                }
+                36% {
+                    transform: scale3d(1,1,1) translate(0, 0px);
+                }
+                to {
+                    transform: scale3d(1,1,1) translate(0, 0px);
+                }
+            }
+            @keyframes cat2 {
+                0% {
+                    transform: rotate(24deg) scale(0);
+                }
+                10% {
+                    transform: rotate(24deg) scale(0);
+                }
+                20% {
+                    transform: rotate(24deg) scale(1);
+                }
+                25% {
+                    transform: rotate(24deg) scale(.8);
+                }
+                30% {
+                    transform: rotate(24deg) scale(1);
+                }
+                to {
+                    transform: rotate(24deg) scale(1);
+                }
+            }
+            @keyframes cat3 {
+                0% {
+                    transform: rotate(-24deg) scale(0);
+                }
+                10% {
+                    transform: rotate(-24deg) scale(1);
+                }
+                15% {
+                    transform: rotate(-24deg) scale(.8);
+                }
+                20% {
+                    transform: rotate(-24deg) scale(1);
+                }
+                to {
+                    transform: rotate(-24deg) scale(1);
+                }
+            }
+            i{
+                display: flex;
+                width: 33px;
+                height: 38px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                background-size: 100% 100%;
+                background-position: center center;
+                background-repeat: no-repeat;
+            }
+            .CL3_1{
+                width: 40px;
+                height: 45px;
+                top: -1px;
+                left: 0;
+                z-index: 1;
+                animation: cat1 2s ease infinite;
+                background-image: url(../images/icon/king3_1.svg);
+            }
+            .CL3_2{
+                top: 20px;
+                left: 18px;
+                z-index: 3;
+                transform: rotate(24deg);
+                animation: cat2 2s ease infinite;
+                background-image: url(../images/icon/king3_2.svg);
+            }
+            .CL3_3{
+                top: 20px;
+                left: -11px;
+                z-index: 2;
+                transform: rotate(-24deg);
+                animation: cat3 2s ease infinite;
+                background-image: url(../images/icon/king3_3.svg);
+            }
+        }
       
     }
      
@@ -1150,7 +1252,7 @@
         .game-item{
            
             .game-item-focus {
-                overflow: hidden; //TEST
+                // overflow: hidden; //TEST
                 height: $backgrond-image-hover-height;            
         
                 //mousehover 遊戲放大效果
@@ -1168,7 +1270,20 @@
                             transform: translate(-110%, -70px) scale(1.13, 1.13);                             
                             animation: gameCrownAnim 0.35s 0.45s 1 alternate ease-in-out forwards;
                         }
-                       
+                        @keyframes gameCrownAnim2{
+                            0% {        
+                                transform: translate(0px, -5px) rotate(-15deg); 
+                            }
+                            25% {       
+                                transform: translate(-58px, -70px) rotate(-20deg) ;
+                            }
+                            100% {       
+                                transform: translate(-58px, -70px) rotate(-20deg) ;
+                            }
+                        }
+                        .crownLevel_3{
+                            animation: gameCrownAnim2 1.5s alternate ease-in-out forwards;
+                        }
                         .img-wrap{                    
                             // top: -10px;
                             // transform: translateY(-20px) scale(1.03, 1.03);
@@ -2178,6 +2293,7 @@
                 }
             } 
         }
+        
 
      }
 
@@ -2448,7 +2564,6 @@
         transform: translate(-110%, -70px) scale(1.13, 1.13); 
     }
 }
-
 @keyframes gameIconAnimOnce{
     0% {
         // transform: translateY(0px); 

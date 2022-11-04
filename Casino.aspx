@@ -716,7 +716,7 @@
 
          
 
-            imgsrc = `${WebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
+            imgsrc = `${WebInfo.ImageUrl}/${gameItem.GameBrand}/${WebInfo.Lang}/${gameItem.GameName}.png`;
            /*  三冠王 ===========================
             等級：crownLevel-1/
             類別：crown-Payout派彩(1)/crown-Multiplier倍率(2)/crown-Spin轉數(4) 
@@ -733,7 +733,7 @@
                                 ${gameitemmobilepopup}
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon2()">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
                                     </div>
                              </div>
                              <div class="game-item-info">
@@ -750,7 +750,7 @@
                                 <div class="game-item-img">
                                     ${gameitemlink}
                                     <div class="img-wrap">
-                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon2()">
+                                        <img class="gameimg lozad" src="${imgsrc}" onerror="showDefauktGameIcon('${gameItem.GameBrand}', '${gameItem.GameName}')">
                                     </div>
                                 </div>
  
@@ -775,6 +775,7 @@
     function showDefauktGameIcon2() {
 
         var el = event.target;
+        console.log(el.src);
         el.onerror = null;
         el.src = WebInfo.ImageUrl + "/default.png";
     }
@@ -934,10 +935,10 @@
     };
 
     function favBtnClcik(gameCode) {
-        var btn = event.currentTarget;
-        event.stopPropagation();
         if (WebInfo.UserLogined) {
-           
+            var btn = event.currentTarget;
+            event.stopPropagation();
+
             if ($(btn).hasClass("added")) {
                 $(btn).removeClass("added");
                 GCB.RemoveFavo(gameCode, function () {
@@ -952,7 +953,7 @@
                 });
             }
         } else {
-            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
                 window.parent.API_LoadPage("Login", "Login.aspx");
             }, null);
         }
@@ -1373,7 +1374,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="swiper-slide">
+                    <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=16')"></a>
                             <div class="hero-item-box mobile">
@@ -1385,7 +1386,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=14')"></a>
