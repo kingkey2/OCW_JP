@@ -1442,7 +1442,7 @@
                     
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','/Article/guide-TripleCrown.html?Page=CasinoPage')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','/Article/guide-TripleCrown_JPN.html?Page=CasinoPage')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="images/lobby/crown-m.jpg" alt="">
                             </div>

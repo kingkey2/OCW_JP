@@ -761,19 +761,17 @@
 
                     switch (param) {
                         case "JPN":
-                            orgin = orgin + "_JPN";
+                            orgin = "/Article/guide_CashQa_JPN.html";
                             break;
                         case "CHT":
-                            orgin = orgin + "_CHT";
+                            orgin = "/Article/guide_CashQa_CHT.html";
                             break;
                         case "ENG":
-                            orgin = orgin + "_ENG";
+                            orgin = "/Article/guide_CashQa_ENG.html";
                             break;
                         default:
                             break;
                     }
-
-                    orgin = "Article/guide_Q&A_jp.html";
 
                     window.parent.API_LoadPage("Article", orgin);
                     break;

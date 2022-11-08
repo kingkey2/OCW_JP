@@ -551,9 +551,13 @@
                 url = 'Register.aspx?PCode=' + PCode;
             }
         }
-
+        
         if (url == "/Article/guide_Q&A.html") {
             url = "/Article/guide_Q&A_" + EWinWebInfo.Lang + ".html";
+        }
+
+        if (url == "/Article/guide_CashQa.html") {
+            url = "/Article/guide_CashQa_" + EWinWebInfo.Lang + ".html";
         }
 
         if (url == "Deposit.aspx") {
@@ -3285,7 +3289,7 @@
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="window.top.API_LoadPage('guide_CashQa_jp','Article/guide_CashQa_jp.html')">
+                                            onclick="window.top.API_LoadPage('guide_CashQa_jp','/Article/guide_CashQa.html')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-instruction"></i>
                                                 <span class="title language_replace">出入金手順</span></a>
