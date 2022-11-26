@@ -69,7 +69,7 @@ public class PaymentAPI : System.Web.Services.WebService
         return R;
     }
 
-           [WebMethod]
+    [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public PaymentMethodResult GetPaymentMethodByPaymentCode(string WebSID, string GUID, string PaymentCategoryCode, int PaymentType,string PaymentCode)
     {
@@ -251,11 +251,22 @@ public class PaymentAPI : System.Web.Services.WebService
         int DecimalPlaces;
         System.Data.DataTable PaymentMethodDT;
 
-
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+
+            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            {
+                if (KitamuraProperty.PropertyValue=="true")
+                {
+                    SetResultException(R, "InsertFailure");
+                    return R;
+                }
+            }
+
             PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
             if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
@@ -935,6 +946,18 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+
+            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            {
+                if (KitamuraProperty.PropertyValue=="true")
+                {
+                    SetResultException(R, "InsertFailure");
+                    return R;
+                }
+            }
+
             PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
             if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
@@ -1768,6 +1791,18 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+
+            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            {
+                if (KitamuraProperty.PropertyValue=="true")
+                {
+                    SetResultException(R, "InsertFailure");
+                    return R;
+                }
+            }
+
             PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
             if (PaymentMethodDT != null && PaymentMethodDT.Rows.Count > 0)
@@ -1938,6 +1973,18 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+
+            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            {
+                if (KitamuraProperty.PropertyValue=="true")
+                {
+                    SetResultException(R, "InsertFailure");
+                    return R;
+                }
+            }
+
             if (EWinWeb.CheckInWithdrawalTime())
             {
                 if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
@@ -1983,7 +2030,6 @@ public class PaymentAPI : System.Web.Services.WebService
                                                 if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 1||(int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 0)
                                                 {
                                                     //Check ThresholdValue
-                                                    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
                                                     EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
                                                     EWin.Lobby.ThresholdInfo thresholdInfo;
                                                     decimal thresholdValue;
@@ -2511,6 +2557,18 @@ public class PaymentAPI : System.Web.Services.WebService
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
+            EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+
+            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            {
+                if (KitamuraProperty.PropertyValue=="true")
+                {
+                    SetResultException(R, "InsertFailure");
+                    return R;
+                }
+            }
+
             if (EWinWeb.CheckInWithdrawalTime())
             {
                 if (!EWinWeb.IsWithdrawlTemporaryMaintenance())
@@ -2555,8 +2613,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                             {
                                                 if ((int)PaymentMethodDT.Rows[0]["EWinPaymentType"] == 2)
                                                 {
-                                                    //Check ThresholdValue
-                                                    EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+                                                    //Check ThresholdValue                                   
                                                     EWin.Lobby.UserInfoResult userInfoResult = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
                                                     EWin.Lobby.ThresholdInfo thresholdInfo;
                                                     decimal thresholdValue;
