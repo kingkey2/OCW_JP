@@ -3022,8 +3022,8 @@
       
                                     //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
 
-                                    //GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
-                                    GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
+                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
+                                    //GBL_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
                                 }
 
                                 ParentMain.append(GBLDom);
