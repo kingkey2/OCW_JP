@@ -568,7 +568,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             Decription += ", TokenName=" + paymentCryptoDetail.TokenCurrencyType + " TokenAmount=" + paymentCryptoDetail.ReceiveAmount.ToString("F10");
                             paymentDetailWallets.Add(paymentDetailWallet);
                         }
-                        paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,0, Decription, true, PointValue, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
+                        paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, 0, Decription, true, PointValue, TempCryptoData.PaymentCode, "Crypto", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
                         if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                         {
                             EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -866,7 +866,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     EWin.Payment.PaymentResult paymentResult;
                     string Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount,0, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
+                     paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, 0, Decription, true, PointValue, TempCommonData.PaymentCode, "Other", CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -1288,7 +1288,7 @@ public class PaymentAPI : System.Web.Services.WebService
                         p[0] = paymentDetailBankCard;
                     }
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, paymentDetailBankCard.TaxFeeValue, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, p);
+                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, paymentDetailBankCard.TaxFeeValue, Decription, true, PointValue, TempCommonData.PaymentCode, "", CodingControl.GetUserIP(), TempCommonData.ExpireSecond, p);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -1447,7 +1447,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     EWin.Payment.PaymentResult paymentResult;
                     string Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount,0, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
+                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, 0, Decription, true, PointValue, TempCommonData.PaymentCode, "Paypal", CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -2283,7 +2283,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         TaxFeeValue = TempCryptoData.Amount - TempCryptoData.ReceiveTotalAmount
                                     };
                                     paymentDetailBankCards.Add(paymentDetailWallet);
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,paymentDetailWallet.TaxFeeValue ,Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
+                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, paymentDetailWallet.TaxFeeValue, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, "", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
                                         var CreateEPayWithdrawalReturn= Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial,TempCryptoData.ReceiveTotalAmount,paymentResult.CreateDate,BankCard,BankCardName,BankName,BankBranchCode);
@@ -2437,7 +2437,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     //Description待實際測試後調整
                                     string Decription = "ReceiveAmount:"+TempCryptoData.ReceiveTotalAmount+",TigerPay Account:"+TigerPayAccount;
 
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,TaxFeeValue ,Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
+                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,TaxFeeValue ,Decription, true, PointValue * -1, TempCryptoData.PaymentCode, "TigerPay", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
                                         var CreateEPayWithdrawalReturn= Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial,TempCryptoData.ReceiveTotalAmount,paymentResult.CreateDate,TigerPayAccount,"BankCardName","TigerPay","BankBranchCode");
@@ -2882,7 +2882,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         paymentDetailWallets.Add(paymentDetailWallet);
                                     }
 
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,0, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
+                                     paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, 0, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, "Crypto", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
 
