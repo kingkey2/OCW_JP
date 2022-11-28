@@ -525,7 +525,7 @@ public class MgmtAPI : System.Web.Services.WebService {
                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "ThresholdValue", Value = ThresholdValue.ToString() });
                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = BonusValue.ToString() });
 
-                        ret_AddPromotionCollect = lobbyAPI.AddPromotionCollect(GetToken(), PromotionCollectKey, LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                        ret_AddPromotionCollect = lobbyAPI.AddPromotionCollect(GetToken(), PromotionCollectKey, LoginAccount, EWinWeb.MainCurrencyType,description,"", 2, 90, description, PropertySets.ToArray());
 
                         if (ret_AddPromotionCollect.Result == EWin.Lobby.enumResult.OK) {
                             R.Result = enumResult.OK;

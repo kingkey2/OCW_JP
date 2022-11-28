@@ -410,7 +410,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                                 PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_IsFullRegistration", LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                                lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_IsFullRegistration", LoginAccount, EWinWeb.MainCurrencyType,description,"", 2, 90, description, PropertySets.ToArray());
                                 EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description + "_IsFullRegisterBouns", JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
                                 //EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description, 1, activityData.ThresholdValue, activityData.BonusValue);
 
@@ -1496,7 +1496,7 @@ public class LobbyAPI : System.Web.Services.WebService {
                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "PointValue", Value = activityData.BonusValue.ToString() });
                         PropertySets.Add(new EWin.Lobby.PropertySet { Name = "JoinActivityCycle", Value = JoinActivityCycle.ToString() });
 
-                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_IsFullRegistration", LoginAccount, EWinWeb.MainCurrencyType, 2, 90, description, PropertySets.ToArray());
+                        lobbyAPI.AddPromotionCollect(GetToken(), description + "_" + LoginAccount + "_IsFullRegistration", LoginAccount, EWinWeb.MainCurrencyType,description,"", 2, 90, description, PropertySets.ToArray());
                         EWinWebDB.UserAccountEventSummary.UpdateUserAccountEventSummary(LoginAccount, description + "_IsFullRegisterBouns", JoinActivityCycle, 1, activityData.ThresholdValue, activityData.BonusValue);
 
                     }
