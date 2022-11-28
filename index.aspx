@@ -13,10 +13,14 @@
     string SID = string.Empty;
     string CT = string.Empty;
     string PCode = string.Empty;
+    string PageType = string.Empty;
+    string GCode = string.Empty;
+    string Page = string.Empty;
     int RegisterType;
     int RegisterParentPersonCode;
     int GoEwinLogin = 0;
     string Version = EWinWeb.Version;
+    string ImageUrl = EWinWeb.ImageUrl;
 
     if (string.IsNullOrEmpty(Request["SID"]) == false)
     {
@@ -26,14 +30,28 @@
     if (string.IsNullOrEmpty(Request["CT"]) == false)
         CT = Request["CT"];
 
-    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["GoEwinLogin"]) == false) {
         GoEwinLogin = int.Parse(Request["GoEwinLogin"]);
     }
 
-    if (string.IsNullOrEmpty(Request["PCode"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["PCode"]) == false) {
         PCode = Request["PCode"];
+    }
+
+    if (string.IsNullOrEmpty(Request["p"]) == false) {
+        PCode = Request["p"];
+    }
+
+    if (string.IsNullOrEmpty(Request["PageType"]) == false) {
+        PageType = Request["PageType"];
+    }
+
+    if (string.IsNullOrEmpty(Request["GCode"]) == false) {
+        GCode = Request["GCode"];
+    }
+
+    if (string.IsNullOrEmpty(Request["page"]) == false) {
+        Page = Request["page"];
     }
 
     if (GoEwinLogin == 1)
@@ -48,7 +66,7 @@
         {
             EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
         }
-        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0"  + "&GPSPosition=1"+ "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
     }
 
     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
@@ -59,78 +77,43 @@
 
     RegisterType = CompanySite.RegisterType;
     RegisterParentPersonCode = CompanySite.RegisterParentPersonCode;
-    if (string.IsNullOrEmpty(Request["Lang"]))
-    {
+    if (string.IsNullOrEmpty(Request["Lang"])) {
         string userLang = CodingControl.GetDefaultLanguage();
 
-        if (userLang.ToUpper() == "zh-TW".ToUpper())
-        {
+        if (userLang.ToUpper() == "zh-TW".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-HK".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-HK".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-MO".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-MO".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHT".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHT".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CHS".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CHS".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-SG".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-SG".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh-CN".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh-CN".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "zh".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "zh".ToUpper()) {
             Lang = "CHT";
-        }
-        else if (userLang.ToUpper() == "en-US".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-US".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en-CA".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-CA".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en-PH".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en-PH".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "en".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "en".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KR".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KR".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko-KP".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko-KP".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ko".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ko".ToUpper()) {
             Lang = "JPN";
-        }
-        else if (userLang.ToUpper() == "ja".ToUpper())
-        {
+        } else if (userLang.ToUpper() == "ja".ToUpper()) {
             Lang = "JPN";
-        }
-        else { Lang = "JPN"; }
-    }
-    else
-    {
+        } else { Lang = "JPN"; }
+    } else {
         Lang = Request["Lang"];
 
         Lang = Lang.ToUpper();
@@ -174,6 +157,7 @@
     <!--英文圖片-->
     <%--<link rel="image_src" href="https://casino-maharaja.com/images/share_pic_en.png">--%>
     <link rel="shortcut icon" href="images/share_pic.png">
+    <link rel="apple-touch-icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?3">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
@@ -197,27 +181,72 @@
             margin: 20px auto;
         }
 
-            .s-btn-more:hover {
-                background-color: #ddd;
-                border: 1px solid #666;
-            }
+        .s-btn-more:hover {
+            background-color: #ddd;
+            border: 1px solid #666;
+        }
 
-            .s-btn-more:active {
-                background-color: #ddd;
-                border: 1px solid #666;
-            }
+        .s-btn-more:active {
+            background-color: #ddd;
+            border: 1px solid #666;
+        }
 
-            .s-btn-more:visited {
-                background-color: #ddd;
-                border: 1px solid #666;
-                color: #777;
-            }
+        .s-btn-more:visited {
+            background-color: #ddd;
+            border: 1px solid #666;
+            color: #777;
+        }
+
+        .bulletin_list .item {
+            margin-bottom: 0.8rem;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+                .bulletin_list .item:before {
+                    content: "";
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                    width: 3px;
+                    height: 1rem;
+                    border-radius: 0.5px;
+                    background-color: #008fd1;
+                }
+                .bulletin_list .item .date {
+                    font-weight: 600;
+                    margin-left: 0.5rem;
+                    margin-right: 1rem;
+                    width: 5rem;
+                    display: -webkit-inline-box;
+                    display: -ms-inline-flexbox;
+                    display: inline-flex;
+                }
+                .bulletin_list .item .info {
+                    -webkit-box-flex: 1;
+                    -ms-flex: 1;
+                    flex: 1;
+                    display: -webkit-box;
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+        .bulletin_list .item .info:hover {
+            color: #008fd1;
+        }
     </style>
+    
+   <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
 <% if (EWinWeb.IsTestSite == false)
     { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRNSR38PQ7"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -262,6 +291,7 @@
         EWinGameUrl: "<%=EWinWeb.EWinGameUrl %>",
         MainCurrencyType: "<%=EWinWeb.MainCurrencyType %>",
         RegisterCurrencyType: "<%=EWinWeb.RegisterCurrencyType %>",
+        ImageUrl: "<%=EWinWeb.ImageUrl %>",
         SID: "<%=SID%>",
         CT: "<%=CT%>",
         UserLogined: false,
@@ -271,7 +301,8 @@
         RegisterType: "<%=RegisterType%>",
         RegisterParentPersonCode: "<%=RegisterParentPersonCode%>",
         DeviceType: getOS(),
-        IsOpenGame: false
+        IsOpenGame: false,
+        ImageUrl: "<%=ImageUrl%>"
     };
     var Favos = [];
     var isFirstLogined = false;
@@ -286,7 +317,9 @@
     var UserThisWeekTotalValidBetValueData = [];
     var SearchControll;
     var PCode = "<%=PCode%>";
-
+    var GCode = "<%=GCode%>";
+    var Page = "<%=Page%>";
+    var PageType = "<%=PageType%>";
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -392,7 +425,14 @@
     function API_Logout(isRefresh) {
         EWinWebInfo.UserInfo = null;
         EWinWebInfo.UserLogined = false;
-        window.sessionStorage.clear();
+
+        for (var i = 0; i < Object.keys(window.sessionStorage).length; i++) {
+            var sessionStorageKeys = Object.keys(window.sessionStorage)[i];
+            if (sessionStorageKeys != 'OpenGameBeforeLogin') {
+                window.sessionStorage.removeItem(sessionStorageKeys);
+            } 
+        }
+      
         delCookie("RecoverToken");
         delCookie("LoginAccount");
         delCookie("CT");
@@ -508,7 +548,25 @@
 
         if (url == "Register.aspx") {
             if (PCode != "") {
-                window.open("<%=EWinWeb.CasinoWorldUrl%>/registerForQrCode.aspx?P=" + PCode + "&IsFromIndex=1");
+                url = 'Register.aspx?PCode=' + PCode;
+            }
+        }
+        
+        if (url == "/Article/guide_Q&A.html") {
+            url = "/Article/guide_Q&A_" + EWinWebInfo.Lang + ".html";
+        }
+
+        if (url == "/Article/guide_CashQa.html") {
+            url = "/Article/guide_CashQa_" + EWinWebInfo.Lang + ".html";
+        }
+
+        if (url == "Deposit.aspx") {
+            let IsFullRegistration = API_GetUserIsFullRegistration();
+
+            if (IsFullRegistration == 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("您尚未完成認證，即將前往認證頁面"), function () {
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx?needShowRegister=1', true);
+                });
             }
         }
 
@@ -526,7 +584,7 @@
                 //IFramePage.style.height = "0px";
 
                 IFramePage.src = url;
-                IFramePage.onload = null;
+                IFramePage.onload = addOrUpdateQueryInWindow("page", title);
 
 
                 //IFramePage.
@@ -682,6 +740,21 @@
     function API_OpenGame(GameBrand, GameName, LangName) {
         openGame(GameBrand, GameName, LangName);
     }
+
+    function API_GetUserIsFullRegistration() {
+        let IsFullRegistration = 0;
+
+        if (EWinWebInfo.UserInfo.ExtraData) {
+            let ExtraData = JSON.parse(EWinWebInfo.UserInfo.ExtraData);
+            for (var i = 0; i < ExtraData.length; i++) {
+                if (ExtraData[i].Name == "IsFullRegistration") {
+                    IsFullRegistration = ExtraData[i].Value;
+                }
+            }
+        }
+
+        return IsFullRegistration;
+    }
     //#endregion
 
     //#region Alert
@@ -758,9 +831,68 @@
         }
     }
 
+    function setBulletinBoard() {
+        var GUID = Math.uuid();
+        lobbyClient.GetBulletinBoard(GUID, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    var ParentMain2 = document.getElementById("idBulletinBoardContent2");
+                    ParentMain2.innerHTML = "";
+
+                    if (o.Datas.length > 0) {
+                        var RecordDom;
+                        var RecordDom2;
+               
+                        for (var i = 0; i < o.Datas.length; i++) {
+                            var record = o.Datas[i];
+
+                            RecordDom2 = c.getTemplate("idTempBulletinBoard");
+
+                            var recordDate = new Date(parseInt(record.CreateDate.replace(')/', '').replace('/Date(', '')));
+                            var date = recordDate.getFullYear() + '.' + (recordDate.getMonth() + 1) + '.' + recordDate.getDate();
+                            c.setClassText(RecordDom2, "CreateDate", null, date);
+                            c.setClassText(RecordDom2, "BulletinTitle", null, record.BulletinTitle);
+
+                            RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + date + "')");
+         
+                            ParentMain2.appendChild(RecordDom2);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     function showBoardMsg(title, message, time) {
         if ($("#alertBoardMsg").attr("aria-hidden") == 'true') {
+            $("#popupBulletinList").modal("hide");
             var divMessageBox = document.getElementById("alertBoardMsg");
+            var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
+            var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
+            var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
+            var divMessageBoxContent = divMessageBox.querySelector(".alert_Text");
+            var modal = new bootstrap.Modal(divMessageBox, { backdrop: 'static', keyboard: false });
+
+            if (divMessageBox != null) {
+                modal.show();
+
+                if (divMessageBoxOKButton != null) {
+
+                    divMessageBoxOKButton.onclick = function () {
+                        modal.hide();
+                    }
+                }
+
+                divMessageBoxTitle.innerHTML = title;
+                divMessageBoTime.innerHTML = time;
+                divMessageBoxContent.innerHTML = message;
+            }
+        }
+    }
+
+    function showBoardMsg1(title, message, time) {
+        if ($("#alertBoardMsg1").attr("aria-hidden") == 'true') {
+            var divMessageBox = document.getElementById("alertBoardMsg1");
             var divMessageBoxOKButton = divMessageBox.querySelector(".alert_OK");
             var divMessageBoxTitle = divMessageBox.querySelector(".alert_Title");
             var divMessageBoTime = divMessageBox.querySelector(".alert_Time");
@@ -793,6 +925,10 @@
         }
         
         $('#ModalLanguage').modal('show');
+    }
+
+    function showBulletinBoard() {
+           $("#popupBulletinList").modal("show");
     }
 
     function nonCloseShowMessageOK(title, message, cbOK) {
@@ -936,7 +1072,8 @@
         likebtn.onclick = new Function("favBtnClick('" + brandName + "." + gameName + "')");
 
         if (GI_img != null) {
-            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + brandName + "/PC/" + EWinWebInfo.Lang + "/" + gameName + ".png";
+            GI_img.src = `${EWinWebInfo.ImageUrl}/${brandName}/ENG/${gameName}.png`;
+            GI_img.onerror = new Function("showDefauktGameIcon2()");
             //var el = GI_img;
             //var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
             //observer.observe();
@@ -1085,6 +1222,11 @@
                     <br />
                     <strong><span>3.11</span></strong><br />
                     <strong><span>ユーザーは、マハラジャが、ユーザーによる不正行為および共謀を固く禁じていることを理解し承認するものとします。不正行為や共謀が行われたと合理的に判断された場合、当社は、そのような行為の結果として行われたと思われる賭けを無効にし、および、またはユーザーのアカウントからすべての資金を没収し、閉鎖する権利を留保します。ほかのプレイヤーが、不正行為や共謀によって不当な利益を得ていると考える合理的な根拠のあるユーザーは、メールまたはチャットでマハラジャに報告する必要があります。</span></strong><br />
+                    <strong><span><br />以下のようなことは不正行為とみなされ、勝利金の没収やアカウントの閉鎖につながる可能性があります。
+                    <strong><span><br />• イコールマージンベット、ゼロリスクベット、ローマージンベット
+                    <strong><span><br />• ソフトウェアの操作、抜け穴の悪用、その他の技術的な不正行為、またはその他の意図的な不正行為に相当する行為。
+                    <strong><span><br />• ベットの結果に関わらず利益を得ることを最終目的として、同じベッティングマーケット内でプレイヤーまたはプレイヤーグループが一連の矛盾したベットを行った形跡がある場合。
+                    <strong><span><br />• 2ティアベット<br />
                     <br />
                     <strong><span>3.12</span></strong><br />
                     <strong><span>ほかのユーザーアカウントへの資金移動は禁止されています。また、その逆も許可されません。</span></strong><br />
@@ -1343,7 +1485,11 @@
                             <br />
                             3.11<br />
                             用戶理解並承認，在線賭場世界嚴禁用戶作弊和串謀。如果合理確定發生了欺詐或勾結，我們將取消因此類行為而進行的任何投注和/或沒收用戶賬戶中的所有資金。我們保留關閉的權利。有合理依據的用戶如果認為其他玩家通過欺騙或陰謀不公平地獲利，應通過電子郵件或聊天向 マハラジャ 報告。<br />
-                            <br />
+                            <br />以下行為判定為不正當使用Bonus，將視情況回收勝利獎金或封鎖帳號。
+                            <br />‧等值下法、零風險下法、低利潤下法
+                            <br />‧使用軟體、濫用漏洞、其他技術上的非法行為或有意地從事任何其他非法行為
+                            <br />‧在同一投注場合內，玩家個人或團體無視投注結果以最終得利為目的連續進行明顯矛盾的下注之行為（如數個玩家對賭、打水）
+                            <br />‧對沖投注<br /><br />
                             3.12<br />
                             禁止向其他用戶賬戶轉賬。此外，不允許反向。<br />
                             <br />
@@ -1575,6 +1721,19 @@
         }
     }
 
+    function showDefauktGameIcon(GameBrand, GameName) {
+        var el = event.target;
+        el.onerror = showDefauktGameIcon2;
+        el.src = "https://img.ewin888.com/" + GameBrand + "/ENG/" + GameName + ".png";
+    }
+
+    function showDefauktGameIcon2() {
+        var el = event.target;
+        el.onerror = null;
+        el.src = "https://img.ewin888.com/default.png";
+    }
+
+
     function setDefaultIcon(brand, name) {
         var img = event.currentTarget;
         img.onerror = null;
@@ -1602,9 +1761,15 @@
             }
 
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請先登入"), function () {
-                window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify({ GameBrand: gameBrand, GameName: gameName, GameLangName: gameLangName }));
-                API_LoadPage("Login", "Login.aspx");                
+                var gameData = {
+                    GameBrand: gameBrand,
+                    GameName: gameName,
+                    GameLangName: gameLangName
+                }
+                window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
+                API_LoadPage("Login", "Login.aspx");
             }, null);
+
         } else {
             EWinWebInfo.IsOpenGame = true;
             GCB.AddPlayed(gameBrand + "." + gameName, function (success) {
@@ -2052,7 +2217,7 @@
                 orgin = orgin + "_jp";
                 break;
             case "CHT":
-                break;
+                break; 
             case "ENG":
                 orgin = orgin + "_jp";
                 break;
@@ -2176,7 +2341,7 @@
 
         initByArt();
         switchLang(EWinWebInfo.Lang, false);
-        
+
         if (EWinWebInfo.Lang == "JPN") {
             $('#langIcon').addClass('icon-flag-JP');
         } else {
@@ -2232,20 +2397,41 @@
 
             }
             else {
-
-                if (EWinWebInfo.SID != "") {
-                    API_Casino();
+                if (Page != null && Page != "" && (Page == "QA" || Page == "Casino" || Page == "ActivityCenter" || Page == "registerFinish")) {
+                    if (Page == "QA") {
+                        API_LoadPage('QA', '/Article/guide_Q&A_' + EWinWebInfo.Lang + '.html');
+                    } else {
+                        API_LoadPage(Page, Page + ".aspx");
+                    }
                 } else {
-                    API_Home();
-                }
+                    if (EWinWebInfo.SID != "") {
+                        API_Casino();
+                    } else {
+                        if (PageType != null && PageType != "" && PageType == "OpenSumo") {
+                            var gameData = {
+                                GameBrand: "YS",
+                                GameName: "Sumo",
+                                GameLangName: mlp.getLanguageKey("相撲")
+                            }
 
+                            window.sessionStorage.setItem("OpenGameBeforeLogin", JSON.stringify(gameData));
+                            clearUrlParams();
+                            API_LoadPage("Login", "Login.aspx");
+                        } else {
+                            API_Home();
+                        }
+                    }
+                }
             }
 
             SearchControll = new searchControlInit("alertSearch");
 
+            setBulletinBoard();
+
             appendGameFrame();
             //getCompanyGameCode();
             //getCompanyGameCodeTwo();
+
             //登入Check
             window.setTimeout(function () {
                 lobbyClient.GetCompanySite(Math.uuid(), function (success, o) {
@@ -2264,12 +2450,14 @@
                                     } else {
                                         //Check登入前狀態
                                         var openGameBeforeLoginStr = window.sessionStorage.getItem("OpenGameBeforeLogin");
-                                        
-                                        if (openGameBeforeLoginStr) {                                            
+
+                                        if (openGameBeforeLoginStr) {
                                             var openGameBeforeLogin = JSON.parse(openGameBeforeLoginStr);
 
-                                            window.sessionStorage.removeItem("SrcPage");
-                                            openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                            window.sessionStorage.removeItem("OpenGameBeforeLogin");
+                                            showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("開始遊戲"), function () {
+                                                openGame(openGameBeforeLogin.GameBrand, openGameBeforeLogin.GameName, openGameBeforeLogin.GameLangName);
+                                            });
                                         } else {
                                             var srcPage = window.sessionStorage.getItem("SrcPage");
 
@@ -2277,7 +2465,7 @@
                                                 window.sessionStorage.removeItem("SrcPage");
                                                 API_LoadPage("SrcPage", srcPage, true);
                                             }
-                                        }                                        
+                                        }
                                     }
 
                                     notifyWindowEvent("IndexFirstLoad", logined);
@@ -2360,12 +2548,45 @@
             //window.setInterval(function () {
             //    resize();
             //}, 1000);
+
+            GCB.InitPromise.then(() => {
+                checkUserLogin(EWinWebInfo.SID, function () {
+                    updateBaseInfo();
+                    if (GCode != "") {
+                        if (GCode.includes(".")) {
+                            let k = GCode.split(".");
+
+                            if (k.length == 2) {
+                                GCB.GetByGameCode(GCode, (GameCodeItem) => {
+                                    if (GameCodeItem && GameCodeItem.GameStatus == 0) {
+                                        var langText = null;
+
+                                        langText = GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                                        
+                                        clearUrlParams();
+
+                                        API_OpenGame(GameCodeItem.GameBrand, GameCodeItem.GameName, langText);
+
+                                    }
+
+                                });
+                            }
+                        }
+                    }
+                });
+            });
         });
 
         API_changeAvatarImg(getCookie("selectAvatar"));
         GameInfoModal = new bootstrap.Modal(document.getElementById("alertGameIntro"), { backdrop: 'static', keyboard: false });
 
         //resize();
+    }
+
+    function clearUrlParams() {
+        if (location.href.includes('?')) {
+            history.pushState({}, null, location.href.split('?')[0]);
+        }
     }
 
     function setFavoToIndexDB(cb) {
@@ -2578,7 +2799,9 @@
                         gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
-                            GI_img.src = EWinWebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + gameItem.GameBrand + "/PC/" + lang + "/" + gameItem.GameName + ".png";
+                            GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
+                            GI_img.onerror = new Function("showDefauktGameIcon2()");
+
                             var el = GI_img;
                             var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
                             observer.observe();
@@ -2779,6 +3002,7 @@
                         let GBLDom;
                         let GBL_img;
 
+                        //EWin Game Item
                         GBLDom = c.getTemplate("tmpSearchGameBrand");
                         GBL_img = GBLDom.querySelector(".brandImg");
                         $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
@@ -2794,7 +3018,10 @@
                                 $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_" + GBL.GameBrand);
 
                                 if (GBL.GameBrandState == 0) {
-                                    GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
+      
+                                    //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
+
+                                    GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
                                 }
 
                                 ParentMain.append(GBLDom);
@@ -2836,6 +3063,135 @@
         init();
     };
 
+    //#endregion
+
+    function showFavoPlayed() {
+
+        if (!EWinWebInfo.UserLogined) {
+            showMessageOK(mlp.getLanguageKey("尚未登入"), mlp.getLanguageKey("請先登入"), function () {
+                API_LoadPage("Login", "Login.aspx");
+            });
+            return;
+        }
+
+        setFavoPlayeditem(0);
+        setFavoPlayeditem(1);
+        $("#alertFavoPlayed").modal("show")
+    }
+
+    function setFavoPlayeditem(type) {
+        
+        var lang = EWinWebInfo.Lang;
+        var alertSearchContent;
+
+        switch (type) {
+            case 0:
+                alertSearchContent = $('#alertFavoContent');
+                break;
+            case 1:
+                alertSearchContent = $('#alertPlayedContent');
+                break;
+            default:
+                alertSearchContent = $('#alertFavoContent');
+                break;
+        }
+
+        alertSearchContent.empty();
+
+        GCB.GetPersonal(type,
+            function (gameItem) {
+
+                var RTP = "--";
+                var lang_gamename = gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? gameItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
+                lang_gamename = lang_gamename.replace("'", "");
+                if (gameItem.RTPInfo) {
+                    RTP = JSON.parse(gameItem.RTPInfo).RTP;
+                }
+
+                if (RTP == "0") {
+                    RTP = "--";
+                }
+
+                GI = c.getTemplate("tmpSearchGameItem");
+                let GI1 = $(GI);
+                GI.onclick = new Function("openGame('" + gameItem.GameBrand + "', '" + gameItem.GameName + "','" + lang_gamename + "')");
+
+                var GI_img = GI.querySelector(".gameimg");
+                if (GI_img != null) {
+                    GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
+                    GI_img.onerror = new Function("showDefauktGameIcon2()");
+                    var el = GI_img;
+                    var observer = lozad(el); // passing a `NodeList` (e.g. `document.querySelectorAll()`) is also valid
+                    observer.observe();
+                }
+
+                var likebtn = GI.querySelector(".btn-like");
+
+                if (EWinWebInfo.DeviceType == 0) {
+                    $(likebtn).addClass("desktop");
+                }
+
+                if (gameItem.FavoTimeStamp) {
+
+                    $(likebtn).addClass("added");
+                } else {
+                    $(likebtn).removeClass("added");
+                }
+
+                likebtn.onclick = new Function("favBtnClick('" + gameItem.GameCode + "')");
+
+                GI1.find(".gameName").text(lang_gamename);
+                GI1.find(".BrandName").text(mlp.getLanguageKey(gameItem.GameBrand));
+                GI1.find(".valueRTP").text(RTP);
+                GI1.find(".valueID").text(gameItem.GameID);
+                GI1.find(".GameCategoryCode").text(mlp.getLanguageKey(gameItem.GameCategoryCode));
+
+                alertSearchContent.append(GI);
+
+            }, function (data) {
+
+            }
+        )
+    }
+
+    function alertBoardMsgClose() {
+        $("#alertBoardMsg").modal("hide");
+        $("#popupBulletinList").modal("show");
+    }
+
+    //#region URL
+    function getQueryInURL(param = '') {
+        let result;
+        try {
+            result = new URL(window.location.href).searchParams.get(param)
+            return result
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    
+    function addOrUpdateQueryInWindow(key, value, type = 'pushState') {
+        let url = location.href;
+
+        if (!url.includes('?')) {
+            url = `${url}?${key}=${value}`;
+        } else {
+            if (!url.includes(key)) {
+                url = `${url}&${key}=${value}`;
+            } else {
+                let re = `(\\?|&|\#)${key}([^&|^#]*)(&|$|#)`;
+                url = url.replace(new RegExp(re), '$1' + key + '=' + value + '$3');
+            }
+        }
+
+        if (type === 'location') {
+            location.href = url;
+        }
+
+        if (type === 'pushState') {
+            history.pushState({}, 0, url);
+        }
+    }
     //#endregion
 
     window.onload = init;
@@ -2906,59 +3262,25 @@
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('Casino', 'Casino.aspx', false)">
+                                             onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
                                             <a class="nav-link">
-                                                <i class="icon icon-mask icon-all"></i>
-                                                <span class="title language_replace">遊戲大廳</span></a>
+                                                <i class="icon icon-mask icon-slot"></i>
+                                                <span class="title language_replace">老虎機</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown"
-                                            onclick="openGame('YS', 'Sumo', '')">
+                                        <li class="nav-item submenu dropdown" onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Live', false)">
                                             <a class="nav-link">
-                                                <i class="icon icon-mask icon-sumo"></i>
-                                                <span class="title language_replace">相撲</span></a>
+                                                <i class="icon icon-mask icon-live"></i>
+                                                <span class="title language_replace">真人</span></a>
                                         </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item navbarMenu__catagory">
-                                    <ul class="catagory">
-                                        <li class="nav-item submenu dropdown">
-                                            <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
-                                                <i class="icon icon-mask icon-people"></i>
-                                                <span class="title language_replace">會員中心</span></a>
-                                        </li>
-                                        <li class="nav-item submenu dropdown">
-                                            <a class="nav-link" onclick="API_LoadPage('','ActivityCenter.aspx')">
-                                                <i class="icon icon-mask icon-loudspeaker"></i>
-                                                <span class="title language_replace">活動中心</span></a>
-                                        </li>
-                                        <li class="nav-item submenu dropdown">
-    
-                                            <a class="nav-link" onclick="API_LoadPage('','Prize.aspx', true)">
-                                                <!-- 通知小紅點 -->
-                                                <span class="notify-dot PC-notify-dot" style="display:none;"></span>
-                                                <i class="icon icon-mask icon-prize"></i>
-                                                <span class="title language_replace">領獎中心</span></a>
-                                        </li>
-                                        <li class="nav-item submenu dropdown">
-                                            <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
-                                                <i class="icon icon-mask icon-calendar"></i>
-                                                <span class="title language_replace">履歷記錄</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item navbarMenu__catagory">
-                                    <ul class="catagory">
-                                        <li class="nav-item submenu dropdown"
-                                            onclick="API_LoadPage('QA','/Article/guide_Q&A_jp.html')">
+                                        <li class="nav-item submenu dropdown" onclick="openGame('BTI', 'Sport', '')">
                                             <a class="nav-link">
-                                                <i class="icon icon-mask icon-QA"></i>
-                                                <span class="title language_replace">Q&A</span></a>
+                                                <i class="icon icon-mask icon-sport"></i>
+                                                <span class="title language_replace">體育</span></a>
                                         </li>
-                                        <li class="nav-item submenu dropdown"
-                                            onclick="window.open('https://lin.ee/KD05l9X')">
+                                        <li class="nav-item submenu dropdown" onclick="showFavoPlayed()">
                                             <a class="nav-link">
-                                                <i class="icon icon-mask icon-line"></i>
-                                                <span class="title language_replace">Line</span></a>
+                                                <i class="icon icon-mask icon-favo"></i>
+                                                <span class="title language_replace">我的最愛</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -2975,8 +3297,65 @@
                                                 <i class="icon icon-mask icon-withdarw"></i>
                                                 <span class="title language_replace">出款</span></a>
                                         </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="window.top.API_LoadPage('guide_CashQa_jp','/Article/guide_CashQa.html')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-instruction"></i>
+                                                <span class="title language_replace">出入金手順</span></a>
+                                        </li>
                                     </ul>
                                 </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" onclick="API_LoadPage('MemberCenter', 'MemberCenter.aspx', true)">
+                                                <i class="icon icon-mask icon-people"></i>
+                                                <span class="title language_replace">會員中心</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" onclick="API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
+                                                <i class="icon icon-mask icon-loudspeaker"></i>
+                                                <span class="title language_replace">活動中心</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown">
+    
+                                            <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
+                                                <!-- 通知小紅點 -->
+                                                <span class="notify-dot PC-notify-dot" style="display:none;"></span>
+                                                <i class="icon icon-mask icon-prize"></i>
+                                                <span class="title language_replace">領獎中心</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown">
+                                            <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">
+                                                <i class="icon icon-mask icon-calendar"></i>
+                                                <span class="title language_replace">履歷記錄</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item navbarMenu__catagory">
+                                    <ul class="catagory">
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="">
+                                            <a class="nav-link" onclick="showBulletinBoard()">
+                                                <i class="icon icon-mask icon-announce"></i>
+                                                <span class="title language_replace">公告</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="API_LoadPage('QA','/Article/guide_Q&A.html')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-QA"></i>
+                                                <span class="title language_replace">Q&A</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown"
+                                            onclick="window.open('https://lin.ee/KD05l9X')">
+                                            <a class="nav-link">
+                                                <i class="icon icon-mask icon-line"></i>
+                                                <span class="title language_replace">Line</span></a>
+                                        </li>
+                                        
+                                    </ul>
+                                </li>
+                                
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
                                     <a class="nav-link" onclick="API_Logout(true)">
                                         <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -3002,7 +3381,7 @@
                     <!-- 頂部 NavBar -->
                     <div class="header_topNavBar">
                         <!-- 左上角 -->
-                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Home','Home.aspx')">
+                        <div class="header_leftWrapper navbar-nav" onclick="API_LoadPage('Casino','Casino.aspx')">
                             <div class="navbar-brand">
                                 <div class="logo"><a></a></div>
                             </div>
@@ -3135,7 +3514,7 @@
                 <div class="container">
                     <ul class="company-info row">
                         <li class="info-item col">
-                            <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
+                           <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                         </li>
                         <%--
                         <li class="info-item col">
@@ -3165,6 +3544,32 @@
                             </a>
                         </li>--%>
                     </ul>
+                    <div class="payment-supplier">
+                        <div class="logo">
+                            <div class="row">
+                                <!-- <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-iwallet.png" alt="">
+                                    </div>
+                                </div> -->
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-nissinpay.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-bank.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-paypal.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="partner">
                         <div class="logo">
                             <div class="row">
@@ -3273,20 +3678,19 @@
                                         <img src="/images/logo/footer/logo-va.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
-                                    <div class="img-crop">
-                                        <img src="/images/logo/footer/logo-pagcor.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-mishuha.png" alt="">
+                                    </div>
+                                </div>--%>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-XG.png"  alt="">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="company-detail">
                         <div class="company-license">
                             <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
@@ -3296,8 +3700,6 @@
                             <p class="address language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</p>
                         </div>
                     </div>
-
-
                     <div class="footer-copyright">
                         <p class="language_replace">Copyright © 2022 マハラジャ. All Rights Reserved.</p>
                     </div>
@@ -3431,6 +3833,58 @@
             </div>
         </div>
     </div>--%>
+    
+    <!-- 我的最愛/遊玩過的遊戲 PoPup-->
+    <div class="modal fade no-footer alertSearchTemp" id="alertFavoPlayed" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-header-container">
+                        <!-- <h5 class="modal-title">我是logo</h5> -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            id="alertFavoPlayedCloseButton">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="game-search-wrapper">
+                        <div class="sec-title-container mb-0">
+                            <div class="sec-title-wrapper">
+                                <h6 class="sec-title title-deco"><span class="language_replace">我的最愛</span></h6>
+                            </div>
+                        </div>
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertFavoContent">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-search-wrapper mt-4">
+                        <div class="sec-title-container mb-0">
+                            <div class="sec-title-wrapper">
+                                <h6 class="sec-title title-deco"><span class="language_replace" >曾經遊玩</span></h6>
+                            </div>
+                        </div>
+                        <div class="search-result-wrapper">
+                            <div class="search-result-inner">
+                                <div class="search-result-list">
+                                    <div class="game-item-group list-row row" id="alertPlayedContent">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Modal Search 品牌-LOGO版-->
@@ -3469,7 +3923,8 @@
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
                                     language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
-                                <label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                    <%--<label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                    --%>
                             </div>
                             <div class="wrapper_center action-outter">
                                 <button type="button" class="btn btn btn-outline-main btn-sm btn-reset-popup" onclick="SearchControll.searchGameChangeClear()">
@@ -3734,7 +4189,7 @@
 
 
     <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertContactWithCheckBox" aria-hidden="true" id="alertContactWithCheckBox">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="alert_Title">xxxx</div>
@@ -3773,6 +4228,50 @@
 
     <!--alert Board Msg-->
     <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertBoardMsg" aria-hidden="true" id="alertBoardMsg">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="alert_Title"></div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body-content">
+                        <article class="popup-detail-wrapper">
+                            <div class="popup-detail-inner">
+                                <div class="popup-detail-content">
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告時間</span></h6>
+                                        <div class="section-content">
+                                            <div class="alert_Time"></div>
+                                        </div>
+                                    </section>
+                                    <section class="section-wrap">
+                                        <h6 class="title"><i class="icon icon-mask ico-grid"></i><span class="language_replace">公告詳情</span></h6>
+                                        <div class="section-content">
+                                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                                        </div>
+                                    </section>
+                                </div>
+
+                            </div>
+                        </article>
+                        <!-- <i class="icon-error_outline primary"></i>
+                        <div class="language_replace">公告時間：</div>
+                        <div class="alert_Time"></div>
+                        <div class="text-wrap">
+                            <div class="language_replace">公告詳情：</div>
+                            <p class="alert_Text language_replace">變更個人資訊，請透過客服進行 ！</p>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-container"onclick="alertBoardMsgClose()">
+                        <button type="button" class="alert_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade footer-center" tabindex="-1" role="dialog" aria-labelledby="alertBoardMsg1" aria-hidden="true" id="alertBoardMsg1">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3820,6 +4319,48 @@
         </div>
     </div>
 
+    <div class="modal fade no-footer popupBulletinList" id="popupBulletinList" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="alert_Title language_replace">最新公告</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="-wrapper">
+                        <ul class="bulletin_list" id="idBulletinBoardContent2">
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                            <li class="item">
+                                <span class="date">2022.8.11</span>
+                                <span class="info">ゲームメンテナンスのお知らせでございます。</span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tmpBulletinBoardModel" style="display: none;">
+        <div id="idTempBulletinBoard" style="display: none;">
+            <!-- <div> -->
+            <li class="item" style="cursor:pointer">
+                <span class="date CreateDate"></span>
+                <span class="info BulletinTitle"></span>
+            </li>
+            <!-- </div> -->
+        </div>
+    </div>
 
     <div class="modal fade no-footer popupGameInfo" id="popupMoblieGameInfo" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -4036,6 +4577,7 @@
             </label>
         </li>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

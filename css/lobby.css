@@ -9,7 +9,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   padding: 0 10px 0;
 }
 .tab-game .icon-mask::before {
-  color: #454545;
+  background-color: #454545;
 }
 .tab-game .content {
   max-width: 840px;
@@ -33,7 +33,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #00afff;
+  background-color: #00AFFF;
   color: #fff;
   text-shadow: 0px 0px 4px #004565;
   text-align: center;
@@ -65,7 +65,7 @@ animation:name duration | timing-function | delay | iteration-count | direction 
           transform: translate3d(0, -50%, 0);
 }
 .tab-game .tab-scroller .tab-item.active .title {
-  background-color: #48c5ff;
+  background-color: #48C5FF;
 }
 .tab-inner {
   display: -webkit-box;

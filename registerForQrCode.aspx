@@ -97,8 +97,20 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
-    
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 <script src="Scripts/OutSrc/js/script.js"></script>
@@ -405,7 +417,8 @@
                                             if (success1) {
                                                 showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功"), function () {
                                                     document.getElementById("idRegister").classList.add("is-hide");
-                                                    document.getElementById("contentFinish").classList.remove("is-hide");
+                                                    window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
+                                                    window.location.href = "<%=EWinWeb.CasinoWorldUrl %>" + "/Index.aspx?page=registerFinish";
                                                 });
                                             } else {
                                                 showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o1.Message), function () {
@@ -416,7 +429,7 @@
                                     } else {
                                         showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功"), function () {
                                             document.getElementById("idRegister").classList.add("is-hide");
-                                            document.getElementById("contentFinish").classList.remove("is-hide");
+                                            window.location.href = "<%=EWinWeb.CasinoWorldUrl %>" + "/Index.aspx?page=registerFinish";
                                         });
                                     }
                                 } else {
@@ -792,7 +805,7 @@
                                     姓
                                     <span class="form-title-note language_replace">(羅馬字)</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
+                                    <input type="text" class="form-control custom-style" language_replace="placeholder"  placeholder="請輸入姓" inputmode="email" name="Name1">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
@@ -802,7 +815,7 @@
                                
                                     <span class="form-title-note language_replace">(羅馬字)</span></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
+                                    <input type="text" class="form-control custom-style" language_replace="placeholder"  placeholder="請輸入名" inputmode="email" name="Name2">
                                     <div class="invalid-feedback language_replace">提示</div>
                                 </div>
                             </div>
@@ -1215,5 +1228,6 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

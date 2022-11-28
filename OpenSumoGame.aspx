@@ -90,7 +90,7 @@
     if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
             Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI/" + GameBrand + "/UserLogin.aspx?SID=" + SI.EWinSID + "&Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameName=" + GameName + "&HomeUrl=" + HomeUrl);
     } else {
-            Response.Redirect(EWinWeb.CasinoWorldUrl + "/index.aspx");
+            Response.Redirect(EWinWeb.CasinoWorldUrl + "/index.aspx?PageType=OpenSumo");
     }
 %>
 <!doctype html>

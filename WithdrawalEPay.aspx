@@ -28,7 +28,20 @@
             color: #007bff !important;
         }
     </style>
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -156,7 +169,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByCategory(WebInfo.SID, Math.uuid(), "EPay", 1, function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPay", 1,"EWINPAY", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
@@ -764,7 +777,7 @@
                                             <li><span class="language_replace">取款1次最少5500，最多50萬OCoin，1天次數最多3次。</span></li>
                                             <li><span class="language_replace">1天取款上限額度為100萬OCoin。</span></li>
                                             <li><span class="language_replace">申請出款後，依據您所選擇的金融機關不同，有可能下一個營業日才能到帳。</span></li>
-                                            <li><span class="language_replace">この部分の記入は銀行の振込名義と同じで有る事が必須に成ります。ご了承下さい。</span></li>
+                                            <li><span class="language_replace">此處填寫的全名必須與銀行的匯款人名稱（片假名）完全相同，敬請見諒。</span></li>
                                          </ul>  
                                     </div>
                                 </div>
@@ -1081,5 +1094,6 @@
             </label>
         </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

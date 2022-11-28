@@ -28,7 +28,20 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script type="text/javascript" src="Scripts/DateExtension.js"></script>
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
 <script>
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -221,10 +234,13 @@
 
                                 if (GameBrand == "EWin") {
                                     c.setClassText(RecordDom, "gameName", null, "EWinゲーミング");
-                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/EWinGaming.png";
+                                    GI_img.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/EWinGaming.png";
                                 } else {
-                                    GI_img.src = WebInfo.EWinGameUrl + "/Files/GamePlatformPic/" + GameBrand + "/PC/" + WebInfo.Lang + "/" + GameName + ".png";
+                                    GI_img.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/" + GameName + ".png";
                                 }
+
+                                GI_img.onerror = new Function("showDefauktGameIcon2()");
+
 
                                 panel.appendChild(RecordDom);
                             }).bind(record))
@@ -256,6 +272,18 @@
         });
     }
     //#endregion 
+
+    function showDefauktGameIcon(GameBrand, GameName) {
+        var el = event.target;
+        el.onerror = showDefauktGameIcon2;
+        el.src = WebInfo.ImageUrl + "/" + GameBrand + "/ENG/" + GameName + ".png";
+    }
+
+    function showDefauktGameIcon2() {
+        var el = event.target;
+        el.onerror = null;
+        el.src = WebInfo.ImageUrl + "/default.png";
+    }
 
     //#region 出入金
     function getPreMonth_Payment() {
@@ -1473,6 +1501,7 @@
             </div>
         </div>
     </div>
-
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

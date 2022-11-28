@@ -25,7 +25,20 @@
     <script type="text/javascript" src="/Scripts/Math.uuid.js"></script>
     <script type="text/javascript" src="/Scripts/date.js"></script>
     <script type="text/javascript" src="Scripts/DateExtension.js"></script>
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
 <script type="text/javascript">
     if (self != top) {
         window.parent.API_LoadingStart();
@@ -387,18 +400,18 @@
             <div class="container">
                 <div class="sec-title-container sec-title-prize">
                     <!-- 活動中心 link-->
-                    <a class="btn btn-link btn-activity" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx')">
+                    <a class="btn btn-link btn-activity" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx')">
                         <span class="title language_replace">前往活動中心</span><i class="icon icon-mask icon-arrow-right-dot"></i>
                     </a>
                     <div class="sec-title-wrapper">
                         <h1 class="sec-title title-deco"><span class="language_replace">領獎中心</span></h1>
                         <!-- 使用說明LINK -->
-                        <span class="sec-title-intro-link" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', true)">
+                        <span class="sec-title-intro-link" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html?form=Prize', true)">
                             <span class="btn btn-QA-transaction btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span><span class="title language_replace">領獎中心使用說明</span>
                         </span>                       
                     </div>
                      <!-- 獎金/禮金 TAB -->
-                     <div class="tab-prize tab-scroller tab-2">
+                     <div class="tab-prize tab-scroller tab-2 tab-primary">
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content">
                                 <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
@@ -498,10 +511,10 @@
                         <figcaption class="title language_replace">ゴールドヒット！ゴールドヒット！ ゴールドヒット！</figcaption>
                         <div class="date-period language_replace">
                             <span class="date-period-start">
-                                <span class="year year_c">2022</span><span class="month month_c">04</span><span class="day day_c">04</span>
+                                <span class="year year_c"></span><span class="month month_c"></span><span class="day day_c"></span>
                             </span>
                             <span class="date-period-end">
-                                <span class="year year_e">2022</span><span class="month month_e">06</span><span class="day day_c">06</span>
+                                <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
                             </span>
                         </div>
                         <span class="prize-status text-primary language_replace">可領取</span>
@@ -527,7 +540,7 @@
                         <figcaption class="title language_replace"></figcaption>
                         <div class="date-period language_replace">
                             <span class="date-period-start">
-                                <span class="year year_c">2022</span><span class="month month_c">04</span><span class="day day_c">04</span>
+                                <span class="year year_c"></span><span class="month month_c"></span><span class="day day_c"></span>
                             </span>
                             <span class="date-period-end">
                                 <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
@@ -541,6 +554,7 @@
             </div>
         </figure>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 
 </html>

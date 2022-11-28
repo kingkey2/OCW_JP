@@ -108,7 +108,20 @@ public class CodingControl
     public static string GetEmailTemp2() {
         Stream myStream;
 
-        myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Activity/event/ysport/edm-ysport.html"), FileMode.Open);
+        myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Html/temp.html"), FileMode.Open);
+
+        Encoding encode = System.Text.Encoding.GetEncoding("GB2312");
+        StreamReader myStreamReader = new StreamReader(myStream, encode);
+        string strhtml = myStreamReader.ReadToEnd();
+        myStream.Close();
+
+        return strhtml;
+    }
+
+    public static string GetKYCEmailTemp() {
+        Stream myStream;
+
+        myStream = new FileStream(HttpContext.Current.Server.MapPath(@"/Html/KYCMail.html"), FileMode.Open);
 
         Encoding encode = System.Text.Encoding.GetEncoding("GB2312");
         StreamReader myStreamReader = new StreamReader(myStream, encode);

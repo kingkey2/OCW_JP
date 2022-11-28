@@ -94,6 +94,11 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
         var URL = (string)EPAYSetting.ApiUrl + "RequirePaying";
         System.Data.DataTable DT = new System.Data.DataTable();
 
+        if (Type== "TigerPay")
+        {
+            ServiceType = "JOOB05";
+        }
+
         if (Type == "GASH") {
             ServiceType = "JOOB04";
         }

@@ -30,7 +30,20 @@
              text-align: center;
         } */
     </style>
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -54,6 +67,7 @@
     var lang;
     var seleCurrency;
     var NomicsExchangeRate;
+    var KucoinExchangeRate;
     var PaymentMethod;
     var c = new common();
     var ActivityNames = [];
@@ -222,11 +236,11 @@
 
     function GetExchangeRateFromNomics(cb) {
 
-        PaymentClient.GetExchangeRateFromNomics(WebInfo.SID, Math.uuid(), function (success, o) {
+        PaymentClient.GetExchangeRateFromKucoin(WebInfo.SID, Math.uuid(), function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.Message != "") {
-                        NomicsExchangeRate = JSON.parse(o.Message);
+                        KucoinExchangeRate = JSON.parse(o.Message);
                         if (cb) {
                             cb();
                         }
@@ -251,21 +265,63 @@
             }
         })
 
+        //PaymentClient.GetExchangeRateFromNomics(WebInfo.SID, Math.uuid(), function (success, o) {
+        //    if (success) {
+        //        if (o.Result == 0) {
+        //            if (o.Message != "") {
+        //                NomicsExchangeRate = JSON.parse(o.Message);
+        //                if (cb) {
+        //                    cb();
+        //                }
+        //            } else {
+        //                window.parent.API_LoadingEnd(1);
+        //                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+        //                });
+        //            }
+        //        } else {
+        //            window.parent.API_LoadingEnd(1);
+        //            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+        //            });
+        //        }
+        //    }
+        //    else {
+        //        window.parent.API_LoadingEnd(1);
+        //        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+        //        });
+        //    }
+        //})
+
     }
 
     function GetRealExchange(currency) {
         var R = 0;
         var price;
 
-        if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
+        if (KucoinExchangeRate) {
             if (currency == "JKC") {
-                price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
+                price = KucoinExchangeRate["ETH"];
                 R = 1 / (price / 3000);
+            } else if (currency == "HLN") {
+                price = KucoinExchangeRate["USDT"];
+                R = 1 / price;
             } else {
-                price = NomicsExchangeRate.find(x => x["currency"] == currency).price;
+                price = KucoinExchangeRate[currency];
                 R = 1 / price;
             }
         }
+
+        //if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
+        //    if (currency == "JKC") {
+        //        price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
+        //        R = 1 / (price / 3000);
+        //    } else {
+        //        price = NomicsExchangeRate.find(x => x["currency"] == currency).price;
+        //        R = 1 / price;
+        //    }
+        //}
         return R;
     }
 
@@ -395,7 +451,7 @@
     }
 
     function setRealExchange() {
-        if (PaymentMethod.length > 0 && NomicsExchangeRate.length > 0) {
+        if (PaymentMethod.length > 0 && KucoinExchangeRate.length > 0) {
             let price;
             for (var i = 0; i < PaymentMethod.length; i++) {
                 PaymentMethod[i]["RealExchange"] = 0;
@@ -412,6 +468,25 @@
                     PaymentMethod[i]["RealExchange"] = GetRealExchange(mc["CurrencyType"]);
                 }
             }
+
+            //    if (PaymentMethod.length > 0 && NomicsExchangeRate.length > 0) {
+            //        let price;
+            //        for (var i = 0; i < PaymentMethod.length; i++) {
+            //            PaymentMethod[i]["RealExchange"] = 0;
+
+            //            if (PaymentMethod[i]["MultiCurrencyInfo"]) {
+            //                if (!PaymentMethod[i]["MultiCurrencys"]) {
+            //                    PaymentMethod[i]["MultiCurrencys"] = JSON.parse(PaymentMethod[i]["MultiCurrencyInfo"]);
+            //                }
+
+            //                PaymentMethod[i]["MultiCurrencys"].forEach(function (mc) {
+            //                    mc["RealExchange"] = GetRealExchange(mc["ShowCurrency"]);
+            //                });
+            //            } else {
+            //                PaymentMethod[i]["RealExchange"] = GetRealExchange(mc["CurrencyType"]);
+            //            }
+            //        }
+            //    }
         }
     }
 
@@ -469,6 +544,7 @@
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
+        //ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("disabled", "disabled");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
         $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
@@ -1443,5 +1519,6 @@
             </label>
         </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

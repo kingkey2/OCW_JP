@@ -43,6 +43,31 @@
         });
     };
 
+    this.GetPaymentMethodByPaymentCode = function (WebSID, GUID, PaymentCategoryCode, PaymentType, PaymentCode, cb) {
+        var url = APIUrl + "/GetPaymentMethodByPaymentCode";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            PaymentCategoryCode: PaymentCategoryCode,
+            PaymentType: PaymentType,
+            PaymentCode: PaymentCode
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetClosePayment = function (WebSID, GUID, startDate, endDate, cb) {
         var url = APIUrl + "/GetClosePayment";
         var postData;
@@ -408,6 +433,30 @@
         });
     };
 
+    this.ConfirmTigerPayWithdrawal = function (WebSID, GUID, OrderNumber, TigerPayAccount, cb) {
+        var url = APIUrl + "/ConfirmTigerPayWithdrawal";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            OrderNumber: OrderNumber,
+            TigerPayAccount: TigerPayAccount
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.ConfirmEPayWithdrawal = function (WebSID, GUID, OrderNumber, bankCard, bankCardName, bankName, bankBranchCode, cb) {
         var url = APIUrl + "/ConfirmEPayWithdrawal";
         var postData;
@@ -676,6 +725,29 @@
         //};
 
         //xmlHttp.send();
+    }
+
+    this.GetExchangeRateFromKucoin = function (WebSID, GUID, cb) {
+
+        var url = APIUrl + "/GetExchangeRateFromKucoin";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
     }
 
     this.GetUserAccountEventBonusHistoryByLoginAccount = function (WebSID, GUID, startDate, endDate, cb) {

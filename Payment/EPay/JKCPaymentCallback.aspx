@@ -51,7 +51,7 @@
                                     dbReturn = EWinWebDB.JKCDeposit.UpdateJKCDepositByContactPhoneNumber(PhoneNumber, DelAmount);
                                     if (dbReturn == 0)
                                     {
-                                        var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+                                        var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"],-1);
 
                                         if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                         {

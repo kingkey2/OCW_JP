@@ -1,0 +1,41 @@
+//******USE Bootstrap 4 media query mixins★★ ****/
+// (xs: 0, sm: 375px, smd: 576px, md: 768px, lg: 992px, xl: 1440px)
+// @include media-breakpoint-only(xs) {}
+// @include media-breakpoint-down(xs) {}
+// @include media-breakpoint-up(xs) {}
+
+
+// portrait:直向，landscape:橫向
+// @media screen and (orientation: landscape), (min-width:breakpoints_BS4(sm)){}
+
+
+//******★★★VERY IMPORTANT!!!! USE Bootstrap 4 media query mixins★★ *****/
+//******USE Bootstrap 4 media query mixins★★ *****/
+@import "../vendors/bootstrap/functions";
+@import "../vendors/bootstrap/variables";//一定要在functions.scss之後，因其中有variables使用到function.scss
+
+
+//SCSS can't import Entire folder,so import _mixins.scss that include all mixin files, including breakpoints.scss
+@import "../vendors/bootstrap/mixins"; //
+
+//*****Customize Theme******/
+
+// @import "../helpers/color"; //Dark MODE
+@import "../helpers/color-blue"; //JP MODE
+// @import "../helpers/color-ph"; //PH MODE
+@import "../helpers/variables";
+
+
+@import "../helpers/zindex";
+
+@import "../helpers/function";
+@import "../helpers/mixin";
+@import "../themes/themeMixin.scss";
+// @import "../base/animate_custom";
+
+
+
+
+
+
+

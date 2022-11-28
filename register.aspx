@@ -16,7 +16,20 @@
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
@@ -39,6 +52,7 @@
     var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
     var v ="<%:Version%>";
     var isSent = false;
+    var isSent_Phone = false;
     var LoginAccount;
 
     function BackHome() {
@@ -67,14 +81,33 @@
         }, 1000);
     }
 
-    function CheckAccountPhoneExist(cb) {
+    function startCountDown_Phone(duration) {
+        isSent_Phone = true;
+        let secondsRemaining = duration;
 
-        var idPhonePrefix = document.getElementById("idPhonePrefix");
-        var idPhoneNumber = document.getElementById("idPhoneNumber");
+        let countInterval = setInterval(function () {
+            let BtnSend = document.getElementById("divSendValidateCodeBtn_Phone");
+            
+            BtnSend.querySelector("span").innerText = secondsRemaining + "s"
+
+            secondsRemaining = secondsRemaining - 1;
+            if (secondsRemaining < 0) {
+                clearInterval(countInterval);
+                SetBtnSend_Phone();
+            };
+
+        }, 1000);
+    }
+
+    function CheckMailExist(cb) {
         var idLoginAccount = document.getElementById("idLoginAccount");
 
         if (idLoginAccount.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入信箱"));
+            cb(false);
+            return;
+        } else if (idLoginAccount.value.indexOf('+') > 0) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
             cb(false);
             return;
         } else {
@@ -85,18 +118,29 @@
             }
         }
 
-        if (idPhonePrefix.value == "") {
+        p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
+            if (success) {
+                if (o.Result != 0) {
+                    cb(true);
+                } else {
+                    cb(false);
+                    window.parent.showMessageOK("", mlp.getLanguageKey("信箱已存在"));
+                }
+            }
+
+        });
+    }
+
+    function CheckPhoneExist(cb) {
+        var PhonePrefix = document.getElementById("idPhonePrefix").value;
+        var PhoneNumber = document.getElementById("idPhoneNumber").value;
+
+        if (PhonePrefix.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
             cb(false);
             return;
-        }
-        //else if (idPhonePrefix.value != "+81") {
-        //    window.parent.showMessageOK("", mlp.getLanguageKey("國碼只能為+81"));
-        //    cb(false);
-        //    return;
-        //}
-        else if (idPhoneNumber.value == "") {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
+        } else if (PhoneNumber.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
             cb(false);
             return;
         } else {
@@ -122,13 +166,13 @@
             }
         }
 
-        p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
+        p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
             if (success) {
                 if (o.Result != 0) {
                     cb(true);
                 } else {
                     cb(false);
-                    window.parent.showMessageOK("", mlp.getLanguageKey("信箱已存在"));
+                    window.parent.showMessageOK("", mlp.getLanguageKey("電話已存在"));
                 }
             }
 
@@ -148,30 +192,27 @@
             }
         }
         return true;
-        //p.CheckAccountExist(Math.uuid(), idLoginAccount.value, function (success, o) {
-        //    if (success) {
-        //        if (o.Result != 0) {
-        //            idLoginAccount.setCustomValidity("");
-        //        } else {
-        //            idLoginAccount.setCustomValidity(mlp.getLanguageKey("信箱已存在"));
-        //        }
-        //    }
-
-        //    cb();
-        //});
     }
 
     function CheckPassword() {
         var idLoginPassword = document.getElementById("idLoginPassword");
-        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')
+        var idLoginCheckPassword = document.getElementById("idLoginCheckPassword");
+        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$');
+
         if (idLoginPassword.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
             return false;
         } else if (idLoginPassword.value.length < 6) {
             window.parent.showMessageOK("", mlp.getLanguageKey("登入密碼需大於6位"));
             return false;
+        } else if (idLoginPassword.value.length > 20) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("登入密碼需小於20位"));
+            return false;
         } else if (!rules.test(idLoginPassword.value)) {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
+            return false;
+        } else if (idLoginPassword.value.trim() != idLoginCheckPassword.value.trim()) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("確認密碼與登入密碼不符"));
             return false;
         }
 
@@ -180,8 +221,7 @@
 
     function onBtnSendValidateCode() {
         if (isSent == false) {
-            var form = document.getElementById("registerStep1");
-            CheckAccountPhoneExist(function (check) {
+            CheckMailExist(function (check) {
                 if (check) {
                     window.top.API_ShowLoading();
                     p.SetUserMail(Math.uuid(), 0, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
@@ -193,13 +233,37 @@
                                 window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼成功"));
 
                                 startCountDown(120);
-                                //$("#divSendValidateCodeBtn").hide();
-                                $("#divStep1Btn").show();
                             }
                         }
                     });
                 } else {
-                    //window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
+                    
+                }
+            });
+        } else {
+            window.parent.showMessageOK("", mlp.getLanguageKey("已發送驗證碼，短時間內請勿重複發送"));
+        }
+    }
+
+    function onBtnSendValidateCode_Phone() {
+        if (isSent_Phone == false) {
+            CheckPhoneExist(function (check) {
+                if (check) {
+                    window.top.API_ShowLoading();
+                    p.SetUserMail(Math.uuid(), 1, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
+                        window.top.API_CloseLoading();
+                        if (success) {
+                            if (o.Result != 0) {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));
+                            } else {
+                                window.parent.showMessageOK("", mlp.getLanguageKey("發送簡訊驗證碼成功"));
+
+                                startCountDown_Phone(120);
+                            }
+                        }
+                    });
+                } else {
+                    
                 }
             });
         } else {
@@ -213,145 +277,227 @@
         isSent = false;
     }
 
+    function SetBtnSend_Phone() {
+        let BtnSend = document.getElementById("divSendValidateCodeBtn_Phone");
+        BtnSend.querySelector("span").innerText = mlp.getLanguageKey("傳送驗證碼");
+        isSent_Phone = false;
+    }
+
     function onBtnUserRegisterStep1() {
-        if (isSent) {
-            var form = document.getElementById("registerStep1");
-
-            if ($("#idValidateCode").val() == "") {
-                window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
-            } else {
-                if (!CheckPassword()) {
-                    return;
-                }
-
-                if (!CheckUserAccountExist()) {
-                    return;
-                }
-
-                CheckAccountPhoneExist(function (isCheck) {
-                    if (isCheck) {
-                        var PhonePrefix = $("#idPhonePrefix").val();
-                        if (PhonePrefix.substring(0, 1) == "+") {
-                            PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
-                        }
-                        p.CheckValidateCode(Math.uuid(), 0, $("#idLoginAccount").val(), PhonePrefix, $("#idPhoneNumber").val(), $("#idValidateCode").val(), function (success, o) {
-                            if (success) {
-                                if (o.Result != 0) {
-                                    window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
-                                } else {
-                                    document.getElementById("contentStep1").classList.add("is-hide");
-                                    document.getElementById("contentStep2").classList.remove("is-hide");
-
-                                    document.getElementById("progressStep1").classList.remove("cur");
-                                    document.getElementById("progressStep2").classList.add("cur");
-                                }
-                            } else {
-                                window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
-                            }
-                        });
-                    }
-                });
-            }
+        if ($("#idValidateCode").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
         } else {
-            window.parent.showMessageOK("", mlp.getLanguageKey("請先取得驗證碼"));
+            p.CheckValidateCode(Math.uuid(), 0, $("#idLoginAccount").val(), "", "", $("#idValidateCode").val(), function (success, o) {
+                if (success) {
+                    if (o.Result != 0) {
+                        window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
+                    } else {
+                        onBtnUserRegisterStep2();
+                    }
+                } else {
+                    window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
+                }
+            });
         }
     }
 
     function onBtnUserRegisterStep2() {
-        //var re = /^[\s-_a-zA-Z0-9]+$/i;
-        var form2 = document.getElementById("registerStep2");
-        //var idNickName = document.getElementById("idNickName");
-        var CurrencyList = WebInfo.RegisterCurrencyType;
-
-        initValid(form2);
-
-        // if (form2.PostalCode.value == "") {
-        //    form2.PostalCode.setCustomValidity(mlp.getLanguageKey("請輸入郵遞區號"));
-        //} else if (form2.PostalCode.value.indexOf(',') != -1) {
-        //    form2.PostalCode.setCustomValidity(mlp.getLanguageKey("不可輸入 , "));
-        //} else if (form2.Prefectures.value == "") {
-        //    form2.Prefectures.setCustomValidity(mlp.getLanguageKey("請輸入都到縣府"));
-        //} else if (form2.Prefectures.value.indexOf(',') != -1) {
-        //    form2.Prefectures.setCustomValidity(mlp.getLanguageKey("不可輸入 , "));
-        //} else if (form2.Address.value == "") {
-        //    form2.Address.setCustomValidity(mlp.getLanguageKey("請輸入地址"));
-        //} else if (form2.Address.value.indexOf(',') != -1) {
-        //    form2.Address.setCustomValidity(mlp.getLanguageKey("不可輸入 , "));
-        //}  
-
-        let nowYear = new Date().getFullYear();
-
-        if (form2.Name1.value == "") {
-            form2.Name1.setCustomValidity(mlp.getLanguageKey("請輸入姓"));
-        } else if (form2.Name2.value == "") {
-            form2.Name2.setCustomValidity(mlp.getLanguageKey("請輸入名"));
-        } else if (form2.NickName.value == "") {
-            form2.NickName.setCustomValidity(mlp.getLanguageKey("請輸入暱稱"));
-        } else if (form2.eighteenCheck.checked == false) {
-            form2.eighteenCheck.setCustomValidity(mlp.getLanguageKey("請確認已年滿20歲"));
-        } else if (form2.BornYear.value.length != 4) {
-            form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
-        } else if (parseInt(form2.BornYear.value) < 1900) {
-            form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
-        } else if (parseInt(form2.BornYear.value) > nowYear) {
-            form2.BornYear.setCustomValidity(mlp.getLanguageKey("請輸入正確年分"));
+        //完整註冊
+        if ($("#li_register2").hasClass("active")) {
+            FullRegistrationCreateUser();
+        } else {
+            SimpleRegistrationCreateUser();
         }
+    }
 
-        form2.reportValidity();
+     //完整註冊
+    function FullRegistrationCreateUser() {
 
-        if (form2.checkValidity()) {
-            var LoginPassword = document.getElementById("idLoginPassword").value;
-            var ParentPersonCode = form2.PersonCode.value;
-            var PhonePrefix = document.getElementById("idPhonePrefix").value
-            var PhoneNumber = document.getElementById("idPhoneNumber").value
-
-            if (typeof (ParentPersonCode) == "string") {
-                ParentPersonCode = ParentPersonCode.trim();
-            }
-
-            if (PhonePrefix.substring(0, 1) == "+") {
-                PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
-            }
-
-            var PS = [
-                { Name: "RealName", Value: form2.NickName.value },
-                { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
-                { Name: "ContactPhonePrefix", Value: PhonePrefix },
-                { Name: "ContactPhoneNumber", Value: PhoneNumber },
-                { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
-                //{ Name: "ContactAddress", Value: form2.PostalCode.value + "," + form2.Prefectures.value + "," + form2.Address.value },
-                { Name: "CountryName", Value: form2.Country.options[form2.Country.selectedIndex].text },
-                { Name: "Country", Value: form2.Country.options[form2.Country.selectedIndex].value },
-                { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
-            ];
-
-            p.CreateAccount(Math.uuid(), document.getElementById("idLoginAccount").value, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
+        if ($("#idValidateCode_Phone").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
+        } else {
+            p.CheckValidateCode(Math.uuid(), 1, "", $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), $("#idValidateCode_Phone").val(), function (success, o) {
                 if (success) {
-                    if (o.Result == 0) {
-                        sendThanksMail();
-                        //sendReceiveRegisterRewardMail();
-                        window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
-                            document.getElementById("idRegister").classList.add("is-hide");
-                            document.getElementById("contentFinish").classList.remove("is-hide");
-                        });
+                    if (o.Result != 0) {
+                        window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確驗證碼"));
                     } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
-                            window.parent.API_LoadPage("Register", "Register.aspx")
+                        var form2 = document.getElementById("registerStep2");
+                        var CurrencyList = WebInfo.RegisterCurrencyType;
+
+                        let nowYear = new Date().getFullYear();
+
+                        if (form2.Name1.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入姓"));
+                            return;
+                        } else if (form2.Name2.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入名"));
+                            return;
+                        } else if (form2.BornYear.value.length != 4) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (parseInt(form2.BornYear.value) < 1900) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (parseInt(form2.BornYear.value) > nowYear) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確年分"));
+                            return;
+                        } else if (form2.PhonePrefix.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+                            return;
+                        } else if (form2.PhoneNumber.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入正確電話"));
+                            return;
+                        } else if (form2.ValidateCode_Phone.value == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入驗證碼"));
+                            return;
+                        }
+
+                        if ($("#NickName").val() == "") {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入暱稱"));
+                            return;
+                        }
+
+                        if (!$("#CheckAge").prop("checked")) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("請確認已年滿20歲"));
+                            return;
+                        }
+                        var LoginAccount = document.getElementById("idLoginAccount").value;
+                        var LoginPassword = document.getElementById("idLoginPassword").value;
+                        var ParentPersonCode = $("#PersonCode").val();
+                        var PhonePrefix = document.getElementById("idPhonePrefix").value;
+                        var PhoneNumber = document.getElementById("idPhoneNumber").value;
+                        var PS;
+
+                        if (typeof (ParentPersonCode) == "string") {
+                            ParentPersonCode = ParentPersonCode.trim();
+                        }
+
+                        if (PhonePrefix.substring(0, 1) == "+") {
+                            PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
+                        }
+
+                        if (PhoneNumber.substring(0, 1) == "0") {
+                            PhoneNumber = PhoneNumber.substring(1, PhoneNumber.length);
+                        }
+
+                        if (LoginAccount.indexOf('+') > 0) {
+                            window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+                            return false;
+                        }
+
+                        if (!CheckPassword()) {
+                            return false;
+                        }
+
+                        PS = [
+                            { Name: "IsFullRegistration", Value: 1 },
+                            { Name: "RealName", Value: $("#NickName").val() },
+                            { Name: "KYCRealName", Value: form2.Name1.value + form2.Name2.value },
+                            { Name: "ContactPhonePrefix", Value: PhonePrefix },
+                            { Name: "ContactPhoneNumber", Value: PhoneNumber },
+                            { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+                            { Name: "Birthday", Value: form2.BornYear.value + "/" + form2.BornMonth.options[form2.BornMonth.selectedIndex].value + "/" + form2.BornDate.options[form2.BornDate.selectedIndex].value },
+                        ];
+
+                        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
+                            if (success) {
+                                if (o.Result == 0) {
+                                    sendThanksMail();
+                                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
+                                        document.getElementById("idRegister").classList.add("is-hide");
+                                        window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
+                                    });
+                                } else {
+                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                                        window.parent.API_LoadPage("Register", "Register.aspx")
+                                    });
+                                }
+                            } else {
+                                if (o == "Timeout") {
+                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                                        window.parent.API_LoadPage("Register", "Register.aspx")
+                                    });
+                                } else {
+                                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
+                                        window.parent.API_LoadPage("Register", "Register.aspx")
+                                    });
+                                }
+                            }
                         });
                     }
                 } else {
-                    if (o == "Timeout") {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
-                            window.parent.API_LoadPage("Register", "Register.aspx")
-                        });
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
-                            window.parent.API_LoadPage("Register", "Register.aspx")
-                        });
-                    }
+                    window.parent.showMessageOK("", mlp.getLanguageKey("驗證碼錯誤"));
                 }
             });
         }
+    }
+     //簡易註冊
+    function SimpleRegistrationCreateUser() {
+        var form2 = document.getElementById("registerStep2");
+        var CurrencyList = WebInfo.RegisterCurrencyType;
+
+        let nowYear = new Date().getFullYear();
+
+        if ($("#NickName").val() == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入暱稱"));
+            return;
+        }
+
+        if (!$("#CheckAge").prop("checked")) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請確認已年滿20歲"));
+            return;
+        }
+
+        var LoginAccount = document.getElementById("idLoginAccount").value;
+        var LoginPassword = document.getElementById("idLoginPassword").value;
+        var ParentPersonCode = $("#PersonCode").val();
+        var PS;
+
+        if (typeof (ParentPersonCode) == "string") {
+            ParentPersonCode = ParentPersonCode.trim();
+        }
+
+        if (LoginAccount.indexOf('+') > 0) {
+            window.parent.showMessageOK("", mlp.getLanguageKey("不得包含+"));
+            return false;
+        }
+
+        if (!CheckPassword()) {
+            return false;
+        }
+
+        PS = [
+            { Name: "IsFullRegistration", Value: 0 },
+            { Name: "RealName", Value: $("#NickName").val() },
+            { Name: "EMail", Value: document.getElementById("idLoginAccount").value },
+        ];
+
+        p.CreateAccount(Math.uuid(), LoginAccount, LoginPassword, ParentPersonCode, CurrencyList, PS, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    sendThanksMail();
+                    window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("註冊成功, 請按登入按鈕進行登入"), function () {
+                        document.getElementById("idRegister").classList.add("is-hide");
+                        window.parent.API_LoadPage('registerFinish', 'registerFinish.aspx');
+                    });
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o.Message), function () {
+                        window.parent.API_LoadPage("Register", "Register.aspx")
+                    });
+                }
+            } else {
+                if (o == "Timeout") {
+                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey("網路異常, 請重新嘗試"), function () {
+                        window.parent.API_LoadPage("Register", "Register.aspx")
+                    });
+                } else {
+                    window.parent.showMessageOK(mlp.getLanguageKey("失敗"), mlp.getLanguageKey(o), function () {
+                        window.parent.API_LoadPage("Register", "Register.aspx")
+                    });
+                }
+            }
+        });
+
     }
 
     function updateBaseInfo() {
@@ -399,6 +545,12 @@
 
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
+
+            if (pCode) {
+                $("input[name=PersonCode]").val(pCode);
+                $("input[name=PersonCode]").prop('disabled', true);
+            }
+
             window.parent.API_LoadingEnd(1);
         });
 
@@ -502,6 +654,25 @@
         }
     }
 
+    function CheckValidateCode_Phone() {
+        if ($("#idValidateCode_Phone").val() == "") {
+            $("#btnSendValidateCode_Phone").removeAttr("disabled");
+        } else {
+            $("#btnSendValidateCode_Phone").attr("disabled", "disabled");
+        }
+    }
+
+    function ChangeRegister(registertype) {
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        $("#li_register" + registertype).addClass("active");
+
+        if (registertype == 2) {
+            $("#contentStep2").removeClass("is-hide");
+        } else {
+            $("#contentStep2").addClass("is-hide");
+        }
+    }
+
     window.onload = init;
 </script>
 <body>
@@ -515,18 +686,21 @@
             <div></div>
         </div>
 
-
         <!-- 主內容框 -->
         <div class="main-panel">
-
             <!-- 註冊 -->
             <div id="idRegister" class="form-container">
-                <div class="heading-title">
-                    <h3 class="language_replace">創建新帳號</h3>
+                <div class="sec-title-wrapper">
+                    <div class="heading-title">
+                        <h3 class="language_replace">創建新帳號</h3>
+                    </div>
+                    <span class="sec-title-intro-link ml-2" data-toggle="modal" data-target="#ModalRegisterWay">
+                        <span class="btn btn-Q-mark btn-full-stress btn-round"><i class="icon icon-mask icon-question"></i></span>
+                    </span>
                 </div>
 
                 <!-- 步驟 -->
-                <div class="progress-container mb-4 pb-2">
+                <div class="progress-container mb-4 pb-2 is-hide">
                     <div id="progressStep1" class="progress-step cur">
                         <div class="progress-step-item"></div>
                     </div>
@@ -535,36 +709,65 @@
                     </div>
                 </div>
 
-                <!-- 註冊 step1 -->
+                <!-- 簡易/完整步驟 -->
+                <div class="tab-register">
+                    <div class="tab-primary tab-scroller tab-2">
+                        <div class="tab-scroller__area">
+                            <ul class="tab-scroller__content">
+                                <li class="tab-item active" id="li_register1" onclick="ChangeRegister(1)">
+                                    <span class="tab-item-link"><span class="title language_replace">簡易註冊</span>
+                                    </span>
+                                </li>
+                                <li class="tab-item" id="li_register2" onclick="ChangeRegister(2)">
+                                    <span class="tab-item-link">
+                                        <span class="title language_replace">完整註冊</span>
+                                    </span> 
+                                </li>
+                                <li class="tab-slide"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 簡易註冊 -->
                 <div id="contentStep1" class="form-content" data-form-group="registerStep1">
                     <form id="registerStep1">
-                        <div class="form-group">
+                        <div class="form-group mt-4">
                             <label class="form-title language_replace">信箱</label>
                             <div class="input-group">
                                 <input id="idLoginAccount" name="LoginAccount" type="text" language_replace="placeholder" class="form-control custom-style" placeholder="請填寫正確的E-mail信箱" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入正確信箱</div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col phonePrefix">
-                                <label class="form-title language_replace">國碼</label>
-                                <div class="input-group">
-                                    <input id="idPhonePrefix" type="text" class="form-control custom-style" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
-                                    <div class="invalid-feedback language_replace">請輸入國碼</div>
-                                </div>
+                        <div class="btn-container register" id="divSendValidateCodeBtn">
+                            <button type="button" class="btn btn-primary btn-ValidateCode" onclick="onBtnSendValidateCode()" id="btnSendValidateCode">
+                                <span class="language_replace">傳送驗證碼</span>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <div class="text-s text-indent">
+                                <label class=" language_replace">E-mail驗證相關說明：</label></br>
+                                <label class=" language_replace">1.輸入信箱後點擊『傳送驗證碼』後，驗證碼將會發送到您填寫的E-mail。</label></br>
+                                <label class=" language_replace">2.將驗證碼回填於下方輸入框內。</label></br>
                             </div>
-                            <div class="form-group col">
-                                <label class="form-title language_replace">手機電話號碼</label>
-                                <div class="input-group">
-                                    <input id="idPhoneNumber" type="text" class="form-control custom-style" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
-                                    <div class="invalid-feedback language_replace">請輸入正確電話</div>
-                                </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-title language_replace">驗證碼</label>
+                            <div class="input-group">
+                                <input id="idValidateCode" name="ValidateCode" type="text" class="form-control custom-style" onkeyup="CheckValidateCode()">
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="form-title language_replace">暱稱</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="暱稱請輸入英文與數字，長度12位元以內" inputmode="" id="NickName" name="NickName">
+                                <div class="invalid-feedback language_replace">提示</div>
+                            </div>
+                        </div>                       
+                        <div class="form-group">
                             <label class="form-title language_replace">密碼</label>
                             <div class="input-group">
-                                <input id="idLoginPassword" name="LoginPassword" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <input id="idLoginPassword" name="LoginPassword" style="letter-spacing:0 !important" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
                                 <div class="invalid-feedback language_replace">請輸入密碼</div>
                             </div>
                             <button class="btn btn-icon" type="button" onclick="showPassword('idLoginPassword')">
@@ -572,360 +775,74 @@
                             </button>
                         </div>
                         <div class="form-group">
-                            <label class="form-title language_replace">驗證碼</label>
+                            <label class="form-title language_replace">確認密碼</label>
                             <div class="input-group">
-                                <input id="idValidateCode" name="ValidateCode" type="text" class="form-control custom-style" onkeyup="CheckValidateCode()">
+                                <input id="idLoginCheckPassword" name="LoginPassword" style="letter-spacing:0 !important" type="password" class="form-control custom-style" language_replace="placeholder" placeholder="字母和數字的組合在20個字符以內" inputmode="email">
+                                <div class="invalid-feedback language_replace">確認密碼</div>
                             </div>
-                        </div>
-
-                        <div class="btn-container" id="divSendValidateCodeBtn">
-                            <button type="button" class="btn btn-primary" onclick="onBtnSendValidateCode()" id="btnSendValidateCode">
-                                <span class="language_replace">傳送驗證碼</span>
+                            <button class="btn btn-icon" type="button" onclick="showPassword('idLoginCheckPassword')">
+                                <i class="icon-eye-off"></i>
                             </button>
-                        </div>
-                        <div id="divStep1Btn" style="display: none">
-                            <div class="btn-container">
-                                <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
-                                    <span class="language_replace">下一步</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <label class=" language_replace">E-mail將用於發送確認碼，請填寫正確的E-mail。</label></br>
-                               
-                                <label class=" language_replace">1.請先輸入正確E-mail。</label></br>
-
-                                <label class=" language_replace">2.從註冊會員的畫面點擊發送驗證碼。</label></br>
-                               
-                                <label class=" language_replace">3.驗證碼將會發送到您填寫的E-mail。</label></br>
-                               
-                                <label class=" language_replace">4.輸入驗證碼之後就可進行下一個步驟。</label></br>
-                
-                                <label class=" language_replace">5.您需要填寫您的姓名、暱稱、出生日期等。</label></br>
-            
-                                <label class=" language_replace">6.開戶後，您將通過一封簡短的電子郵件收到有關 Club Maharaja 的信息。</label></br>
-                           
-                                <label class=" language_replace">※為了能夠接收活動及獎金，請填寫正確的E-mail。</label></br>
-                            </div>
-                        </div>
+                        </div>                                              
                     </form>
                 </div>
 
-                <!-- 註冊 stepTwo -->
+                <!-- 以下為 完整註冊-進階版 -->
                 <div id="contentStep2" class="form-content is-hide" data-form-group="registerStep2">
                     <form id="registerStep2">
                         <div class="form-row">
-                            <div class="form-group col-md">
-                                <label class="form-title">
-                                    姓
-                                    <span class="form-title-note language_replace">(羅馬字)</span></label>
+                            <div class="form-group col phonePrefix">
+                                <label class="form-title language_replace">國碼</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Yamada" inputmode="email" name="Name1">
-                                    <div class="invalid-feedback language_replace">提示</div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md">
-                                <label class="form-title">
-                                    名
-                               
-                                    <span class="form-title-note language_replace">(羅馬字)</span></label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Taro" inputmode="email" name="Name2">
-                                    <div class="invalid-feedback language_replace">提示</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-title language_replace">暱稱</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="暱稱請輸入英文與數字，長度12位元以內" inputmode="" name="NickName">
-                                <div class="invalid-feedback language_replace">提示</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-title language_replace">國家</label>
-                            <div class="input-group">
-                                <select class="form-control custom-style" name="Country">
-                                    <option value="AF">Afghanistan</option>
-                                    <option value="AX">Åland Islands</option>
-                                    <option value="AL">Albania</option>
-                                    <option value="DZ">Algeria</option>
-                                    <option value="AS">American Samoa</option>
-                                    <option value="AD">Andorra</option>
-                                    <option value="AO">Angola</option>
-                                    <option value="AI">Anguilla</option>
-                                    <option value="AQ">Antarctica</option>
-                                    <option value="AG">Antigua and Barbuda</option>
-                                    <option value="AR">Argentina</option>
-                                    <option value="AM">Armenia</option>
-                                    <option value="AW">Aruba</option>
-                                    <option value="AU">Australia</option>
-                                    <option value="AT">Austria</option>
-                                    <option value="AZ">Azerbaijan</option>
-                                    <option value="BS">Bahamas (the)</option>
-                                    <option value="BH">Bahrain</option>
-                                    <option value="BD">Bangladesh</option>
-                                    <option value="BB">Barbados</option>
-                                    <option value="BY">Belarus</option>
-                                    <option value="BE">Belgium</option>
-                                    <option value="BZ">Belize</option>
-                                    <option value="BJ">Benin</option>
-                                    <option value="BM">Bermuda</option>
-                                    <option value="BT">Bhutan</option>
-                                    <option value="BO">Bolivia (Plurinational State of)</option>
-                                    <option value="BQ">Bonaire, Sint Eustatius and Saba</option>
-                                    <option value="BA">Bosnia and Herzegovina</option>
-                                    <option value="BW">Botswana</option>
-                                    <option value="BV">Bouvet Island</option>
-                                    <option value="BR">Brazil</option>
-                                    <option value="IO">British Indian Ocean Territory (the)</option>
-                                    <option value="BN">Brunei Darussalam</option>
-                                    <option value="BG">Bulgaria</option>
-                                    <option value="BF">Burkina Faso</option>
-                                    <option value="BI">Burundi</option>
-                                    <option value="CV">Cabo Verde</option>
-                                    <option value="KH">Cambodia</option>
-                                    <option value="CM">Cameroon</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="KY">Cayman Islands (the)</option>
-                                    <option value="CF">Central African Republic (the)</option>
-                                    <option value="TD">Chad</option>
-                                    <option value="CL">Chile</option>
-                                    <option value="CN">China</option>
-                                    <option value="CX">Christmas Island</option>
-                                    <option value="CC">Cocos (Keeling) Islands (the)</option>
-                                    <option value="CO">Colombia</option>
-                                    <option value="KM">Comoros (the)</option>
-                                    <option value="CD">Congo (the Democratic Republic of the)</option>
-                                    <option value="CG">Congo (the)</option>
-                                    <option value="CK">Cook Islands (the)</option>
-                                    <option value="CR">Costa Rica</option>
-                                    <option value="HR">Croatia</option>
-                                    <option value="CU">Cuba</option>
-                                    <option value="CW">Curaçao</option>
-                                    <option value="CY">Cyprus</option>
-                                    <option value="CZ">Czechia</option>
-                                    <option value="CI">Côte d'Ivoire</option>
-                                    <option value="DK">Denmark</option>
-                                    <option value="DJ">Djibouti</option>
-                                    <option value="DM">Dominica</option>
-                                    <option value="DO">Dominican Republic (the)</option>
-                                    <option value="EC">Ecuador</option>
-                                    <option value="EG">Egypt</option>
-                                    <option value="SV">El Salvador</option>
-                                    <option value="GQ">Equatorial Guinea</option>
-                                    <option value="ER">Eritrea</option>
-                                    <option value="EE">Estonia</option>
-                                    <option value="SZ">Eswatini</option>
-                                    <option value="ET">Ethiopia</option>
-                                    <option value="FK">Falkland Islands (the) [Malvinas]</option>
-                                    <option value="FO">Faroe Islands (the)</option>
-                                    <option value="FJ">Fiji</option>
-                                    <option value="FI">Finland</option>
-                                    <option value="FR">France</option>
-                                    <option value="GF">French Guiana</option>
-                                    <option value="PF">French Polynesia</option>
-                                    <option value="TF">French Southern Territories (the)</option>
-                                    <option value="GA">Gabon</option>
-                                    <option value="GM">Gambia (the)</option>
-                                    <option value="GE">Georgia</option>
-                                    <option value="DE">Germany</option>
-                                    <option value="GH">Ghana</option>
-                                    <option value="GI">Gibraltar</option>
-                                    <option value="GR">Greece</option>
-                                    <option value="GL">Greenland</option>
-                                    <option value="GD">Grenada</option>
-                                    <option value="GP">Guadeloupe</option>
-                                    <option value="GU">Guam</option>
-                                    <option value="GT">Guatemala</option>
-                                    <option value="GG">Guernsey</option>
-                                    <option value="GN">Guinea</option>
-                                    <option value="GW">Guinea-Bissau</option>
-                                    <option value="GY">Guyana</option>
-                                    <option value="HT">Haiti</option>
-                                    <option value="HM">Heard Island and McDonald Islands</option>
-                                    <option value="VA">Holy See (the)</option>
-                                    <option value="HN">Honduras</option>
-                                    <option value="HK">Hong Kong</option>
-                                    <option value="HU">Hungary</option>
-                                    <option value="IS">Iceland</option>
-                                    <option value="IN">India</option>
-                                    <option value="ID">Indonesia</option>
-                                    <option value="IR">Iran (Islamic Republic of)</option>
-                                    <option value="IQ">Iraq</option>
-                                    <option value="IE">Ireland</option>
-                                    <option value="IM">Isle of Man</option>
-                                    <option value="IL">Israel</option>
-                                    <option value="IT">Italy</option>
-                                    <option value="JM">Jamaica</option>
-                                    <option value="JP" selected>Japan</option>
-                                    <option value="JE">Jersey</option>
-                                    <option value="JO">Jordan</option>
-                                    <option value="KZ">Kazakhstan</option>
-                                    <option value="KE">Kenya</option>
-                                    <option value="KI">Kiribati</option>
-                                    <option value="KP">Korea (the Democratic People's Republic of)</option>
-                                    <option value="KR">Korea (the Republic of)</option>
-                                    <option value="KW">Kuwait</option>
-                                    <option value="KG">Kyrgyzstan</option>
-                                    <option value="LA">Lao People's Democratic Republic (the)</option>
-                                    <option value="LV">Latvia</option>
-                                    <option value="LB">Lebanon</option>
-                                    <option value="LS">Lesotho</option>
-                                    <option value="LR">Liberia</option>
-                                    <option value="LY">Libya</option>
-                                    <option value="LI">Liechtenstein</option>
-                                    <option value="LT">Lithuania</option>
-                                    <option value="LU">Luxembourg</option>
-                                    <option value="MO">Macao</option>
-                                    <option value="MG">Madagascar</option>
-                                    <option value="MW">Malawi</option>
-                                    <option value="MY">Malaysia</option>
-                                    <option value="MV">Maldives</option>
-                                    <option value="ML">Mali</option>
-                                    <option value="MT">Malta</option>
-                                    <option value="MH">Marshall Islands (the)</option>
-                                    <option value="MQ">Martinique</option>
-                                    <option value="MR">Mauritania</option>
-                                    <option value="MU">Mauritius</option>
-                                    <option value="YT">Mayotte</option>
-                                    <option value="MX">Mexico</option>
-                                    <option value="FM">Micronesia (Federated States of)</option>
-                                    <option value="MD">Moldova (the Republic of)</option>
-                                    <option value="MC">Monaco</option>
-                                    <option value="MN">Mongolia</option>
-                                    <option value="ME">Montenegro</option>
-                                    <option value="MS">Montserrat</option>
-                                    <option value="MA">Morocco</option>
-                                    <option value="MZ">Mozambique</option>
-                                    <option value="MM">Myanmar</option>
-                                    <option value="NA">Namibia</option>
-                                    <option value="NR">Nauru</option>
-                                    <option value="NP">Nepal</option>
-                                    <option value="NL">Netherlands (the)</option>
-                                    <option value="NC">New Caledonia</option>
-                                    <option value="NZ">New Zealand</option>
-                                    <option value="NI">Nicaragua</option>
-                                    <option value="NE">Niger (the)</option>
-                                    <option value="NG">Nigeria</option>
-                                    <option value="NU">Niue</option>
-                                    <option value="NF">Norfolk Island</option>
-                                    <option value="MP">Northern Mariana Islands (the)</option>
-                                    <option value="NO">Norway</option>
-                                    <option value="OM">Oman</option>
-                                    <option value="PK">Pakistan</option>
-                                    <option value="PW">Palau</option>
-                                    <option value="PS">Palestine, State of</option>
-                                    <option value="PA">Panama</option>
-                                    <option value="PG">Papua New Guinea</option>
-                                    <option value="PY">Paraguay</option>
-                                    <option value="PE">Peru</option>
-                                    <option value="PH">Philippines (the)</option>
-                                    <option value="PN">Pitcairn</option>
-                                    <option value="PL">Poland</option>
-                                    <option value="PT">Portugal</option>
-                                    <option value="PR">Puerto Rico</option>
-                                    <option value="QA">Qatar</option>
-                                    <option value="MK">Republic of North Macedonia</option>
-                                    <option value="RO">Romania</option>
-                                    <option value="RU">Russian Federation (the)</option>
-                                    <option value="RW">Rwanda</option>
-                                    <option value="RE">Réunion</option>
-                                    <option value="BL">Saint Barthélemy</option>
-                                    <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
-                                    <option value="KN">Saint Kitts and Nevis</option>
-                                    <option value="LC">Saint Lucia</option>
-                                    <option value="MF">Saint Martin (French part)</option>
-                                    <option value="PM">Saint Pierre and Miquelon</option>
-                                    <option value="VC">Saint Vincent and the Grenadines</option>
-                                    <option value="WS">Samoa</option>
-                                    <option value="SM">San Marino</option>
-                                    <option value="ST">Sao Tome and Principe</option>
-                                    <option value="SA">Saudi Arabia</option>
-                                    <option value="SN">Senegal</option>
-                                    <option value="RS">Serbia</option>
-                                    <option value="SC">Seychelles</option>
-                                    <option value="SL">Sierra Leone</option>
-                                    <option value="SG">Singapore</option>
-                                    <option value="SX">Sint Maarten (Dutch part)</option>
-                                    <option value="SK">Slovakia</option>
-                                    <option value="SI">Slovenia</option>
-                                    <option value="SB">Solomon Islands</option>
-                                    <option value="SO">Somalia</option>
-                                    <option value="ZA">South Africa</option>
-                                    <option value="GS">South Georgia and the South Sandwich Islands</option>
-                                    <option value="SS">South Sudan</option>
-                                    <option value="ES">Spain</option>
-                                    <option value="LK">Sri Lanka</option>
-                                    <option value="SD">Sudan (the)</option>
-                                    <option value="SR">Suriname</option>
-                                    <option value="SJ">Svalbard and Jan Mayen</option>
-                                    <option value="SE">Sweden</option>
-                                    <option value="CH">Switzerland</option>
-                                    <option value="SY">Syrian Arab Republic</option>
-                                    <option value="TW">Taiwan (Province of China)</option>
-                                    <option value="TJ">Tajikistan</option>
-                                    <option value="TZ">Tanzania, United Republic of</option>
-                                    <option value="TH">Thailand</option>
-                                    <option value="TL">Timor-Leste</option>
-                                    <option value="TG">Togo</option>
-                                    <option value="TK">Tokelau</option>
-                                    <option value="TO">Tonga</option>
-                                    <option value="TT">Trinidad and Tobago</option>
-                                    <option value="TN">Tunisia</option>
-                                    <option value="TR">Turkey</option>
-                                    <option value="TM">Turkmenistan</option>
-                                    <option value="TC">Turks and Caicos Islands (the)</option>
-                                    <option value="TV">Tuvalu</option>
-                                    <option value="UG">Uganda</option>
-                                    <option value="UA">Ukraine</option>
-                                    <option value="AE">United Arab Emirates (the)</option>
-                                    <option value="GB">United Kingdom of Great Britain and Northern Ireland (the)</option>
-                                    <option value="UM">United States Minor Outlying Islands (the)</option>
-                                    <option value="US">United States of America (the)</option>
-                                    <option value="UY">Uruguay</option>
-                                    <option value="UZ">Uzbekistan</option>
-                                    <option value="VU">Vanuatu</option>
-                                    <option value="VE">Venezuela (Bolivarian Republic of)</option>
-                                    <option value="VN">Viet Nam</option>
-                                    <option value="VG">Virgin Islands (British)</option>
-                                    <option value="VI">Virgin Islands (U.S.)</option>
-                                    <option value="WF">Wallis and Futuna</option>
-                                    <option value="EH">Western Sahara</option>
-                                    <option value="YE">Yemen</option>
-                                    <option value="ZM">Zambia</option>
-                                    <option value="ZW">Zimbabwe</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-row" style="display: none">
-                            <div class="form-group col">
-                                <label class="form-title language_replace">郵遞區號</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="123-4567" inputmode="numeric" name="PostalCode">
-                                    <div class="invalid-feedback language_replace">提示</div>
+                                    <input id="idPhonePrefix" type="text" class="form-control custom-style"name="PhonePrefix" placeholder="+81" inputmode="decimal" value="+81" onchange="onChangePhonePrefix()">
+                                    <div class="invalid-feedback language_replace">請輸入國碼</div>
                                 </div>
                             </div>
                             <div class="form-group col">
-                                <label class="form-title language_replace">都道縣府<%--<span class="form-title-note language_replace">(羅馬字)</span>--%></label>
+                                <label class="form-title language_replace">手機電話號碼</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-style" placeholder="Tokyo" inputmode="" name="Prefectures">
-                                    <div class="invalid-feedback language_replace">提示</div>
+                                    <input id="idPhoneNumber" type="text" class="form-control custom-style"name="PhoneNumber" language_replace="placeholder" placeholder="000-0000-0000 (最前面的00請勿輸入)" inputmode="decimal">
+                                    <div class="invalid-feedback language_replace">請輸入正確電話</div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group" style="display: none">
-                            <label class="form-title language_replace">市區町村以下的地址<%--<span class="form-title-note language_replace">(羅馬字)</span>--%></label>
+                        <div class="btn-container mb-3" id="divSendValidateCodeBtn_Phone">
+                            <button type="button" class="btn btn-primary btn-ValidateCode" onclick="onBtnSendValidateCode_Phone()" id="btnSendValidateCode_Phone">
+                                <span class="language_replace">傳送簡訊驗證碼</span>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-title language_replace">驗證碼</label>
                             <div class="input-group">
-                                <input type="text" class="form-control custom-style" placeholder="shinjiku-ku 1-2-3" inputmode="" name="Address">
-                                <div class="invalid-feedback language_replace">提示</div>
+                                <input id="idValidateCode_Phone" name="ValidateCode_Phone" type="text" class="form-control custom-style" onkeyup="CheckValidateCode_Phone()"  >
                             </div>
                         </div>
-
+                        <div class="form-row">
+                            <div class="form-group col-md form-input-focus-tip">
+                                <label class="form-title language_replace">姓</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="請輸入姓" inputmode="email" name="Name1">
+                                    <div class="invalid-feedback language_replace">提示</div>
+                                    <div class="custom-input-focus-tip">
+                                        <div class="notice align-items-start">
+                                            <span class="icon-warn"></span>
+                                            <span class="text language_replace">請填寫真實姓名供後續身份認證時驗證</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md form-input-focus-tip">
+                                <label class="form-title language_replace">名</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="請輸入名" inputmode="email" name="Name2">
+                                    <div class="invalid-feedback language_replace">提示</div>
+                                    <div class="custom-input-focus-tip">
+                                        <div class="notice align-items-start">
+                                            <span class="icon-warn"></span>
+                                            <span class="text language_replace">請填寫真實姓名供後續身份認證時驗證</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-group col">
                                 <label class="form-title language_replace">出生年</label>
@@ -959,42 +876,46 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label class="form-title language_replace">推廣碼</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" name="PersonCode">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="CheckAge" name="eighteenCheck">
-                                <label class=" language_replace" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
-                            </div>
-                        </div>
-                        <div class="form-group rules-privacy text-small">
-                            <p class="language_replace">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
-                        </div>
-
-                        <div class="btn-container">
-                            <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep2()">
-                                <span class="language_replace">註冊</span>
-                            </button>
-                        </div>
+                        </div>             
                     </form>
                 </div>
 
-                <div class="get-start-header">
-                    <div class="language_replace">已有帳號了?</div>
-                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="window.parent.API_LoadPage('Login', 'Login.aspx')">
-                        <span class="language_replace">前往登入</span>
-                    </button>
-                </div>
+                <div id="" class="form-content">
+                    <div class="form-group">
+                        <label class="form-title language_replace">推廣碼</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control custom-style" language_replace="placeholder" placeholder="若無推廣碼可不填寫" inputmode="" id="PersonCode" name="PersonCode">
+                        </div>
+                    </div>   
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="CheckAge" name="eighteenCheck">
+                            <label class=" language_replace text-s" for="CheckAge">我已年滿20歲，且我已了解資料僅作為本網站會員所使用，不會在其他地方使用。</label>
+                        </div>
+                    </div>
+                    <div class="form-group rules-privacy text-small">
+                        <p class="language_replace text-s">點選「開設帳號」就代表理解隱私權政策，也同意利用規約還有在マハラジャ不能持有複數的帳號這個條件。</p>
+                    </div>
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-primary" onclick="onBtnUserRegisterStep1()">
+                            <span class="language_replace">註冊</span>
+                        </button>
+                    </div>
 
+                    <div class="get-start-header">
+                        <div class="language_replace">已有帳號了?</div>
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="window.parent.API_LoadPage('Login', 'Login.aspx')">
+                            <span class="language_replace">前往登入</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <div class="LineOfficialQrcode">
+                            <p class="QrCode"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6AQAAAACgl2eQAAABrklEQVR4Xu2YXYrDMAyEBT5AjuSr+0g+gEGrmXHYbFna1w5YuMGRvpdBP3Ya+d5GvHpe7ACyA8gOICMwouwaOXtcyTUWXIrZAPVbVzaSbfZVwLX9RkCJohOrZQZfIdwPQJoqWjKdgYHQlVQKvXZAsuSCZUb/+Lcmvxyo7MRdcnvBpZgLINvZgcDZH14ngMWGOaY0SawVgNSkJnD0NoNDAE8vIGcsHCWxdu9jlDWmzAgI+FNRhTTQvIDSFVHJykoW8lXu6AhbAWp8JIvR0lgbOY2AqrcFXaUXTqpGK1kBfC2ZXCSxeci0ARbbBNEJgX+HmAWAxiHWU2JnoPcnYz5AY9VhIMvPw0UZ9AE2gycbH3DaAdhjAvBYUcug5J7HogOwy6wMoa7GSZoRQKWdBGYyxpd6xwsoXXhLtUxCKSR7AY0XRbY/OmhRr/LlA8hQeJRMuCK/Mi2AAVV7CGMj1TgirYDE5Qo5Qu1hdlGmG8A5XEMYehNZ4+ZRk05A5YiftIsHyrPkrICe90VLTi8gUXJIVuJMBxz7XzgnoAoMnvtLUIxU+wDv7ACyA8gOIPsM/AA5dNe87D/VlAAAAABJRU5ErkJggg==" alt=""></p>
+                            <p class="text-note text-gray language_replace">* 若有任何問題歡迎資詢マハラジャ官方Line客服</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <!-- 註冊完成 -->
@@ -1026,5 +947,37 @@
         </div>
     </div>
 
+      <!-- Modal RegisterWay -->
+      <div class="modal fade footer-center" id="ModalRegisterWay" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title"></h5> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btn_PupLangClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="registerWay-popup-wrapper popup-tip">
+                        <ul class="registerWay-popup-list">
+                            <li class="item">
+                            <h3 class="title language_replace">簡易註冊與完整註冊</h3>
+                            <p class="desc language_replace">簡易註冊可讓玩家填入最低限度的內容，即可進入網站體驗，但完整註冊才能享有領取獎勵、充值、提款等完整會員才有的特定功能喔!</p>  
+                            </li>
+                            <li class="item">
+                                <h3 class="title language_replace">簡易註冊後如何升級完整會員?</h3>
+                                <p class="desc language_replace">於會員中心按下『進行認證』之按鈕，或欲使用被限制之功能時，提供填寫介面以利會員完成認證。</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <%--<div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                </div>--%>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

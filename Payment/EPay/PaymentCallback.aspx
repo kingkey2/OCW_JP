@@ -32,7 +32,7 @@
                             if ((int)PaymentOrderDT.Rows[0]["FlowStatus"] == 1)
                             {
                                 EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
-                                var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+                                var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"],-1);
 
                                 if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                 {

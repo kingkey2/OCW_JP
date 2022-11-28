@@ -301,9 +301,9 @@
         var R = 0;
         var price;
 
-        if (NomicsExchangeRate && NomicsExchangeRate.length > 0) {
+        if (NomicsExchangeRate) {
             if (currency == "JKC") {
-                price = NomicsExchangeRate.find(x => x["currency"] == "ETH").price;
+                price = NomicsExchangeRate["ETH"];
                 R = 1 / (price / 3000);
             } else if(currency == "JPY"){
                 R = 1;
@@ -336,7 +336,7 @@
     }
 
     function GetPaymentMethod() {
-        PaymentClient.GetPaymentMethodByCategory(WebInfo.SID, Math.uuid(), "EPAYJKC", 0, function (success, o) {
+        PaymentClient.GetPaymentMethodByPaymentCode(WebInfo.SID, Math.uuid(), "EPAYJKC", 0, "JKCCASH", function (success, o) {
             if (success) {
                 if (o.Result == 0) {
                     if (o.PaymentMethodResults.length > 0) {
@@ -507,6 +507,7 @@
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
+        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("disabled", "disabled");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
         $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));

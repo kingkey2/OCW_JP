@@ -22,7 +22,18 @@
                 if (StatusResult.ResultState == APIResult.enumResultCode.OK) {
                     if (StatusResult.IsSuccess) {
                         EWin.Payment.PaymentAPI paymentAPI = new EWin.Payment.PaymentAPI();
-                        var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"]);
+                        decimal TaxFeeValue = 0;
+
+                        switch (StatusResult.Currency) {
+                            case "USD":
+                                TaxFeeValue = StatusResult.OrderAmount * decimal.Parse("0.044") + decimal.Parse("0.3");
+                                break;
+                            default:
+                                TaxFeeValue = StatusResult.OrderAmount * decimal.Parse("0.044") + decimal.Parse("40");
+                                break;
+                        }
+
+                        var finishResult = paymentAPI.FinishedPayment(EWinWeb.GetToken(), System.Guid.NewGuid().ToString(), (string)PaymentOrderDT.Rows[0]["PaymentSerial"], TaxFeeValue);
 
                         if (finishResult.ResultStatus == EWin.Payment.enumResultStatus.OK) {
                             R.ResultState = APIResult.enumResultCode.OK;

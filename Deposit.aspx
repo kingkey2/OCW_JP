@@ -17,10 +17,23 @@
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
     <style>
         
     </style>
 </head>
+<% if (EWinWeb.IsTestSite == false)
+    { %>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-097DC2GB6H');
+</script>
+<% } %>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="Scripts/OutSrc/js/wallet.js"></script>
@@ -37,6 +50,7 @@
     var WebInfo;
     var lang;
     var mlp;
+    var IsFullRegistration = 0;
     var v = "<%:Version%>";
 
     function init() {
@@ -47,10 +61,18 @@
 
         WebInfo = window.parent.API_GetWebInfo();
 
+
         lang = window.parent.API_GetLang();
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
+
+            IsFullRegistration = window.parent.API_GetUserIsFullRegistration();
+            if (IsFullRegistration == 0) {
+                window.parent.showMessageOK("", mlp.getLanguageKey("您尚未完成認證，即將前往認證頁面"), function () {
+                    window.parent.API_LoadPage('MemberCenter', 'MemberCenter.aspx?needShowRegister=1', true);
+                });
+            }
         }, "PaymentAPI");
     }
 
@@ -136,76 +158,12 @@
                             <img src="images/assets/card-surface/card-08.svg" class="card-item-bg">
                         </a>
                     </div>
-                    <!-- 虛擬錢包 -->
-                    <div class="card-item sd-02" style="">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span>Crypto Wallet</span>
-                                </div>
-                                <div class="title vertical-center">
-                                    <span class="language_replace">虛擬貨幣</span>
-                                </div>
-                                <!-- <div class="desc">
-                                    <b>30</b> € -  <b>5,000</b> € No Fee                                   
-                                </div> -->
-                                <div class="logo">
-                                    <i class="icon-logo-usdt"></i>
-                                    <!-- <i class="icon-logo-eth-o"></i> -->
-                                    <!-- <i class="icon-logo-nissin"></i> -->
-                                    <i class="icon-logo-eth"></i>
-                                    <i class="icon-logo-btc"></i>
-                                    
-                                    <!-- <i class="icon-logo-doge"></i> -->
-                                    <!-- <i class="icon-logo-tron"></i> -->
-                                </div>
-                                <!-- <div class="instructions-crypto">
-                                    <i class="icon-info_circle_outline"></i>
-                                    <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
-                                </div>                                -->
-                            </div>
-                            <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
-                        </a>
-                    </div>
                     <!-- EPay -->
                     <div class="card-item sd-03" id="idDepositEPay">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">Maharaja</span>
-                                    <!-- <span>Electronic Wallet</span>  -->
-                                </div>
-                                <div class="logo vertical-center text-center"> 
-                                    <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">
-                                </div>
-                            </div>
-                            <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
-                        </a>
-                    </div>
-
-                    <!-- EPay -->
-                    <div class="card-item tempCard" id="idDepositJKC" <%--onclick="TempAlert()"--%> onclick="window.parent.API_LoadPage('DepositJKCEPay','DepositJKCEPay.aspx')">                   
-                        <a class="card-item-link" style="background-image: url(../images/assets/card-surface/card-jkc.svg)">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span>マハラジャ</span> 
-                                </div>
-                                <div class="logo vertical-center">                                   
-                                    <img src="images/assets/card-surface/jkc-font.svg">                                   
-                                </div>
-                            </div>                           
-                            <img src="images/assets/card-surface/card-jkc.svg"  class="card-item-bg">
-                        </a>
-                        <%--<img class="comingSoon" src="../images/assets/card-surface/cs.png">--%>
-                    </div>
-
-                    <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositEPayGASH">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositGASH','DepositGASH.aspx')">
-                            <div class="card-item-inner">
-                                <div class="title">
-                                    <span class="language_replace">GASH</span>
                                     <!-- <span>Electronic Wallet</span>  -->
                                 </div>
                                 <div class="logo vertical-center text-center"> 
@@ -259,5 +217,6 @@
 
         </div>
     </div>
+    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

@@ -111,6 +111,7 @@ public partial class Common : System.Web.UI.Page
                 if (TransactionID == PayPalOrderID) {
                     JArray PaymenDetail = JArray.FromObject(returnResult["purchase_units"]);
                     decimal OrderAmount = (decimal)PaymenDetail[0]["payments"].SelectToken("captures")[0]["amount"]["value"];
+                    string OrderCurrency = (string)PaymenDetail[0]["payments"].SelectToken("captures")[0]["amount"]["currency_code"];
                     string OrderDate = DateTime.Parse(PaymenDetail[0]["payments"].SelectToken("captures")[0]["update_time"].ToString()).AddHours(8).ToString();
 
                     if (returnResult["status"].ToString() == "COMPLETED") {
@@ -119,6 +120,7 @@ public partial class Common : System.Web.UI.Page
                         result.Message = returnResult.ToString();
                         result.OrderAmount = OrderAmount;
                         result.OrderDate = OrderDate;
+                        result.Currency = OrderCurrency;
                         result.IsSuccess = true;
                     } else {
                         result.ResultState = PaypalStatusResult.enumResultCode.ERR;
@@ -197,6 +199,7 @@ public partial class Common : System.Web.UI.Page
     {
         public decimal OrderAmount { get; set; }
         public string OrderDate { get; set; }
+        public string Currency { get; set; }
         public bool IsSuccess { get; set; }
     }
 

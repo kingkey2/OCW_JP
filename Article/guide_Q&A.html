@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="CSS/layout.css">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="CSS/QaStyle.css">
-    <link href="css/footer-new.css" rel="stylesheet" />
+    <link href="../css/footer-new.css" rel="stylesheet" />
     <!--<script defer src='https://www.japanesecasino.com/wp-content/themes/sunrise2/js/components/loadMorePosts.js?ver=5.7.2' id='sunrise2-loadMorePosts-js'></script>-->
     <link rel="canonical" href="Guide.html" />
     <meta name="description" content="カジノの情報全てが一箇所にまとまっていて簡単に見られるところはないか？まさに、ジャパニーズカジノのカジノガイドページがお探しのページです！カジノ用語、ゲーム、ルール、ボーナス、ランドベースカジノを始めとした様々な情報がここで見つかります。" />
@@ -37,6 +37,10 @@
         /**
 * Script to toggle and enable search
 */
+        if (self != top) {
+            window.parent.API_LoadingStart();
+        }
+
         (function () {
 
             document.addEventListener("DOMContentLoaded", init);
@@ -45,6 +49,15 @@
              * Initiate script
              */
             function init() {
+                window.parent.API_LoadingEnd();
+                //if (document.URL.includes('WithdrawQ&A')) {
+                //    $('#nav-PopularArticles-tab').trigger("click");
+                //    $('#withdrawQA').trigger("click");
+                //    var href = $('#withdrawQA').attr('href');
+                //    href = "guide_Rolling.html"
+                //    window.location.href = href;
+                //}
+
                 var search_toggler = document.getElementById("search_toggler");
 
                 if (!search_toggler) return;
@@ -78,6 +91,8 @@
              * Initiate script
              */
             function init() {
+                window.parent.API_LoadingEnd();
+
                 elems['buttons'] = document.getElementsByClassName("showmore");
 
                 // No buttons found
@@ -148,6 +163,7 @@
             document.addEventListener("DOMContentLoaded", init);
 
             function init() {
+                window.parent.API_LoadingEnd();
 
                 elems['sticky'] = document.getElementById("sticky");
                 elems['breakpoint'] = document.getElementById("stickyBreakpoint");
@@ -199,6 +215,7 @@
                 // Add listeners
                 checkPassiveSupport();
                 window.addEventListener("scroll", sticky, passiveSupport ? { passive: true } : false);
+
             }
 
             /**
@@ -374,8 +391,8 @@
                                             </h2>
                                             <div id="flush-collapse002" class="accordion-collapse collapse" aria-labelledby="flush-heading002" data-parent="#accordionFlushExample">
                                                 <div class="accordion-body language_replace">
-                                                    <p class="language_replace">アカウント認証はいつでも可能ですが、担当部署よりアカウント認証が必要と判断された場合にもメールやサイトよりご連絡いたします。</p>
-                                                    <p class="language_replace">アカウント認証に必要な書類は、こちらのアカウント認証ページでアップロードいただけます。</p>
+                                                    <p class="language_replace">スタンダード会員限定の入出金やボーナスを受け取るなどの機能を使用するには、アカウント認証を行う必要があります。</p>
+                                                    <p class="language_replace">アカウント認証はいつでも「メンバーページ」から、「認証する」をクリックし、案内に沿って行えます。</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -410,8 +427,9 @@
                                             </h2>
                                             <div id="flush-collapse005" class="accordion-collapse collapse" aria-labelledby="flush-heading005" data-parent="#accordionFlushExample">
                                                 <div class="accordion-body language_replace">
-                                                    <p class="language_replace">アカウントの開設は、携帯電話番号、パスワードを入力いただき、確認コードを送信ボタンをクイックいただくと、登録した携帯番号にショートメールが届きます。</p>
-                                                    <p class="language_replace">確認コードを入力し、次に進んでください。</p>
+                                                    <p class="language_replace">新規登録で、メールアドレスを入力いただき、確認コードを送信ボタンをクリックいただくと、確認コードがご入力したメールアドレスに発送されます。</p>
+                                                    <p class="language_replace">確認コード、ニックネーム、パスワードを入力すれば、シンプル登録が完了します。</p>
+                                                    <p class="language_replace">スタンダード会員限定の入出金やボーナスを受け取るなどの機能を使用する場合は、「メンバーページ」から、案内に沿って、アカウント認証を完了すれば、スタンダード会員になれます。</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -458,7 +476,7 @@
                                             </h2>
                                             <div id="flush-collapse008" class="accordion-collapse collapse" aria-labelledby="flush-heading008" data-parent="#accordionFlushExample2">
                                                 <div class="accordion-body">
-                                                    <p class="language_replace"></p>現在、クレジットカード決済（PayPal）、銀行振込（NissinPay）及び、暗号通貨ＢＴＣ、ＵＳＤＴ、ＵＳＤＣ、ＥＴＨ、ＸＲＰとなります。
+                                                    <p class="language_replace"></p>現在、クレジットカード決済（PayPal）、銀行振込及び、暗号通貨ＢＴＣ、ＵＳＤＴ、ＵＳＤＣ、ＥＴＨ、ＸＲＰとなります。
                                                     <p class="language_replace">今後様々な入金や出金手段を増やしていきます。ご希望の入出金方法が御座いましたらお気軽にカスタマーサポートへご相談ください。</p>
                                                 </div>
                                             </div>
@@ -478,11 +496,11 @@
                                         <div class="accordion-item">
                                             <h2 class="accordion-header QA-style" id="flush-heading010">
                                                 <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-toggle="collapse" data-target="#flush-collapse010" aria-expanded="false" aria-controls="flush-collapse010">
-                                                    初めて入金をしようと思います。初回入金ボーナスは、どうすればもらえますか?
+                                                    初めて入金をしようと思います。初回入金に何か特典がありますか？
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse010" class="accordion-collapse collapse" aria-labelledby="flush-heading010" data-parent="#accordionFlushExample2">
-                                                <div class="accordion-body language_replace">初回入金いただくと、入金方法により、相応のボーナスを受け箱で受け取ることができます。ただし、最大5万OCoinまでが限度額となります。詳しい情報は「キャンペーン」の説明をご覧ください。</div>
+                                                <div class="accordion-body language_replace">入金いただくと、入金方法により、相応のボーナスまたはギフトマネーを「ボーナス受取り」で受け取ることができます。毎月変わりますので、詳しい情報は「キャンペーン」の説明をご覧ください。</div>
                                             </div>
                                         </div>
 
@@ -493,7 +511,7 @@
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse011" class="accordion-collapse collapse" aria-labelledby="flush-heading011" data-parent="#accordionFlushExample2">
-                                                <div class="accordion-body language_replace">最低金額はクレジットカード決済（PayPal）は500円から、銀行振込（NissinPay）は2000円から、仮想通貨は10000円からです。</div>
+                                                <div class="accordion-body language_replace">最低金額はクレジットカード決済（PayPal）は500円から、銀行振込は2000円から、仮想通貨は10000円からです。</div>
                                             </div>
                                         </div>
 
@@ -504,7 +522,7 @@
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse012" class="accordion-collapse collapse" aria-labelledby="flush-heading012" data-parent="#accordionFlushExample2">
-                                                <div class="accordion-body language_replace">入金限度額は特に設けてません。</div>
+                                                <div class="accordion-body language_replace">銀行振込は最大50万円までが限度額となります。ほかの入金方法は特に設けてません。</div>
                                             </div>
                                         </div>
 
@@ -517,7 +535,7 @@
                                             <div id="flush-collapse013" class="accordion-collapse collapse" aria-labelledby="flush-heading013" data-parent="#accordionFlushExample2">
                                                 <div class="accordion-body language_replace">
                                                     <p class="language_replace">アカウント残高は、右上に表示しております。</p>
-                                                    <p class="language_replace">また、メニューバーの会員ページ​からもご確認頂けます。
+                                                    <p class="language_replace">また、メニューバーのメンバーページ​からもご確認頂けます。
                                                 </div>
                                             </div>
                                         </div>
@@ -529,7 +547,7 @@
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse014" class="accordion-collapse collapse" aria-labelledby="flush-heading014" data-parent="#accordionFlushExample2">
-                                                <div class="accordion-body language_replace">カスタマーサポートでご確認いたしますので、送信履歴を添付の上、お問い合わせください。</div>
+                                                <div class="accordion-body language_replace">オフィシャルラインでご確認いたしますので、入金履歴と明細などを添付の上、お問い合わせください。</div>
                                             </div>
                                         </div>
 
@@ -540,6 +558,27 @@
 
                                 <div class="tab-pane fade" id="nav-collection" role="tabpanel" aria-labelledby="nav-collection-tab">
                                     <div class="accordion accordion-flush" id="accordionFlushExample3">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header QA-style" id="flush-heading035">
+                                                <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-toggle="collapse" data-target="#flush-collapse035" aria-expanded="false" aria-controls="flush-collapse035">
+                                                    出金時、審査が必要ですか？
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapse035" class="accordion-collapse collapse" aria-labelledby="flush-heading035" data-parent="#accordionFlushExample3">
+                                                <div class="accordion-body language_replace">
+                                                    <p class="language_replace">ライセンスの規制により、2022年10月19日から出金するにはご本人様確認のため、身分証明（KYC）の送付が必要となります。</p>
+                                                    <p class="language_replace">本人確認書類（顔写真付き）</p>
+                                                    <p class="language_replace">-運転免許証／運転経歴証明書</p>
+                                                    <p class="language_replace">-写真付き住民基本台帳カード</p>
+                                                    <p class="language_replace">-パスポート</p>
+                                                    <p class="language_replace">-マイナンバーカード</p>
+                                                    <p class="language_replace">-在留カード／特別永住者証明書</p>
+                                                    <p class="language_replace">上記のいずれか一つが必要となります。パスポートは写真付きのページのご提出、その他は書類の両面の提出をお願いいたします。</p>
+                                                    <p class="language_replace">審査がスムーズにできるように、タイトルやメール内容に必ずマハラジャでのアカウント情報（メール、電話番号）を記入し、書類と共に下記のサポートメールにお送りお願いいたします。</p>
+                                                    <p class="language_replace">サポートメール：service@casino-maharaja.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!--003出金-->
                                         <div class="accordion-item">
                                             <h2 class="accordion-header QA-style" id="flush-heading015">
@@ -549,8 +588,8 @@
                                             </h2>
                                             <div id="flush-collapse015" class="accordion-collapse collapse" aria-labelledby="flush-heading015" data-parent="#accordionFlushExample3">
                                                 <div class="accordion-body language_replace">
-                                                    <p class="language_replace">出金申請をしていただいた後、基本的には１５分以内に処理を完了するように心掛けております。</p>
-                                                    <p class="language_replace">出金の際にはアカウントの利用状況に応じてアカウント認証をお願いすることがございます。</p>
+                                                    <p class="language_replace">出金するには、アカウント認証と本人確認が必要となっております。</p>
+                                                    <p class="language_replace">アカウント認証と本人確認が完了すれば、出金申請をしていただいた後、基本的には１５分以内に処理を完了するように心掛けております。</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -564,22 +603,21 @@
                                             <div id="flush-collapse016" class="accordion-collapse collapse" aria-labelledby="flush-heading016" data-parent="#accordionFlushExample3">
                                                 <div class="accordion-body">
                                                     <p class="language_replace">
-                                                        出金方法は、銀行振込（NissinPay）及び各種暗号通貨(BTC・ETH・USDT・USDC・XRP・JKC・HLN)で承ります。
+                                                        出金方法は、銀行振込及び各種暗号通貨(BTC・ETH・USDT・USDC・XRP・JKC・HLN)で承ります。
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
 
 
-
                                         <div class="accordion-item">
                                             <h2 class="accordion-header QA-style" id="flush-heading017">
                                                 <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-toggle="collapse" data-target="#flush-collapse017" aria-expanded="false" aria-controls="flush-collapse017">
-                                                    ボーナスを出金することはできますか?
+                                                    ボーナスとギフトマネーは出金することはできますか？
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse017" class="accordion-collapse collapse" aria-labelledby="flush-heading017" data-parent="#accordionFlushExample3">
-                                                <div class="accordion-body language_replace">ボーナスは、入金方法により、既定のローリングを行うことにより、ご出金いただけます。</div>
+                                                <div class="accordion-body language_replace">ボーナスとギフトマネーは、キャンペーンにより、出金制限のローリングが設えられます。ベットをし、そのローリングをクリアすれば、ご出金いただけます。</div>
                                             </div>
                                         </div>
 
@@ -601,7 +639,7 @@
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse019" class="accordion-collapse collapse" aria-labelledby="flush-heading019" data-parent="#accordionFlushExample3">
-                                                <div class="accordion-body language_replace">出金手数料は、銀行振込（NissinPay）は5％、暗号通貨出金はガス代を頂戴します。</div>
+                                                <div class="accordion-body language_replace">出金手数料は、銀行振込は3％+175 OCoin（JPY）、暗号通貨出金はガス代を頂戴します。</div>
                                             </div>
                                         </div>
 
@@ -623,7 +661,7 @@
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse021" class="accordion-collapse collapse" aria-labelledby="flush-heading021" data-parent="#accordionFlushExample3">
-                                                <div class="accordion-body language_replace">はい、カスタマーサポートにご連絡ください。現状確認し折り返しご連絡させて頂きます。</div>
+                                                <div class="accordion-body language_replace">はい、オフィシャルラインサポートにご連絡ください。現状確認し折り返しご連絡させて頂きます。</div>
                                             </div>
                                         </div>
 
@@ -634,18 +672,7 @@
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse022" class="accordion-collapse collapse" aria-labelledby="flush-heading022" data-parent="#accordionFlushExample3">
-                                                <div class="accordion-body language_replace">最低１万OCoinから出金出来ます、燃料費が別途で掛かります。</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header QA-style" id="flush-heading023">
-                                                <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-toggle="collapse" data-target="#flush-collapse023" aria-expanded="false" aria-controls="flush-collapse023">
-                                                    出金処理はどれくらいで行われますか?
-                                                </button>
-                                            </h2>
-                                            <div id="flush-collapse023" class="accordion-collapse collapse" aria-labelledby="flush-heading023" data-parent="#accordionFlushExample3">
-                                                <div class="accordion-body language_replace">迅速の対応に心かけてますが、通常15分程で出金手続き終わります。</div>
+                                                <div class="accordion-body language_replace">暗号通貨は最低１万OCoinから出金出来ます。燃料費が別途で掛かります。銀行振込は最低5500 OCoinから出金出来ます。</div>
                                             </div>
                                         </div>
 
@@ -656,7 +683,18 @@
                                                 </button>
                                             </h2>
                                             <div id="flush-collapse024" class="accordion-collapse collapse" aria-labelledby="flush-heading024" data-parent="#accordionFlushExample3">
-                                                <div class="accordion-body language_replace">カスタマーサポートでご確認いたしますので、お問い合わせください。</div>
+                                                <div class="accordion-body language_replace">オフィシャルラインサポートでご確認いたしますので、お問い合わせください。</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header QA-style" id="flush-heading024">
+                                                <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-toggle="collapse" data-target="#flush-collapse025" aria-expanded="false" aria-controls="flush-collapse025">
+                                                    出金制限のローリングは解除できますか？
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapse025" class="accordion-collapse collapse" aria-labelledby="flush-heading025" data-parent="#accordionFlushExample3">
+                                                <div class="accordion-body language_replace">既存の出金制限ローリングを解除するには、所有のOcoinが100以下になった時に入金をするか「ボーナス受取り」のOcoin受取るかで解除できます。</div>
                                             </div>
                                         </div>
 
@@ -679,9 +717,36 @@
                                                     <p class="language_replace">
                                                         ボーナスはOCoinが100以下になって初めて受け取ることができます。そして一回一筆しか受け取れません。
                                                         <!-- <span class="language_replace text-link" onclick="window.parent.API_LoadPage('Prize','/Guide/prize.html', true)">受取箱の説明<i class="icon icon-mask icon-question"></i></span> -->
-                                                        <a class="language_replace text-link text-primary" href="/Guide/prize.html">受取箱の説明<i class="icon icon-mask icon-question"></i></a>
                                                     </p>
-                                                    <p class="language_replace">ギフトマネーは受け取るに制限がなく、常に受取可能です。</p>
+                                                    <p class="language_replace">
+                                                        ギフトマネーは受け取るに制限がなく、常に受取可能です。
+                                                        
+                                                    </p><a class="language_replace text-link text-primary" onclick="window.parent.API_LoadPage('QA','/Guide/prize.html?form=QA')">ボーナス受取りの説明<i class="icon icon-mask icon-question"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header QA-style" id="flush-heading036">
+                                                <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-toggle="collapse" data-target="#flush-collapse036" aria-expanded="false" aria-controls="flush-collapse036">
+                                                    ボーナスを使用する時に、禁止事項はありますか？
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapse036" class="accordion-collapse collapse" aria-labelledby="flush-heading036" data-parent="#accordionFlushExample4">
+                                                <div class="accordion-body language_replace">
+                                                    <p class="language_replace">
+                                                        ボーナスを使用する際に、「ボーナス利用規約」を守らなければなりません。
+                                                    </p>
+                                                    <p class="language_replace">【ボーナス利用規約】</p>
+                                                    <p class="language_replace">1.賭け条件が満たされる前に入金または出金が行われた場合、ボーナスは没収されます。</p>
+                                                    <p class="language_replace">2.ボーナス使用禁止のゲーム： </p>
+                                                    <p class="language_replace">スクラッチカード、プログレッシブジャックポットゲーム、プログレッシブ機能のあるスロットゲーム、 シック・ボー、プントバンコ、ブラッドサカーズ、ブラッドサッカーズ2Ⅱ、デッドオアアライブ2、デッドオアアライブ、ミニルーレット、キノ、ビデオブラックジャック、スポーツベット、Ysport大相撲</p>
+                                                    <p class="language_replace">3.一度に利用できるボーナスは1つのみです。</p>
+                                                    <p class="language_replace">4.以下のような行為はボーナスの不正利用とみなされ、勝利金の没収やアカウントの閉鎖につながる可能性があります。</p>
+                                                    <p class="language_replace">‧イコールマージンベット、ゼロリスクベット、ローマージンベット</p>
+                                                    <p class="language_replace">‧ソフトウェアの操作、抜け穴の悪用、その他の技術的な不正行為、またはその他の意図的な不正行為に相当する行為</p>
+                                                    <p class="language_replace">‧ベットの結果に関わらず利益を得ることを最終目的として、同じベッティングマーケット内でプレイヤーまたはプレイヤーグループが一連の矛盾したベットを行った形跡がある場合。</p>
+                                                    <p class="language_replace">‧2ティアベット</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -692,6 +757,18 @@
 
                                 <div class="tab-pane fade" id="nav-game" role="tabpanel" aria-labelledby="nav-game-tab">
                                     <div class="accordion accordion-flush" id="accordionFlushExample5">
+                                        <!--034ゲーム 20220817 update-->
+
+                                        <div class="accordion-item">
+                                            <a href="guide-TripleCrown.html" target="_self">
+                                                <h2 class="accordion-header QA-style">
+                                                    <button class="collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button">
+                                                        三冠王ゲームとは？
+                                                    </button>
+                                                </h2>
+                                            </a>
+                                        </div>
+
                                         <!--005ゲーム-->
 
                                         <div class="accordion-item">
@@ -709,7 +786,7 @@
                                                     <p class="language_replace">3.    カジノマハラジャ に再度ログインします。</p>
                                                     <p class="language_replace">4.    同じゲームにログインしお試しください。</p>
                                                     <p class="language_replace">上記の手順でも問題が解決できない場合は、</p>
-                                                    <p class="language_replace">スクリーンショットとともにカスタマーサポートまでご連絡ください。</p>
+                                                    <p class="language_replace">スクリーンショットとともにオフィシャルラインサポートまでご連絡ください。</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -743,7 +820,7 @@
                                                 <div class="accordion-body language_replace">
                                                     <p class="language_replace">手動でサイトよりログアウトしていただき、キャッシュとクッキー履歴をブラウザから削除してください。</p>
                                                     <p class="language_replace">さらに、Google Chromeなど、他のブラウザを使ってゲームへのアクセスをお試しください。</p>
-                                                    <p class="language_replace">引き続き問題が生じるようであれば、お手数ですが、エラー画面のスクリーンショットをカスタマーサポートまでお送りください。</p>
+                                                    <p class="language_replace">引き続き問題が生じるようであれば、お手数ですが、エラー画面のスクリーンショットをオフィシャルラインサポートまでお送りください。</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -831,16 +908,30 @@
                                             </div>
                                         </div>
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header QA-style" id="flush-heading033">
+                                            <h2 class="accordion-header QA-style" id="flush-heading034">
                                                 <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-toggle="collapse" data-target="#flush-collapse034" aria-expanded="false" aria-controls="flush-collapse034 language_replace">
                                                     サイトは固定のメンテナンス時間がありますでしょうか。
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapse034" class="accordion-collapse collapse" aria-labelledby="flush-heading033" data-parent="#accordionFlushExample6">
+                                            <div id="flush-collapse034" class="accordion-collapse collapse" aria-labelledby="flush-heading034" data-parent="#accordionFlushExample6">
                                                 <div class="accordion-body language_replace">
                                                     <p class="language_replace">マハラジャの固定メンテナンス時間は：　</p>
                                                     <p class="language_replace">毎週月曜日の11：00から13：00までです。</p>
                                                     <p class="language_replace">もしメンテナンスがない場合は、あらかじめお知らせいたしません。</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header QA-style" id="flush-heading035">
+                                                <button class="accordion-button collapsed d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100 language_replace" type="button" data-toggle="collapse" data-target="#flush-collapse035" aria-expanded="false" aria-controls="flush-collapse035 language_replace">
+                                                    セキュリティソフトにブロックされアクセスできません。
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapse035" class="accordion-collapse collapse" aria-labelledby="flush-heading035" data-parent="#accordionFlushExample6">
+                                                <div class="accordion-body language_replace">
+                                                    <p class="language_replace">カジノサイトはVPNを幾つか経由しておりますので、実際の位置がセキュリティソフトの探知ソフトでは掴めない様になってるおり、悪質なwebサイトとして探知されます。</p>
+                                                    <p class="language_replace">Googleの「Google セーフ ブラウジング」には安全なサイトだと判断されています。特に問題は有りませんので、マハラジャを楽しんで頂けたら幸いです。</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -928,7 +1019,7 @@
                                             </div>
                                             <i class="fas fa-chevron-right txt-grey"></i>
                                         </a>
-                                        <a href="guide-10_jp.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
+                                        <a href="guide-10.html" class="d-flex align-items-center mb-3 p-4 rounded-2 btn white bb text-left w-100"
                                            rel="noopener">
                                             <div class="px-2 pr-3 flex-fill overflow-hidden">
                                                 <h3 class="mb-1 txt-fw-6 mt-0 txt-medium language_replace">テキサスホールデムポーカー攻略ガイド</h3>
@@ -1058,7 +1149,7 @@
             </div>
         </section>
     </div>
-    <footer class="footer_area footer overflow-hidden"></footer>
+
     <div class="float_SideBar">
 
         <div class="customer-service" onclick="window.parent.showContactUs()" style="display: none;">
@@ -1086,7 +1177,8 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
-    <script src='js/main.js'></script>
+    <script type="text/javascript" src="../Scripts/MultiLanguage.js"></script>
+    <!--<script src='js/main.js'></script>-->
     <script>
         function getCookie(name) {
             var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
@@ -1147,11 +1239,21 @@
             return temp;
         }
 
+        var lang;
+        var mlp;
+
         function init() {
+           
             if (window.parent != window.top) {
                 window.parent.location.href = "index.aspx";
             }
-            window.parent.API_LoadingEnd();
+            mlp = new multiLanguage();
+            lang = window.parent.API_GetLang();
+            mlp.loadLanguage(lang, function () {
+                checkParams(function () {
+                    window.parent.API_LoadingEnd();
+                });
+            });
         }
 
         function EWinEventNotify(eventName, isDisplay, param) {
@@ -1167,21 +1269,37 @@
 
                     switch (param) {
                         case "JPN":
-                            orgin = orgin + "_jp";
+                            orgin = "/Article/guide_Q&A_jp.html";
                             break;
                         case "CHT":
+                            orgin = "/Article/guide_Q&A_cht.html";
                             break;
                         case "ENG":
-                            orgin = orgin + "_en";
+                            orgin = "/Article/guide_Q&A_en.html";
                             break;
                         default:
                             break;
                     }
 
-                    orgin = "Article/guide_Q&A.html";
-
                     window.parent.API_LoadPage("Article", orgin);
                     break;
+            }
+        }
+
+        function checkParams(cb) {
+            let queryString = window.location.search;
+            let urlParams;
+            let tag;
+            if (queryString != "") {
+                urlParams = new URLSearchParams(queryString);
+                tag = urlParams.get('tagID');
+
+                let k = document.getElementById(tag);
+                k.click();
+            }
+
+            if (cb) {
+                cb();
             }
         }
 
