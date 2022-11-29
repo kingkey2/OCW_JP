@@ -1362,13 +1362,13 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=17')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=18')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="Activity/mahaEvent/src/11month-m.jpg" alt="">
+                                <img src="Activity/mahaEvent/src/12month-m.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/mahaEvent/src/11month.jpg" class="bg">
+                                    <img src="Activity/mahaEvent/src/12month.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
