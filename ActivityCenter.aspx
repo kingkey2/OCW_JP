@@ -127,6 +127,9 @@
                         case "18":
                             GoActivityDetail(18, '/Activity/mahaEvent/12month.html');
                             break;
+                        case "19":
+                            GoActivityDetail(19, '/Activity/event/ne-rt/202212/index-jp.html');
+                            break;
                     }
                 }
 
@@ -274,6 +277,12 @@
                         $('#ModalDeposit12').modal('show');
                     });
                     break;
+                case 19:
+                    title = "ワールドカップ";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
 
                 default:
                     break;
@@ -413,6 +422,26 @@
 
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(19,'/Activity/event/ne-rt/202212/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/ne-rt/202212/img/Jp-img-act.jpg" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">
+                                                ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大130,000のギフトマネーが貰えるよ！
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(18,'/Activity/mahaEvent/12month.html')">
                                 <!-- 活動連結 -->
