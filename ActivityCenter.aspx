@@ -331,6 +331,10 @@
                 $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE", "RT"]);
                 break;
+            case 19:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE", "RT"]);
+                break;
         }
     }
 
