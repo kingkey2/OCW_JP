@@ -263,7 +263,7 @@
                         </a>
                     </div>--%>
                     <!-- EPay -->
-                    <div class="card-item sd-04 tempCard" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
+                    <div class="card-item sd-04 tempCard" style="display:none;" onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
                         <a class="card-item-link ">
                             <div class="card-item-inner">
                                 <div class="title">
