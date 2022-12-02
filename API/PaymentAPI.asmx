@@ -2046,29 +2046,17 @@ public class PaymentAPI : System.Web.Services.WebService
                                                         {
                                                             thresholdValue = 0;
                                                         }
-                                                        if (thresholdValue == 0)
-                                                        {
+                                                        if (thresholdValue == 0) {
                                                             PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
                                                             PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
                                                             ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
                                                             ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
-
-                                                            //Nissin Pay活動
-                                                            if (Amount >= 100000)
-                                                            {
-                                                                HandingFeeRate = 0;
-                                                                HandingFeeAmount = 0;
-                                                                ReceiveTotalAmount =Amount;
-                                                            }
-                                                            else {
-                                                                HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                                                HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
-                                                                ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
-                                                            }
+                                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                                            HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
+                                                            ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
 
                                                             ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
-                                                            CryptoDetail Dcd = new CryptoDetail()
-                                                            {
+                                                            CryptoDetail Dcd = new CryptoDetail() {
                                                                 TokenCurrencyType = ReceiveCurrencyType,
                                                                 TokenContractAddress = "",
                                                                 ExchangeRate = 1,
@@ -2097,19 +2085,14 @@ public class PaymentAPI : System.Web.Services.WebService
 
                                                             InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, PaymentCommonData.BasicType, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
 
-                                                            if (InsertRet == 1)
-                                                            {
+                                                            if (InsertRet == 1) {
                                                                 R.Result = enumResult.OK;
                                                                 R.Data = PaymentCommonData;
                                                                 RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
-                                                            }
-                                                            else
-                                                            {
+                                                            } else {
                                                                 SetResultException(R, "InsertFailure");
                                                             }
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             SetResultException(R, "ThresholdLimit");
                                                         }
                                                     }
