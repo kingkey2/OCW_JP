@@ -570,6 +570,7 @@
                                 <p class="text-s language_replace">※OCoin必須在款項到帳後才會反映，如果過了1個銀行營業日也沒反映請聯絡客服。</p>
                                 <p class="text-s language_replace">※此處填寫的全名必須與銀行的匯款人名稱（片假名）完全相同，敬請見諒。</p>
                                 <p class="text-s language_replace">※訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</p>
+                                <p class="text-s language_replace">※請檢查確認當次申請單的銀行戶口號，避免延誤入金或是因為帳號錯誤無法收到匯款金額造成會員損失。</p>
                             </div>
                         </div>
                     </div>
