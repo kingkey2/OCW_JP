@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\API",
+    "\\App_Code",
+    "\\App_WebReferences",
+    "\\Scripts"
   ],
   "SelectedNode": "\\OCW_JP.sln",
   "PreviewInSolutionExplorer": false

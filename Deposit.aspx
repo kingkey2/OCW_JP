@@ -159,7 +159,7 @@
                         </a>
                     </div>
                     <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositEPay" style="display:none;">
+                    <div class="card-item sd-03" id="idDepositEPay">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
