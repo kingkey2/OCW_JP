@@ -2,26 +2,8 @@
   "BasicPath": "/App_Data/ActivityDetail/",
   "Deposit": [
     {
-      "Name": "Act010",
-      "Path": "2022_10/Act010.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act011",
-      "Path": "2022_10/Act011.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act012",
-      "Path": "2022_10/Act012.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act013",
-      "Path": "2022_11/Act013.json",
+      "Name": "Act014",
+      "Path": "2022_12/Act014.json",
       "MethodName": "OpenBonusDeposit_WithUserFirstDeposit",
       "InfoMethodName": "OpenBonusDeposit_WithUserFirstDeposit"
     }
@@ -77,26 +59,8 @@
       "Path": "2022_6/Act003.json"
     },
     {
-      "Name": "Act010",
-      "Path": "2022_10/Act010.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act011",
-      "Path": "2022_10/Act011.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act012",
-      "Path": "2022_10/Act012.json",
-      "MethodName": "OpenBonusDeposit",
-      "InfoMethodName": "OpenBonusDeposit"
-    },
-    {
-      "Name": "Act013",
-      "Path": "2022_11/Act013.json",
+      "Name": "Act014",
+      "Path": "2022_12/Act014.json",
       "MethodName": "OpenBonusDeposit_WithUserFirstDeposit",
       "InfoMethodName": "OpenBonusDeposit_WithUserFirstDeposit"
     }
