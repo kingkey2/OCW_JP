@@ -459,7 +459,7 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/ne-rt/202212/img/Jp-img-act.jpg" />
+                                        <img src="Activity/event/ne-rt/202212/img/JP_500X316_Xmas.png" />
                                     </div>
                                     <div class="info">
                                         <div class="detail">

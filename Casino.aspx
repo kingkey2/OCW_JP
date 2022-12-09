@@ -1375,6 +1375,19 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=20')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/event/ne-rt/202212/img/JP_768X480_Xmas.png" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/event/ne-rt/202212/img/JP_1200X378_Xmas.png" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=18')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/mahaEvent/src/12month-m.jpg" alt="">
