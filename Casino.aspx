@@ -1362,19 +1362,6 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=19')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/ne-rt/202212/img/Jp-img-phone.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/ne-rt/202212/img/Jp-img-pc.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=20')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/ne-rt/202212/img/JP_768X480_Xmas.png" alt="">
