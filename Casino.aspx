@@ -1360,6 +1360,19 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
+                     <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=21')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/event/bng/bng221225MR/img/768X480.png" />
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/event/bng/bng221225MR/img/1200X378.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=20')"></a>
