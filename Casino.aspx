@@ -1368,7 +1368,7 @@
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/event/bng/bng221225MR/img/1200X378.png" />
+                                    <img src="Activity/event/bng/bng221225MR/img/1200X378.png" class="bg" />
                                 </div>
                             </div>
                         </div>
