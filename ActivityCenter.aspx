@@ -549,7 +549,7 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/pp202209-1/img/img-liveJp-act.jpg">
+                                        <img src="Activity/event/pp202209-1/img/img-liveJp-act-close.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
@@ -568,7 +568,7 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/pp202209-2/img/img-actJp.jpg">
+                                        <img src="Activity/event/pp202209-2/img/img-actJp-close.jpg">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
@@ -587,7 +587,7 @@
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/ne-rt/202212/img/Jp-img-act.jpg" />
+                                        <img src="Activity/event/ne-rt/202212/img/Jp-img-act-close.jpg" />
                                     </div>
                                     <div class="info">
                                         <div class="detail">
