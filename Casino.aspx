@@ -1361,6 +1361,20 @@
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
 
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=22')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/mahaEvent/src/202301-m.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/mahaEvent/src/202301.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                      <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=21')"></a>
@@ -1384,20 +1398,6 @@
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
                                     <img src="Activity/event/ne-rt/202212/img/JP_1200X378_Xmas.png" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=18')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/mahaEvent/src/12month-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/mahaEvent/src/12month.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
