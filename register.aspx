@@ -3,6 +3,13 @@
 <%
     string PCode = Request["PCode"];
     string Version = EWinWeb.Version;
+    string DefaultPersonCode = string.Empty;
+
+    if (EWinWeb.IsTestSite) { // 測試機
+        DefaultPersonCode = "A43015788512541";
+    } else { // 正式機
+        DefaultPersonCode = "N78316595789476";
+    }
 %>
 <!doctype html>
 <html>
@@ -45,6 +52,7 @@
     }
     var c = new common();
     var pCode = "<%=PCode%>";
+    var DefaultPersonCode = "<%=DefaultPersonCode%>";
     var WebInfo;
     var p;
     var mlp;
@@ -372,6 +380,10 @@
                             ParentPersonCode = ParentPersonCode.trim();
                         }
 
+                        if (ParentPersonCode == "") {
+                            ParentPersonCode = DefaultPersonCode;
+                        }
+
                         if (PhonePrefix.substring(0, 1) == "+") {
                             PhonePrefix = PhonePrefix.substring(1, PhonePrefix.length);
                         }
@@ -455,6 +467,10 @@
 
         if (typeof (ParentPersonCode) == "string") {
             ParentPersonCode = ParentPersonCode.trim();
+        }
+
+        if (ParentPersonCode == "") {
+            ParentPersonCode = DefaultPersonCode;
         }
 
         if (LoginAccount.indexOf('+') > 0) {

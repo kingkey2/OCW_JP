@@ -120,12 +120,15 @@
         Step3.hide();
 
         $('button[data-deposite="step2"]').click(function () {
+            $('button[data-deposite="step2"]').attr('disabled', true);
+
             window.parent.API_LoadingStart();
             //建立訂單/活動
             CreatePayPalDeposit();
         });
         $('button[data-deposite="step3"]').click(function () {
             window.parent.API_LoadingStart();
+            $('button[data-deposite="step3"]').attr('disabled', true);
             //加入參加的活動
             setActivityNames();
         });
@@ -174,12 +177,14 @@
             if (bankCardNameFirst == '') {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的姓"), function () { });
                 window.parent.API_LoadingEnd(1);
+                $('button[data-deposite="step2"]').attr('disabled', false);
                 return false;
             }
 
             if (check_pKatakana(bankCardNameFirst)) {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的姓"), function () { });
                 window.parent.API_LoadingEnd(1);
+                $('button[data-deposite="step2"]').attr('disabled', false);
                 return false;
             }
             
@@ -187,12 +192,14 @@
             if (bankCardNameSecond == '') {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請填寫片假名的名"), function () { });
                 window.parent.API_LoadingEnd(1);
+                $('button[data-deposite="step2"]').attr('disabled', false);
                 return false;
             }
 
             if (check_pKatakana(bankCardNameSecond)) {
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能輸入片假名的名"), function () { });
                 window.parent.API_LoadingEnd(1);
+                $('button[data-deposite="step2"]').attr('disabled', false);
                 return false;
             }
 
@@ -220,6 +227,7 @@
                         GetDepositActivityInfoByOrderNumber(OrderNumber);
                     } else {
                         window.parent.API_LoadingEnd(1);
+                        $('button[data-deposite="step2"]').attr('disabled', false);
                         window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
                         });
@@ -228,6 +236,7 @@
                 }
                 else {
                     window.parent.API_LoadingEnd(1);
+                    $('button[data-deposite="step2"]').attr('disabled', false);
                     window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                     });
@@ -235,6 +244,7 @@
             })
         } else {
             window.parent.API_LoadingEnd(1);
+            $('button[data-deposite="step2"]').attr('disabled', false);
             window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入購買金額"), function () {
 
             });
@@ -267,10 +277,12 @@
                 Step2.hide();
                 Step3.fadeIn();
                 $('.progress-step:nth-child(3)').addClass('cur');
+                $('button[data-deposite="step2"]').attr('disabled', false);
                 window.parent.API_LoadingEnd(1);
             }
             else {
                 window.parent.API_LoadingEnd(1);
+                $('button[data-deposite="step2"]').attr('disabled', false);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("取得可參加活動失敗"), function () {
 
                 });
@@ -342,9 +354,10 @@
     }
 
     function ConfirmPayPalDeposit() {
-        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang,"EPay",0,function (success, o) {
+        PaymentClient.ConfirmEPayDeposit(WebInfo.SID, Math.uuid(), OrderNumber, ActivityNames, lang, "EPay", 0, function (success, o) {
             window.parent.API_LoadingEnd(1);
-             if (success) {
+            if (success) {
+                $('button[data-deposite="step3"]').attr('disabled', false);
                  if (o.Result == 0) {
                     window.parent.showMessageOK(mlp.getLanguageKey("成功"), mlp.getLanguageKey("前往付款"), function () {
                         window.open(o.Message);
@@ -365,6 +378,7 @@
                 }
             }
             else {
+                $('button[data-deposite="step3"]').attr('disabled', false);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"),mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
 
                 });
@@ -556,6 +570,7 @@
                                 <p class="text-s language_replace">※OCoin必須在款項到帳後才會反映，如果過了1個銀行營業日也沒反映請聯絡客服。</p>
                                 <p class="text-s language_replace">※此處填寫的全名必須與銀行的匯款人名稱（片假名）完全相同，敬請見諒。</p>
                                 <p class="text-s language_replace">※訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</p>
+                                <p class="text-s language_replace">※請檢查確認當次申請單的銀行戶口號，避免延誤入金或是因為帳號錯誤無法收到匯款金額造成會員損失。</p>
                             </div>
                         </div>
                     </div>

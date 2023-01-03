@@ -2774,6 +2774,7 @@
                         gameItemCount++;
                         var GI_img = GI.querySelector(".gameimg");
                         if (GI_img != null) {
+                            //GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
                             GI_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
                             GI_img.onerror = new Function("showDefauktGameIcon2()");
 
@@ -2997,6 +2998,7 @@
                                     //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
 
                                     GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
+                                    //GBL_img.src = `${EWinWebInfo.ImageUrl}/${gameItem.GameBrand}/ENG/${gameItem.GameName}.png`;
                                 }
 
                                 ParentMain.append(GBLDom);

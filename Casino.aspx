@@ -1360,85 +1360,49 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
+
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=17')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=22')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="Activity/mahaEvent/src/11month-m.jpg" alt="">
+                                <img src="Activity/mahaEvent/src/202301-m.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/mahaEvent/src/11month.jpg" class="bg">
+                                    <img src="Activity/mahaEvent/src/202301.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!--<div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=16')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/slider-BNG-202210SP-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/slider-BNG-202210SP.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=14')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/ne-rt/202210/img/Jp-img-phone.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/ne-rt/202210/img/Jp-img-pc.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                      <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('','ActivityCenter.aspx?type=13')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=21')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="images/lobby/slider-BNG-221003MR-s.jpg" alt="">
+                                <img src="Activity/event/bng/bng221225MR/img/768X480.png"  alt="" />
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="images/lobby/slider-BNG-221003MR.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=11')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/pp202209-1/img/pp-liveJp-s.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/pp202209-1/img/pp-liveJp.jpg" class="bg">
+                                    <img src="Activity/event/bng/bng221225MR/img/1200X378.png"  class="bg"/>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=12')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=20')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="Activity/event/pp202209-2/img/pp-slotJp-s.jpg" alt="">
+                                <img src="Activity/event/ne-rt/202212/img/JP_768X480_Xmas.png" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/event/pp202209-2/img/pp-slotJp.jpg" class="bg">
+                                    <img src="Activity/event/ne-rt/202212/img/JP_1200X378_Xmas.png" class="bg">
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     
                     <div class="swiper-slide">
                         <div class="hero-item">
@@ -1453,46 +1417,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                  <%--  <div class="swiper-slide">
-                        <div class="hero-item">
-                            <!-- <a class="hero-item-link" href="#"></a> -->
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/newopen-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/newopen-2.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>--%>
-                    <!-- <div class="swiper-slide">
-                        <div class="hero-item">
-                            <!-- <a class="hero-item-link" href="#"></a> 
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/evo-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/evo-2.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <%--<div class="swiper-slide">
-                        <div class="hero-item">
-                            <!-- <a class="hero-item-link" href="#"></a> -->
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/PNG-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/PNG-2.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>--%>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>

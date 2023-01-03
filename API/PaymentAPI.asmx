@@ -256,16 +256,16 @@ public class PaymentAPI : System.Web.Services.WebService
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
             EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+            //var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
 
-            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
-            {
-                if (KitamuraProperty.PropertyValue=="true")
-                {
-                    SetResultException(R, "InsertFailure");
-                    return R;
-                }
-            }
+            //if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            //{
+            //    if (KitamuraProperty.PropertyValue=="true")
+            //    {
+            //        SetResultException(R, "InsertFailure");
+            //        return R;
+            //    }
+            //}
 
             PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
@@ -568,7 +568,7 @@ public class PaymentAPI : System.Web.Services.WebService
                             Decription += ", TokenName=" + paymentCryptoDetail.TokenCurrencyType + " TokenAmount=" + paymentCryptoDetail.ReceiveAmount.ToString("F10");
                             paymentDetailWallets.Add(paymentDetailWallet);
                         }
-                        paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,0, Decription, true, PointValue, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
+                        paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, 0, Decription, true, PointValue, TempCryptoData.PaymentCode, "Crypto", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
                         if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                         {
                             EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -866,7 +866,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     EWin.Payment.PaymentResult paymentResult;
                     string Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount,0, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
+                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, 0, Decription, true, PointValue, TempCommonData.PaymentCode, "Other", CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -947,16 +947,16 @@ public class PaymentAPI : System.Web.Services.WebService
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
             EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+            //var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
 
-            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
-            {
-                if (KitamuraProperty.PropertyValue=="true")
-                {
-                    SetResultException(R, "InsertFailure");
-                    return R;
-                }
-            }
+            //if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            //{
+            //    if (KitamuraProperty.PropertyValue=="true")
+            //    {
+            //        SetResultException(R, "InsertFailure");
+            //        return R;
+            //    }
+            //}
 
             PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
@@ -1288,7 +1288,7 @@ public class PaymentAPI : System.Web.Services.WebService
                         p[0] = paymentDetailBankCard;
                     }
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, paymentDetailBankCard.TaxFeeValue, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, p);
+                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, paymentDetailBankCard.TaxFeeValue, Decription, true, PointValue, TempCommonData.PaymentCode, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, p);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -1447,7 +1447,7 @@ public class PaymentAPI : System.Web.Services.WebService
                     EWin.Payment.PaymentResult paymentResult;
                     string Decription = TempCommonData.PaymentMethodName + ", ReceiveTotalAmount=" + TempCommonData.ReceiveTotalAmount.ToString("F10");
 
-                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount,0, Decription, true, PointValue, TempCommonData.PaymentCode, CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
+                    paymentResult = paymentAPI.CreatePaymentDeposit(GetToken(), TempCommonData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCommonData.Amount, 0, Decription, true, PointValue, TempCommonData.PaymentCode, "Paypal", CodingControl.GetUserIP(), TempCommonData.ExpireSecond, null);
                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                     {
                         EWin.Payment.Result updateTagResult = paymentAPI.UpdateTagInfo(GetToken(), GUID, paymentResult.PaymentSerial, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData));
@@ -1792,16 +1792,16 @@ public class PaymentAPI : System.Web.Services.WebService
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
             EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+            //var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
 
-            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
-            {
-                if (KitamuraProperty.PropertyValue=="true")
-                {
-                    SetResultException(R, "InsertFailure");
-                    return R;
-                }
-            }
+            //if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            //{
+            //    if (KitamuraProperty.PropertyValue=="true")
+            //    {
+            //        SetResultException(R, "InsertFailure");
+            //        return R;
+            //    }
+            //}
 
             PaymentMethodDT = RedisCache.PaymentMethod.GetPaymentMethodByID(PaymentMethodID);
 
@@ -1974,16 +1974,16 @@ public class PaymentAPI : System.Web.Services.WebService
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
             EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+            //var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
 
-            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
-            {
-                if (KitamuraProperty.PropertyValue=="true")
-                {
-                    SetResultException(R, "InsertFailure");
-                    return R;
-                }
-            }
+            //if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            //{
+            //    if (KitamuraProperty.PropertyValue=="true")
+            //    {
+            //        SetResultException(R, "InsertFailure");
+            //        return R;
+            //    }
+            //}
 
             if (EWinWeb.CheckInWithdrawalTime())
             {
@@ -2046,29 +2046,17 @@ public class PaymentAPI : System.Web.Services.WebService
                                                         {
                                                             thresholdValue = 0;
                                                         }
-                                                        if (thresholdValue == 0)
-                                                        {
+                                                        if (thresholdValue == 0) {
                                                             PaymentMethodName = (string)PaymentMethodDT.Rows[0]["PaymentName"];
                                                             PaymentCode = (string)PaymentMethodDT.Rows[0]["PaymentCode"];
                                                             ReceiveCurrencyType = (string)PaymentMethodDT.Rows[0]["CurrencyType"];
                                                             ExpireSecond = (int)PaymentMethodDT.Rows[0]["ExpireSecond"];
-
-                                                            //Nissin Pay活動
-                                                            if (Amount >= 100000)
-                                                            {
-                                                                HandingFeeRate = 0;
-                                                                HandingFeeAmount = 0;
-                                                                ReceiveTotalAmount =Amount;
-                                                            }
-                                                            else {
-                                                                HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
-                                                                HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
-                                                                ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
-                                                            }
+                                                            HandingFeeRate = (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"];
+                                                            HandingFeeAmount = (int)PaymentMethodDT.Rows[0]["HandingFeeAmount"];
+                                                            ReceiveTotalAmount = (Amount * (1 - (decimal)PaymentMethodDT.Rows[0]["HandingFeeRate"])) - HandingFeeAmount;
 
                                                             ReceiveTotalAmount = CodingControl.FormatDecimal(ReceiveTotalAmount, 0);
-                                                            CryptoDetail Dcd = new CryptoDetail()
-                                                            {
+                                                            CryptoDetail Dcd = new CryptoDetail() {
                                                                 TokenCurrencyType = ReceiveCurrencyType,
                                                                 TokenContractAddress = "",
                                                                 ExchangeRate = 1,
@@ -2097,19 +2085,14 @@ public class PaymentAPI : System.Web.Services.WebService
 
                                                             InsertRet = EWinWebDB.UserAccountPayment.InsertPayment(OrderNumber, PaymentCommonData.PaymentType, PaymentCommonData.BasicType, PaymentCommonData.LoginAccount, PaymentCommonData.Amount, PaymentCommonData.HandingFeeRate, PaymentCommonData.HandingFeeAmount, 0, 0, PaymentCommonData.PaymentMethodID, "", "", Newtonsoft.Json.JsonConvert.SerializeObject(PaymentCommonData.PaymentCryptoDetailList), PaymentCommonData.ExpireSecond);
 
-                                                            if (InsertRet == 1)
-                                                            {
+                                                            if (InsertRet == 1) {
                                                                 R.Result = enumResult.OK;
                                                                 R.Data = PaymentCommonData;
                                                                 RedisCache.PaymentContent.UpdatePaymentContent(Newtonsoft.Json.JsonConvert.SerializeObject(R.Data), PaymentCommonData.OrderNumber);
-                                                            }
-                                                            else
-                                                            {
+                                                            } else {
                                                                 SetResultException(R, "InsertFailure");
                                                             }
-                                                        }
-                                                        else
-                                                        {
+                                                        } else {
                                                             SetResultException(R, "ThresholdLimit");
                                                         }
                                                     }
@@ -2283,7 +2266,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         TaxFeeValue = TempCryptoData.Amount - TempCryptoData.ReceiveTotalAmount
                                     };
                                     paymentDetailBankCards.Add(paymentDetailWallet);
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,paymentDetailWallet.TaxFeeValue ,Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
+                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, paymentDetailWallet.TaxFeeValue, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
                                         var CreateEPayWithdrawalReturn= Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial,TempCryptoData.ReceiveTotalAmount,paymentResult.CreateDate,BankCard,BankCardName,BankName,BankBranchCode);
@@ -2437,7 +2420,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                     //Description待實際測試後調整
                                     string Decription = "ReceiveAmount:"+TempCryptoData.ReceiveTotalAmount+",TigerPay Account:"+TigerPayAccount;
 
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,TaxFeeValue ,Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
+                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,TaxFeeValue ,Decription, true, PointValue * -1, TempCryptoData.PaymentCode, "TigerPay", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailBankCards.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
                                         var CreateEPayWithdrawalReturn= Payment.EPay.CreateEPayWithdrawal(paymentResult.PaymentSerial,TempCryptoData.ReceiveTotalAmount,paymentResult.CreateDate,TigerPayAccount,"BankCardName","TigerPay","BankBranchCode");
@@ -2558,16 +2541,16 @@ public class PaymentAPI : System.Web.Services.WebService
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
         {
             EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
-            var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
+            //var KitamuraProperty= lobbyAPI.GetUserAccountProperty(GetToken(),GUID, EWin.Lobby.enumUserTypeParam.BySID,SI.EWinSID,"Kitamura");
 
-            if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
-            {
-                if (KitamuraProperty.PropertyValue=="true")
-                {
-                    SetResultException(R, "InsertFailure");
-                    return R;
-                }
-            }
+            //if (KitamuraProperty.Result== EWin.Lobby.enumResult.OK)
+            //{
+            //    if (KitamuraProperty.PropertyValue=="true")
+            //    {
+            //        SetResultException(R, "InsertFailure");
+            //        return R;
+            //    }
+            //}
 
             if (EWinWeb.CheckInWithdrawalTime())
             {
@@ -2882,7 +2865,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                         paymentDetailWallets.Add(paymentDetailWallet);
                                     }
 
-                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount,0, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
+                                    paymentResult = paymentAPI.CreatePaymentWithdrawal(GetToken(), TempCryptoData.LoginAccount, GUID, EWinWeb.MainCurrencyType, OrderNumber, TempCryptoData.Amount, 0, Decription, true, PointValue * -1, TempCryptoData.PaymentCode, "Crypto", CodingControl.GetUserIP(), TempCryptoData.ExpireSecond, paymentDetailWallets.ToArray());
                                     if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK)
                                     {
 

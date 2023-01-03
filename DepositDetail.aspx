@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="Scripts/OutSrc/lib/bootstrap/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/icons.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
-    <link rel="stylesheet" href="css/wallet.css" type="text/css" />
+    <link rel="stylesheet" href="css/wallet.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/footer-new.css" >
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
@@ -383,7 +383,7 @@
                                         <h6 class="title language_replace">訂單號碼</h6>
                                         <span class="data Paymentserial"></span>
                                          <%--<i class="icon-copy" onclick="copyTextPaymentSerial(this)" style="display: inline;"></i>     --%>
-                                        <i class="icon icon-mask icon-copy" onclick="copyText('idinputPaymentSerial')"></i>
+                                        <i class="icon icon-copy" onclick="copyText('idinputPaymentSerial')"></i>
                                         <input class="inputPaymentSerial is-hide" id="idinputPaymentSerial" />
                                     </li>
                                     <li class="item">
