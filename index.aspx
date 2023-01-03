@@ -1780,7 +1780,7 @@
 
             $('.headerGameName').text(gameLangName);
 
-            if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
+            if (gameBrand.toUpperCase() == "YS".toUpperCase()) {
                 gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
             } else {
                 if (EWinWebInfo.DeviceType == 1) {
@@ -1809,15 +1809,15 @@
             gameWindow.close();
         }
 
-        if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
+        //if (gameBrand.toUpperCase() != "EWin".toUpperCase()) {
             if (EWinWebInfo.DeviceType == 1) {
                 gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
             } else {
                 GameLoadPage("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href);
             }
-        } else {
-            gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
-        }
+        //} else {
+        //    gameWindow = window.open("/OpenGame.aspx?DemoPlay=1&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + window.location.href, "Maharaja Game")
+        //}
     }
     //.divGameFrame{width:70vw;height:39.375vw;background-color:#09f}
     function CloseGameFrame() {
@@ -2301,32 +2301,7 @@
             return;
         }
 
-        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30,
-            {
-                GameCode: "EWin.EWinGaming",
-                GameBrand: "EWin",
-                GameStatus: 0,
-                GameID: 0,
-                GameName: "EWinGaming",
-                GameCategoryCode: "Live",
-                GameCategorySubCode: "Baccarat",
-                GameAccountingCode: null,
-                AllowDemoPlay: 1,
-                RTPInfo: "",
-                IsHot: 1,
-                IsNew: 1,
-                SortIndex: 99,
-                Tags: [],
-                Language: [{
-                    LanguageCode: "JPN",
-                    DisplayText: "EWinゲーミング"
-                },
-                {
-                    LanguageCode: "CHT",
-                    DisplayText: "真人百家樂(eWIN)"
-                }],
-                RTP: null
-            },
+        GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30, null,
             () => {
                 notifyWindowEvent("GameLoadEnd", null);
             }
@@ -3003,11 +2978,11 @@
                         let GBL_img;
 
                         //EWin Game Item
-                        GBLDom = c.getTemplate("tmpSearchGameBrand");
-                        GBL_img = GBLDom.querySelector(".brandImg");
-                        $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
-                        GBL_img.src = `images/logo/default/logo-eWIN.svg`;
-                        ParentMain.append(GBLDom);
+                        //GBLDom = c.getTemplate("tmpSearchGameBrand");
+                        //GBL_img = GBLDom.querySelector(".brandImg");
+                        //$(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
+                        //GBL_img.src = `images/logo/default/logo-eWIN.svg`;
+                        //ParentMain.append(GBLDom);
 
                         for (var i = 0; i < o.GameBrandList.length; i++) {
                             let GBL = o.GameBrandList[i];
