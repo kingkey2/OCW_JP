@@ -20,7 +20,7 @@
         var PCode = "<%=PCode%>";
 
         function regBtnClick() {
-            window.location.href = "https://casino-maharaja.com/registerForQrCode.aspx?p=" + PCode + "&c=OCW888&Lang=JPN";
+            window.location.href = "https://casino-maharaja.com/Index.aspx?PCode=" + PCode + "&c=OCW888&Lang=JPN";
         }
 
     </script>
