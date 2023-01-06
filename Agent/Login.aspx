@@ -5,6 +5,7 @@
     string Lang;
     string DefaultCompany = EWinWeb.CompanyCode;
     string Version=EWinWeb.Version;
+    string AgentVersion = EWinWeb.AgentVersion;
     if (string.IsNullOrEmpty(Request["Lang"]))
     {
         string userLang = CodingControl.GetDefaultLanguage();
@@ -44,16 +45,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>代理網登入</title>
     <meta id="extViewportMeta" name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">     
-    <link rel="stylesheet" href="css/basic.min.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/main.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
-    <link rel="stylesheet" href="css/login.css?<%=DateTime.Now.ToString("yyyyMMddHHmmss") %>">
+    <link rel="stylesheet" href="css/basic.min.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/main2.css?<%:AgentVersion%>">
+    <link rel="stylesheet" href="css/login.css?<%:AgentVersion%>">
 </head>
 <script src="/Scripts/Common.js"></script>
 <script src="/Scripts/bignumber.min.js"></script>
 <script src="/Scripts/Math.uuid.js"></script>
 <script src="Scripts/MultiLanguage.js"></script>
 <script type="text/javascript" src="js/AppBridge.js"></script>
-<script src="../Scripts/libphonenumber.js"></script>
 <script>
     var AppBridge = new AppBridge("JsBridge", "iosJsBridge", "");
     var c = new common();
@@ -64,8 +64,7 @@
     var clickCount = 0;
     var companyCodeTimer;
     var companyCodeclickCount = 0;
-    var PhoneNumberUtil = libphonenumber.PhoneNumberUtil.getInstance();
-    var v ="<%:Version%>";
+    var v ="<%:AgentVersion%>";
     function setLanguage(v) {
         var form = document.forms[0];
 
@@ -82,34 +81,12 @@
     function checkData() {
         var form = document.forms[0];
 
-        
-        if (form.PhonePrefix.value == "") {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入國碼"));
-        } else if (form.PhoneNumber.value == "") {
-            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入電話號碼"));
+        if (form.LoginAccount.value == "") {
+            showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入帳號"));
         } else if (form.LoginPassword.value == "") {
             showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("請輸入登入密碼"));
-        } else {
+        }  else {
             var allowCompany = true;
-
-            var phoneValue = form.PhonePrefix.value + form.PhoneNumber.value;
-            var phoneObj;
-
-            try {
-                phoneObj = PhoneNumberUtil.parse(phoneValue);
-
-                var type = PhoneNumberUtil.getNumberType(phoneObj);
-
-                if (type != libphonenumber.PhoneNumberType.MOBILE && type != libphonenumber.PhoneNumberType.FIXED_LINE_OR_MOBILE) {
-                    allowCompany = false;
-                    showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話格式有誤"));
-                    return;
-                }
-            } catch (e) {
-                allowCompany = false;
-                showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("電話格式有誤"));
-                return;
-            }
 
             if ((defaultCompany == null) || (defaultCompany == "")) {
                 if (form.CompanyCode.value == "") {
@@ -313,21 +290,16 @@
             //    }
             //}
         }
-
-        langTmp = window.localStorage.getItem("agent_lang");
-        if ((langTmp != null) && (langTmp != "")) {
-            //lang = langTmp;
-            //document.getElementsByName("Lang")[0].value = lang;
-            for (var i = 0; i < langel.length; i++) {
-                if (lang == langel[i].value) {
-                    langel[i].checked = true;
-                    break;
-                }
+        
+        for (var i = 0; i < langel.length; i++) {
+            if (lang == langel[i].value) {
+                langel[i].checked = true;
+                break;
             }
-        } else {
-            window.localStorage.setItem("agent_lang", lang);
         }
 
+        window.localStorage.setItem("agent_lang", lang);
+        
         onLoginType();
 
         mlp = new multiLanguage(v);
@@ -375,7 +347,7 @@
         <div class="container loginWrapper">
             <section class="login__brand">
                 <div class="heading-login text-center">
-                    <span class="language_replace" onclick="showCompanyCode()">Club Maharaja</span>
+                    <span class="language_replace" onclick="showCompanyCode()">OCW888</span>
                 </div>
                 <!-- <div class="login__qrcode"><span class="qrcode"></span></div> -->
                 <%if (EWinWeb.IsTestSite == true)
@@ -389,7 +361,7 @@
                 <input type="hidden" name="Lang" value="<%=Lang %>" />
                 
                 <div class="loginForm__left">
-                    <div class="form-group form-group-loginUser">
+                    <div class="form-group form-group-loginUser" style="display: none;">
                        
                         <div class="custom-control custom-radio custom-control-inline">
                             <input onclick="onLoginType()" type="radio" name="LoginType" id="rdoLoginType0" value="0" class="custom-control-input-hidden" checked>
@@ -401,61 +373,38 @@
                         </div>
                     </div>
                     <div class="form-group form-group-lang">
-                        <!--div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('CHS')">
-                            <input type="radio" id="lang1" name="lang" class="custom-control-input-hidden" value="CHS" checked>
+                        <p><span class="language_replace">語系</span></p>
+                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('CHS')" style="display:none">
+                            <input type="radio" id="lang1" name="lang" class="custom-control-input-hidden" value="CHS" >
                             <label class="custom-control-label-lang ico-before-cn" for="lang1">
                                 <span
                                     class="language_replace">简体中文</span></label>
-                        </div-->
-                        <div class="custom-control  custom-control-inline custom-radio-lang" onclick="setLanguage('CHT')">
+                        </div>
+                        <div class="custom-control  custom-control-inline custom-radio-lang" style="width:25% !important" onclick="setLanguage('CHT')">
                             <input type="radio" id="lang2" name="lang" class="custom-control-input-hidden" value="CHT">
                             <label class="custom-control-label-lang ico-before-hk" for="lang2">
                                 <span
                                     class="language_replace">繁體中文</span></label>
                         </div>
-                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('ENG')">
-                            <input type="radio" id="lang3" name="lang" class="custom-control-input-hidden" value="ENG">
+                        <div class="custom-control custom-radio-lang custom-control-inline" style="width:25% !important" onclick="setLanguage('ENG')">
+                            <input type="radio" id="lang3" name="lang" class="custom-control-input-hidden" value="ENG" checked>
                             <label class="custom-control-label-lang ico-before-en" for="lang3">
                                 <span
                                     class="language_replace">english</span></label>
                         </div>
-                        <!--div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('KOR')">
-                            <input type="radio" id="lang4" name="lang" class="custom-control-input-hidden" value="KOR">
-                            <label class="custom-control-label-lang ico-before-kr" for="lang4">
-                                <span
-                                    class="language_replace">한국어</span></label>
-                        </div-->
-                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('JPN')">
-                            <input type="radio" id="lang5" name="lang" class="custom-control-input-hidden" value="JPN">
-                            <label class="custom-control-label-lang ico-before-jp" for="lang5">
+                        <div class="custom-control custom-radio-lang custom-control-inline" style="width:25% !important" onclick="setLanguage('JPN')">
+                            <input type="radio" id="lang4" name="lang" class="custom-control-input-hidden" value="JPN" checked>
+                            <label class="custom-control-label-lang ico-before-jp" for="lang4">
                                 <span
                                     class="language_replace">日本語</span></label>
                         </div>
-						<!--div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('THAI')">
-                            <input type="radio" id="lang6" name="lang" class="custom-control-input-hidden" value="THAI">
-                            <label class="custom-control-label-lang ico-before-th" for="lang6">
-                                <span
-                                    class="language_replace">ภาษาไทย</span></label>
-                        </div>
-                        <div class="custom-control custom-radio-lang custom-control-inline" onclick="setLanguage('PHP')">
-                            <input type="radio" id="lang7" name="lang" class="custom-control-input-hidden" value="PHP">
-                            <label class="custom-control-label-lang ico-before-ph" for="lang7">
-                                <span
-                                    class="language_replace">Wikang Tagalog</span></label>
-                        </div-->
                     </div>
                 </div>
                 <div class="loginForm__right">
-                    <div class="form-group">
+                     <div class="form-group">
                         <div class="form-control-underline form-input-icon">
-                            <input type="text" class="form-control" name="PhonePrefix" value="+81" required>
-                            <label for="area" class="form-label ico-before-member"><span class="language_replace">國碼</span></label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-control-underline form-input-icon">
-                            <input type="text" class="form-control" name="PhoneNumber" required>
-                            <label for="phoneNo" class="form-label ico-before-member"><span class="language_replace">電話號碼</span></label>
+                            <input type="text" class="form-control" name="LoginAccount" required>
+                            <label for="member" class="form-label ico-before-member"><span class="language_replace">登入帳號</span></label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -464,7 +413,7 @@
                             <label for="password" class="form-label ico-before-lock"><span class="language_replace">登入密碼</span></label>
                         </div>
                     </div>
-                    <div id="idMainAccountField" class="form-group">
+                    <div id="idMainAccountField" class="form-group" style="display: none">
                         <div class="form-control-underline form-input-icon">
                             <input type="text" class="form-control" name="MainAccount" required>
                             <label for="member" class="form-label ico-before-member"><span class="language_replace">主戶口帳號</span></label>
