@@ -390,7 +390,7 @@
                             <input type="radio" id="lang3" name="lang" class="custom-control-input-hidden" value="ENG" checked>
                             <label class="custom-control-label-lang ico-before-en" for="lang3">
                                 <span
-                                    class="language_replace">english</span></label>
+                                    class="language_replace">ENG</span></label>
                         </div>
                         <div class="custom-control custom-radio-lang custom-control-inline" style="width:25% !important" onclick="setLanguage('JPN')">
                             <input type="radio" id="lang4" name="lang" class="custom-control-input-hidden" value="JPN" checked>
