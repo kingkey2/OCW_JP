@@ -205,7 +205,7 @@
     function CheckPassword() {
         var idLoginPassword = document.getElementById("idLoginPassword");
         var idLoginCheckPassword = document.getElementById("idLoginCheckPassword");
-        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$');
+        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,20}$');
 
         if (idLoginPassword.value == "") {
             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入登入密碼"));
