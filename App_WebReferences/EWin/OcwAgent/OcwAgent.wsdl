@@ -590,6 +590,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalBonusValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusValue_Own" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
           <s:element minOccurs="0" maxOccurs="1" name="ChildDetail" type="tns:ArrayOfAccountingDetail" />
         </s:sequence>
       </s:complexType>

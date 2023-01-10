@@ -106,6 +106,14 @@
                                 <span class="td__content"><span class="ValidBetValue">${toCurrency(parseInt(data.ValidBetValue))}</span></span>
                             </div>
                               <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">總線佣金</span></span>
+                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(parseInt(data.TotalLineRebate))}</span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">佔成率</span></span>
+                                <span class="td__content"><span class="AccountingOPValue">${data.UserRate/100}</span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">應得佣金</span></span>
                                 <span class="td__content"><span class="AccountingOPValue">${toCurrency(parseInt(data.AccountingOPValue))}</span></span>
                             </div>
@@ -209,6 +217,14 @@
                                 <span class="td__content"><span class="ValidBetValue"></span></span>
                             </div>
                               <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">總線佣金</span></span>
+                                <span class="td__content"><span class="AccountingOPValue"></span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
+                                <span class="td__title"><span class="language_replace">佔成率</span></span>
+                                <span class="td__content"><span class="TotalBonusValue"></span></span>
+                            </div>
+                              <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">應付傭金</span></span>
                                 <span class="td__content"><span class="AccountingOPValue"></span></span>
                             </div>
@@ -233,6 +249,8 @@
                             <div class="thead__th"><span class="language_replace">帳號</span></div>
                             <div class="thead__th"><span class="language_replace">總輸贏</span></div>
                             <div class="thead__th"><span class="language_replace">總轉碼</span></div>
+                            <div class="thead__th"><span class="language_replace">總線佣金</span></div>
+                            <div class="thead__th"><span class="language_replace">佔成率</span></div>
                             <div class="thead__th"><span class="language_replace">應付傭金</span></div>
                             <div class="thead__th"><span class="language_replace">總紅利</span></div>
                             <div class="thead__th"><span class="language_replace">佔成紅利</span></div>
