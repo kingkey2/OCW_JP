@@ -146,7 +146,7 @@
             if (parseFloat(item.TotalRewardValue) < 0) {
                 t.getElementsByClassName("TotalRewardValue")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "TotalRewardValue", null, c.toCurrency(item.TotalRewardValue));
+            c.setClassText(t, "TotalRewardValue", null, c.toCurrency(parseInt(item.TotalRewardValue)));
         } else {
             c.setClassText(t, "TotalRewardValue", null, 0);
         }
@@ -155,7 +155,7 @@
             if (parseFloat(item.TotalValidBetValue) < 0) {
                 t.getElementsByClassName("TotalValidBetValue")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "TotalValidBetValue", null, c.toCurrency(item.TotalValidBetValue));
+            c.setClassText(t, "TotalValidBetValue", null, c.toCurrency(parseInt(item.TotalValidBetValue)));
         } else {
             c.setClassText(t, "TotalValidBetValue", null, 0);
         }
@@ -164,7 +164,7 @@
             if (parseFloat(item.CommissionValue) < 0) {
                 t.getElementsByClassName("TotalCommissionValue")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "TotalCommissionValue", null, c.toCurrency(item.CommissionValue));
+            c.setClassText(t, "TotalCommissionValue", null, c.toCurrency(parseInt(item.CommissionValue)));
         } else {
             c.setClassText(t, "TotalCommissionValue", null, 0);
         }
@@ -173,7 +173,7 @@
             if (parseFloat(item.UplineCommissionUserRateValue) < 0) {
                 t.getElementsByClassName("UpLineCommissionUserRateValue")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "UpLineCommissionUserRateValue", null, c.toCurrency(item.UplineCommissionUserRateValue));
+            c.setClassText(t, "UpLineCommissionUserRateValue", null, c.toCurrency(parseInt(item.UplineCommissionUserRateValue)));
         } else {
             c.setClassText(t, "UpLineCommissionUserRateValue", null, 0);
         }
@@ -182,7 +182,7 @@
             if (parseFloat(item.BonusPointValue) < 0) {
                 t.getElementsByClassName("TotalBonusPointValue")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "TotalBonusPointValue", null, c.toCurrency(item.BonusPointValue));
+            c.setClassText(t, "TotalBonusPointValue", null, c.toCurrency(parseInt(item.BonusPointValue)));
         } else {
             c.setClassText(t, "TotalBonusPointValue", null, 0);
         }
@@ -191,7 +191,7 @@
             if (parseFloat(item.CostValue) < 0) {
                 t.getElementsByClassName("TotalCostValue")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "TotalCostValue", null, c.toCurrency(item.CostValue));
+            c.setClassText(t, "TotalCostValue", null, c.toCurrency(parseInt(item.CostValue)));
         } else {
             c.setClassText(t, "TotalCostValue", null, 0);
         }
@@ -200,7 +200,7 @@
             if (parseFloat(item.TotalNGR) < 0) {
                 t.getElementsByClassName("TotalNGR")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "TotalNGR", null, c.toCurrency(item.TotalNGR));
+            c.setClassText(t, "TotalNGR", null, c.toCurrency(parseInt(item.TotalNGR)));
         } else {
             c.setClassText(t, "TotalNGR", null, 0);
         }
@@ -209,7 +209,7 @@
             if (parseFloat(item.TotalLineRebate) < 0) {
                 t.getElementsByClassName("TotalLineRebate")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "TotalLineRebate", null, c.toCurrency(item.TotalLineRebate));
+            c.setClassText(t, "TotalLineRebate", null, c.toCurrency(parseInt(item.TotalLineRebate)));
         } else {
             c.setClassText(t, "TotalLineRebate", null, 0);
             TotalLineRebate = 0;
@@ -219,7 +219,7 @@
             if (parseFloat(item.UserCommissionProfit) < 0) {
                 t.getElementsByClassName("UserCommissionProfit")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "UserCommissionProfit", null, c.toCurrency(item.UserCommissionProfit));
+            c.setClassText(t, "UserCommissionProfit", null, c.toCurrency(parseInt(item.UserCommissionProfit)));
         } else {
             c.setClassText(t, "UserCommissionProfit", null, 0);
         }
@@ -228,7 +228,7 @@
             if (parseFloat(item.PaidOPValue) < 0) {
                 t.getElementsByClassName("UserOPValue")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "UserOPValue", null, c.toCurrency(item.PaidOPValue));
+            c.setClassText(t, "UserOPValue", null, c.toCurrency(parseInt(item.PaidOPValue)));
         } else {
             c.setClassText(t, "UserOPValue", null, 0);
         }
@@ -237,10 +237,10 @@
             if (parseFloat(item.UserRebate - item.PaidOPValue) < 0) {
                 t.getElementsByClassName("UserRebate")[0].classList.add("num-negative");
             }
-            c.setClassText(t, "UserRebate", null, c.toCurrency(item.UserRebate - item.PaidOPValue));
+            c.setClassText(t, "UserRebate", null, c.toCurrency(parseInt(item.UserRebate - item.PaidOPValue)));
 
-            TotalLineRebate = parseFloat(TotalLineRebate) + parseFloat(item.UserRebate - item.PaidOPValue);
-            document.getElementById("totalCommission").innerText = TotalLineRebate;
+            //TotalLineRebate = parseFloat(TotalLineRebate) + parseFloat(item.UserRebate - item.PaidOPValue);
+            //document.getElementById("totalCommission").innerText = TotalLineRebate;
         } else {
             c.setClassText(t, "UserRebate", null, 0);
         }
@@ -309,7 +309,7 @@
                 if (parseFloat(item.TotalRewardValue) < 0) {
                     t.getElementsByClassName("TotalRewardValue")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "TotalRewardValue", null, c.toCurrency(item.TotalRewardValue));
+                c.setClassText(t, "TotalRewardValue", null, c.toCurrency(parseInt(item.TotalRewardValue)));
             } else {
                 c.setClassText(t, "TotalRewardValue", null, 0);
             }
@@ -318,7 +318,7 @@
                 if (parseFloat(item.TotalValidBetValue) < 0) {
                     t.getElementsByClassName("TotalValidBetValue")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "TotalValidBetValue", null, c.toCurrency(item.TotalValidBetValue));
+                c.setClassText(t, "TotalValidBetValue", null, c.toCurrency(parseInt(item.TotalValidBetValue)));
             } else {
                 c.setClassText(t, "TotalValidBetValue", null, 0);
             }
@@ -327,7 +327,7 @@
                 if (parseFloat(item.CommissionValue) < 0) {
                     t.getElementsByClassName("TotalCommissionValue")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "TotalCommissionValue", null, c.toCurrency(item.CommissionValue));
+                c.setClassText(t, "TotalCommissionValue", null, c.toCurrency(parseInt(item.CommissionValue)));
             } else {
                 c.setClassText(t, "TotalCommissionValue", null, 0);
             }
@@ -336,7 +336,7 @@
                 if (parseFloat(item.UplineCommissionUserRateValue) < 0) {
                     t.getElementsByClassName("UpLineCommissionUserRateValue")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "UpLineCommissionUserRateValue", null, c.toCurrency(item.UplineCommissionUserRateValue));
+                c.setClassText(t, "UpLineCommissionUserRateValue", null, c.toCurrency(parseInt(item.UplineCommissionUserRateValue)));
             } else {
                 c.setClassText(t, "UpLineCommissionUserRateValue", null, 0);
             }
@@ -345,7 +345,7 @@
                 if (parseFloat(item.BonusPointValue) < 0) {
                     t.getElementsByClassName("TotalBonusPointValue")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "TotalBonusPointValue", null, c.toCurrency(item.BonusPointValue));
+                c.setClassText(t, "TotalBonusPointValue", null, c.toCurrency(parseInt(item.BonusPointValue)));
             } else {
                 c.setClassText(t, "TotalBonusPointValue", null, 0);
             }
@@ -354,7 +354,7 @@
                 if (parseFloat(item.CostValue) < 0) {
                     t.getElementsByClassName("TotalCostValue")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "TotalCostValue", null, c.toCurrency(item.CostValue));
+                c.setClassText(t, "TotalCostValue", null, c.toCurrency(parseInt(item.CostValue)));
             } else {
                 c.setClassText(t, "TotalCostValue", null, 0);
             }
@@ -363,7 +363,7 @@
                 if (parseFloat(item.TotalNGR) < 0) {
                     t.getElementsByClassName("TotalNGR")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "TotalNGR", null, c.toCurrency(item.TotalNGR));
+                c.setClassText(t, "TotalNGR", null, c.toCurrency(parseInt(item.TotalNGR)));
             } else {
                 c.setClassText(t, "TotalNGR", null, 0);
             }
@@ -372,7 +372,7 @@
                 if (parseFloat(item.TotalLineRebate) < 0) {
                     t.getElementsByClassName("TotalLineRebate")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "TotalLineRebate", null, c.toCurrency(item.TotalLineRebate));
+                c.setClassText(t, "TotalLineRebate", null, c.toCurrency(parseInt(item.TotalLineRebate)));
             } else {
                 c.setClassText(t, "TotalLineRebate", null, 0);
             }
@@ -381,7 +381,7 @@
                 if (parseFloat(item.UserCommissionProfit) < 0) {
                     t.getElementsByClassName("UserCommissionProfit")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "UserCommissionProfit", null, c.toCurrency(item.UserCommissionProfit));
+                c.setClassText(t, "UserCommissionProfit", null, c.toCurrency(parseInt(item.UserCommissionProfit)));
             } else {
                 c.setClassText(t, "UserCommissionProfit", null, 0);
             }
@@ -390,7 +390,7 @@
                 if (parseFloat(item.PaidOPValue) < 0) {
                     t.getElementsByClassName("UserOPValue")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "UserOPValue", null, c.toCurrency(item.PaidOPValue));
+                c.setClassText(t, "UserOPValue", null, c.toCurrency(parseInt(item.PaidOPValue)));
             } else {
                 c.setClassText(t, "UserOPValue", null, 0);
             }
@@ -399,7 +399,7 @@
                 if (parseFloat(item.UserRebate - item.PaidOPValue) < 0) {
                     t.getElementsByClassName("UserRebate")[0].classList.add("num-negative");
                 }
-                c.setClassText(t, "UserRebate", null, c.toCurrency(item.UserRebate - item.PaidOPValue));
+                c.setClassText(t, "UserRebate", null, c.toCurrency(parseInt(item.UserRebate - item.PaidOPValue)));
             } else {
                 c.setClassText(t, "UserRebate", null, 0);
             }
@@ -624,7 +624,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto">
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-auto" style="display:none">
                                 <!-- 模式 -->
                                 <div class="form-group form-group-s2 ">
                                     <div class="title"><span class="language_replace">總應得佣金</span></div>

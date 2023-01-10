@@ -99,27 +99,27 @@
                             </div>
                              <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">團隊輸贏數</span></span>
-                                <span class="td__content"><span class="RewardValue">${toCurrency(data.RewardValue)}</span></span>
+                                <span class="td__content"><span class="RewardValue">${toCurrency(parseInt(data.RewardValue))}</span></span>
                             </div>
                               <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">團隊轉碼數</span></span>
-                                <span class="td__content"><span class="ValidBetValue">${toCurrency(data.ValidBetValue)}</span></span>
+                                <span class="td__content"><span class="ValidBetValue">${toCurrency(parseInt(data.ValidBetValue))}</span></span>
                             </div>
                               <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">應得佣金</span></span>
-                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(data.AccountingOPValue)}</span></span>
+                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(parseInt(data.AccountingOPValue))}</span></span>
                             </div>
                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">團隊投注筆數</span></span>
-                                <span class="td__content"><span class="TotalBonusValue">${toCurrency(data.TotalBonusValue)}</span></span>
+                                <span class="td__content"><span class="TotalBonusValue">${toCurrency(parseInt(data.TotalBonusValue))}</span></span>
                             </div>
                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">佔成紅利</span></span>
-                                <span class="td__content"><span class="BonusValue_Own">${toCurrency(data.BonusValue_Own)}</span></span>
+                                <span class="td__content"><span class="BonusValue_Own">${toCurrency(parseInt(data.BonusValue_Own))}</span></span>
                             </div>
                            <div class="tbody__td td-number td-3 td-vertical">
                                 <span class="td__title"><span class="language_replace">團隊投注筆數</span></span>
-                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(data.OrderCount)}</span></span>
+                                <span class="td__content"><span class="AccountingOPValue">${toCurrency(parseInt(data.OrderCount))}</span></span>
                             </div>
                         </div>`
 
