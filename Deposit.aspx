@@ -174,6 +174,22 @@
                             <img src="images/assets/card-surface/card-03.svg" class="card-item-bg">
                         </a>
                     </div>
+                       <!-- EPay -->
+                    <div class="card-item sd-03" id="idDepositTigerPay">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span class="language_replace">TigerPay</span>
+                                    <!-- <span>Electronic Wallet</span>  -->
+                                </div>
+                                <div class="logo vertical-center text-center"> 
+                                    <!-- <span class="text language_replace">銀行振込</span> -->
+                                    <img src="images/assets/card-surface/tigerpay.jpg">
+                                </div>
+                            </div>
+                            <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
+                        </a>
+                    </div>
                 </div>
                 <!-- 存款紀錄 -->
                 <div class="notice-container mt-5">

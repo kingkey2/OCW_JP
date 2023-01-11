@@ -374,6 +374,14 @@
                 $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE", "RT"]);
                 break;
+            case 22:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
+                break;
+            case 23:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
+                break;
         }
     }
 
