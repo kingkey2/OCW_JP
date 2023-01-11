@@ -1388,47 +1388,18 @@
                     </div>
                      <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=21')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=22')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="Activity/event/bng/bng221225MR/img/768X480.png"  alt="" />
+                                <img src="Activity/mahaEvent/src/202301-m.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/event/bng/bng221225MR/img/1200X378.png"  class="bg"/>
+                                    <img src="Activity/mahaEvent/src/202301.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=20')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/ne-rt/202212/img/JP_768X480_Xmas.png" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/ne-rt/202212/img/JP_1200X378_Xmas.png" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=18')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/mahaEvent/src/12month-m.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/mahaEvent/src/12month.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','/Article/guide-TripleCrown_JPN.html?Page=CasinoPage')"></a>

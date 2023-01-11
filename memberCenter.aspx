@@ -353,8 +353,8 @@
         memberInit();
         //changeAvatar(getCookie("selectAvatar"));
 
-        $("#activityURL").attr("href", "https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode);
-        $("#activityURL1").attr("href", "https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode);
+        $("#activityURL").attr("href", "https://casino-maharaja.com/Activity/MemberCenter/01/index.aspx?PCode=" + WebInfo.UserInfo.PersonCode);
+        $("#activityURL1").attr("href", "https://casino-maharaja.com/Activity/MemberCenter/02/index.aspx?PCode=" + WebInfo.UserInfo.PersonCode);
 
         if (!WebInfo.UserInfo.IsWalletPasswordSet) {
             //document.getElementById('idWalletPasswordUnSet').style.display = "block";
@@ -363,7 +363,7 @@
 
     function copyActivityUrl() {
 
-        navigator.clipboard.writeText("https://casino-maharaja.net/lp/01/" + WebInfo.UserInfo.PersonCode).then(
+        navigator.clipboard.writeText("https://casino-maharaja.com/Activity/MemberCenter/01/index.aspx?PCode=" + WebInfo.UserInfo.PersonCode).then(
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
         //alert("Copied the text: " + copyText.value);
@@ -371,7 +371,7 @@
 
     function copyActivityUrl1() {
 
-        navigator.clipboard.writeText("https://casino-maharaja.net/lp/02/" + WebInfo.UserInfo.PersonCode).then(
+        navigator.clipboard.writeText("https://casino-maharaja.com/Activity/MemberCenter/02/index.aspx?PCode=" + WebInfo.UserInfo.PersonCode).then(
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
             () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
         //alert("Copied the text: " + copyText.value);
@@ -1053,7 +1053,7 @@
                                                 <a id="activityURL1" href="https://www.casino-maharaja.net/lp/02/N00000000"
                                                     target="_blank">
                                                     <div class="img-crop">
-                                                        <img src="images/activity/promo-02.jpg"
+                                                        <img src="images/activity/promo-02.jpg?1"
                                                             alt="パチンコって何？それっておいしいの？">
                                                     </div>
                                                 </a>
@@ -1072,7 +1072,7 @@
                                                 <a id="activityURL" href="https://casino-maharaja.net/lp/01/N00000000"
                                                     target="_blank">
                                                     <div class="img-crop">
-                                                        <img src="images/activity/promo-01.jpg"
+                                                        <img src="images/activity/promo-01.jpg?1"
                                                             alt="とりあえず、当社のドメインで紹介用LPをアップしてみました。">
                                                     </div>
                                                 </a>
