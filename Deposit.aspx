@@ -175,7 +175,7 @@
                         </a>
                     </div>
                        <!-- EPay -->
-                    <div class="card-item sd-03" id="idDepositTigerPay">
+                    <div class="card-item sd-04" id="idDepositTigerPay">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="logo vertical-center text-center"> 
                                     <!-- <span class="text language_replace">銀行振込</span> -->
-                                    <img src="images/assets/card-surface/tigerpay.jpg">
+                                    <img src="images/assets/card-surface/tigerpay.png">
                                 </div>
                             </div>
                             <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
