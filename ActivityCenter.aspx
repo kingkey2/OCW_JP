@@ -472,46 +472,6 @@
                                 </div>
                             </div>
                         </figure>
-                          <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(21,'/Activity/event/bng/bng221225MR/index-jp.html')">
-                                <!-- 結束活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/bng/bng221225MR/img/500X316.png" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">
-                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
-                                            </div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(20,'/Activity/event/ne-rt/202212/index-jp2.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/ne-rt/202212/img/JP_500X316_Xmas.png" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <div class="desc language_replace">
-                                                ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大130,000のギフトマネーが貰えるよ！
-                                            </div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
                                 <!-- 活動連結 -->
@@ -552,6 +512,46 @@
                         </figure>
                     </div>
                     <div class="activity-item-group" id="divFinish" style="display: none">
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(21,'/Activity/event/bng/bng221225MR/index-jp.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng221225MR/img/500X316_end.png" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">
+                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(20,'/Activity/event/ne-rt/202212/index-jp2.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/ne-rt/202212/img/JP_500X316_Xmas_end.png" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">
+                                                ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大130,000のギフトマネーが貰えるよ！
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(18,'/Activity/mahaEvent/12month.html')">
                                 <!-- 活動連結 -->

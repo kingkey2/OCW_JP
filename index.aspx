@@ -121,7 +121,7 @@
 
 %>
 <!doctype html>
-<html id="myHTML" lang="zh-Hant-TW" class="mainHtml">
+<html id="myHTML" lang="ja" class="mainHtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
