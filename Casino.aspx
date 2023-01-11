@@ -1360,7 +1360,32 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-
+                     <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=23')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/event/pp202301-2/img/768x480.png" />   
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/event/pp202301-2/img/1200x378.png" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=22')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/event/pp202301-1/img/768x480.png" />   
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/event/pp202301-1/img/1200x378.png" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                      <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=21')"></a>

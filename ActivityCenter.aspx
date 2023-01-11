@@ -136,6 +136,12 @@
                         case "21":
                             GoActivityDetail(21, '/Activity/event/bng/bng221225MR/index-jp.html');
                             break;
+                        case "22":
+                            GoActivityDetail(22, '/Activity/event/pp202301-1/index-jp.html');
+                            break;
+                        case "23":
+                            GoActivityDetail(23, '/Activity/event/pp202301-2/index-jp.html');
+                            break;
                     }
                 }
 
@@ -301,6 +307,18 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
+                case 22:
+                    title = "ライブカジノウィークリー トーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
+                case 23:
+                    title = "ライブカジノウィークリー トーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
                 default:
                     break;
             }
@@ -447,6 +465,44 @@
 
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
+                            <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(23,'/Activity/event/pp202301-2/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/pp202301-2/img/500x316.png">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(22,'/Activity/event/pp202301-1/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/pp202301-1/img/500x316.png">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                           <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(21,'/Activity/event/bng/bng221225MR/index-jp.html')">
                                 <!-- 結束活動連結 -->
@@ -543,26 +599,7 @@
                             </div>
                         </figure>
                     </div>
-                    <div class="activity-item-group" id="divFinish" style="display: none">
-                                <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(11,'/Activity/event/pp202209-1/index-jp.html')">
-                                <!-- 活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/pp202209-1/img/img-liveJp-act-close.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
+                    <div class="activity-item-group" id="divFinish" style="display: none"> 
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(12,'/Activity/event/pp202209-2/index-jp.html')">
                                 <!-- 活動連結 -->
