@@ -136,8 +136,8 @@
                         case "21":
                             GoActivityDetail(21, '/Activity/event/bng/bng221225MR/index-jp.html');
                             break;
-                        case "22":
-                            GoActivityDetail(22, '/Activity/event/pp202301-1/index-jp.html');
+                        case "24":
+                            GoActivityDetail(24, '/Activity/event/pp202301-1/index-jp.html');
                             break;
                         case "23":
                             GoActivityDetail(23, '/Activity/event/pp202301-2/index-jp.html');
@@ -307,7 +307,7 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
-                case 22:
+                case 24:
                     title = "ライブカジノウィークリー トーナメント";
                     btnText = mlp.getLanguageKey("前往遊玩");
                     popupBtnHide = 0;
@@ -374,7 +374,7 @@
                 $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE", "RT"]);
                 break;
-            case 22:
+            case 24:
                 $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
                 break;
@@ -493,7 +493,7 @@
                             </div>
                         </figure>
                           <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(22,'/Activity/event/pp202301-1/index-jp.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(24,'/Activity/event/pp202301-1/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">

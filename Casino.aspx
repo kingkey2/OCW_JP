@@ -1375,7 +1375,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=22')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=24')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/pp202301-1/img/768x480.png" />   
                             </div>
