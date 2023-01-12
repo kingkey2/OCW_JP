@@ -520,7 +520,7 @@
                             </div>
                         </figure>
                           <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(21,'/Activity/event/bng/bng221225MR/index-jp.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(22,'/Activity/mahaEvent/2301month.html')">
                                 <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
