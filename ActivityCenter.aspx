@@ -136,6 +136,12 @@
                         case "21":
                             GoActivityDetail(21, '/Activity/event/bng/bng221225MR/index-jp.html');
                             break;
+                        case "24":
+                            GoActivityDetail(24, '/Activity/event/pp202301-1/index-jp.html');
+                            break;
+                        case "23":
+                            GoActivityDetail(23, '/Activity/event/pp202301-2/index-jp.html');
+                            break;
                         case "22":
                             GoActivityDetail(22, '/Activity/mahaEvent/2301month.html');
                             break;
@@ -304,6 +310,18 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
+                case 24:
+                    title = "ライブカジノウィークリー トーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
+                case 23:
+                    title = "ライブカジノウィークリー トーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
                 case 22:
                     $('#ModalDeposit2301 .activity-popup-detail-inner').load(url, function () {
                         $('#ModalDeposit2301').modal('show');
@@ -363,6 +381,14 @@
             case 20:
                 $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["NE", "RT"]);
+                break;
+            case 24:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
+                break;
+            case 23:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
                 break;
         }
     }
@@ -455,36 +481,17 @@
 
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(22,'/Activity/mahaEvent/2301month.html')">
+                            <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(23,'/Activity/event/pp202301-2/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img class="" src="Activity/mahaEvent/src/202301-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <div class="desc language_replace">アカウント初入金に最大100,000 Ocoin還元</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                          <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(21,'/Activity/event/bng/bng221225MR/index-jp.html')">
-                                <!-- 結束活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/bng/bng221225MR/img/500X316.png" />
+                                        <img src="Activity/event/pp202301-2/img/500x316.png">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">
-                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
-                                            </div>
+                                            <div class="desc language_replace">プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
@@ -493,18 +500,35 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(20,'/Activity/event/ne-rt/202212/index-jp2.html')">
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(24,'/Activity/event/pp202301-1/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/ne-rt/202212/img/JP_500X316_Xmas.png" />
+                                        <img src="Activity/event/pp202301-1/img/500x316.png">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
-                                            <div class="desc language_replace">
-                                                ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大130,000のギフトマネーが貰えるよ！
-                                            </div>
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(22,'/Activity/mahaEvent/2301month.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="Activity/mahaEvent/src/202301-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">アカウント初入金に最大100,000 Ocoin還元</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
@@ -552,6 +576,46 @@
                         </figure>
                     </div>
                     <div class="activity-item-group" id="divFinish" style="display: none">
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(21,'/Activity/event/bng/bng221225MR/index-jp.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng221225MR/img/500X316_end.png" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">
+                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(20,'/Activity/event/ne-rt/202212/index-jp2.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/ne-rt/202212/img/JP_500X316_Xmas_end.png" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">
+                                                ネットエント（NE）とレッドタイガー（RT）のゲームをプレイすれば、最大130,000のギフトマネーが貰えるよ！
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(18,'/Activity/mahaEvent/12month.html')">
                                 <!-- 活動連結 -->

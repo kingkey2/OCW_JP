@@ -26,7 +26,6 @@
 
                 EWin.Payment.PaymentResult paymentResult = paymentAPI.GetPaymentByClientOrderNumber(Token, GUID, BodyObj.ClientOrderNumber);
                 //回去EWin確認該筆訂單存在
-
                 if (paymentResult.ResultStatus == EWin.Payment.enumResultStatus.OK) {
                     if (BodyObj.DirectionType == "Deposit") {
                         if (BodyObj.Action == "Create") {
