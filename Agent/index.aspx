@@ -596,19 +596,19 @@
                         firstLoad = false;
 
                         //確認是否有區塊鏈錢包
-                        if (o.WalletList) {
-                            if (o.WalletList.length > 0) {
-                                for (var i = 0; i < o.WalletList.length; i++) {
-                                    if (o.WalletList[i].PointState == 0 && o.WalletList[i].ValueType == 2) {
-                                        hasCryptoWallet = true;
-                                        document.getElementById("idCryptoWallet").style.display = "";
-                                        //document.getElementById("idCryptoWalletReport").style.display = "";
+                        //if (o.WalletList) {
+                        //    if (o.WalletList.length > 0) {
+                        //        for (var i = 0; i < o.WalletList.length; i++) {
+                        //            if (o.WalletList[i].PointState == 0 && o.WalletList[i].ValueType == 2) {
+                        //                hasCryptoWallet = true;
+                        //                document.getElementById("idCryptoWallet").style.display = "";
+                        //                //document.getElementById("idCryptoWalletReport").style.display = "";
 
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                        //                break;
+                        //            }
+                        //        }
+                        //    }
+                        //}
 
                         //是否顯示推廣碼
                         switch (EWinInfo.UserInfo.UserAccountType) {
@@ -618,8 +618,8 @@
                                         document.getElementById("idMyQRCode").style.display = "";
                                     }
 
-                                    if (document.getElementById("btnCreateAccount")) {
-                                        document.getElementById("btnCreateAccount").style.display = "";
+                                    if (document.getElementById("idCreateAccount")) {
+                                        document.getElementById("idCreateAccount").style.display = "";
                                     }
                                 }
                                 break;
@@ -629,8 +629,8 @@
                                         document.getElementById("idMyQRCode").style.display = "";
                                     }
 
-                                    if (document.getElementById("btnCreateAccount")) {
-                                        document.getElementById("btnCreateAccount").style.display = "";
+                                    if (document.getElementById("idCreateAccount")) {
+                                        document.getElementById("idCreateAccount").style.display = "";
                                     }
                                 }
                                 break;
@@ -640,8 +640,8 @@
                                         document.getElementById("idMyQRCode").style.display = "";
                                     }
 
-                                    if (document.getElementById("btnCreateAccount")) {
-                                        document.getElementById("btnCreateAccount").style.display = "";
+                                    if (document.getElementById("idCreateAccount")) {
+                                        document.getElementById("idCreateAccount").style.display = "";
                                     }
                                 }
                                 break;
@@ -689,8 +689,8 @@
                         }
 
                         if (CreateAccount == true || CreateUserAccountAgent == true) {
-                            if (document.getElementById("btnCreateAccount")) {
-                                document.getElementById("btnCreateAccount").style.display = "";
+                            if (document.getElementById("idCreateAccount")) {
+                                document.getElementById("idCreateAccount").style.display = "";
                             }
                         }
 
@@ -1133,7 +1133,7 @@
                                             <a href="#" class="btn btn-search btn-round nav-link" role="button" onclick="API_NewWindow(mlp.getLanguageKey('下線列表'), 'UserAccount_Search_Casino.aspx?');"></a>
                                         </li>
 
-                                        <li id="btnCreateAccount" class="navbar-member nav-item submenu dropdown" style="display: none">
+                                        <li id="btnCreateAccount" class="navbar-member nav-item submenu dropdown">
                                             <!-- 下拉 MEMBER LINK -->
                                             <a href="#" onclick="dataToggleDropdown(this)" class="btn btn-user btn-round nav-link btnDropDown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id=""></a>
                                             <!--下拉 dropdown-menu 選單 -->
@@ -1141,7 +1141,7 @@
                                                 <li id="idCreateAccount" class="nav-item" style="display: none">
                                                     <a class="nav-link icon icon-ewin-default-n-user-add language_replace " onclick="API_NewWindow(mlp.getLanguageKey('新增下線'), 'UserAccount_Add_Casino.aspx')" target="mainiframe">新增下線</a>
                                                 </li>
-                                                <li id="idMyQRCode" class="nav-item">
+                                                <li id="idMyQRCode" class="nav-item" style="display: none">
                                                     <a class="nav-link icon icon-ewin-default-myQrCode language_replace" onclick="showQRCode()" target="mainiframe">我的推廣碼</a>
                                                 </li>
                                             </ul>
