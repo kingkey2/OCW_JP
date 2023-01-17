@@ -409,6 +409,11 @@
     function API_SetLogin(_SID, cb) {
         var sourceLogined = EWinWebInfo.UserLogined;
         checkUserLogin(_SID, function (logined) {
+            if (!isFirstLogined) {
+                isFirstLogined = true;
+                game_userlogout();
+            }
+
             updateBaseInfo();
 
             if (cb) {
@@ -1781,7 +1786,8 @@
             gameCode = gameBrand + "." + gameName;
             $('.headerGameName').text(gameLangName);
 
-                if (EWinWebInfo.DeviceType == 1) {
+            if (EWinWebInfo.DeviceType == 1) {
+                    $('#GameMask').show();
                     gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
                     CloseWindowOpenGamePage(gameWindow);
                     //window.location.href = "/kevintest.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";
@@ -1814,6 +1820,50 @@
 
     }
 
+    function closeGameMask() {
+        showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("確認關閉遊戲?"), function () {
+            gameWindow.close();
+            game_userlogout();
+            $('#popupMoblieGameInfo').modal('hide');
+        });
+    }
+
+
+    function game_userlogout() {
+        $('#GameMask').hide();
+        var guid = Math.uuid();
+        lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
+            if (success == true) {
+                if (o.Result == 0) {
+                    if (o.OnlineList && o.OnlineList.length > 0) {
+                        var promiseAll = [];
+                        for (var i = 0; i < o.OnlineList.length; i++) {
+                            var gameBrand = o.OnlineList[i].GameBrand;
+                            var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameBrand + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
+                            var promise = new Promise((resolve, reject) => {
+                                $.get(url, function (result) {
+                                    resolve();
+                                });
+                            });
+
+                            promiseAll.push(promise);
+                        }
+
+                        Promise.all(promiseAll).then(values => {
+                            checkUserLogin(EWinWebInfo.SID, function (logined) {
+                                if (logined) {
+                                    updateBaseInfo();
+                                }
+                            });
+                        });
+                    }
+                } else {
+
+                }
+            }
+        });
+    }
+
     function openDemo(gameBrand, gameName) {
         //先關閉Game彈出視窗(如果存在)
         EWinWebInfo.IsOpenGame = true;
@@ -1843,6 +1893,7 @@
         //滿版遊戲介面
         $('#divGameFrame').css('display', 'none');
         //滿版遊戲介面 end
+        game_userlogout();
         appendGameFrame();
     }
 
