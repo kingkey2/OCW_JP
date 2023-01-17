@@ -78,5 +78,6 @@
   "Electron.Fish": "FIsh",
   "Live.FightChicken": "CockFight",
   "Live": "Stream",
-  "不可為空值": "Not Nullable"
+  "不可為空值": "Not Nullable",
+  "提醒": "System Message"
 }

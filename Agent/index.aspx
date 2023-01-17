@@ -59,7 +59,8 @@
 <script type="text/javascript" src="/Scripts/qcode-decoder.min.js"></script>
 <script type="text/javascript" src="js/AgentAPI.js"></script>
 <script type="text/javascript" src="js/AppBridge.js"></script>
-<script src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../Scripts/LobbyAPI.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     var AppBridge = new AppBridge("JsBridge", "iosJsBridge", "");
     var c = new common();
@@ -86,6 +87,7 @@
     var hasCryptoWallet = false;
     var AgentURL = "";
     var InAppMode = false;
+    var lobbyClient;
 
     var EWinInfo = {
         ASID: "<%=ASI.AgentSessionID%>",
@@ -102,6 +104,10 @@
 
     function API_GetAgentAPI() {
         return api;
+    }
+
+    function API_GetLobbyAPI() {
+        return lobbyClient;
     }
 
     function API_ShowMessage(title, msg, cbOK, cbCancel) {
@@ -855,6 +861,7 @@
 
         mlp.loadLanguage(lang, function () {
             api = new AgentAPI(apiUrl);
+            lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
             
             getCompanyInfo(function (success) {
                 if (success) {

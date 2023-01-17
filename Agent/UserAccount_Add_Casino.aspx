@@ -21,6 +21,7 @@
 <script type="text/javascript" src="/Scripts/bignumber.min.js"></script>
 <script type="text/javascript" src="/Scripts/SelectItem.js"></script>
 <script type="text/javascript" src="js/AgentCommon.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     var c = new common();
     var ac = new AgentCommon();
@@ -33,6 +34,7 @@
     var uType;
     var processing = false;
     var GetCompanyPermissionGroup;
+    var p;
 
     function checkFormData() {
         var retValue = true;
@@ -592,8 +594,37 @@
 
     }
 
+    function CheckAccountPhoneExist(cb) {
+
+        var idPhonePrefix = document.getElementById("ContactPhonePrefix");
+        var idPhoneNumber = document.getElementById("ContactPhoneNumber");
+
+        if (idPhonePrefix.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入國碼"));
+            cb(false);
+            return;
+        } else if (idPhoneNumber.value == "") {
+            window.parent.showMessageOK("", mlp.getLanguageKey("請輸入電話"));
+            cb(false);
+            return;
+        }
+
+        p.CheckAccountExistEx(Math.uuid(), "", idPhonePrefix.value, idPhoneNumber.value, "", function (success, o) {
+            if (success) {
+                if (o.Result != 0) {
+                    cb(true);
+                } else {
+                    cb(false);
+                    window.parent.API_ShowMessageOK("", mlp.getLanguageKey("電話已存在"));
+                }
+            }
+
+        });
+    }
+
     function init() {
         lang = window.localStorage.getItem("agent_lang");
+        p = window.parent.API_GetLobbyAPI();
 
         mlp = new multiLanguage();
         mlp.loadLanguage(lang, function () {
