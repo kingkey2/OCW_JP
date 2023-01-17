@@ -58,6 +58,7 @@
         mlp = new multiLanguage(v);
         mlp.loadLanguage(lang, function () {
             window.parent.API_LoadingEnd();
+            GetPaymentMethod();
         },"PaymentAPI");
         btn_NextStep();
 
@@ -66,7 +67,7 @@
         //    return this;
         //}
 
-        GetPaymentMethod();
+      
     }
 
     function CoinBtn_Click() {
@@ -156,7 +157,7 @@
             var amount = parseFloat($("#amount").val());
             var paymentID = PaymentMethod[0]["PaymentMethodID"];
 
-            PaymentClient.CreateEPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, '', function (success, o) {
+            PaymentClient.CreateTigerPayDeposit(WebInfo.SID, Math.uuid(), amount, paymentID, '', function (success, o) {
                 if (success) {
                     let data = o.Data;
                     if (o.Result == 0) {
@@ -411,7 +412,7 @@
                 <div class="split-layout-container">
                     <div class="aside-panel" data-deposite="step2">
                         <!-- PayPal -->
-                        <div class="card-item sd-03">
+                        <div class="card-item sd-04">
                             <div class="card-item-link">
                                 <div class="card-item-inner">
                                     <div class="title">
@@ -420,10 +421,10 @@
                                     </div>                                   
                                     <div class="logo vertical-center text-center">
                                         <!-- <span class="text language_replace">銀行振込</span>   -->
-                                        <img src="images/assets/card-surface/icon-logo-NissinPay-2.svg">                                     
+                                           <img src="images/assets/card-surface/tigerpay.png">                                    
                                     </div>
                                 </div>
-                                <img src="images/assets/card-surface/card-03.svg" class="card-item-bg" />
+                                 <img src="images/assets/card-surface/card-09.svg" class="card-item-bg">
                             </div>
                         </div>
                         <div class="text-wrap payment-change" style="display: none">
