@@ -136,14 +136,17 @@
                         case "21":
                             GoActivityDetail(21, '/Activity/event/bng/bng221225MR/index-jp.html');
                             break;
-                        case "24":
-                            GoActivityDetail(24, '/Activity/event/pp202301-1/index-jp.html');
+                        case "22":
+                            GoActivityDetail(22, '/Activity/mahaEvent/2301month.html');
                             break;
                         case "23":
                             GoActivityDetail(23, '/Activity/event/pp202301-2/index-jp.html');
                             break;
-                        case "22":
-                            GoActivityDetail(22, '/Activity/mahaEvent/2301month.html');
+                        case "24":
+                            GoActivityDetail(24, '/Activity/event/pp202301-1/index-jp.html');
+                            break;
+                        case "25":
+                            GoActivityDetail(25, '/Activity/event/bng/bng230119/index-jp.html');
                             break;
                     }
                 }
@@ -310,11 +313,10 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
-                case 24:
-                    title = "ライブカジノウィークリー トーナメント";
-                    btnText = mlp.getLanguageKey("前往遊玩");
-                    popupBtnHide = 0;
-                    showPopup(type, title, btnText, url, popupBtnHide);
+                case 22:
+                    $('#ModalDeposit2301 .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalDeposit2301').modal('show');
+                    });
                     break;
                 case 23:
                     title = "ライブカジノウィークリー トーナメント";
@@ -322,10 +324,17 @@
                     popupBtnHide = 0;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
-                case 22:
-                    $('#ModalDeposit2301 .activity-popup-detail-inner').load(url, function () {
-                        $('#ModalDeposit2301').modal('show');
-                    });
+                case 24:
+                    title = "ライブカジノウィークリー トーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
+                case 25:
+                    title = "BNGおめでと卯ございます新年賞 金ベットレス";
+                    //btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 1;
+                    showPopup(type, title, btnText, url, popupBtnHide);
                     break;
                 default:
                     break;
@@ -481,6 +490,27 @@
 
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(25,'/Activity/event/bng/bng230119/index-jp.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng230119/img/500X316.png" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">
+                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                             <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(23,'/Activity/event/pp202301-2/index-jp.html')">
                                 <!-- 活動連結 -->
