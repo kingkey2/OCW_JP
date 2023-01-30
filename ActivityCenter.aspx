@@ -148,6 +148,9 @@
                         case "25":
                             GoActivityDetail(25, '/Activity/event/bng/bng230119/index-jp.html');
                             break;
+                        case "26":
+                            GoActivityDetail(26, '/Activity/mahaEvent/2302month.html');
+                            break;
                     }
                 }
 
@@ -336,6 +339,11 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
+                case 26:
+                    $('#ModalDeposit2302 .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalDeposit2302').modal('show');
+                    });
+                    break;
                 default:
                     break;
             }
@@ -491,6 +499,23 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
                           <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(26,'/Activity/mahaEvent/2302month.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="Activity/mahaEvent/src/202302-act.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">アカウント初入金に最大100,000 Ocoin還元</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                          <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(25,'/Activity/event/bng/bng230119/index-jp.html')">
                                 <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
@@ -549,23 +574,6 @@
                                 </div>
                             </div>
                         </figure>
-                          <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(22,'/Activity/mahaEvent/2301month.html')">
-                                <!-- 結束活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img class="" src="Activity/mahaEvent/src/202301-act.jpg">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <div class="desc language_replace">アカウント初入金に最大100,000 Ocoin還元</div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
                         <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(3,'/Activity/Act003/CenterPage/index.html')">
                                 <!-- 活動連結 -->
@@ -606,6 +614,23 @@
                         </figure>
                     </div>
                     <div class="activity-item-group" id="divFinish" style="display: none">
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(22,'/Activity/mahaEvent/2301month.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="Activity/mahaEvent/src/202301-end.jpg">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">アカウント初入金に最大100,000 Ocoin還元</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                           <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(21,'/Activity/event/bng/bng221225MR/index-jp.html')">
                                 <!-- 結束活動連結 -->
@@ -1077,6 +1102,29 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title language_replace">一月限定入金キャンペーン</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <!--獎勵可領取-->
+                    <button type="button" class="btn btn-full-sub language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - ModalDeposit12 (December入金活動) -->
+    <div class="modal fade footer-center" id="ModalDeposit2302" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace">二月限定入金キャンペーン</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
