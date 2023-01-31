@@ -44,19 +44,28 @@
 
                                 if (PaymentDT != null && PaymentDT.Rows.Count > 0) {
                                     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+                                    EWin.OCW.OCW ocwAPI = new EWin.OCW.OCW();
                                     EWin.Lobby.APIResult addThresholdResult;
                                     string description;
                                     string JoinActivityCycle;
                                     string transactionCode;
                                     string CollectAreaType;
                                     int PaymentFlowStatus = (int)PaymentDT.Rows[0]["FlowStatus"];
+                                    bool resetValue = false;
 
                                     if (PaymentFlowStatus == 1) {
                                         transactionCode = BodyObj.PaymentSerial;
                                         description = "Deposit, PaymentCode=" + tagInfoData.PaymentCode + ", Amount=" + BodyObj.Amount;
-                                        addThresholdResult = lobbyAPI.AddThreshold(Token, GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, CheckResetThreshold(BodyObj.LoginAccount));
+                                        resetValue = CheckResetThreshold(BodyObj.LoginAccount);
+
+                                        addThresholdResult = lobbyAPI.AddThreshold(Token, GUID, transactionCode, BodyObj.LoginAccount, EWinWeb.MainCurrencyType, tagInfoData.ThresholdValue, description, resetValue);
 
                                         if (addThresholdResult.Result == EWin.Lobby.enumResult.OK || addThresholdResult.Message == "-2") {
+                                            //若有重製門檻將只能遊玩Slot的限制移除
+                                            if (resetValue) {
+                                                ocwAPI.ClearGameAclByLoginAccount(Token, BodyObj.LoginAccount, System.Guid.NewGuid().ToString());
+                                            }
+
                                             string TotalErrorMsg = string.Empty;
 
                                             if (tagInfoData.IsJoinDepositActivity) {

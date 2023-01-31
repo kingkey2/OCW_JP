@@ -1542,6 +1542,7 @@ public class LobbyAPI : System.Web.Services.WebService {
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public EWin.Lobby.APIResult CollectUserAccountPromotion(string WebSID, string GUID, int CollectID) {
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        EWin.OCW.OCW ocwAPI = new EWin.OCW.OCW();
         RedisCache.SessionContext.SIDInfo SI;
         EWin.Lobby.APIResult R = new EWin.Lobby.APIResult() { Result = EWin.Lobby.enumResult.ERR };
         string Token = GetToken();
@@ -1573,7 +1574,8 @@ public class LobbyAPI : System.Web.Services.WebService {
                                 var ResetResult = lobbyAPI.AddThreshold(Token, GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "ResetCollettPromotion. CollectID=" + CollectID.ToString(), true);
 
                                 if (ResetResult.Result == EWin.Lobby.enumResult.OK) {
-
+                                    //若有重製門檻將只能遊玩Slot的限制移除
+                                    ocwAPI.ClearGameAclByLoginAccount(Token, SI.LoginAccount, System.Guid.NewGuid().ToString());
                                 } else {
                                     R.Result = EWin.Lobby.enumResult.ERR;
                                     R.Message = "Reset Failure : " + ResetResult.Message;
@@ -1615,6 +1617,9 @@ public class LobbyAPI : System.Web.Services.WebService {
                                     CollecResult = lobbyAPI.CollectUserAccountPromotion(Token, SI.EWinSID, GUID, CollectID);
 
                                     if (CollecResult.Result == EWin.Lobby.enumResult.OK) {
+                                        //領取Bouns要加上只能遊玩Slot的限制
+                                        string[] GameAccountingCodeBanList = { "Electron","Electron.Fish","Live","Sport"};
+                                        lobbyAPI.SetGameAcl(Token, SI.EWinSID, System.Guid.NewGuid().ToString(), EWin.Lobby.enumGameAclType.GameAccountingCode, GameAccountingCodeBanList, "Receive Bonus. CollectID=" + CollectID.ToString());
 
                                         string JoinActivityCycle = "1";
                                         Newtonsoft.Json.Linq.JObject actioncontent = Newtonsoft.Json.Linq.JObject.Parse(Collect.ActionContent);
