@@ -306,6 +306,19 @@
         }
     }
 
+    function disableDateSel() {
+        var tabItem = document.getElementById("idTabMainContent").getElementsByClassName("nav-link");
+
+        for (var i = 0; i < tabItem.length; i++) {
+            //tabItem[i].classList.remove('active');
+            tabItem[i].classList.remove('active');
+            tabItem[i].parentNode.classList.remove('active');
+
+            //tabItem[i].setAttribute("aria-selected", "false");
+        }
+        document.getElementById("sliderDate").style.display = "none";
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">

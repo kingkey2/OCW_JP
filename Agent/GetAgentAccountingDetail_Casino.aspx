@@ -227,30 +227,33 @@
         div.classList.add("td__content", "td__hasNoData");
         document.getElementById("idResultTable").classList.add("MT_tableDiv__hasNoData");
         idList.classList.add("tbody__hasNoData");
-        idList.appendChild(div);
+        idList.appendChild(div); 
         if (o != null) {
             if (o.ADList != null) {
+                let hasChild = false;
+                let childBonusPointValue = 0;
 
                 for (var i = 0; i < o.ADList.length; i++) {
-                    var data = o.ADList[i];
-                    var t = c.getTemplate("templateTableItem");
-                    var expandBtn;
-                var parentSortKey = "";
+
+                    let data = o.ADList[i];
+                    let t = c.getTemplate("templateTableItem");
+                    let expandBtn;
+                    let parentSortKey = "";
 
                     c.setClassText(t, "LoginAccount", null, data.LoginAccount);
-                    c.setClassText(t, "RewardValue", null, toCurrency(parseInt(data.RewardValue)));
-                    c.setClassText(t, "ValidBetValue", null, toCurrency(parseInt(data.ValidBetValue)));
+                    c.setClassText(t, "RewardValue", null, toCurrency(parseInt(data.TotalRewardValue)));
+                    c.setClassText(t, "ValidBetValue", null, toCurrency(parseInt(data.TotalValidBetValue)));
                     c.setClassText(t, "TotalLineRebate", null, toCurrency(parseInt(data.TotalLineRebate)));
                     c.setClassText(t, "UserRate", null, data.UserRate / 100);
-                    c.setClassText(t, "AccountingOPValue", null, toCurrency(parseInt(data.AccountingOPValue)));
-                    c.setClassText(t, "TotalBonusValue", null, toCurrency(parseInt(data.TotalBonusValue)));
-                    c.setClassText(t, "BonusValue_Own", null, toCurrency(parseInt(data.BonusValue_Own)));
-                    c.setClassText(t, "OrderCount", null, toCurrency(parseInt(data.OrderCount)));
+                    c.setClassText(t, "AccountingOPValue", null, toCurrency(parseInt(data.UserRebate)));
+                    c.setClassText(t, "TotalBonusValue", null, toCurrency(parseInt(data.BonusPointValue)));
+                    c.setClassText(t, "BonusValue_Own", null, toCurrency(parseInt(data.BonusPointValue)));
+                    c.setClassText(t, "OrderCount", null, toCurrency(parseInt(data.TotalOrderCount)));
 
                     expandBtn = t.querySelector(".Expand");
-                    t.querySelector(".Space").style.paddingLeft = ((data.UserAccountInsideLevel - 1) * 20) + "px";
-
-                    if (data.HasChild) {
+                    
+                    if (data.ChildUser.length > 0) {
+                        hasChild = true;
                         expandBtn.onclick = new Function("agentExpand('" + data.UserAccountSortKey + "')");
                         expandBtn.classList.add("agentPlus");
                     } else {
@@ -258,32 +261,57 @@
                         t.querySelector(".noChild").style.display = "inline-block";
                     }
 
-                    if (data.UserAccountInsideLevel != 1) {
-                        if (data.UserAccountInsideLevel % 2 == 0) {
-                            t.classList.add("switch_tr");
-                        }
+                    t.classList.add("row_top");
 
-                        for (var ii = 0; ii < (data.UserAccountSortKey.length / 6) - 1; ii++) {
-                            var tempClass = data.UserAccountSortKey.substring(0, (ii + 1) * 6);
-                            t.classList.add("row_c_" + tempClass);
-
-                            if (ii == ((data.UserAccountSortKey.length / 6) - 2)) {
-                                parentSortKey = tempClass;
-                                t.classList.add("row_s_" + tempClass);
-                            }
-                        }
-
-                        t.classList.add("row_child");
-                        t.style.display = "none";
-                    } else {
-                        t.classList.add("row_top");
-                    }
-                    
                     idList.appendChild(t);
 
                     document.getElementById("hasNoData_DIV").style.display = "none";
                     idList.classList.remove("tbody__hasNoData");
                     document.getElementById("idResultTable").classList.remove("MT_tableDiv__hasNoData");
+                }
+
+                if (hasChild) {
+                    for (var ii = 0; ii < o.ADList[0].ChildUser.length; ii++) {
+
+                        let data = o.ADList[0].ChildUser[ii];
+                        let t = c.getTemplate("templateTableItem");
+                        let expandBtn;
+                        let parentSortKey = "";
+                        childBonusPointValue = childBonusPointValue + data.BonusPointValue;
+
+                        c.setClassText(t, "LoginAccount", null, data.LoginAccount);
+                        c.setClassText(t, "RewardValue", null, toCurrency(parseInt(data.TotalRewardValue)));
+                        c.setClassText(t, "ValidBetValue", null, toCurrency(parseInt(data.TotalValidBetValue)));
+                        c.setClassText(t, "TotalLineRebate", null, toCurrency(parseInt(data.TotalLineRebate)));
+                        c.setClassText(t, "UserRate", null, data.UserRate / 100);
+                        c.setClassText(t, "AccountingOPValue", null, toCurrency(parseInt(data.UserRebate)));
+                        c.setClassText(t, "TotalBonusValue", null, toCurrency(parseInt(data.BonusPointValue)));
+                        c.setClassText(t, "BonusValue_Own", null, toCurrency(parseInt(data.BonusPointValue)));
+                        c.setClassText(t, "OrderCount", null, toCurrency(parseInt(data.TotalOrderCount)));
+
+                        expandBtn = t.querySelector(".Expand");
+
+                        t.querySelector(".Space").style.paddingLeft = "20px";
+
+                        expandBtn.style.display = "none";
+                        t.querySelector(".noChild").style.display = "inline-block";
+
+                        if (data.UserAccountInsideLevel % 2 == 0) {
+                            t.classList.add("switch_tr");
+                        }
+
+                        t.classList.add("row_c_" + data.UserAccountSortKey.substring(0, 6));
+                        t.classList.add("row_s_" + data.UserAccountSortKey.substring(0, 6));
+
+                        t.classList.add("row_child");
+                        t.style.display = "none";
+
+                        idList.appendChild(t);
+                    }
+                }
+
+                if (childBonusPointValue != 0) {
+                    $(".row_top .BonusValue_Own").text(toCurrency(parseInt(childBonusPointValue)));
                 }
             }
         }
