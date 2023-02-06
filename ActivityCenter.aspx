@@ -515,27 +515,6 @@
                                 </div>
                             </div>
                         </figure>
-                          <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(25,'/Activity/event/bng/bng230119/index-jp.html')">
-                                <!-- 結束活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/bng/bng230119/img/500X316.png" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">
-                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
-                                            </div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
                             <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(23,'/Activity/event/pp202301-2/index-jp.html')">
                                 <!-- 活動連結 -->
@@ -626,6 +605,27 @@
                                             <div class="desc language_replace">アカウント初入金に最大100,000 Ocoin還元</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(25,'/Activity/event/bng/bng230119/index-jp.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng230119/img/500X316_end.png" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">
+                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
                                         <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>

@@ -23,11 +23,13 @@
                 Response.End();
             }
         } else {
-            Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI/" + GameBrand + "/UserLogin.aspx?SID=" + SI.EWinSID + "&Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameName=" + GameName + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
+            //Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI/" + GameBrand + "/UserLogin.aspx?SID=" + SI.EWinSID + "&Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameName=" + GameName + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
+            Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI/UserLogin.aspx?SID=" + SI.EWinSID + "&Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameCode=" + GameBrand+"."+ GameName + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
         }
     } else {
         if (DemoPlay == "1") {
-            Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI/" + GameBrand + "/UserLogin.aspx?Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameName=" + GameName + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
+            //Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI/" + GameBrand + "/UserLogin.aspx?Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameName=" + GameName + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
+            Response.Redirect(EWinWeb.EWinUrl + "/API/GamePlatformAPI/UserLogin.aspx?SID=" + SI.EWinSID + "&Language=" + Lang + "&CurrencyType=" + CurrencyType + "&GameCode=" + GameBrand+"."+ GameName + "&HomeUrl=" + HomeUrl + "&DemoPlay=" + DemoPlay);
         } else {
             Response.Write("LoginStateExpire");
             Response.Flush();

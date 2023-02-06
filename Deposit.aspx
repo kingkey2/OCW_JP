@@ -158,6 +158,37 @@
                             <img src="images/assets/card-surface/card-08.svg" class="card-item-bg">
                         </a>
                     </div>
+                    <!-- 虛擬錢包 -->
+                    <div class="card-item sd-02" style="">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span>Crypto Wallet</span>
+                                </div>
+                                <div class="title vertical-center">
+                                    <span class="language_replace">虛擬貨幣</span>
+                                </div>
+                                <!-- <div class="desc">
+                                    <b>30</b> € -  <b>5,000</b> € No Fee                                   
+                                </div> -->
+                                <div class="logo">
+                                    <i class="icon-logo-usdt"></i>
+                                    <!-- <i class="icon-logo-eth-o"></i> -->
+                                    <!-- <i class="icon-logo-nissin"></i> -->
+                                    <i class="icon-logo-eth"></i>
+                                    <i class="icon-logo-btc"></i>
+                                    
+                                    <!-- <i class="icon-logo-doge"></i> -->
+                                    <!-- <i class="icon-logo-tron"></i> -->
+                                </div>
+                                <!-- <div class="instructions-crypto">
+                                    <i class="icon-info_circle_outline"></i>
+                                    <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
+                                </div>                                -->
+                            </div>
+                            <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
+                        </a>
+                    </div>
                     <!-- EPay -->
                     <div class="card-item sd-03" id="idDepositEPay">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">

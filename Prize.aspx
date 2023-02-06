@@ -177,10 +177,10 @@
                                         RecordDom = c.getTemplate("tmpPrize1");
 
                                     } else {
-                                        RecordDom = c.getTemplate("tmpPrize0");
+                                        RecordDom = c.getTemplate("tmpPrize0_b");
                                     }
                                 } else {
-                                    RecordDom = c.getTemplate("tmpPrize0");
+                                    RecordDom = c.getTemplate("tmpPrize0_g");
                                 }
 
                                 let DomBtn = RecordDom.querySelector(".bouns-get");
@@ -497,14 +497,43 @@
         </div>
     </div>
 
-    <div id="tmpPrize0" style="display: none">
+    <div id="tmpPrize0_b" style="display: none">
         <figure class="prize-item">
             <div class="prize-item-inner">
                 <!-- 活動連結 prize-item-link-->
                 <div class="prize-item-link">
                     <div class="prize-item-img">
                         <div class="img-wrap">
-                            <img class="" src="images/prize-01.jpg">
+                            <img class="" src="images/bouns.jpg">
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <figcaption class="title language_replace">ゴールドヒット！ゴールドヒット！ ゴールドヒット！</figcaption>
+                        <div class="date-period language_replace">
+                            <span class="date-period-start">
+                                <span class="year year_c"></span><span class="month month_c"></span><span class="day day_c"></span>
+                            </span>
+                            <span class="date-period-end">
+                                <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
+                            </span>
+                        </div>
+                        <span class="prize-status text-primary language_replace">可領取</span>
+                    </div>
+                </div>
+                <!-- 獎金Button - 可領取 -->
+                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace pointval">領取</span></button>
+            </div>
+        </figure>
+    </div>
+
+    <div id="tmpPrize0_g" style="display: none">
+        <figure class="prize-item">
+            <div class="prize-item-inner">
+                <!-- 活動連結 prize-item-link-->
+                <div class="prize-item-link">
+                    <div class="prize-item-img">
+                        <div class="img-wrap">
+                            <img class="" src="images/gift.jpg">
                         </div>
                     </div>
                     <div class="detail">
@@ -533,7 +562,7 @@
                 <div class="prize-item-link">
                     <div class="prize-item-img">
                         <div class="img-wrap">
-                            <img class="" src="images/prize-01.jpg">
+                            <img class="" src="images/bouns.jpg">
                         </div>
                     </div>
                     <div class="detail">

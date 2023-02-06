@@ -2,6 +2,141 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetOrderSummary2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSummary2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummary2Result" type="tns:OrderSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderSummaryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AgentItemList" type="tns:ArrayOfAgentItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="APIResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Result" type="tns:enumResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="enumResult">
+        <s:restriction base="s:string">
+          <s:enumeration value="OK" />
+          <s:enumeration value="ERR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfAgentItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AgentItem" nillable="true" type="tns:AgentItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AgentItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Summary" type="tns:UserSummaryItem1" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserSummaryItem1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NodeID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRateExt" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRateExt" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfNewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UplineCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaidCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CostValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CostUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalGGRUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaidOPValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUser" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinValidBet" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinDepositValue" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SummaryValueList" type="tns:ArrayOfSummaryValue1" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChildUser" type="tns:ArrayOfUserSummaryItem1" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSummaryValue1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SummaryValue1" nillable="true" type="tns:SummaryValue1" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SummaryValue1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GameAccountingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProfitValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RealValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderCount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpLineCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="GGRUserRateValue" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUserSummaryItem1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserSummaryItem1" nillable="true" type="tns:UserSummaryItem1" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetAgentSessionByID">
         <s:complexType>
           <s:sequence>
@@ -25,18 +160,6 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="APIResult">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Result" type="tns:enumResult" />
-          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:simpleType name="enumResult">
-        <s:restriction base="s:string">
-          <s:enumeration value="OK" />
-          <s:enumeration value="ERR" />
-        </s:restriction>
-      </s:simpleType>
       <s:complexType name="AgentSessionInfo">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="AgentSessionID" type="s:string" />
@@ -124,112 +247,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="OrderSummaryResult">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:APIResult">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="AgentItemList" type="tns:ArrayOfAgentItem" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ArrayOfAgentItem">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="AgentItem" nillable="true" type="tns:AgentItem" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="AgentItem">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Summary" type="tns:UserSummaryItem" />
-          <s:element minOccurs="0" maxOccurs="1" name="ParentLoginAccount" type="s:string" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="UserSummaryItem">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="NodeID" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="AccountingType" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserRateExt" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRateExt" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="DepositCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="DepositValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="FirstDepositValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="SelfNewUserCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="UplineCommissionUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="PaidCommissionUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="CostValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="CostUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalGGRUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalRewardValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="PaidOPValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="ActiveUser" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinValidBet" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinDepositValue" type="s:decimal" />
-          <s:element minOccurs="0" maxOccurs="1" name="SummaryValueList" type="tns:ArrayOfSummaryValue" />
-          <s:element minOccurs="0" maxOccurs="1" name="ChildUser" type="tns:ArrayOfUserSummaryItem" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfSummaryValue">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="SummaryValue" nillable="true" type="tns:SummaryValue" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="SummaryValue">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="GameAccountingCode" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="OrderValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="ProfitValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="RealValidBetValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderCount" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="UpLineCommissionUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="GGRUserRateValue" type="s:decimal" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfUserSummaryItem">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="UserSummaryItem" nillable="true" type="tns:UserSummaryItem" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetUserAccountSummary">
         <s:complexType>
           <s:sequence>
@@ -290,6 +307,14 @@
           <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="DealUserAccountSortKey" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="DealUserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameBrand" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OfflineDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="WithdrawalValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RealValidBetValue" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentChannelCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentFinishedDate" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="HasChild" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
         </s:sequence>
@@ -504,11 +529,38 @@
           <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalBonusValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusValue_Own" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SummaryJSON" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="AccountingOPValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalBonusValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="BonusValue_Own" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SummaryValueList" type="tns:ArrayOfSummaryValue2" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSummaryValue2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SummaryValue2" nillable="true" type="tns:SummaryValue2" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SummaryValue2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GameAccountingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProfitValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RealValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpLineCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="GGRUserRateValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetAgentAccountingDetail">
@@ -531,31 +583,30 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:APIResult">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="ADList" type="tns:ArrayOfAccountingDetail" />
+              <s:element minOccurs="0" maxOccurs="1" name="ADList" type="tns:ArrayOfUserSummaryItem" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
       </s:complexType>
-      <s:complexType name="ArrayOfAccountingDetail">
+      <s:complexType name="ArrayOfUserSummaryItem">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="AccountingDetail" nillable="true" type="tns:AccountingDetail" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserSummaryItem" nillable="true" type="tns:UserSummaryItem" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="AccountingDetail">
+      <s:complexType name="UserSummaryItem">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="AccountingDetailGUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NodeID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingRuleID" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountTag" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="AccountingType" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="AgentRebatePayoutType" type="s:int" />
-          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserLevelIndex" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserRateExt" type="s:decimal" />
@@ -574,25 +625,64 @@
           <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UplineCommissionUserRateValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="PaidCommissionUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="CostValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="CostUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalGGRUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="BonusPointUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaidOPValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUser" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RC" type="tns:RuleCondition" />
+          <s:element minOccurs="0" maxOccurs="1" name="SummaryValueList" type="tns:ArrayOfSummaryValue" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChildUser" type="tns:ArrayOfUserSummaryItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RuleCondition">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingRuleID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountingType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentRebatePayoutType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinValidBet" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RebateAmountMin" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSummaryValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SummaryValue" nillable="true" type="tns:SummaryValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SummaryValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GameAccountingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProfitValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="RewardValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="ValidBetValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="PaidOPValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="AccountingOPValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalGGRUserRateValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalRebate" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalBonusValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="BonusValue_Own" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="HasChild" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="ChildDetail" type="tns:ArrayOfAccountingDetail" />
+          <s:element minOccurs="1" maxOccurs="1" name="RealValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfOrderValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpLineCommissionUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="GGRUserRateValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
       <s:element name="QueryCurrentUserInfo">
@@ -832,10 +922,10 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
-      <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
       <s:element name="UserAccountSummaryResult" nillable="true" type="tns:UserAccountSummaryResult" />
       <s:element name="TotalSummaryResult" nillable="true" type="tns:TotalSummaryResult" />
       <s:element name="AgentTotalSummaryResult" nillable="true" type="tns:AgentTotalSummaryResult" />
@@ -845,6 +935,12 @@
       <s:element name="ChildUserInfoResult" nillable="true" type="tns:ChildUserInfoResult" />
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetOrderSummary2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderSummary2" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummary2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderSummary2Response" />
+  </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDSoapIn">
     <wsdl:part name="parameters" element="tns:GetAgentSessionByID" />
   </wsdl:message>
@@ -958,6 +1054,15 @@
   </wsdl:message>
   <wsdl:message name="UpdateUserAccountNoteSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateUserAccountNoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummary2HttpGetIn">
+    <wsdl:part name="UID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummary2HttpGetOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpGetIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -1099,6 +1204,15 @@
   </wsdl:message>
   <wsdl:message name="UpdateUserAccountNoteHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummary2HttpPostIn">
+    <wsdl:part name="UID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummary2HttpPostOut">
+    <wsdl:part name="Body" element="tns:OrderSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetAgentSessionByIDHttpPostIn">
     <wsdl:part name="ASID" type="s:string" />
@@ -1242,6 +1356,10 @@
     <wsdl:part name="Body" element="tns:APIResult" />
   </wsdl:message>
   <wsdl:portType name="OcwAgentSoap">
+    <wsdl:operation name="GetOrderSummary2">
+      <wsdl:input message="tns:GetOrderSummary2SoapIn" />
+      <wsdl:output message="tns:GetOrderSummary2SoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDSoapIn" />
       <wsdl:output message="tns:GetAgentSessionByIDSoapOut" />
@@ -1320,6 +1438,10 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="OcwAgentHttpGet">
+    <wsdl:operation name="GetOrderSummary2">
+      <wsdl:input message="tns:GetOrderSummary2HttpGetIn" />
+      <wsdl:output message="tns:GetOrderSummary2HttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDHttpGetIn" />
       <wsdl:output message="tns:GetAgentSessionByIDHttpGetOut" />
@@ -1390,6 +1512,10 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="OcwAgentHttpPost">
+    <wsdl:operation name="GetOrderSummary2">
+      <wsdl:input message="tns:GetOrderSummary2HttpPostIn" />
+      <wsdl:output message="tns:GetOrderSummary2HttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <wsdl:input message="tns:GetAgentSessionByIDHttpPostIn" />
       <wsdl:output message="tns:GetAgentSessionByIDHttpPostOut" />
@@ -1461,6 +1587,15 @@
   </wsdl:portType>
   <wsdl:binding name="OcwAgentSoap" type="tns:OcwAgentSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetOrderSummary2">
+      <soap:operation soapAction="http://tempuri.org/GetOrderSummary2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <soap:operation soapAction="http://tempuri.org/GetAgentSessionByID" style="document" />
       <wsdl:input>
@@ -1635,6 +1770,15 @@
   </wsdl:binding>
   <wsdl:binding name="OcwAgentSoap12" type="tns:OcwAgentSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetOrderSummary2">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderSummary2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <soap12:operation soapAction="http://tempuri.org/GetAgentSessionByID" style="document" />
       <wsdl:input>
@@ -1809,6 +1953,15 @@
   </wsdl:binding>
   <wsdl:binding name="OcwAgentHttpGet" type="tns:OcwAgentHttpGet">
     <http:binding verb="GET" />
+    <wsdl:operation name="GetOrderSummary2">
+      <http:operation location="/GetOrderSummary2" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <http:operation location="/GetAgentSessionByID" />
       <wsdl:input>
@@ -1965,6 +2118,15 @@
   </wsdl:binding>
   <wsdl:binding name="OcwAgentHttpPost" type="tns:OcwAgentHttpPost">
     <http:binding verb="POST" />
+    <wsdl:operation name="GetOrderSummary2">
+      <http:operation location="/GetOrderSummary2" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAgentSessionByID">
       <http:operation location="/GetAgentSessionByID" />
       <wsdl:input>
