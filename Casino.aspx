@@ -113,8 +113,8 @@
             Location: "GameList_Slot",
             MobileSrc: "/images/bbin42_M.jpg",
             PadSrc: "/images/bbin42_L.jpg",
-            DesktopSrc: "/images/bbin42_C1.png",
-            BackgroundColor: "black"
+            DesktopSrc: "/images/bbin42_C1.jpg",
+            BackgroundColor: "#1b221d"
         },
         //{
         //    GameCode: "PG.57",
