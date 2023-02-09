@@ -3699,7 +3699,7 @@
                         </div>
                         <div class="company-address">
                             <%-- <p class="name">Online Chip World Co. N.V</p>--%>
-                            <span class="language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</span>
+                            <span class="language_replace">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower)Willemstad Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</span>
                         </div>
                     </div>
                     <div class="footer-copyright">
