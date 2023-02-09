@@ -108,14 +108,23 @@
             BackgroundColor: "#000000"
         },
         {
-            GameCode: "PG.57",
-            GameBrand: "PG",
+            GameCode: "BBIN.42",
+            GameBrand: "BBIN",
             Location: "GameList_Slot",
-            MobileSrc: "/images/lobby/dailypush-slot-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-slot-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-slot-001.jpg",
-            BackgroundColor: "#000000"
+            MobileSrc: "/images/bbin42_M.jpg",
+            PadSrc: "/images/bbin42_L.jpg",
+            DesktopSrc: "/images/bbin42_C1.png",
+            BackgroundColor: "black"
         },
+        //{
+        //    GameCode: "PG.57",
+        //    GameBrand: "PG",
+        //    Location: "GameList_Slot",
+        //    MobileSrc: "/images/lobby/dailypush-slot-M-001.jpg",
+        //    PadSrc: "/images/lobby/dailypush-slot-MD-001.jpg",
+        //    DesktopSrc: "/images/lobby/dailypush-slot-001.jpg",
+        //    BackgroundColor: "#000000"
+        //},
         {
             GameCode: "EVO.GonzoTH000000001",
             GameBrand: "EVO",
@@ -1360,6 +1369,7 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
+                 
                      <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=26')"></a>
