@@ -620,7 +620,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="FirstWithdrawalValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewAgentCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="SelfNewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelfNewAgentCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="CommissionValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="CommissionUserRateValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UplineCommissionUserRateValue" type="s:decimal" />
@@ -638,6 +640,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="TotalValidBetValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalGGR" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalNGR" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BonusCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="BonusPointCost" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
