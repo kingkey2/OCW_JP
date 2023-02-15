@@ -602,11 +602,9 @@
                                     <div class="text-wrap">
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
-                                            <li><span class="language_replace">您所希望的取款金額會扣除3％手續費與匯款手續費175 OCoin，即3％+175JPY後到帳。</span></li>
-                                            <li><span class="language_replace">取款1次最少5500，最多50萬OCoin，1天次數最多3次。</span></li>
-                                            <li><span class="language_replace">1天取款上限額度為100萬OCoin。</span></li>
-                                            <li><span class="language_replace">申請出款後，依據您所選擇的金融機關不同，有可能下一個營業日才能到帳。</span></li>
-                                            <li><span class="language_replace">この部分の記入は銀行の振込名義と同じで有る事が必須に成ります。ご了承下さい。</span></li>
+                                            <li><span class="language_replace">需輸入 TigerPay 帳號，若您未擁有 TigerPay 帳號，請您先前往 TigerPay 取得帳號後再進行操作。TigerPay 使用導覽:</span><a style="color: blue;" onclick="window.open('https://twitter.com/tigerpay_guide')">https://twitter.com/tigerpay_guide</a></li>
+                                            <li><span class="language_replace">取款 1 次最少 5500，最多 50 萬 OCoin，1 天次數最多 3 次。</span></li>
+                                            <li><span class="language_replace">1 天取款上限額度為 100 萬 OCoin。</span></li>
                                          </ul>  
                                     </div>
                                 </div>

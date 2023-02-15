@@ -102,6 +102,13 @@
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
       "BonusRate": 0.5
+    },
+    {
+      "PaymentCode": "TigerPay",
+      "ReceiveValueMaxLimit": 50000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.5
     }
   ],
   "Rate2": [
@@ -195,6 +202,13 @@
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,
       "BonusRate": 0.3
+    },
+    {
+      "PaymentCode": "TigerPay",
+      "ReceiveValueMaxLimit": 50000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 0.3
     }
   ],
   "UserFirstDeposit": [
@@ -284,6 +298,13 @@
     },
     {
       "PaymentCode": "EWINPAY",
+      "ReceiveValueMaxLimit": 100000,
+      "DepositValueMinLimit": 0,
+      "ThresholdRate": 20,
+      "BonusRate": 1
+    },
+    {
+      "PaymentCode": "TigerPay",
       "ReceiveValueMaxLimit": 100000,
       "DepositValueMinLimit": 0,
       "ThresholdRate": 20,

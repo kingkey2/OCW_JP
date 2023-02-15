@@ -503,10 +503,10 @@
                             </form>
                              <div class="form-group text-wrap desc mt-2 mt-md-4">
                                 <!-- <h5 class="language_replace">便捷金額存款</h5> -->
-                                <p class="text-s language_replace">※存款金額為2,000ocoin至500,000ocoin。</p>
-                                <p class="text-s language_replace">※OCoin必須在款項到帳後才會反映，如果過了1個銀行營業日也沒反映請聯絡客服。</p>
-                                <p class="text-s language_replace">※此處填寫的全名必須與銀行的匯款人名稱（片假名）完全相同，敬請見諒。</p>
-                                <p class="text-s language_replace">※訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</p>
+                                <p class="text-s language_replace">※存款金額最低 2,000ocoin。</p>
+                                <p class="text-s language_replace">※若您尚未擁有 TigerPay 帳號，請您先前往TigerPay 取得帳號後再進行操作。TigerPay 使用導覽:</p>
+                                <p class="text-s language_replace"><a style="color: blue;" onclick="window.open('https://twitter.com/tigerpay_guide')">https://twitter.com/tigerpay_guide</a></p>
+               
                             </div>
                         </div>
                     </div>
@@ -624,11 +624,9 @@
                         <div class="text-wrap">
                             <p class="title language_replace">注意事項</p>
                             <ul class="list-style-decimal">
-                                <li><span class="language_replace">點擊 下一步，會顯示收款人信息。</span></li>
-                                <li><span class="language_replace">匯款人的名義請務必與轉賬時用的名義相同（片假名）。</span></li>
-                                <li><span class="language_replace">若有差異的話，可能需要一些時間反映。也有可能無法反映，請注意。</span></li>
-                                <li><span class="language_replace">根據不同的金融機構，若轉賬於銀行營業時間以外進行的話，將在下一個營業日才能確認匯款。</span></li>
-                                <li><span class="language_replace">訂單申請後請於20分鐘內匯款，若超過20分鐘未進行交易，請另提交易申請，以利交易順利進行。</span></li>
+                                <li><span class="language_replace">點擊下一步，會前往 TigerPay 的支付介面。</span></li>
+                                <li><span class="language_replace">登入 TigerPay 的帳號並確認本次交易的金額是否正確，正確後送出申請單即可。</span></li>
+
                             </ul>
                         </div>
                     </div>

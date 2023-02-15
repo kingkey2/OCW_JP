@@ -111,5 +111,11 @@
   "step1": "ステップ1",
   "step2": "ステップ2",
   "step3": "ステップ3",
-  "Finish": "完了"
+  "Finish": "完了",
+  "尚未輸入 TigerPay 帳戶": "尚未輸入 TigerPay 帳戶",
+  "輸入TigerPay帳戶": "輸入TigerPay帳戶",
+  "請輸入TigerPay帳戶": "請輸入TigerPay帳戶",
+  "需輸入 TigerPay 帳號，若您未擁有 TigerPay 帳號，請您先前往 TigerPay 取得帳號後再進行操作。TigerPay 使用導覽:": "TigerPay のアカウントを入力してください。TigerPay のアカウントを持たない会員様は、申請する前に TigerPay への登録をおすすめします。TigerPay ガイド：",
+  "取款 1 次最少 5500，最多 50 萬 OCoin，1 天次數最多 3 次。": "出金限度額は 1 回最低でも 5500 から、最大 50 万 Ocoin まで、出金回数は一日 3 回までとなります。",
+  "1 天取款上限額度為 100 萬 OCoin。": "一日出金最大限度額は 100 万 Ocoin となります。"
 }
