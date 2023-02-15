@@ -1332,11 +1332,21 @@ public class PaymentAPI : System.Web.Services.WebService
                             }
                             else
                             {
-                                R.Result = enumResult.OK;
-                                R.Data = TempCommonData;
-                                TempCommonData.PaymentSerial = paymentResult.PaymentSerial;
-                                TempCommonData.ActivityDatas = tagInfoData.ActivityDatas;
-                                TempCommonData.PointValue = PointValue;
+                                    int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
+
+                                    if (UpdateRet == 1)
+                                    {
+                                        R.Result = enumResult.OK;
+                                        R.Data = TempCommonData;
+                                        TempCommonData.PaymentSerial = paymentResult.PaymentSerial;
+                                        TempCommonData.ActivityDatas = tagInfoData.ActivityDatas;
+                                        TempCommonData.PointValue = PointValue;
+                                    }
+                                    else
+                                    {
+                                        SetResultException(R, "UpdateFailure1");
+                                    }
+            
                             }
 
                         }

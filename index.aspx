@@ -206,36 +206,36 @@
             display: -ms-flexbox;
             display: flex;
         }
-                .bulletin_list .item:before {
-                    content: "";
-                    display: -webkit-inline-box;
-                    display: -ms-inline-flexbox;
-                    display: inline-flex;
-                    width: 3px;
-                    height: 1rem;
-                    border-radius: 0.5px;
-                    background-color: #008fd1;
-                }
-                .bulletin_list .item .date {
-                    font-weight: 600;
-                    margin-left: 0.5rem;
-                    margin-right: 1rem;
-                    width: 5rem;
-                    display: -webkit-inline-box;
-                    display: -ms-inline-flexbox;
-                    display: inline-flex;
-                }
-                .bulletin_list .item .info {
-                    -webkit-box-flex: 1;
-                    -ms-flex: 1;
-                    flex: 1;
-                    display: -webkit-box;
-                    text-overflow: ellipsis;
-                    -webkit-line-clamp: 1;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    cursor: pointer;
-                }
+        .bulletin_list .item:before {
+            content: "";
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            width: 3px;
+            height: 1rem;
+            border-radius: 0.5px;
+            background-color: #008fd1;
+        }
+        .bulletin_list .item .date {
+            font-weight: 600;
+            margin-left: 0.5rem;
+            margin-right: 1rem;
+            width: 5rem;
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+        }
+        .bulletin_list .item .info {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            cursor: pointer;
+        }
         .bulletin_list .item .info:hover {
             color: #008fd1;
         }
