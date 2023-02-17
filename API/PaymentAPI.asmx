@@ -1332,21 +1332,21 @@ public class PaymentAPI : System.Web.Services.WebService
                             }
                             else
                             {
-                                    int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
+                                int UpdateRet = EWinWebDB.UserAccountPayment.ConfirmPayment(OrderNumber, TempCommonData.ToInfo, paymentResult.PaymentSerial, "", PointValue, Newtonsoft.Json.JsonConvert.SerializeObject(tagInfoData.ActivityDatas));
 
-                                    if (UpdateRet == 1)
-                                    {
-                                        R.Result = enumResult.OK;
-                                        R.Data = TempCommonData;
-                                        TempCommonData.PaymentSerial = paymentResult.PaymentSerial;
-                                        TempCommonData.ActivityDatas = tagInfoData.ActivityDatas;
-                                        TempCommonData.PointValue = PointValue;
-                                    }
-                                    else
-                                    {
-                                        SetResultException(R, "UpdateFailure1");
-                                    }
-            
+                                if (UpdateRet == 1)
+                                {
+                                    R.Result = enumResult.OK;
+                                    R.Data = TempCommonData;
+                                    TempCommonData.PaymentSerial = paymentResult.PaymentSerial;
+                                    TempCommonData.ActivityDatas = tagInfoData.ActivityDatas;
+                                    TempCommonData.PointValue = PointValue;
+                                }
+                                else
+                                {
+                                    SetResultException(R, "UpdateFailure1");
+                                }
+
                             }
 
                         }
@@ -1780,10 +1780,10 @@ public class PaymentAPI : System.Web.Services.WebService
         return R;
     }
 
-            [WebMethod]
+    [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public PaymentCommonResult CreateEPayDeposit(string WebSID, string GUID, decimal Amount, int PaymentMethodID, string DepositName)
-    {
+{
         PaymentCommonResult R = new PaymentCommonResult() { GUID = GUID, Result = enumResult.ERR };
         PaymentCommonData paymentCommonData = new PaymentCommonData() { };
 
@@ -1950,8 +1950,8 @@ public class PaymentAPI : System.Web.Services.WebService
                 SetResultException(R, "PaymentMethodNotExist");
             }
         }
-        else
-        {
+else
+{
             SetResultException(R, "InvalidWebSID");
         }
 
@@ -2236,6 +2236,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                                         }
                                                         else
                                                         {
+                                                            lobbyAPI.AddThreshold(GetToken(), GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "Initial", true);
                                                             thresholdValue = 0;
                                                         }
                                                         if (thresholdValue == 0) {
@@ -2803,6 +2804,7 @@ public class PaymentAPI : System.Web.Services.WebService
                                                         }
                                                         else
                                                         {
+                                                            lobbyAPI.AddThreshold(GetToken(), GUID, System.Guid.NewGuid().ToString(), SI.LoginAccount, EWinWeb.MainCurrencyType, 0, "Initial", true);
                                                             thresholdValue = 0;
                                                         }
                                                         if (thresholdValue == 0)
