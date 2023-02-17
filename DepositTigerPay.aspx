@@ -226,10 +226,12 @@
                 Step2.hide();
                 Step3.fadeIn();
                 $('.progress-step:nth-child(3)').addClass('cur');
+                $('button[data-deposite="step2"]').attr('disabled', false);
                 window.parent.API_LoadingEnd(1);
             }
             else {
                 window.parent.API_LoadingEnd(1);
+                $('button[data-deposite="step2"]').attr('disabled', false);
                 window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("取得可參加活動失敗"), function () {
 
                 });
@@ -252,7 +254,7 @@
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
-        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("disabled", "disabled");
+        //ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("disabled", "disabled");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
         $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
