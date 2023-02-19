@@ -486,6 +486,8 @@ public static class ActivityExpand {
             System.Data.DataTable DT;
             int DepositCount = 0;
             int UserDepositTotalCount = 0;
+            int ProgressPaymentCount = 0;
+            System.Data.DataTable ProgressPaymentDT;
 
             ActivityDetail = GetActivityDetail(DetailPath);
 
@@ -496,6 +498,13 @@ public static class ActivityExpand {
             } else {
                 DepositCount = 0;
             }
+
+            //檢查進行中訂單數量
+            ProgressPaymentDT = EWinWebDB.UserAccountPayment.GetInProgressPaymentByLoginAccount(LoginAccount, 0);
+
+            if (ProgressPaymentDT != null && ProgressPaymentDT.Rows.Count > 0) {
+                ProgressPaymentCount = ProgressPaymentDT.Rows.Count;
+            } 
 
             if (ActivityDetail != null) {
                 DateTime StartDate = DateTime.Parse(ActivityDetail["StartDate"].ToString());
@@ -514,7 +523,7 @@ public static class ActivityExpand {
                                 UserDepositTotalCount = (int)DT.Rows[0]["DepositCount"];
                             }
 
-                            if (UserDepositTotalCount == 0) {
+                            if (UserDepositTotalCount == 0 && ProgressPaymentCount ==0) {
                                 foreach (var item in ActivityDetail["UserFirstDeposit"]) {
                                     if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
                                         IsPaymentCodeSupport = true;
@@ -526,14 +535,27 @@ public static class ActivityExpand {
                                     }
                                 }
                             } else {
-                                foreach (var item in ActivityDetail["Rate1"]) {
-                                    if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
-                                        IsPaymentCodeSupport = true;
-                                        BonusRate = (decimal)item["BonusRate"];
-                                        ThresholdRate = (decimal)item["ThresholdRate"];
-                                        ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+                                if (ProgressPaymentCount == 0) {
+                                    foreach (var item in ActivityDetail["Rate1"]) {
+                                        if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
+                                            IsPaymentCodeSupport = true;
+                                            BonusRate = (decimal)item["BonusRate"];
+                                            ThresholdRate = (decimal)item["ThresholdRate"];
+                                            ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
 
-                                        break;
+                                            break;
+                                        }
+                                    }
+                                } else if (ProgressPaymentCount == 1) {
+                                    foreach (var item in ActivityDetail["Rate2"]) {
+                                        if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
+                                            IsPaymentCodeSupport = true;
+                                            BonusRate = (decimal)item["BonusRate"];
+                                            ThresholdRate = (decimal)item["ThresholdRate"];
+                                            ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -559,14 +581,16 @@ public static class ActivityExpand {
                                 SetResultException(R, "PaymentCodeNotSupport");
                             }
                         } else if (DepositCount == 1) {
-                            foreach (var item in ActivityDetail["Rate2"]) {
-                                if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
-                                    IsPaymentCodeSupport = true;
-                                    BonusRate = (decimal)item["BonusRate"];
-                                    ThresholdRate = (decimal)item["ThresholdRate"];
-                                    ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
+                            if (ProgressPaymentCount == 0) {
+                                foreach (var item in ActivityDetail["Rate2"]) {
+                                    if (item["PaymentCode"].ToString().ToUpper() == PaymentCode.ToString().ToUpper()) {
+                                        IsPaymentCodeSupport = true;
+                                        BonusRate = (decimal)item["BonusRate"];
+                                        ThresholdRate = (decimal)item["ThresholdRate"];
+                                        ReceiveValueMaxLimit = (decimal)item["ReceiveValueMaxLimit"];
 
-                                    break;
+                                        break;
+                                    }
                                 }
                             }
 
