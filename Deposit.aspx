@@ -158,6 +158,37 @@
                             <img src="images/assets/card-surface/card-08.svg" class="card-item-bg">
                         </a>
                     </div>
+                    <!-- 虛擬錢包 -->
+                    <div class="card-item sd-02" style="">
+                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
+                            <div class="card-item-inner">
+                                <div class="title">
+                                    <span>Crypto Wallet</span>
+                                </div>
+                                <div class="title vertical-center">
+                                    <span class="language_replace">虛擬貨幣</span>
+                                </div>
+                                <!-- <div class="desc">
+                                    <b>30</b> € -  <b>5,000</b> € No Fee                                   
+                                </div> -->
+                                <div class="logo">
+                                    <i class="icon-logo-usdt"></i>
+                                    <!-- <i class="icon-logo-eth-o"></i> -->
+                                    <!-- <i class="icon-logo-nissin"></i> -->
+                                    <i class="icon-logo-eth"></i>
+                                    <i class="icon-logo-btc"></i>
+                                    
+                                    <!-- <i class="icon-logo-doge"></i> -->
+                                    <!-- <i class="icon-logo-tron"></i> -->
+                                </div>
+                                <!-- <div class="instructions-crypto">
+                                    <i class="icon-info_circle_outline"></i>
+                                    <span onclick="window.open('instructions-crypto.html')" class="language_replace">使用說明</span>
+                                </div>                                -->
+                            </div>
+                            <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
+                        </a>
+                    </div>
                     <!-- EPay -->
                     <div class="card-item sd-03" id="idDepositEPay">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositEPay.aspx')">
@@ -219,7 +250,7 @@
                             <p class="language_replace">3.關於出金門檻倍率</p>
                             <p class="language_replace">PayPal・主要加密貨幣＝入金額の1.5倍</p>
                             <p class="language_replace">（計算範例）</p>
-                            <p class="language_replace">PayPal　10,000+獎金10,000的情況</p>
+                            <p class="language_replace">PayPal 10000+獎金10000的情況</p>
                             <p class="language_replace">10,000×1.5倍+10,000×20倍=215,000​</p>
                             <p class="language_replace">關於出金門檻的詳細說明於</p>
                             <p class="language_replace">4.持有的OCoin在100以下時入金，或是領取領獎中心的OCoin即可解除原有的出金門檻。</p>

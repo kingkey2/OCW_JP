@@ -206,36 +206,36 @@
             display: -ms-flexbox;
             display: flex;
         }
-                .bulletin_list .item:before {
-                    content: "";
-                    display: -webkit-inline-box;
-                    display: -ms-inline-flexbox;
-                    display: inline-flex;
-                    width: 3px;
-                    height: 1rem;
-                    border-radius: 0.5px;
-                    background-color: #008fd1;
-                }
-                .bulletin_list .item .date {
-                    font-weight: 600;
-                    margin-left: 0.5rem;
-                    margin-right: 1rem;
-                    width: 5rem;
-                    display: -webkit-inline-box;
-                    display: -ms-inline-flexbox;
-                    display: inline-flex;
-                }
-                .bulletin_list .item .info {
-                    -webkit-box-flex: 1;
-                    -ms-flex: 1;
-                    flex: 1;
-                    display: -webkit-box;
-                    text-overflow: ellipsis;
-                    -webkit-line-clamp: 1;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    cursor: pointer;
-                }
+        .bulletin_list .item:before {
+            content: "";
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            width: 3px;
+            height: 1rem;
+            border-radius: 0.5px;
+            background-color: #008fd1;
+        }
+        .bulletin_list .item .date {
+            font-weight: 600;
+            margin-left: 0.5rem;
+            margin-right: 1rem;
+            width: 5rem;
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+        }
+        .bulletin_list .item .info {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            cursor: pointer;
+        }
         .bulletin_list .item .info:hover {
             color: #008fd1;
         }
@@ -409,6 +409,11 @@
     function API_SetLogin(_SID, cb) {
         var sourceLogined = EWinWebInfo.UserLogined;
         checkUserLogin(_SID, function (logined) {
+            if (!isFirstLogined) {
+                isFirstLogined = true;
+                game_userlogout();
+            }
+
             updateBaseInfo();
 
             if (cb) {
@@ -1744,6 +1749,7 @@
         var alertSearch = $("#alertSearch");
         var alertSearchCloseButton = $("#alertSearchCloseButton");
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
+        var gameCode;
         //先關閉Game彈出視窗(如果存在)
         if (gameWindow) {
             gameWindow.close();
@@ -1777,22 +1783,84 @@
                     API_RefreshPersonalPlayed(gameBrand + "." + gameName, true);
                 }
             });
-
+            gameCode = gameBrand + "." + gameName;
             $('.headerGameName').text(gameLangName);
 
-            if (gameBrand.toUpperCase() == "EWin".toUpperCase() || gameBrand.toUpperCase() == "YS".toUpperCase()) {
-                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game")
-            } else {
-                if (EWinWebInfo.DeviceType == 1) {
-                    gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "Maharaja Game");
-
+            if (EWinWebInfo.DeviceType == 1) {
+                $('#GameMask').show();
+                gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
+                CloseWindowOpenGamePage(gameWindow);
                     //window.location.href = "/kevintest.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";
 
                 } else {
-                    GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
+                  GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
+              }
+
+          }
+      }
+
+    function CloseWindowOpenGamePage(e) {
+        //showMessageOK("", mlp.getLanguageKey("確認回到大廳"), function () {
+        //    game_userlogout();
+        //    e.close();
+        //})
+
+        var winLoop = setInterval(function () {
+            if (e.closed) {
+                clearInterval(winLoop);
+                game_userlogout();
+                $('#popupMoblieGameInfo').modal('hide');
+                if (MessageModal && MessageModal != null) {
+                    MessageModal.hide();
+                }
+            } else {
+
+            }
+        }, 1000);
+
+    }
+
+    function closeGameMask() {
+        showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("確認關閉遊戲?"), function () {
+            gameWindow.close();
+            game_userlogout();
+            $('#popupMoblieGameInfo').modal('hide');
+        });
+    }
+
+    function game_userlogout() {
+        $('#GameMask').hide();
+        var guid = Math.uuid();
+        lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
+            if (success == true) {
+                if (o.Result == 0) {
+                    if (o.OnlineList && o.OnlineList.length > 0) {
+                        var promiseAll = [];
+                        for (var i = 0; i < o.OnlineList.length; i++) {
+                            var gameBrand = o.OnlineList[i].GameBrand;
+                            var url = EWinWebInfo.EWinUrl + "/API/GamePlatformAPI2/" + gameBrand + "/UserLogout.aspx?LoginAccount=" + EWinWebInfo.UserInfo.LoginAccount + "&CompanyCode=" + EWinWebInfo.UserInfo.Company.CompanyCode + "&SID=" + o.Message;
+                            var promise = new Promise((resolve, reject) => {
+                                $.get(url, function (result) {
+                                    resolve();
+                                });
+                            });
+
+                            promiseAll.push(promise);
+                        }
+
+                        Promise.all(promiseAll).then(values => {
+                            checkUserLogin(EWinWebInfo.SID, function (logined) {
+                                if (logined) {
+                                    updateBaseInfo();
+                                }
+                            });
+                        });
+                    }
+                } else {
+
                 }
             }
-        }
+        });
     }
 
     function openDemo(gameBrand, gameName) {
@@ -1824,6 +1892,7 @@
         //滿版遊戲介面
         $('#divGameFrame').css('display', 'none');
         //滿版遊戲介面 end
+        game_userlogout();
         appendGameFrame();
     }
 
@@ -3199,6 +3268,11 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
+      <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
+
+        <div class="loader-backdrop is-show"></div>
+    </div>
+
     <div class="loader-container" style="display: block;">
         <div class="loader-box">
             <div class="loader-spinner">
@@ -3699,7 +3773,7 @@
                         </div>
                         <div class="company-address">
                             <%-- <p class="name">Online Chip World Co. N.V</p>--%>
-                            <span class="language_replace">MAHARAJA由(Online Chip World Co. N.V) 所有並營運。（註冊地址：Zuikertuintjeweg Z/N (Zuikertuin Tower), Willemstad, Curacao）取得庫拉索政府核發的執照 註冊號碼：#365 / JAZ 認可，並以此據為標準。</span>
+                            <span class="language_replace">マハラジャは(Online Chip World Co. N.V) によって所有および運営されています。（登録住所：Zuikertuintjeweg Z/N (Zuikertuin Tower)Willemstad Curacao）キュラソー政府からライセンス 登録番号：#365 / JAZ の認可を受け規制に準拠しています。</span>
                         </div>
                     </div>
                     <div class="footer-copyright">
