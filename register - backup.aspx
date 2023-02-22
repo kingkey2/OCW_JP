@@ -183,9 +183,9 @@
             var form = document.getElementById("registerStep1");
             CheckAccountPhoneExist(function (check) {
                 if (check) {
-                    window.top.API_ShowLoading();
+                    window.top.API_LoadingStart();
                     p.SetUserMail(Math.uuid(), 0, 0, $("#idLoginAccount").val(), $("#idPhonePrefix").val(), $("#idPhoneNumber").val(), "", function (success, o) {
-                        window.top.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
                         if (success) {
                             if (o.Result != 0) {
                                 window.parent.showMessageOK("", mlp.getLanguageKey("發送驗證碼失敗"));

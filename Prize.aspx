@@ -92,7 +92,7 @@
         var ParentMain = document.getElementById("div_History");
         ParentMain.innerHTML = "";
         document.getElementById("idSearchDate_P").innerText = new Date(EndDate).toString("yyyy/MM");
-        
+
         LobbyClient.GetPromotionCollectHistory(WebInfo.SID, Math.uuid(), BeginDate, EndDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
@@ -117,25 +117,25 @@
                             // $("#div_History").height(50);
                         }
 
-                        window.parent.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
                     } else {
                         $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                         // $("#div_History").height(50);
-                        window.parent.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
                     }
                 } else {
                     $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                     // $("#div_History").height(50);
                     //window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
-                    window.parent.API_CloseLoading();
+                    window.top.API_LoadingEnd(1);
                 }
             } else {
                 if (o == "Timeout") {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                    window.parent.API_CloseLoading();
+                    window.top.API_LoadingEnd(1);
                 } else {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
-                    window.parent.API_CloseLoading();
+                    window.top.API_LoadingEnd(1);
                 }
             }
         });
@@ -143,13 +143,13 @@
     }
 
     function GetPromotionCollectAvailable(collectareatype) {
-        window.parent.API_ShowLoading();
+        window.parent.API_LoadingStart();
         var ParentMain = document.getElementById("div_Prize");
         ParentMain.innerHTML = "";
         $(".tab-scroller__content").find(".tab-item").removeClass("active");
         $("#li_bonus" + collectareatype).addClass("active");
         let wallet = WebInfo.UserInfo.WalletList.find(x => x.CurrencyType.toLocaleUpperCase() == WebInfo.MainCurrencyType);
- 
+
         //CollectAreaType
         // 1 (獎金 bonus) => i.   本金歸零時可領 
         //                                    ii.   出金時歸零
@@ -162,7 +162,7 @@
             if (success) {
                 if (o.Result == 0) {
                     if (o.CollectList.length > 0) {
-                            let RecordDom;
+                        let RecordDom;
                         for (var i = 0; i < o.CollectList.length; i++) {
                             let Collect = o.CollectList[i];
                             let collectAreaType = Collect.CollectAreaType;
@@ -296,27 +296,27 @@
                                 }
                             });
                         }
-                        
+
                         if ($("#div_Prize").children().length == 0) {
                             $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                         }
-                        window.parent.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
                     } else {
                         $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
-                        window.parent.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
                     }
                 } else {
                     $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                     //window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message));
-                    window.parent.API_CloseLoading();
+                    window.top.API_LoadingEnd(1);
                 }
             } else {
                 if (o == "Timeout") {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請重新嘗試"));
-                    window.parent.API_CloseLoading();
+                    window.top.API_LoadingEnd(1);
                 } else {
                     window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), o);
-                    window.parent.API_CloseLoading();
+                    window.top.API_LoadingEnd(1);
                 }
             }
         });
@@ -335,7 +335,7 @@
     }
 
     function getPreMonth() {
-        window.parent.API_ShowLoading();
+        window.parent.API_LoadingStart();
 
         let newSearchDate = new Date(search_Year + "/" + search_Month + "/01").addMonths(-1);
 
@@ -350,7 +350,7 @@
     }
 
     function getNextMonth() {
-        window.parent.API_ShowLoading();
+        window.parent.API_LoadingStart();
 
         let newSearchDate = new Date(search_Year + "/" + search_Month + "/01").addMonths(1);
 
