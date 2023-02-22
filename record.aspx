@@ -61,7 +61,7 @@
 
     //#region 遊戲
     function getPreMonth_Game() {
-        window.parent.API_ShowLoading();
+        window.parent.API_LoadingStart();
 
         let newSearchDate = new Date(search_Year_G + "/" + search_Month_G + "/01").addMonths(-1);
 
@@ -76,7 +76,7 @@
     }
 
     function getNextMonth_Game() {
-        window.parent.API_ShowLoading();
+        window.parent.API_LoadingStart();
 
         let newSearchDate = new Date(search_Year_G + "/" + search_Month_G + "/01").addMonths(1);
 
@@ -177,20 +177,20 @@
                             $("#Game_R_1").text(new BigNumber(totalRewardValue).toFixed(2));
                         }
 
-                        window.parent.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
 
                     } else {
                         document.getElementById("idNoGameData").style.display = "block";
                         //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                        window.parent.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
                     }
                 } else {
                     document.getElementById("idNoGameData").style.display = "block";
                     window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("取得資料失敗"));
-                    window.parent.API_CloseLoading();
+                    window.top.API_LoadingEnd(1);
                 }
             } else {
-                window.parent.API_CloseLoading();
+                window.top.API_LoadingEnd(1);
             }
         });
     }
@@ -287,7 +287,7 @@
 
     //#region 出入金
     function getPreMonth_Payment() {
-        window.parent.API_ShowLoading();
+        window.parent.API_LoadingStart();
 
         let newSearchDate = new Date(search_Year_P + "/" + search_Month_P + "/01").addMonths(-1);
 
@@ -302,7 +302,7 @@
     }
 
     function getNextMonth_Payment() {
-        window.parent.API_ShowLoading();
+        window.parent.API_LoadingStart();
 
         let newSearchDate = new Date(search_Year_P + "/" + search_Month_P + "/01").addMonths(1);
 
@@ -569,7 +569,7 @@
                         }
 
                         //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                        window.parent.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
                     } else {
                         if (WebInfo.DeviceType == 1) {
                             $("#divPayment_M").show();
@@ -577,8 +577,8 @@
                             $("#divPayment").show();
                         }
                     }
-
-                    window.parent.API_CloseLoading();
+                    
+                        window.top.API_LoadingEnd(1);
                 } else {
                     if (WebInfo.DeviceType == 1) {
                         $(ParentMain_M).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
@@ -586,7 +586,7 @@
                         $(ParentMain).append(`<div class="no-Data"><div class="data"><span class="text language_replace">${mlp.getLanguageKey('沒有資料')}</span></div></div>`);
                     }
                     //window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("沒有資料"));
-                    window.parent.API_CloseLoading();
+                        window.top.API_LoadingEnd(1);
                 }
             } else {
                 // 忽略 timeout 
@@ -617,7 +617,7 @@
     }
 
     function showRecord(type) {
-        window.parent.API_ShowLoading();
+        window.parent.API_LoadingStart();
         let searchDate;
         let beginDate;
         let endDate;
