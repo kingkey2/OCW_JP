@@ -1690,6 +1690,13 @@
         appendGameFrame();
     }
 
+    function AddFav() {
+        GCB.AddFavo(GameCode, function () {
+            window.parent.API_RefreshPersonalFavo(GameCode, false);
+
+        });
+    }
+
     function showDefauktGameIcon(GameBrand, GameName) {
         var el = event.target;
         el.onerror = showDefauktGameIcon2;
@@ -1756,7 +1763,7 @@
 
                         //CloseWindowOpenGamePage(gameWindow);
 
-                         GameLoadPage_M("/kevintest.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
+                         GameLoadPage_M("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
 
                     } else {
                         GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
@@ -3351,8 +3358,17 @@
     <!-- 滿版遊戲介面 end-->
 
     <div id="divGameFrame_M" class="divGameFrameBody" style="width:100vw;height:100vh;z-index:1051">
-        <div class="divGameFrameWrapper">
-            <iframe id="GameIFramePage_M" class="divGameFrame" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock" style="width:100vw;height:100vh"></iframe>
+        <div class="divGameFrameWrapper" style="height: 100vh; width: 100vw;">
+
+    <div style="height: 80vh; width: 100%;">
+        <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
+    </div>
+    <div style="height: 20vh; width: 100%; background-color: red">
+        <button style="width:30%;height:100%" onclick="CloseGameFrame_M()">首頁</button>
+        <button style="width:30%;height:100%" onclick="AddFav()">加入我的最愛</button>
+    </div>
+
+            <%--<iframe id="GameIFramePage_M" class="divGameFrame" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock" style="width:100vw;height:100vh"></iframe>--%>
         </div>
     </div>
 

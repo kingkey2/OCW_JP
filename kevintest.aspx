@@ -3,16 +3,12 @@
 <% 
     string SID;
     string Lang;
-    string gameBrand;
-    string gameName;
     string GameCode;
     string CurrencyType;
 
     SID = Request["SID"];
     Lang = Request["Lang"];
     GameCode= Request["GameCode"];
-    gameBrand = Request["gameBrand"];
-    gameName = Request["gameName"];
     CurrencyType = Request["CurrencyType"];
 
 %>
@@ -29,8 +25,6 @@
 <script>
     var SID = "<%=SID%>";
     var Lang = "<%=Lang%>";
-    var gameBrand = "<%=gameBrand%>";
-    var gameName = "<%=gameName%>";
     var GameCode = "<%=GameCode%>";
     var CurrencyType = "<%=CurrencyType%>";
     var lobbyClient;
@@ -43,8 +37,8 @@
     }
 
     function AddFav() {
-        GCB.AddFavo(gameCode, function () {
-            window.parent.API_RefreshPersonalFavo(gameCode, false);
+        GCB.AddFavo(GameCode, function () {
+            window.parent.API_RefreshPersonalFavo(GameCode, false);
 
         });
     }
@@ -80,7 +74,7 @@
 
     window.onload = init;
 </script>
-<body>
+<body style="margin:0px !important">
     <div style="height: 80vh; width: 100%;">
         <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage"></iframe>
     </div>
