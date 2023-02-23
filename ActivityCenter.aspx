@@ -572,29 +572,6 @@
                             </div>
                         </figure>
 
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(27,'/Activity/event/bng/bng230209/index-jp.html')">
-                                <!-- 結束活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img src="Activity/event/bng/bng230209/img/500X316.png">
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace" langkey="
-                                               BNG バレンタインレース 倍率賞金を今すぐに
-                                            ">
-                                               BNG バレンタインレース 倍率賞金を今すぐに
-                                            </div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
                           <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(26,'/Activity/mahaEvent/2302month.html')">
                                 <!-- 結束活動連結 -->
@@ -652,6 +629,29 @@
                         </figure>
                     </div>
                     <div class="activity-item-group" id="divFinish" style="display: none">
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(27,'/Activity/event/bng/bng230209/index-jp.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng230209/img/500X316_end.png">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace" langkey="
+                                               BNG バレンタインレース 倍率賞金を今すぐに
+                                            ">
+                                               BNG バレンタインレース 倍率賞金を今すぐに
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                             <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(23,'/Activity/event/pp202301-2/index-jp.html')">
                                 <!-- 活動連結 -->
