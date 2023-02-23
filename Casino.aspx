@@ -914,7 +914,7 @@
                                     <div class="game-item-info-detail-indicator">
                                         <div class="game-item-info-detail-indicator-inner">
                                             <div class="info">
-                                                <h3 class="game-item-name">${ESID}</h3>
+                                                <h3 class="game-item-name" style="font-size: 0.8rem;">${ESID}</h3>
                                             </div>
                                             <div class="action">
                                                 <div class="btn-s-wrapper">
