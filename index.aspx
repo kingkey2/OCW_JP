@@ -1,8 +1,7 @@
 <%@ Page Language="C#" %>
 
 <%
-    if (EWinWeb.IsInMaintain())
-    {
+    if (EWinWeb.IsInMaintain()) {
         Response.Redirect("/Maintain.aspx");
     }
 
@@ -60,19 +59,15 @@
         Page = Request["page"];
     }
 
-    if (GoEwinLogin == 1)
-    {
+    if (GoEwinLogin == 1) {
         string EwinCallBackUrl;
 
-        if (CodingControl.GetIsHttps())
-        {
+        if (CodingControl.GetIsHttps()) {
             EwinCallBackUrl = "https://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
-        }
-        else
-        {
+        } else {
             EwinCallBackUrl = "http://" + Request.Url.Authority + "/RefreshParent.aspx?index.aspx";
         }
-        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0"  + "&GPSPosition=1"+ "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
+        Response.Redirect(EWinWeb.EWinGameUrl + "/Game/Login.aspx?CT=" + HttpUtility.UrlEncode(CT) + "&KeepLogin=0" + "&GPSPosition=1" + "&Action=Custom" + "&Callback=" + HttpUtility.UrlEncode(EwinCallBackUrl) + "&CallbackHash=" + CodingControl.GetMD5(EwinCallBackUrl + EWinWeb.PrivateKey, false));
     }
 
     EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
@@ -187,21 +182,21 @@
             margin: 20px auto;
         }
 
-        .s-btn-more:hover {
-            background-color: #ddd;
-            border: 1px solid #666;
-        }
+            .s-btn-more:hover {
+                background-color: #ddd;
+                border: 1px solid #666;
+            }
 
-        .s-btn-more:active {
-            background-color: #ddd;
-            border: 1px solid #666;
-        }
+            .s-btn-more:active {
+                background-color: #ddd;
+                border: 1px solid #666;
+            }
 
-        .s-btn-more:visited {
-            background-color: #ddd;
-            border: 1px solid #666;
-            color: #777;
-        }
+            .s-btn-more:visited {
+                background-color: #ddd;
+                border: 1px solid #666;
+                color: #777;
+            }
 
         .bulletin_list .item {
             margin-bottom: 0.8rem;
@@ -212,45 +207,48 @@
             display: -ms-flexbox;
             display: flex;
         }
-        .bulletin_list .item:before {
-            content: "";
-            display: -webkit-inline-box;
-            display: -ms-inline-flexbox;
-            display: inline-flex;
-            width: 3px;
-            height: 1rem;
-            border-radius: 0.5px;
-            background-color: #008fd1;
-        }
-        .bulletin_list .item .date {
-            font-weight: 600;
-            margin-left: 0.5rem;
-            margin-right: 1rem;
-            width: 5rem;
-            display: -webkit-inline-box;
-            display: -ms-inline-flexbox;
-            display: inline-flex;
-        }
-        .bulletin_list .item .info {
-            -webkit-box-flex: 1;
-            -ms-flex: 1;
-            flex: 1;
-            display: -webkit-box;
-            text-overflow: ellipsis;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .bulletin_list .item .info:hover {
-            color: #008fd1;
-        }
+
+            .bulletin_list .item:before {
+                content: "";
+                display: -webkit-inline-box;
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+                width: 3px;
+                height: 1rem;
+                border-radius: 0.5px;
+                background-color: #008fd1;
+            }
+
+            .bulletin_list .item .date {
+                font-weight: 600;
+                margin-left: 0.5rem;
+                margin-right: 1rem;
+                width: 5rem;
+                display: -webkit-inline-box;
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+            }
+
+            .bulletin_list .item .info {
+                -webkit-box-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                display: -webkit-box;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+                .bulletin_list .item .info:hover {
+                    color: #008fd1;
+                }
     </style>
-    
-   <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
+
+    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
-<% if (EWinWeb.IsTestSite == false)
-    { %>
+<% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-097DC2GB6H"></script>
 <script>
@@ -351,7 +349,7 @@
     function API_GetPaymentAPI() {
         return paymentClient;
     }
-    
+
     function API_GetCurrency() {
         var selectedCurrency;
 
@@ -1558,7 +1556,7 @@
     }
 
     //#endregion
-    
+
     //#region Game
     function showMobileDeviceGameInfo(brandName, RTP, gameName, GameID, GameLangName, GameCategoryCode, ChampionType) {
         var popupMoblieGameInfo = $('#popupMoblieGameInfo');
@@ -1763,7 +1761,7 @@
 
                         //CloseWindowOpenGamePage(gameWindow);
 
-                         GameLoadPage_M("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
+                        GameLoadPage_M("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
 
                     } else {
                         GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
@@ -1870,11 +1868,11 @@
         let w = vh * 16 / 9;
 
         if (w > vw) {
-            w =  vw - 110;
+            w = vw - 110;
         } else if (Math.abs(vw - w) < 110) {
             w = vw - 110;
         }
-   
+
         // class="divGameFrame"
         let tmp = `<div class="divGameFrameWrapper">
             <div class="btn-wrapper">
@@ -1888,8 +1886,16 @@
     function appendGameFrame_M() {
         $("#divGameFrame_M").children().remove();
 
-        let tmp = `<div class="divGameFrameWrapper">
-            <iframe id="GameIFramePage_M" class="divGameFrame" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock" style="width:100vw;height:100vh"></iframe>
+        let tmp = `<div class="divGameFrameWrapper" style="height: 100vh; width: 100vw;">
+
+            <div style="height: 80vh; width: 100%;">
+                <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
+            </div>
+            <div style="height: 20vh; width: 100%; background-color: red">
+                <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()">首頁</button>
+                <button style="width: 30%; height: 100%" onclick="AddFav()">加入我的最愛</button>
+            </div>
+
         </div>`;
         $("#divGameFrame_M").append(tmp);
     }
@@ -1954,7 +1960,7 @@
     }
 
     function setFavoPlayeditem(type) {
-        
+
         var lang = EWinWebInfo.Lang;
         var alertSearchContent;
 
@@ -2027,7 +2033,7 @@
             }
         )
     }
-    
+
     function setFavoToDB(cb) {
         if (EWinWebInfo.UserLogined) {
             GCB.GetFavo((gameItem) => {
@@ -2422,7 +2428,7 @@
                     if (EWinWebInfo.SID != "") {
                         API_Casino();
                     } else {
-                       API_Home();
+                        API_Home();
                     }
                 }
             }
@@ -2556,7 +2562,7 @@
                                         var langText = null;
 
                                         langText = GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang) ? GameCodeItem.Language.find(x => x.LanguageCode == EWinWebInfo.Lang).DisplayText : "";
-                                        
+
                                         clearUrlParams();
 
                                         API_OpenGame(GameCodeItem.GameBrand, GameCodeItem.GameName, langText);
@@ -2639,7 +2645,7 @@
         notifyWindowEvent("resize", iframewidth);
 
     }
-     //三冠王 
+    //三冠王 
     function checkChampionType(championType) {
         //三冠王 
         // 等級crownLevel-1/crownLevel-2/crownLevel-3
@@ -2961,7 +2967,7 @@
                                 $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_" + GBL.GameBrand);
 
                                 if (GBL.GameBrandState == 0) {
-      
+
                                     //GBL_img.src = `images/logo/default/logo-${GBL.GameBrand}.png`;
 
                                     GBL_img.src = `${EWinWebInfo.ImageUrl}/LOGO/${GBL.GameBrand}/logo-${GBL.GameBrand}.png`;
@@ -3019,7 +3025,7 @@
             console.log(err)
         }
     }
-    
+
     function addOrUpdateQueryInWindow(key, value, type = 'pushState') {
         let url = location.href;
 
@@ -3053,7 +3059,7 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-      <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
+    <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
 
         <div class="loader-backdrop is-show"></div>
     </div>
@@ -3123,7 +3129,7 @@
                                 <li class="nav-item navbarMenu__catagory">
                                     <ul class="catagory">
                                         <li class="nav-item submenu dropdown"
-                                             onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
+                                            onclick="API_LoadPage('Casino', 'Casino.aspx?selectedCategory=GameList_Slot', false)">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-slot"></i>
                                                 <span class="title language_replace">老虎機</span></a>
@@ -3179,10 +3185,10 @@
                                                 <span class="title language_replace">活動中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
-    
+
                                             <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
-                                                <span class="notify-dot PC-notify-dot" style="display:none;"></span>
+                                                <span class="notify-dot PC-notify-dot" style="display: none;"></span>
                                                 <i class="icon icon-mask icon-prize"></i>
                                                 <span class="title language_replace">領獎中心</span></a>
                                         </li>
@@ -3213,10 +3219,10 @@
                                                 <i class="icon icon-mask icon-line"></i>
                                                 <span class="title language_replace">Line</span></a>
                                         </li>
-                                        
+
                                     </ul>
                                 </li>
-                                
+
                                 <li class="nav-item submenu dropdown" id="idLogoutItem">
                                     <a class="nav-link" onclick="API_Logout(true)">
                                         <!-- <i class="icon icon2020-ico-login"></i> -->
@@ -3234,7 +3240,7 @@
                                             <i id="langIcon" class="icon icon-mask"></i>
                                             <span class="title language_replace">語言選擇</span></a>
                                     </li>
-                                 
+
                                 </ul>
                             </li>
                         </ul>
@@ -3286,7 +3292,7 @@
                                                         <img src="images/avatar/avater-2.png" alt=""></span>
                                                     <span class="language_replace">登入</span></button>
                                             </li>
-                                            <li class="register" style="display:block !important">
+                                            <li class="register" style="display: block !important">
                                                 <button class="btn-register btn " type="button" onclick="API_LoadPage('Register', 'Register.aspx')"><span class="language_replace">註冊</span></button>
                                             </li>
                                         </ul>
@@ -3326,7 +3332,7 @@
                                     </li>
 
                                     <!-- 語系 -->
-                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display:none;" >
+                                    <li class="nav-item lang_wrapper submenu dropdown is-hide" style="display: none;">
                                         <button type="button" class="btn nav-link btn-langExchange" data-toggle="modal" data-target="#ModalLanguage" id="btn_switchlang">
                                             <!-- 語系 轉換 ICON -->
                                             <%--<i class="icon icon-mask icon-flag-JP"></i>
@@ -3357,18 +3363,17 @@
     </div>
     <!-- 滿版遊戲介面 end-->
 
-    <div id="divGameFrame_M" class="divGameFrameBody" style="width:100vw;height:100vh;z-index:1051">
+    <div id="divGameFrame_M" class="divGameFrameBody" style="width: 100vw; height: 100vh; z-index: 1051">
         <div class="divGameFrameWrapper" style="height: 100vh; width: 100vw;">
 
-    <div style="height: 80vh; width: 100%;">
-        <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
-    </div>
-    <div style="height: 20vh; width: 100%; background-color: red">
-        <button style="width:30%;height:100%" onclick="CloseGameFrame_M()">首頁</button>
-        <button style="width:30%;height:100%" onclick="AddFav()">加入我的最愛</button>
-    </div>
+            <div style="height: 80vh; width: 100%;">
+                <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
+            </div>
+            <div style="height: 20vh; width: 100%; background-color: red">
+                <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()">首頁</button>
+                <button style="width: 30%; height: 100%" onclick="AddFav()">加入我的最愛</button>
+            </div>
 
-            <%--<iframe id="GameIFramePage_M" class="divGameFrame" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock" style="width:100vw;height:100vh"></iframe>--%>
         </div>
     </div>
 
@@ -3390,7 +3395,7 @@
                 <div class="container">
                     <ul class="company-info row">
                         <li class="info-item col">
-                           <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
+                            <a id="Footer_About" onclick="window.parent.API_LoadPage('About','About.html')"><span class="language_replace">關於我們</span></a>
                         </li>
                         <li class="info-item col">
                             <a id="Footer_ResponsibleGaming" onclick="window.parent.API_ShowPartialHtml('', 'ResponsibleGaming', true, null)">
@@ -3549,7 +3554,7 @@
                                 </div>--%>
                                 <div class="logo-item">
                                     <div class="img-crop">
-                                        <img src="/images/logo/footer/logo-XG.png"  alt="">
+                                        <img src="/images/logo/footer/logo-XG.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -3697,7 +3702,7 @@
             </div>
         </div>
     </div>--%>
-    
+
     <!-- 我的最愛/遊玩過的遊戲 PoPup-->
     <div class="modal fade no-footer alertSearchTemp" id="alertFavoPlayed" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -3722,7 +3727,6 @@
                             <div class="search-result-inner">
                                 <div class="search-result-list">
                                     <div class="game-item-group list-row row" id="alertFavoContent">
-
                                     </div>
                                 </div>
                             </div>
@@ -3732,14 +3736,13 @@
                     <div class="game-search-wrapper mt-4">
                         <div class="sec-title-container mb-0">
                             <div class="sec-title-wrapper">
-                                <h6 class="sec-title title-deco"><span class="language_replace" >曾經遊玩</span></h6>
+                                <h6 class="sec-title title-deco"><span class="language_replace">曾經遊玩</span></h6>
                             </div>
                         </div>
                         <div class="search-result-wrapper">
                             <div class="search-result-inner">
                                 <div class="search-result-list">
                                     <div class="game-item-group list-row row" id="alertPlayedContent">
-
                                     </div>
                                 </div>
                             </div>
@@ -3787,8 +3790,8 @@
                             <div class="searchFilter-item input-group keyword">
                                 <input id="alertSearchKeyWord" type="text" class="form-control"
                                     language_replace="placeholder" placeholder="キーワード" enterkeyhint="">
-                                    <%--<label for="" class="form-label"><span class="language_replace">キーワード</span></label>
-                                    --%>
+                                <%--<label for="" class="form-label"><span class="language_replace">キーワード</span></label>
+                                --%>
                             </div>
                             <div class="wrapper_center action-outter">
                                 <button type="button" class="btn btn btn-outline-main btn-sm btn-reset-popup" onclick="SearchControll.searchGameChangeClear()">
@@ -4061,7 +4064,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="btn-container"onclick="alertBoardMsgClose()">
+                    <div class="btn-container" onclick="alertBoardMsgClose()">
                         <button type="button" class="alert_OK btn btn-primary btn-sm" data-dismiss="modal"><span class="language_replace">確定</span></button>
                     </div>
                 </div>
@@ -4151,7 +4154,7 @@
     <div class="tmpBulletinBoardModel" style="display: none;">
         <div id="idTempBulletinBoard" style="display: none;">
             <!-- <div> -->
-            <li class="item" style="cursor:pointer">
+            <li class="item" style="cursor: pointer">
                 <span class="date CreateDate"></span>
                 <span class="info BulletinTitle"></span>
             </li>
@@ -4203,7 +4206,7 @@
                                             <div class="game-item-info-detail-indicator">
                                                 <div class="game-item-info-detail-indicator-inner">
                                                     <div class="info">
-                                                         <h3 class="game-item-name ESID" style="font-size: 0.8rem;"></h3>
+                                                        <h3 class="game-item-name ESID" style="font-size: 0.8rem;"></h3>
                                                     </div>
                                                     <div class="action">
                                                         <div class="btn-s-wrapper">
@@ -4228,6 +4231,7 @@
                                                     </div>
                                                     <div class="action">
                                                         <div class="btn-s-wrapper">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -4237,18 +4241,17 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!-- Modal Search 品牌-文字版-->
-    <%--    <div id="tmpSearchGameItem" class="is-hide">
+        <!-- Modal Search 品牌-文字版-->
+        <%--    <div id="tmpSearchGameItem" class="is-hide">
         <div class="game-item col-auto">
             <div class="game-item-inner">
                 <div class="game-item-img">
@@ -4300,89 +4303,89 @@
     </div>--%>
 
 
-    <!-- Modal Search 新版 - 品牌-LOGO版-->
-    <div id="tmpSearchGameItem" class="is-hide">
-        <div class="game-item col-auto">
-            <div class="game-item-inner">
-                <div class="game-item-img">
-                    <span class="game-item-link"></span>
-                    <div class="img-wrap">
-                        <img class="gameimg" src="">
-                    </div>
-                </div>
-                <div class="game-item-info">
-                    <div class="game-item-info-inner">
-                        <div class="game-item-info-brief">
-                            <div class="game-item-info-pre">
-                                <h3 class="gameName"></h3>
-                            </div>
-                            <div class="game-item-info-moreInfo">
-                                <ul class="moreInfo-item-wrapper">
-                                    <li class="moreInfo-item brand">
-                                        <h4 class="value BrandName"></h4>
-                                    </li>
-                                    <li class="moreInfo-item category">
-                                        <h4 class="value GameCategoryCode"></h4>
-                                    </li>
-                                    <li class="moreInfo-item RTP">
-                                        <span class="title">RTP</span>
-                                        <span class="value number valueRTP"></span>
-                                    </li>
-                                    <li class="moreInfo-item">
-                                        <span class="title">NO</span>
-                                        <span class="value number valueID"></span>
-                                    </li>
-                                </ul>
-                            </div>
+        <!-- Modal Search 新版 - 品牌-LOGO版-->
+        <div id="tmpSearchGameItem" class="is-hide">
+            <div class="game-item col-auto">
+                <div class="game-item-inner">
+                    <div class="game-item-img">
+                        <span class="game-item-link"></span>
+                        <div class="img-wrap">
+                            <img class="gameimg" src="">
                         </div>
-                        <div class="game-item-info-indicator">
-                            <div class="action">
-                                <div class="btn-s-wrapper">
-                                    <!-- 按讚 按鈕移除 -->
-                                    <button type="button" class="btn-thumbUp btn btn-round" style="display: none;">
-                                        <i class="icon icon-m-thumup"></i>
-                                    </button>
+                    </div>
+                    <div class="game-item-info">
+                        <div class="game-item-info-inner">
+                            <div class="game-item-info-brief">
+                                <div class="game-item-info-pre">
+                                    <h3 class="gameName"></h3>
+                                </div>
+                                <div class="game-item-info-moreInfo">
+                                    <ul class="moreInfo-item-wrapper">
+                                        <li class="moreInfo-item brand">
+                                            <h4 class="value BrandName"></h4>
+                                        </li>
+                                        <li class="moreInfo-item category">
+                                            <h4 class="value GameCategoryCode"></h4>
+                                        </li>
+                                        <li class="moreInfo-item RTP">
+                                            <span class="title">RTP</span>
+                                            <span class="value number valueRTP"></span>
+                                        </li>
+                                        <li class="moreInfo-item">
+                                            <span class="title">NO</span>
+                                            <span class="value number valueID"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="game-item-info-indicator">
+                                <div class="action">
+                                    <div class="btn-s-wrapper">
+                                        <!-- 按讚 按鈕移除 -->
+                                        <button type="button" class="btn-thumbUp btn btn-round" style="display: none;">
+                                            <i class="icon icon-m-thumup"></i>
+                                        </button>
 
-                                    <button type="button" class="btn-like btn btn-round">
-                                        <i class="icon icon-m-favorite"></i>
+                                        <button type="button" class="btn-like btn btn-round">
+                                            <i class="icon icon-m-favorite"></i>
+                                        </button>
+                                    </div>
+                                    <!-- play 按鈕移除 -->
+                                    <button type="button" class="btn btn-play" style="display: none;">
+                                        <span class="language_replace title">プレイ</span><i class="triangle"></i>
                                     </button>
                                 </div>
-                                <!-- play 按鈕移除 -->
-                                <button type="button" class="btn btn-play" style="display: none;">
-                                    <span class="language_replace title">プレイ</span><i class="triangle"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 品牌LOGO版 Collapse TEST-->
-    <script>
-        $('.brand-wrapper:not(.show)').hide();
-        $('.input-fake-select').click(function () {
-            $(this).toggleClass('show');
-            $(this).parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
-            $('.mask-header').toggleClass('show');
-        });
-    </script>
+        <!-- 品牌LOGO版 Collapse TEST-->
+        <script>
+            $('.brand-wrapper:not(.show)').hide();
+            $('.input-fake-select').click(function () {
+                $(this).toggleClass('show');
+                $(this).parents('.searchFilter-wrapper').find('.brand-wrapper').slideToggle();
+                $('.mask-header').toggleClass('show');
+            });
+        </script>
 
-    <div id="tmpSearchGameBrand" style="display: none">
-        <li class="brand-item custom-control custom-checkboxValue-noCheck">
-            <label class="custom-label">
-                <input type="checkbox" name="button-brandExchange" id="" class="custom-control-input-hidden searchGameBrandcheckbox" onchange="SearchControll.searchGameChange()">
-                <div class="custom-input checkbox">
-                    <span class="logo-wrap">
-                        <span class="img-wrap">
-                            <img class="brandImg" src="images/logo/default/logo-eWIN.svg" alt=""></span>
-                    </span>
-                </div>
-            </label>
-        </li>
-    </div>
-    
-    <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
+        <div id="tmpSearchGameBrand" style="display: none">
+            <li class="brand-item custom-control custom-checkboxValue-noCheck">
+                <label class="custom-label">
+                    <input type="checkbox" name="button-brandExchange" id="" class="custom-control-input-hidden searchGameBrandcheckbox" onchange="SearchControll.searchGameChange()">
+                    <div class="custom-input checkbox">
+                        <span class="logo-wrap">
+                            <span class="img-wrap">
+                                <img class="brandImg" src="images/logo/default/logo-eWIN.svg" alt=""></span>
+                        </span>
+                    </div>
+                </label>
+            </li>
+        </div>
+
+        <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>
