@@ -1665,11 +1665,12 @@
         if (IFramePage != null) {
             $('#divGameFrame_M').css('display', 'flex');
             $("#divGameFrame_M .AddFavGameFrame_M").click(function () {
-                GCB.AddFavo(gamecode, function () {
-                    window.parent.API_RefreshPersonalFavo(gamecode, false);
+                let k = this;
+                GCB.AddFavo(k.toString(), function () {
+                    window.parent.API_RefreshPersonalFavo(k.toString(), false);
 
                 });
-            });
+            }.bind(gamecode));
 
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 API_LoadingStart();
@@ -1678,20 +1679,14 @@
                     API_LoadingEnd(1);
                 }, 10000);
 
+                $('#popupMoblieGameInfo').modal('hide');
+
                 IFramePage.src = url;
                 IFramePage.onload = function () {
                     API_LoadingEnd(1);
                 }
             }
         }
-    }
-
-    function CloseGameFrame_M() {
-        //滿版遊戲介面
-        $('#divGameFrame_M').css('display', 'none');
-        //滿版遊戲介面 end
-        game_userlogout();
-        appendGameFrame();
     }
 
     function showDefauktGameIcon(GameBrand, GameName) {
@@ -1892,7 +1887,7 @@
             </div>
             <div style="height: 20vh; width: 100%; background-color: red">
                 <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()">首頁</button>
-                <button style="width: 30%; height: 100%">加入我的最愛</button>
+                <button style="width: 30%; height: 100%" class="AddFavGameFrame_M">加入我的最愛</button>
             </div>
 
         </div>`;
