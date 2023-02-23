@@ -1659,11 +1659,17 @@
         }
     }
 
-    function GameLoadPage_M(url, gameBrand, gameName) {
+    function GameLoadPage_M(url, gamecode) {
         var IFramePage = document.getElementById("GameIFramePage_M");
 
         if (IFramePage != null) {
             $('#divGameFrame_M').css('display', 'flex');
+            $("#divGameFrame_M .AddFavGameFrame_M").click(function () {
+                GCB.AddFavo(gamecode, function () {
+                    window.parent.API_RefreshPersonalFavo(gamecode, false);
+
+                });
+            });
 
             if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
                 API_LoadingStart();
@@ -1686,13 +1692,6 @@
         //滿版遊戲介面 end
         game_userlogout();
         appendGameFrame();
-    }
-
-    function AddFav() {
-        GCB.AddFavo(GameCode, function () {
-            window.parent.API_RefreshPersonalFavo(GameCode, false);
-
-        });
     }
 
     function showDefauktGameIcon(GameBrand, GameName) {
@@ -1761,7 +1760,7 @@
 
                         //CloseWindowOpenGamePage(gameWindow);
 
-                        GameLoadPage_M("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
+                        GameLoadPage_M("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", gameCode);
 
                     } else {
                         GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
@@ -1893,7 +1892,7 @@
             </div>
             <div style="height: 20vh; width: 100%; background-color: red">
                 <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()">首頁</button>
-                <button style="width: 30%; height: 100%" onclick="AddFav()">加入我的最愛</button>
+                <button style="width: 30%; height: 100%">加入我的最愛</button>
             </div>
 
         </div>`;
@@ -3371,7 +3370,7 @@
             </div>
             <div style="height: 20vh; width: 100%; background-color: red">
                 <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()">首頁</button>
-                <button style="width: 30%; height: 100%" onclick="AddFav()">加入我的最愛</button>
+                <button style="width: 30%; height: 100%" class="AddFavGameFrame_M">加入我的最愛</button>
             </div>
 
         </div>
