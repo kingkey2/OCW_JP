@@ -3362,7 +3362,7 @@
         <div class="divGameFrameWrapper" style="height: 100%; width: 100vw;">
 
             <div style="height: 89vh; width: 100%;">
-                <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
+                <iframe style="height: 100%; width: 100%; background-color: black;border-color: black;" id="GameIFramePage_M"></iframe>
             </div>
             <div class="sidenav" style="height:11vh; width: 100%; background-color: #132333">
                 <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()" class="btnGameFrame_M"><i class="fa fa-home iGameFrame_M" aria-hidden="true"></i>首頁</button>
