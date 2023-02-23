@@ -1369,7 +1369,32 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                 
+                     <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=29')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/event/pp202302-2/img/pp-liveJp-s.png" />   
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/event/pp202302-2/img/pp-liveJp.png" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=28')"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="Activity/event/pp202302-1/img/pp-slotJp-s.jpg" />   
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="Activity/event/pp202302-1/img/pp-slotJp.jpg" class="bg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                      <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=27')"></a>
