@@ -37,6 +37,7 @@
                     ResultObj.SID = SID;
                     ResultObj.CT = LoginResult.CT;
                     ResultObj.RecoverToken = LoginResult.RecoverToken;
+                    EWinWebDB.UserAccountTotalSummary.UpdateEwinSID(LoginResult.SID, LoginAccount);
                 } else {
                     ResultObj.ResultCode = RecoverResult.enumResultCode.ERR;
                     ResultObj.Message = "ServerError";

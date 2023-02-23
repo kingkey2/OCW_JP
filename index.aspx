@@ -8,9 +8,11 @@
 
     string Token;
     int RValue;
+    RedisCache.SessionContext.SIDInfo SI;
     Random R = new Random();
     string Lang = "CHT";
     string SID = string.Empty;
+    string SID_E = string.Empty;
     string CT = string.Empty;
     string PCode = string.Empty;
     string PageType = string.Empty;
@@ -22,9 +24,13 @@
     string Version = EWinWeb.Version;
     string ImageUrl = EWinWeb.ImageUrl;
 
-    if (string.IsNullOrEmpty(Request["SID"]) == false)
-    {
+    if (string.IsNullOrEmpty(Request["SID"]) == false) {
         SID = Request["SID"];
+
+        SI = RedisCache.SessionContext.GetSIDInfo(SID);
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            SID_E = SI.EWinSID;
+        }
     }
 
     if (string.IsNullOrEmpty(Request["CT"]) == false)
@@ -308,6 +314,7 @@
     var isFirstLogined = false;
     var noSleep;
     var selectedWallet = null;
+    var SID_E = "<%=SID_E%>";
     var v = "<%=Version%>";
     var GCB;
     var GameInfoModal;
@@ -1605,6 +1612,7 @@
         moreInfoitemcategory.removeClass("etc");
         moreInfoitemcategory.addClass(_gameCategoryCode);
         popupMoblieGameInfo.find('.GameName').text(GameLangName);
+        popupMoblieGameInfo.find('.ESID').text(SID_E);
         $('.headerGameName').text(GameLangName);
 
         gameitemlink.onclick = new Function("openGame('" + brandName + "', '" + gameName + "')");
@@ -4124,7 +4132,7 @@
                                             <div class="game-item-info-detail-indicator">
                                                 <div class="game-item-info-detail-indicator-inner">
                                                     <div class="info">
-                                                        <h3 class="game-item-name GameName"></h3>
+                                                         <h3 class="game-item-name ESID"></h3>
                                                     </div>
                                                     <div class="action">
                                                         <div class="btn-s-wrapper">
@@ -4141,6 +4149,14 @@
                                                         <%--      <button type="button" class="btn btn-play">
                                                             <span class="language_replace">プレイ</span><i class="triangle"></i>
                                                         </button>--%>
+                                                    </div>
+                                                </div>
+                                                <div class="game-item-info-detail-indicator-inner">
+                                                    <div class="info">
+                                                        <h3 class="game-item-name GameName"></h3>
+                                                    </div>
+                                                    <div class="action">
+                                                        <div class="btn-s-wrapper">
                                                     </div>
                                                 </div>
                                             </div>

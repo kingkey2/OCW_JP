@@ -791,6 +791,33 @@ public static class EWinWebDB {
             return RetValue;
         }
 
+        public static int UpdateEwinSID(string EwinSID, string LoginAccount) {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            int RetValue = 0;
+
+            SS = " UPDATE UserAccountTotalSummary WITH (ROWLOCK) SET EwinSID=@EwinSID, EwinSIDUpdateDate = getdate()  " +
+                      " WHERE LoginAccount=@LoginAccount";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@EwinSID", System.Data.SqlDbType.VarChar).Value = EwinSID;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            if (RetValue == 0) {
+                SS = " INSERT INTO UserAccountTotalSummary (LoginAccount,EwinSID,EwinSIDUpdateDate) " +
+                          " VALUES (@LoginAccount,@EwinSID,getdate())";
+                DBCmd = new System.Data.SqlClient.SqlCommand();
+                DBCmd.CommandText = SS;
+                DBCmd.CommandType = System.Data.CommandType.Text;
+                DBCmd.Parameters.Add("@EwinSID", System.Data.SqlDbType.VarChar).Value = EwinSID;
+                DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+                RetValue = DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+            }
+
+            return RetValue;
+        }
+
     }
 
     public static class BulletinBoard {

@@ -96,6 +96,7 @@
     var tmpCategory_GameList_Slot = "";
     var selectedCategorys = [];
     var GameCategoryCodeArray = [];
+    var ESID = "";
 
     var HeaderGames = [
         {
@@ -913,7 +914,7 @@
                                     <div class="game-item-info-detail-indicator">
                                         <div class="game-item-info-detail-indicator-inner">
                                             <div class="info">
-                                                <h3 class="game-item-name">${gameLangName}</h3>
+                                                <h3 class="game-item-name">${ESID}</h3>
                                             </div>
                                             <div class="action">
                                                 <div class="btn-s-wrapper">
@@ -923,12 +924,16 @@
                                                      ${btnlike}
                                                         <i class="icon icon-m-favorite"></i>
                                                     </button>
-                                                    <!-- <button type="button" class="btn-more btn btn-round">
-                                                        <i class="arrow arrow-down"></i>
-                                                    </button> -->
                                                 </div>
-                                                <!-- <button type="button" class="btn btn-play">
-                                                    <span class="language_replace">???</span><i class="triangle"></i></button> -->
+                                            </div>
+                                        </div>
+                                        <div class="game-item-info-detail-indicator-inner">
+                                            <div class="info">
+                                                <h3 class="game-item-name">${gameLangName}</h3>
+                                            </div>
+                                            <div class="action">
+                                                <div class="btn-s-wrapper">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1249,6 +1254,8 @@
         p = window.parent.API_GetLobbyAPI();
 
         lang = window.parent.API_GetLang();
+
+        ESID = window.top.SID_E;
 
         var heroLobby = new Swiper("#hero-slider-lobby", {
             loop: true,
