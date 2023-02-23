@@ -169,6 +169,7 @@
     <link rel="alternate" hreflang="zh-tw" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
     <link rel="alternate" hreflang="zh" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
     <link rel="alternate" hreflang="zh-hk" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
     <style>
         .s-btn-more {
             border-radius: 20px;
@@ -3366,16 +3367,45 @@
     <div id="divGameFrame_M" class="divGameFrameBody" style="width: 100vw; height: 100vh; z-index: 1051">
         <div class="divGameFrameWrapper" style="height: 100vh; width: 100vw;">
 
-            <div style="height: 80vh; width: 100%;">
+            <div style="height: 89vh; width: 100%;">
                 <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
             </div>
-            <div style="height: 20vh; width: 100%; background-color: red">
-                <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()">首頁</button>
-                <button style="width: 30%; height: 100%" onclick="AddFav()">加入我的最愛</button>
+            <div class="sidenav" style="height:11vh; width: 100%; background-color: #132333">
+                <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()"><i class="fa fa-home" aria-hidden="true"></i>
+首頁</button>
+                <button style="width: 30%; height: 100%" onclick="AddFav()"><i class="fa fa-heart" aria-hidden="true"></i>加入我的最愛</button>
             </div>
 
         </div>
     </div>
+    <style>
+        button {
+    background: transparent;
+    color: white;
+    border: none;
+    text-rendering: unset;
+    font-size: 12px;
+    font-family: 'FontAwesome';
+}
+
+i {
+    color: white;
+    display: block!important;
+    font-size: 30px!important;
+    padding-bottom: .3rem;
+}
+
+
+@media (orientation: landscape) {
+  
+}
+
+@media (orientation: portrait) {
+   .sidenav {
+    text-align: center;
+  }
+}
+    </style>
 
     <div class="main_area">
 
