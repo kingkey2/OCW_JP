@@ -5,10 +5,12 @@
     string Lang;
     string gameBrand;
     string gameName;
+    string GameCode;
     string CurrencyType;
 
     SID = Request["SID"];
     Lang = Request["Lang"];
+    GameCode= Request["GameCode"];
     gameBrand = Request["gameBrand"];
     gameName = Request["gameName"];
     CurrencyType = Request["CurrencyType"];
@@ -29,13 +31,22 @@
     var Lang = "<%=Lang%>";
     var gameBrand = "<%=gameBrand%>";
     var gameName = "<%=gameName%>";
+    var GameCode = "<%=GameCode%>";
     var CurrencyType = "<%=CurrencyType%>";
     var lobbyClient;
     var noSleep;
 
     function GoBack() {
         noSleep.disable();
-        window.location.href = "/index.aspx";
+        //window.location.href = "/index.aspx";
+        window.top.CloseGameFrame_M();
+    }
+
+    function AddFav() {
+        GCB.AddFavo(gameCode, function () {
+            window.parent.API_RefreshPersonalFavo(gameCode, false);
+
+        });
     }
 
     function init() {
@@ -50,21 +61,21 @@
         lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
         var IFramePage = document.getElementById("GameIFramePage");
 
-        IFramePage.src = "/OpenGame.aspx?SID=" + SID + "&Lang=" + Lang + "&CurrencyType=" + CurrencyType + "&GameBrand=" + gameBrand + "&GameName=" + gameName + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";;
+        IFramePage.src = "/OpenGame.aspx?SID=" + SID + "&Lang=" + Lang + "&CurrencyType=" + CurrencyType + "&GameCode=" + GameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx";;
 
-        window.setInterval(function () {
-            var guid = Math.uuid();
+        //window.setInterval(function () {
+        //    var guid = Math.uuid();
 
-            lobbyClient.KeepSID(SID, guid, function (success, o) {
-                if (success == true) {
-                    if (o.Result == 0) {
+        //    lobbyClient.KeepSID(SID, guid, function (success, o) {
+        //        if (success == true) {
+        //            if (o.Result == 0) {
 
-                    } else {
+        //            } else {
 
-                    }
-                }
-            });
-        }, 10000);
+        //            }
+        //        }
+        //    });
+        //}, 10000);
     }
 
     window.onload = init;
@@ -75,6 +86,7 @@
     </div>
     <div style="height: 20vh; width: 100%; background-color: red">
         <button style="width:30%;height:100%" onclick="GoBack()">首頁</button>
+        <button style="width:30%;height:100%" onclick="AddFav()">加入我的最愛</button>
     </div>
 </body>
 </html>

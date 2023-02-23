@@ -1661,6 +1661,35 @@
         }
     }
 
+    function GameLoadPage_M(url, gameBrand, gameName) {
+        var IFramePage = document.getElementById("GameIFramePage_M");
+
+        if (IFramePage != null) {
+            $('#divGameFrame_M').css('display', 'flex');
+
+            if (IFramePage.tagName.toUpperCase() == "IFRAME".toUpperCase()) {
+                API_LoadingStart();
+
+                setTimeout(function () {
+                    API_LoadingEnd(1);
+                }, 10000);
+
+                IFramePage.src = url;
+                IFramePage.onload = function () {
+                    API_LoadingEnd(1);
+                }
+            }
+        }
+    }
+
+    function CloseGameFrame_M() {
+        //滿版遊戲介面
+        $('#divGameFrame_M').css('display', 'none');
+        //滿版遊戲介面 end
+        game_userlogout();
+        appendGameFrame();
+    }
+
     function showDefauktGameIcon(GameBrand, GameName) {
         var el = event.target;
         el.onerror = showDefauktGameIcon2;
@@ -1722,9 +1751,12 @@
                     $('.headerGameName').text(gameLangName);
 
                     if (EWinWebInfo.DeviceType == 1) {
-                        $('#GameMask').show();
-                        gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
-                        CloseWindowOpenGamePage(gameWindow);
+                        //$('#GameMask').show();
+                        //gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
+
+                        //CloseWindowOpenGamePage(gameWindow);
+
+                         GameLoadPage_M("/kevintest.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
 
                     } else {
                         GameLoadPage("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx");
@@ -1815,6 +1847,14 @@
         appendGameFrame();
     }
 
+    function CloseGameFrame_M() {
+        //滿版遊戲介面
+        $('#divGameFrame_M').css('display', 'none');
+        //滿版遊戲介面 end
+        game_userlogout();
+        appendGameFrame_M();
+    }
+
     function appendGameFrame() {
         $("#divGameFrame").children().remove();
         let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -1836,6 +1876,15 @@
             <iframe id="GameIFramePage" style="width:${w}px;height:${vh}px;background-color:#09f" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock"></iframe>
         </div>`;
         $("#divGameFrame").append(tmp);
+    }
+
+    function appendGameFrame_M() {
+        $("#divGameFrame_M").children().remove();
+
+        let tmp = `<div class="divGameFrameWrapper">
+            <iframe id="GameIFramePage_M" class="divGameFrame" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock" style="width:100vw;height:100vh"></iframe>
+        </div>`;
+        $("#divGameFrame_M").append(tmp);
     }
     //#endregion
 
@@ -3300,6 +3349,12 @@
         </div>
     </div>
     <!-- 滿版遊戲介面 end-->
+
+    <div id="divGameFrame_M" class="divGameFrameBody" style="width:100vw;height:100vh;z-index:1051">
+        <div class="divGameFrameWrapper">
+            <iframe id="GameIFramePage_M" class="divGameFrame" name="mainiframe" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-pointer-lock" style="width:100vw;height:100vh"></iframe>
+        </div>
+    </div>
 
     <div class="main_area">
 
