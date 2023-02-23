@@ -1881,16 +1881,13 @@
     function appendGameFrame_M() {
         $("#divGameFrame_M").children().remove();
 
-        let tmp = `               <div class="divGameFrameWrapper" style="height: 100%; width: 100vw;">
-
-            <div style="height: 89vh; width: 100%;">
+        let tmp = `<div class="divGameFrameWrapper" style="height: 100%;width:100%">
+            <div style="height: 95%; width: 100%;">
                 <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
             </div>
-            <div class="sidenav" style="height:11vh; width: 100%; background-color: #132333">
-                <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()" class="btnGameFrame_M"><i class="fa fa-home iGameFrame_M" aria-hidden="true"></i>首頁</button>
-                <button style="width: 30%; height: 100%" class="btnGameFrame_M AddFavGameFrame_M"><i class="fa fa-heart iGameFrame_M" aria-hidden="true"></i>加入我的最愛</button>
+            <div class="sidenav" style="height:5%; width: 100%; background-color: #132333">
+                <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()" class="btnGameFrame_M"><i class="fa fa-home iGameFrame_M" aria-hidden="true"></i></button>
             </div>
-
         </div>`;
         $("#divGameFrame_M").append(tmp);
     }
@@ -3358,17 +3355,15 @@
     </div>
     <!-- 滿版遊戲介面 end-->
 
-    <div id="divGameFrame_M" class="divGameFrameBody" style="width: 100vw; height: 100%; z-index: 1051">
-        <div class="divGameFrameWrapper" style="height: 100%; width: 100vw;">
-
-            <div style="height: 89vh; width: 100%;">
+    <div id="divGameFrame_M" class="divGameFrameBody" style="width: 100vw; height: 100%; z-index: 1051; overflow:hidden;background-color:black">
+        <div class="divGameFrameWrapper" style="height: 100%;width:100%">
+            <div style="height: 95%; width: 100%;">
                 <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
             </div>
-            <div class="sidenav" style="height:11vh; width: 100%; background-color: #132333">
-                <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()" class="btnGameFrame_M"><i class="fa fa-home iGameFrame_M" aria-hidden="true"></i>首頁</button>
-                <button style="width: 30%; height: 100%" class="btnGameFrame_M AddFavGameFrame_M"><i class="fa fa-heart iGameFrame_M" aria-hidden="true"></i>加入我的最愛</button>
+            <div class="sidenav" style="height:5%; width: 100%; background-color: #132333">
+                <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()" class="btnGameFrame_M"><i class="fa fa-home iGameFrame_M" aria-hidden="true"></i><%--首頁--%></button>
+                <%--<button style="width: 30%; height: 100%" class="btnGameFrame_M AddFavGameFrame_M"><i class="fa fa-heart iGameFrame_M" aria-hidden="true"></i>加入我的最愛</button>--%>
             </div>
-
         </div>
     </div>
     <style>
