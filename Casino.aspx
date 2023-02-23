@@ -1404,19 +1404,6 @@
                     </div>
                      <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=27')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/bng/bng230209/img/768x480.png" />   
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/bng/bng230209/img/1200x378.png" class="bg" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="swiper-slide">
-                        <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=26')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/mahaEvent/src/202302-m.jpg" alt="">
