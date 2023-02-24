@@ -1848,11 +1848,13 @@
     }
 
     function CloseGameFrame_M() {
-        //滿版遊戲介面
-        $('#divGameFrame_M').css('display', 'none');
-        //滿版遊戲介面 end
-        game_userlogout();
-        appendGameFrame_M();
+        showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("確認關閉遊戲?"), function () {
+            //滿版遊戲介面
+            $('#divGameFrame_M').css('display', 'none');
+            //滿版遊戲介面 end
+            game_userlogout();
+            appendGameFrame_M();
+        });
     }
 
     function appendGameFrame() {
@@ -3355,7 +3357,7 @@
     </div>
     <!-- 滿版遊戲介面 end-->
 
-    <div id="divGameFrame_M" class="divGameFrameBody" style="width: 100vw; height: 100%; z-index: 1051; overflow:hidden;background-color:black">
+    <div id="divGameFrame_M" class="divGameFrameBody" style="width: 100vw; height: 100%; overflow:hidden;background-color:black">
         <div class="divGameFrameWrapper" style="height: 100%;width:100%">
             <div style="height: 95%; width: 100%;">
                 <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
