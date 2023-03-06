@@ -234,7 +234,7 @@
 
                     </div>--%>
                     <!-- 虛擬錢包 -->
-                  <%--  <div class="card-item sd-02" style="">
+                    <div class="card-item sd-02" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('WithdrawalCrypto','WithdrawalCrypto.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -261,7 +261,7 @@
                             </div>
                             <img src="images/assets/card-surface/card-02.svg" class="card-item-bg">
                         </a>
-                    </div>--%>
+                    </div>
                     <!-- EPay -->
                     <div class="card-item sd-04 tempCard"  onclick="window.parent.API_LoadPage('WithdrawalEPay','WithdrawalEPay.aspx')">
                         <a class="card-item-link ">
