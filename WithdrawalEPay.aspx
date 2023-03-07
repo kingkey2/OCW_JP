@@ -774,7 +774,7 @@
                                         <p class="title language_replace">溫馨提醒</p>
                                           <ul class="list-style-decimal">
                                             <li><span class="language_replace">您所希望的取款金額會扣除3％手續費與匯款手續費175 OCoin，即3％+175JPY後到帳。</span></li>
-                                            <li><span class="language_replace">取款1次最少5500，最多50萬OCoin，1天次數最多3次。</span></li>
+                                            <li><span class="language_replace">取款1次最少11000，最多50萬OCoin，1天次數最多3次。</span></li>
                                             <li><span class="language_replace">1天取款上限額度為100萬OCoin。</span></li>
                                             <li><span class="language_replace">申請出款後，依據您所選擇的金融機關不同，有可能下一個營業日才能到帳。</span></li>
                                             <li><span class="language_replace">此處填寫的全名必須與銀行的匯款人名稱（片假名）完全相同，敬請見諒。</span></li>
