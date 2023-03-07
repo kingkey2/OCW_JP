@@ -651,11 +651,11 @@
                                     <div class="btn-wrap btn-radio-wrap btn-radio-payment">
                                         <div class="btn-radio btn-radio-coinType">
                                             <input type="radio" name="amount" id="amount1" />
-                                            <label class="btn btn-outline-primary" for="amount1" data-val="10000" onclick="CoinBtn_Click()">
+                                            <label class="btn btn-outline-primary" for="amount1" data-val="11000" onclick="CoinBtn_Click()">
                                                 <span class="coinType gameCoin">
                                                     <%-- <span class="coinType-title language_replace">遊戲幣</span>--%>
                                                     <span class="coinType-title">Ocoin</span>
-                                                    <span class="coinType-amount OcoinAmount">10,000</span>
+                                                    <span class="coinType-amount OcoinAmount">11,000</span>
                                                 </span>
                                             </label>
                                         </div>

@@ -144,7 +144,7 @@
                 <!-- 選擇存款管道  -->
                 <div class="card-container">
                     <!-- PayPal -->
-                    <%--<div class="card-item sd-08" id="idDepositPaypal">
+                    <div class="card-item sd-08" id="idDepositPaypal">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPayPal','DepositPayPal.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
@@ -156,7 +156,7 @@
                             </div>
                             <img src="images/assets/card-surface/card-08.svg" class="card-item-bg">
                         </a>
-                    </div>--%>
+                    </div>
                     <!-- 虛擬錢包 -->
                     <div class="card-item sd-02" style="">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositCrypto','DepositCrypto.aspx')">
