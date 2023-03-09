@@ -64,7 +64,7 @@ public class Payment {
             }
 
             URL = (string)EPAYSetting.ApiUrl + "RequireWithdraw2";
-            ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/WithdrawalCallback.aspx";
+            ReturnURL = EWinWeb.CasinoWorldUrl2 + "/Payment/EPay/WithdrawalCallback.aspx";
             CompanyCode = (string)EPAYSetting.CompanyCode;
             CurrencyType = (string)EPAYSetting.CyrrencyType;
             CompanyKey = (string)EPAYSetting.ApiKey;
@@ -227,11 +227,11 @@ public class Payment {
                         JPYRate = (decimal)MultiCurrency[i]["Rate"];
                     }
                 }
-                ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/JKCPaymentCallback.aspx";
+                ReturnURL = EWinWeb.CasinoWorldUrl2 + "/Payment/EPay/JKCPaymentCallback.aspx";
             }
             else
             {
-                ReturnURL = EWinWeb.CasinoWorldUrl + "/Payment/EPay/PaymentCallback.aspx";
+                ReturnURL = EWinWeb.CasinoWorldUrl2 + "/Payment/EPay/PaymentCallback.aspx";
             }
 
             CompanyCode = (string)EPAYSetting.CompanyCode;

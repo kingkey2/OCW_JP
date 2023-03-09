@@ -1804,8 +1804,8 @@
         });
     }
 
-    function game_userlogout(cb) {
-        $('#GameMask').hide();
+    function game_userlogout() {
+        //$('#GameMask').hide();
         var guid = Math.uuid();
         lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
             if (success == true) {
@@ -3067,10 +3067,10 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
-    <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
+ <%--   <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
 
         <div class="loader-backdrop is-show"></div>
-    </div>
+    </div>--%>
 
     <div class="loader-container" style="display: block;">
         <div class="loader-box">
