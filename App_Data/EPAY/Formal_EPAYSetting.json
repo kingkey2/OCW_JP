@@ -1,5 +1,5 @@
 {
-  "ApiUrl": "http://ewin-pay.com/api/Gate/",
+  "ApiUrl": "https://ewin-pay.com/api/Gate/",
   "CompanyCode": "OCW_JPY",
   "ApiKey": "2cef3173aaeb421993e29ff36b3824c0",
   "ServiceType": "JOOB01",
