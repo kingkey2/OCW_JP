@@ -278,12 +278,21 @@
                 }
             });
         }
+        //小數點後兩位無條件捨去
+        function roundDown(num, decimal) {
+            return Math.floor((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
+        }
 
-        function queryAccountingData() {
+         function queryAccountingData() {
             var postData;
             $(".TotalValidBetValue").text(0);
-            $(".RewardValue").text(0);
+            $(".TotalRewardValue").text(0);
             $(".UserRebate").text(0);
+            $(".PaidOPValue").text(0);
+            $(".TotalNGR").text(0);
+            $(".ComissionValue").text(0);
+            $(".TotalLineRebate").text(0);
+            $(".TotalChildLineRebate").text(0);
             $(".TotalOrderCount").text(0);
             $(".NewUserCount").text(0);
             $(".WithdrawalValue").text(0);
@@ -300,40 +309,80 @@
                 AID: EWinInfo.ASID,
                 QueryBeginDate: startDate,
                 QueryEndDate: endDate,
-                CurrencyType: DefaultCurrencyType
+                CurrencyType: DefaultCurrencyType,
+                LoginAccount: EWinInfo.UserInfo.LoginAccount
             };
 
             window.parent.API_ShowLoading();
 
             c.callService(ApiUrl + "/GetOrderSummary", postData, function (success, obj) {
                 if (success) {
+                    window.parent.API_CloseLoading();
                     var o = c.getJSON(obj);
 
+                    let TotalValidBetValue = 0;
+                    let UserRebate = 0;
+                    let TotalLineRebate = 0;
+                    let TotalNGR = 0;
+                    let PaidOPValue = 0;
+                    let f = 0;
+                    let RewardValue = 0;
+                    let PreferentialCost = 0;
+                    let TotalOrderCount = 0;
+                    let NewUserCount = 0;
+                    let WithdrawalValue = 0;
+                    let WithdrawalCount = 0;
+                    let DepositValue = 0;
+                    let DepositCount = 0;
+                    let FirstDepositValue = 0;
+                    let CommissionValue = 0;
+
                     if (o.Result == 0) {
+                        $(".FirstDepositCount").text(toCurrency(o.FirstDepositCount));
+                        $(".NotFirstDepositCount").text(toCurrency(o.NextDepositCount));
+
                         if (o.AgentItemList.length > 0) {
-                            let data = o.AgentItemList[0].Summary;
-                            $(".TotalValidBetValue").text(toCurrency(data.TotalValidBetValue));
-                            $(".UserRebate").text(toCurrency(data.UserRebate - data.PaidOPValue));
-                            $(".RewardValue").text(toCurrency(data.TotalRewardValue - data.SelfRewardValue));
-                            $(".PreferentialCost").text(toCurrency(data.BonusPointValue + data.CostValue));
-                            $(".TotalOrderCount").text(toCurrency(data.TotalOrderCount));
-                            if (data.NewUserCount > 0) {
-                                $(".NewUserCount").text(toCurrency(data.NewUserCount));
-                            } else {
-                                $(".NewUserCount").text(0);
+                            for (var i = 0; i < o.AgentItemList.length; i++) {
+                                let data = o.AgentItemList[i];
+                                TotalValidBetValue = TotalValidBetValue + data.TotalValidBetValue;
+                                UserRebate = UserRebate + data.UserRebate;
+                                PaidOPValue = PaidOPValue + data.PaidOPValue;
+                                TotalLineRebate = TotalLineRebate + data.TotalLineRebate;
+                                TotalNGR = TotalNGR + data.TotalNGR;
+                                CommissionValue = CommissionValue + data.CommissionValue;
+                                RewardValue = RewardValue + data.TotalRewardValue;
+                                PreferentialCost = PreferentialCost + data.BonusPointValue;
+                                TotalOrderCount = TotalOrderCount + data.TotalOrderCount;
+                                NewUserCount = NewUserCount + data.NewUserCount + data.NewAgentCount;
+                                WithdrawalValue = WithdrawalValue + data.WithdrawalValue;
+                                WithdrawalCount = WithdrawalCount + data.WithdrawalCount;
+                                DepositValue = DepositValue + data.DepositValue;
+                                DepositCount = DepositCount + data.DepositCount;
+                                FirstDepositValue = FirstDepositValue + data.FirstDepositValue;
                             }
-                            $(".WithdrawalValue").text(toCurrency(data.WithdrawalValue));
-                            $(".WithdrawalCount").text(toCurrency(data.WithdrawalCount));
-                            $(".DepositValue").text(toCurrency(data.DepositValue));
-                            $(".DepositCount").text(toCurrency(data.DepositCount));
-                            $(".FirstDepositValue").text(toCurrency(data.FirstDepositValue));
-                            $(".FirstDepositCount").text(toCurrency(data.FirstDepositCount));
-                            $(".NotFirstDepositCount").text(toCurrency(data.DepositCount - data.FirstDepositCount));
+
+                            $(".TotalValidBetValue").text(toCurrency(TotalValidBetValue));
+                            $(".UserRebate").text(toCurrency(UserRebate));
+                            $(".PaidOPValue").text(toCurrency(PaidOPValue));
+                            $(".TotalNGR").text(toCurrency(TotalNGR));
+                            $(".CommissionValue").text(toCurrency(CommissionValue));
+                            $(".TotalLineRebate").text(toCurrency(TotalLineRebate));
+                            $(".TotalChildLineRebate").text(toCurrency(TotalLineRebate - UserRebate));
+                            $(".TotalRewardValue").text(toCurrency(RewardValue));
+                            $(".PreferentialCost").text(toCurrency(PreferentialCost));
+                            $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
+                            $(".NewUserCount").text(toCurrency(NewUserCount));
+                            $(".WithdrawalValue").text(toCurrency(WithdrawalValue));
+                            $(".WithdrawalCount").text(toCurrency(WithdrawalCount));
+                            $(".DepositValue").text(toCurrency(DepositValue));
+                            $(".DepositCount").text(toCurrency(DepositCount));
+                            $(".FirstDepositValue").text(toCurrency(FirstDepositValue));
                         }
                     } else {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(obj.Message));
                     }
                 } else {
+                    window.parent.API_CloseLoading();
                     if (o == "Timeout") {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
                     } else {
@@ -343,14 +392,14 @@
 
             });
 
-            window.parent.API_CloseLoading();
         }
 
         function getChildUserData() {
             var postData;
 
             postData = {
-                AID: EWinInfo.ASID
+                AID: EWinInfo.ASID,
+                LoginAccount: EWinInfo.UserInfo.LoginAccount
             };
 
             c.callService(ApiUrl + "/GetChildUserData", postData, function (success, obj) {
@@ -364,7 +413,9 @@
                         $(".UserCount_Under").text(toCurrency(o.UserCount_Under));
                         $(".UserCount_Other").text(toCurrency(o.UserCount - o.UserCount_Under));
                     }
+                    window.parent.API_CloseLoading();
                 } else {
+                    window.parent.API_CloseLoading();
                     if (o == "Timeout") {
                         window.parent.API_ShowMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("網路異常, 請稍後重新嘗試"));
                     } else {
@@ -374,7 +425,6 @@
 
             });
 
-            window.parent.API_CloseLoading();
         }
 
         function changeDateTab(e, type) {
@@ -428,6 +478,19 @@
             }
         }
 
+        function showCalcMsg() {
+            var msgText = " Pesonal Profit - Already Gain Profit = Available Profit,<br/>"
+                + " Group Profit - Child Total Profit = Pesonal Profit,<br/>"
+                + " NGR * Share(at that time) + Commission = Group Profit,<br/>"
+                + "<br/>"
+                + "「W/L」, 「NGR」, 「Valid Bet」 are group statistics.<br/>"
+                + "<br/>"
+                + "Numbers are trial calculations.<br/>"
+                + "Don't represent final results.<br/>"
+                + "They are for reference only.";
+
+            window.parent.API_ShowMessageOK("Tips", msgText);
+        }
         function getFirstDayOfWeek(d) {
             let date = new Date(d);
             let day = date.getDay();
@@ -551,18 +614,18 @@
                             <div class="currencyWallet__currencyFocus">
                                 <div class="">
                                     <span class="title-s"><span class="language_replace">總數</span></span>
-                                    <span class="data WalletBalance AgentCount">0</span>
+                                    <span class="data AgentCount">0</span>
                                 </div>
                             </div>
                             <div class="currencyWallet__detail">
                                 <div class="wrapper_revenueAmount">
                                     <div class="detailItem">
                                         <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">直屬</span></span>
-                                        <span class="data rewardValue AgentCount_Under">0</span>
+                                        <span class="data AgentCount_Under">0</span>
                                     </div>
                                     <div class="detailItem">
                                         <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">下線</span></span>
-                                        <span class="data validBetValue AgentCount_Other">0</span>
+                                        <span class="data AgentCount_Other">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -578,18 +641,18 @@
                             <div class="currencyWallet__currencyFocus">
                                 <div class="">
                                     <span class="title-s"><span class="language_replace">總數</span></span>
-                                    <span class="data WalletBalance UserCount">0</span>
+                                    <span class="data UserCount">0</span>
                                 </div>
                             </div>
                             <div class="currencyWallet__detail">
                                 <div class="wrapper_revenueAmount">
                                     <div class="detailItem">
                                         <span class="title-s"><i class="icon icon-ewin-default-periodWinLose icon-s icon-before"></i><span class="language_replace">直屬</span></span>
-                                        <span class="data rewardValue UserCount_Under">0</span>
+                                        <span class="data UserCount_Under">0</span>
                                     </div>
                                     <div class="detailItem">
                                         <span class="title-s"><i class="icon icon-ewin-default-periodRolling icon-s icon-before"></i><span class="language_replace">下線</span></span>
-                                        <span class="data validBetValue UserCount_Other">0</span>
+                                        <span class="data UserCount_Other">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -610,7 +673,7 @@
                                     <span class="currency language_replace">總返水</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace data">9999</span>
+                                    <span class="language_replace data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -620,7 +683,7 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
-                                    <span class="currency language_replace">總收益</span>
+                                    <span class="currency language_replace">Personal Profit</span><btn style="font-size: 10px;/* right: 5px; */position: absolute;border: 2px solid;width: 20px;text-align: center;border-radius: 10px;color: #bba480;cursor: pointer;margin-left: 5px;" onclick="showCalcMsg()">!</btn>
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace UserRebate data">0</span>
@@ -633,10 +696,74 @@
                         <div class="item">
                             <div class="currencyWallet__type">
                                 <div class="wallet__type">
+                                    <span class="currency language_replace">已付佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace PaidOPValue data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">淨收益 NGR</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace TotalNGR data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                           <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">返水佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace CommissionValue data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                           <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">總線佣金</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace TotalLineRebate data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">下線總線佣金總計</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace TotalChildLineRebate data">0</span>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
                                     <span class="currency language_replace">有效投注</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace TotalValidBetValue data">9999</span>
+                                    <span class="language_replace TotalValidBetValue data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -649,7 +776,7 @@
                                     <span class="currency language_replace">會員輸贏</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace RewardValue data">9999</span>
+                                    <span class="language_replace TotalRewardValue data">0</span>
                                 </div>
                             </div>
                         </div>
@@ -662,7 +789,7 @@
                                     <span class="currency language_replace">總佔成</span>
                                 </div>
                                 <div class="settleAccount__type" style="">
-                                    <span class="language_replace data ">9999</span>
+                                    <span class="language_replace data ">0</span>
                                 </div>
                             </div>
                         </div>
@@ -754,7 +881,7 @@
                                 </div>--%>
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data validBetValue WithdrawalCount">0</span>
+                                    <span class="data WithdrawalCount">0</span>
                                 </div>
                             </div>
                         </div>
@@ -773,7 +900,7 @@
                             <div class="wrapper_revenueAmount">
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data validBetValue DepositCount">0</span>
+                                    <span class="data DepositCount">0</span>
                                 </div>
                             </div>
                         </div>
@@ -792,7 +919,7 @@
                             <div class="wrapper_revenueAmount">
                                 <div class="detailItem">
                                     <span class="title-s"><span class="language_replace">筆數</span></span>
-                                    <span class="data validBetValue FirstDepositCount">0</span>
+                                    <span class="data FirstDepositCount">0</span>
                                 </div>
                             </div>
                         </div>
@@ -881,3 +1008,4 @@
     </main>
 </body>
 </html>
+

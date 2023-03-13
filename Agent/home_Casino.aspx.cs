@@ -9,26 +9,56 @@ using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using System.Data;
 
-public partial class home_Casino : System.Web.UI.Page { 
+public partial class home_Casino : System.Web.UI.Page {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.OcwAgent.ChidUserData GetChildUserData(string AID) {
+    public static EWin.OcwAgent.ChidUserData GetChildUserData(string AID, string LoginAccount) {
         EWin.OcwAgent.OcwAgent api = new EWin.OcwAgent.OcwAgent();
         EWin.OcwAgent.ChidUserData RetValue = new EWin.OcwAgent.ChidUserData();
+        string RedisTmp = string.Empty;
 
-        RetValue = api.GetChildUserData(AID);
+        RedisTmp = RedisCache.Agent.GetHomeChildDetailByLoginAccount(LoginAccount);
+
+        if (string.IsNullOrEmpty(RedisTmp)) {
+            RetValue = api.GetChildUserData(AID);
+
+            RedisCache.Agent.UpdateHomeChildDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount);
+        } else {
+            RetValue = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.OcwAgent.ChidUserData>(RedisTmp);
+
+            if (RetValue.Result == EWin.OcwAgent.enumResult.ERR) {
+                RetValue = api.GetChildUserData(AID);
+
+                RedisCache.Agent.UpdateHomeChildDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount);
+            }
+        }
 
         return RetValue;
     }
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.OcwAgent.OrderSummaryResult GetOrderSummary(string AID, string QueryBeginDate, string QueryEndDate, string CurrencyType) {
-        EWin.OcwAgent.OrderSummaryResult RetValue = null;
+    public static EWin.OcwAgent.TotalSummaryResult GetOrderSummary(string AID, string QueryBeginDate, string QueryEndDate, string CurrencyType, string LoginAccount) {
+        EWin.OcwAgent.TotalSummaryResult RetValue = null;
         EWin.OcwAgent.OcwAgent api = new EWin.OcwAgent.OcwAgent();
+        string RedisTmp = string.Empty;
 
-        RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
+        RedisTmp = RedisCache.Agent.GetHomeAccountDetailByLoginAccount(LoginAccount, QueryBeginDate, QueryEndDate);
+
+        if (string.IsNullOrEmpty(RedisTmp)) {
+            RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
+
+            RedisCache.Agent.UpdateHomeAccountDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount, QueryBeginDate, QueryEndDate);
+        } else {
+            RetValue = Newtonsoft.Json.JsonConvert.DeserializeObject<EWin.OcwAgent.TotalSummaryResult>(RedisTmp);
+
+            if (RetValue.Result == EWin.OcwAgent.enumResult.ERR) {
+                RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
+
+                RedisCache.Agent.UpdateHomeAccountDetailByLoginAccount(Newtonsoft.Json.JsonConvert.SerializeObject(RetValue), LoginAccount, QueryBeginDate, QueryEndDate);
+            }
+        }
 
         return RetValue;
     }
