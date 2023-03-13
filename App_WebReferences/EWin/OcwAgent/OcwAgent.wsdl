@@ -92,6 +92,99 @@
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:element name="QueryUserInfoExcludeLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryUserInfoExcludeLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryUserInfoExcludeLoginResult" type="tns:UserInfoResult2" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserInfoResult2">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="RealName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Birthday" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PersonCode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CompanyClassID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserAccountType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllowTransfer" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AllowRecycle" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="RequireWithdrawalCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LastRequireWithdrawalID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="WalletList" type="tns:ArrayOfWallet2" />
+              <s:element minOccurs="0" maxOccurs="1" name="GameCodeList" type="tns:ArrayOfUserAccountGameCode" />
+              <s:element minOccurs="0" maxOccurs="1" name="MultiLoginList" type="tns:ArrayOfMultiLogin" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfWallet2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Wallet2" nillable="true" type="tns:Wallet2" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Wallet2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValueType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointState" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalCreditValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalChildPointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUserAccountGameCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserAccountGameCode" nillable="true" type="tns:UserAccountGameCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserAccountGameCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GameAccountingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BuyChipRate" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMultiLogin">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MultiLogin" nillable="true" type="tns:MultiLogin" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MultiLogin">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetChildUserDataExcludeLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetChildUserDataExcludeLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetChildUserDataExcludeLoginResult" type="tns:ChidUserData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CreateUserAccountPoint">
         <s:complexType>
           <s:sequence>
@@ -107,20 +200,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetOrderSummary">
+      <s:element name="GetOrderSummaryExcludeLogin">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CompanyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetOrderSummaryResponse">
+      <s:element name="GetOrderSummaryExcludeLoginResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummaryResult" type="tns:TotalSummaryResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummaryExcludeLoginResult" type="tns:TotalSummaryResult" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -266,6 +360,23 @@
           <s:element minOccurs="1" maxOccurs="1" name="GGRUserRateValue" type="s:decimal" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetOrderSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderSummaryResult" type="tns:TotalSummaryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetUserAccountSummary">
         <s:complexType>
           <s:sequence>
@@ -890,21 +1001,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="UpdateUserInfo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="UserField" type="tns:ArrayOfPropertySet" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="UpdateUserInfoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserInfoResult" type="tns:APIResult" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="UpdateUserAccountNote">
         <s:complexType>
           <s:sequence>
@@ -923,6 +1019,7 @@
       </s:element>
       <s:element name="AgentSessionResult" nillable="true" type="tns:AgentSessionResult" />
       <s:element name="ChidUserData" nillable="true" type="tns:ChidUserData" />
+      <s:element name="UserInfoResult2" nillable="true" type="tns:UserInfoResult2" />
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="TotalSummaryResult" nillable="true" type="tns:TotalSummaryResult" />
       <s:element name="UserAccountSummaryResult" nillable="true" type="tns:UserAccountSummaryResult" />
@@ -946,11 +1043,29 @@
   <wsdl:message name="GetChildUserDataSoapOut">
     <wsdl:part name="parameters" element="tns:GetChildUserDataResponse" />
   </wsdl:message>
+  <wsdl:message name="QueryUserInfoExcludeLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryUserInfoExcludeLogin" />
+  </wsdl:message>
+  <wsdl:message name="QueryUserInfoExcludeLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryUserInfoExcludeLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataExcludeLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:GetChildUserDataExcludeLogin" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataExcludeLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:GetChildUserDataExcludeLoginResponse" />
+  </wsdl:message>
   <wsdl:message name="CreateUserAccountPointSoapIn">
     <wsdl:part name="parameters" element="tns:CreateUserAccountPoint" />
   </wsdl:message>
   <wsdl:message name="CreateUserAccountPointSoapOut">
     <wsdl:part name="parameters" element="tns:CreateUserAccountPointResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryExcludeLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderSummaryExcludeLogin" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryExcludeLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderSummaryExcludeLoginResponse" />
   </wsdl:message>
   <wsdl:message name="GetOrderSummarySoapIn">
     <wsdl:part name="parameters" element="tns:GetOrderSummary" />
@@ -1060,12 +1175,6 @@
   <wsdl:message name="QueryCurrentUserInfoForSearchPageSoapOut">
     <wsdl:part name="parameters" element="tns:QueryCurrentUserInfoForSearchPageResponse" />
   </wsdl:message>
-  <wsdl:message name="UpdateUserInfoSoapIn">
-    <wsdl:part name="parameters" element="tns:UpdateUserInfo" />
-  </wsdl:message>
-  <wsdl:message name="UpdateUserInfoSoapOut">
-    <wsdl:part name="parameters" element="tns:UpdateUserInfoResponse" />
-  </wsdl:message>
   <wsdl:message name="UpdateUserAccountNoteSoapIn">
     <wsdl:part name="parameters" element="tns:UpdateUserAccountNote" />
   </wsdl:message>
@@ -1084,12 +1193,36 @@
   <wsdl:message name="GetChildUserDataHttpGetOut">
     <wsdl:part name="Body" element="tns:ChidUserData" />
   </wsdl:message>
+  <wsdl:message name="QueryUserInfoExcludeLoginHttpGetIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryUserInfoExcludeLoginHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserInfoResult2" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataExcludeLoginHttpGetIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataExcludeLoginHttpGetOut">
+    <wsdl:part name="Body" element="tns:ChidUserData" />
+  </wsdl:message>
   <wsdl:message name="CreateUserAccountPointHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CreateUserAccountPointHttpGetOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryExcludeLoginHttpGetIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryExcludeLoginHttpGetOut">
+    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetOrderSummaryHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1261,12 +1394,36 @@
   <wsdl:message name="GetChildUserDataHttpPostOut">
     <wsdl:part name="Body" element="tns:ChidUserData" />
   </wsdl:message>
+  <wsdl:message name="QueryUserInfoExcludeLoginHttpPostIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryUserInfoExcludeLoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserInfoResult2" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataExcludeLoginHttpPostIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetChildUserDataExcludeLoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:ChidUserData" />
+  </wsdl:message>
   <wsdl:message name="CreateUserAccountPointHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="CurrencyType" type="s:string" />
   </wsdl:message>
   <wsdl:message name="CreateUserAccountPointHttpPostOut">
     <wsdl:part name="Body" element="tns:APIResult" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryExcludeLoginHttpPostIn">
+    <wsdl:part name="CompanyCode" type="s:string" />
+    <wsdl:part name="LoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderSummaryExcludeLoginHttpPostOut">
+    <wsdl:part name="Body" element="tns:TotalSummaryResult" />
   </wsdl:message>
   <wsdl:message name="GetOrderSummaryHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1435,9 +1592,21 @@
       <wsdl:input message="tns:GetChildUserDataSoapIn" />
       <wsdl:output message="tns:GetChildUserDataSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="QueryUserInfoExcludeLogin">
+      <wsdl:input message="tns:QueryUserInfoExcludeLoginSoapIn" />
+      <wsdl:output message="tns:QueryUserInfoExcludeLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserDataExcludeLogin">
+      <wsdl:input message="tns:GetChildUserDataExcludeLoginSoapIn" />
+      <wsdl:output message="tns:GetChildUserDataExcludeLoginSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <wsdl:input message="tns:CreateUserAccountPointSoapIn" />
       <wsdl:output message="tns:CreateUserAccountPointSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryExcludeLogin">
+      <wsdl:input message="tns:GetOrderSummaryExcludeLoginSoapIn" />
+      <wsdl:output message="tns:GetOrderSummaryExcludeLoginSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummarySoapIn" />
@@ -1511,10 +1680,6 @@
       <wsdl:input message="tns:QueryCurrentUserInfoForSearchPageSoapIn" />
       <wsdl:output message="tns:QueryCurrentUserInfoForSearchPageSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserInfo">
-      <wsdl:input message="tns:UpdateUserInfoSoapIn" />
-      <wsdl:output message="tns:UpdateUserInfoSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="UpdateUserAccountNote">
       <wsdl:input message="tns:UpdateUserAccountNoteSoapIn" />
       <wsdl:output message="tns:UpdateUserAccountNoteSoapOut" />
@@ -1529,9 +1694,21 @@
       <wsdl:input message="tns:GetChildUserDataHttpGetIn" />
       <wsdl:output message="tns:GetChildUserDataHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="QueryUserInfoExcludeLogin">
+      <wsdl:input message="tns:QueryUserInfoExcludeLoginHttpGetIn" />
+      <wsdl:output message="tns:QueryUserInfoExcludeLoginHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserDataExcludeLogin">
+      <wsdl:input message="tns:GetChildUserDataExcludeLoginHttpGetIn" />
+      <wsdl:output message="tns:GetChildUserDataExcludeLoginHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <wsdl:input message="tns:CreateUserAccountPointHttpGetIn" />
       <wsdl:output message="tns:CreateUserAccountPointHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryExcludeLogin">
+      <wsdl:input message="tns:GetOrderSummaryExcludeLoginHttpGetIn" />
+      <wsdl:output message="tns:GetOrderSummaryExcludeLoginHttpGetOut" />
     </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummaryHttpGetIn" />
@@ -1615,9 +1792,21 @@
       <wsdl:input message="tns:GetChildUserDataHttpPostIn" />
       <wsdl:output message="tns:GetChildUserDataHttpPostOut" />
     </wsdl:operation>
+    <wsdl:operation name="QueryUserInfoExcludeLogin">
+      <wsdl:input message="tns:QueryUserInfoExcludeLoginHttpPostIn" />
+      <wsdl:output message="tns:QueryUserInfoExcludeLoginHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserDataExcludeLogin">
+      <wsdl:input message="tns:GetChildUserDataExcludeLoginHttpPostIn" />
+      <wsdl:output message="tns:GetChildUserDataExcludeLoginHttpPostOut" />
+    </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <wsdl:input message="tns:CreateUserAccountPointHttpPostIn" />
       <wsdl:output message="tns:CreateUserAccountPointHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryExcludeLogin">
+      <wsdl:input message="tns:GetOrderSummaryExcludeLoginHttpPostIn" />
+      <wsdl:output message="tns:GetOrderSummaryExcludeLoginHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetOrderSummary">
       <wsdl:input message="tns:GetOrderSummaryHttpPostIn" />
@@ -1712,8 +1901,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="QueryUserInfoExcludeLogin">
+      <soap:operation soapAction="http://tempuri.org/QueryUserInfoExcludeLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserDataExcludeLogin">
+      <soap:operation soapAction="http://tempuri.org/GetChildUserDataExcludeLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <soap:operation soapAction="http://tempuri.org/CreateUserAccountPoint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryExcludeLogin">
+      <soap:operation soapAction="http://tempuri.org/GetOrderSummaryExcludeLogin" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1883,15 +2099,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserInfo">
-      <soap:operation soapAction="http://tempuri.org/UpdateUserInfo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdateUserAccountNote">
       <soap:operation soapAction="http://tempuri.org/UpdateUserAccountNote" style="document" />
       <wsdl:input>
@@ -1922,8 +2129,35 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="QueryUserInfoExcludeLogin">
+      <soap12:operation soapAction="http://tempuri.org/QueryUserInfoExcludeLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserDataExcludeLogin">
+      <soap12:operation soapAction="http://tempuri.org/GetChildUserDataExcludeLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <soap12:operation soapAction="http://tempuri.org/CreateUserAccountPoint" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryExcludeLogin">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderSummaryExcludeLogin" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2093,15 +2327,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdateUserInfo">
-      <soap12:operation soapAction="http://tempuri.org/UpdateUserInfo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdateUserAccountNote">
       <soap12:operation soapAction="http://tempuri.org/UpdateUserAccountNote" style="document" />
       <wsdl:input>
@@ -2132,8 +2357,35 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="QueryUserInfoExcludeLogin">
+      <http:operation location="/QueryUserInfoExcludeLogin" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserDataExcludeLogin">
+      <http:operation location="/GetChildUserDataExcludeLogin" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <http:operation location="/CreateUserAccountPoint" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryExcludeLogin">
+      <http:operation location="/GetOrderSummaryExcludeLogin" />
       <wsdl:input>
         <http:urlEncoded />
       </wsdl:input>
@@ -2324,8 +2576,35 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="QueryUserInfoExcludeLogin">
+      <http:operation location="/QueryUserInfoExcludeLogin" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildUserDataExcludeLogin">
+      <http:operation location="/GetChildUserDataExcludeLogin" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateUserAccountPoint">
       <http:operation location="/CreateUserAccountPoint" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderSummaryExcludeLogin">
+      <http:operation location="/GetOrderSummaryExcludeLogin" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
