@@ -336,6 +336,7 @@
                     let DepositCount = 0;
                     let FirstDepositValue = 0;
                     let CommissionValue = 0;
+                    let CostValue = 0;
 
                     if (o.Result == 0) {
                         $(".FirstDepositCount").text(toCurrency(o.FirstDepositCount));
@@ -352,6 +353,7 @@
                                 CommissionValue = CommissionValue + data.CommissionValue;
                                 RewardValue = RewardValue + data.TotalRewardValue;
                                 PreferentialCost = PreferentialCost + data.BonusPointValue;
+                                CostValue = CostValue + data.CostValue;
                                 TotalOrderCount = TotalOrderCount + data.TotalOrderCount;
                                 NewUserCount = NewUserCount + data.NewUserCount + data.NewAgentCount;
                                 WithdrawalValue = WithdrawalValue + data.WithdrawalValue;
@@ -370,6 +372,7 @@
                             $(".TotalChildLineRebate").text(toCurrency(TotalLineRebate - UserRebate));
                             $(".TotalRewardValue").text(toCurrency(RewardValue));
                             $(".PreferentialCost").text(toCurrency(PreferentialCost));
+                            $(".CostValue").text(toCurrency(CostValue));
                             $(".TotalOrderCount").text(toCurrency(TotalOrderCount));
                             $(".NewUserCount").text(toCurrency(NewUserCount));
                             $(".WithdrawalValue").text(toCurrency(WithdrawalValue));
@@ -803,6 +806,19 @@
                                 </div>
                                 <div class="settleAccount__type" style="">
                                     <span class="language_replace PreferentialCost data">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-lg-3 col-gx-3 col-xl-3">
+                        <div class="item">
+                            <div class="currencyWallet__type">
+                                <div class="wallet__type">
+                                    <span class="currency language_replace">總費用</span>
+                                </div>
+                                <div class="settleAccount__type" style="">
+                                    <span class="language_replace CostValue data">0</span>
                                 </div>
                             </div>
                         </div>
