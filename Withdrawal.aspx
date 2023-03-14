@@ -323,6 +323,7 @@
                             <p class="language_replace">3. 1日出金最高限度額及び回数:​1アカウントにつき1日出最高限度額100万Ocoin、最高回数三回。</p>
                             <p class="language_replace">4.若達到上述任何限制，請隔天以後再申請出金。</p>
                             <p class="language_replace">5.出金時間為365天日本時間早上10點到下午18點為止。</p>
+                            <p class="language_replace">6.目前暫不支持PAYPAY銀行提交出金。</p>
                         </div>
                     </div>
                 </div>
