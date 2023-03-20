@@ -100,13 +100,13 @@
 
     var HeaderGames = [
         {
-            GameCode: "CQ9.179",
-            GameBrand: "CQ9",
+            GameCode: "SWF.210009",
+            GameBrand: "SWF",
             Location: "GameList_Hot",
-            MobileSrc: "/images/lobby/dailypush-hot-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
-            BackgroundColor: "#000000"
+            MobileSrc: "/images/lobby/mobile-M.png",
+            PadSrc: "/images/lobby/PAD-C.png",
+            DesktopSrc: "/images/lobby/PC-L.png",
+            BackgroundColor: "black"
         },
         {
             GameCode: "BBIN.42",
