@@ -11,8 +11,8 @@ using System.Text.RegularExpressions;
 public partial class Agent_GetAgentRebateHistory : System.Web.UI.Page {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.OcwAgent.OrderSummaryResult GetOrderSummary(string AID, string QueryBeginDate, string QueryEndDate, string CurrencyType) {
-        EWin.OcwAgent.OrderSummaryResult RetValue = null;
+    public static EWin.OcwAgent.TotalSummaryResult GetOrderSummary(string AID, string QueryBeginDate, string QueryEndDate, string CurrencyType) {
+        EWin.OcwAgent.TotalSummaryResult RetValue = null;
         EWin.OcwAgent.OcwAgent api = new EWin.OcwAgent.OcwAgent();
 
         RetValue = api.GetOrderSummary(AID, QueryBeginDate, QueryEndDate, CurrencyType);
