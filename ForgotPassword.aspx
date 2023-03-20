@@ -188,8 +188,6 @@
     }
 
     function SetNewPassword(validCode, newPassword) {
-
-
         var idPhonePrefix = document.getElementById("idPhonePrefix");
         var idPhoneNumber = document.getElementById("idPhoneNumber");
         var GUID = Math.uuid();
@@ -197,7 +195,18 @@
         var EMail = '';
         var ValidateCode = validCode;
         var NewPassword = newPassword;
+        var rules = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$');
 
+        if (newPassword == "") {
+             window.parent.showMessageOK("", mlp.getLanguageKey("尚未輸入新密碼"));
+            return false;
+        }else if (newPassword.length < 6) {
+             window.parent.showMessageOK("", mlp.getLanguageKey("新密碼需大於6位"));
+            return false;
+        } else if (!rules.test(newPassword)) {
+             window.parent.showMessageOK("", mlp.getLanguageKey("請輸入半形的英文大小寫/數字，至少要有一個英文大寫與英文小寫與數字"));
+            return false;
+        } 
 
         //c.callService(LobbyAPIUrl + "/SetUserPasswordByValidateCode", postObj, function (success, content) {
         p.SetUserPasswordByValidateCode(GUID, ValidateType, EMail, idPhonePrefix.value, idPhoneNumber.value, ValidateCode, NewPassword, function (success, o) {
