@@ -1753,7 +1753,7 @@
                     if (EWinWebInfo.DeviceType == 1) {
                         //$('#GameMask').show();
                         //gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
-
+                        $('#alertFavoPlayed').modal('hide');
                         //CloseWindowOpenGamePage(gameWindow);
 
                         GameLoadPage_M("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", gameCode);
