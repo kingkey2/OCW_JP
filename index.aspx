@@ -1755,6 +1755,9 @@
                         //gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
                         $('#alertFavoPlayed').modal('hide');
                         //CloseWindowOpenGamePage(gameWindow);
+                        if (gameBrand.toUpperCase() == 'CMD' || gameBrand.toUpperCase() == 'EWIN') {
+                            $('#GameIFramePage').removeAttr('sandbox');
+                        }
 
                         GameLoadPage_M("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", gameCode);
 
