@@ -1378,6 +1378,19 @@
                 <div class="swiper-wrapper">
                      <div class="swiper-slide">
                         <div class="hero-item">
+                            <a class="hero-item-link" onclick="window.parent.SearchControll.searchGameByBrandAndGameCategory(['RG']);"></a>
+                            <div class="hero-item-box mobile">
+                                <img src="images/lobby/RG202303-M.jpg" alt="">
+                            </div>
+                            <div class="hero-item-box desktop">
+                                <div class="img-wrap">
+                                    <img src="images/lobby/RG202303.jpg" class="bg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=32')"></a>
                             <div class="hero-item-box mobile">
                                 <img src="Activity/event/pp202303-1/img/768x480.png" alt="">
