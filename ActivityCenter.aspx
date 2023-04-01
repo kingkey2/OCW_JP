@@ -585,7 +585,7 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
                           <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(30,'/Activity/mahaEvent/2304month.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(34,'/Activity/mahaEvent/2304month.html')">
                                 <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
