@@ -100,13 +100,13 @@
 
     var HeaderGames = [
         {
-            GameCode: "CQ9.179",
-            GameBrand: "CQ9",
+            GameCode: "SWF.210009",
+            GameBrand: "SWF",
             Location: "GameList_Hot",
-            MobileSrc: "/images/lobby/dailypush-hot-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-hot-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-hot-001.jpg",
-            BackgroundColor: "#000000"
+            MobileSrc: "/images/lobby/mobile-M.png",
+            PadSrc: "/images/lobby/PAD-C.png",
+            DesktopSrc: "/images/lobby/PC-L.png",
+            BackgroundColor: "black"
         },
         {
             GameCode: "BBIN.42",
@@ -1378,52 +1378,52 @@
                 <div class="swiper-wrapper">
                      <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=31')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=34')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="Activity/event/bng/bng230309/img/768x480.png" />
+                                <img src="Activity/mahaEvent/src/202304-m.png" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/event/bng/bng230309/img/1200x378.png"  class="bg"/>
+                                    <img src="Activity/mahaEvent/src/202304.png" class="bg">
                                 </div>
                             </div>
                         </div>
                     </div>
                      <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=30')"></a>
+                            <a class="hero-item-link" onclick="window.parent.SearchControll.searchGameByBrandAndGameCategory(['RG']);"></a>
                             <div class="hero-item-box mobile">
-                                <img src="Activity/mahaEvent/src/202303-m.png" alt="">
+                                <img src="images/lobby/RG202303-M.jpg" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/mahaEvent/src/202303.png" class="bg">
+                                    <img src="images/lobby/RG202303.jpg" class="bg">
                                 </div>
                             </div>
                         </div>
                     </div>
                      <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=29')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=32')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="Activity/event/pp202302-2/img/pp-liveJp-s.png" />   
+                                <img src="Activity/event/pp202303-1/img/768x480.png" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/event/pp202302-2/img/pp-liveJp.png" class="bg" />
+                                    <img src="Activity/event/pp202303-1/img/1200x378.png" class="bg">
                                 </div>
                             </div>
                         </div>
                     </div>
                      <div class="swiper-slide">
                         <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=28')"></a>
+                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=33')"></a>
                             <div class="hero-item-box mobile">
-                                <img src="Activity/event/pp202302-1/img/pp-slotJp-s.jpg" />   
+                                <img src="Activity/event/pp202303-2/img/768x480.png" alt="">
                             </div>
                             <div class="hero-item-box desktop">
                                 <div class="img-wrap">
-                                    <img src="Activity/event/pp202302-1/img/pp-slotJp.jpg" class="bg" />
+                                    <img src="Activity/event/pp202303-2/img/1200x378.png" class="bg">
                                 </div>
                             </div>
                         </div>

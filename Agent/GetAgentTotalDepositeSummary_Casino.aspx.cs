@@ -8,15 +8,25 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 
-public partial class GetAgentTotalDepositeSummary_Casino : System.Web.UI.Page
-{
+public partial class GetAgentTotalDepositeSummary_Casino : System.Web.UI.Page {
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.OcwAgent.AgentTotalSummaryResult GetAgentTotalOrderSummary(string AID, string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType) {
+    public static EWin.OcwAgent.DepositeSummaryResult GetAgentTotalDepositeSummary(string AID, int TargetUserAccountID, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType) {
         EWin.OcwAgent.OcwAgent api = new EWin.OcwAgent.OcwAgent();
-        EWin.OcwAgent.AgentTotalSummaryResult RetValue = new EWin.OcwAgent.AgentTotalSummaryResult();
+        EWin.OcwAgent.DepositeSummaryResult RetValue = new EWin.OcwAgent.DepositeSummaryResult();
 
-        RetValue = api.GetAgentTotalOrderDepositeSummary(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
+        RetValue = api.GetAgentTotalDepositeSummary(AID, TargetUserAccountID, QueryBeginDate, QueryEndDate, CurrencyType);
+        return RetValue;
+    }
+
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.OcwAgent.DepositeSummaryResult GetAgentTotalDepositeSummaryBySearch(string AID, string TargetLoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType) {
+        EWin.OcwAgent.OcwAgent api = new EWin.OcwAgent.OcwAgent();
+        EWin.OcwAgent.DepositeSummaryResult RetValue = new EWin.OcwAgent.DepositeSummaryResult();
+
+        RetValue = api.GetSearchAgentTotalDepositSummary(AID, TargetLoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
 
         return RetValue;
     }

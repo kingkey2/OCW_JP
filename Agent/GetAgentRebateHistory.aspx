@@ -102,7 +102,7 @@
                 for (var i = 0; i < o.AgentItemList.length; i++) {
                     var item = o.AgentItemList[i];
 
-                    createitem(item.Summary, item.ParentLoginAccount);
+                    createitem(item, "--");
                 }
             } else {
                 $('#idList').append('<div class="td__content td__hasNoData">' + mlp.getLanguageKey("無數據") + '</div>');

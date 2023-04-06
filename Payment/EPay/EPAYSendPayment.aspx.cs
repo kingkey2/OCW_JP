@@ -91,7 +91,7 @@ public partial class Payment_EPay_EPAYSendPayment : System.Web.UI.Page
         var ReturnURL = "";
         string Sign;
         decimal JPYRate = 0;
-        var URL = (string)EPAYSetting.ApiUrl + "RequirePaying";
+        var URL = ((string)EPAYSetting.ApiUrl + "RequirePaying").Replace("http", "https");
         System.Data.DataTable DT = new System.Data.DataTable();
 
         if (Type== "TigerPay")

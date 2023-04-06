@@ -166,6 +166,15 @@
                         case "31":
                             GoActivityDetail(31, '/Activity/event/bng/bng230309/index-jp.html');
                             break;
+                        case "32":
+                            GoActivityDetail(32, '/Activity/event/pp202303-1/index-jp.html');
+                            break;
+                        case "33":
+                            GoActivityDetail(33, '/Activity/event/pp202303-2/index-jp.html');
+                            break;
+                        case "34":
+                            GoActivityDetail(34, '/Activity/mahaEvent/2304month.html');
+                            break;
                     }
                 }
 
@@ -388,6 +397,23 @@
                     popupBtnHide = 1;
                     showPopup(type, title, btnText, url, popupBtnHide);
                     break;
+                case 32:
+                    title = "ライブカジノウィークリートーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
+                case 33:
+                    title = "デーリーキャッシュドロップ＆ウィークリートーナメント";
+                    btnText = mlp.getLanguageKey("前往遊玩");
+                    popupBtnHide = 0;
+                    showPopup(type, title, btnText, url, popupBtnHide);
+                    break;
+                case 34:
+                    $('#ModalDeposit2304 .activity-popup-detail-inner').load(url, function () {
+                        $('#ModalDeposit2304').modal('show');
+                    });
+                    break;
                 default:
                     break;
             }
@@ -458,6 +484,14 @@
             case 29:
                 $('#TempModal').modal('hide');
                 window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
+                break;
+            case 32:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Live");
+                break;
+            case 33:
+                $('#TempModal').modal('hide');
+                window.parent.SearchControll.searchGameByBrandAndGameCategory(["PP"], "Slot");
                 break;
         }
     }
@@ -551,32 +585,11 @@
                 <section class="section-wrap section-activity">
                     <div class="activity-item-group" id="divProcessing">
                           <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(31,'/Activity/event/bng/bng230309/index-jp.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(34,'/Activity/mahaEvent/2304month.html')">
                                 <!-- 結束活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/bng/bng230309/img/500x316.png" />
-                                    </div>
-                                    <div class="info">
-                                        <div class="detail">
-                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace">
-                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
-                                            </div>
-                                        </div>
-                                        <!-- 活動詳情 Popup-->
-                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </figure>
-                          <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(30,'/Activity/mahaEvent/2303month.html')">
-                                <!-- 結束活動連結 -->
-                                <div class="activity-item-link" data-toggle="modal">
-                                    <div class="img-wrap">
-                                        <img class="" src="Activity/mahaEvent/src/202303-act.png">
+                                        <img class="" src="Activity/mahaEvent/src/202304-act.png">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
@@ -588,40 +601,40 @@
                                 </div>
                             </div>
                         </figure>
-                        <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(29,'/Activity/event/pp202302-2/index-jp.html')">
+                            <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(32,'/Activity/event/pp202303-1/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/pp202302-2/img/img-liveJp-act.png">
+                                        <img src="Activity/event/pp202303-1/img/500x316.png">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace" langkey="プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。">プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。</div>
+                                            <div class="desc language_replace">プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大130,000ギフトマネーがもらえる。</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">立即確認</span></button>
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
                         </figure>
                         <figure class="activity-item">
-                            <div class="activity-item-inner" onclick="GoActivityDetail(28,'/Activity/event/pp202302-1/index-jp.html')">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(33,'/Activity/event/pp202303-2/index-jp.html')">
                                 <!-- 活動連結 -->
                                 <div class="activity-item-link" data-toggle="modal">
                                     <div class="img-wrap">
-                                        <img src="Activity/event/pp202302-1/img/img-actJp.jpg">
+                                        <img src="Activity/event/pp202303-2/img/500x316.png">
                                     </div>
                                     <div class="info">
                                         <div class="detail">
                                             <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
-                                            <div class="desc language_replace" langkey="プラグマティックプレイの対象ゲームをプレイすれば、最大115,000ギフトマネーがもらえる。さらにベット金額1000倍のサプライス賞もあるよ！">プラグマティックプレイの対象ゲームをプレイすれば、最大115,000ギフトマネーがもらえる。さらにベット金額1000倍のサプライス賞もあるよ！</div>
+                                            <div class="desc language_replace">プラグマティックプレイの対象ゲームをプレイすれば、最大130,000ギフトマネーがもらえる。さらにベット金額1000倍のサプライズ賞もあるよ！</div>
                                         </div>
                                         <!-- 活動詳情 Popup-->
                                         <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
-                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">立即確認</span></button>
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -667,6 +680,82 @@
                         </figure>
                     </div>
                     <div class="activity-item-group" id="divFinish" style="display: none">
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(30,'/Activity/mahaEvent/2303month.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img class="" src="Activity/mahaEvent/src/202303-act-close.png">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <div class="desc language_replace">アカウント初入金に最大100,000 Ocoin還元</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(29,'/Activity/event/pp202302-2/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/pp202302-2/img/500x316_end.png">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace" langkey="プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。">プラグマティックプレイのライブカジノゲームをプレイし、高スコアを獲得しリーダーボードの上位になれば、最大115,000ギフトマネーがもらえる。</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(28,'/Activity/event/pp202302-1/index-jp.html')">
+                                <!-- 活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/pp202302-1/img/500x316_end.png">
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace" langkey="プラグマティックプレイの対象ゲームをプレイすれば、最大115,000ギフトマネーがもらえる。さらにベット金額1000倍のサプライス賞もあるよ！">プラグマティックプレイの対象ゲームをプレイすれば、最大115,000ギフトマネーがもらえる。さらにベット金額1000倍のサプライス賞もあるよ！</div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace" langkey="立即確認">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                          <figure class="activity-item">
+                            <div class="activity-item-inner" onclick="GoActivityDetail(31,'/Activity/event/bng/bng230309/index-jp.html')">
+                                <!-- 結束活動連結 -->
+                                <div class="activity-item-link" data-toggle="modal">
+                                    <div class="img-wrap">
+                                        <img src="Activity/event/bng/bng230309/img/500x316_end.png" />
+                                    </div>
+                                    <div class="info">
+                                        <div class="detail">
+                                            <!-- <figcaption class="title language_replace">金熱門！</figcaption> -->
+                                            <div class="desc language_replace">
+                                               BNG指定のゲームにベットすれば、最大300,000までのギフトマネーがもらえる
+                                            </div>
+                                        </div>
+                                        <!-- 活動詳情 Popup-->
+                                        <!-- <button type="button" onclick="activityBtnClick(2)" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button> -->
+                                        <button type="button" class="btn-popup btn btn-full-main"><span class="language_replace">立即確認</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
                           <figure class="activity-item">
                             <div class="activity-item-inner" onclick="GoActivityDetail(26,'/Activity/mahaEvent/2302month.html')">
                                 <!-- 結束活動連結 -->
@@ -1299,6 +1388,28 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title language_replace">三月限定入金キャンペーン</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <article class="activity-popup-detail-wrapper">
+                        <div class="activity-popup-detail-inner">
+                        </div>
+                    </article>
+                </div>
+                <div class="modal-footer">
+                    <!--獎勵可領取-->
+                    <button type="button" class="btn btn-full-sub language_replace" onclick="window.parent.API_LoadPage('Deposit','Deposit.aspx', true)">前往入金</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade footer-center" id="ModalDeposit2304" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title language_replace">四月限定入金キャンペーン</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

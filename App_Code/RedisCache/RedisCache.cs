@@ -1834,6 +1834,174 @@ public static class RedisCache {
         }
     }
 
+    public static class Agent {
+        private static string XMLPath = "Agent";
+        private static int DBIndex = 0;
+
+        #region 傭金結算查詢-細節
+        public static string GetAccountDetailByLoginAccount(string LoginAccount, int AccountingID) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":AccountDetail:AccountingID:" + AccountingID + ":LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateAccountDetailByLoginAccount(string JsonData, string LoginAccount, int AccountingID) {
+            string Key;
+
+            Key = XMLPath + ":AccountDetail:AccountingID:" + AccountingID + ":LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 1800);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
+        #region 首頁下方區塊統計資料
+        public static string GetHomeAccountDetailByLoginAccount(string LoginAccount, string StratDate, string EndDate) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":Home:AccountDetail:LoginAccount:" + LoginAccount + ":SearchDate:" + StratDate + "_" + EndDate;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateHomeAccountDetailByLoginAccount(string JsonData, string LoginAccount, string StratDate, string EndDate) {
+            string Key;
+
+            Key = XMLPath + ":Home:AccountDetail:LoginAccount:" + LoginAccount + ":SearchDate:" + StratDate + "_" + EndDate;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 300);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
+        #region 首頁中間下線統計資料
+        public static string GetHomeChildDetailByLoginAccount(string LoginAccount) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":Home:ChildDetail:LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateHomeChildDetailByLoginAccount(string JsonData, string LoginAccount) {
+            string Key;
+
+            Key = XMLPath + ":Home:ChildDetail:LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 300);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
+        #region 團隊管理-會員
+        public static string GetTeamMemberInfoByLoginAccount(string LoginAccount) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":TeamMemberInfo:LoginAccount:" + LoginAccount;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdateTeamMemberInfoByLoginAccount(string JsonData, string LoginAccount, int ExpireTimeoutSeconds) {
+            string Key;
+
+            Key = XMLPath + ":TeamMemberInfo:LoginAccount:" + LoginAccount;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, ExpireTimeoutSeconds);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
+        #region 團隊會員
+        public static string GetPlayerTotalDepositSummaryByLoginAccount(string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + LoginAccount + ":SummaryDate:" + QueryBeginDate.ToString("yyyy/MM/dd") + "-" + QueryEndDate.ToString("yyyy/MM/dd");
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdatePlayerTotalDepositSummaryByLoginAccount(string JsonData, DateTime QueryBeginDate, DateTime QueryEndDate, string LoginAccount, int ExpireTimeoutSeconds) {
+            string Key;
+
+            Key = XMLPath + ":TeamPlayerTotalDepositSummary:LoginAccount:" + LoginAccount + ":SummaryDate:" + QueryBeginDate.ToString("yyyy/MM/dd") + "-" + QueryEndDate.ToString("yyyy/MM/dd");
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, ExpireTimeoutSeconds);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
+        #region 會員投注數據
+        public static string GetPlayerTotalSummaryInfoByLoginAccount(string LoginAccount, string StratDate, string EndDate) {
+            string Key;
+            string strRet = string.Empty;
+
+            Key = XMLPath + ":PlayerTotalSummaryInfo:LoginAccount:" + LoginAccount + ":SearchDate:" + StratDate + "_" + EndDate;
+            if (KeyExists(DBIndex, Key) == true) {
+                strRet = JsonReadFromRedis(DBIndex, Key);
+            }
+
+            return strRet;
+        }
+
+        public static void UpdatePlayerTotalSummaryByLoginAccount(string JsonData, string LoginAccount, string StratDate, string EndDate) {
+            string Key;
+
+            Key = XMLPath + ":PlayerTotalSummaryInfo:LoginAccount:" + LoginAccount + ":SearchDate:" + StratDate + "_" + EndDate;
+            for (int I = 0; I <= 3; I++) {
+                try {
+                    JsonStringWriteToRedis(DBIndex, JsonData, Key, 300);
+                    break;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        #endregion
+
+    }
+
     public static void UpdateRedisByPrivateKey() {
         PaymentCategory.UpdatePaymentCategory();
         PaymentMethod.UpdatePaymentMethodByCategory("Paypal");
