@@ -497,7 +497,7 @@
                     </div>
                 </div>
             </div>
-            <div class="wrapSwiper">
+            <%--<div class="wrapSwiper">
                 <div class="swiper mySwiper">
                     <div class="hi_dog"><img src="images/newindex/hi_dog.png" alt=""></div>
                     <div class="hi_girl"><img src="images/newindex/girl-character.png" alt=""></div>
@@ -572,7 +572,7 @@
                     <div class="v-swiper-button-prev"></div>
                     <div class="swiper-pagination"></div>
                   </div>
-            </div>
+            </div>--%>
             <div class="content_area">
                 <div class="video_intro">
                     <a id="video_intro_down" href="#"><span></span>
@@ -814,7 +814,7 @@
             return false;
         });
     </script>
-    <script>
+  <%--  <script>
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 1,
             spaceBetween: 50,
@@ -834,7 +834,7 @@
             mousewheel: true,
             keyboard: true,
         });
-      </script>
+      </script>--%>
     <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>

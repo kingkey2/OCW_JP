@@ -161,7 +161,7 @@
     <link rel="apple-touch-icon" href="images/share_pic.png">
     <link rel="stylesheet" href="css/basic.min.css">
     <link rel="stylesheet" href="css/main.css?3">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" defer>
 
     <link rel="alternate" hreflang="ja" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
     <link rel="alternate" hreflang="ja-jp" href="https://casino-maharaja.com/index.aspx?Lang=JPN">
@@ -169,7 +169,7 @@
     <link rel="alternate" hreflang="zh-tw" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
     <link rel="alternate" hreflang="zh" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
     <link rel="alternate" hreflang="zh-hk" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" defer> 
     <style>
         .s-btn-more {
             border-radius: 20px;
@@ -247,7 +247,6 @@
                 }
     </style>
 
-    <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
 <% if (EWinWeb.IsTestSite == false) { %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -4434,6 +4433,5 @@
             </li>
         </div>
 
-        <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 </html>
