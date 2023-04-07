@@ -512,6 +512,18 @@
         }
     }
 
+    function API_ShowLoading() {
+        $('.loader-container').show();
+        $('.loader-backdrop').removeClass('is-show');
+    }
+
+    function API_CloseLoading() {
+        $('.loader-backdrop').addClass('is-show');
+        $('.loader-container').fadeOut(250, function () {
+            $('.iframe-container').addClass('is-show');
+        });
+    }
+
     function API_LoadPage(title, url, checkLogined) {
 
         if (EWinWebInfo.IsOpenGame) {
@@ -1807,7 +1819,7 @@
         });
     }
 
-    function game_userlogout() {
+    function game_userlogout(cb) {
         //$('#GameMask').hide();
         var guid = Math.uuid();
         lobbyClient.GetUserAccountGameCodeOnlineList(EWinWebInfo.SID, guid, function (success, o) {
