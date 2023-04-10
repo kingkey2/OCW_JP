@@ -2,8 +2,8 @@
   "BasicPath": "/App_Data/ActivityDetail/",
   "Deposit": [
     {
-      "Name": "Act016",
-      "Path": "2023_2/Act016.json",
+      "Name": "Act018",
+      "Path": "2023_4/Act018.json",
       "MethodName": "OpenBonusDeposit_WithUserFirstDeposit",
       "InfoMethodName": "OpenBonusDeposit_WithUserFirstDeposit"
     },
@@ -65,8 +65,8 @@
       "Path": "2022_6/Act003.json"
     },
     {
-      "Name": "Act016",
-      "Path": "2023_2/Act016.json",
+      "Name": "Act018",
+      "Path": "2023_4/Act018.json",
       "MethodName": "OpenBonusDeposit_WithUserFirstDeposit",
       "InfoMethodName": "OpenBonusDeposit_WithUserFirstDeposit"
     },
