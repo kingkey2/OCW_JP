@@ -2973,13 +2973,6 @@
                         let GBLDom;
                         let GBL_img;
 
-                        //EWin Game Item
-                        GBLDom = c.getTemplate("tmpSearchGameBrand");
-                        GBL_img = GBLDom.querySelector(".brandImg");
-                        $(GBLDom).find(".searchGameBrandcheckbox").attr("id", "searchIcon_EWin");
-                        GBL_img.src = `images/logo/default/logo-eWIN.svg`;
-                        ParentMain.append(GBLDom);
-
                         for (var i = 0; i < o.GameBrandList.length; i++) {
                             let GBL = o.GameBrandList[i];
                             if (GBL.GameBrandState == 0) {
