@@ -16,19 +16,21 @@
     <link rel="stylesheet" href="css/global.css?<%:Version%>" type="text/css" />
     <link rel="stylesheet" href="css/wallet.css" type="text/css" />
     <link href="css/footer-new.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500&display=swap" rel="Prefetch" as="style" onload="this.rel = 'stylesheet'" />
     <style>
-        /* .progressline-step {
-             position: absolute;
-             top: -2.5em;
-             left: 50%;
-             -webkit-transform: translateX(-50%);
-             transform: translateX(-50%);
-             font-size: 0.8125em;
-             color: rgba(44, 45, 58, 0.5);
-             width: 100px;
-             text-align: center;
-        } */
+        
+        .member-wallet-wrapper {
+            background-color: white !important;
+            background-image: url() !important;
+        }
+
+        @media (min-width: 1384px) {
+            .section-member-profile, .section-member-setting {
+                width: 100% !important;
+            }
+        }
+
     </style>
     <script src="https://genieedmp.com/dmp.js?c=6780&ver=2" async></script>
 </head>
@@ -77,7 +79,7 @@
     var v = "<%:Version%>";
     var CountInterval;
     var ExpireSecond = 0;
-
+    var depositeToGiftCard = false;
     function init() {
         if (self == top) {
             window.parent.location.href = "index.aspx";
@@ -543,13 +545,17 @@
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-bonusvalue", BonusValue);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("data-collectareatype", CollectAreaType);
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].id = "award-bonus" + ActivityCount;
-        ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
         //ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("disabled", "disabled");
         ActivityDom.getElementsByClassName("custom-control-label")[0].setAttribute("for", "award-bonus" + ActivityCount);
 
-        $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
-        $("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BonusValue));
-        $("#idTotalReceiveValue").text(FormatNumber(ReFormatNumber($("#idTotalReceiveValue").text()) + BonusValue));
+        if (depositeToGiftCard) {
+            ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "false");
+        } else {
+            ActivityDom.getElementsByClassName("ActivityCheckBox")[0].setAttribute("checked", "true");
+            $(".ThresholdValue_" + CollectAreaType).text(FormatNumber(ReFormatNumber($(".ThresholdValue_" + CollectAreaType).text()) + ThresholdValue));
+            $("#idBonusValue").text(FormatNumber(ReFormatNumber($("#idBonusValue").text()) + BonusValue));
+            $("#idTotalReceiveValue").text(FormatNumber(ReFormatNumber($("#idTotalReceiveValue").text()) + BonusValue));
+        }
 
         ActivityDom.getElementsByClassName("ActivityCheckBox")[0].addEventListener("change", function (e) {
             let THV = $(e.target).data("thresholdvalue");
@@ -592,7 +598,7 @@
             if (selePaymentMethodID) {
                 var paymentID = selePaymentMethodID;
 
-                PaymentClient.GetInProgressPaymentByLoginAccountPaymentMethodID(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 0, paymentID, function (success, o) {
+                PaymentClient.GetInProgressPaymentByLoginAccountPaymentMethodID(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 0, paymentID, depositeToGiftCard, function (success, o) {
                     if (success) {
                         let UserAccountPayments = o.UserAccountPayments;
                         if (o.Result == 0) {
@@ -876,6 +882,19 @@
         }
     }
 
+
+    function saveToGiftCard(boolDepositeToGiftCard) {
+
+        depositeToGiftCard = boolDepositeToGiftCard;
+        if (depositeToGiftCard) {
+            $('.withdrawalConditionsContent').hide();
+            $('.activityAwardContent').hide();
+            $(".activity-container").hide();
+        }
+        $('#sec-wrap1').hide();
+        $('#sec-wrap2').show();
+    }
+
     window.onload = init;
 
 </script>
@@ -886,8 +905,64 @@
         <div id="heading-top"></div>
 
         <div class="page-content">
+                  <section class="sec-wrap" id="sec-wrap1">
+                <!-- 頁面標題 -->
+                <div class="page-title-container">
+                    <div class="page-title-wrap">
+                        <div class="page-title-inner">
+                            <h3 class="title language_replace">請選擇存款類型</h3>
+                        </div>
+                    </div>
+                </div>
+                <section class="section-member-setting">
+                        <!-- 會員錢包中心 - 入金 + 履歷紀錄 / 出金 -->
+                        <section class="section-member-wallet-transaction">
+                          
+                             <div class="member-wallet-deposit-wrapper">
+                                <!-- 錢包中心 -->
+                                <div class="member-wallet-wrapper">
+                                    <div class="member-wallet-inner" style="background: lightskyblue !important;" onclick="saveToGiftCard(false)">
+                                        <div class="member-wallet-contnet">
+                                            <div class="member-wallet-detail">
+                                            
+                                            </div>
+                                        </div>
+                                        <!-- 履歷紀錄 -->
+                                        <div class="member-record-wrapper" style="background: blue !important;">
+                                            <div class="btn">
+                                                <div class="member-record-title">
+                                                    <h3 class="title language_replace">存款至帳戶錢包</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="member-wallet-deposit-wrapper">
+                                <!-- 錢包中心 -->
+                                <div class="member-wallet-wrapper">
+                                    <div class="member-wallet-inner" onclick="saveToGiftCard(true)">
+                                        <div class="member-wallet-contnet">
+                                            <div class="member-wallet-detail">
+                             
+                                            </div>
+                                        </div>
+                                        <!-- 履歷紀錄 -->
+                                        <div class="member-record-wrapper">
+                                            <div class="btn">
+                                                <div class="member-record-title">
+                                                    <h3 class="title language_replace">存款至禮物卡</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section> 
+            </section>
 
-            <section class="sec-wrap">
+            <section class="sec-wrap" id="sec-wrap2" style="display:none;">
                 <!-- 頁面標題 -->
                 <div class="page-title-container">
                     <div class="page-title-wrap">

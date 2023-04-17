@@ -21,6 +21,29 @@
         });
     };
 
+    this.CheckWithdrawalRiskControl = function (WebSID, GUID, amount, cb) {
+        var url = APIUrl + "/CheckWithdrawalRiskControl";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            WithdrawalAmount: amount
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetUserAccountJKCValue = function (WebSID, GUID, cb) {
         var url = APIUrl + "/GetUserAccountJKCValue";
         var postData;
@@ -186,7 +209,7 @@
         });
     };
 
-    this.CreateCryptoDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
+    this.CreateCryptoDeposit = function (WebSID, GUID, Amount, PaymentMethodID, depositeToGiftCard, cb) {
         var url = APIUrl + "/CreateCryptoDeposit";
         var postData;
 
@@ -194,7 +217,8 @@
             WebSID: WebSID,
             GUID: GUID,
             Amount: Amount,
-            PaymentMethodID: PaymentMethodID
+            PaymentMethodID: PaymentMethodID,
+            DepositeToGiftCard: depositeToGiftCard
         };
 
         callService(url, postData, 10000, function (success, text) {
@@ -282,32 +306,7 @@
         });
     };
 
-    this.CreateEPayJKCDeposit = function (WebSID, GUID, Amount, PaymentMethodID, DepositName, cb) {
-        var url = APIUrl + "/CreateEPayJKCDeposit";
-        var postData;
-
-        postData = {
-            WebSID: WebSID,
-            GUID: GUID,
-            Amount: Amount,
-            PaymentMethodID: PaymentMethodID,
-            DepositName: DepositName
-        };
-
-        callService(url, postData, 10000, function (success, text) {
-            if (success == true) {
-                var obj = getJSON(text);
-
-                if (cb)
-                    cb(true, obj);
-            } else {
-                if (cb)
-                    cb(false, text);
-            }
-        });
-    };
-
-    this.CreateTigerPayDeposit = function (WebSID, GUID, Amount, PaymentMethodID, DepositName, cb) {
+    this.CreateTigerPayDeposit = function (WebSID, GUID, Amount, PaymentMethodID, DepositName, depositeToGiftCard, cb) {
         var url = APIUrl + "/CreateTigerPayDeposit";
         var postData;
 
@@ -316,7 +315,8 @@
             GUID: GUID,
             Amount: Amount,
             PaymentMethodID: PaymentMethodID,
-            DepositName: DepositName
+            DepositName: DepositName,
+            DepositeToGiftCard: depositeToGiftCard
         };
 
         callService(url, postData, 10000, function (success, text) {
@@ -332,7 +332,7 @@
         });
     };
 
-    this.CreateEPayDeposit = function (WebSID, GUID, Amount, PaymentMethodID, DepositName, cb) {
+    this.CreateEPayDeposit = function (WebSID, GUID, Amount, PaymentMethodID, DepositName, depositeToGiftCard, cb) {
         var url = APIUrl + "/CreateEPayDeposit";
         var postData;
 
@@ -341,7 +341,8 @@
             GUID: GUID,
             Amount: Amount,
             PaymentMethodID: PaymentMethodID,
-            DepositName: DepositName
+            DepositName: DepositName,
+            DepositeToGiftCard: depositeToGiftCard
         };
 
         callService(url, postData, 10000, function (success, text) {
@@ -385,7 +386,7 @@
     };
 
 
-    this.CreatePayPalDeposit = function (WebSID, GUID, Amount, PaymentMethodID, cb) {
+    this.CreatePayPalDeposit = function (WebSID, GUID, Amount, PaymentMethodID, depositeToGiftCard, cb) {
         var url = APIUrl + "/CreatePayPalDeposit";
         var postData;
 
@@ -393,7 +394,8 @@
             WebSID: WebSID,
             GUID: GUID,
             Amount: Amount,
-            PaymentMethodID: PaymentMethodID
+            PaymentMethodID: PaymentMethodID,
+            DepositeToGiftCard: depositeToGiftCard
         };
 
         callService(url, postData, 10000, function (success, text) {
