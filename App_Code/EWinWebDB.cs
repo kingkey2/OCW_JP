@@ -467,12 +467,12 @@ public static class EWinWebDB {
             Accept = 5
         }
 
-        public static int InsertPayment(string OrderNumber, int PaymentType, int BasicType, string LoginAccount, decimal Amount, decimal HandingFeeRate, int HandingFeeAmount, decimal ThresholdRate, decimal ThresholdValue, int forPaymentMethodID, string FromInfo, string ToInfo, string DetailData, int ExpireSecond) {
+        public static int InsertPayment(string OrderNumber, int PaymentType, int BasicType, string LoginAccount, decimal Amount, decimal HandingFeeRate, int HandingFeeAmount, decimal ThresholdRate, decimal ThresholdValue, int forPaymentMethodID, string FromInfo, string ToInfo, string DetailData, int ExpireSecond,bool DepositeToGiftCard) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
 
-            SS = "INSERT INTO UserAccountPayment (OrderNumber, PaymentType, BasicType, LoginAccount, Amount, HandingFeeRate, HandingFeeAmount, ThresholdRate, ThresholdValue, forPaymentMethodID, FromInfo, ToInfo, DetailData, ExpireSecond) " +
-                 "                VALUES (@OrderNumber, @PaymentType, @BasicType, @LoginAccount, @Amount, @HandingFeeRate, @HandingFeeAmount, @ThresholdRate, @ThresholdValue, @forPaymentMethodID, @FromInfo, @ToInfo, @DetailData, @ExpireSecond)";
+            SS = "INSERT INTO UserAccountPayment (OrderNumber, PaymentType, BasicType, LoginAccount, Amount, HandingFeeRate, HandingFeeAmount, ThresholdRate, ThresholdValue, forPaymentMethodID, FromInfo, ToInfo, DetailData, ExpireSecond,IsGiftPayment) " +
+                 "                VALUES (@OrderNumber, @PaymentType, @BasicType, @LoginAccount, @Amount, @HandingFeeRate, @HandingFeeAmount, @ThresholdRate, @ThresholdValue, @forPaymentMethodID, @FromInfo, @ToInfo, @DetailData, @ExpireSecond,@IsGiftPayment)";
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;
             DBCmd.CommandType = System.Data.CommandType.Text;
@@ -491,6 +491,14 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@ToInfo", System.Data.SqlDbType.NVarChar).Value = ToInfo;
             DBCmd.Parameters.Add("@DetailData", System.Data.SqlDbType.NVarChar).Value = DetailData;
             DBCmd.Parameters.Add("@ExpireSecond", System.Data.SqlDbType.Int).Value = ExpireSecond;
+            if (DepositeToGiftCard)
+            {
+                DBCmd.Parameters.Add("@IsGiftPayment", System.Data.SqlDbType.Int).Value = 1;
+            }
+            else {
+                DBCmd.Parameters.Add("@IsGiftPayment", System.Data.SqlDbType.Int).Value = 0;
+            }
+           
 
             return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
         }
@@ -568,7 +576,6 @@ public static class EWinWebDB {
 
             return DT;
         }
-
 
         public static System.Data.DataTable GetPaymentByNonFinishedByLoginAccount(string LoginAccount) {
             string SS;
@@ -684,6 +691,49 @@ public static class EWinWebDB {
 
             return Convert.ToInt32(DBCmd.Parameters["@RETURN"].Value);
         }
+
+        public static decimal GetTodayWithdrawalAmount(string LoginAccount,string StartDate,string EndDate,int DiffTimeZone)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            decimal retValue = -1;
+
+            SS = "SELECT ISNULL(SUM(Amount), 0) " +
+               "FROM UserAccountPayment AS P WITH (NOLOCK) " +
+               "WHERE P.LoginAccount=@LoginAccount AND P.PaymentType=1 AND (P.FlowStatus =1) " +
+               "OR (P.FlowStatus =2 AND DATEADD(HOUR,@DiffTimeZone,CreateDate)>= @STARTDATE AND DATEADD(HOUR,@DiffTimeZone,CreateDate)< @ENDDATE) ";
+
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@LoginAccount", System.Data.SqlDbType.VarChar).Value = LoginAccount;
+            DBCmd.Parameters.Add("@STARTDATE", System.Data.SqlDbType.DateTime).Value = StartDate;
+            DBCmd.Parameters.Add("@ENDDATE", System.Data.SqlDbType.DateTime).Value = EndDate;
+            DBCmd.Parameters.Add("@DiffTimeZone", System.Data.SqlDbType.Int).Value = DiffTimeZone;
+            
+            retValue = decimal.Parse(DBAccess.GetDBValue(EWinWeb.DBConnStr, DBCmd).ToString());
+
+            return retValue;
+        }
+
+        public static int UpdatePaymentGiftCode(string OrderNumber, string PaymentGiftCode)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+
+            SS = "UPDATE UserAccountPayment WITH (ROWLOCK) SET PaymentGiftCode=@PaymentGiftCode" +
+                 "         WHERE  OrderNumber=@OrderNumber ";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@OrderNumber", System.Data.SqlDbType.VarChar).Value = OrderNumber;
+            DBCmd.Parameters.Add("@PaymentGiftCode", System.Data.SqlDbType.VarChar).Value = PaymentGiftCode;
+  
+
+            return DBAccess.ExecuteDB(EWinWeb.DBConnStr, DBCmd);
+        }
+
+
 
         /// <summary>
         /// 取得當天進行中與完成的訂單

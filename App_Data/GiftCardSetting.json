@@ -1,0 +1,18 @@
+{
+  "EWINPAY": {
+    "ThresholdRate": 1.5,
+    "ThresholdValue": 0
+  },
+  "TigerPay": {
+    "ThresholdRate": 1.5,
+    "ThresholdValue": 0
+  },
+  "Crypto": {
+    "ThresholdRate": 1.5,
+    "ThresholdValue": 0
+  },
+  "Paypal": {
+    "ThresholdRate": 1.5,
+    "ThresholdValue": 0
+  }
+}

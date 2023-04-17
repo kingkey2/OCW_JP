@@ -1760,11 +1760,11 @@
                     });
                     gameCode = gameBrand + "." + gameName;
                     $('.headerGameName').text(gameLangName);
-
+                    $('#alertFavoPlayed').modal('hide');
                     if (EWinWebInfo.DeviceType == 1) {
                         //$('#GameMask').show();
                         //gameWindow = window.open("/OpenGame.aspx?SID=" + EWinWebInfo.SID + "&Lang=" + EWinWebInfo.Lang + "&CurrencyType=" + API_GetCurrency() + "&GameCode=" + gameCode + "&HomeUrl=" + "<%=EWinWeb.CasinoWorldUrl%>/CloseGame.aspx", "");
-                        $('#alertFavoPlayed').modal('hide');
+                 
                         //CloseWindowOpenGamePage(gameWindow);
                         if (gameBrand.toUpperCase() == 'CMD' || gameBrand.toUpperCase() == 'EWIN') {
                             $('#GameIFramePage').removeAttr('sandbox');
@@ -3204,8 +3204,16 @@
                                             <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
                                                 <span class="notify-dot PC-notify-dot" style="display: none;"></span>
-                                                <i class="icon icon-mask icon-prize"></i>
+                                                <i class="icon icon-mask icon-gift"></i>
                                                 <span class="title language_replace">領獎中心</span></a>
+                                        </li>
+                                        <li class="nav-item submenu dropdown">
+
+                                            <a class="nav-link" onclick="API_LoadPage('GiftCenter','GiftCenter.aspx', true)">
+                                                <!-- 通知小紅點 -->
+                                                <span class="notify-dot PC-notify-dot" style="display: none;"></span>
+                                                <i class="icon icon-mask icon-prize"></i>
+                                                <span class="title language_replace">禮品中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
                                             <a class="nav-link" onclick="API_LoadPage('record','record.aspx', true)">

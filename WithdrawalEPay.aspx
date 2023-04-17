@@ -98,6 +98,7 @@
             }
             GetPaymentMethod();
             GetEPayBankSelect();
+
         },"PaymentAPI");
 
     
@@ -166,6 +167,27 @@
                 });
                 break;
         }
+    }
+
+    function CheckWithdrawalRiskControl(amount,cb) {
+        PaymentClient.CheckWithdrawalRiskControl(WebInfo.SID, Math.uuid(), amount, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    cb(true);
+                } else {
+                    window.parent.API_LoadingEnd(1);
+                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+                        //window.parent.API_Home();
+                    });
+                }
+            }
+            else {
+                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("服務器異常, 請稍後再嘗試一次"), function () {
+                    //window.parent.API_Home();
+                });
+            }
+
+        })
     }
 
     function GetPaymentMethod() {
@@ -386,74 +408,80 @@
             return;
         }
 
-            PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
-                if (success) {
-                    window.parent.API_LoadingEnd(1);
-                    let UserAccountPayments = o.UserAccountPayments;
-                    if (o.Result == 0) {
-                        //if (UserAccountPayments.length == 0) {
-                        if (UserAccountPayments.length > 0) {
-                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
+        CheckWithdrawalRiskControl(amount,function (s) {
+            if (s) {
+                PaymentClient.GetInProgressPaymentByLoginAccount(WebInfo.SID, Math.uuid(), WebInfo.UserInfo.LoginAccount, 1, function (success, o) {
+                    if (success) {
+                        window.parent.API_LoadingEnd(1);
+                        let UserAccountPayments = o.UserAccountPayments;
+                        if (o.Result == 0) {
+                            //if (UserAccountPayments.length == 0) {
+                            if (UserAccountPayments.length > 0) {
+                                window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("只能有一筆進行中之訂單"), function () {
 
-                            });
-                        } else {
-                            var selPaymentMethodID = PaymentMethod[0].PaymentMethodID;
+                                });
+                            } else {
+                                var selPaymentMethodID = PaymentMethod[0].PaymentMethodID;
 
-                            PaymentClient.CreateEPayWithdrawal(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, function (success, o) {
-                                if (success) {
-                                    let data = o.Data;
+                                PaymentClient.CreateEPayWithdrawal(WebInfo.SID, Math.uuid(), amount, selPaymentMethodID, function (success, o) {
+                                    if (success) {
+                                        let data = o.Data;
 
-                                    if (o.Result == 0) {
-                                        $("#depositdetail .Amount").text(BigNumber(data.Amount).toFormat());
-                                        //$("#depositdetail .OrderNumber").text(data.OrderNumber);
-                                        $("#depositdetail .PaymentMethodName").text(mlp.getLanguageKey(data.PaymentMethodName));
-                                        $("#depositdetail .EWinCryptoWalletType").text("JPY");
-                                        $("#depositdetail .bankCardName").text(bankCardName);
-                                        $("#depositdetail .bankCard").text(bankCard);
-                                        $("#depositdetail .bankName").text(bankName);
-                                        $("#depositdetail .bankBranchCode").text(bankBranchCode);
-                                        
-                                        if (data.PaymentCryptoDetailList != null) {
-                                            var depositdetail = document.getElementsByClassName("Collectionitem")[0];
-                                            for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
+                                        if (o.Result == 0) {
+                                            $("#depositdetail .Amount").text(BigNumber(data.Amount).toFormat());
+                                            //$("#depositdetail .OrderNumber").text(data.OrderNumber);
+                                            $("#depositdetail .PaymentMethodName").text(mlp.getLanguageKey(data.PaymentMethodName));
+                                            $("#depositdetail .EWinCryptoWalletType").text("JPY");
+                                            $("#depositdetail .bankCardName").text(bankCardName);
+                                            $("#depositdetail .bankCard").text(bankCard);
+                                            $("#depositdetail .bankName").text(bankName);
+                                            $("#depositdetail .bankBranchCode").text(bankBranchCode);
 
-                                                var CollectionitemDom = c.getTemplate("templateCollectionitem");
-                                                //CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
-                                                c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i]["TokenCurrencyType"]);
-                                                c.setClassText(CollectionitemDom, "val", null, BigNumber(data.PaymentCryptoDetailList[i]["ReceiveAmount"]).toFormat());
-                                                depositdetail.appendChild(CollectionitemDom);
+                                            if (data.PaymentCryptoDetailList != null) {
+                                                var depositdetail = document.getElementsByClassName("Collectionitem")[0];
+                                                for (var i = 0; i < data.PaymentCryptoDetailList.length; i++) {
+
+                                                    var CollectionitemDom = c.getTemplate("templateCollectionitem");
+                                                    //CollectionitemDom.querySelector(".icon-logo").classList.add("icon-logo-" + data.PaymentCryptoDetailList[i]["TokenCurrencyType"].toLowerCase());
+                                                    c.setClassText(CollectionitemDom, "currency", null, data.PaymentCryptoDetailList[i]["TokenCurrencyType"]);
+                                                    c.setClassText(CollectionitemDom, "val", null, BigNumber(data.PaymentCryptoDetailList[i]["ReceiveAmount"]).toFormat());
+                                                    depositdetail.appendChild(CollectionitemDom);
+                                                }
                                             }
+                                            OrderNumber = data.OrderNumber;
+                                            GetDepositActivityInfoByOrderNumber(OrderNumber);
+                                        } else {
+                                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                                            });
                                         }
-                                        OrderNumber = data.OrderNumber;
-                                        GetDepositActivityInfoByOrderNumber(OrderNumber);
-                                    } else {
-                                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                                    }
+                                    else {
+                                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                                         });
                                     }
+                                })
+                            }
+                        } else {
+                            window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
 
-                                }
-                                else {
-                                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
-
-                                    });
-                                }
-                            })
+                            });
                         }
-                    } else {
-                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey(o.Message), function () {
+
+                    }
+                    else {
+                        window.parent.API_LoadingEnd(1);
+                        window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
 
                         });
                     }
+                })
+            }
+        });
 
-                }
-                else {
-                    window.parent.API_LoadingEnd(1);
-                    window.parent.showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("訂單建立失敗"), function () {
-
-                    });
-                }
-            })
+        
     }
 
     function check_pKatakana(word) {

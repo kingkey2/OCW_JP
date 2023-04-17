@@ -526,6 +526,7 @@ public class LobbyAPI : System.Web.Services.WebService {
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
+            var a=lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
             return lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
         } else {
             var R = new EWin.Lobby.UserInfoResult() {
@@ -1757,6 +1758,54 @@ public class LobbyAPI : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public PaymentGiftHistoryResult GetGiftPaymentHistory(string WebSID, string GUID, DateTime StartDate, DateTime EndDate)
+    {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        PaymentGiftHistoryResult R = new PaymentGiftHistoryResult() { GiftList = new List<EWin.Lobby.PaymentGiftHistory>(), Result = EWin.Lobby.enumResult.ERR };
+
+
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            for (int i = 0; i <= EndDate.Subtract(StartDate).TotalDays; i++)
+            {
+                var QueryDate = StartDate.AddDays(i);
+                var giftHistoryResult = lobbyAPI.GetPaymentGiftHistory(GetToken(), SI.EWinSID, GUID, QueryDate.ToString("yyyy/MM/dd HH:mm:ss"));
+
+                if (giftHistoryResult.Result == EWin.Lobby.enumResult.OK)
+                {
+                    if (giftHistoryResult.List != null && giftHistoryResult.List.Length > 0)
+                    {
+                        foreach (var data in giftHistoryResult.List)
+                        {
+                            R.GiftList.Add(data);
+                        }
+                    }
+                }
+            }
+
+            if (R.GiftList.Count > 0)
+            {
+                R.Result = EWin.Lobby.enumResult.OK;
+            }
+            else
+            {
+                R.Message = "NoData";
+            }
+        }
+        else
+        {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+
+        return R;
+    }
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public OcwPromotionCollectResult GetPromotionCollectAvailable(string WebSID, string GUID) {
 
         EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
@@ -1931,6 +1980,14 @@ public class LobbyAPI : System.Web.Services.WebService {
         return a;
     }
 
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.GameBrandResult GetPaymentGift(string GUID) {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        var a = lobbyAPI.GetGameBrand(GetToken(), GUID);
+        return a;
+    }
+
     public class UserTwoMonthSummaryResult : EWin.Lobby.APIResult {
         public List<Payment> PaymentResult { get; set; }
         public List<Game> GameResult { get; set; }
@@ -2046,6 +2103,12 @@ public class LobbyAPI : System.Web.Services.WebService {
         public string QueryBeginDate { get; set; }
         public string QueryEndDate { get; set; }
         public OcwPromotionCollect[] CollectList { get; set; }
+    }
+
+    public class PaymentGiftHistoryResult : EWin.Lobby.APIResult {
+        public string QueryBeginDate { get; set; }
+        public string QueryEndDate { get; set; }
+        public List<EWin.Lobby.PaymentGiftHistory>  GiftList { get; set; }
     }
 
     public class OcwPromotionCollectResult : EWin.Lobby.APIResult {

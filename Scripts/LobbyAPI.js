@@ -43,6 +43,30 @@
         });
     };
 
+    this.GetGiftPaymentHistory = function (WebSID, GUID, StartDate, EndDate ,cb) {
+        var url = APIUrl + "/GetGiftPaymentHistory";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            StartDate: StartDate,
+            EndDate: EndDate
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.UserAccountTransfer = function (WebSID, GUID, DstLoginAccount, DstCurrencyType, SrcCurrencyType, TransOutValue, WalletPassword, Description, cb) {
         var url = APIUrl + "/UserAccountTransfer";
         var postData;
