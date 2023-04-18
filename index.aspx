@@ -1471,7 +1471,7 @@
                             var recordDate = new Date(parseInt(record.CreateDate.replace(')/', '').replace('/Date(', '')));
                             var date = recordDate.getFullYear() + '.' + (recordDate.getMonth() + 1) + '.' + recordDate.getDate();
                             c.setClassText(RecordDom2, "CreateDate", null, date);
-                            c.setClassText(RecordDom2, "BulletinTitle", null, record.BulletinTitle);
+                            c.setClassText(RecordDom2, "BulletinTitle", null, record.BulletinBoardID + "：" + record.BulletinTitle);
 
                             RecordDom2.onclick = new Function("window.parent.showBoardMsg('" + record.BulletinTitle + "','" + record.BulletinContent + "','" + date + "')");
 
