@@ -526,7 +526,6 @@ public class LobbyAPI : System.Web.Services.WebService {
         SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
 
         if (SI != null && !string.IsNullOrEmpty(SI.EWinSID)) {
-            var a=lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
             return lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, GUID);
         } else {
             var R = new EWin.Lobby.UserInfoResult() {

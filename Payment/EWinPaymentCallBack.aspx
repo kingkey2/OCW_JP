@@ -34,14 +34,8 @@
                             R.Result = 0;
                         }
                         else if (BodyObj.Action == "Finished")
-                        {
-                            ReportSystem.CreateTestContent(PostBody);
-                            ClientPaymentOrderDT = EWinWebDB.UserAccountPayment.GetPaymentByPaymentSerial(BodyObj.PaymentSerial);
-
-                            if (ClientPaymentOrderDT != null && ClientPaymentOrderDT.Rows.Count > 0)
-                            {
-                                //此儲值單為禮物卡,完成訂單後新增禮物訂單
-                                if (ClientPaymentOrderDT.Rows[0]["IsGiftPayment"].ToString() == "0")
+                        {  //0=一般訂單 / 1=禮品卡
+                                if (BodyObj.DepositType == 1)
                                 {
                                     int FinishPaymentRet;
 
@@ -51,7 +45,7 @@
                                     {
                                         R.Result = 0;
                                         //更新禮物代碼
-                                        EWinWebDB.UserAccountPayment.UpdatePaymentGiftCode(BodyObj.ClientOrderNumber,"test");
+                                        EWinWebDB.UserAccountPayment.UpdatePaymentGiftCode(BodyObj.ClientOrderNumber,BodyObj.DepositPaymentGiftCode);
                                         RedisCache.PaymentContent.DeletePaymentContent(BodyObj.ClientOrderNumber);
                                         ReportSystem.UserAccountPayment.CreateUserAccountPayment(BodyObj.ClientOrderNumber);
                                         RedisCache.UserAccountTotalSummary.UpdateUserAccountTotalSummaryByLoginAccount(BodyObj.LoginAccount);
@@ -216,12 +210,6 @@
                                         SetResultException(R, "TagInfoFormatError");
                                     }
                                 }
-
-                            }
-                            else
-                            {
-                                SetResultException(R, "ClientOrderNotExist");
-                            }
                         }
                         else if (BodyObj.Action == "Cancel")
                         {

@@ -493,10 +493,10 @@ public static class EWinWebDB {
             DBCmd.Parameters.Add("@ExpireSecond", System.Data.SqlDbType.Int).Value = ExpireSecond;
             if (DepositeToGiftCard)
             {
-                DBCmd.Parameters.Add("@IsGiftPayment", System.Data.SqlDbType.Int).Value = 1;
+                DBCmd.Parameters.Add("@IsGiftPayment", System.Data.SqlDbType.Int).Value = 0;
             }
             else {
-                DBCmd.Parameters.Add("@IsGiftPayment", System.Data.SqlDbType.Int).Value = 0;
+                DBCmd.Parameters.Add("@IsGiftPayment", System.Data.SqlDbType.Int).Value = 1;
             }
            
 

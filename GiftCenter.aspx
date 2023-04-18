@@ -92,24 +92,66 @@
         var ParentMain = document.getElementById("div_History");
         ParentMain.innerHTML = "";
         document.getElementById("idSearchDate_P").innerText = new Date(EndDate).toString("yyyy/MM");
-
+        var useType = -1;
         LobbyClient.GetGiftPaymentHistory(WebInfo.SID, Math.uuid(), BeginDate, EndDate, function (success, o) {
             if (success) {
                 if (o.Result == 0) {
-                    if (o.List.length > 0) {
-                        for (var i = 0; i < o.List.length; i++) {
-                            var collect = o.List[i];
-                            var collectDate = Date.parse(collect.CollectDate);
-                            var rowDom = c.getTemplate("IDHistoryRow");
+                    if (o.GiftList.length > 0) {
+                        if ($('#li_bonus1').hasClass('active')) {
+                            useType = 0;
+                        } else {
+                            useType = 1;
+                        }
+  
+                        for (var i = 0; i < o.GiftList.length; i++) {
+                            var collect = o.GiftList[i];
+                            
+                            if (useType == 0 && collect.PaymentGiftID.substr(0, 1) == 'S') {
+                                var collectDate = Date.parse(collect.CreateDate);
+                                var rowDom = c.getTemplate("IDHistoryRow");
 
-                            rowDom.querySelector(".year").innerText = collectDate.toString("yyyy");
-                            rowDom.querySelector(".month").innerText = collectDate.toString("MM");
-                            rowDom.querySelector(".day").innerText = collectDate.toString("dd");
+                                rowDom.querySelector(".year").innerText = collectDate.toString("yyyy");
+                                rowDom.querySelector(".month").innerText = collectDate.toString("MM");
+                                rowDom.querySelector(".day").innerText = collectDate.toString("dd");
+                                rowDom.querySelector(".value").innerText = new BigNumber(collect.Amount).toFormat();
+                                rowDom.querySelector(".giftID").innerText = collect.PaymentGiftID;
 
-                            rowDom.querySelector(".value").innerText = new BigNumber(collect.PointValue).toFormat();
-                            rowDom.querySelector(".title").innerText = collect.PromotionTitle;
+                                if (collect.PaymentGiftStatus == 0) {
+                                    rowDom.querySelector(".reciveStatus").innerText = mlp.getLanguageKey('未領取');
+                                    $(rowDom).find('.copyGiftUrl').data('giftcode', collect.PaymentGiftCode);
+                                    $(rowDom).find('.copyGiftUrl').data('amount', new BigNumber(collect.Amount).toFormat());
+                                    $(rowDom).find('.copyGiftUrl').text(mlp.getLanguageKey('領取連結'));
+                                    $(rowDom).find('.copyGiftUrl').show();
+                                } else {
+                                    rowDom.querySelector(".reciveStatus").innerText = mlp.getLanguageKey('已領取');
+                                    $(rowDom).find('.copyGiftUrl').hide();
+                                }
 
-                            ParentMain.appendChild(rowDom);
+                              
+                                ParentMain.appendChild(rowDom);
+                            } else if (useType == 1 && collect.PaymentGiftID.substr(0, 1) == 'W') {
+                                var collectDate = Date.parse(collect.CreateDate);
+                                var rowDom = c.getTemplate("IDHistoryRow");
+
+                                rowDom.querySelector(".year").innerText = collectDate.toString("yyyy");
+                                rowDom.querySelector(".month").innerText = collectDate.toString("MM");
+                                rowDom.querySelector(".day").innerText = collectDate.toString("dd");
+                                rowDom.querySelector(".value").innerText = new BigNumber(collect.Amount).toFormat();
+                                rowDom.querySelector(".giftID").innerText = collect.PaymentGiftID;
+
+                                if (collect.PaymentGiftStatus == 0) {
+                                    rowDom.querySelector(".reciveStatus").innerText = mlp.getLanguageKey('未領取');
+                                    $(rowDom).find('.copyGiftUrl').data('giftcode', collect.PaymentGiftCode);
+                                    $(rowDom).find('.copyGiftUrl').data('amount', new BigNumber(collect.Amount).toFormat());
+                                    $(rowDom).find('.copyGiftUrl').text(mlp.getLanguageKey('領取連結'));
+                                    $(rowDom).find('.copyGiftUrl').show();
+                                } else {
+                                    rowDom.querySelector(".reciveStatus").innerText = mlp.getLanguageKey('已領取');
+                                    $(rowDom).find('.copyGiftUrl').hide();
+                                }
+
+                                ParentMain.appendChild(rowDom);
+                            }
                         }
 
                         if ($("#div_History").children().length == 0) {
@@ -142,7 +184,19 @@
 
     }
 
+    function GetPromotionCollectAvailable(collectareatype) {
+        window.parent.API_LoadingStart();
+        $(".tab-scroller__content").find(".tab-item").removeClass("active");
+        $("#li_bonus" + collectareatype).addClass("active");
 
+        let newSearchDate = new Date(search_Year + "/" + search_Month + "/01");
+
+        beginDate = newSearchDate.moveToFirstDayOfMonth().toString("yyyy/MM/dd");
+        endDate = newSearchDate.moveToLastDayOfMonth().toString("yyyy/MM/dd");
+
+        GetPromotionCollectHistory(beginDate, endDate);
+
+    }
 
     function getLastDate(y, m) {
         var lastDay = new Date(y, m, 0);
@@ -213,6 +267,16 @@
         }
     }
 
+    function copyGiftUrl(doc) {
+        var giftcode = $(doc).data('giftcode');
+        var amount = $(doc).data('amount');
+        var url = window.location.protocol + "//" + window.location.host + "/receiveGift.aspx?GiftCode=" + giftcode +
+            "&Amount=" + amount;
+        navigator.clipboard.writeText(url).then(
+            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
+            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+    }
+
     window.onload = init;
 </script>
 <body class="innerBody">
@@ -232,11 +296,11 @@
                         <div class="tab-scroller__area">
                             <ul class="tab-scroller__content">
                                 <li class="tab-item active" id="li_bonus1" onclick="GetPromotionCollectAvailable(1)">
-                                    <span class="tab-item-link"><span class="title language_replace">已領取</span>
+                                    <span class="tab-item-link"><span class="title language_replace">購買紀錄</span>
                                     </span>
                                 </li>
                                 <li class="tab-item" id="li_bonus2" onclick="GetPromotionCollectAvailable(2)">
-                                    <span class="tab-item-link"><span class="title language_replace">未領取</span></span>
+                                    <span class="tab-item-link"><span class="title language_replace">領取紀錄</span></span>
                                 </li>
                             </ul>
                         </div>
@@ -246,7 +310,7 @@
                 <section class="section-wrap section-prize-record">
                     <div class="sec-title-container">
                         <div class="sec-title-wrapper">
-                            <h1 class="sec-title title-deco"><span class="language_replace">領取紀錄</span></h1>
+                         <%--   <h1 class="sec-title title-deco"><span class="language_replace">領取紀錄</span></h1>--%>
                         </div>
                         <!-- 前/後 月 -->
                         <div class="sec_link sec-month">
@@ -260,9 +324,11 @@
                         <!-- Thead  -->
                         <div class="Thead">
                             <div class="thead__tr">
-                                <div class="thead__th"><span class="language_replace">領取時間</span></div>
-                                <div class="thead__th"><span class="language_replace">活動名稱</span></div>
+                                <div class="thead__th"><span class="language_replace">訂單編號</span></div>
+                                <div class="thead__th"><span class="language_replace">建立時間</span></div>
                                 <div class="thead__th"><span class="language_replace">金額</span></div>
+                                <div class="thead__th"><span class="language_replace">領取狀態</span></div>
+                                <div class="thead__th"><span class="language_replace">領取連結</span></div>
                             </div>
                         </div>
                         <!-- Tbody -->
@@ -283,6 +349,9 @@
 
     <div id="IDHistoryRow" style="display: none">
         <div class="tbody__tr">
+             <div class="tbody__td">
+                <span class="td__content"><span class="giftID"></span></span>
+            </div>
             <div class="tbody__td">
                 <span class="td__content">
                     <span class="date-period">
@@ -290,101 +359,19 @@
                     </span>
                 </span>
             </div>
+         
             <div class="tbody__td">
-                <span class="td__content"><span class="title">ゴールドヒット！ゴールドヒット！ ゴールドヒット！</span></span>
+                <span class="td__content"><span class="value">0</span></span>
             </div>
-            <div class="tbody__td">
-                <span class="td__content"><span class="value">999,999,999</span></span>
+              <div class="tbody__td">
+                <span class="td__content"><span class="reciveStatus"></span></span>
+            </div>
+                <div class="tbody__td">
+                <span class="td__content"><button class="copyGiftUrl" onclick="copyGiftUrl(this)"></button></span>
             </div>
         </div>
     </div>
 
-    <div id="tmpPrize0_b" style="display: none">
-        <figure class="prize-item">
-            <div class="prize-item-inner">
-                <!-- 活動連結 prize-item-link-->
-                <div class="prize-item-link">
-                    <div class="prize-item-img">
-                        <div class="img-wrap">
-                            <img class="" src="images/bouns.jpg">
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <figcaption class="title language_replace">ゴールドヒット！ゴールドヒット！ ゴールドヒット！</figcaption>
-                        <div class="date-period language_replace">
-                            <span class="date-period-start">
-                                <span class="year year_c"></span><span class="month month_c"></span><span class="day day_c"></span>
-                            </span>
-                            <span class="date-period-end">
-                                <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
-                            </span>
-                        </div>
-                        <span class="prize-status text-primary language_replace">可領取</span>
-                    </div>
-                </div>
-                <!-- 獎金Button - 可領取 -->
-                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace pointval">領取</span></button>
-            </div>
-        </figure>
-    </div>
-
-    <div id="tmpPrize0_g" style="display: none">
-        <figure class="prize-item">
-            <div class="prize-item-inner">
-                <!-- 活動連結 prize-item-link-->
-                <div class="prize-item-link">
-                    <div class="prize-item-img">
-                        <div class="img-wrap">
-                            <img class="" src="images/gift.jpg">
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <figcaption class="title language_replace">ゴールドヒット！ゴールドヒット！ ゴールドヒット！</figcaption>
-                        <div class="date-period language_replace">
-                            <span class="date-period-start">
-                                <span class="year year_c"></span><span class="month month_c"></span><span class="day day_c"></span>
-                            </span>
-                            <span class="date-period-end">
-                                <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
-                            </span>
-                        </div>
-                        <span class="prize-status text-primary language_replace">可領取</span>
-                    </div>
-                </div>
-                <!-- 獎金Button - 可領取 -->
-                <button type="button" class="btn btn-bouns bouns-get"><span class="btn-bouns-num language_replace pointval">領取</span></button>
-            </div>
-        </figure>
-    </div>
-
-    <div id="tmpPrize1" style="display: none">
-        <figure class="prize-item">
-            <div class="prize-item-inner">
-                <!-- 活動連結 prize-item-link-->
-                <div class="prize-item-link">
-                    <div class="prize-item-img">
-                        <div class="img-wrap">
-                            <img class="" src="images/bouns.jpg">
-                        </div>
-                    </div>
-                    <div class="detail">
-                        <figcaption class="title language_replace"></figcaption>
-                        <div class="date-period language_replace">
-                            <span class="date-period-start">
-                                <span class="year year_c"></span><span class="month month_c"></span><span class="day day_c"></span>
-                            </span>
-                            <span class="date-period-end">
-                                <span class="year year_e"></span><span class="month month_e"></span><span class="day day_e"></span>
-                            </span>
-                        </div>
-                        <span class="prize-status text-primary language_replace">餘額１００以下才可領取</span>
-                    </div>
-                </div>
-                <!-- 獎金Button - 不可領取 -->
-                <button type="button" class="btn btn-bouns bouns-get" disabled><span class="btn-bouns-num language_replace pointval">$5000000</span></button>
-            </div>
-        </figure>
-    </div>
     <script type="text/javascript" src="https://rt.gsspat.jp/e/conversion/lp.js?ver=2"></script>
 </body>
 

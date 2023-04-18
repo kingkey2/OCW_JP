@@ -155,9 +155,11 @@ public partial class Payment_EWinPaymentCallBack : System.Web.UI.Page {
         public string Description { get; set; }
         public string TagInfo { get; set; }
         public int PointStatus { get; set; }
+        public int DepositType { get; set; }
         public decimal PointValue { get; set; }
         public string UserIP { get; set; }
         public string CreateDate { get; set; }
+        public string DepositPaymentGiftCode { get; set; }
     }
 
     public class EWinTagInfoData {
