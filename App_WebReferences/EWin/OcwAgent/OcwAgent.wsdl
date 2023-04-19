@@ -278,6 +278,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="SelfRewardValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="SelfValidBetValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalGGRUserRateValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalVenueFeeValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalVenueFeeUserRateValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalOrderCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalOrderValue" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalRewardValue" type="s:decimal" />
@@ -290,6 +292,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebateUserRate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="TotalLineRebateCommission" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChildenRebateUserRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChildenRebateCommission" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserCommissionProfit" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserRebate" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="UserRebateUserRate" type="s:decimal" />
@@ -308,16 +312,21 @@
           <s:element minOccurs="1" maxOccurs="1" name="AccountingRuleID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="AccountingType" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateRuleType" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateRuleValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateRuleType" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateRuleValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="AgentRebatePayoutType" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="AgentMinActiveUserCount" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinValidBet" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="ActiveUserMinDepositValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="AgentMinDepositValue" type="s:decimal" />
-          <s:element minOccurs="1" maxOccurs="1" name="RebateAmountMin" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentVenueFeeRate" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateRebateAmountMin" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateMinDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateRebatePayoutType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateMinActiveUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateRuleType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentUserRateRuleValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateRebateAmountMin" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateMinDepositValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateRebatePayoutType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateMinActiveUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateRuleType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentBuyChipRateRuleValue" type="s:decimal" />
           <s:element minOccurs="0" maxOccurs="1" name="GACList" type="tns:ArrayOfRuleConditionGameAccountingCode" />
         </s:sequence>
       </s:complexType>
@@ -449,6 +458,87 @@
           <s:element minOccurs="1" maxOccurs="1" name="IsTarget" type="s:boolean" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetGroupAgent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TargetUserAccountID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupAgentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupAgentResult" type="tns:GroupAgentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GroupAgentResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:APIResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="QueryBeginDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="QueryEndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SelfSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="SelfInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopSortKey" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopInsideLevel" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="SearchLoginAccount" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Page" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DataCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PageCount" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="SummaryList" type="tns:ArrayOfAccountData" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAccountData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccountData" nillable="true" type="tns:AccountData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccountData">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ParentUserAccountID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LoginAccount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ParentAccount" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewUserCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewAgentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointValue" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgentCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PlayerCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountState" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastLoginDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreateDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserAccountSortKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UserAccountInsideLevel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HasChild" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetGroupBySearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TargetLoginAccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryBeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="QueryEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CurrencyType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGroupBySearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGroupBySearchResult" type="tns:GroupAgentResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetUserAccountSummary_Agent">
         <s:complexType>
           <s:sequence>
@@ -1023,6 +1113,7 @@
       <s:element name="APIResult" nillable="true" type="tns:APIResult" />
       <s:element name="TotalSummaryResult" nillable="true" type="tns:TotalSummaryResult" />
       <s:element name="UserAccountSummaryResult" nillable="true" type="tns:UserAccountSummaryResult" />
+      <s:element name="GroupAgentResult" nillable="true" type="tns:GroupAgentResult" />
       <s:element name="OrderSummaryResult" nillable="true" type="tns:OrderSummaryResult" />
       <s:element name="DepositeSummaryResult" nillable="true" type="tns:DepositeSummaryResult" />
       <s:element name="AccountingResult" nillable="true" type="tns:AccountingResult" />
@@ -1078,6 +1169,18 @@
   </wsdl:message>
   <wsdl:message name="GetUserAccountSummarySoapOut">
     <wsdl:part name="parameters" element="tns:GetUserAccountSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAgentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupAgent" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAgentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupAgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGroupBySearch" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGroupBySearchResponse" />
   </wsdl:message>
   <wsdl:message name="GetUserAccountSummary_AgentSoapIn">
     <wsdl:part name="parameters" element="tns:GetUserAccountSummary_Agent" />
@@ -1242,6 +1345,27 @@
   </wsdl:message>
   <wsdl:message name="GetUserAccountSummaryHttpGetOut">
     <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAgentHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetUserAccountID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="Page" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAgentHttpGetOut">
+    <wsdl:part name="Body" element="tns:GroupAgentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchHttpGetIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchHttpGetOut">
+    <wsdl:part name="Body" element="tns:GroupAgentResult" />
   </wsdl:message>
   <wsdl:message name="GetUserAccountSummary_AgentHttpGetIn">
     <wsdl:part name="AID" type="s:string" />
@@ -1444,6 +1568,27 @@
   <wsdl:message name="GetUserAccountSummaryHttpPostOut">
     <wsdl:part name="Body" element="tns:UserAccountSummaryResult" />
   </wsdl:message>
+  <wsdl:message name="GetGroupAgentHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetUserAccountID" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+    <wsdl:part name="Page" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupAgentHttpPostOut">
+    <wsdl:part name="Body" element="tns:GroupAgentResult" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchHttpPostIn">
+    <wsdl:part name="AID" type="s:string" />
+    <wsdl:part name="TargetLoginAccount" type="s:string" />
+    <wsdl:part name="QueryBeginDate" type="s:string" />
+    <wsdl:part name="QueryEndDate" type="s:string" />
+    <wsdl:part name="CurrencyType" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGroupBySearchHttpPostOut">
+    <wsdl:part name="Body" element="tns:GroupAgentResult" />
+  </wsdl:message>
   <wsdl:message name="GetUserAccountSummary_AgentHttpPostIn">
     <wsdl:part name="AID" type="s:string" />
     <wsdl:part name="LoginAccount" type="s:string" />
@@ -1616,6 +1761,14 @@
       <wsdl:input message="tns:GetUserAccountSummarySoapIn" />
       <wsdl:output message="tns:GetUserAccountSummarySoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetGroupAgent">
+      <wsdl:input message="tns:GetGroupAgentSoapIn" />
+      <wsdl:output message="tns:GetGroupAgentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <wsdl:input message="tns:GetGroupBySearchSoapIn" />
+      <wsdl:output message="tns:GetGroupBySearchSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserAccountSummary_Agent">
       <wsdl:input message="tns:GetUserAccountSummary_AgentSoapIn" />
       <wsdl:output message="tns:GetUserAccountSummary_AgentSoapOut" />
@@ -1718,6 +1871,14 @@
       <wsdl:input message="tns:GetUserAccountSummaryHttpGetIn" />
       <wsdl:output message="tns:GetUserAccountSummaryHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetGroupAgent">
+      <wsdl:input message="tns:GetGroupAgentHttpGetIn" />
+      <wsdl:output message="tns:GetGroupAgentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <wsdl:input message="tns:GetGroupBySearchHttpGetIn" />
+      <wsdl:output message="tns:GetGroupBySearchHttpGetOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserAccountSummary_Agent">
       <wsdl:input message="tns:GetUserAccountSummary_AgentHttpGetIn" />
       <wsdl:output message="tns:GetUserAccountSummary_AgentHttpGetOut" />
@@ -1815,6 +1976,14 @@
     <wsdl:operation name="GetUserAccountSummary">
       <wsdl:input message="tns:GetUserAccountSummaryHttpPostIn" />
       <wsdl:output message="tns:GetUserAccountSummaryHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupAgent">
+      <wsdl:input message="tns:GetGroupAgentHttpPostIn" />
+      <wsdl:output message="tns:GetGroupAgentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <wsdl:input message="tns:GetGroupBySearchHttpPostIn" />
+      <wsdl:output message="tns:GetGroupBySearchHttpPostOut" />
     </wsdl:operation>
     <wsdl:operation name="GetUserAccountSummary_Agent">
       <wsdl:input message="tns:GetUserAccountSummary_AgentHttpPostIn" />
@@ -1948,6 +2117,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserAccountSummary">
       <soap:operation soapAction="http://tempuri.org/GetUserAccountSummary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupAgent">
+      <soap:operation soapAction="http://tempuri.org/GetGroupAgent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <soap:operation soapAction="http://tempuri.org/GetGroupBySearch" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2183,6 +2370,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetGroupAgent">
+      <soap12:operation soapAction="http://tempuri.org/GetGroupAgent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <soap12:operation soapAction="http://tempuri.org/GetGroupBySearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserAccountSummary_Agent">
       <soap12:operation soapAction="http://tempuri.org/GetUserAccountSummary_Agent" style="document" />
       <wsdl:input>
@@ -2411,6 +2616,24 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetGroupAgent">
+      <http:operation location="/GetGroupAgent" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <http:operation location="/GetGroupBySearch" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserAccountSummary_Agent">
       <http:operation location="/GetUserAccountSummary_Agent" />
       <wsdl:input>
@@ -2623,6 +2846,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserAccountSummary">
       <http:operation location="/GetUserAccountSummary" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupAgent">
+      <http:operation location="/GetGroupAgent" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroupBySearch">
+      <http:operation location="/GetGroupBySearch" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>
