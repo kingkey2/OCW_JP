@@ -2423,7 +2423,7 @@
 
             
             if (giftCode) {
-                window.sessionStorage.setItem("GiftCode", giftCode);
+                setCookie("GiftCode", giftCode, 1);
                 clearUrlParams();
             }
 
@@ -2488,8 +2488,8 @@
                                         userRecover();
                                     } else {
                                         //領取禮品
-                                        var giftCode = window.sessionStorage.getItem("GiftCode");
-                                        window.sessionStorage.removeItem("GiftCode");
+                                        var giftCode = getCookie("GiftCode");
+                                        delCookie("GiftCode");
                       
                                         if (giftCode) {
                                             lobbyClient.PaymentGiftUsed(EWinWebInfo.SID, Math.uuid(), giftCode,function (success, o) {
