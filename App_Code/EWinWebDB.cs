@@ -539,6 +539,24 @@ public static class EWinWebDB {
             return DT;
         }
 
+        public static System.Data.DataTable GetPaymentByPaymentGiftCode(string PaymentGiftCode)
+        {
+            string SS;
+            System.Data.SqlClient.SqlCommand DBCmd;
+            System.Data.DataTable DT;
+
+            SS = "SELECT * " +
+                 "FROM UserAccountPayment AS P WITH (NOLOCK) " +
+                 "WHERE P.PaymentGiftCode=@PaymentGiftCode";
+            DBCmd = new System.Data.SqlClient.SqlCommand();
+            DBCmd.CommandText = SS;
+            DBCmd.CommandType = System.Data.CommandType.Text;
+            DBCmd.Parameters.Add("@PaymentGiftCode", System.Data.SqlDbType.VarChar).Value = PaymentGiftCode;
+            DT = DBAccess.GetDB(EWinWeb.DBConnStr, DBCmd);
+
+            return DT;
+        }
+
         public static System.Data.DataTable GetPaymentByPaymentSerial(string PaymentSerial) {
             string SS;
             System.Data.SqlClient.SqlCommand DBCmd;
@@ -700,8 +718,8 @@ public static class EWinWebDB {
 
             SS = "SELECT ISNULL(SUM(Amount), 0) " +
                "FROM UserAccountPayment AS P WITH (NOLOCK) " +
-               "WHERE P.LoginAccount=@LoginAccount AND P.PaymentType=1 AND (P.FlowStatus =1) " +
-               "OR (P.FlowStatus =2 AND DATEADD(HOUR,@DiffTimeZone,CreateDate)>= @STARTDATE AND DATEADD(HOUR,@DiffTimeZone,CreateDate)< @ENDDATE) ";
+               "WHERE P.LoginAccount=@LoginAccount AND P.PaymentType=1 AND (P.FlowStatus =1 or (P.FlowStatus =2 " +
+               "AND DATEADD(HOUR,@DiffTimeZone,CreateDate)>= @STARTDATE AND DATEADD(HOUR,@DiffTimeZone,CreateDate)< @ENDDATE)) ";
 
             DBCmd = new System.Data.SqlClient.SqlCommand();
             DBCmd.CommandText = SS;

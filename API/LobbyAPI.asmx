@@ -1755,6 +1755,83 @@ public class LobbyAPI : System.Web.Services.WebService {
         return R;
     }
 
+
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public EWin.Lobby.PaymentGiftResult PaymentGiftUsed(string WebSID, string GUID, string GiftCode)
+    {
+        EWin.Lobby.LobbyAPI lobbyAPI = new EWin.Lobby.LobbyAPI();
+        RedisCache.SessionContext.SIDInfo SI;
+        EWin.Lobby.PaymentGiftResult R = new EWin.Lobby.PaymentGiftResult();
+        EWin.Lobby.APIResult addThresholdResult;
+        SI = RedisCache.SessionContext.GetSIDInfo(WebSID);
+        bool boolCheckResetThreshold = false;
+        string description = "";
+        decimal ThresholdValue = -1;
+        System.Data.DataTable PaymentDT;
+        if (SI != null && !string.IsNullOrEmpty(SI.EWinSID))
+        {
+            var paymentGiftUsed = lobbyAPI.PaymentGiftUsed(GetToken(), SI.EWinSID, System.Guid.NewGuid().ToString(), GiftCode);
+            if (paymentGiftUsed.Result == EWin.Lobby.enumResult.OK)
+            {
+                PaymentDT = EWinWebDB.UserAccountPayment.GetPaymentByPaymentGiftCode(GiftCode);
+                if (PaymentDT != null && PaymentDT.Rows.Count > 0)
+                {
+                    var userInfo = lobbyAPI.GetUserInfo(GetToken(), SI.EWinSID, System.Guid.NewGuid().ToString());
+                    if (userInfo.Result == EWin.Lobby.enumResult.OK)
+                    {
+                        boolCheckResetThreshold = CheckResetThreshold(userInfo.LoginAccount);
+                        description = "ReciveGift, GiftCode=" + GiftCode + ", Amount=" + paymentGiftUsed.Amount;
+                        ThresholdValue = decimal.Parse(PaymentDT.Rows[0]["ThresholdValue"].ToString());
+                        addThresholdResult = lobbyAPI.AddThreshold(GetToken(), System.Guid.NewGuid().ToString(), GiftCode, userInfo.LoginAccount, EWinWeb.MainCurrencyType, ThresholdValue, description, boolCheckResetThreshold);
+                    }
+                    else
+                    {
+                        R.Result = EWin.Lobby.enumResult.ERR;
+                        R.Message = "Get userinfo error";
+                    }
+
+                }
+                else
+                {
+                    R.Result = EWin.Lobby.enumResult.ERR;
+                    R.Message = "Get Payment error";
+                }
+            }
+            return paymentGiftUsed;
+        }
+        else
+        {
+            R.Result = EWin.Lobby.enumResult.ERR;
+            R.Message = "InvalidWebSID";
+        }
+
+        return R;
+    }
+
+    private bool CheckResetThreshold(string LoginAccount) {
+        bool R = false;
+        EWin.OCW.OCW ocwApi = new EWin.OCW.OCW();
+        var ocwApiResult = ocwApi.GetUserPointValue(GetToken(), System.Guid.NewGuid().ToString(), LoginAccount, EWinWeb.MainCurrencyType);
+
+        if (ocwApiResult.ResultState == EWin.OCW.enumResultState.OK) {
+            decimal PointValue = decimal.Parse(ocwApiResult.Message);
+            Newtonsoft.Json.Linq.JObject settingJObj = EWinWeb.GetSettingJObj();
+            decimal limitValue;
+
+            if (settingJObj != null) {
+                limitValue = (decimal)settingJObj["ThresholdBaseValue"];
+
+                if (limitValue >= PointValue) {
+                    R = true;
+                }
+            }
+
+        }
+
+        return R;
+    }
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
     public PaymentGiftHistoryResult GetGiftPaymentHistory(string WebSID, string GUID, DateTime StartDate, DateTime EndDate)

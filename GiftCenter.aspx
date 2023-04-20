@@ -129,7 +129,7 @@
 
                               
                                 ParentMain.appendChild(rowDom);
-                            } else if (useType == 1 && collect.PaymentGiftID.substr(0, 1) == 'W') {
+                            } else if (useType == 1 && collect.PaymentGiftID.substr(0, 1) == 'R') {
                                 var collectDate = Date.parse(collect.CreateDate);
                                 var rowDom = c.getTemplate("IDHistoryRow");
 
