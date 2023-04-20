@@ -169,7 +169,7 @@
     <link rel="alternate" hreflang="zh-tw" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
     <link rel="alternate" hreflang="zh" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
     <link rel="alternate" hreflang="zh-hk" href="https://casino-maharaja.com/index.aspx?Lang=CHT">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" defer> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" defer>
     <style>
         .s-btn-more {
             border-radius: 20px;
@@ -3169,7 +3169,7 @@
     window.onload = init;
 </script>
 <body class="mainBody vertical-menu">
- <%--   <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
+    <%--   <div onclick="closeGameMask()" id="GameMask" class="" style="display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; overflow: hidden; z-index: 9999; text-align: center; opacity: 0.5; background-color: #2fb4c9;">
 
         <div class="loader-backdrop is-show"></div>
     </div>--%>
@@ -3481,12 +3481,12 @@
     </div>
     <!-- 滿版遊戲介面 end-->
 
-    <div id="divGameFrame_M" class="divGameFrameBody" style="width: 100vw; height: 100%; overflow:hidden;background-color:black">
-        <div class="divGameFrameWrapper" style="height: 100%;width:100%">
+    <div id="divGameFrame_M" class="divGameFrameBody" style="width: 100vw; height: 100%; overflow: hidden; background-color: black">
+        <div class="divGameFrameWrapper" style="height: 100%; width: 100%">
             <div style="height: 95%; width: 100%;">
                 <iframe style="height: 100%; width: 100%; background-color: black" id="GameIFramePage_M"></iframe>
             </div>
-            <div class="sidenav" style="height:5%; width: 100%; background-color: #132333">
+            <div class="sidenav" style="height: 5%; width: 100%; background-color: #132333">
                 <button style="width: 30%; height: 100%" onclick="CloseGameFrame_M()" class="btnGameFrame_M"><i class="fa fa-home iGameFrame_M" aria-hidden="true"></i><%--首頁--%></button>
                 <%--<button style="width: 30%; height: 100%" class="btnGameFrame_M AddFavGameFrame_M"><i class="fa fa-heart iGameFrame_M" aria-hidden="true"></i>加入我的最愛</button>--%>
             </div>
@@ -3564,11 +3564,11 @@
                                         <img src="/images/logo/footer/logo-iwallet.png" alt="">
                                     </div>
                                 </div> -->
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-nissinpay.png" alt="">
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-bank.png" alt="">
@@ -3585,16 +3585,16 @@
                     <div class="partner">
                         <div class="logo">
                             <div class="row">
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-eWIN.png" alt="">
                                     </div>
-                                </div>
-                                <div class="logo-item">
+                                </div>--%>
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-microgaming.png" alt="">
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-kgs.png" alt="">
@@ -3615,11 +3615,11 @@
                                         <img src="/images/logo/footer/logo-cq9.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-red-tiger.png" alt="">
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-evo.png" alt="">
@@ -3635,11 +3635,11 @@
                                         <img src="/images/logo/footer/logo-cg.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-playngo.png" alt="">
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-pg.png" alt="">
@@ -3650,31 +3650,31 @@
                                         <img src="/images/logo/footer/logo-netent.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-kx.png" alt="">
                                     </div>
-                                </div>
-                                <div class="logo-item">
+                                </div>--%>
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-evops.png" alt="">
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-bti.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-zeus.png" alt="">
                                     </div>
-                                </div>
-                                <div class="logo-item">
+                                </div>--%>
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-biggaming.png" alt="">
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-play.png" alt="">
@@ -3685,11 +3685,11 @@
                                         <img src="/images/logo/footer/logo-h.png" alt="">
                                     </div>
                                 </div>
-                                <div class="logo-item">
+                                <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-va.png" alt="">
                                     </div>
-                                </div>
+                                </div>--%>
                                 <%--<div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-mishuha.png" alt="">
@@ -3698,6 +3698,61 @@
                                 <div class="logo-item">
                                     <div class="img-crop">
                                         <img src="/images/logo/footer/logo-XG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-AVUX.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-FC.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-HS.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-JL.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-NLC.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-RCG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-RG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-RSG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-wm.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/logo-YG.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="logo-item">
+                                    <div class="img-crop">
+                                        <img src="/images/logo/footer/SWF_65x77.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -4528,6 +4583,5 @@
                 </label>
             </li>
         </div>
-
 </body>
 </html>

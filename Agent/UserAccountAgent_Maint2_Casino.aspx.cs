@@ -9,14 +9,18 @@ using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 
 public partial class UserAccountAgent_Maint2_Casino : System.Web.UI.Page {
+
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public static EWin.OcwAgent.UserAccountSummaryResult GetUserAccountSummary(string AID, string LoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType) {
+    public static EWin.OcwAgent.GroupAgentResult GetUserAccountSummary(string AID, int TargetUserAccountID, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType, int Page) {
         EWin.OcwAgent.OcwAgent api = new EWin.OcwAgent.OcwAgent();
-        EWin.OcwAgent.UserAccountSummaryResult RetValue = new EWin.OcwAgent.UserAccountSummaryResult();
+        return api.GetGroupAgent(AID, TargetUserAccountID, QueryBeginDate, QueryEndDate, CurrencyType, Page);
+    }
 
-        RetValue = api.GetUserAccountSummary_Agent(AID, LoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
-
-        return RetValue;
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public static EWin.OcwAgent.GroupAgentResult GetUserAccountSummaryBySearch(string AID, string TargetLoginAccount, DateTime QueryBeginDate, DateTime QueryEndDate, string CurrencyType) {
+        EWin.OcwAgent.OcwAgent api = new EWin.OcwAgent.OcwAgent();
+        return api.GetGroupBySearch(AID, TargetLoginAccount, QueryBeginDate, QueryEndDate, CurrencyType);
     }
 }
