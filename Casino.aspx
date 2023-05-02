@@ -1376,72 +1376,7 @@
         <section class="section-slider_lobby hero">
             <div class="hero_slider_lobby swiper_container round-arrow" id="hero-slider-lobby">
                 <div class="swiper-wrapper">
-                     <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=35')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/bng/bng230412/img/768x480.png" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/bng/bng230412/img/1200x378.png" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=34')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/mahaEvent/src/202304-m.png" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/mahaEvent/src/202304.png" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.SearchControll.searchGameByBrandAndGameCategory(['RG']);"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="images/lobby/RG202303-M.jpg" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="images/lobby/RG202303.jpg" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=32')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/pp202303-1/img/768x480.png" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/pp202303-1/img/1200x378.png" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="swiper-slide">
-                        <div class="hero-item">
-                            <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','ActivityCenter.aspx?type=33')"></a>
-                            <div class="hero-item-box mobile">
-                                <img src="Activity/event/pp202303-2/img/768x480.png" alt="">
-                            </div>
-                            <div class="hero-item-box desktop">
-                                <div class="img-wrap">
-                                    <img src="Activity/event/pp202303-2/img/1200x378.png" class="bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                     
                     <div class="swiper-slide">
                         <div class="hero-item">
                             <a class="hero-item-link" onclick="window.parent.API_LoadPage('ActivityCenter','/Article/guide-TripleCrown_JPN.html?Page=CasinoPage')"></a>
