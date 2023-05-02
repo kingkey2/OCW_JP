@@ -43,6 +43,29 @@
         });
     };
 
+    this.PaymentGiftUsed = function (WebSID, GUID, GiftCode, cb) {
+        var url = APIUrl + "/PaymentGiftUsed";
+        var postData;
+
+        postData = {
+            WebSID: WebSID,
+            GUID: GUID,
+            GiftCode: GiftCode
+        };
+
+        callService(url, postData, 10000, function (success, text) {
+            if (success == true) {
+                var obj = getJSON(text);
+
+                if (cb)
+                    cb(true, obj);
+            } else {
+                if (cb)
+                    cb(false, text);
+            }
+        });
+    };
+
     this.GetGiftPaymentHistory = function (WebSID, GUID, StartDate, EndDate ,cb) {
         var url = APIUrl + "/GetGiftPaymentHistory";
         var postData;

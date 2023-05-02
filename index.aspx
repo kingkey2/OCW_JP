@@ -2100,6 +2100,7 @@
                     EWinWebInfo.UserLogined = true;
                     EWinWebInfo.UserInfo = o;
 
+                    getGiftAvailable();
                     getPromotionCollectAvailable();
                     if (cb)
                         cb(true);
@@ -2410,6 +2411,8 @@
                 }, false);
             }
 
+
+            var giftCode = c.getParameter("GiftCode");
             var dstPage = c.getParameter("DstPage");
             var closeGameBtn = $('#closeGameBtn');
             lobbyClient = new LobbyAPI("/API/LobbyAPI.asmx");
@@ -2417,6 +2420,12 @@
 
             closeGameBtn.attr('title', mlp.getLanguageKey("關閉遊戲"));
             closeGameBtn.tooltip();
+
+            
+            if (giftCode) {
+                setCookie("GiftCode", giftCode, 1);
+                clearUrlParams();
+            }
 
             if (dstPage) {
                 var loadPage;
@@ -2447,6 +2456,7 @@
                         API_LoadPage(Page, Page + ".aspx");
                     }
                 } else {
+                    //已登入
                     if (EWinWebInfo.SID != "") {
                         API_Casino();
                     } else {
@@ -2477,6 +2487,26 @@
                                     if (logined == false) {
                                         userRecover();
                                     } else {
+                                        //領取禮品
+                                        var giftCode = getCookie("GiftCode");
+                                        delCookie("GiftCode");
+                      
+                                        if (giftCode) {
+                                            lobbyClient.PaymentGiftUsed(EWinWebInfo.SID, Math.uuid(), giftCode,function (success, o) {
+                                                if (success == true) {
+                                                    console.log(o);
+                                                    if (o.Result == 0) {
+                                                        showMessageOK(mlp.getLanguageKey(""), mlp.getLanguageKey("領取完成，可至禮品中心確認"), function () {
+                                                           // window.location.href = "index.aspx"
+                                                        });
+                                                    } else {
+                                                        showMessageOK(mlp.getLanguageKey("錯誤"), mlp.getLanguageKey("禮品已被使用"), function () {
+                                                           // window.location.href = "index.aspx"
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                        }
                                         //Check登入前狀態
                                         var openGameBeforeLoginStr = window.sessionStorage.getItem("OpenGameBeforeLogin");
 
@@ -2533,6 +2563,7 @@
                         if (success == true) {
                             if (o.Result == 0) {
                                 needCheckLogin = true;
+                                getGiftAvailable();
                                 getPromotionCollectAvailable();
                             } else {
                                 if ((EWinWebInfo.SID != null) && (EWinWebInfo.SID != "")) {
@@ -2630,33 +2661,97 @@
 
                         if (boolCheck) {
                             if (EWinWebInfo.DeviceType == 0) {
-                                $('.PC-notify-dot').css('display', 'block');
+                                $('.notify-dot-prize.PC-notify-dot').css('display', 'block');
                             } else {
                                 var navbartoggler = $('.navbar-toggler');
                                 if (navbartoggler.attr("aria-expanded") == "true") {
-                                    $('.PC-notify-dot').css('display', 'block');
-                                    $('.mobile-notify-dot').css('display', 'none');
+                                    $('.notify-dot-prize.PC-notify-dot').css('display', 'block');
+                                    $('.notify-dot-prize.mobile-notify-dot').css('display', 'none');
                                 } else if (navbartoggler.attr("aria-expanded") == "false") {
-                                    $('.PC-notify-dot').css('display', 'none');
-                                    $('.mobile-notify-dot').css('display', 'block');
+                                    $('.notify-dot-prize.PC-notify-dot').css('display', 'none');
+                                    $('.notify-dot-prize.mobile-notify-dot').css('display', 'block');
                                 }
                             }
                         } else {
-                            $('.PC-notify-dot').css('display', 'none');
-                            $('.mobile-notify-dot').css('display', 'none');
+                            $('.notify-dot-prize.PC-notify-dot').css('display', 'none');
+                            $('.notify-dot-prize.mobile-notify-dot').css('display', 'none');
                         }
 
                     } else {
-                        $('.PC-notify-dot').css('display', 'none');
-                        $('.mobile-notify-dot').css('display', 'none');
+                        $('.notify-dot-prize.PC-notify-dot').css('display', 'none');
+                        $('.notify-dot-prize.mobile-notify-dot').css('display', 'none');
                     }
                 } else {
-                    $('.PC-notify-dot').css('display', 'none');
-                    $('.mobile-notify-dot').css('display', 'none');
+                    $('.notify-dot-prize.PC-notify-dot').css('display', 'none');
+                    $('.notify-dot-prize.mobile-notify-dot').css('display', 'none');
                 }
             } else {
-                $('.PC-notify-dot').css('display', 'none');
-                $('.mobile-notify-dot').css('display', 'none');
+                $('.notify-dot-prize.PC-notify-dot').css('display', 'none');
+                $('.notify-dot-prize.mobile-notify-dot').css('display', 'none');
+            }
+        });
+    }
+
+    function formatDate(date) {
+        var d = date,
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    function getGiftAvailable() {
+        var BeginDate = formatDate(new Date(new Date().setDate(new Date().getDate() - 6)));
+        var EndDate = formatDate(new Date());
+        lobbyClient.GetGiftPaymentHistory(EWinWebInfo.SID, Math.uuid(), BeginDate, EndDate, function (success, o) {
+            if (success) {
+                if (o.Result == 0) {
+                    var boolCheck = false;
+                    if (o.GiftList.length > 0) {
+            
+                        for (var i = 0; i < o.GiftList.length; i++) {
+                            var collect = o.GiftList[i];
+
+                            if (collect.PaymentGiftID.substr(0, 1) == 'S' && collect.PaymentGiftStatus == 0) {
+                                boolCheck = true;
+                                break;
+                            }          
+                        }
+
+                        if (boolCheck) {
+                            if (EWinWebInfo.DeviceType == 0) {
+                                $('.notify-dot-gift.PC-notify-dot').css('display', 'block');
+                            } else {
+                                var navbartoggler = $('.navbar-toggler');
+                                if (navbartoggler.attr("aria-expanded") == "true") {
+                                    $('.notify-dot-gift.PC-notify-dot').css('display', 'block');
+                                    $('.notify-dot-gift.mobile-notify-dot').css('display', 'none');
+                                } else if (navbartoggler.attr("aria-expanded") == "false") {
+                                    $('.notify-dot-gift.PC-notify-dot').css('display', 'none');
+                                    $('.notify-dot-gift.mobile-notify-dot').css('display', 'block');
+                                }
+                            }
+                        } else {
+                            $('.notify-dot-gift.PC-notify-dot').css('display', 'none');
+                            $('.notify-dot-gift.mobile-notify-dot').css('display', 'none');
+                        }
+                    } else {
+                        $('.notify-dot-gift.PC-notify-dot').css('display', 'none');
+                        $('.notify-dot-gift.mobile-notify-dot').css('display', 'none');
+                    }
+                } else {
+                    $('.notify-dot-gift.PC-notify-dot').css('display', 'none');
+                    $('.notify-dot-gift.mobile-notify-dot').css('display', 'none');
+                }
+            } else {
+                $('.notify-dot-gift.PC-notify-dot').css('display', 'none');
+                $('.notify-dot-gift.mobile-notify-dot').css('display', 'none');
             }
         });
     }
@@ -3203,16 +3298,16 @@
 
                                             <a class="nav-link" onclick="API_LoadPage('Prize','Prize.aspx', true)">
                                                 <!-- 通知小紅點 -->
-                                                <span class="notify-dot PC-notify-dot" style="display: none;"></span>
-                                                <i class="icon icon-mask icon-gift"></i>
+                                                <span class="notify-dot PC-notify-dot notify-dot-prize" style="display: none;"></span>
+                                                <i class="icon icon-mask icon-prize"></i>
                                                 <span class="title language_replace">領獎中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">
 
                                             <a class="nav-link" onclick="API_LoadPage('GiftCenter','GiftCenter.aspx', true)">
                                                 <!-- 通知小紅點 -->
-                                                <span class="notify-dot PC-notify-dot" style="display: none;"></span>
-                                                <i class="icon icon-mask icon-prize"></i>
+                                                <span class="notify-dot PC-notify-dot notify-dot-gift" style="display: none;"></span>
+                                                <i class="icon icon-mask icon-gift"></i>
                                                 <span class="title language_replace">禮品中心</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown">

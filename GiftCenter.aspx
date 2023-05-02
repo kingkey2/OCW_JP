@@ -129,7 +129,7 @@
 
                               
                                 ParentMain.appendChild(rowDom);
-                            } else if (useType == 1 && collect.PaymentGiftID.substr(0, 1) == 'W') {
+                            } else if (useType == 1 && collect.PaymentGiftID.substr(0, 1) == 'R') {
                                 var collectDate = Date.parse(collect.CreateDate);
                                 var rowDom = c.getTemplate("IDHistoryRow");
 
@@ -272,9 +272,34 @@
         var amount = $(doc).data('amount');
         var url = window.location.protocol + "//" + window.location.host + "/receiveGift.aspx?GiftCode=" + giftcode +
             "&Amount=" + amount;
-        navigator.clipboard.writeText(url).then(
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")) },
-            () => { window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")) });
+
+        copyToClipboard(url)
+            .then(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製成功")))
+            .catch(() => window.parent.showMessageOK(mlp.getLanguageKey("提示"), mlp.getLanguageKey("複製失敗")));
+    }
+
+    function copyToClipboard(textToCopy) {
+        // navigator clipboard api needs a secure context (https)
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator clipboard api method'
+            return navigator.clipboard.writeText(textToCopy);
+        } else {
+            // text area method
+            let textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            // make the textarea out of viewport
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            return new Promise((res, rej) => {
+                // here the magic happens
+                document.execCommand('copy') ? res() : rej();
+                textArea.remove();
+            });
+        }
     }
 
     window.onload = init;

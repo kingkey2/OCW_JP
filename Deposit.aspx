@@ -205,7 +205,7 @@
                         </a>
                     </div>
                        <!-- EPay -->
-                    <div class="card-item sd-04" id="idDepositTigerPay">
+                    <div class="card-item sd-04" id="idDepositTigerPay" style="display:none;">
                         <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositEPay','DepositTigerPay.aspx')">
                             <div class="card-item-inner">
                                 <div class="title">
