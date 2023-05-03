@@ -34,6 +34,8 @@
   "JKCAmountInsufficient2": "JKC餘額不足",
   "ClientOrderNumber": "訂單已存在,請重新申請訂單",
   "WithdrawlTemporaryMaintenance": "出款程序維護中",
-  "OPFailure": "餘額不足"
- 
+  "OPFailure": "餘額不足",
+  "系統維​​護中": "系統維​​護中",
+  "UpdateFailure1": "系統維​​護中",
+  "UpdateFailure2": "系統維​​護中"
 }
