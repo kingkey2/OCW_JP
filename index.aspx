@@ -325,6 +325,8 @@
     var GCode = "<%=GCode%>";
     var Page = "<%=Page%>";
     var PageType = "<%=PageType%>";
+
+
     //#region TOP API
     function API_GetGCB() {
         return GCB;
@@ -2382,6 +2384,20 @@
             return;
         }
 
+        //載入執照,非同步方式
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal';
+        iframe.style.display = 'none';
+        iframe.width = '150';
+        iframe.height = '50';
+        iframe.style.border= 'none';
+        // 當 iframe 載入完成後，顯示 iframe
+        iframe.onload = function () {
+            iframe.style.display = 'block';
+        };
+
+        document.getElementsByClassName('company-license')[0].appendChild(iframe);
+
         GCB = new GameCodeBridge("/API/LobbyAPI.asmx", 30, null,
             () => {
                 notifyWindowEvent("GameLoadEnd", null);
@@ -3760,7 +3776,7 @@
                     </div>
                     <div class="company-detail">
                         <div class="company-license">
-                            <iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>
+                            <%--<iframe src="https://licensing.gaming-curacao.com/validator/?lh=73f82515ca83aaf2883e78a6c118bea3&template=tseal" width="150" height="50" style="border: none;"></iframe>--%>
                         </div>
                         <div class="company-address">
                             <%-- <p class="name">Online Chip World Co. N.V</p>--%>
@@ -4559,6 +4575,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- 品牌LOGO版 Collapse TEST-->
         <script>
