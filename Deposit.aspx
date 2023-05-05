@@ -98,6 +98,16 @@
         window.parent.API_ShowMessageOK("", "<p style='font-size:2em;text-align:center;margin:auto'>" +  mlp.getLanguageKey("近期開放") + "</p>");
     }
 
+    function depositPayPal() {
+        if (new Date().getTime() > new Date('2023/04/30 23:00:00').getTime()) {
+        //if (new Date().getTime() > new Date('2023/04/30 23:00:00').getTime() + 3600 * 1000 * 24) {
+            window.parent.API_ShowMessageOK("", "PayPal "+mlp.getLanguageKey("系統維護中"));
+        } else {
+            window.parent.API_LoadPage('DepositPayPal', 'DepositPayPal.aspx');
+        }
+   
+    }
+
     window.onload = init;
 
 </script>
@@ -145,7 +155,7 @@
                 <div class="card-container">
                     <!-- PayPal -->
                     <div class="card-item sd-08" id="idDepositPaypal">
-                        <a class="card-item-link" onclick="window.parent.API_LoadPage('DepositPayPal','DepositPayPal.aspx')">
+                        <a class="card-item-link" onclick="depositPayPal()">
                             <div class="card-item-inner">
                                 <div class="title">
                                     <span class="language_replace">電子錢包</span>

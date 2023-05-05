@@ -126,15 +126,15 @@
         //    DesktopSrc: "/images/lobby/dailypush-slot-001.jpg",
         //    BackgroundColor: "#000000"
         //},
-        {
-            GameCode: "EVO.GonzoTH000000001",
-            GameBrand: "EVO",
-            Location: "GameList_Live",
-            MobileSrc: "/images/lobby/dailypush-live-M-001.jpg",
-            PadSrc: "/images/lobby/dailypush-live-MD-001.jpg",
-            DesktopSrc: "/images/lobby/dailypush-live-001.jpg",
-            BackgroundColor: "#352c1c"
-        },
+        //{
+        //    GameCode: "EVO.GonzoTH000000001",
+        //    GameBrand: "EVO",
+        //    Location: "GameList_Live",
+        //    MobileSrc: "/images/lobby/dailypush-live-M-001.jpg",
+        //    PadSrc: "/images/lobby/dailypush-live-MD-001.jpg",
+        //    DesktopSrc: "/images/lobby/dailypush-live-001.jpg",
+        //    BackgroundColor: "#352c1c"
+        //},
         {
             GameCode: "BTI.Sport",
             GameBrand: "BTI",

@@ -34,5 +34,8 @@
   "JKCAmountInsufficient2": "JKC残高不足",
   "ClientOrderNumber": "注文はすでに存在します。もう一度申請ください。",
   "WithdrawlTemporaryMaintenance": "出金手続きはメンテナンス中です。",
-  "OPFailure": "残高不足"
+  "OPFailure": "残高不足",
+  "系統維​​護中": "システムメンテナンス中です。",
+  "UpdateFailure1": "システムメンテナンス中です。",
+  "UpdateFailure2": "システムメンテナンス中です。"
 }

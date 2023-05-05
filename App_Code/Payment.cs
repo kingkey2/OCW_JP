@@ -10,8 +10,10 @@ using System.Web;
 /// <summary>
 /// Payment 的摘要描述
 /// </summary>
-public class Payment {
-    public Payment() {
+public class Payment
+{
+    public Payment()
+    {
         //
         // TODO: 在這裡新增建構函式邏輯
         //
@@ -20,7 +22,7 @@ public class Payment {
     public static class EPay
     {
         public static string SettingFile = "EPaySetting.json";
-        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName,string BankBranchCode)
+        public static APIResult CreateEPayWithdrawal(string OrderID, decimal OrderAmount, DateTime OrderDateTime, string BankCard, string BankCardName, string BankName, string BankBranchCode)
         {
             APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -85,7 +87,7 @@ public class Payment {
             sendData.Add("RevolveUrl", ReturnURL);
             sendData.Add("ClientIP", CodingControl.GetUserIP());
             sendData.Add("Sign", Sign);
-       
+
             using (HttpClientHandler handler = new HttpClientHandler())
             {
                 using (HttpClient client = new HttpClient(handler))
@@ -122,12 +124,12 @@ public class Payment {
                             {
                                 // 取得呼叫完成 API 後的回報內容
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                             
+
                             }
                             else
                             {
                                 result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                          
+
                             }
                         }
                         else
@@ -145,7 +147,7 @@ public class Payment {
                     }
                 }
             }
-        
+
             if (!string.IsNullOrEmpty(result))
             {
                 returnResult = Newtonsoft.Json.JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(result);
@@ -167,7 +169,7 @@ public class Payment {
             }
         }
 
-        public static APIResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName,string ContactPhoneNumber)
+        public static APIResult CreateEPayDeposite(string OrderID, decimal OrderAmount, string Type, string UserName, string ContactPhoneNumber)
         {
             APIResult R = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject sendData = new JObject();
@@ -259,7 +261,7 @@ public class Payment {
             sendData.Add("UserName", UserName);
             sendData.Add("State", ContactPhoneNumber);
             sendData.Add("Sign", Sign);
-            
+
             using (HttpClientHandler handler = new HttpClientHandler())
             {
                 using (HttpClient client = new HttpClient(handler))
@@ -373,13 +375,15 @@ public class Payment {
         }
 
     }
-    public static class PayPal {
+    public static class PayPal
+    {
         public static string SettingFile = "PayPalSetting.json";
 
         public static dynamic PayPalSetting;
         public static dynamic ExchangeRateSetting;
 
-        public static APIResult CreatePayPalPayment(string CurrencyType, decimal Amount, string Lang, string OrderNumber) {
+        public static APIResult CreatePayPalPayment(string CurrencyType, decimal Amount, string Lang, string OrderNumber)
+        {
             PayPalSetting = LoadSetting();
             APIResult result = new APIResult();
             APIResult result_token = new APIResult();
@@ -387,10 +391,13 @@ public class Payment {
 
             result_token = GetToken();
 
-            if (result_token.ResultState==  APIResult.enumResultCode.OK) {
+            if (result_token.ResultState == APIResult.enumResultCode.OK)
+            {
                 PayPalToken = result_token.Message;
                 result = CreatePayment(CurrencyType, Amount, PayPalToken, Lang, OrderNumber);
-            } else {
+            }
+            else
+            {
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = result_token.Message;
             }
@@ -398,7 +405,8 @@ public class Payment {
             return result;
         }
 
-        private static APIResult GetToken() {
+        private static APIResult GetToken()
+        {
             PayPalSetting = LoadSetting();
             APIResult result = new APIResult();
             Newtonsoft.Json.Linq.JObject returnResult;
@@ -409,15 +417,21 @@ public class Payment {
 
             returnResult = CodingControl.GetWebJSONContent(GetTokenURL, "POST", "grant_type=client_credentials", GetTokenHeaderString(PayPalSetting.Username.ToString(), PayPalSetting.Password.ToString()), "application/x-www-form-urlencoded");
 
-            try {
-                if (returnResult["access_token"] != null) {
+            try
+            {
+                if (returnResult["access_token"] != null)
+                {
                     result.ResultState = APIResult.enumResultCode.OK;
                     result.Message = returnResult["access_token"].ToString();
-                } else {
+                }
+                else
+                {
                     result.ResultState = APIResult.enumResultCode.ERR;
                     result.Message = "No token";
                 }
-            } catch (RuntimeBinderException) {
+            }
+            catch (RuntimeBinderException)
+            {
 
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = "GetToken Error";
@@ -426,9 +440,10 @@ public class Payment {
             return result;
         }
 
-        private static APIResult CreatePayment(string CurrencyType, decimal Amount, string PaypalToken, string Lang, string OrderNumber) {
+        private static APIResult CreatePayment(string CurrencyType, decimal Amount, string PaypalToken, string Lang, string OrderNumber)
+        {
             PayPalSetting = LoadSetting();
-            APIResult result = new APIResult() { ResultState = APIResult.enumResultCode.ERR};
+            APIResult result = new APIResult() { ResultState = APIResult.enumResultCode.ERR };
             JObject returnResult;
             JObject jsonContent = new JObject();
             JObject application_context = new JObject();
@@ -438,7 +453,8 @@ public class Payment {
             JObject returnMsg = new JObject();
             string PayPalLang;
 
-            switch (Lang) {
+            switch (Lang)
+            {
                 case "CHT":
                     PayPalLang = "zh-TW";
                     break;
@@ -472,17 +488,22 @@ public class Payment {
 
             returnResult = CodingControl.GetWebJSONContent(GetTokenURL, "POST", jsonContent.ToString(), GetHeaderString(PaypalToken));
 
-            try {
-                if (returnResult["id"] != null) {
+            try
+            {
+                if (returnResult["id"] != null)
+                {
                     string TransactionID = returnResult["id"].ToString();
                     var ret_jobject = JObject.Parse(returnResult.ToString());
 
-                    if (ret_jobject["links"] != null) {
+                    if (ret_jobject["links"] != null)
+                    {
 
                         var link_jarray = JArray.FromObject(ret_jobject["links"]);
 
-                        for (int i = 0; i < link_jarray.Count; i++) {
-                            if (link_jarray[i]["rel"].ToString() == "approve") {
+                        for (int i = 0; i < link_jarray.Count; i++)
+                        {
+                            if (link_jarray[i]["rel"].ToString() == "approve")
+                            {
                                 result.ResultState = APIResult.enumResultCode.OK;
                                 returnMsg["PayPalTransactionID"] = TransactionID;
                                 returnMsg["href"] = link_jarray[i]["href"].ToString();
@@ -490,16 +511,22 @@ public class Payment {
                             }
                         }
 
-                    } else {
+                    }
+                    else
+                    {
                         result.ResultState = APIResult.enumResultCode.ERR;
                         result.Message = "CreatePayment Return Data err";
                     }
 
-                } else {
+                }
+                else
+                {
                     result.ResultState = APIResult.enumResultCode.ERR;
                     result.Message = "No id";
                 }
-            } catch (RuntimeBinderException) {
+            }
+            catch (RuntimeBinderException)
+            {
 
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = "CreatePayment Error";
@@ -508,7 +535,8 @@ public class Payment {
             return result;
         }
 
-        public static APIResult CheckPaymentState(string PayPalOrderID, string PaypalToken) {
+        public static APIResult CheckPaymentState(string PayPalOrderID, string PaypalToken)
+        {
             APIResult result = new APIResult();
             APIResult ConfirmEWinPaymentresult = new APIResult();
             Newtonsoft.Json.Linq.JObject returnResult;
@@ -516,22 +544,31 @@ public class Payment {
 
             returnResult = CodingControl.GetWebJSONContent(GetTokenURL, "GET", "", GetHeaderString(PaypalToken));
 
-            try {
-                if (returnResult["id"] != null) {
+            try
+            {
+                if (returnResult["id"] != null)
+                {
                     string TransactionID = returnResult["id"].ToString();
 
-                    if (TransactionID == PayPalOrderID) {
+                    if (TransactionID == PayPalOrderID)
+                    {
                         result.ResultState = APIResult.enumResultCode.OK;
                         result.Message = returnResult.ToString();
-                    } else {
+                    }
+                    else
+                    {
                         result.ResultState = APIResult.enumResultCode.ERR;
                         result.Message = "PayPalOrderID err";
                     }
-                } else {
+                }
+                else
+                {
                     result.ResultState = APIResult.enumResultCode.ERR;
                     result.Message = "No id";
                 }
-            } catch (RuntimeBinderException) {
+            }
+            catch (RuntimeBinderException)
+            {
 
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = "CheckPaymentState Error";
@@ -540,7 +577,8 @@ public class Payment {
             return result;
         }
 
-        public static APIResult CapturePayment(string PayPalOrderID, string PaypalToken) {
+        public static APIResult CapturePayment(string PayPalOrderID, string PaypalToken)
+        {
             APIResult result = new APIResult();
             APIResult ConfirmEWinPaymentresult = new APIResult();
             Newtonsoft.Json.Linq.JObject returnResult;
@@ -548,28 +586,40 @@ public class Payment {
 
             returnResult = CodingControl.GetWebJSONContent(GetTokenURL, "POST", "", GetHeaderString(PaypalToken));
 
-            try {
-                if (returnResult["id"] != null) {
+            try
+            {
+                if (returnResult["id"] != null)
+                {
                     string TransactionID = returnResult["id"].ToString();
 
-                    if (TransactionID == PayPalOrderID) {
+                    if (TransactionID == PayPalOrderID)
+                    {
 
-                        if (returnResult["status"].ToString() == "COMPLETED") {
+                        if (returnResult["status"].ToString() == "COMPLETED")
+                        {
                             result.ResultState = APIResult.enumResultCode.OK;
                             result.Message = returnResult.ToString();
-                        } else {
+                        }
+                        else
+                        {
                             result.ResultState = APIResult.enumResultCode.ERR;
                             result.Message = "用戶未付款";
                         }
-                    } else {
+                    }
+                    else
+                    {
                         result.ResultState = APIResult.enumResultCode.ERR;
                         result.Message = "PayPalOrderID err";
                     }
-                } else {
+                }
+                else
+                {
                     result.ResultState = APIResult.enumResultCode.ERR;
                     result.Message = "No id";
                 }
-            } catch (RuntimeBinderException) {
+            }
+            catch (RuntimeBinderException)
+            {
 
                 result.ResultState = APIResult.enumResultCode.ERR;
                 result.Message = "CheckPaymentState Error";
@@ -578,7 +628,8 @@ public class Payment {
             return result;
         }
 
-        private static string GetTokenHeaderString(string Username, string Password) {
+        private static string GetTokenHeaderString(string Username, string Password)
+        {
             string Ret;
             string HeaderStr = CodingControl.Base64URLEncode(Username + ":" + Password);
 
@@ -586,29 +637,36 @@ public class Payment {
             return Ret;
         }
 
-        private static string GetHeaderString(string HeaderStr) {
+        private static string GetHeaderString(string HeaderStr)
+        {
             string Ret;
 
             Ret = "Authorization:Bearer " + HeaderStr;
             return Ret;
         }
 
-        private static dynamic LoadSetting() {
+        private static dynamic LoadSetting()
+        {
             dynamic o = null;
             string Filename;
 
-            if (EWinWeb.IsTestSite) {
+            if (EWinWeb.IsTestSite)
+            {
                 Filename = HttpContext.Current.Server.MapPath("/App_Data/PayPal/Test_" + SettingFile);
-            } else {
+            }
+            else
+            {
                 Filename = HttpContext.Current.Server.MapPath("/App_Data/PayPal/Formal_" + SettingFile);
             }
 
-            if (System.IO.File.Exists(Filename)) {
+            if (System.IO.File.Exists(Filename))
+            {
                 string SettingContent;
 
                 SettingContent = System.IO.File.ReadAllText(Filename);
 
-                if (string.IsNullOrEmpty(SettingContent) == false) {
+                if (string.IsNullOrEmpty(SettingContent) == false)
+                {
                     try { o = Newtonsoft.Json.JsonConvert.DeserializeObject(SettingContent); } catch (Exception ex) { }
                 }
             }
@@ -618,8 +676,10 @@ public class Payment {
 
     }
 
-    public class APIResult {
-        public enum enumResultCode {
+    public class APIResult
+    {
+        public enum enumResultCode
+        {
             OK = 0,
             ERR = 1
         }
