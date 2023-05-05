@@ -3332,7 +3332,7 @@
                                                 <span class="title language_replace">Q&A</span></a>
                                         </li>
                                         <li class="nav-item submenu dropdown"
-                                            onclick="window.open('https://lin.ee/KD05l9X')">
+                                            onclick="window.showMessage('','サポートメール：service@casino-maharaja.com')">
                                             <a class="nav-link">
                                                 <i class="icon icon-mask icon-line"></i>
                                                 <span class="title language_replace">Line</span></a>
